@@ -1,6 +1,37 @@
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
     <div class="list-group">
         <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+                <span>{{ 'Dashboard' | translate }}</span>
+            </a>
+        <a routerLink="/department" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-building"></i>&nbsp;
+            <span>{{ 'Departments' | translate }}</span>
+        </a>
+        <a routerLink="/staff" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-user"></i>&nbsp;
+            <span>{{ 'Staff' | translate }}</span>
+        </a>
+        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-users"></i>&nbsp;
+            <span>{{ 'Groups' | translate }}</span>
+        </a>
+        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-wrench"></i>&nbsp;
+            <span>{{ 'Specialization' | translate }}</span>
+        </a> 
+        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-book"></i>&nbsp;
+            <span>{{ 'Subjects' | translate }}</span>
+        </a> 
+        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-book"></i>&nbsp;
+            <span>{{ 'Duties' | translate }}</span>
+        </a> 
+        
+        
+        //OG
+        <!-- <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>{{ 'Dashboard' | translate }}</span>
         </a>
@@ -142,7 +173,7 @@
                     </ul>
                 </li>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
         <i class="fa fa-fw fa-angle-double-left"></i>&nbsp;
