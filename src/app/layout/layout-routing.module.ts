@@ -17,7 +17,9 @@ const routes: Routes = [
             { path: 'components', loadChildren: './bs-component/bs-component.module#BsComponentModule' },
             { path: 'blank-page', loadChildren: './blank-page/blank-page.module#BlankPageModule' },
             { path: 'department', loadChildren: './department/department.module#DepartmentModule' },
-            { path: 'staff', loadChildren: './staff/staff.module#StaffModule' }
+            { path: 'staff', loadChildren: './staff/staff.module#StaffModule' },
+            { path: 'profile', loadChildren: './profile/profile.module#ProfileModule' },
+            { path: 'activity', loadChildren: './activity/activity.module#ActivityModule' },
         ]
     }
 ];
@@ -26,4 +28,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class LayoutRoutingModule {}
+export class LayoutRoutingModule { }

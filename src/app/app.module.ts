@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,7 +8,17 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthGuard } from './shared';
+import { AuthGuard, Position } from './shared';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
+import { AlertService, AuthenticationService, DepartmentService, BlockService, DutyService, FacultyService, UtilityService, QualificationService } from './shared/services';
+import { AlertComponent } from './shared/directives';
+import { UserService } from './shared/services/user.service';
+import { fakeBackendProvider, JwtInterceptor, ErrorInterceptor } from './shared/helpers';
+
+import { FlashMessagesModule, FlashMessagesService } from 'angular2-flash-messages';
+import { PositionService } from './shared/services/position.service';
+import { SubjectService } from './shared/services/subject.service';
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
@@ -26,7 +36,10 @@ export const createTranslateLoader = (http: HttpClient) => {
         CommonModule,
         BrowserModule,
         BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
         HttpClientModule,
+        ReactiveFormsModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -34,10 +47,32 @@ export const createTranslateLoader = (http: HttpClient) => {
                 deps: [HttpClient]
             }
         }),
-        AppRoutingModule
+        AppRoutingModule,
+        FlashMessagesModule.forRoot()
     ],
-    declarations: [AppComponent],
-    providers: [AuthGuard],
+    declarations: [
+        AppComponent,
+        AlertComponent
+    ],
+    providers: [
+        AlertService,
+        AuthGuard,
+        AuthenticationService,
+        BlockService,
+        DepartmentService,
+        DutyService,
+        FacultyService,
+        FlashMessagesService,
+        PositionService,
+        QualificationService,
+        SubjectService,
+        UserService,
+        UtilityService,
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        fakeBackendProvider
+
+    ],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

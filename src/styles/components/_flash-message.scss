@@ -1,0 +1,13 @@
+flash-messages {
+    z-index: 100000;
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: flashMessageEntry .3s ease-in;
+
+    display: block;
+    min-width: 20%;
+    max-width: 90%;
+    text-align: center;
+}

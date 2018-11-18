@@ -1,0 +1,10 @@
+<flash-messages></flash-messages>
+<div [@routerTransition]>
+    <app-page-header [heading]="'Activities'" [icon]="'fa-tasks'"></app-page-header>
+</div>
+
+<h4 class="panel-title mb-3">
+    <small class="text-muted"> {{ user.firstName }} {{ user.lastName }} Activities </small>
+</h4>
+
+<router-outlet></router-outlet>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
     selector: 'app-root',
@@ -6,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    constructor() {
+    constructor(
+        private flashMessagesService: FlashMessagesService
+    ) {
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 }

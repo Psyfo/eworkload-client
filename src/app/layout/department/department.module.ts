@@ -6,7 +6,11 @@ import { DepartmentComponent } from './department.component';
 import { PageHeaderModule } from './../../shared';
 
 @NgModule({
-    imports: [CommonModule, DepartmentRoutingModule, PageHeaderModule],
+    imports: [
+        CommonModule,
+        DepartmentRoutingModule,
+        PageHeaderModule
+    ],
     declarations: [DepartmentComponent]
 })
-export class DepartmentModule {}
+export class DepartmentModule { }

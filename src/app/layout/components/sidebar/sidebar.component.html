@@ -1,35 +1,27 @@
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
     <div class="list-group">
         <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
-                <i class="fa fa-fw fa-dashboard"></i>&nbsp;
-                <span>{{ 'Dashboard' | translate }}</span>
-            </a>
-        <a routerLink="/department" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+            <span>{{ 'Dashboard' | translate }}</span>
+        </a>
+        <a [routerLink]="['/profile']" routerLinkActive="router-link-active" class="list-group-item" >
+            <i class="fa fa-fw fa-user"></i>&nbsp;
+            <span>{{ 'Profile' | translate }}</span>
+        </a>
+        <a [routerLink]="['/activity']" routerLinkActive="router-link-active" class="list-group-item" >
+            <i class="fa fa-fw fa-tasks"></i>&nbsp;
+            <span>{{ 'Activities' | translate }}</span>
+        </a>
+        <!-- <a routerLink="/department" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-building"></i>&nbsp;
             <span>{{ 'Departments' | translate }}</span>
         </a>
         <a routerLink="/staff" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-user"></i>&nbsp;
-            <span>{{ 'Staff' | translate }}</span>
-        </a>
-        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-users"></i>&nbsp;
-            <span>{{ 'Groups' | translate }}</span>
-        </a>
-        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-wrench"></i>&nbsp;
-            <span>{{ 'Specialization' | translate }}</span>
-        </a> 
-        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-book"></i>&nbsp;
-            <span>{{ 'Subjects' | translate }}</span>
-        </a> 
-        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-book"></i>&nbsp;
-            <span>{{ 'Duties' | translate }}</span>
-        </a> 
-        
-        
+            <span>{{ 'Staff' | translate }}</span>
+        </a> -->
+
+
         //OG
         <!-- <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;

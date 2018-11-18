@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { User } from '../../../shared/models';
 
 @Component({
     selector: 'app-header',
@@ -9,9 +10,10 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HeaderComponent implements OnInit {
     pushRightClass: string = 'push-right';
+    user: User = JSON.parse(localStorage.getItem('currentUser'));
+
 
     constructor(private translate: TranslateService, public router: Router) {
-
         this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de', 'zh-CHS']);
         this.translate.setDefaultLang('en');
         const browserLang = this.translate.getBrowserLang();
@@ -28,7 +30,7 @@ export class HeaderComponent implements OnInit {
         });
     }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     isToggled(): boolean {
         const dom: Element = document.querySelector('body');

@@ -1,10 +1,9 @@
 export class Staff {
-    staffId: number;
-    name: string;
-    imagePath: string;
+    staff_id: string;
+    staff_name: string;
+    email: string;
+    photo: string;
     position: string;
     qualification: string;
-    discipline: string;
-    department: string;
-    faculty: string;
+    specialty: string;
 }

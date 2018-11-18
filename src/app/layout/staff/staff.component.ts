@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-import { StaffService } from './staff.service';
 import { Staff } from '../../shared/models/staff.model';
 
 @Component({
@@ -10,11 +9,11 @@ import { Staff } from '../../shared/models/staff.model';
     animations: [routerTransition()]
 })
 export class StaffComponent implements OnInit {
-    staffList: Staff[];
+    staff: Staff[];
 
-    constructor(private staffService: StaffService) {}
+    constructor() { }
 
     ngOnInit() {
-        this.staffList = this.staffService.getStaffList();
+
     }
 }

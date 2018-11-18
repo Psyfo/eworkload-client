@@ -1,4 +1,5 @@
 export class Department {
-    deptNumber: number;
-    deptName: string;
+    departmentId: string;
+    departmentName: string;
+    facultyId: string;
 }

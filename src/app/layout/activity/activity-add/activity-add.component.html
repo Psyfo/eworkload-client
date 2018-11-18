@@ -1,0 +1,47 @@
+<div @routerTransition>
+    <form action="#" class="form-horizontal">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    <h5>New Activity</h5>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="name">Activity Type</label>
+                            <select (change)="changeFunction('activity_type_select')" name="activity_type" id="activity_type" class="form-control" #activity_type_select>
+                                <option class="text-muted" value="">Select an Activity Type</option>
+                                <option class="text-muted" value="Lecturing">Lecturing</option>
+                                <option class="text-muted" value="Research">Research</option>
+                                <option class="text-muted" value="Community Engagement">Community Engagement</option>
+                                <option class="text-muted" value="Public Services">Public Service</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group" *ngIf="activity_type_select === 'Research'">
+                <label class="form-control" for="position">Evidence</label>
+                <input class="form-control" type="file" name="evidence" id="evidence" placeholder="00">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control" for="position">Estimated Hours</label>
+            <input class="form-control" type="number" name="est_hours" id="est_hours" placeholder="00">
+        </div>
+        <div class="form-group">
+            <label class="form-control" for="position">Actual Hours</label>
+            <input class="form-control" type="number" name="act_hours" id="act_hours" placeholder="00">
+        </div>
+        <div class="form-group">
+            <a class="btn btn-primary" [routerLink]="['/activity']" routerLinkActive="router-link-active">Save</a>
+            <a class="btn btn-default" [routerLink]="['/activity']" routerLinkActive="router-link-active">Cancel</a>
+        </div>
+    </form>
+</div>

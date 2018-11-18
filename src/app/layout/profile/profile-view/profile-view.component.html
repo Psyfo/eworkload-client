@@ -1,0 +1,97 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card h-100 mb-3">
+                                <div class="card-header">
+                                    <h5 class="mt-0"> {{ user.firstName }} {{ user.lastName }} </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="media">
+                                        <img class="mr-3 image-fluid rounded-circle" src="https://lh3.googleusercontent.com/-L2W74DAJT9w/V7vXQVY5KuI/AAAAAAAALtI/fPX116haNGgkEfd0r05g2mYfnHkuuihlgCEwYBhgL/w139-h140-p/906991_10151559122375469_909095902_o.jpg" alt="Profile picture" class="img-fluid rounded-circle" alt="Placeholder">
+                                        <div class="media-body">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col font-weight-bold d-flex justify-content-end">Position:</div>
+                                                        <div class="col text-muted d-flex justify-content-start">Not yet added</div>
+                                                        <div class="w-100"></div>
+                                                        <div class="col font-weight-bold d-flex justify-content-end">Qualification:</div>
+                                                        <div class="col text-muted d-flex justify-content-start">Not yet added</div>
+                                                        <div class="w-100"></div>
+                                                        <div class="col font-weight-bold d-flex justify-content-end">Department:</div>
+                                                        <div class="col text-muted d-flex justify-content-start">Not yet added</div>
+                                                        <div class="w-100"></div>
+                                                        <div class="col font-weight-bold d-flex justify-content-end">Faculty:</div>
+                                                        <div class="col text-muted d-flex justify-content-start">Not yet added</div>
+                                                        <div class="w-100"></div>
+                                                        <div class="col d-flex justify-content-end mt-2">
+                                                            <Button class="btn btn-sm btn-outline-primary" (click)="onEdit(user)">Edit Profile</Button>
+                                                        </div>
+                                                        <div class="col"></div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-sm-6">
+                            <div class="card h-100 mb-3">
+                                <div class="card-header">
+                                    <h5 class="mt-0">Activity Summary</h5>
+                                </div>
+                                <div class="card-body">
+                                    <canvas baseChart height="150px" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- <div class="row">
+        <div class="col-sm-3">
+            <img src="https://lh3.googleusercontent.com/-L2W74DAJT9w/V7vXQVY5KuI/AAAAAAAALtI/fPX116haNGgkEfd0r05g2mYfnHkuuihlgCEwYBhgL/w139-h140-p/906991_10151559122375469_909095902_o.jpg" alt="Profile picture" class="img-fluid rounded-circle">
+        </div>
+        <div class="col">
+            <div class="table">
+                <dl class="row">
+                    <dt class="col-sm-3">Staff ID</dt>
+                    <dd class="col-sm-6 text-muted">40013482</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-3">Name</dt>
+                    <dd class="col-sm-6 text-muted">Sipho Mahlangu</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-3">Position</dt>
+                    <dd class="col-sm-6 text-muted">Developer</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-3">Department</dt>
+                    <dd class="col-sm-6 text-muted">Accounting and Informatics</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-3">Qualification</dt>
+                    <dd class="col-sm-6 text-muted">ND: Information Technology</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-3">Specialisation</dt>
+                    <dd class="col-sm-6 text-muted">Development Software</dd>
+                </dl>
+            </div>
+            <a class="btn btn-primary" [routerLink]="['./edit']" routerLinkActive="router-link-active" >Edit</a>
+        </div>
+        
+    </div> -->
+</div>
