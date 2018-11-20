@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { routerTransition } from '../router.animations';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { AuthenticationService, AlertService } from '../shared';
 import { first } from 'rxjs/operators';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { LoopBackConfig, LoopBackAuth, LecturerApi, Lecturer, AccessToken } from '../../../sdk';
+import { environment } from '../../environments/environment';
+import { AuthenticationService } from '../shared';
 
 @Component({
     selector: 'app-login',
@@ -14,18 +16,18 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
-    loading = false;
-    submitted = false;
-    returnUrl: string;
-
+    private lecturer: Lecturer = new Lecturer();
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService,
-        private alertService: AlertService,
-        private flashMessagesService: FlashMessagesService
-    ) { }
+        private lecturerApi: LecturerApi,
+        private flashMessagesService: FlashMessagesService,
+        private authenticationService: AuthenticationService
+    ) {
+        LoopBackConfig.setBaseURL(environment.BASE_URL);
+        LoopBackConfig.setApiVersion(environment.API_VERSION);
+    }
 
 
     ngOnInit() {
@@ -33,40 +35,31 @@ export class LoginComponent implements OnInit {
             'userId': new FormControl(null, [Validators.required]),
             'password': new FormControl(null, [Validators.required])
         });
-
-        // reset login status
-        this.authenticationService.logout();
-
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
-    // convenience getter for easy access to form fields
-    get f() { return this.loginForm.controls; }
+    private onLoggedIn(): void {
 
-    onLoggedin() {
-        // localStorage.setItem('isLoggedin', 'true');
+        // Get form elements into lecturer object
+        this.lecturer.username = this.loginForm.get('userId').value;
+        this.lecturer.password = this.loginForm.get('password').value;
 
-        this.submitted = true;
+        // Use api to login
+        this.lecturerApi.login(this.lecturer).subscribe(
+            (auth) => {
+                console.log('Login function works!');
+                console.log(auth.userId);
+                console.log(auth.id);
+                this.router.navigate(['/']);
 
-        // stop here if form is invalid
-        if (this.loginForm.invalid) {
-            this.flashMessagesService.show('Login not valid', {cssClass: 'alert-danger'});
-            return;
-        }
-
-        this.loading = true;
-        this.authenticationService.login(this.loginForm.get('userId').value, this.loginForm.get('password').value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    // this.router.navigate([this.returnUrl]);
-                    this.router.navigate(['/']);
-                },
-                error => {
-                    // this.alertService.error(error);
-                    this.flashMessagesService.show(error, {cssClass: 'alert-danger'});
-                    this.loading = false;
-                });
+                this.flashMessagesService.show('Login functions works!', { cssClass: 'alert-success' });
+            },
+            (error) => {
+                // if error show in console and do nothing
+                console.log(error);
+                this.flashMessagesService.show(error.statusCode, { cssClass: 'alert-danger' });
+                this.flashMessagesService.show(error.message, { cssClass: 'alert-danger' });
+                return;
+            }
+        );
     }
 }

@@ -8,17 +8,51 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthGuard, Position } from './shared';
+import { AuthGuard } from './shared';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { AlertService, AuthenticationService, DepartmentService, BlockService, DutyService, FacultyService, UtilityService, QualificationService } from './shared/services';
+import {
+    AlertService,
+    AuthenticationService,
+    DepartmentService,
+    BlockService,
+    DutyService,
+    FacultyService,
+    UtilityService,
+    QualificationService
+} from './shared/services';
 import { AlertComponent } from './shared/directives';
 import { UserService } from './shared/services/user.service';
-import { fakeBackendProvider, JwtInterceptor, ErrorInterceptor } from './shared/helpers';
 
 import { FlashMessagesModule, FlashMessagesService } from 'angular2-flash-messages';
 import { PositionService } from './shared/services/position.service';
 import { SubjectService } from './shared/services/subject.service';
+import {
+    SDKBrowserModule
+} from '../../sdk';
+import {
+    ActiveSubjectApi,
+    ActivityApi,
+    BlockApi,
+    CommInstructionApi,
+    DepartmentApi,
+    DutyApi,
+    EventApi,
+    FacultyApi,
+    LecturerApi,
+    LectureStackApi,
+    OfferingTypeApi,
+    PositionApi,
+    PublicServiceApi,
+    QualificationApi,
+    ResearchApi,
+    RoleApi,
+    RoleMappingApi,
+    TariffApi,
+    UserApi,
+    VenueApi
+} from '../../sdk/services';
+
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
@@ -40,6 +74,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         ReactiveFormsModule,
         HttpClientModule,
         ReactiveFormsModule,
+        SDKBrowserModule.forRoot(),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -68,10 +103,26 @@ export const createTranslateLoader = (http: HttpClient) => {
         SubjectService,
         UserService,
         UtilityService,
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        fakeBackendProvider
-
+        ActiveSubjectApi,
+        ActivityApi,
+        BlockApi,
+        CommInstructionApi,
+        DepartmentApi,
+        DutyApi,
+        EventApi,
+        FacultyApi,
+        LecturerApi,
+        LectureStackApi,
+        OfferingTypeApi,
+        PositionApi,
+        PublicServiceApi,
+        QualificationApi,
+        ResearchApi,
+        RoleApi,
+        RoleMappingApi,
+        TariffApi,
+        UserApi,
+        VenueApi
     ],
     bootstrap: [AppComponent]
 })

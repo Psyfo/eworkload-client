@@ -4,6 +4,10 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
+// import { LoopBackConfig } from '../sdk';
+
+// LoopBackConfig.setBaseURL('http://localhost:3000');
+
 if (environment.production) {
     enableProdMode();
 }

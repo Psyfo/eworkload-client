@@ -20,6 +20,8 @@ const routes: Routes = [
             { path: 'staff', loadChildren: './staff/staff.module#StaffModule' },
             { path: 'profile', loadChildren: './profile/profile.module#ProfileModule' },
             { path: 'activity', loadChildren: './activity/activity.module#ActivityModule' },
+            { path: 'block', loadChildren: './block/block.module#BlockModule' },
+            { path: 'lecturer', loadChildren: './lecturer/lecturer.module#LecturerModule' },
         ]
     }
 ];

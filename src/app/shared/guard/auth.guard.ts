@@ -1,37 +1,24 @@
-// import { Injectable } from '@angular/core';
-// import { CanActivate } from '@angular/router';
-// import { Router } from '@angular/router';
-
-// @Injectable()
-// export class AuthGuard implements CanActivate {
-//     constructor(private router: Router) {}
-
-//     canActivate() {
-//         if (localStorage.getItem('isLoggedin')) {
-//             return true;
-//         }
-
-//         this.router.navigate(['/login']);
-//         return false;
-//     }
-// }
-
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { LecturerApi } from '../../../../sdk';
+
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    constructor(private router: Router) { }
+    constructor(
+        private router: Router,
+        private lecturerApi: LecturerApi
+        ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (localStorage.getItem('currentUser')) {
+        if (this.lecturerApi.isAuthenticated()) {
             // logged in so return true
             return true;
         }
 
         // not logged in so redirect to login page with the return url
-        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
+        this.router.navigate(['/login']);
         return false;
     }
 }
