@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
-import { User } from '../../../shared/models';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router } from '@angular/router';
+import { Lecturer, LecturerApi, LoopBackAuth } from '../../../../../sdk';
 
 @Component({
     selector: 'app-profile-view',
@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
     animations: [routerTransition()]
 })
 export class ProfileViewComponent implements OnInit {
-    user: User = JSON.parse(localStorage.getItem('currentUser'));
+    lecturer: Lecturer = new Lecturer();
+
 
     // Pie
     public pieChartLabels: string[] = [
@@ -22,14 +23,27 @@ export class ProfileViewComponent implements OnInit {
     public pieChartData: number[] = [300, 500, 100];
     public pieChartType: string = 'pie';
 
-    constructor(private flashMessagesService: FlashMessagesService, private router: Router) { }
+    constructor(
+        private flashMessagesService: FlashMessagesService,
+        private router: Router,
+        private lecturerApi: LecturerApi
+    ) { }
 
     ngOnInit() {
+        this.lecturerApi.getCurrent()
+            .subscribe(
+                (lecturerData) => {
+                    this.lecturer = lecturerData;
+                    this.flashMessagesService.show(`Welcome ${this.lecturer.name.firstName} ${this.lecturer.name.lastName}`, {cssClass: 'alert-success'});
+                },
+                (error) => {
+                    this.flashMessagesService.show(error, { cssClass: 'alert-danger' });
+                    console.log(error);
+                }
+            );
     }
 
-    onEdit(user: User): void {
-        localStorage.removeItem('editUserId');
-        localStorage.setItem('editUserId', this.user.userId.toString());
+    onEdit(): void {
         this.router.navigate(['profile/edit']);
     }
 

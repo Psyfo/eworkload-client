@@ -1,7 +1,7 @@
 
 <div class="panel panel-default">
         <div class="panel-body">
-           
+
            <table class="table table-hover table-active">
                <thead>
                    <tr>
@@ -13,18 +13,13 @@
                        <th>Approval Status</th>
                    </tr>
                </thead>
-               <tbody *ngFor="let activity of activities">
+               <tbody>
                    <tr>
-                       <td>{{ activity.activity_id }}</td>
-                       <td>{{ activity.activity_type }}</td>
-                       <td>{{ activity.est_hours }}</td>
-                       <td>{{ activity.actual_hours }}</td>
-                       <td>{{ activity.date_recorded | date }}</td>
-                       <td>{{ activity.approved }}</td>
+                       <td></td>
                    </tr>
                </tbody>
            </table>
-    
+
            <a class="btn btn-primary" [routerLink]="['add']" routerLinkActive="router-link-active" >New Activity</a>
         </div>
     </div>

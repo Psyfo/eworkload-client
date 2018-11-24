@@ -7,13 +7,15 @@
                     <h5>Edit Profile</h5>
                 </div>
                 <div class="card-body">
-                    <form [formGroup]="profileForm" class="form">
+                    <form [formGroup]="profileForm" novalidate (ngSubmit)="onEdit()" class="form">
+
                         <div class="form-row">
                             <div class="form-group col">
-                                <label for="userId">User ID:</label>
-                                <input type="text" formControlName="userId" class="form-control" disabled>
+                                <label for="lecturerId">User ID:</label>
+                                <input type="text" formControlName="lecturerId" class="form-control" disabled>
                             </div>
                         </div>
+
                         <div class="form-row">
                             <div class="form-group col">
                                 <label for="firstName" class="col">First Name</label>
@@ -24,42 +26,48 @@
                                 <input type="text" formControlName="lastName" class="form-control">
                             </div>
                         </div>
+
                         <div class="form-row">
                             <div class="form-group col">
                                 <label for="email">Email</label>
                                 <input type="email" formControlName="email" class="form-control">
                             </div>
                         </div>
+
                         <div class="form-row">
                             <div class="form-group col">
                                 <label for="qualificationId" class="col-form-label">Qualification</label>
-                                <select formControlName="qualificationId" id="qualificationId" class="form-control" (onchange)="onSelectQualification()">
-                                    <option [] [selected] [disabled]>Select a qualification</option>
-                                    <option *ngFor="let qualification of qualifications; let i=index;" [ngValue]="qualification">{{ qualification.qualificationDescription }}</option>
+                                <select formControlName="qualificationId" id="qualificationId" class="form-control">
+                                    <option [defaultSelected]>Select a qualification</option>
+                                    <option *ngFor="let qualification of qualifications; let i=index;" [value]="qualification.qualificationId">{{ qualification.name }}</option>
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-row">
                             <div class="form-group col">
                                 <label for="departmentId" class="col-form-label">Department</label>
-                                <select formControlName="departmentId" id="departmentId" class="form-control" (onchange)="onSelectDepartment()">
-                                        <option [defaultSelected] [disabled]>Select a qualification</option>
-                                        <option *ngFor="let department of departments; let i=index;" [ngValue]="department">{{ department.departmentName }}</option>
+                                <select formControlName="departmentId" id="departmentId" class="form-control">
+                                        <option [defaultSelected]>Select a qualification</option>
+                                        <option *ngFor="let department of departments; let i=index;" [value]="department.departmentId">{{ department.name }}</option>
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-row">
                             <div class="form-group col">
                                 <label for="positionId" class="col-form-label">Position</label>
-                                <select formControlName="positionId" id="positionId" class="form-control" (onchange)="onSelectPosition()">
-                                        <option [defaultSelected] [disabled]>Select a position</option>
-                                        <option *ngFor="let position of positions; let i=index;" [ngValue]="position">{{ position.positionDescription }}</option>
+                                <select formControlName="positionId" id="positionId" class="form-control">
+                                        <option [defaultSelected]>Select a position</option>
+                                        <option *ngFor="let position of positions; let i=index;" [value]="position.positionId">{{ position.name | uppercase}}</option>
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-row">
                             <button class="btn btn-outline-success">Update</button>
                         </div>
+
                     </form>
                 </div>
             </div>

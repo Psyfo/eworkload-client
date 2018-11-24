@@ -9,16 +9,11 @@ import { FormGroup } from '@angular/forms';
     animations: [routerTransition()]
 })
 export class ActivityAddComponent implements OnInit {
-    activityForm: FormGroup;
-    activity_type: EventEmitter<string>;
+
 
     constructor() { }
 
     ngOnInit() {
     }
 
-    changeFunction(activity_type) {
-        this.activity_type.emit(activity_type);
-        console.log(activity_type);
-    }
 }

@@ -19,5 +19,6 @@ export * from './Research';
 export * from './CommInstruction';
 export * from './PublicService';
 export * from './Tariff';
+export * from './ActiveSubjectBlock';
 export * from './BaseModels';
 export * from './FireLoopRef';

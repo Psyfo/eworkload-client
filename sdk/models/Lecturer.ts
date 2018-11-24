@@ -1,6 +1,9 @@
 /* tslint:disable */
 import {
   Role,
+  Qualification,
+  Department,
+  Position,
   Activity
 } from '../index';
 
@@ -19,6 +22,9 @@ export interface LecturerInterface {
   "password"?: string;
   accessTokens?: any[];
   roles?: Role[];
+  qualifications?: Qualification;
+  departments?: Department;
+  positions?: Position;
   activities?: Activity[];
 }
 
@@ -36,6 +42,9 @@ export class Lecturer implements LecturerInterface {
   "password": string;
   accessTokens: any[];
   roles: Role[];
+  qualifications: Qualification;
+  departments: Department;
+  positions: Position;
   activities: Activity[];
   constructor(data?: LecturerInterface) {
     Object.assign(this, data);
@@ -133,6 +142,30 @@ export class Lecturer implements LecturerInterface {
           keyThrough: 'roleId',
           keyFrom: 'lecturerId',
           keyTo: 'principalId'
+        },
+        qualifications: {
+          name: 'qualifications',
+          type: 'Qualification',
+          model: 'Qualification',
+          relationType: 'hasOne',
+                  keyFrom: 'lecturerId',
+          keyTo: 'qualificationId'
+        },
+        departments: {
+          name: 'departments',
+          type: 'Department',
+          model: 'Department',
+          relationType: 'hasOne',
+                  keyFrom: 'lecturerId',
+          keyTo: 'departmenId'
+        },
+        positions: {
+          name: 'positions',
+          type: 'Position',
+          model: 'Position',
+          relationType: 'hasOne',
+                  keyFrom: 'lecturerId',
+          keyTo: 'positionId'
         },
         activities: {
           name: 'activities',

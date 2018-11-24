@@ -1,14 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { OnInit, Component, SimpleChanges } from '@angular/core';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { stringify } from '@angular/compiler/src/util';
-import { User, Department, Qualification, Position } from '../../../shared/models';
-import { UserService } from '../../../shared/services/user.service';
 import { routerTransition } from '../../../router.animations';
-import { DepartmentService, QualificationService } from '../../../shared';
-import { PositionService } from '../../../shared/services/position.service';
 import { first } from 'rxjs/operators';
+import { Lecturer, Department, Qualification, LecturerApi, DepartmentApi, QualificationApi, PositionApi, Position, LoopBackConfig } from '../../../../../sdk';
+import { environment } from '../../../../environments/environment';
 
 @Component({
     selector: 'app-profile-edit',
@@ -17,134 +14,167 @@ import { first } from 'rxjs/operators';
     animations: [routerTransition()]
 })
 export class ProfileEditComponent implements OnInit {
-    editUserId: number = parseInt(localStorage.getItem('editUserId'));
-    user: User;
-    subUser: any;
-    users: User[];
+    lecturer: Lecturer = new Lecturer();
     departments: Department[];
     qualifications: Qualification[];
     positions: Position[];
-    loading = false;
-    submitted = false;
-    returnUrl: string;
+    selectedQualification: Qualification;
+    selectedDepartment: Department;
+    selectedPositions: Position;
+
 
     profileForm: FormGroup;
 
     constructor(
         private flashMessagesService: FlashMessagesService,
-        private formBuilder: FormBuilder,
         private router: Router,
-        private userService: UserService,
-        private departmentService: DepartmentService,
-        private qualificationService: QualificationService,
-        private positionService: PositionService,
-    ) { }
+        private formBuilder: FormBuilder,
+        private lecturerApi: LecturerApi,
+        private departmentApi: DepartmentApi,
+        private qualificationApi: QualificationApi,
+        private positionApi: PositionApi,
+    ) {
+        LoopBackConfig.setBaseURL(environment.BASE_URL);
+        LoopBackConfig.setApiVersion(environment.API_VERSION);
+    }
 
     ngOnInit() {
-        this.userService.getAll()
-            .pipe(first())
+
+        // Get qualifications
+        this.qualificationApi.find<Qualification>()
             .subscribe(
-                data => {
-                    this.users = data;
-                    console.log(data);
+                (qualifications) => {
+                    this.qualifications = qualifications;
                 },
-                error => {
-                    this.flashMessagesService.show(error, { cssClass: 'alert-danger' });
+                (error) => {
                     console.log(error);
+                    this.flashMessagesService.show(error, { cssClass: 'alert-danger' });
                 }
             );
-        // this.userService.getById(this.editUserId)
-        //     .pipe(first())
-        //     .subscribe(
-        //         user => {
-        //             this.subUser = user;
-        //             console.log(this.user);
-        //         },
-        //         error => {
-        //             this.flashMessagesService.show(error, { cssClass: 'alert-danger' });
-        //             console.log(error);
 
-        //         }
-        //     );
-        this.departmentService.getAll()
-            .pipe(first())
+        // Get departments
+        this.departmentApi.find<Department>()
             .subscribe(
-                data => {
-                    this.departments = data;
-                    console.log(data);
+                (departments) => {
+                    this.departments = departments;
                 },
-                error => {
+                (error) => {
+                    console.log(error);
                     this.flashMessagesService.show(error, { cssClass: 'alert-danger' });
+                }
+            );
+
+        // Get positions
+        this.positionApi.find<Position>()
+            .subscribe(
+                (positions) => {
+                    this.positions = positions;
+                },
+                (error) => {
+                    console.log(error);
+                    this.flashMessagesService.show(error, { cssClass: 'alert-danger' });
+                }
+            );
+
+        this.profileForm = new FormGroup({
+            'lecturerId': new FormControl(),
+            'firstName': new FormControl(),
+            'lastName': new FormControl(),
+            'email': new FormControl(null, [Validators.email]),
+            'photo': new FormControl(),
+            'departmentId': new FormControl('Select a department'),
+            'positionId': new FormControl('Select a position'),
+            'qualificationId': new FormControl('Select a qualificaton')
+        });
+
+        this.onSelectQualificationChanges();
+        this.onSelectDepartmentChanges();
+        this.onSelectPositionChanges();
+
+        // get active user
+        this.lecturerApi.getCurrent()
+            .subscribe(
+                (lecturer) => {
+                    this.lecturer = lecturer;
+                    this.profileForm.patchValue({
+                        lecturerId: lecturer.lecturerId,
+                        firstName: lecturer.name.firstName,
+                        lastName: lecturer.name.lastName,
+                        email: lecturer.email,
+                        photo: lecturer.photo
+                    });
+                },
+                (error) => {
                     console.log(error);
                 }
             );
 
-        this.qualificationService.getAll()
-            .pipe(first())
-            .subscribe(data => {
-                this.qualifications = data;
-                console.log(data);
-            },
-                error => {
-                    this.flashMessagesService.show(error, { cssClass: 'alert-danger' });
+    }
+
+    onSelectQualificationChanges() {
+        this.profileForm.get('qualificationId').valueChanges
+            .subscribe(
+                (val) => {
+                    console.log(val);
+                    return val;
+                },
+                (error) => {
                     console.log(error);
+
+                }
+            );
+    }
+
+    onSelectDepartmentChanges() {
+        this.profileForm.get('departmentId').valueChanges
+            .subscribe(
+                (val) => {
+                    console.log(val);
+                    return val;
+                },
+                (error) => {
+                    console.log(error);
+
+                }
+            );
+    }
+
+    onSelectPositionChanges() {
+        this.profileForm.get('positionId').valueChanges
+            .subscribe(
+                (val) => {
+                    console.log(val);
+                    return val;
+                },
+                (error) => {
+                    console.log(error);
+
+                }
+            );
+    }
+
+    onEdit() {
+        this.lecturer.name.firstName = this.profileForm.get('firstName').value;
+        this.lecturer.name.lastName = this.profileForm.get('lastName').value;
+        this.lecturer.name.email = this.profileForm.get('email').value;
+        this.lecturer.name.departmentId = this.profileForm.get('departmentId').value;
+        this.lecturer.name.positionId = this.profileForm.get('positionId').value;
+        this.lecturer.name.qualificationId = this.profileForm.get('qualificationId').value;
+
+        console.log(this.lecturer);
+        this.lecturerApi.patchAttributes(this.lecturer.lecturerId, this.lecturer)
+            .subscribe(
+                (res) => {
+                    console.log(res);
+                    alert('Edited Successfully!')
+                    this.router.navigate(['/profile']);
+                },
+                (error) => {
+                    console.log(error);
+                    this.flashMessagesService.show(error, { cssClass: 'alert-danger' });
                 }
             );
 
-        this.positionService.getAll()
-            .pipe(first())
-            .subscribe(data => {
-                this.positions = data;
-                console.log(data);
-            },
-                error => {
-                    this.flashMessagesService.show(error, { cssClass: 'alert-danger' });
-                    console.log(error);
-                }
-            );
-
-
-        this.initForm();
-
-        // this.userService.getById(this.editUserId)
-        //     .pipe(first())
-        //     .subscribe(data => {
-        //         this.profileForm.patchValue(data);
-        //         console.log(data);
-        //     },
-        //         error => {
-        //             this.flashMessagesService.show(error, { cssClass: 'alert-danger' });
-        //             console.log(error);
-        //         }
-        //     );
-    }
-
-    get f() { return this.profileForm.controls; }
-
-    onUpdate() {
-        this.submitted = true;
-
-        // stop here if form is invalid
-        if (this.profileForm.invalid) {
-            this.flashMessagesService.show('Form is not valid!', { cssClass: 'alert-danger' });
-            return;
-        }
-    }
-
-    onSelectQualification() {
 
     }
-
-    onSelectDepartment() {
-
-    }
-
-    onSelectPosition() {
-
-    }
-
-    private initForm() {
-
-    }
-
 }

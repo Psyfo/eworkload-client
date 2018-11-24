@@ -1,14 +1,19 @@
 /* tslint:disable */
+import {
+  ActiveSubject
+} from '../index';
 
 declare var Object: any;
 export interface BlockInterface {
   "blockId": string;
   "name": string;
+  activeSubjects?: ActiveSubject[];
 }
 
 export class Block implements BlockInterface {
   "blockId": string;
   "name": string;
+  activeSubjects: ActiveSubject[];
   constructor(data?: BlockInterface) {
     Object.assign(this, data);
   }
@@ -52,6 +57,16 @@ export class Block implements BlockInterface {
         },
       },
       relations: {
+        activeSubjects: {
+          name: 'activeSubjects',
+          type: 'ActiveSubject[]',
+          model: 'ActiveSubject',
+          relationType: 'hasMany',
+          modelThrough: 'ActiveSubjectBlock',
+          keyThrough: 'activeSubjectId',
+          keyFrom: 'blockId',
+          keyTo: 'blockId'
+        },
       }
     }
   }

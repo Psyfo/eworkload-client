@@ -22,6 +22,8 @@ const routes: Routes = [
             { path: 'activity', loadChildren: './activity/activity.module#ActivityModule' },
             { path: 'block', loadChildren: './block/block.module#BlockModule' },
             { path: 'lecturer', loadChildren: './lecturer/lecturer.module#LecturerModule' },
+            { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
+            { path: 'lecturer-manage', loadChildren: './admin/lecturer-manage/lecturer-manage.module#LecturerManageModule' }
         ]
     }
 ];

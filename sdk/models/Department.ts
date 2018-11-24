@@ -1,6 +1,7 @@
 /* tslint:disable */
 import {
-  Faculty
+  Faculty,
+  Qualification
 } from '../index';
 
 declare var Object: any;
@@ -8,14 +9,18 @@ export interface DepartmentInterface {
   "departmentId": string;
   "name": string;
   "facultyId": string;
+  "departmenId"?: string;
   faculty?: Faculty;
+  qualifications?: Qualification[];
 }
 
 export class Department implements DepartmentInterface {
   "departmentId": string;
   "name": string;
   "facultyId": string;
+  "departmenId": string;
   faculty: Faculty;
+  qualifications: Qualification[];
   constructor(data?: DepartmentInterface) {
     Object.assign(this, data);
   }
@@ -61,6 +66,10 @@ export class Department implements DepartmentInterface {
           name: 'facultyId',
           type: 'string'
         },
+        "departmenId": {
+          name: 'departmenId',
+          type: 'string'
+        },
       },
       relations: {
         faculty: {
@@ -70,6 +79,14 @@ export class Department implements DepartmentInterface {
           relationType: 'belongsTo',
                   keyFrom: 'facultyId',
           keyTo: 'facultyId'
+        },
+        qualifications: {
+          name: 'qualifications',
+          type: 'Qualification[]',
+          model: 'Qualification',
+          relationType: 'hasMany',
+                  keyFrom: 'departmentId',
+          keyTo: 'departmentId'
         },
       }
     }

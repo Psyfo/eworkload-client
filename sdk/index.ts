@@ -68,6 +68,7 @@ import { ResearchApi } from './services/custom/Research';
 import { CommInstructionApi } from './services/custom/CommInstruction';
 import { PublicServiceApi } from './services/custom/PublicService';
 import { TariffApi } from './services/custom/Tariff';
+import { ActiveSubjectBlockApi } from './services/custom/ActiveSubjectBlock';
 /**
 * @module SDKBrowserModule
 * @description
@@ -118,6 +119,7 @@ export class SDKBrowserModule {
         CommInstructionApi,
         PublicServiceApi,
         TariffApi,
+        ActiveSubjectBlockApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

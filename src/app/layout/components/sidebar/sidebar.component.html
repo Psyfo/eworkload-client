@@ -4,14 +4,30 @@
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>{{ 'Dashboard' | translate }}</span>
         </a>
-        <a [routerLink]="['/profile']" routerLinkActive="router-link-active" class="list-group-item" >
+        <a [routerLink]="['/profile']" routerLinkActive="router-link-active" class="list-group-item">
             <i class="fa fa-fw fa-user"></i>&nbsp;
             <span>{{ 'Profile' | translate }}</span>
         </a>
-        <a [routerLink]="['/activity']" routerLinkActive="router-link-active" class="list-group-item" >
+        <a [routerLink]="['/activity']" routerLinkActive="router-link-active" class="list-group-item">
             <i class="fa fa-fw fa-tasks"></i>&nbsp;
             <span>{{ 'Activities' | translate }}</span>
         </a>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages')">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Admin' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/lecturer-manage']" routerLinkActive="router-link-active" class="list-group-item">
+                            <i class="fa fa-fw fa-users"></i>&nbsp;
+                            <span>{{ 'Manage Lecturers' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
         <!-- <a routerLink="/department" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-building"></i>&nbsp;
             <span>{{ 'Departments' | translate }}</span>

@@ -20,6 +20,7 @@ import { Research } from '../../models/Research';
 import { CommInstruction } from '../../models/CommInstruction';
 import { PublicService } from '../../models/PublicService';
 import { Tariff } from '../../models/Tariff';
+import { ActiveSubjectBlock } from '../../models/ActiveSubjectBlock';
 
 export interface Models { [name: string]: any }
 
@@ -47,6 +48,7 @@ export class SDKModels {
     CommInstruction: CommInstruction,
     PublicService: PublicService,
     Tariff: Tariff,
+    ActiveSubjectBlock: ActiveSubjectBlock,
     
   };
 

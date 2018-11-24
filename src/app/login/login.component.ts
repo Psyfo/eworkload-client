@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { routerTransition } from '../router.animations';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { first, timeout } from 'rxjs/operators';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { LoopBackConfig, LoopBackAuth, LecturerApi, Lecturer, AccessToken } from '../../../sdk';
 import { environment } from '../../environments/environment';
@@ -49,9 +49,10 @@ export class LoginComponent implements OnInit {
                 console.log('Login function works!');
                 console.log(auth.userId);
                 console.log(auth.id);
+                this.flashMessagesService.show('Login Successful!', { cssClass: 'alert-success' });
                 this.router.navigate(['/']);
 
-                this.flashMessagesService.show('Login functions works!', { cssClass: 'alert-success' });
+
             },
             (error) => {
                 // if error show in console and do nothing

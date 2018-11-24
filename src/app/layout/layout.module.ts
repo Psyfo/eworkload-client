@@ -9,6 +9,8 @@ import { LayoutComponent } from './layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { AdminModule } from './admin/admin.module';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
     imports: [
@@ -17,8 +19,11 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
         LayoutRoutingModule,
         ReactiveFormsModule,
         TranslateModule,
+        AdminModule,
         NgbDropdownModule.forRoot(),
-        FlashMessagesModule
+        FlashMessagesModule,
+        DataTablesModule
+
     ],
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent]
 })

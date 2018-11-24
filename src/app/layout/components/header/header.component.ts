@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { User } from '../../../shared/models';
+import { Lecturer, LecturerApi, LoopBackConfig } from '../../../../../sdk';
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { environment } from '../../../../environments/environment';
 
 @Component({
     selector: 'app-header',
@@ -10,10 +12,15 @@ import { User } from '../../../shared/models';
 })
 export class HeaderComponent implements OnInit {
     pushRightClass: string = 'push-right';
-    user: User = JSON.parse(localStorage.getItem('currentUser'));
+    lecturer: Lecturer = new Lecturer();
 
 
-    constructor(private translate: TranslateService, public router: Router) {
+    constructor(
+        private translate: TranslateService,
+        public router: Router,
+        private lecturerApi: LecturerApi,
+        private flashMessagesService: FlashMessagesService
+        ) {
         this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de', 'zh-CHS']);
         this.translate.setDefaultLang('en');
         const browserLang = this.translate.getBrowserLang();
@@ -28,9 +35,24 @@ export class HeaderComponent implements OnInit {
                 this.toggleSidebar();
             }
         });
+
+        LoopBackConfig.setBaseURL(environment.BASE_URL);
+        LoopBackConfig.setApiVersion(environment.API_VERSION);
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.lecturerApi.getCurrent()
+        .subscribe(
+            (lecturerData) => {
+                this.lecturer = lecturerData;
+            },
+            (error) => {
+                console.log(`Error Status: ${error.status}`);
+                console.log(`Error Status: ${error.message}`);
+                this.flashMessagesService.show(error, {cssClass: 'alert-danger'});
+            }
+        );
+    }
 
     isToggled(): boolean {
         const dom: Element = document.querySelector('body');
@@ -48,7 +70,7 @@ export class HeaderComponent implements OnInit {
     }
 
     onLoggedout() {
-        localStorage.removeItem('isLoggedin');
+        this.lecturerApi.logout();
     }
 
     changeLang(language: string) {

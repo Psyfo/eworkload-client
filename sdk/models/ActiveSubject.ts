@@ -1,4 +1,8 @@
 /* tslint:disable */
+import {
+  Qualification,
+  Block
+} from '../index';
 
 declare var Object: any;
 export interface ActiveSubjectInterface {
@@ -15,6 +19,8 @@ export interface ActiveSubjectInterface {
   "repeatContact"?: number;
   "basePractical"?: number;
   "repeatPractical"?: number;
+  qualification?: Qualification;
+  blocks?: Block[];
 }
 
 export class ActiveSubject implements ActiveSubjectInterface {
@@ -31,6 +37,8 @@ export class ActiveSubject implements ActiveSubjectInterface {
   "repeatContact": number;
   "basePractical": number;
   "repeatPractical": number;
+  qualification: Qualification;
+  blocks: Block[];
   constructor(data?: ActiveSubjectInterface) {
     Object.assign(this, data);
   }
@@ -118,6 +126,24 @@ export class ActiveSubject implements ActiveSubjectInterface {
         },
       },
       relations: {
+        qualification: {
+          name: 'qualification',
+          type: 'Qualification',
+          model: 'Qualification',
+          relationType: 'belongsTo',
+                  keyFrom: 'qualificationId',
+          keyTo: 'qualificationId'
+        },
+        blocks: {
+          name: 'blocks',
+          type: 'Block[]',
+          model: 'Block',
+          relationType: 'hasMany',
+          modelThrough: 'ActiveSubjectBlock',
+          keyThrough: 'blockId',
+          keyFrom: 'subjectId',
+          keyTo: 'activeSubjectId'
+        },
       }
     }
   }
