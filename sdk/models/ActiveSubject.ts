@@ -1,7 +1,8 @@
 /* tslint:disable */
 import {
   Qualification,
-  Block
+  Block,
+  Discipline
 } from '../index';
 
 declare var Object: any;
@@ -11,6 +12,7 @@ export interface ActiveSubjectInterface {
   "description"?: string;
   "offeringTypeId": string;
   "nqfLevel": number;
+  "disciplineId": string;
   "credits": number;
   "qualificationId": string;
   "major": boolean;
@@ -21,6 +23,7 @@ export interface ActiveSubjectInterface {
   "repeatPractical"?: number;
   qualification?: Qualification;
   blocks?: Block[];
+  disciplines?: Discipline;
 }
 
 export class ActiveSubject implements ActiveSubjectInterface {
@@ -29,6 +32,7 @@ export class ActiveSubject implements ActiveSubjectInterface {
   "description": string;
   "offeringTypeId": string;
   "nqfLevel": number;
+  "disciplineId": string;
   "credits": number;
   "qualificationId": string;
   "major": boolean;
@@ -39,6 +43,7 @@ export class ActiveSubject implements ActiveSubjectInterface {
   "repeatPractical": number;
   qualification: Qualification;
   blocks: Block[];
+  disciplines: Discipline;
   constructor(data?: ActiveSubjectInterface) {
     Object.assign(this, data);
   }
@@ -92,6 +97,10 @@ export class ActiveSubject implements ActiveSubjectInterface {
           name: 'nqfLevel',
           type: 'number'
         },
+        "disciplineId": {
+          name: 'disciplineId',
+          type: 'string'
+        },
         "credits": {
           name: 'credits',
           type: 'number'
@@ -130,8 +139,8 @@ export class ActiveSubject implements ActiveSubjectInterface {
           name: 'qualification',
           type: 'Qualification',
           model: 'Qualification',
-          relationType: 'belongsTo',
-                  keyFrom: 'qualificationId',
+          relationType: 'hasOne',
+                  keyFrom: 'subjectId',
           keyTo: 'qualificationId'
         },
         blocks: {
@@ -143,6 +152,14 @@ export class ActiveSubject implements ActiveSubjectInterface {
           keyThrough: 'blockId',
           keyFrom: 'subjectId',
           keyTo: 'activeSubjectId'
+        },
+        disciplines: {
+          name: 'disciplines',
+          type: 'Discipline',
+          model: 'Discipline',
+          relationType: 'hasOne',
+                  keyFrom: 'subjectId',
+          keyTo: 'disciplineId'
         },
       }
     }

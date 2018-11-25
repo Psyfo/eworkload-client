@@ -73,8 +73,8 @@ export class PublicService implements PublicServiceInterface {
           name: 'activity',
           type: 'Activity',
           model: 'Activity',
-          relationType: 'belongsTo',
-                  keyFrom: 'activityId',
+          relationType: 'hasOne',
+                  keyFrom: 'publicServiceId',
           keyTo: 'activityId'
         },
       }

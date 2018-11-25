@@ -76,8 +76,8 @@ export class Qualification implements QualificationInterface {
           name: 'department',
           type: 'Department',
           model: 'Department',
-          relationType: 'belongsTo',
-                  keyFrom: 'departmentId',
+          relationType: 'hasOne',
+                  keyFrom: 'qualificationId',
           keyTo: 'departmentId'
         },
         activeSubjects: {

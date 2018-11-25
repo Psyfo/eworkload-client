@@ -8,7 +8,7 @@ export interface LectureStackInterface {
   "lectureStackId": number;
   "coordinator": string;
   "subjects": Array<any>;
-  "activityId": string;
+  "activityId": number;
   activity?: Activity;
 }
 
@@ -16,7 +16,7 @@ export class LectureStack implements LectureStackInterface {
   "lectureStackId": number;
   "coordinator": string;
   "subjects": Array<any>;
-  "activityId": string;
+  "activityId": number;
   activity: Activity;
   constructor(data?: LectureStackInterface) {
     Object.assign(this, data);
@@ -65,7 +65,7 @@ export class LectureStack implements LectureStackInterface {
         },
         "activityId": {
           name: 'activityId',
-          type: 'string'
+          type: 'number'
         },
       },
       relations: {
@@ -73,8 +73,8 @@ export class LectureStack implements LectureStackInterface {
           name: 'activity',
           type: 'Activity',
           model: 'Activity',
-          relationType: 'belongsTo',
-                  keyFrom: 'activityId',
+          relationType: 'hasOne',
+                  keyFrom: 'lectureStackId',
           keyTo: 'activityId'
         },
       }

@@ -1,4 +1,4 @@
-<div class="card" [@routerTransition()]>
+<div class="card">
         <div class="card-header">
             <h5>Lecturers</h5>
         </div>
@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col">
 
-                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover table-active">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="lecturerListDT" class="table table-hover table-active">
                         <thead>
                             <tr>
                                 <th>
@@ -24,9 +24,6 @@
                                 <th>
                                     Position
                                 </th>
-                                <th>
-
-                                </th>
                             </tr>
                         </thead>
                         <tbody *ngIf="lecturers?.length != 0">
@@ -43,9 +40,7 @@
                                 <td>
                                     {{ lecturer.email }}
                                 </td>
-                                <td>
-                                    {{ positionIdToName(lecturer.positionId) }}
-                                </td>
+
                                 <td>
                                     <a [routerLink]="['edit', lecturer.lecturerId]" routerLinkActive="router-link-active"  class="btn btn-primary">Edit</a>
                                 </td>
@@ -53,8 +48,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="6">
-
+                                <td colspan="5">
                                 </td>
                             </tr>
                         </tfoot>

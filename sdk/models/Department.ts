@@ -76,8 +76,8 @@ export class Department implements DepartmentInterface {
           name: 'faculty',
           type: 'Faculty',
           model: 'Faculty',
-          relationType: 'belongsTo',
-                  keyFrom: 'facultyId',
+          relationType: 'hasOne',
+                  keyFrom: 'departmentId',
           keyTo: 'facultyId'
         },
         qualifications: {

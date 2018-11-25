@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { routerTransition } from '../router.animations';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -6,7 +6,6 @@ import { first, timeout } from 'rxjs/operators';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { LoopBackConfig, LoopBackAuth, LecturerApi, Lecturer, AccessToken } from '../../../sdk';
 import { environment } from '../../environments/environment';
-import { AuthenticationService } from '../shared';
 
 @Component({
     selector: 'app-login',
@@ -23,7 +22,6 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private lecturerApi: LecturerApi,
         private flashMessagesService: FlashMessagesService,
-        private authenticationService: AuthenticationService
     ) {
         LoopBackConfig.setBaseURL(environment.BASE_URL);
         LoopBackConfig.setApiVersion(environment.API_VERSION);

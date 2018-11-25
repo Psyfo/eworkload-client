@@ -4,7 +4,8 @@ import {
   Qualification,
   Department,
   Position,
-  Activity
+  Activity,
+  Discipline
 } from '../index';
 
 declare var Object: any;
@@ -13,6 +14,7 @@ export interface LecturerInterface {
   "name": any;
   "photo"?: string;
   "qualificationId"?: string;
+  "disciplineId"?: string;
   "departmentId"?: string;
   "positionId"?: string;
   "realm"?: string;
@@ -26,6 +28,7 @@ export interface LecturerInterface {
   departments?: Department;
   positions?: Position;
   activities?: Activity[];
+  disciplines?: Discipline[];
 }
 
 export class Lecturer implements LecturerInterface {
@@ -33,6 +36,7 @@ export class Lecturer implements LecturerInterface {
   "name": any;
   "photo": string;
   "qualificationId": string;
+  "disciplineId": string;
   "departmentId": string;
   "positionId": string;
   "realm": string;
@@ -46,6 +50,7 @@ export class Lecturer implements LecturerInterface {
   departments: Department;
   positions: Position;
   activities: Activity[];
+  disciplines: Discipline[];
   constructor(data?: LecturerInterface) {
     Object.assign(this, data);
   }
@@ -93,6 +98,10 @@ export class Lecturer implements LecturerInterface {
         },
         "qualificationId": {
           name: 'qualificationId',
+          type: 'string'
+        },
+        "disciplineId": {
+          name: 'disciplineId',
           type: 'string'
         },
         "departmentId": {
@@ -174,6 +183,16 @@ export class Lecturer implements LecturerInterface {
           relationType: 'hasMany',
                   keyFrom: 'lecturerId',
           keyTo: 'activityId'
+        },
+        disciplines: {
+          name: 'disciplines',
+          type: 'Discipline[]',
+          model: 'Discipline',
+          relationType: 'hasMany',
+          modelThrough: 'LecturerDiscipline',
+          keyThrough: 'disciplineId',
+          keyFrom: 'lecturerId',
+          keyTo: 'disciplineId'
         },
       }
     }

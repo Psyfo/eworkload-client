@@ -8,54 +8,44 @@
                 <form [formGroup]="lecturerAddForm" class="form">
 
                     <div class="form-group">
-                        <label for="" class="col-form-label">Lecturer ID</label>
-                        <input type="text" class="form-control" formControlName="lecturerId">
-                        <span class="help-text" >
-                            Validation text here
+                        <label for="lecturerId" class="col-form-label">Lecturer ID</label>
+                        <input type="text" class="form-control" formControlName="lecturerId" placeholder="Lecturer ID">
+                        <span class="alert-danger" *ngIf="!lecturerAddForm.get('lecturerId').valid && lecturerAddForm.get('lecturerId').touched">
+                            <span *ngIf="lecturerAddForm.get('lecturerId').errors['required']">Please add a Lecturer ID</span>
+                            <span *ngIf="lecturerAddForm.get('lecturerId').errors['exists']">This Lecturer ID already exists</span>
                         </span>
                     </div>
 
-                    <div class="row">
+                    <div class="row" formGroupName="name">
                         <div class="form-group col">
-                            <label for="" class="col-form-label">First Name</label>
-                            <input type="text" class="form-control" formControlName="firstName">
-                            <span class="help-text" >
-                                Validation text here
+                            <label for="firstName" class="col-form-label">First Name</label>
+                            <input type="text" class="form-control" formControlName="firstName" placeholder="First Name">
+                            <span class="alert-danger" *ngIf="!lecturerAddForm.get('name.firstName').valid && lecturerAddForm.get('name.firstName').touched">
+                                <span *ngIf="lecturerAddForm.get('name.firstName').errors['required']">First Name field is required</span>
                             </span>
                         </div>
 
                         <div class="form-group col">
-                            <label for="" class="col-form-label">Last Name</label>
-                            <input type="text" class="form-control" formControlName="lastName">
-                            <span class="help-text" >
-                                Validation text here
+                            <label for="lastName" class="col-form-label">Last Name</label>
+                            <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name">
+                            <span class="alert-danger" *ngIf="!lecturerAddForm.get('name.lastName').valid && lecturerAddForm.get('name.lastName').touched" >
+                                <span *ngIf="lecturerAddForm.get('name.lastName').errors['required']">Last Name field is required</span>
                             </span>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="" class="col-form-label"></label>
-                        <input type="text" class="form-control" formControlName="lecturerId">
-                        <span class="help-text" >
-                            Validation text here
+                        <label for="email" class="col-form-label">Email</label>
+                        <input type="email" class="form-control" formControlName="email" placeholder="Email">
+                        <span class="alert-danger" *ngIf="!lecturerAddForm.get('email').valid && lecturerAddForm.get('email').touched">
+                            <span *ngIf="lecturerAddForm.get('email').errors['required']">Email field is required</span>
+                            <span *ngIf="lecturerAddForm.get('email').errors['email']">Please enter a valid email</span>
                         </span>
                     </div>
 
-                    <div class="form-group">
-                        <label for="" class="col-form-label"></label>
-                        <input type="text" class="form-control" formControlName="lecturerId">
-                        <span class="help-text" >
-                            Validation text here
-                        </span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="" class="col-form-label"></label>
-                        <input type="text" class="form-control" formControlName="lecturerId">
-                        <span class="help-text" >
-                            Validation text here
-                        </span>
-                    </div>
+                    <button class="btn btn-outline-successm mr-1" (click)="onAdd()" [disabled]="!lecturerAddForm.valid">Add Lecturer</button>
+                    <button class="btn btn-outline-danger" (click)="onCancel()">Cancel</button>
+                    <button class="pull-right btn btn-outline-primary" (click)="onReset()">Reset</button>
 
                 </form>
             </div>

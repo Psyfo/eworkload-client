@@ -5,12 +5,13 @@ import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { environment } from '../../../../../environments/environment';
 import { routerTransition } from '../../../../router.animations';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
     selector: 'app-lecturer-manage-list',
     templateUrl: './lecturer-manage-list.component.html',
     styleUrls: ['./lecturer-manage-list.component.scss'],
-    animations: [routerTransition()]
+
 })
 export class LecturerManageListComponent implements OnInit {
     // Properties
@@ -21,12 +22,14 @@ export class LecturerManageListComponent implements OnInit {
     // Datatable config
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<Lecturer> = new Subject();
+    dtElement: DataTableDirective;
+    dtRouteParam: string;
+
 
 
     constructor(
         private router: Router,
         private lecturerApi: LecturerApi,
-        private positionApi: PositionApi,
         private flashMessagesService: FlashMessagesService,
         private loggerService: LoggerService,
         private renderer: Renderer
@@ -36,6 +39,7 @@ export class LecturerManageListComponent implements OnInit {
     }
 
     ngOnInit() {
+
         this.dtOptions = {
             pagingType: 'full_numbers',
             pageLength: 5,
@@ -53,13 +57,16 @@ export class LecturerManageListComponent implements OnInit {
         };
 
         this.getLecturers();
-        this.getPositions();
+
     }
 
     ngAfterViewInit(): void {
         this.renderer.listenGlobal('document', 'click', (event) => {
-            if (event.target.hasAttribute("view-person-id")) {
-                this.router.navigate(["lecturer-manage/view/:lecturerId" + event.target.getAttribute("view-person-id")]);
+            console.log(event.target);
+
+            if (event.target.hasAttribute("lecturerId")) {
+                this.router.navigate(["lecturer-manage/edit/:lecturerId" + event.target.getAttribute("lecturerId")]);
+                // this.router.navigate(['lecturer-manage/edit'], { queryParams: { lecturerId: this.dtRouteParam } });
             }
         });
     }
@@ -83,31 +90,14 @@ export class LecturerManageListComponent implements OnInit {
             );
     }
 
-    getPositions() {
-        this.positionApi.find()
-            .subscribe(
-                (positionsList) => {
-                    this.positions = positionsList as Position[];
-                },
-                (error) => {
-                    console.log(error);
-                    this.flashMessagesService.show(error, { cssClass: 'alert-danger' });
-                }
-            );
-    }
-
-    positionIdToName(positionId: string): any {
-        return this.positions.find(
-            pos => {
-                return pos.positionId === positionId;
-            }).name;
-    }
-
     onNewLecturer() {
         this.router.navigate(['lecturer-manage/add']);
     }
 
     rowClickHandler(info: any) {
-        alert(info.lecturerId + ' ' + info.name.firstName);
+        // get all column values as array
+        this.dtRouteParam = info[0];
+
+        // this.router.navigate(['lecturer-manage/edit'], { queryParams: { lecturerId: info[0] } });
     }
 }

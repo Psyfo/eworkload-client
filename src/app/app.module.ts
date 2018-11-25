@@ -12,21 +12,11 @@ import { AuthGuard } from './shared';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import {
-    AlertService,
-    AuthenticationService,
-    DepartmentService,
-    BlockService,
-    DutyService,
-    FacultyService,
-    UtilityService,
-    QualificationService
+    AlertService
 } from './shared/services';
 import { AlertComponent } from './shared/directives';
-import { UserService } from './shared/services/user.service';
 
 import { FlashMessagesModule, FlashMessagesService } from 'angular2-flash-messages';
-import { PositionService } from './shared/services/position.service';
-import { SubjectService } from './shared/services/subject.service';
 import {
     SDKBrowserModule
 } from '../../sdk';
@@ -94,17 +84,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     providers: [
         AlertService,
         AuthGuard,
-        AuthenticationService,
-        BlockService,
-        DepartmentService,
-        DutyService,
-        FacultyService,
-        FlashMessagesService,
-        PositionService,
-        QualificationService,
-        SubjectService,
-        UserService,
-        UtilityService,
+
         ActiveSubjectApi,
         ActivityApi,
         BlockApi,

@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { routerTransition } from '../router.animations';
-import { UserService } from '../shared/services/user.service';
 import { Router } from '@angular/router';
-import { AlertService } from '../shared';
 import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { User } from '../shared/models';
@@ -24,8 +22,6 @@ export class SignupComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private userService: UserService,
-        private alertService: AlertService,
         private flashMessagesService: FlashMessagesService) { }
 
     ngOnInit() {
@@ -61,17 +57,6 @@ export class SignupComponent implements OnInit {
         console.log(this.user);
 
         this.loading = true;
-        this.userService.register(this.user)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.flashMessagesService.show('Registration successful', { cssClass: 'alert-success' });
-                    this.router.navigate(['/login']);
-                },
-                error => {
-                    // this.alertService.error(error);
-                    this.flashMessagesService.show(error, {cssClass: 'alert-danger'});
-                    this.loading = false;
-                });
+
     }
 }

@@ -302,7 +302,7 @@ export class FacultyApi extends BaseLoopBackApi {
   }
 
   /**
-   * Fetches belongsTo relation faculty.
+   * Fetches hasOne relation faculty.
    *
    * @param {any} id Faculty id
    *
@@ -335,6 +335,105 @@ export class FacultyApi extends BaseLoopBackApi {
   }
 
   /**
+   * Creates a new instance in faculty of this model.
+   *
+   * @param {any} id Faculty id
+   *
+   * @param {any} nk Foreign key for departments.
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Faculty` object.)
+   * </em>
+   */
+  public createDepartmentsFaculty(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Faculties/:id/departments/:nk/faculty";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Update faculty of this model.
+   *
+   * @param {any} id Faculty id
+   *
+   * @param {any} nk Foreign key for departments.
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Faculty` object.)
+   * </em>
+   */
+  public updateDepartmentsFaculty(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Faculties/:id/departments/:nk/faculty";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Deletes faculty of this model.
+   *
+   * @param {any} id Faculty id
+   *
+   * @param {any} nk Foreign key for departments.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public destroyDepartmentsFaculty(id: any, nk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Faculties/:id/departments/:nk/faculty";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
    * Creates a new instance in departments of this model.
    *
    * @param {any} id Faculty id
@@ -358,6 +457,42 @@ export class FacultyApi extends BaseLoopBackApi {
     "/Faculties/:id/departments";
     let _routeParams: any = {
       id: id
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Creates a new instance in faculty of this model.
+   *
+   * @param {any} id Faculty id
+   *
+   * @param {any} nk Foreign key for departments.
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object[]} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Faculty` object.)
+   * </em>
+   */
+  public createManyDepartmentsFaculty(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Faculties/:id/departments/:nk/faculty";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data

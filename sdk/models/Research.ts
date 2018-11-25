@@ -73,8 +73,8 @@ export class Research implements ResearchInterface {
           name: 'activity',
           type: 'Activity',
           model: 'Activity',
-          relationType: 'belongsTo',
-                  keyFrom: 'activityId',
+          relationType: 'hasOne',
+                  keyFrom: 'researchId',
           keyTo: 'activityId'
         },
       }

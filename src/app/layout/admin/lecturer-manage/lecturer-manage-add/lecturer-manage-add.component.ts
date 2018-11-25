@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../../../router.animations';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LecturerApi, Lecturer } from '../../../../../../sdk';
-import { FormGroup } from '@angular/forms';
+import { LecturerApi, Lecturer, LoopBackConfig } from '../../../../../../sdk';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-lecturer-manage-add',
@@ -13,39 +15,69 @@ import { FormGroup } from '@angular/forms';
 })
 export class LecturerManageAddComponent implements OnInit {
     lecturer: Lecturer;
-    lectureName: string;
     lecturerAddForm: FormGroup;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private lecturerApi: LecturerApi
-    ) { }
+        private lecturerApi: LecturerApi,
+        private flashMessages: FlashMessagesService
+    ) {
+        LoopBackConfig.setBaseURL(environment.BASE_URL);
+        LoopBackConfig.setApiVersion(environment.API_VERSION);
+    }
 
     ngOnInit() {
-        // Get the parameters and combine them both into a single observable
-        const urlParams = combineLatest(
-            this.activatedRoute.params,
-            this.activatedRoute.queryParams,
-            (params, queryParams) => ({ ...params, ...queryParams })
-        );
-
-        // Subscribe to the single observable, giving us both
-        urlParams.subscribe(routeParams => {
-            // routeParams containing both the query and route params
-            this.lecturerApi.findById(routeParams.id)
-                .subscribe(
-                    (lecturerObject) => {
-                        this.lecturer.lecturerId === routeParams.id;
-                        console.log(lecturerObject);
-
-                    },
-                    (error) => {
-                        console.log(error);
-
-                    }
-                );
+        // reactive form structure
+        this.lecturerAddForm = new FormGroup({
+            'lecturerId': new FormControl(null, [Validators.required]),
+            'name': new FormGroup({
+                'firstName': new FormControl(null, [Validators.required]),
+                'lastName': new FormControl(null, [Validators.required]),
+            }),
+            'email': new FormControl(null, [Validators.required, Validators.email]),
         });
+    }
+
+    onAdd() {
+        // generic password
+        this.lecturer = this.lecturerAddForm.value as Lecturer;
+        this.lecturer.password = 'Password01';
+
+        this.lecturerApi.create(this.lecturer)
+        .subscribe(
+            (response) => {
+                console.log(response);
+            },
+            (error) => {
+                console.log(error);
+                this.flashMessages.show(error.status, {cssClass: 'alert-danger'});
+                this.flashMessages.show(error.message, {cssClass: 'alert-danger'});
+            }
+        );
+    }
+
+    onCancel() {
+        this.router.navigate(['../lecturer-manage']);
+    }
+
+
+    accountExists(control: FormControl) {
+        return this.lecturerApi.exists(control.value)
+        .subscribe(
+            (response) => {
+                if(response === true){
+                    console.log('Response is: ' + response);
+
+                    return {'lecturerExists': true};
+                }
+            },
+            (error) => {
+                console.log(error);
+                this.flashMessages.show(error.status, {cssClass: 'alert-danger'});
+                this.flashMessages.show(error.message, {cssClass: 'alert-danger'});
+            }
+        );
     }
 
 }

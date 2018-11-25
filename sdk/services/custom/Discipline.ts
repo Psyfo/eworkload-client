@@ -9,21 +9,18 @@ import { LoopBackFilter,  } from '../../models/BaseModels';
 import { ErrorHandler } from '../core/error.service';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Activity } from '../../models/Activity';
+import { Discipline } from '../../models/Discipline';
 import { SocketConnection } from '../../sockets/socket.connections';
+import { ActiveSubject } from '../../models/ActiveSubject';
+import { LecturerDiscipline } from '../../models/LecturerDiscipline';
 import { Lecturer } from '../../models/Lecturer';
-import { Duty } from '../../models/Duty';
-import { LectureStack } from '../../models/LectureStack';
-import { Research } from '../../models/Research';
-import { CommInstruction } from '../../models/CommInstruction';
-import { PublicService } from '../../models/PublicService';
 
 
 /**
- * Api services for the `Activity` model.
+ * Api services for the `Discipline` model.
  */
 @Injectable()
-export class ActivityApi extends BaseLoopBackApi {
+export class DisciplineApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(HttpClient) protected http: HttpClient,
@@ -36,11 +33,11 @@ export class ActivityApi extends BaseLoopBackApi {
   }
 
   /**
-   * Fetches hasOne relation lecturers.
+   * Find a related item by id for activeSubjects.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
    *
-   * @param {boolean} refresh 
+   * @param {any} fk Foreign key for activeSubjects
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -48,19 +45,414 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public getLecturers(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
+  public findByIdActiveSubjects(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers";
+    "/Disciplines/:id/activeSubjects/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Delete a related item by id for activeSubjects.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} fk Foreign key for activeSubjects
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public destroyByIdActiveSubjects(id: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Update a related item by id for activeSubjects.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} fk Foreign key for activeSubjects
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public updateByIdActiveSubjects(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Find a related item by id for lecturers.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} fk Foreign key for lecturers
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public findByIdLecturers(id: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/lecturers/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Delete a related item by id for lecturers.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} fk Foreign key for lecturers
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public destroyByIdLecturers(id: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/lecturers/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Update a related item by id for lecturers.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} fk Foreign key for lecturers
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public updateByIdLecturers(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/lecturers/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Add a related item by id for lecturers.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} fk Foreign key for lecturers
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public linkLecturers(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/lecturers/rel/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Remove the lecturers relation to an item by id.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} fk Foreign key for lecturers
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public unlinkLecturers(id: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/lecturers/rel/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Check the existence of lecturers relation to an item by id.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} fk Foreign key for lecturers
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public existsLecturers(id: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "HEAD";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/lecturers/rel/:fk";
+    let _routeParams: any = {
+      id: id,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Queries activeSubjects of Discipline.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {object} filter 
+   *
+   * @returns {object[]} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public getActiveSubjects(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects";
     let _routeParams: any = {
       id: id
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
+    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Creates a new instance in activeSubjects of this model.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public createActiveSubjects(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Deletes all activeSubjects of this model.
+   *
+   * @param {any} id Discipline id
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public deleteActiveSubjects(id: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Counts activeSubjects of Discipline.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {object} where Criteria to match model instances
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * Data properties:
+   *
+   *  - `count` – `{number}` - 
+   */
+  public countActiveSubjects(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/count";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (typeof where !== 'undefined' && where !== null) _urlParams.where = where;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Queries lecturers of Discipline.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {object} filter 
+   *
+   * @returns {object[]} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public getLecturers(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/lecturers";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
@@ -68,7 +460,7 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in lecturers of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
    *
    * @param {object} data Request data.
    *
@@ -80,13 +472,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
   public createLecturers(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers";
+    "/Disciplines/:id/lecturers";
     let _routeParams: any = {
       id: id
     };
@@ -99,42 +491,9 @@ export class ActivityApi extends BaseLoopBackApi {
   }
 
   /**
-   * Update lecturers of this model.
+   * Deletes all lecturers of this model.
    *
-   * @param {any} id Activity id
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public updateLecturers(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "PUT";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Deletes lecturers of this model.
-   *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -142,10 +501,10 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyLecturers(id: any, customHeaders?: Function): Observable<any> {
+  public deleteLecturers(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers";
+    "/Disciplines/:id/lecturers";
     let _routeParams: any = {
       id: id
     };
@@ -156,588 +515,9 @@ export class ActivityApi extends BaseLoopBackApi {
   }
 
   /**
-   * Fetches hasOne relation duties.
+   * Counts lecturers of Discipline.
    *
-   * @param {any} id Activity id
-   *
-   * @param {boolean} refresh 
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public getDuties(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/duties";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Creates a new instance in duties of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public createDuties(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "POST";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/duties";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Update duties of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public updateDuties(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "PUT";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/duties";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Deletes duties of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * This method returns no data.
-   */
-  public destroyDuties(id: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "DELETE";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/duties";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Find a related item by id for lectureStacks.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} fk Foreign key for lectureStacks
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public findByIdLectureStacks(id: any, fk: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lectureStacks/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Delete a related item by id for lectureStacks.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} fk Foreign key for lectureStacks
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * This method returns no data.
-   */
-  public destroyByIdLectureStacks(id: any, fk: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "DELETE";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lectureStacks/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Update a related item by id for lectureStacks.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} fk Foreign key for lectureStacks
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public updateByIdLectureStacks(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "PUT";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lectureStacks/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Find a related item by id for research.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} fk Foreign key for research
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public findByIdResearch(id: any, fk: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/research/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Delete a related item by id for research.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} fk Foreign key for research
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * This method returns no data.
-   */
-  public destroyByIdResearch(id: any, fk: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "DELETE";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/research/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Update a related item by id for research.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} fk Foreign key for research
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public updateByIdResearch(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "PUT";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/research/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Find a related item by id for commInstructions.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} fk Foreign key for commInstructions
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public findByIdCommInstructions(id: any, fk: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/commInstructions/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Delete a related item by id for commInstructions.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} fk Foreign key for commInstructions
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * This method returns no data.
-   */
-  public destroyByIdCommInstructions(id: any, fk: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "DELETE";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/commInstructions/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Update a related item by id for commInstructions.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} fk Foreign key for commInstructions
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public updateByIdCommInstructions(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "PUT";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/commInstructions/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Find a related item by id for publicServices.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} fk Foreign key for publicServices
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public findByIdPublicServices(id: any, fk: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/publicServices/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Delete a related item by id for publicServices.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} fk Foreign key for publicServices
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * This method returns no data.
-   */
-  public destroyByIdPublicServices(id: any, fk: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "DELETE";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/publicServices/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Update a related item by id for publicServices.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} fk Foreign key for publicServices
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public updateByIdPublicServices(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "PUT";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/publicServices/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Queries lectureStacks of Activity.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {object} filter 
-   *
-   * @returns {object[]} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public getLectureStacks(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lectureStacks";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Creates a new instance in lectureStacks of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public createLectureStacks(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "POST";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lectureStacks";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Deletes all lectureStacks of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * This method returns no data.
-   */
-  public deleteLectureStacks(id: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "DELETE";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lectureStacks";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Counts lectureStacks of Activity.
-   *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -749,358 +529,10 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    *  - `count` – `{number}` - 
    */
-  public countLectureStacks(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
+  public countLecturers(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lectureStacks/count";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    if (typeof where !== 'undefined' && where !== null) _urlParams.where = where;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Queries research of Activity.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {object} filter 
-   *
-   * @returns {object[]} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public getResearch(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/research";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Creates a new instance in research of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public createResearch(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "POST";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/research";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Deletes all research of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * This method returns no data.
-   */
-  public deleteResearch(id: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "DELETE";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/research";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Counts research of Activity.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {object} where Criteria to match model instances
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * Data properties:
-   *
-   *  - `count` – `{number}` - 
-   */
-  public countResearch(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/research/count";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    if (typeof where !== 'undefined' && where !== null) _urlParams.where = where;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Queries commInstructions of Activity.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {object} filter 
-   *
-   * @returns {object[]} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public getCommInstructions(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/commInstructions";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Creates a new instance in commInstructions of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public createCommInstructions(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "POST";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/commInstructions";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Deletes all commInstructions of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * This method returns no data.
-   */
-  public deleteCommInstructions(id: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "DELETE";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/commInstructions";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Counts commInstructions of Activity.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {object} where Criteria to match model instances
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * Data properties:
-   *
-   *  - `count` – `{number}` - 
-   */
-  public countCommInstructions(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/commInstructions/count";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    if (typeof where !== 'undefined' && where !== null) _urlParams.where = where;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Queries publicServices of Activity.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {object} filter 
-   *
-   * @returns {object[]} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public getPublicServices(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/publicServices";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Creates a new instance in publicServices of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public createPublicServices(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "POST";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/publicServices";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Deletes all publicServices of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * This method returns no data.
-   */
-  public deletePublicServices(id: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "DELETE";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/publicServices";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Counts publicServices of Activity.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {object} where Criteria to match model instances
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * Data properties:
-   *
-   *  - `count` – `{number}` - 
-   */
-  public countPublicServices(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/publicServices/count";
+    "/Disciplines/:id/lecturers/count";
     let _routeParams: any = {
       id: id
     };
@@ -1124,13 +556,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
   public patchOrCreate(data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities";
+    "/Disciplines";
     let _routeParams: any = {};
     let _postBody: any = {
       data: data
@@ -1143,7 +575,7 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Patch attributes for a model instance and persist it into the data source.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
    *
    * @param {object} data Request data.
    *
@@ -1155,13 +587,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
   public patchAttributes(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id";
+    "/Disciplines/:id";
     let _routeParams: any = {
       id: id
     };
@@ -1174,9 +606,607 @@ export class ActivityApi extends BaseLoopBackApi {
   }
 
   /**
+   * Fetches hasOne relation qualification.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @param {boolean} refresh 
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public getActiveSubjectsQualification(id: any, nk: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/qualification";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Creates a new instance in qualification of this model.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public createActiveSubjectsQualification(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/qualification";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Update qualification of this model.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public updateActiveSubjectsQualification(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/qualification";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Deletes qualification of this model.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public destroyActiveSubjectsQualification(id: any, nk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/qualification";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Find a related item by id for blocks.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @param {any} fk Foreign key for blocks
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public findByIdActiveSubjectsBlocks(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/blocks/:fk";
+    let _routeParams: any = {
+      id: id,
+      nk: nk,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Delete a related item by id for blocks.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @param {any} fk Foreign key for blocks
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public destroyByIdActiveSubjectsBlocks(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/blocks/:fk";
+    let _routeParams: any = {
+      id: id,
+      nk: nk,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Update a related item by id for blocks.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @param {any} fk Foreign key for blocks
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public updateByIdActiveSubjectsBlocks(id: any, nk: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/blocks/:fk";
+    let _routeParams: any = {
+      id: id,
+      nk: nk,
+      fk: fk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Add a related item by id for blocks.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @param {any} fk Foreign key for blocks
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public linkActiveSubjectsBlocks(id: any, nk: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/blocks/rel/:fk";
+    let _routeParams: any = {
+      id: id,
+      nk: nk,
+      fk: fk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Remove the blocks relation to an item by id.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @param {any} fk Foreign key for blocks
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public unlinkActiveSubjectsBlocks(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/blocks/rel/:fk";
+    let _routeParams: any = {
+      id: id,
+      nk: nk,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Check the existence of blocks relation to an item by id.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @param {any} fk Foreign key for blocks
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public existsActiveSubjectsBlocks(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "HEAD";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/blocks/rel/:fk";
+    let _routeParams: any = {
+      id: id,
+      nk: nk,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Fetches hasOne relation disciplines.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @param {boolean} refresh 
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public getActiveSubjectsDisciplines(id: any, nk: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/disciplines";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Creates a new instance in disciplines of this model.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public createActiveSubjectsDisciplines(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/disciplines";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Update disciplines of this model.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public updateActiveSubjectsDisciplines(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/disciplines";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Deletes disciplines of this model.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public destroyActiveSubjectsDisciplines(id: any, nk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/disciplines";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Queries blocks of ActiveSubject.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @param {object} filter 
+   *
+   * @returns {object[]} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public getActiveSubjectsBlocks(id: any, nk: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/blocks";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Creates a new instance in blocks of this model.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public createActiveSubjectsBlocks(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/blocks";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Deletes all blocks of this model.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public deleteActiveSubjectsBlocks(id: any, nk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/blocks";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Counts blocks of ActiveSubject.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
+   *
+   * @param {object} where Criteria to match model instances
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * Data properties:
+   *
+   *  - `count` – `{number}` - 
+   */
+  public countActiveSubjectsBlocks(id: any, nk: any, where: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/activeSubjects/:nk/blocks/count";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (typeof where !== 'undefined' && where !== null) _urlParams.where = where;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
    * Find a related item by id for accessTokens.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {any} fk Foreign key for accessTokens
    *
@@ -1186,15 +1216,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public findByIdLecturersAccessTokens(id: any, fk: any, customHeaders?: Function): Observable<any> {
+  public findByIdLecturersAccessTokens(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/accessTokens/:fk";
+    "/Disciplines/:id/lecturers/:nk/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
+      nk: nk,
       fk: fk
     };
     let _postBody: any = {};
@@ -1206,7 +1237,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for accessTokens.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {any} fk Foreign key for accessTokens
    *
@@ -1216,12 +1249,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyByIdLecturersAccessTokens(id: any, fk: any, customHeaders?: Function): Observable<any> {
+  public destroyByIdLecturersAccessTokens(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/accessTokens/:fk";
+    "/Disciplines/:id/lecturers/:nk/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
+      nk: nk,
       fk: fk
     };
     let _postBody: any = {};
@@ -1233,7 +1267,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for accessTokens.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {any} fk Foreign key for accessTokens
    *
@@ -1247,15 +1283,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public updateByIdLecturersAccessTokens(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public updateByIdLecturersAccessTokens(id: any, nk: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/accessTokens/:fk";
+    "/Disciplines/:id/lecturers/:nk/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
+      nk: nk,
       fk: fk
     };
     let _postBody: any = {
@@ -1269,7 +1306,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for roles.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {any} fk Foreign key for roles
    *
@@ -1279,15 +1318,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public findByIdLecturersRoles(id: any, fk: any, customHeaders?: Function): Observable<any> {
+  public findByIdLecturersRoles(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/roles/:fk";
+    "/Disciplines/:id/lecturers/:nk/roles/:fk";
     let _routeParams: any = {
       id: id,
+      nk: nk,
       fk: fk
     };
     let _postBody: any = {};
@@ -1299,7 +1339,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for roles.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {any} fk Foreign key for roles
    *
@@ -1309,12 +1351,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyByIdLecturersRoles(id: any, fk: any, customHeaders?: Function): Observable<any> {
+  public destroyByIdLecturersRoles(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/roles/:fk";
+    "/Disciplines/:id/lecturers/:nk/roles/:fk";
     let _routeParams: any = {
       id: id,
+      nk: nk,
       fk: fk
     };
     let _postBody: any = {};
@@ -1326,7 +1369,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for roles.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {any} fk Foreign key for roles
    *
@@ -1340,15 +1385,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public updateByIdLecturersRoles(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public updateByIdLecturersRoles(id: any, nk: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/roles/:fk";
+    "/Disciplines/:id/lecturers/:nk/roles/:fk";
     let _routeParams: any = {
       id: id,
+      nk: nk,
       fk: fk
     };
     let _postBody: any = {
@@ -1362,7 +1408,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Add a related item by id for roles.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {any} fk Foreign key for roles
    *
@@ -1376,15 +1424,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public linkLecturersRoles(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public linkLecturersRoles(id: any, nk: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/roles/rel/:fk";
+    "/Disciplines/:id/lecturers/:nk/roles/rel/:fk";
     let _routeParams: any = {
       id: id,
+      nk: nk,
       fk: fk
     };
     let _postBody: any = {
@@ -1398,7 +1447,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Remove the roles relation to an item by id.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {any} fk Foreign key for roles
    *
@@ -1408,12 +1459,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public unlinkLecturersRoles(id: any, fk: any, customHeaders?: Function): Observable<any> {
+  public unlinkLecturersRoles(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/roles/rel/:fk";
+    "/Disciplines/:id/lecturers/:nk/roles/rel/:fk";
     let _routeParams: any = {
       id: id,
+      nk: nk,
       fk: fk
     };
     let _postBody: any = {};
@@ -1425,7 +1477,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Check the existence of roles relation to an item by id.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {any} fk Foreign key for roles
    *
@@ -1435,15 +1489,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public existsLecturersRoles(id: any, fk: any, customHeaders?: Function): Observable<any> {
+  public existsLecturersRoles(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "HEAD";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/roles/rel/:fk";
+    "/Disciplines/:id/lecturers/:nk/roles/rel/:fk";
     let _routeParams: any = {
       id: id,
+      nk: nk,
       fk: fk
     };
     let _postBody: any = {};
@@ -1455,7 +1510,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Fetches hasOne relation qualifications.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {boolean} refresh 
    *
@@ -1465,15 +1522,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public getLecturersQualifications(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
+  public getLecturersQualifications(id: any, nk: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/qualifications";
+    "/Disciplines/:id/lecturers/:nk/qualifications";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -1485,7 +1543,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in qualifications of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} data Request data.
    *
@@ -1497,15 +1557,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createLecturersQualifications(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public createLecturersQualifications(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/qualifications";
+    "/Disciplines/:id/lecturers/:nk/qualifications";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -1518,7 +1579,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Update qualifications of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} data Request data.
    *
@@ -1530,15 +1593,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public updateLecturersQualifications(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public updateLecturersQualifications(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/qualifications";
+    "/Disciplines/:id/lecturers/:nk/qualifications";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -1551,7 +1615,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Deletes qualifications of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -1559,12 +1625,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyLecturersQualifications(id: any, customHeaders?: Function): Observable<any> {
+  public destroyLecturersQualifications(id: any, nk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/qualifications";
+    "/Disciplines/:id/lecturers/:nk/qualifications";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -1575,7 +1642,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Fetches hasOne relation departments.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {boolean} refresh 
    *
@@ -1585,15 +1654,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public getLecturersDepartments(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
+  public getLecturersDepartments(id: any, nk: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/departments";
+    "/Disciplines/:id/lecturers/:nk/departments";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -1605,7 +1675,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in departments of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} data Request data.
    *
@@ -1617,15 +1689,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createLecturersDepartments(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public createLecturersDepartments(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/departments";
+    "/Disciplines/:id/lecturers/:nk/departments";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -1638,7 +1711,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Update departments of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} data Request data.
    *
@@ -1650,15 +1725,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public updateLecturersDepartments(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public updateLecturersDepartments(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/departments";
+    "/Disciplines/:id/lecturers/:nk/departments";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -1671,7 +1747,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Deletes departments of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -1679,12 +1757,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyLecturersDepartments(id: any, customHeaders?: Function): Observable<any> {
+  public destroyLecturersDepartments(id: any, nk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/departments";
+    "/Disciplines/:id/lecturers/:nk/departments";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -1695,7 +1774,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Fetches hasOne relation positions.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {boolean} refresh 
    *
@@ -1705,15 +1786,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public getLecturersPositions(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
+  public getLecturersPositions(id: any, nk: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/positions";
+    "/Disciplines/:id/lecturers/:nk/positions";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -1725,7 +1807,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in positions of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} data Request data.
    *
@@ -1737,15 +1821,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createLecturersPositions(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public createLecturersPositions(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/positions";
+    "/Disciplines/:id/lecturers/:nk/positions";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -1758,7 +1843,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Update positions of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} data Request data.
    *
@@ -1770,15 +1857,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public updateLecturersPositions(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public updateLecturersPositions(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/positions";
+    "/Disciplines/:id/lecturers/:nk/positions";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -1791,7 +1879,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Deletes positions of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -1799,12 +1889,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyLecturersPositions(id: any, customHeaders?: Function): Observable<any> {
+  public destroyLecturersPositions(id: any, nk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/positions";
+    "/Disciplines/:id/lecturers/:nk/positions";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -1815,7 +1906,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for activities.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {any} fk Foreign key for activities
    *
@@ -1825,15 +1918,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public findByIdLecturersActivities(id: any, fk: any, customHeaders?: Function): Observable<any> {
+  public findByIdLecturersActivities(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/activities/:fk";
+    "/Disciplines/:id/lecturers/:nk/activities/:fk";
     let _routeParams: any = {
       id: id,
+      nk: nk,
       fk: fk
     };
     let _postBody: any = {};
@@ -1845,7 +1939,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for activities.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {any} fk Foreign key for activities
    *
@@ -1855,12 +1951,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyByIdLecturersActivities(id: any, fk: any, customHeaders?: Function): Observable<any> {
+  public destroyByIdLecturersActivities(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/activities/:fk";
+    "/Disciplines/:id/lecturers/:nk/activities/:fk";
     let _routeParams: any = {
       id: id,
+      nk: nk,
       fk: fk
     };
     let _postBody: any = {};
@@ -1872,7 +1969,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for activities.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {any} fk Foreign key for activities
    *
@@ -1886,15 +1985,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public updateByIdLecturersActivities(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public updateByIdLecturersActivities(id: any, nk: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/activities/:fk";
+    "/Disciplines/:id/lecturers/:nk/activities/:fk";
     let _routeParams: any = {
       id: id,
+      nk: nk,
       fk: fk
     };
     let _postBody: any = {
@@ -1906,39 +2006,76 @@ export class ActivityApi extends BaseLoopBackApi {
   }
 
   /**
-   * Queries accessTokens of Lecturer.
+   * Find a related item by id for disciplines.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
    *
-   * @param {object} filter 
+   * @param {any} nk Foreign key for lecturers.
    *
-   * @returns {object[]} An empty reference that will be
+   * @param {any} fk Foreign key for disciplines
+   *
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public getLecturersAccessTokens(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
+  public findByIdLecturersDisciplines(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/accessTokens";
+    "/Disciplines/:id/lecturers/:nk/disciplines/:fk";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk,
+      fk: fk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
   /**
-   * Creates a new instance in accessTokens of this model.
+   * Delete a related item by id for disciplines.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
+   *
+   * @param {any} fk Foreign key for disciplines
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public destroyByIdLecturersDisciplines(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/lecturers/:nk/disciplines/:fk";
+    let _routeParams: any = {
+      id: id,
+      nk: nk,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Update a related item by id for disciplines.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
+   *
+   * @param {any} fk Foreign key for disciplines
    *
    * @param {object} data Request data.
    *
@@ -1950,15 +2087,188 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createLecturersAccessTokens(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public updateByIdLecturersDisciplines(id: any, nk: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/lecturers/:nk/disciplines/:fk";
+    let _routeParams: any = {
+      id: id,
+      nk: nk,
+      fk: fk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Add a related item by id for disciplines.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
+   *
+   * @param {any} fk Foreign key for disciplines
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public linkLecturersDisciplines(id: any, nk: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/lecturers/:nk/disciplines/rel/:fk";
+    let _routeParams: any = {
+      id: id,
+      nk: nk,
+      fk: fk
+    };
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Remove the disciplines relation to an item by id.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
+   *
+   * @param {any} fk Foreign key for disciplines
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * This method returns no data.
+   */
+  public unlinkLecturersDisciplines(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/lecturers/:nk/disciplines/rel/:fk";
+    let _routeParams: any = {
+      id: id,
+      nk: nk,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Check the existence of disciplines relation to an item by id.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
+   *
+   * @param {any} fk Foreign key for disciplines
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public existsLecturersDisciplines(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
+    let _method: string = "HEAD";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/lecturers/:nk/disciplines/rel/:fk";
+    let _routeParams: any = {
+      id: id,
+      nk: nk,
+      fk: fk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Queries accessTokens of Lecturer.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
+   *
+   * @param {object} filter 
+   *
+   * @returns {object[]} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public getLecturersAccessTokens(id: any, nk: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Disciplines/:id/lecturers/:nk/accessTokens";
+    let _routeParams: any = {
+      id: id,
+      nk: nk
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * Creates a new instance in accessTokens of this model.
+   *
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Discipline` object.)
+   * </em>
+   */
+  public createLecturersAccessTokens(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/accessTokens";
+    "/Disciplines/:id/lecturers/:nk/accessTokens";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -1971,7 +2281,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Deletes all accessTokens of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -1979,12 +2291,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public deleteLecturersAccessTokens(id: any, customHeaders?: Function): Observable<any> {
+  public deleteLecturersAccessTokens(id: any, nk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/accessTokens";
+    "/Disciplines/:id/lecturers/:nk/accessTokens";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -1995,7 +2308,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Counts accessTokens of Lecturer.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} where Criteria to match model instances
    *
@@ -2007,12 +2322,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    *  - `count` – `{number}` - 
    */
-  public countLecturersAccessTokens(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
+  public countLecturersAccessTokens(id: any, nk: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/accessTokens/count";
+    "/Disciplines/:id/lecturers/:nk/accessTokens/count";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -2024,7 +2340,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Queries roles of Lecturer.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} filter 
    *
@@ -2034,15 +2352,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public getLecturersRoles(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
+  public getLecturersRoles(id: any, nk: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/roles";
+    "/Disciplines/:id/lecturers/:nk/roles";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -2054,7 +2373,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in roles of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} data Request data.
    *
@@ -2066,15 +2387,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createLecturersRoles(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public createLecturersRoles(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/roles";
+    "/Disciplines/:id/lecturers/:nk/roles";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -2087,7 +2409,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Deletes all roles of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -2095,12 +2419,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public deleteLecturersRoles(id: any, customHeaders?: Function): Observable<any> {
+  public deleteLecturersRoles(id: any, nk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/roles";
+    "/Disciplines/:id/lecturers/:nk/roles";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -2111,7 +2436,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Counts roles of Lecturer.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} where Criteria to match model instances
    *
@@ -2123,12 +2450,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    *  - `count` – `{number}` - 
    */
-  public countLecturersRoles(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
+  public countLecturersRoles(id: any, nk: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/roles/count";
+    "/Disciplines/:id/lecturers/:nk/roles/count";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -2140,7 +2468,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Queries activities of Lecturer.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} filter 
    *
@@ -2150,15 +2480,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public getLecturersActivities(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
+  public getLecturersActivities(id: any, nk: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/activities";
+    "/Disciplines/:id/lecturers/:nk/activities";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -2170,7 +2501,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in activities of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} data Request data.
    *
@@ -2182,15 +2515,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createLecturersActivities(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public createLecturersActivities(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/activities";
+    "/Disciplines/:id/lecturers/:nk/activities";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -2203,7 +2537,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Deletes all activities of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -2211,12 +2547,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public deleteLecturersActivities(id: any, customHeaders?: Function): Observable<any> {
+  public deleteLecturersActivities(id: any, nk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/activities";
+    "/Disciplines/:id/lecturers/:nk/activities";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -2227,7 +2564,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Counts activities of Lecturer.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} where Criteria to match model instances
    *
@@ -2239,12 +2578,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    *  - `count` – `{number}` - 
    */
-  public countLecturersActivities(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
+  public countLecturersActivities(id: any, nk: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/activities/count";
+    "/Disciplines/:id/lecturers/:nk/activities/count";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -2254,44 +2594,44 @@ export class ActivityApi extends BaseLoopBackApi {
   }
 
   /**
-   * Fetches hasOne relation activity.
+   * Queries disciplines of Lecturer.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
    *
-   * @param {any} nk Foreign key for lectureStacks.
+   * @param {any} nk Foreign key for lecturers.
    *
-   * @param {boolean} refresh 
+   * @param {object} filter 
    *
-   * @returns {object} An empty reference that will be
+   * @returns {object[]} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public getLectureStacksActivity(id: any, nk: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
+  public getLecturersDisciplines(id: any, nk: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lectureStacks/:nk/activity";
+    "/Disciplines/:id/lecturers/:nk/disciplines";
     let _routeParams: any = {
       id: id,
       nk: nk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
+    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
   /**
-   * Creates a new instance in activity of this model.
+   * Creates a new instance in disciplines of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
    *
-   * @param {any} nk Foreign key for lectureStacks.
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} data Request data.
    *
@@ -2303,13 +2643,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createLectureStacksActivity(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public createLecturersDisciplines(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lectureStacks/:nk/activity";
+    "/Disciplines/:id/lecturers/:nk/disciplines";
     let _routeParams: any = {
       id: id,
       nk: nk
@@ -2323,47 +2663,11 @@ export class ActivityApi extends BaseLoopBackApi {
   }
 
   /**
-   * Update activity of this model.
+   * Deletes all disciplines of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
    *
-   * @param {any} nk Foreign key for lectureStacks.
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public updateLectureStacksActivity(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "PUT";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lectureStacks/:nk/activity";
-    let _routeParams: any = {
-      id: id,
-      nk: nk
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Deletes activity of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} nk Foreign key for lectureStacks.
+   * @param {any} nk Foreign key for lecturers.
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -2371,10 +2675,10 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyLectureStacksActivity(id: any, nk: any, customHeaders?: Function): Observable<any> {
+  public deleteLecturersDisciplines(id: any, nk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lectureStacks/:nk/activity";
+    "/Disciplines/:id/lecturers/:nk/disciplines";
     let _routeParams: any = {
       id: id,
       nk: nk
@@ -2386,396 +2690,65 @@ export class ActivityApi extends BaseLoopBackApi {
   }
 
   /**
-   * Fetches hasOne relation activity.
+   * Counts disciplines of Lecturer.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
    *
-   * @param {any} nk Foreign key for research.
+   * @param {any} nk Foreign key for lecturers.
    *
-   * @param {boolean} refresh 
+   * @param {object} where Criteria to match model instances
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
+   * Data properties:
+   *
+   *  - `count` – `{number}` - 
    */
-  public getResearchActivity(id: any, nk: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
+  public countLecturersDisciplines(id: any, nk: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/research/:nk/activity";
+    "/Disciplines/:id/lecturers/:nk/disciplines/count";
     let _routeParams: any = {
       id: id,
       nk: nk
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
+    if (typeof where !== 'undefined' && where !== null) _urlParams.where = where;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
   /**
-   * Creates a new instance in activity of this model.
+   * Creates a new instance in activeSubjects of this model.
    *
-   * @param {any} id Activity id
-   *
-   * @param {any} nk Foreign key for research.
+   * @param {any} id Discipline id
    *
    * @param {object} data Request data.
    *
    * This method expects a subset of model properties as request parameters.
    *
-   * @returns {object} An empty reference that will be
+   * @returns {object[]} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createResearchActivity(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public createManyActiveSubjects(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/research/:nk/activity";
+    "/Disciplines/:id/activeSubjects";
     let _routeParams: any = {
-      id: id,
-      nk: nk
+      id: id
     };
     let _postBody: any = {
       data: data
     };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Update activity of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} nk Foreign key for research.
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public updateResearchActivity(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "PUT";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/research/:nk/activity";
-    let _routeParams: any = {
-      id: id,
-      nk: nk
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Deletes activity of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} nk Foreign key for research.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * This method returns no data.
-   */
-  public destroyResearchActivity(id: any, nk: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "DELETE";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/research/:nk/activity";
-    let _routeParams: any = {
-      id: id,
-      nk: nk
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Fetches hasOne relation activity.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} nk Foreign key for commInstructions.
-   *
-   * @param {boolean} refresh 
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public getCommInstructionsActivity(id: any, nk: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/commInstructions/:nk/activity";
-    let _routeParams: any = {
-      id: id,
-      nk: nk
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Creates a new instance in activity of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} nk Foreign key for commInstructions.
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public createCommInstructionsActivity(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "POST";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/commInstructions/:nk/activity";
-    let _routeParams: any = {
-      id: id,
-      nk: nk
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Update activity of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} nk Foreign key for commInstructions.
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public updateCommInstructionsActivity(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "PUT";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/commInstructions/:nk/activity";
-    let _routeParams: any = {
-      id: id,
-      nk: nk
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Deletes activity of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} nk Foreign key for commInstructions.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * This method returns no data.
-   */
-  public destroyCommInstructionsActivity(id: any, nk: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "DELETE";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/commInstructions/:nk/activity";
-    let _routeParams: any = {
-      id: id,
-      nk: nk
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Fetches hasOne relation activity.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} nk Foreign key for publicServices.
-   *
-   * @param {boolean} refresh 
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public getPublicServicesActivity(id: any, nk: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/publicServices/:nk/activity";
-    let _routeParams: any = {
-      id: id,
-      nk: nk
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Creates a new instance in activity of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} nk Foreign key for publicServices.
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public createPublicServicesActivity(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "POST";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/publicServices/:nk/activity";
-    let _routeParams: any = {
-      id: id,
-      nk: nk
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Update activity of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} nk Foreign key for publicServices.
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public updatePublicServicesActivity(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string = "PUT";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/publicServices/:nk/activity";
-    let _routeParams: any = {
-      id: id,
-      nk: nk
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Deletes activity of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} nk Foreign key for publicServices.
-   *
-   * @returns {object} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * This method returns no data.
-   */
-  public destroyPublicServicesActivity(id: any, nk: any, customHeaders?: Function): Observable<any> {
-    let _method: string = "DELETE";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/publicServices/:nk/activity";
-    let _routeParams: any = {
-      id: id,
-      nk: nk
-    };
-    let _postBody: any = {};
     let _urlParams: any = {};
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
@@ -2784,7 +2757,7 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in lecturers of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
    *
    * @param {object} data Request data.
    *
@@ -2796,13 +2769,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
   public createManyLecturers(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers";
+    "/Disciplines/:id/lecturers";
     let _routeParams: any = {
       id: id
     };
@@ -2815,9 +2788,11 @@ export class ActivityApi extends BaseLoopBackApi {
   }
 
   /**
-   * Creates a new instance in duties of this model.
+   * Creates a new instance in qualification of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
    *
    * @param {object} data Request data.
    *
@@ -2829,15 +2804,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createManyDuties(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+  public createManyActiveSubjectsQualification(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/duties";
+    "/Disciplines/:id/activeSubjects/:nk/qualification";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -2848,9 +2824,11 @@ export class ActivityApi extends BaseLoopBackApi {
   }
 
   /**
-   * Creates a new instance in lectureStacks of this model.
+   * Creates a new instance in disciplines of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for activeSubjects.
    *
    * @param {object} data Request data.
    *
@@ -2862,15 +2840,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createManyLectureStacks(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+  public createManyActiveSubjectsDisciplines(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lectureStacks";
+    "/Disciplines/:id/activeSubjects/:nk/disciplines";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -2881,42 +2860,11 @@ export class ActivityApi extends BaseLoopBackApi {
   }
 
   /**
-   * Creates a new instance in research of this model.
+   * Creates a new instance in blocks of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
    *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object[]} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public createManyResearch(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
-    let _method: string = "POST";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/research";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Creates a new instance in commInstructions of this model.
-   *
-   * @param {any} id Activity id
+   * @param {any} nk Foreign key for activeSubjects.
    *
    * @param {object} data Request data.
    *
@@ -2928,48 +2876,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createManyCommInstructions(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+  public createManyActiveSubjectsBlocks(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/commInstructions";
+    "/Disciplines/:id/activeSubjects/:nk/blocks";
     let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Creates a new instance in publicServices of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object[]} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public createManyPublicServices(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
-    let _method: string = "POST";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/publicServices";
-    let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -2982,7 +2898,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in qualifications of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} data Request data.
    *
@@ -2994,15 +2912,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createManyLecturersQualifications(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+  public createManyLecturersQualifications(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/qualifications";
+    "/Disciplines/:id/lecturers/:nk/qualifications";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -3015,7 +2934,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in departments of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} data Request data.
    *
@@ -3027,15 +2948,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createManyLecturersDepartments(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+  public createManyLecturersDepartments(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/departments";
+    "/Disciplines/:id/lecturers/:nk/departments";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -3048,7 +2970,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in positions of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} data Request data.
    *
@@ -3060,15 +2984,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createManyLecturersPositions(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+  public createManyLecturersPositions(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/positions";
+    "/Disciplines/:id/lecturers/:nk/positions";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -3081,7 +3006,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in accessTokens of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} data Request data.
    *
@@ -3093,15 +3020,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createManyLecturersAccessTokens(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+  public createManyLecturersAccessTokens(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/accessTokens";
+    "/Disciplines/:id/lecturers/:nk/accessTokens";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -3114,7 +3042,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in roles of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} data Request data.
    *
@@ -3126,15 +3056,16 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createManyLecturersRoles(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+  public createManyLecturersRoles(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/roles";
+    "/Disciplines/:id/lecturers/:nk/roles";
     let _routeParams: any = {
-      id: id
+      id: id,
+      nk: nk
     };
     let _postBody: any = {
       data: data
@@ -3147,7 +3078,9 @@ export class ActivityApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in activities of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
+   *
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} data Request data.
    *
@@ -3159,48 +3092,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createManyLecturersActivities(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+  public createManyLecturersActivities(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lecturers/activities";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Creates a new instance in activity of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} nk Foreign key for lectureStacks.
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object[]} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public createManyLectureStacksActivity(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
-    let _method: string = "POST";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/lectureStacks/:nk/activity";
+    "/Disciplines/:id/lecturers/:nk/activities";
     let _routeParams: any = {
       id: id,
       nk: nk
@@ -3214,47 +3112,11 @@ export class ActivityApi extends BaseLoopBackApi {
   }
 
   /**
-   * Creates a new instance in activity of this model.
+   * Creates a new instance in disciplines of this model.
    *
-   * @param {any} id Activity id
+   * @param {any} id Discipline id
    *
-   * @param {any} nk Foreign key for research.
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object[]} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public createManyResearchActivity(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
-    let _method: string = "POST";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/research/:nk/activity";
-    let _routeParams: any = {
-      id: id,
-      nk: nk
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Creates a new instance in activity of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} nk Foreign key for commInstructions.
+   * @param {any} nk Foreign key for lecturers.
    *
    * @param {object} data Request data.
    *
@@ -3266,49 +3128,13 @@ export class ActivityApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
+   * This usually means the response is a `Discipline` object.)
    * </em>
    */
-  public createManyCommInstructionsActivity(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+  public createManyLecturersDisciplines(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/commInstructions/:nk/activity";
-    let _routeParams: any = {
-      id: id,
-      nk: nk
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
-    return result;
-  }
-
-  /**
-   * Creates a new instance in activity of this model.
-   *
-   * @param {any} id Activity id
-   *
-   * @param {any} nk Foreign key for publicServices.
-   *
-   * @param {object} data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns {object[]} An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `Activity` object.)
-   * </em>
-   */
-  public createManyPublicServicesActivity(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
-    let _method: string = "POST";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Activities/:id/publicServices/:nk/activity";
+    "/Disciplines/:id/lecturers/:nk/disciplines";
     let _routeParams: any = {
       id: id,
       nk: nk
@@ -3323,9 +3149,9 @@ export class ActivityApi extends BaseLoopBackApi {
 
   /**
    * The name of the model represented by this $resource,
-   * i.e. `Activity`.
+   * i.e. `Discipline`.
    */
   public getModelName() {
-    return "Activity";
+    return "Discipline";
   }
 }

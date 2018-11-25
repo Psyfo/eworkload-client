@@ -73,8 +73,8 @@ export class CommInstruction implements CommInstructionInterface {
           name: 'activity',
           type: 'Activity',
           model: 'Activity',
-          relationType: 'belongsTo',
-                  keyFrom: 'activityId',
+          relationType: 'hasOne',
+                  keyFrom: 'commInstructionId',
           keyTo: 'activityId'
         },
       }

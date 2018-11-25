@@ -21,6 +21,9 @@ import { CommInstruction } from '../../models/CommInstruction';
 import { PublicService } from '../../models/PublicService';
 import { Tariff } from '../../models/Tariff';
 import { ActiveSubjectBlock } from '../../models/ActiveSubjectBlock';
+import { Discipline } from '../../models/Discipline';
+import { LecturerDiscipline } from '../../models/LecturerDiscipline';
+import { Evidence } from '../../models/Evidence';
 
 export interface Models { [name: string]: any }
 
@@ -49,6 +52,9 @@ export class SDKModels {
     PublicService: PublicService,
     Tariff: Tariff,
     ActiveSubjectBlock: ActiveSubjectBlock,
+    Discipline: Discipline,
+    LecturerDiscipline: LecturerDiscipline,
+    Evidence: Evidence,
     
   };
 

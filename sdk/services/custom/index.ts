@@ -20,5 +20,8 @@ export * from './CommInstruction';
 export * from './PublicService';
 export * from './Tariff';
 export * from './ActiveSubjectBlock';
+export * from './Discipline';
+export * from './LecturerDiscipline';
+export * from './Evidence';
 export * from './SDKModels';
 export * from './logger.service';
