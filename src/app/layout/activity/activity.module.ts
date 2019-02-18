@@ -9,6 +9,8 @@ import { ActivityDetailComponent } from './activity-detail/activity-detail.compo
 import { ActivityAddComponent } from './activity-add/activity-add.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { DataTablesModule } from 'angular-datatables';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -17,7 +19,9 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
     PageHeaderModule,
     FormsModule,
     ReactiveFormsModule,
-    FlashMessagesModule
+    FlashMessagesModule,
+    DataTablesModule,
+    NgbModule.forRoot(),
   ],
   declarations: [ActivityComponent, ActivityListComponent, ActivityDetailComponent, ActivityAddComponent]
 })

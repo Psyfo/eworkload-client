@@ -1,25 +1,48 @@
+<div class="card">
+        <div class="card-header">
+            <h5>Activities</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
 
-<div class="panel panel-default">
-        <div class="panel-body">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="activityListDT" class="table table-hover table-active">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Duty
+                                </th>
+                                <th>
+                                    Estimated Hours
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="activities?.length != 0">
+                            <tr *ngFor="let activity of activities">
+                                <td>
+                                    {{ activity.dutyId }}
+                                </td>
+                                <td>
+                                    {{ activity.estimatedHours }}
+                                </td>
 
-           <table class="table table-hover table-active">
-               <thead>
-                   <tr>
-                       <th>Activity</th>
-                       <th>Type</th>
-                       <th>Estimated Hrs</th>
-                       <th>Actual Hrs</th>
-                       <th>Date Recorded</th>
-                       <th>Approval Status</th>
-                   </tr>
-               </thead>
-               <tbody>
-                   <tr>
-                       <td></td>
-                   </tr>
-               </tbody>
-           </table>
+                                <td>
+                                    <a [routerLink]="['view', activity.activityId]" routerLinkActive="router-link-active"  class="btn btn-primary">Edit</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
 
-           <a class="btn btn-primary" [routerLink]="['add']" routerLinkActive="router-link-active" >New Activity</a>
+                    <button class="btn btn-primary" (click)="onNewActivity()">New Activity</button>
+
+                </div>
+            </div>
         </div>
     </div>
+

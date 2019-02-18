@@ -42,7 +42,7 @@ import {
     UserApi,
     VenueApi
 } from '../../sdk/services';
-import { DataTableModule } from "angular-6-datatable";
+import { DataTablesModule } from 'angular-datatables';
 
 
 // AoT requires an exported function for factories
@@ -75,7 +75,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         }),
         AppRoutingModule,
         FlashMessagesModule.forRoot(),
-        DataTableModule
+        DataTablesModule.forRoot()
     ],
     declarations: [
         AppComponent,

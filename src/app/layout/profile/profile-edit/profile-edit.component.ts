@@ -1,180 +1,198 @@
-import { OnInit, Component, SimpleChanges } from '@angular/core';
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { routerTransition } from '../../../router.animations';
-import { first } from 'rxjs/operators';
-import { Lecturer, Department, Qualification, LecturerApi, DepartmentApi, QualificationApi, PositionApi, Position, LoopBackConfig } from '../../../../../sdk';
-import { environment } from '../../../../environments/environment';
+import { AlertService } from './../../../shared/services/alert.service';
+import { OnInit, Component, SimpleChanges } from "@angular/core";
+import {
+    FormGroup,
+    FormBuilder,
+    Validators,
+    FormControl
+} from "@angular/forms";
+import { Router } from "@angular/router";
+import { routerTransition } from "../../../router.animations";
+import { first } from "rxjs/operators";
+import {
+    Lecturer,
+    Department,
+    Qualification,
+    LecturerApi,
+    DepartmentApi,
+    QualificationApi,
+    PositionApi,
+    Position,
+    LoopBackConfig
+} from "../../../../../sdk";
+import { environment } from "../../../../environments/environment";
+import { Subject } from "rxjs";
 
 @Component({
-    selector: 'app-profile-edit',
-    templateUrl: './profile-edit.component.html',
-    styleUrls: ['./profile-edit.component.scss'],
-    animations: [routerTransition()]
+    selector: "app-profile-edit",
+    templateUrl: "./profile-edit.component.html",
+    styleUrls: ["./profile-edit.component.scss"]
 })
 export class ProfileEditComponent implements OnInit {
-    lecturer: Lecturer = new Lecturer();
+    // Properties
+    lecturer: Lecturer;
+    department: Department;
     departments: Department[];
+    qualification: Qualification;
     qualifications: Qualification[];
+    position: Position;
     positions: Position[];
-    selectedQualification: Qualification;
+    selectedQualification: Qualification = new Qualification();
     selectedDepartment: Department;
     selectedPositions: Position;
 
-
-    profileForm: FormGroup;
+    profileEditForm: FormGroup;
 
     constructor(
-        private flashMessagesService: FlashMessagesService,
+        private alertService: AlertService,
         private router: Router,
-        private formBuilder: FormBuilder,
+        private fb: FormBuilder,
         private lecturerApi: LecturerApi,
         private departmentApi: DepartmentApi,
         private qualificationApi: QualificationApi,
-        private positionApi: PositionApi,
+        private positionApi: PositionApi
     ) {
         LoopBackConfig.setBaseURL(environment.BASE_URL);
         LoopBackConfig.setApiVersion(environment.API_VERSION);
     }
 
+    ngOnChanges() {}
     ngOnInit() {
-
-        // Get qualifications
-        this.qualificationApi.find<Qualification>()
-            .subscribe(
-                (qualifications) => {
-                    this.qualifications = qualifications;
-                },
-                (error) => {
-                    console.log(error);
-                    this.flashMessagesService.show(error, { cssClass: 'alert-danger' });
-                }
-            );
-
-        // Get departments
-        this.departmentApi.find<Department>()
-            .subscribe(
-                (departments) => {
-                    this.departments = departments;
-                },
-                (error) => {
-                    console.log(error);
-                    this.flashMessagesService.show(error, { cssClass: 'alert-danger' });
-                }
-            );
-
-        // Get positions
-        this.positionApi.find<Position>()
-            .subscribe(
-                (positions) => {
-                    this.positions = positions;
-                },
-                (error) => {
-                    console.log(error);
-                    this.flashMessagesService.show(error, { cssClass: 'alert-danger' });
-                }
-            );
-
-        this.profileForm = new FormGroup({
-            'lecturerId': new FormControl(),
-            'firstName': new FormControl(),
-            'lastName': new FormControl(),
-            'email': new FormControl(null, [Validators.email]),
-            'photo': new FormControl(),
-            'departmentId': new FormControl('Select a department'),
-            'positionId': new FormControl('Select a position'),
-            'qualificationId': new FormControl('Select a qualificaton')
+        // Build form
+        this.profileEditForm = this.fb.group({
+            lecturerId: [{ value: "", disabled: true }, Validators.required],
+            name: this.fb.group({
+                firstName: ["", Validators.required],
+                lastName: ["", Validators.required]
+            }),
+            email: ["", Validators.required],
+            qualificationId: [""],
+            departmentId: [""],
+            positionId: [""]
         });
 
-        this.onSelectQualificationChanges();
-        this.onSelectDepartmentChanges();
-        this.onSelectPositionChanges();
-
-        // get active user
-        this.lecturerApi.getCurrent()
-            .subscribe(
-                (lecturer) => {
-                    this.lecturer = lecturer;
-                    this.profileForm.patchValue({
-                        lecturerId: lecturer.lecturerId,
-                        firstName: lecturer.name.firstName,
-                        lastName: lecturer.name.lastName,
-                        email: lecturer.email,
-                        photo: lecturer.photo
-                    });
-                },
-                (error) => {
-                    console.log(error);
-                }
-            );
-
+        this.initializeForm();
     }
 
-    onSelectQualificationChanges() {
-        this.profileForm.get('qualificationId').valueChanges
-            .subscribe(
-                (val) => {
-                    console.log(val);
-                    return val;
-                },
-                (error) => {
-                    console.log(error);
+    // Methods
 
-                }
-            );
+    public initializeForm(): any {
+        // Get current user and all their stats
+        this.lecturerApi.getCurrent().subscribe(
+            lecturerData => {
+                // Get relevant data
+                this.getQualifications();
+                this.getDepartments();
+                this.getPositions();
+                this.lecturer = lecturerData;
+                this.getCurrentQualification(this.lecturer.qualificationId);
+                this.getCurrentPosition(this.lecturer.positionId);
+                this.getCurrentDepartment(this.lecturer.departmentId);
+
+                this.profileEditForm.patchValue(this.lecturer);
+            },
+            error => {
+                console.log(error);
+                this.alertService.sendMessage(error.message, 'danger');
+            }
+        );
     }
 
-    onSelectDepartmentChanges() {
-        this.profileForm.get('departmentId').valueChanges
-            .subscribe(
-                (val) => {
-                    console.log(val);
-                    return val;
-                },
-                (error) => {
-                    console.log(error);
-
-                }
-            );
+    // Form controls property
+    public f() {
+        return this.profileEditForm.controls;
     }
 
-    onSelectPositionChanges() {
-        this.profileForm.get('positionId').valueChanges
-            .subscribe(
-                (val) => {
-                    console.log(val);
-                    return val;
-                },
-                (error) => {
-                    console.log(error);
-
-                }
-            );
+    public getCurrentQualification(qId: string) {
+        this.qualificationApi
+            .findById<Qualification>(qId)
+            .subscribe(qualificationData => {
+                this.qualification = qualificationData;
+            });
     }
 
-    onEdit() {
-        this.lecturer.name.firstName = this.profileForm.get('firstName').value;
-        this.lecturer.name.lastName = this.profileForm.get('lastName').value;
-        this.lecturer.name.email = this.profileForm.get('email').value;
-        this.lecturer.name.departmentId = this.profileForm.get('departmentId').value;
-        this.lecturer.name.positionId = this.profileForm.get('positionId').value;
-        this.lecturer.name.qualificationId = this.profileForm.get('qualificationId').value;
-
-        console.log(this.lecturer);
-        this.lecturerApi.patchAttributes(this.lecturer.lecturerId, this.lecturer)
-            .subscribe(
-                (res) => {
-                    console.log(res);
-                    alert('Edited Successfully!')
-                    this.router.navigate(['/profile']);
-                },
-                (error) => {
-                    console.log(error);
-                    this.flashMessagesService.show(error, { cssClass: 'alert-danger' });
-                }
-            );
-
-
+    public getCurrentDepartment(dId: string) {
+        this.departmentApi
+            .findById<Department>(dId)
+            .subscribe(departmentData => {
+                this.department = departmentData;
+            });
     }
+
+    public getCurrentPosition(pId: string) {
+        this.positionApi.findById<Position>(pId).subscribe(positionData => {
+            this.position = positionData;
+        });
+    }
+
+    public getQualifications(): void {
+        this.qualificationApi.find<Qualification>().subscribe(
+            qualifications => {
+                this.qualifications = qualifications;
+            },
+            error => {
+                console.log(error);
+                this.alertService.sendMessage(error.message, 'danger');
+            }
+        );
+    }
+
+    public getDepartments(): void {
+        this.departmentApi.find<Department>().subscribe(
+            departments => {
+                this.departments = departments;
+            },
+            error => {
+                console.log(error);
+                this.alertService.sendMessage(error.message, 'danger');
+            }
+        );
+    }
+
+    public getPositions(): void {
+        this.positionApi.find<Position>().subscribe(
+            positions => {
+                this.positions = positions;
+            },
+            error => {
+                console.log(error.message);
+                this.alertService.sendMessage(error.message, 'danger');
+            }
+        );
+    }
+
+    // Edit form
+    public onEdit(): void {
+        this.lecturerApi.getCurrent().subscribe(
+            (currentLecturer) => {
+                this.lecturer = currentLecturer;
+                const editedLecturer: Lecturer = this.profileEditForm.value;
+                console.log('Edited lecturer');
+                console.log(`${editedLecturer}`);
+
+                this.lecturerApi.patchAttributes(this.lecturer.lecturerId, editedLecturer).subscribe(
+                    (response) => {
+                        console.log(response);
+                        console.log('Profile updated!');
+                        this.alertService.sendMessage('Profile updated!', 'success');
+                        this.router.navigate(['../profile']);
+                    },
+                    (error) => {
+                        console.log(error);
+                        this.alertService.sendMessage(error.message, 'danger');
+                    }
+                );
+            },
+            (error) => {
+                console.log(error.message);
+                this.alertService.sendMessage(error.message, 'danger');
+            }
+        );
+    }
+
+    // Back button
+    public backToProfile(): void {
+        this.router.navigate(["../profile"]);
+    }
+
 }

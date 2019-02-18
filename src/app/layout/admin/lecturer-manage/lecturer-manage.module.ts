@@ -11,6 +11,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { LecturerManageListComponent } from './lecturer-manage-list/lecturer-manage-list.component';
 import { LecturerManageViewComponent } from './lecturer-manage-view/lecturer-manage-view.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PageHeaderModule } from '../../../shared';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     LecturerManageRoutingModule,
     FlashMessagesModule,
     DataTablesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PageHeaderModule
   ],
   declarations: [LecturerManageAddComponent, LecturerManageEditComponent, LecturerManageDeleteComponent, LecturerManageComponent, LecturerManageListComponent, LecturerManageViewComponent]
 })

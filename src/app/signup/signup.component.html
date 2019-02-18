@@ -4,8 +4,8 @@
         <div class="col-md-4">
             <img class="user-avatar" src="assets/images/logo.png" width="150px" />
             <h1>E-Workload Balance System</h1>
-            <form [formGroup]="signupForm">
-                <div class="form-content">
+            <form [formGroup]="">
+                <!-- <div class="form-content">
                     <div class="form-group">
                         <input type="text" class="form-control input-underline input-lg" formControlName="userId" id="userId" placeholder="User/Staff ID">
                         <span *ngIf="!signupForm.get('userId').valid && signupForm.get('userId').touched" class="help-block">
@@ -35,7 +35,7 @@
                 </div>
                 <!-- <a class="btn rounded-btn" [routerLink]="['/dashboard']"> Register </a>&nbsp; -->
                 <button type="click" class="btn rounded-btn" (click)="onSignup()">Register</button>
-                <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a>
+                <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a> -->
             </form>
         </div>
     </div>

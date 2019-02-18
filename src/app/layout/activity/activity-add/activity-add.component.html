@@ -1,7 +1,109 @@
 <div @routerTransition>
     <form class="form">
         <div class="card">
+            <div class="card-header">
+                New Activity
+            </div>
+            <div class="card-body">
+                <form [formGroup]="activityForm" class="form">
 
+                    <div class="form-row w-50">
+                        <div class="form-group col">
+                            <label for="dutyId" class="col-form-label">Selecty a Duty</label>
+                            <select formControlName="dutyId" id="dutyId" class="form-control">
+                                <option *ngFor="let duty of duties; let i=index;" [value]="duty.dutyId">{{ duty.description }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div [ngbCollapse]="formalInstructionCollapsed" formGroupName="formalInstruction">
+                        <div class="card">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Formal Instruction</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Title</h5>
+                                    <p class="card-text">Content</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div [ngbCollapse]="communityInstructionCollapsed" formGroupName="communityInstruction">
+                        <div class="card">
+                            <div class="card-body">
+                                Community Instruction
+                            </div>
+                        </div>
+                    </div>
+
+                    <div [ngbCollapse]="researchCollapsed" formGroupName="research">
+                        <div class="card">
+                            <div class="card-header">
+                                Research
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Research Details</h5>
+                                <div class="form-group">
+                                    <div class="form-row w-50">
+                                        <div class="form-group col">
+                                            <label for="tariffId" class="col-form-label">Selecty a Tariff</label>
+                                            <select formControlName="tariffId" class="form-control">
+                                                <option *ngFor="let researchTariff of researchTariffs; let i=index;" [value]="researchTariff.id">{{ researchTariff.description }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <h5 class="card-title">Evidence</h5>
+                                    <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput class="form-control-file">
+                                    <div class="form-row">
+                                        <button class="btn btn-outline-primary mr-2" (click)="fileInput.click()">Select File</button>
+                                        <span class="text-muted">{{ this.fileName || 'No file selected' }}</span>
+                                    </div>
+                                    Progress:
+                                    <p>
+                                        <ngb-progressbar type="success" [value]="progress"></ngb-progressbar>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-outline-success" (click)="onUpload()">Upload</button>
+
+                        </div>
+                    </div>
+
+                    <div [ngbCollapse]="publicServiceCollapsed" formGroupName="publicService">
+                        <div class="card">
+                            <div class="card-body">
+                                Public service details
+                            </div>
+                        </div>
+                    </div>
+                    <div [ngbCollapse]="academicAdministrationCollapsed" formGroupName="academicAdministration">
+                        <div class="card">
+                            <div class="card-body">
+                                Academic admin details
+                            </div>
+                        </div>
+                    </div>
+                    <div [ngbCollapse]="personnelDevelopmentCollapsed" formGroupName="personnelDevelopment">
+                        <div class="card">
+                            <div class="card-body">
+                                Professional development details
+                            </div>
+                        </div>
+                    </div>
+                    <div [ngbCollapse]="executiveManagementCollapsed" formGroupName="executiveManagement">
+                        <div class="card">
+                            <div class="card-body">
+                                Executive management details
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </form>
 </div>

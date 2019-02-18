@@ -1,3 +1,4 @@
+import { AlertService } from './../../../../shared/services/alert.service';
 import { Component, OnInit, Renderer } from '@angular/core';
 import { Lecturer, LecturerApi, PositionApi, LoggerService, LoopBackConfig, Position } from '../../../../../../sdk';
 import { Subject } from 'rxjs';
@@ -10,8 +11,7 @@ import { DataTableDirective } from 'angular-datatables';
 @Component({
     selector: 'app-lecturer-manage-list',
     templateUrl: './lecturer-manage-list.component.html',
-    styleUrls: ['./lecturer-manage-list.component.scss'],
-
+    styleUrls: ['./lecturer-manage-list.component.scss']
 })
 export class LecturerManageListComponent implements OnInit {
     // Properties
@@ -30,7 +30,7 @@ export class LecturerManageListComponent implements OnInit {
     constructor(
         private router: Router,
         private lecturerApi: LecturerApi,
-        private flashMessagesService: FlashMessagesService,
+        private alertService: AlertService,
         private loggerService: LoggerService,
         private renderer: Renderer
     ) {
@@ -62,10 +62,10 @@ export class LecturerManageListComponent implements OnInit {
 
     ngAfterViewInit(): void {
         this.renderer.listenGlobal('document', 'click', (event) => {
-            console.log(event.target);
+            // console.log(event.target);
 
             if (event.target.hasAttribute("lecturerId")) {
-                this.router.navigate(["lecturer-manage/edit/:lecturerId" + event.target.getAttribute("lecturerId")]);
+                //this.router.navigate(["edit/:" + event.target.getAttribute("lecturerId")]);
                 // this.router.navigate(['lecturer-manage/edit'], { queryParams: { lecturerId: this.dtRouteParam } });
             }
         });
@@ -84,13 +84,13 @@ export class LecturerManageListComponent implements OnInit {
                     this.dtTrigger.next();
                 },
                 (error) => {
-                    console.log(error);
-                    this.flashMessagesService.show(error, { cssClass: 'alert-danger' });
+                    console.log(`Status: ${error.status} \n Message: ${error.message}`);
+                    this.alertService.sendMessage(error.message, 'danger');
                 }
             );
     }
 
-    onNewLecturer() {
+    onAdd() {
         this.router.navigate(['lecturer-manage/add']);
     }
 
@@ -98,6 +98,6 @@ export class LecturerManageListComponent implements OnInit {
         // get all column values as array
         this.dtRouteParam = info[0];
 
-        // this.router.navigate(['lecturer-manage/edit'], { queryParams: { lecturerId: info[0] } });
+        this.router.navigate(['lecturer-manage/view', this.dtRouteParam], { queryParams: { lecturerId: info[0] } });
     }
 }

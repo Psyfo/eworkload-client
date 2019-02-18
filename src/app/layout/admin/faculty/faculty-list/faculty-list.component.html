@@ -1,0 +1,49 @@
+<div class="card">
+    <div class="card-header">
+        <h5>Faculties</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="facultyListDT" class="table table-hover table-active">
+                    <thead>
+                        <tr>
+                            <th>
+                                Faculty Code
+                            </th>
+                            <th>
+                                Faculty
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="faculties?.length != 0">
+                        <tr *ngFor="let faculty of faculties">
+                            <td>
+                                {{ faculty.facultyId }}
+                            </td>
+                            <td>
+                                {{ faculty.name }}
+                            </td>
+
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2">
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-outline-primary" (click)="onAddFaculty()">Add Faculty</button>
+            </div>
+        </div>
+    </div>
+</div>

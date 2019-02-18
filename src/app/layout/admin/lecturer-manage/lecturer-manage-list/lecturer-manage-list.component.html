@@ -21,9 +21,6 @@
                                 <th>
                                     Email
                                 </th>
-                                <th>
-                                    Position
-                                </th>
                             </tr>
                         </thead>
                         <tbody *ngIf="lecturers?.length != 0">
@@ -41,21 +38,24 @@
                                     {{ lecturer.email }}
                                 </td>
 
-                                <td>
-                                    <a [routerLink]="['edit', lecturer.lecturerId]" routerLinkActive="router-link-active"  class="btn btn-primary">Edit</a>
-                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="5">
+                                <td colspan="4">
                                 </td>
                             </tr>
                         </tfoot>
                     </table>
 
-                    <button class="btn btn-primary" (click)="onNewLecturer()">New Lecturer</button>
 
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-outline-primary" (click)="onAdd()">New Lecturer</button>
                 </div>
             </div>
         </div>

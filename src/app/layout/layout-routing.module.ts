@@ -23,7 +23,12 @@ const routes: Routes = [
             { path: 'block', loadChildren: './block/block.module#BlockModule' },
             { path: 'lecturer', loadChildren: './lecturer/lecturer.module#LecturerModule' },
             { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
-            { path: 'lecturer-manage', loadChildren: './admin/lecturer-manage/lecturer-manage.module#LecturerManageModule' }
+            { path: 'lecturer-manage', loadChildren: './admin/lecturer-manage/lecturer-manage.module#LecturerManageModule' },
+            { path: 'role', loadChildren: './admin/role/role.module#RoleModule' },
+            { path: 'venue', loadChildren: './admin/venue/venue.module#VenueModule' },
+            { path: 'faculty', loadChildren: './admin/faculty/faculty.module#FacultyModule' }
+
+
         ]
     }
 ];

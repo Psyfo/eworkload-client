@@ -10,8 +10,8 @@ export interface TariffInterface {
   "eventId": string;
   "description": string;
   "appliedTarrif": string;
-  "minHours"?: string;
-  "maxHours"?: string;
+  "minHours"?: number;
+  "maxHours"?: number;
   "explanation"?: string;
   "TRS": string;
   "evidenceRequired": boolean;
@@ -25,8 +25,8 @@ export class Tariff implements TariffInterface {
   "eventId": string;
   "description": string;
   "appliedTarrif": string;
-  "minHours": string;
-  "maxHours": string;
+  "minHours": number;
+  "maxHours": number;
   "explanation": string;
   "TRS": string;
   "evidenceRequired": boolean;
@@ -84,11 +84,11 @@ export class Tariff implements TariffInterface {
         },
         "minHours": {
           name: 'minHours',
-          type: 'string'
+          type: 'number'
         },
         "maxHours": {
           name: 'maxHours',
-          type: 'string'
+          type: 'number'
         },
         "explanation": {
           name: 'explanation',

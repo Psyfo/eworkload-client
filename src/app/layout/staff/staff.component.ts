@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-import { Staff } from '../../shared/models/staff.model';
 
 @Component({
     selector: 'app-staff',
@@ -9,7 +8,6 @@ import { Staff } from '../../shared/models/staff.model';
     animations: [routerTransition()]
 })
 export class StaffComponent implements OnInit {
-    staff: Staff[];
 
     constructor() { }
 

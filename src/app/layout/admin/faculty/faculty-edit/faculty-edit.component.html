@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-6">
+        <form [formGroup]="facultyEditForm" novalidate (ngSubmit)="onEdit()" class="form">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Edit Faculty</h5>
+                </div>
+                <div class="card-body">
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="facultyId">Faculty ID:</label>
+                            <input *ngIf="faculty" type="text" formControlName="facultyId" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="lecturerId">Faculty Name</label>
+                            <input *ngIf="faculty" type="text" formControlName="name" class="form-control">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-outline-success">Update</button>
+                            <button type="button" (click)="onBack()" class="ml-3 btn btn-outline-primary">Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

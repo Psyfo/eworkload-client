@@ -45,39 +45,44 @@ export class LecturerManageAddComponent implements OnInit {
         this.lecturer.password = 'Password01';
 
         this.lecturerApi.create(this.lecturer)
-        .subscribe(
-            (response) => {
-                console.log(response);
-            },
-            (error) => {
-                console.log(error);
-                this.flashMessages.show(error.status, {cssClass: 'alert-danger'});
-                this.flashMessages.show(error.message, {cssClass: 'alert-danger'});
-            }
-        );
+            .subscribe(
+                (response) => {
+                    console.log(response);
+                },
+                (error) => {
+                    console.log(error);
+                    this.flashMessages.show(error.status, { cssClass: 'alert-danger' });
+                    this.flashMessages.show(error.message, { cssClass: 'alert-danger' });
+                }
+            );
     }
 
     onCancel() {
         this.router.navigate(['../lecturer-manage']);
     }
-
+    
+    onReset() {
+        this.lecturerAddForm.reset();
+    }
 
     accountExists(control: FormControl) {
         return this.lecturerApi.exists(control.value)
-        .subscribe(
-            (response) => {
-                if(response === true){
-                    console.log('Response is: ' + response);
+            .subscribe(
+                (response) => {
+                    if (response === true) {
+                        console.log('Response is: ' + response);
 
-                    return {'lecturerExists': true};
+                        return { 'lecturerExists': true };
+                    }
+                },
+                (error) => {
+                    console.log(error);
+                    this.flashMessages.show(error.status, { cssClass: 'alert-danger' });
+                    this.flashMessages.show(error.message, { cssClass: 'alert-danger' });
                 }
-            },
-            (error) => {
-                console.log(error);
-                this.flashMessages.show(error.status, {cssClass: 'alert-danger'});
-                this.flashMessages.show(error.message, {cssClass: 'alert-danger'});
-            }
-        );
+            );
     }
+
+
 
 }

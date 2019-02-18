@@ -1,49 +1,79 @@
-<div class="col col-lg-6 col-md-6 col-sm-12">
-    <div class="card">
-        <div class="card-header">
-            <h5>Edit Lecturer</h5>
-        </div>
-        <div class="card-body">
-            <div class="">
-                <form [formGroup]="lecturerEditForm" class="form">
+<div class="row">
+    <div class="col-md-6">
+        <form [formGroup]="lecturerEditForm" novalidate (ngSubmit)="onEdit()" class="form">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Edit Profile</h5>
+                </div>
+                <div class="card-body">
 
-                    <div class="form-group">
-                        <label for="lecturerId" class="col-form-label">Lecturer ID</label>
-                        <input type="text" class="form-control" formControlName="lecturerId" disabled>
-                    </div>
-
-                    <div class="row" formGroupName="name">
+                    <div class="form-row">
                         <div class="form-group col">
-                            <label for="firstName" class="col-form-label">First Name</label>
-                            <input type="text" class="form-control" formControlName="firstName" placeholder="First Name">
-                            <span class="alert-danger" *ngIf="!lecturerEditForm.get('name.firstName').valid && lecturerEditForm.get('name.firstName').touched">
-                                <span *ngIf="lecturerEditForm.get('name.firstName').errors['required']">First Name field is required</span>
-                            </span>
-                        </div>
-
-                        <div class="form-group col">
-                            <label for="lastName" class="col-form-label">Last Name</label>
-                            <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name">
-                            <span class="alert-danger" *ngIf="!lecturerEditForm.get('name.lastName').valid && lecturerEditForm.get('name.lastName').touched" >
-                                <span *ngIf="lecturerEditForm.get('name.lastName').errors['required']">Last Name field is required</span>
-                            </span>
+                            <label for="lecturerId">User ID:</label>
+                            <input *ngIf="lecturer" type="text" formControlName="lecturerId" class="form-control">
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="email" class="col-form-label">Email</label>
-                        <input type="email" class="form-control" formControlName="email" placeholder="Email">
-                        <span class="alert-danger" *ngIf="!lecturerEditForm.get('email').valid && lecturerEditForm.get('email').touched">
-                            <span *ngIf="lecturerEditForm.get('email').errors['required']">Email field is required</span>
-                            <span *ngIf="lecturerEditForm.get('email').errors['email']">Please enter a valid email</span>
-                        </span>
+                    <div formGroupName="name">
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label for="firstName">First Name</label>
+                                <input type="text" formControlName="firstName" class="form-control col">
+                            </div>
+                            <div class="form-group col">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" formControlName="lastName" class="form-control">
+                            </div>
+                        </div>
                     </div>
 
-                    <button class="btn btn-outline-success mr-1" (click)="onEdit()">Edit Lecturer</button>
-                    <button class="btn btn-outline-danger" (click)="onCancel()">Cancel</button>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="email">Email</label>
+                            <input type="email" formControlName="email" class="form-control">
+                        </div>
+                    </div>
 
-                </form>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="qualificationId" class="col-form-label">Qualification</label>
+                            <select formControlName="qualificationId" class="form-control">
+                                <option *ngFor="let qualification of qualifications; let i=index;" [value]="qualification.qualificationId">
+                                    {{ qualification.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="departmentId" class="col-form-label">Department</label>
+                            <select formControlName="departmentId" class="form-control">
+                                <option *ngFor="let department of departments; let i=index;" [value]="department.departmentId">{{ department.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="positionId" class="col-form-label">Position</label>
+                            <select formControlName="positionId" class="form-control">
+                                <option *ngFor="let position of positions; let i=index;" [value]="position.positionId">{{ position.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-outline-success">Update</button>
+                            <button type="button" (click)="onBack()" class="ml-3 btn btn-outline-primary">Back</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
+        </form>
     </div>
 </div>

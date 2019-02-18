@@ -1,7 +1,12 @@
-.img-fluid {
-    width: 10rem;
-    height: auto;
+.img__profile {
     margin: 0 2rem;
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.img-fluid {
+    min-height: 100%;
 }
 
 .btn {

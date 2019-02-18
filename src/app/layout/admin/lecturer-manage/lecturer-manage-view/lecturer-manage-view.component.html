@@ -1,3 +1,38 @@
-<p>
-  lecturer-manage-view works!
-</p>
+<div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Details</h4>
+                </div>
+                <div class="card-body" *ngIf="lecturer"  >
+                    <div class="row">
+                        <div class="col">
+                            <dl class="row">
+                                <dt class="col-4">Lecturer ID</dt>
+                                <dd class="col-8">{{ lecturer.lecturerId }}</dd>
+                                <dt class="col-4">First Name</dt>
+                                <dd class="col-8">{{ lecturer.name.firstName}}</dd>
+                                <dt class="col-4">Last Name</dt>
+                                <dd class="col-8">{{ lecturer.name.lastName }}</dd>
+                                <dt class="col-4">Qualification</dt>
+                                <dd class="col-8">{{ qualification?.name }}</dd>
+                                <dt class="col-4">Department</dt>
+                                <dd class="col-8">{{ department?.name }}</dd>
+                                <dt class="col-4">Position</dt>
+                                <dd class="col-8">{{ position?.name }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-outline-warning mr-3" (click)="onEdit()">Edit</button>
+                            <button class="btn btn-outline-primary" (click)="onBack()">Back</button>
+                            <button class="btn btn-outline-danger pull-right" (click)="onDelete()">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

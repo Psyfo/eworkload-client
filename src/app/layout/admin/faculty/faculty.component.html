@@ -1,3 +1,11 @@
-<p>
-  faculty works!
-</p>
+<div class="faculty-manage" [@routerTransition]>
+    <app-page-header [heading]="'Faculty Management'" [icon]="'fa-building'"></app-page-header>
+
+    <div class="card">
+        <div class="card-body">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+
+</div>
+

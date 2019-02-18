@@ -11,31 +11,37 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="media">
-                                        <img class="mr-3 image-fluid rounded-circle" src={{lecturer?.photo}} alt="Profile picture" class="img-fluid rounded-circle">
+                                        <div class="img__profile mr-3">
+                                            <img src={{lecturer?.photo}} alt="Profile picture" class="img-fluid">
+                                        </div>
                                         <div class="media-body">
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="row">
                                                         <div class="col font-weight-bold d-flex justify-content-end">Position:</div>
-                                                        <div class="col text-muted d-flex justify-content-start">{{ lecturer.positionId || 'Not yet added' }}</div>
+                                                        <div class="col text-muted d-flex justify-content-start">{{ position.name || 'Not yet added' }}</div>
                                                         <div class="w-100"></div>
                                                         <div class="col font-weight-bold d-flex justify-content-end">Qualification:</div>
-                                                        <div class="col text-muted d-flex justify-content-start">Not yet added</div>
+                                                        <div class="col text-muted d-flex justify-content-start">{{ qualification.name || 'Not yet added' }}</div>
                                                         <div class="w-100"></div>
                                                         <div class="col font-weight-bold d-flex justify-content-end">Department:</div>
-                                                        <div class="col text-muted d-flex justify-content-start">Not yet added</div>
+                                                        <div class="col text-muted d-flex justify-content-start">{{ department.name || 'Not yet added' }}</div>
                                                         <div class="w-100"></div>
-                                                        <div class="col font-weight-bold d-flex justify-content-end">Faculty:</div>
+                                                        <!-- <div class="col font-weight-bold d-flex justify-content-end">Faculty:</div>
                                                         <div class="col text-muted d-flex justify-content-start">Not yet added</div>
-                                                        <div class="w-100"></div>
-                                                        <div class="col d-flex justify-content-end mt-2">
-                                                            <Button class="btn btn-sm btn-outline-primary" (click)="onEdit()">Edit Profile</Button>
-                                                        </div>
-                                                        <div class="col"></div>
+                                                        <div class="w-100"></div> -->
+
                                                     </div>
                                                 </div>
 
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col">
+                                            <Button class="btn btn-outline-warning" (click)="onEdit()">Edit Profile</Button>
                                         </div>
                                     </div>
                                 </div>
