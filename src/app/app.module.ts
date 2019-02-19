@@ -12,7 +12,7 @@ import { AuthGuard } from './shared';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import {
-    AlertService
+    AlertService, BufferService
 } from './shared/services';
 import { AlertComponent } from './shared/directives';
 
@@ -84,6 +84,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     providers: [
         AlertService,
         AuthGuard,
+        BufferService,
 
         ActiveSubjectApi,
         ActivityApi,

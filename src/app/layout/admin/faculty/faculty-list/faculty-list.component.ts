@@ -74,7 +74,12 @@ export class FacultyListComponent implements OnInit {
                 this.dtTrigger.next();
             },
             error => {
-                console.log(error.message);
+                console.log(`Status Code ${error.status}`);
+                console.log(`Message: ${error.message}`);
+                this.alertService.sendMessage(
+                    `Status: ${error.status}`,
+                    "danger"
+                );
                 this.alertService.sendMessage(error.message, "danger");
             }
         );

@@ -1,3 +1,47 @@
-<p>
-  department-add works!
-</p>
+<div class="row">
+    <div class="col-6">
+        <form [formGroup]="departmentAddForm" (ngSubmit)="onAdd()" novalidate class="form">
+
+            <div class="card">
+                <div class="card-header">
+                    <h5>Add Faculty</h5>
+                </div>
+                <div class="card-body">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="facultyId">Department Code</label>
+                            <input formControlName="departmentId" type="text" class="form-control" placeholder="Department Code">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Department Name</label>
+                            <input formControlName="name" type="text" class="form-control" placeholder="Department Name">
+                        </div>
+                    </div>
+
+                    <div class="form-row" *ngIf="faculties" >
+                        <div class="form-group col">
+                            <label for="facultyId" class="col-form-label">Faculties</label>
+                            <select formControlName="facultyId" class="form-control">
+                                <option [value]="'default'">Select Faculty</option>
+                                <option *ngFor="let faculty of faculties; let i=index;" [value]="faculty.facultyId">{{ faculty.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-outline-success">Add</button>
+                            <button type="button" class="btn btn-outline-primary ml-3" (click)="onBack()" >Back</button>
+                            <button type="button" class="btn btn-outline-dark pull-right" (click)="onReset()">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

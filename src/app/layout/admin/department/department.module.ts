@@ -1,3 +1,6 @@
+import { DataTablesModule } from 'angular-datatables';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PageHeaderModule } from './../../../shared/modules/page-header/page-header.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -12,7 +15,10 @@ import { DepartmentDeleteComponent } from './department-delete/department-delete
 @NgModule({
   imports: [
     CommonModule,
-    DepartmentRoutingModule
+    DepartmentRoutingModule,
+    PageHeaderModule,
+    ReactiveFormsModule,
+    DataTablesModule
   ],
   declarations: [DepartmentComponent, DepartmentAddComponent, DepartmentEditComponent, DepartmentViewComponent, DepartmentListComponent, DepartmentDeleteComponent]
 })

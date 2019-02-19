@@ -16,7 +16,6 @@ const routes: Routes = [
             { path: 'grid', loadChildren: './grid/grid.module#GridModule' },
             { path: 'components', loadChildren: './bs-component/bs-component.module#BsComponentModule' },
             { path: 'blank-page', loadChildren: './blank-page/blank-page.module#BlankPageModule' },
-            { path: 'department', loadChildren: './department/department.module#DepartmentModule' },
             { path: 'staff', loadChildren: './staff/staff.module#StaffModule' },
             { path: 'profile', loadChildren: './profile/profile.module#ProfileModule' },
             { path: 'activity', loadChildren: './activity/activity.module#ActivityModule' },
@@ -26,7 +25,9 @@ const routes: Routes = [
             { path: 'lecturer-manage', loadChildren: './admin/lecturer-manage/lecturer-manage.module#LecturerManageModule' },
             { path: 'role', loadChildren: './admin/role/role.module#RoleModule' },
             { path: 'venue', loadChildren: './admin/venue/venue.module#VenueModule' },
-            { path: 'faculty', loadChildren: './admin/faculty/faculty.module#FacultyModule' }
+            { path: 'faculty', loadChildren: './admin/faculty/faculty.module#FacultyModule' },
+            { path: 'department', loadChildren: './admin/department/department.module#DepartmentModule' },
+
 
 
         ]

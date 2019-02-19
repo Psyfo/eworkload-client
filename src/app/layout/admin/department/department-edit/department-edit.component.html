@@ -1,3 +1,45 @@
-<p>
-  department-edit works!
-</p>
+<div class="row">
+    <div class="col-6">
+        <form [formGroup]="departmentEditForm" novalidate (ngSubmit)="onEdit()" class="form">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Edit department</h5>
+                </div>
+                <div class="card-body">
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="departmentId">Department ID:</label>
+                            <input *ngIf="department" type="text" formControlName="departmentId" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="name">Department Name</label>
+                            <input *ngIf="department" type="text" formControlName="name" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="positionId" class="col-form-label">Faculty</label>
+                            <select formControlName="facultyId" class="form-control">
+                                <option *ngFor="let faculty of faculties; let i=index;" [value]="faculty.facultyId">{{ faculty.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-outline-success">Update</button>
+                            <button type="button" (click)="onBack()" class="ml-3 btn btn-outline-primary">Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
