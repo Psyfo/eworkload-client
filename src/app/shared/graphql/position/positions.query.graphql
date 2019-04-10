@@ -1,0 +1,7 @@
+query positions {
+    positions {
+        positionId
+        name
+        description
+    }
+}

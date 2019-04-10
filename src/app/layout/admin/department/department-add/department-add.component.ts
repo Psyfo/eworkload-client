@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { AlertService } from "../../../../shared/services";
-import { Router } from "@angular/router";
-import { DepartmentApi, FacultyApi, Department, Faculty } from "../../../../../../sdk";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { AlertService } from '../../../../shared/services';
 
 @Component({
     selector: "app-department-add",
@@ -10,9 +10,6 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
     styleUrls: ["./department-add.component.scss"]
 })
 export class DepartmentAddComponent implements OnInit {
-    // Properties
-    departments: Department;
-    faculties: Faculty[];
 
     departmentAddForm: FormGroup;
 
@@ -22,8 +19,6 @@ export class DepartmentAddComponent implements OnInit {
     constructor(
         private alertService: AlertService,
         private router: Router,
-        private departmentApi: DepartmentApi,
-        private facultyApi: FacultyApi,
         private fb: FormBuilder
     ) {}
 
@@ -41,43 +36,13 @@ export class DepartmentAddComponent implements OnInit {
 
     }
 
-    formData(): any {
-        return this.departmentAddForm.value as Department;
-    }
+
 
     onAdd() {
         if(!this.departmentAddForm.valid) {
-            this.alertService.sendMessage('Form no valid', 'success');
+            this.alertService.sendMessage('Form not valid', 'danger');
             return;
         }
-
-        this.departmentApi.exists(this.formData()).subscribe(
-            data => {
-                console.log(data);
-
-                const result: any = data;
-                if(result == true) {
-                    this.alertService.sendMessage('The department code already exists', 'warning');
-                } else {
-                    this.departmentApi.patchOrCreate(this.formData()).subscribe(
-                        response => {
-                            console.log(response);
-                            this.alertService.sendMessage('Department added!', 'success');
-                            this.router.navigate(['../department']);
-                        },
-                        error => {
-                            console.log(`Status Code ${error.status}`);
-                            console.log(`Message: ${error.message}`);
-                            this.alertService.sendMessage(
-                                `Status: ${error.status}`,
-                                "danger"
-                            );
-                            this.alertService.sendMessage(error.message, "danger");
-                        }
-                    );
-                }
-            }
-        );
 
     }
 
@@ -90,19 +55,6 @@ export class DepartmentAddComponent implements OnInit {
     }
 
     public getFaculties() {
-        this.facultyApi.find().subscribe(
-            facultyData => {
-                this.faculties = facultyData as Faculty[];
-            },
-            error => {
-                console.log(`Status Code ${error.status}`);
-                console.log(`Message: ${error.message}`);
-                this.alertService.sendMessage(
-                    `Status: ${error.status}`,
-                    "danger"
-                );
-                this.alertService.sendMessage(error.message, "danger");
-            }
-        );
+        
     }
 }

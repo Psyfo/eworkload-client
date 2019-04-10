@@ -1,0 +1,24 @@
+query users {
+    users {
+        userId
+        password
+        email
+        firstName
+        lastName
+        photoUrl
+        disciplineId
+        discipline {
+            disciplineId
+            name
+            description
+        }
+        positionId
+        position {
+            positionId
+            name
+            description
+        }
+        gender
+        nationality
+    }
+}

@@ -7,33 +7,67 @@
                         <div class="col">
                             <div class="card h-100 mb-3">
                                 <div class="card-header">
-                                    <h5 class="mt-0"> <span>{{ lecturer?.name?.firstName }} {{ lecturer?.name?.lastName }}</span> </h5>
+                                    <h5 class="mt-0">
+                                        <span>{{ user?.firstName }}
+                                            {{ user?.lastName }}</span>
+                                    </h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="media">
                                         <div class="img__profile mr-3">
-                                            <img src={{lecturer?.photo}} alt="Profile picture" class="img-fluid">
+                                            <img src="https://www.freepik.com/free-vector/business-team-outlines-pack_831669.html"
+                                                alt="Profile picture" class="img-fluid" />
                                         </div>
                                         <div class="media-body">
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="row">
-                                                        <div class="col font-weight-bold d-flex justify-content-end">Position:</div>
-                                                        <div class="col text-muted d-flex justify-content-start">{{ position.name || 'Not yet added' }}</div>
+                                                        <div class="col font-weight-bold d-flex justify-content-end">
+                                                            Position:
+                                                        </div>
+                                                        <div class="col text-muted d-flex justify-content-start">
+                                                            {{
+                                                                user?.position
+                                                                    ?.name ||
+                                                                    'Not yet added'
+                                                            }}
+                                                        </div>
                                                         <div class="w-100"></div>
-                                                        <div class="col font-weight-bold d-flex justify-content-end">Qualification:</div>
-                                                        <div class="col text-muted d-flex justify-content-start">{{ qualification.name || 'Not yet added' }}</div>
+                                                        <div class="col font-weight-bold d-flex justify-content-end">
+                                                            Discipline:
+                                                        </div>
+                                                        <div class="col text-muted d-flex justify-content-start">
+                                                            {{
+                                                                user?.discipline
+                                                                    ?.name ||
+                                                                    'Not yet added'
+                                                            }}
+                                                        </div>
                                                         <div class="w-100"></div>
-                                                        <div class="col font-weight-bold d-flex justify-content-end">Department:</div>
-                                                        <div class="col text-muted d-flex justify-content-start">{{ department.name || 'Not yet added' }}</div>
+                                                        <div class="col font-weight-bold d-flex justify-content-end">
+                                                            Gender:
+                                                        </div>
+                                                        <div class="col text-muted d-flex justify-content-start">
+                                                            {{
+                                                                user?.gender ||
+                                                                    'Not yet added'
+                                                                    | titlecase
+                                                            }}
+                                                        </div>
                                                         <div class="w-100"></div>
-                                                        <!-- <div class="col font-weight-bold d-flex justify-content-end">Faculty:</div>
-                                                        <div class="col text-muted d-flex justify-content-start">Not yet added</div>
-                                                        <div class="w-100"></div> -->
-
+                                                        <div class="col font-weight-bold d-flex justify-content-end">
+                                                            Nationality:
+                                                        </div>
+                                                        <div class="col text-muted d-flex justify-content-start">
+                                                            {{
+                                                                user?.nationality ||
+                                                                    'Not yet added'
+                                                                    | titlecase
+                                                            }}
+                                                        </div>
+                                                        <div class="w-100"></div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -41,7 +75,8 @@
                                 <div class="card-footer">
                                     <div class="row">
                                         <div class="col">
-                                            <Button class="btn btn-outline-warning" (click)="onEdit()">Edit Profile</Button>
+                                            <Button class="btn btn-outline-warning" (click)="onEdit()">Edit
+                                                Profile</Button>
                                         </div>
                                     </div>
                                 </div>
@@ -53,7 +88,9 @@
                                     <h5 class="mt-0">Activity Summary</h5>
                                 </div>
                                 <div class="card-body">
-                                    <canvas baseChart height="150px" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                                    <canvas baseChart height="150px" [data]="pieChartData" [labels]="pieChartLabels"
+                                        [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+                                        (chartClick)="chartClicked($event)">
                                     </canvas>
                                 </div>
                             </div>

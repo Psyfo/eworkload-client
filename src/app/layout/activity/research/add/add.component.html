@@ -1,0 +1,90 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class="col-6">
+            <form [formGroup]="researchActivityForm" class="form">
+                <div class="card">
+                    <div class="card-header">
+                        New Research Activity
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <dl>
+                                <dt>
+                                    Name and Surname:
+                                </dt>
+                                <dd>
+                                    {{ staff?.firstName }} {{ staff?.lastName }}
+                                </dd>
+                                <dt>
+                                    Staff Number:
+                                </dt>
+                                <dd>
+                                    {{ staff?.staffId }}
+                                </dd>
+                                <dt>
+                                    Department:
+                                </dt>
+                                <dd>
+                                    {{ department?.name }}
+                                </dd>
+                                <dt>
+                                    Faculty:
+                                </dt>
+                                <dd>
+                                    {{ faculty?.name }}
+                                </dd>
+                                <dt>
+                                    Gender:
+                                </dt>
+                                <dd>
+                                    {{ staff?.gender }}
+                                </dd>
+                                <dt>
+                                    Nationality:
+                                </dt>
+                                <dd>
+                                    {{ staff?.nationality }}
+                                </dd>
+                            </dl>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="outputType">Output Type: </label>
+                            <select formControlName="outputType" class="form-control">
+                                <option *ngFor="let outputType of outputTypes; let i = index" [value]="outputType">{{ outputType }}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="researchLocation">Research Location (URL)</label>
+                            <input type="text" formControlName="researchLocation" class="form-control" placeholder="e.g. https://ieeexplore.ieee.org/document/7073822">
+                        </div>
+
+                        <div formGroupName="supervisionDetails">
+                            <div class="form-group">
+                                <label for="outputType">Research Role: </label>
+                                <select formControlName="researchRole" class="form-control" (change)="onRoleChange($event)">
+                                    <option *ngFor="let researchRole of researchRoles; let i = index" [value]="researchRole">{{ researchRole }}</option>
+                                </select>
+                            </div>
+                            <div *ngIf="supervisionDetails.researchRole == 'Main Supervisor' || supervisionDetails.researchRole == 'Co-Supervisor'">
+                                <div class="form-group">
+                                    <label for="studentId">Student Number</label>
+                                    <input type="text" class="form-control" placeholder="Student ID" formControlName="studentId">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary mr-3" (click)="onAdd()">Confirm</button>
+                        <button type="button" class="btn btn-dark" (click)="onBack()">Back</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

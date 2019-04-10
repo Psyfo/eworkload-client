@@ -1,48 +1,41 @@
 import { timeout } from 'rxjs/operators';
-import { AlertService } from "./../../../shared/services/alert.service";
-import { Component, OnInit, SimpleChanges } from "@angular/core";
-import { routerTransition } from "../../../router.animations";
-import { FlashMessagesService } from "angular2-flash-messages";
-import { Router } from "@angular/router";
-import {
-    Lecturer,
-    LecturerApi,
-    LoopBackAuth,
-    QualificationInterface,
-    QualificationApi,
-    PositionApi,
-    DepartmentApi,
-    Qualification,
-    Department,
-    Position
-} from "../../../../../sdk";
+import { AlertService } from './../../../shared/services/alert.service';
+import { Component, OnInit, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { routerTransition } from '../../../router.animations';
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { Router } from '@angular/router';
+import { UserGQL } from '../../../shared/generated/output';
+import { User } from '../../../shared/models';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component({
-    selector: "app-profile-view",
-    templateUrl: "./profile-view.component.html",
-    styleUrls: ["./profile-view.component.scss"],
+    selector: 'app-profile-view',
+    moduleId: module.id,
+    templateUrl: 'profile-view.component.html',
+    styleUrls: ['profile-view.component.scss'],
     animations: [routerTransition()]
 })
 export class ProfileViewComponent implements OnInit {
-    lecturer: Lecturer = new Lecturer();
-    qualification: Qualification = new Qualification();
-    department: Department = new Department();
-    position: Position = new Position();
+    loading: boolean;
+    errors: any;
+    userId: string;
+    user: User;
 
     // Pie
-    public pieChartLabels: string[] = ["Research", "Lecturing", "Admin"];
+    public pieChartLabels: string[] = ['Research', 'Lecturing', 'Admin'];
     public pieChartData: number[] = [300, 500, 100];
-    public pieChartType: string = "pie";
+    public pieChartType: string = 'pie';
 
     constructor(
+        private cdr:ChangeDetectorRef,
         private flashMessagesService: FlashMessagesService,
         private alertService: AlertService,
         private router: Router,
-        private lecturerApi: LecturerApi,
-        private qualificationApi: QualificationApi,
-        private departmentApi: DepartmentApi,
-        private positionApi: PositionApi
-    ) {}
+        private userGql: UserGQL,
+        private userService: UserService
+    ) {
+        this.getData();
+    }
 
     ngOnInit() {
         this.getData();
@@ -52,7 +45,7 @@ export class ProfileViewComponent implements OnInit {
     }
 
     onEdit(): void {
-        this.router.navigate(["profile/edit"]);
+        this.router.navigate(['profile/edit']);
     }
 
     // events
@@ -65,46 +58,40 @@ export class ProfileViewComponent implements OnInit {
     }
 
     public getData() {
-        this.lecturerApi.getCurrent().subscribe(
-            lecturerData => {
-                this.lecturer = lecturerData;
-                this.getQualification(this.lecturer.qualificationId);
-                this.getDepartment(this.lecturer.departmentId);
-                this.getPosition(this.lecturer.positionId);
-            },
-            error => {
-                this.flashMessagesService.show(error, {
-                    cssClass: "alert-danger"
+        // Get current user ID
+        this.userService.currentUserId().subscribe(userId => {
+            this.userId = userId;
+            console.log(`Current user id: ${this.userId}`);
+
+            // Fetch user data
+            this.userGql
+                .watch({ userId: this.userId })
+                .valueChanges.subscribe(result => {
+                    this.user = result.data.user as User;
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+
+                    if (this.errors) {
+                        this.errors.forEach(error => {
+                            this.flashMessagesService.show(
+                                error.message,
+                                'warn'
+                            );
+                        });
+                        return;
+                    }
+                    console.log(this.user);
                 });
-                console.log(error);
-            }
-        );
-    }
-
-    public getQualification(qId: string) {
-        this.qualificationApi
-            .findById<Qualification>(qId)
-            .subscribe(qualificationData => {
-                this.qualification = qualificationData;
-                console.log(this.qualification);
-            });
-    }
-
-    public getDepartment(dId: string) {
-        this.departmentApi
-            .findById<Department>(dId)
-            .subscribe(departmentData => {
-                this.department = departmentData;
-                console.log(this.department);
-            });
-    }
-
-    public getPosition(pId: string) {
-        this.positionApi.findById<Position>(pId).subscribe(positionData => {
-            this.position = positionData;
-            console.log(this.position);
         });
+
+
     }
+
+    public getQualification(qId: string) {}
+
+    public getDepartment(dId: string) {}
+
+    public getPosition(pId: string) {}
 
     public clearMessage(): void {
         this.alertService.clearMessage();

@@ -1,47 +1,54 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { routerTransition } from '../../router.animations';
-import { FormGroup } from '@angular/forms';
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { LoopBackConfig, LecturerApi, DutyApi, ActivityApi, LectureStackApi, ResearchApi, CommInstructionApi, PublicServiceApi, Activity, Lecturer, Duty, EvidenceApi } from '../../../../sdk';
-import { environment } from '../../../environments/environment';
+import { Component, OnInit, Input, SimpleChanges } from "@angular/core";
+import { routerTransition } from "../../router.animations";
+import { FormGroup, FormBuilder } from "@angular/forms";
+import { FlashMessagesService } from "angular2-flash-messages";
+
+import { environment } from "../../../environments/environment";
+import { AlertService } from "../../shared/services";
+import { Router } from "@angular/router";
 
 @Component({
-    selector: 'app-activity',
-    templateUrl: './activity.component.html',
-    styleUrls: ['./activity.component.scss'],
+    selector: "app-activity",
+    templateUrl: "./activity.component.html",
+    styleUrls: ["./activity.component.scss"],
     animations: [routerTransition()]
 })
 export class ActivityComponent implements OnInit {
-    activities: Activity[];
-    duties: Duty[];
-    lecturer: Lecturer;
-
+    activityTypeForm: FormGroup;
 
     constructor(
-        private flashMessagesService: FlashMessagesService,
-        private lecturerApi: LecturerApi,
-        private dutyApi: DutyApi,
-        private activityApi: ActivityApi,
-        private lectureStackApi: LectureStackApi,
-        private researchApi: ResearchApi,
-        private commInstructionApi: CommInstructionApi,
-        private publicServiceApi: PublicServiceApi,
-        private evidenceApi: EvidenceApi
+        private alertService: AlertService,
+        private router: Router,
+        private fb: FormBuilder
     ) {
-        LoopBackConfig.setBaseURL(environment.BASE_URL);
-        LoopBackConfig.setApiVersion(environment.API_VERSION);
+        
     }
 
     ngOnInit() {
-        this.lecturerApi.getCurrent()
-        .subscribe(
-            (currentLecturer) => {
-                this.lecturer = currentLecturer;
-            },
-            (error) => {
-                this.flashMessagesService.show(error.message, {cssClass: 'alert-danger'});
-            }
-        );
+        this.activityTypeForm = this.fb.group({
+            activityType: [""]
+        });
     }
 
+    ngOnChanges(changes: SimpleChanges): void {}
+
+    onSelectActivityType() {
+        switch (this.activityTypeForm.value["activityType"]) {
+            case 1:
+                this.router.navigate(["activity/lecturing"]);
+                break;
+            case 2:
+                this.router.navigate(["activity/research"]);
+                break;
+            case 3:
+                this.router.navigate(["activity/commInstruction"]);
+                break;
+            case 4:
+                this.router.navigate(["activity/publicService"]);
+                break;
+
+            default:
+                break;
+        }
+    }
 }

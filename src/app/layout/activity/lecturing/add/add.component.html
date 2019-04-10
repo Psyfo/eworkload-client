@@ -1,0 +1,115 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class="col-12">
+                <form [formGroup]="lectureStackForm" class="form">
+                        <div class="card">
+                            <div class="card-header">
+                                New Lecturing Activity
+                            </div>
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <dl>
+                                                <dt>
+                                                    Name and Surname:
+                                                </dt>
+                                                <dd>
+                                                    {{ staff?.firstName }} {{ staff?.lastName }}
+                                                </dd>
+                                                <dt>
+                                                    Staff Number:
+                                                </dt>
+                                                <dd>
+                                                    {{ staff?.staffId }}
+                                                </dd>
+                                                <dt>
+                                                    Department:
+                                                </dt>
+                                                <dd>
+                                                    {{ department?.name }}
+                                                </dd>
+                                                <dt>
+                                                    Faculty:
+                                                </dt>
+                                                <dd>
+                                                    {{ faculty?.name }}
+                                                </dd>
+                                                <dt>
+                                                    Gender:
+                                                </dt>
+                                                <dd>
+                                                    {{ staff?.gender }}
+                                                </dd>
+                                                <dt>
+                                                    Nationality:
+                                                </dt>
+                                                <dd>
+                                                    {{ staff?.nationality }}
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="outputType">Select a Qualification: </label>
+                                            <select class="form-control" (change)="onQualificationChanged($event)">
+                                                <option *ngFor="let qualification of qualifications; let i = index" [value]="qualification.qualificationId">{{ qualification.name }}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="outputType">Select Module(s): </label>
+                                            <select class="form-control">
+                                                <option *ngFor="let module of moduleArray; let i = index" [value]="module.moduleId" (change)="onModuleChanged($event)">{{ module.name }}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group" >
+                                            <label for="">Are you the Course Coordinator?</label>
+                                            <select class="form-control">
+                                                <option [value]=false>No</option>
+                                                <option [value]=true>Yes</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group" >
+                                            <label for="">For each student, how many contact lectures?</label>
+                                            <input type="number" class="form-control">
+                                        </div>
+
+                                        <div class="form-group" >
+                                            <label for="">For each student, how many contact pracs?</label>
+                                            <input type="number" class="form-control">
+                                        </div>
+
+                                        <div class="form-group" >
+                                            <label for="">How many years have you taught in this discipline?</label>
+                                            <input type="number" class="form-control">
+                                        </div>
+
+                                        <div class="form-group" >
+                                            <label for="">Are you the Course Coordinator?</label>
+                                            <select class="form-control">
+                                                <option [value]=false>No</option>
+                                                <option [value]=true>Yes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary mr-3" (click)="onAdd()">Confirm</button>
+                                <button type="button" class="btn btn-dark" (click)="onBack()">Back</button>
+                            </div>
+                        </div>
+                    </form>
+        </div>
+    </div>
+</div>

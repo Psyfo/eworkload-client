@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { LecturerApi } from '../../../../sdk';
-
+import {
+    ActivatedRouteSnapshot,
+    CanActivate,
+    Router,
+    RouterStateSnapshot
+} from '@angular/router';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-
-    constructor(
-        private router: Router,
-        private lecturerApi: LecturerApi
-        ) { }
+    constructor(private router: Router) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (this.lecturerApi.isAuthenticated()) {
+        let authData: any;
+
+
+        authData = JSON.parse(localStorage.getItem('authData'));
+
+
+        if (authData) {
             // logged in so return true
             return true;
         }

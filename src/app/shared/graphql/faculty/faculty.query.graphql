@@ -1,0 +1,7 @@
+
+query faculty($facultyId: String!) {
+    faculty(facultyId: $facultyId) {
+        facultyId
+        name
+    }
+}

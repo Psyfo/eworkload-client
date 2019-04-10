@@ -8,11 +8,17 @@ import { VenueEditComponent } from './venue-edit/venue-edit.component';
 import { VenueAddComponent } from './venue-add/venue-add.component';
 import { VenueDeleteComponent } from './venue-delete/venue-delete.component';
 import { VenueViewComponent } from './venue-view/venue-view.component';
+import { PageHeaderModule } from '../../../shared';
+import { DataTablesModule } from 'angular-datatables';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    VenueRoutingModule
+    VenueRoutingModule,
+    PageHeaderModule,
+    DataTablesModule,
+    ReactiveFormsModule
   ],
   declarations: [VenueComponent, VenueListComponent, VenueEditComponent, VenueAddComponent, VenueDeleteComponent, VenueViewComponent]
 })

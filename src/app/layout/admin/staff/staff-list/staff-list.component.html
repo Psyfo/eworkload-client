@@ -1,0 +1,62 @@
+<div class="card" [@routerTransition]>
+    <div class="card-header">
+        <h5>Staff List</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="staffListDT" class="table table-hover table-active">
+                    <thead>
+                        <tr>
+                            <th>
+                                Staff Id
+                            </th>
+                            <th>
+                                First Name
+                            </th>
+                            <th>
+                                Last Name
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="staffs?.length != 0">
+                        <tr *ngFor="let staff of staffs">
+                            <td>
+                                {{ staff.staffId }}
+                            </td>
+                            <td>
+                                {{ staff.firstName }}
+                            </td>
+                            <td>
+                                {{ staff.lastName }}
+                            </td>
+                            <td>
+                                {{ staff.email }}
+                            </td>
+
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-outline-primary" (click)="onAdd()">New Staff</button>
+            </div>
+        </div>
+    </div>
+</div>

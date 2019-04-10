@@ -4,7 +4,6 @@ import { routerTransition } from '../router.animations';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { first, timeout } from 'rxjs/operators';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { LoopBackConfig, LoopBackAuth, LecturerApi, Lecturer, AccessToken } from '../../../sdk';
 import { environment } from '../../environments/environment';
 
 @Component({
@@ -15,16 +14,13 @@ import { environment } from '../../environments/environment';
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
-    private lecturer: Lecturer = new Lecturer();
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private lecturerApi: LecturerApi,
         private flashMessagesService: FlashMessagesService,
     ) {
-        LoopBackConfig.setBaseURL(environment.BASE_URL);
-        LoopBackConfig.setApiVersion(environment.API_VERSION);
+
     }
 
 
@@ -36,29 +32,12 @@ export class LoginComponent implements OnInit {
     }
 
     private onLoggedIn(): void {
-
-        // Get form elements into lecturer object
-        this.lecturer.username = this.loginForm.get('userId').value;
-        this.lecturer.password = this.loginForm.get('password').value;
-
-        // Use api to login
-        this.lecturerApi.login(this.lecturer).subscribe(
-            (auth) => {
-                console.log('Login function works!');
-                console.log(auth.userId);
-                console.log(auth.id);
-                this.flashMessagesService.show('Login Successful!', { cssClass: 'alert-success' });
-                this.router.navigate(['/']);
-
-
-            },
-            (error) => {
-                // if error show in console and do nothing
-                console.log(error);
-                this.flashMessagesService.show(error.statusCode, { cssClass: 'alert-danger' });
-                this.flashMessagesService.show(error.message, { cssClass: 'alert-danger' });
-                return;
-            }
-        );
+        const authData = {
+            isLoggedIn: true,
+            userId: this.loginForm.controls['userId'].value
+        }
+        // dummy login
+        localStorage.setItem('authData', JSON.stringify(authData));
+        this.router.navigate(['dashboard']);
     }
 }

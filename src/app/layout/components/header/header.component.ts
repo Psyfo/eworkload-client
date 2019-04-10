@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Lecturer, LecturerApi, LoopBackConfig } from '../../../../../sdk';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { environment } from '../../../../environments/environment';
+
+import { UserGQL } from '../../../shared/generated/output';
+import { UserService } from '../../../shared/services/user.service';
+import { Observable } from 'rxjs';
+import { User } from '../../../shared/models';
 
 @Component({
     selector: 'app-header',
@@ -12,19 +15,35 @@ import { environment } from '../../../../environments/environment';
 })
 export class HeaderComponent implements OnInit {
     pushRightClass: string = 'push-right';
-    lecturer: Lecturer = new Lecturer();
-
+    userId: string;
+    user: User;
+    loading: boolean;
+    errors: any;
 
     constructor(
         private translate: TranslateService,
         public router: Router,
-        private lecturerApi: LecturerApi,
-        private flashMessagesService: FlashMessagesService
-        ) {
-        this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de', 'zh-CHS']);
+        private flashMessagesService: FlashMessagesService,
+        private userGql: UserGQL,
+        private userService: UserService
+    ) {
+        this.translate.addLangs([
+            'en',
+            'fr',
+            'ur',
+            'es',
+            'it',
+            'fa',
+            'de',
+            'zh-CHS'
+        ]);
         this.translate.setDefaultLang('en');
         const browserLang = this.translate.getBrowserLang();
-        this.translate.use(browserLang.match(/en|fr|ur|es|it|fa|de|zh-CHS/) ? browserLang : 'en');
+        this.translate.use(
+            browserLang.match(/en|fr|ur|es|it|fa|de|zh-CHS/)
+                ? browserLang
+                : 'en'
+        );
 
         this.router.events.subscribe(val => {
             if (
@@ -35,23 +54,25 @@ export class HeaderComponent implements OnInit {
                 this.toggleSidebar();
             }
         });
-
-        LoopBackConfig.setBaseURL(environment.BASE_URL);
-        LoopBackConfig.setApiVersion(environment.API_VERSION);
     }
 
     ngOnInit() {
-        this.lecturerApi.getCurrent()
-        .subscribe(
-            (lecturerData) => {
-                this.lecturer = lecturerData;
-            },
-            (error) => {
-                console.log(`Error Status: ${error.status}`);
-                console.log(`Error Status: ${error.message}`);
-                this.flashMessagesService.show(error, {cssClass: 'alert-danger'});
-            }
-        );
+        // Get current user ID
+        this.userService.currentUserId().subscribe(userId => {
+            this.userId = userId;
+            console.log(`Current user id: ${this.userId}`);
+
+            // Fetch user data
+            this.userGql
+                .watch({ userId: this.userId })
+                .valueChanges.subscribe(result => {
+                    this.user = result.data.user as User;
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+
+                    console.log(this.user);
+                });
+        });
     }
 
     isToggled(): boolean {
@@ -70,7 +91,8 @@ export class HeaderComponent implements OnInit {
     }
 
     onLoggedout() {
-        this.lecturerApi.logout();
+        localStorage.removeItem('authData');
+        this.router.navigate(['/login']);
     }
 
     changeLang(language: string) {

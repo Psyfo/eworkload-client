@@ -1,3 +1,32 @@
-<p>
-  venue-view works!
-</p>
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Details</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <dl class="row">
+                            <dt class="col-4">Venue Code</dt>
+                            <dd class="col-8">{{ venue?.venueId }}</dd>
+                            <dt class="col-4">Capacity</dt>
+                            <dd class="col-8">{{ venue?.capacity }}</dd>
+                            <dt class="col-4">Campus</dt>
+                            <dd class="col-8">{{ venue?.campus }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-outline-warning mr-3" (click)="onEdit()">Edit</button>
+                        <button class="btn btn-outline-primary" (click)="onBack()">Back</button>
+                        <button class="btn btn-outline-danger pull-right" (click)="onDelete()">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

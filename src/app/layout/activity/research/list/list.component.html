@@ -1,0 +1,17 @@
+<div class="row" [@routerTransition]>
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body" *ngFor="let research of researchList; let i = index">
+                        {{ research | json }}
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-outline-primary" [routerLink]="['add']">New Activity</a>
+            </div>
+        </div>
+
+    </div>
+</div>

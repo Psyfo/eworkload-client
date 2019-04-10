@@ -1,48 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { DataTablesModule } from 'angular-datatables';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
+import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
-import {
-    AlertService, BufferService
-} from './shared/services';
 import { AlertComponent } from './shared/directives';
-
-import { FlashMessagesModule, FlashMessagesService } from 'angular2-flash-messages';
-import {
-    SDKBrowserModule
-} from '../../sdk';
-import {
-    ActiveSubjectApi,
-    ActivityApi,
-    BlockApi,
-    CommInstructionApi,
-    DepartmentApi,
-    DutyApi,
-    EventApi,
-    FacultyApi,
-    LecturerApi,
-    LectureStackApi,
-    OfferingTypeApi,
-    PositionApi,
-    PublicServiceApi,
-    QualificationApi,
-    ResearchApi,
-    RoleApi,
-    RoleMappingApi,
-    TariffApi,
-    UserApi,
-    VenueApi
-} from '../../sdk/services';
-import { DataTablesModule } from 'angular-datatables';
+import { AlertService, BufferService } from './shared/services';
+import { LayoutRoutingModule } from './layout/layout-routing.module';
 
 
 // AoT requires an exported function for factories
@@ -65,7 +40,6 @@ export const createTranslateLoader = (http: HttpClient) => {
         ReactiveFormsModule,
         HttpClientModule,
         ReactiveFormsModule,
-        SDKBrowserModule.forRoot(),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -75,7 +49,10 @@ export const createTranslateLoader = (http: HttpClient) => {
         }),
         AppRoutingModule,
         FlashMessagesModule.forRoot(),
-        DataTablesModule.forRoot()
+        DataTablesModule.forRoot(),
+        //GraphQLModule,
+        ApolloModule,
+        HttpLinkModule
     ],
     declarations: [
         AppComponent,
@@ -85,27 +62,18 @@ export const createTranslateLoader = (http: HttpClient) => {
         AlertService,
         AuthGuard,
         BufferService,
-
-        ActiveSubjectApi,
-        ActivityApi,
-        BlockApi,
-        CommInstructionApi,
-        DepartmentApi,
-        DutyApi,
-        EventApi,
-        FacultyApi,
-        LecturerApi,
-        LectureStackApi,
-        OfferingTypeApi,
-        PositionApi,
-        PublicServiceApi,
-        QualificationApi,
-        ResearchApi,
-        RoleApi,
-        RoleMappingApi,
-        TariffApi,
-        UserApi,
-        VenueApi
+        {
+            provide: APOLLO_OPTIONS,
+            useFactory: (httpLink: HttpLink) => {
+                return {
+                    cache: new InMemoryCache(),
+                    link: httpLink.create({
+                        uri: 'http://localhost:5000/graphql'
+                    })
+                }
+            },
+            deps: [HttpLink]
+        },
     ],
     bootstrap: [AppComponent]
 })

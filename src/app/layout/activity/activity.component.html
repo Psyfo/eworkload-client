@@ -1,10 +1,29 @@
-<flash-messages></flash-messages>
 <div [@routerTransition]>
     <app-page-header [heading]="'Activities'" [icon]="'fa-tasks'"></app-page-header>
+
 </div>
 
-<h4 class="panel-title mb-3">
-    <small class="text-muted"> {{ lecturer.name.firstName }} {{ lecturer.name.lastName }} </small>
-</h4>
+<div class="card" [@routerTransition]>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="btn btn-dark nav-link" [routerLink]="['lecturing']" routerLinkActive="active">Lecturing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-dark nav-link" [routerLink]="['research']" routerLinkActive="active">Research</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-dark nav-link" [routerLink]="['commInstruction']" routerLinkActive="active">Community Instruction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-dark nav-link" [routerLink]="['publicService']" routerLinkActive="active">Public Service</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
 <router-outlet></router-outlet>

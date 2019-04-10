@@ -1,3 +1,57 @@
-<p>
-  venue-list works!
-</p>
+<div class="card">
+    <div class="card-header">
+        <h5>Venues</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="venueListDT" class="table table-hover table-active">
+                    <thead>
+                        <tr>
+                            <th>
+                                Venue Code
+                            </th>
+                            <th>
+                                Capacity
+                            </th>
+                            <th>
+                                Campus
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="venues?.length != 0">
+                        <tr *ngFor="let venue of venues; let i = index">
+                            <td>
+                                {{ venue.venueId }}
+                            </td>
+                            <td>
+                                {{ venue.capacity }}
+                            </td>
+                            <td>
+                                {{ venue.campus }}
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="venues?.length == 0">
+                        <tr>
+                          <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                      <tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-outline-primary" (click)="onAdd()">Add Venue</button>
+            </div>
+        </div>
+    </div>
+</div>

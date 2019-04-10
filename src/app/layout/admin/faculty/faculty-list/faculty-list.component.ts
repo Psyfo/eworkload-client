@@ -1,10 +1,10 @@
 import { Router } from "@angular/router";
-import { FacultyApi } from "./../../../../../../sdk/services/custom/Faculty";
 import { AlertService } from "./../../../../shared/services/alert.service";
 import { DataTableDirective } from "angular-datatables";
 import { Subject } from "rxjs";
-import { Faculty } from "./../../../../../../sdk/models/Faculty";
 import { Component, OnInit, OnDestroy, AfterViewInit, Renderer } from "@angular/core";
+import { FacultiesGQL } from "../../../../shared/generated/output";
+import { Faculty } from "../../../../shared/models/faculty.model";
 
 @Component({
     selector: "app-faculty-list",
@@ -12,20 +12,21 @@ import { Component, OnInit, OnDestroy, AfterViewInit, Renderer } from "@angular/
     styleUrls: ["./faculty-list.component.scss"],
 })
 export class FacultyListComponent implements OnInit {
-    // Properties
     faculties: Faculty[];
+    loading: boolean;
+    errors: any;
 
     // Datatable config
     dtOptions: DataTables.Settings = {};
-    dtTrigger: Subject<Faculty> = new Subject();
+    dtTrigger: Subject<any> = new Subject();
     dtElement: DataTableDirective;
     dtRouteParam: string;
 
     constructor(
         private alertService: AlertService,
-        private facultyApi: FacultyApi,
         private router: Router,
-        private renderer: Renderer
+        private renderer: Renderer,
+        private facultiesGql: FacultiesGQL
     ) {}
 
     ngOnInit() {
@@ -68,21 +69,17 @@ export class FacultyListComponent implements OnInit {
     // Methods
 
     getFaculties(): void {
-        this.facultyApi.find<Faculty>().subscribe(
-            facultyList => {
-                this.faculties = facultyList as Faculty[];
-                this.dtTrigger.next();
-            },
-            error => {
-                console.log(`Status Code ${error.status}`);
-                console.log(`Message: ${error.message}`);
-                this.alertService.sendMessage(
-                    `Status: ${error.status}`,
-                    "danger"
-                );
-                this.alertService.sendMessage(error.message, "danger");
+        this.facultiesGql.watch().valueChanges.subscribe(result => {
+            this.faculties = result.data.faculties as Faculty[];
+            this.loading = result.loading;
+            this.errors = result.errors;
+
+            if(this.errors){
+                this.errors.forEach(error => {
+                    console.log(`Error: ${error.message}`);
+                });
             }
-        );
+        });
     }
 
     onAddFaculty() {

@@ -1,25 +1,27 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, Output, EventEmitter, OnInit } from "@angular/core";
+import { Router, NavigationEnd } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
-    selector: 'app-sidebar',
-    templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.scss']
+    selector: "app-sidebar",
+    templateUrl: "./sidebar.component.html",
+    styleUrls: ["./sidebar.component.scss"]
 })
 export class SidebarComponent {
     isActive: boolean = false;
     collapsed: boolean = false;
-    showMenu: string = '';
-    pushRightClass: string = 'push-right';
+    showMenu: string = "";
+    pushRightClass: string = "push-right";
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
 
     constructor(private translate: TranslateService, public router: Router) {
-        this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de']);
-        this.translate.setDefaultLang('en');
+        this.translate.addLangs(["en", "fr", "ur", "es", "it", "fa", "de"]);
+        this.translate.setDefaultLang("en");
         const browserLang = this.translate.getBrowserLang();
-        this.translate.use(browserLang.match(/en|fr|ur|es|it|fa|de/) ? browserLang : 'en');
+        this.translate.use(
+            browserLang.match(/en|fr|ur|es|it|fa|de/) ? browserLang : "en"
+        );
 
         this.router.events.subscribe(val => {
             if (
@@ -38,7 +40,7 @@ export class SidebarComponent {
 
     addExpandClass(element: any) {
         if (element === this.showMenu) {
-            this.showMenu = '0';
+            this.showMenu = "0";
         } else {
             this.showMenu = element;
         }
@@ -50,18 +52,18 @@ export class SidebarComponent {
     }
 
     isToggled(): boolean {
-        const dom: Element = document.querySelector('body');
+        const dom: Element = document.querySelector("body");
         return dom.classList.contains(this.pushRightClass);
     }
 
     toggleSidebar() {
-        const dom: any = document.querySelector('body');
+        const dom: any = document.querySelector("body");
         dom.classList.toggle(this.pushRightClass);
     }
 
     rltAndLtr() {
-        const dom: any = document.querySelector('body');
-        dom.classList.toggle('rtl');
+        const dom: any = document.querySelector("body");
+        dom.classList.toggle("rtl");
     }
 
     changeLang(language: string) {

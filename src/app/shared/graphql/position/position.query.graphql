@@ -1,0 +1,7 @@
+query position($positionId: String!) {
+    position(positionId: $positionId) {
+        positionId
+        name
+        description
+    }
+}

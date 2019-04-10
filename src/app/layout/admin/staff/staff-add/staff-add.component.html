@@ -1,0 +1,68 @@
+<div class="col col-lg-6 col-md-6 col-sm-12" [@routerTransition]>
+    <form [formGroup]="staffAddForm" class="form">
+
+        <div class="card">
+            <div class="card-header">
+                <h5>Add Staff</h5>
+            </div>
+            <div class="card-body">
+                <div class="">
+
+                    <div class="form-group">
+                        <label for="staffId" class="col-form-label">Staff ID</label>
+                        <input type="text" class="form-control" formControlName="staffId" placeholder="Staff ID">
+                        <span class="alert-danger" *ngIf="!staffAddForm.get('staffId').valid && staffAddForm.get('staffId').touched">
+                            <span *ngIf="staffAddForm.get('staffId').errors['required']">Please add a Staff ID</span>
+                            <span *ngIf="staffAddForm.get('staffId').errors['exists']">This Staff ID already exists</span>
+                        </span>
+                    </div>
+
+                    <div class="form-group col">
+                        <label for="firstName" class="col-form-label">First Name</label>
+                        <input type="text" class="form-control" formControlName="firstName" placeholder="First Name">
+                        <span class="alert-danger" *ngIf="!staffAddForm.get('firstName').valid && staffAddForm.get('firstName').touched">
+                            <span *ngIf="staffAddForm.get('firstName').errors['required']">First Name field is required</span>
+                        </span>
+                    </div>
+
+                    <div class="form-group col">
+                        <label for="lastName" class="col-form-label">Last Name</label>
+                        <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name">
+                        <span class="alert-danger" *ngIf="!staffAddForm.get('lastName').valid && staffAddForm.get('lastName').touched">
+                            <span *ngIf="staffAddForm.get('lastName').errors['required']">Last Name field is required</span>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="col-form-label">Email</label>
+                        <input type="email" class="form-control" formControlName="email" placeholder="Email">
+                        <span class="alert-danger" *ngIf="!staffAddForm.get('email').valid && staffAddForm.get('email').touched">
+                            <span *ngIf="staffAddForm.get('email').errors['required']">Email field is required</span>
+                            <span *ngIf="staffAddForm.get('email').errors['email']">Please enter a valid email</span>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nationality" class="col-form-label">Nationality</label>
+                        <select formControlName="nationality" class="form-control" *ngFor="let nationality of nationalities">
+                            <option [value]="nationality">{{ nationality }}</option>
+                        </select>
+                        <span class="alert-danger" *ngIf="!staffAddForm.get('nationality').valid && staffAddForm.get('nationality').touched">
+                            <span *ngIf="!nationality.get('value').errors['required']">
+                                Please select a nationality
+                            </span>
+                        </span>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-outline-success mr-3" (click)="onAdd()" [disabled]="!staffAddForm.valid">Add Staff</button>
+                <button class="btn btn-outline-dark" (click)="onBack()">Back</button>
+                <button class="pull-right btn btn-outline-primary" (click)="onReset()">Reset</button>
+            </div>
+        </div>
+    </form>
+</div>
