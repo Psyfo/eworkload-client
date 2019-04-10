@@ -1,4 +1,4 @@
-export class position {
+export class Position {
     positionId: string;
     name: string;
     description: string;

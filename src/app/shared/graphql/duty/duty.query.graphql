@@ -1,0 +1,7 @@
+query duty($dutyId: String!) {
+    duty(dutyId: $dutyId) {
+        dutyId
+        name
+        description
+    }
+}

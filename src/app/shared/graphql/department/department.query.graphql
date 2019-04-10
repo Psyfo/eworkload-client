@@ -1,0 +1,10 @@
+query department($departmentId: String!) {
+    department(departmentId: $departmentId) {
+        departmentId
+        name
+        faculty {
+            facultyId
+            name
+        }
+    }
+}

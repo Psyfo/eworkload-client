@@ -1,0 +1,7 @@
+mutation deleteBlock($blockId: String, $name: String, $description: String) {
+    deleteBlock(blockId: $blockId, name: $name, description: $description) {
+        blockId
+        name
+        description
+    }
+}

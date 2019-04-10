@@ -1,0 +1,17 @@
+query qualification($qualificationId: String!) {
+    qualification(qualificationId: $qualificationId) {
+        qualificationId
+        name
+        type
+        saqaId
+        departmentId
+        department {
+            departmentId
+            name
+        }
+        heqsfLevel
+        purpose
+        exitLevelOutcomes
+        graduateAttributes
+    }
+}

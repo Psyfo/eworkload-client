@@ -1,0 +1,7 @@
+query venue($venueId: String!) {
+    venue(venueId: $venueId) {
+        venueId
+        campus
+        capacity
+    }
+}

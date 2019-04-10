@@ -1,0 +1,17 @@
+query lectureStack($lectureStackId: String!) {
+    lectureStack(lectureStackId: $lectureStackId) {
+        lectureStackId
+        disciplineId
+        discipline {
+            disciplineId
+            name
+            description
+        }
+        moduleIds
+        modules {
+            moduleId
+            name
+        }
+        groups
+    }
+}

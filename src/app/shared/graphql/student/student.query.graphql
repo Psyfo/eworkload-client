@@ -1,0 +1,10 @@
+query student($studentId: String!) {
+    student(studentId: $studentId){
+        studentId
+        email
+        firstName
+        lastName
+        title
+        year
+    }
+}

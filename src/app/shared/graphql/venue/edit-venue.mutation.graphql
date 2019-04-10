@@ -1,0 +1,7 @@
+mutation editVenue($venueId: String, $campus: String, $capacity: Int) {
+    editVenue(venueId: $venueId, campus: $campus, capacity: $capacity) {
+        venueId
+        campus
+        capacity
+    }
+}

@@ -1,0 +1,27 @@
+mutation editLectureStack(
+    $lectureStackId: String
+    $disciplineId: String
+    $moduleIds: [String]
+    $groups: String
+) {
+    editLectureStack(
+        lectureStackId: $lectureStackId
+        disciplineId: $disciplineId
+        moduleIds: $moduleIds
+        groups: $groups
+    ) {
+        lectureStackId
+        disciplineId
+        discipline {
+            disciplineId
+            name
+            description
+        }
+        moduleIds
+        modules {
+            moduleId
+            name
+        }
+        groups
+    }
+}

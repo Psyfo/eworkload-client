@@ -1,0 +1,17 @@
+query lectureStacks {
+    lectureStacks {
+        lectureStackId
+        disciplineId
+        discipline {
+            disciplineId
+            name
+            description
+        }
+        moduleIds
+        modules {
+            moduleId
+            name
+        }
+        groups
+    }
+}

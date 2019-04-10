@@ -1,3 +1,6 @@
+import { Discipline } from './discipline.model';
+import { Position } from './position.model';
+
 export class User {
     userId: string;
     password: string;
@@ -5,16 +8,8 @@ export class User {
     firstName: string;
     lastName: string;
     photoUrl: string;
-    discipline: {
-        disciplineId: string;
-        name: string;
-        description: string;
-    };
-    position: {
-        positionId: string
-        name: string
-        description: string
-    }
-    gender: string
-    nationality: string
+    discipline: Discipline;
+    position: Position;
+    gender: string;
+    nationality: string;
 }

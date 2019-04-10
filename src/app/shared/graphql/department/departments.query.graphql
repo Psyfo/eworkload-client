@@ -1,0 +1,10 @@
+query departments {
+    departments {
+        departmentId
+        name
+        faculty {
+            facultyId
+            name
+        }
+    }
+}

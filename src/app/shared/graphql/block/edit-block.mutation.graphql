@@ -1,0 +1,7 @@
+mutation editBlock($blockId: String, $name: String, $description: String) {
+    editBlock(blockId: $blockId, name: $name, description: $description) {
+        blockId
+        name
+        description
+    }
+}

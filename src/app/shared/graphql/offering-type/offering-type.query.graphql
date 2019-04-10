@@ -1,0 +1,6 @@
+query offeringType($offeringTypeId: String!) {
+    offeringType(offeringTypeId: $offeringTypeId){
+        offeringTypeId
+        description
+    }
+}

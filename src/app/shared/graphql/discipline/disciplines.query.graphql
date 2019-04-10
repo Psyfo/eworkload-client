@@ -1,0 +1,7 @@
+query disciplines {
+    disciplines {
+        disciplineId
+        name
+        description
+    }
+}

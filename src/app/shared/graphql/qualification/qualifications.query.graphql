@@ -1,0 +1,17 @@
+query qualifications {
+    qualifications {
+        qualificationId
+        name
+        type
+        saqaId
+        departmentId
+        department {
+            departmentId
+            name
+        }
+        heqsfLevel
+        purpose
+        exitLevelOutcomes
+        graduateAttributes
+    }
+}

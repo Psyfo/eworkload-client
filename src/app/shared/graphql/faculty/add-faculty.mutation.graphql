@@ -1,0 +1,6 @@
+mutation addFaculty($facultyId: String!, $name: String!) {
+    addFaculty(facultyId: $facultyId, name: $name) {
+        facultyId
+        name
+    }
+}

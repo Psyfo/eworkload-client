@@ -1,0 +1,7 @@
+mutation addBlock($blockId: String!, $name: String!, $description: String!) {
+    addBlock(blockId: $blockId, name: $name, description: $description) {
+        blockId
+        name
+        description
+    }
+}

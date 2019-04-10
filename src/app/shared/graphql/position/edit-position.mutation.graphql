@@ -1,0 +1,7 @@
+mutation editPosition($name: String, $description: String) {
+    editPosition(name: $name, description: $description){
+        positionId
+        name
+        description
+    }
+}

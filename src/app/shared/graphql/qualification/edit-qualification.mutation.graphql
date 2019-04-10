@@ -1,0 +1,37 @@
+mutation editQualification(
+    $qualificationId: String!
+    $name: String!
+    $type: String!
+    $saqaId: String!
+    $departmentId: String!
+    $heqsfLevel: String!
+    $purpose: String!
+    $exitLevelOutcomes: [String]
+    $graduateAttributes: [String]
+) {
+    editQualification(
+        qualificationId: $qualificationId
+        name: $name
+        type: $type
+        saqaId: $saqaId
+        departmentId: $departmentId
+        heqsfLevel: $heqsfLevel
+        purpose: $purpose
+        exitLevelOutcomes: $exitLevelOutcomes
+        graduateAttributes: $graduateAttributes
+    ) {
+        qualificationId
+        name
+        type
+        saqaId
+        departmentId
+        department {
+            departmentId
+            name
+        }
+        heqsfLevel
+        purpose
+        exitLevelOutcomes
+        graduateAttributes
+    }
+}
