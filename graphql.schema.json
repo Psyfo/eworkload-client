@@ -395,49 +395,6 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "lectureStack",
-                        "description": null,
-                        "args": [
-                            {
-                                "name": "lectureStackId",
-                                "description": null,
-                                "type": {
-                                    "kind": "NON_NULL",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "String",
-                                        "ofType": null
-                                    }
-                                },
-                                "defaultValue": null
-                            }
-                        ],
-                        "type": {
-                            "kind": "OBJECT",
-                            "name": "LectureStack",
-                            "ofType": null
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "lectureStacks",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "LIST",
-                            "name": null,
-                            "ofType": {
-                                "kind": "OBJECT",
-                                "name": "LectureStack",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
                         "name": "module",
                         "description": null,
                         "args": [
@@ -468,6 +425,37 @@
                         "name": "modules",
                         "description": null,
                         "args": [],
+                        "type": {
+                            "kind": "LIST",
+                            "name": null,
+                            "ofType": {
+                                "kind": "OBJECT",
+                                "name": "Module",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "modulesByDiscipline",
+                        "description": null,
+                        "args": [
+                            {
+                                "name": "disciplineId",
+                                "description": null,
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                },
+                                "defaultValue": null
+                            }
+                        ],
                         "type": {
                             "kind": "LIST",
                             "name": null,
@@ -1526,105 +1514,6 @@
             },
             {
                 "kind": "OBJECT",
-                "name": "LectureStack",
-                "description": null,
-                "fields": [
-                    {
-                        "name": "lectureStackId",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "String",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "disciplineId",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "String",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "discipline",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "OBJECT",
-                            "name": "Discipline",
-                            "ofType": null
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "moduleIds",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "LIST",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "String",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "modules",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "LIST",
-                            "name": null,
-                            "ofType": {
-                                "kind": "OBJECT",
-                                "name": "Module",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "groups",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    }
-                ],
-                "inputFields": null,
-                "interfaces": [],
-                "enumValues": null,
-                "possibleTypes": null
-            },
-            {
-                "kind": "OBJECT",
                 "name": "Module",
                 "description": null,
                 "fields": [
@@ -1661,7 +1550,23 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "description",
+                        "name": "type",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "assessmentMethod",
                         "description": null,
                         "args": [],
                         "type": {
@@ -1777,39 +1682,35 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "credits",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "Int",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "isMajor",
+                        "name": "venueId",
                         "description": null,
                         "args": [],
                         "type": {
                             "kind": "SCALAR",
-                            "name": "Boolean",
+                            "name": "String",
                             "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "type",
+                        "name": "venue",
                         "description": null,
                         "args": [],
                         "type": {
-                            "kind": "NON_NULL",
+                            "kind": "OBJECT",
+                            "name": "Venue",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "blockIds",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "LIST",
                             "name": null,
                             "ofType": {
                                 "kind": "SCALAR",
@@ -1821,24 +1722,60 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "baseContact",
+                        "name": "blocks",
                         "description": null,
                         "args": [],
                         "type": {
-                            "kind": "SCALAR",
-                            "name": "Int",
-                            "ofType": null
+                            "kind": "LIST",
+                            "name": null,
+                            "ofType": {
+                                "kind": "OBJECT",
+                                "name": "Block",
+                                "ofType": null
+                            }
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "basePractical",
+                        "name": "userIds",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "LIST",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "users",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "LIST",
+                            "name": null,
+                            "ofType": {
+                                "kind": "OBJECT",
+                                "name": "User",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "stackId",
                         "description": null,
                         "args": [],
                         "type": {
                             "kind": "SCALAR",
-                            "name": "Int",
+                            "name": "String",
                             "ofType": null
                         },
                         "isDeprecated": false,
@@ -1892,13 +1829,9 @@
                         "description": null,
                         "args": [],
                         "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "String",
-                                "ofType": null
-                            }
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
@@ -1908,13 +1841,9 @@
                         "description": null,
                         "args": [],
                         "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "String",
-                                "ofType": null
-                            }
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
@@ -1924,13 +1853,9 @@
                         "description": null,
                         "args": [],
                         "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "String",
-                                "ofType": null
-                            }
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
@@ -2053,12 +1978,61 @@
                 "possibleTypes": null
             },
             {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "description": "The `Boolean` scalar type represents `true` or `false`.",
-                "fields": null,
+                "kind": "OBJECT",
+                "name": "Venue",
+                "description": null,
+                "fields": [
+                    {
+                        "name": "venueId",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "campus",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "capacity",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "Int",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    }
+                ],
                 "inputFields": null,
-                "interfaces": null,
+                "interfaces": [],
                 "enumValues": null,
                 "possibleTypes": null
             },
@@ -2275,7 +2249,7 @@
                     },
                     {
                         "kind": "OBJECT",
-                        "name": "LectureActivity",
+                        "name": "FormalInstructionActivity",
                         "ofType": null
                     },
                     {
@@ -2291,61 +2265,12 @@
                 ]
             },
             {
-                "kind": "OBJECT",
-                "name": "Venue",
-                "description": null,
-                "fields": [
-                    {
-                        "name": "venueId",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "String",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "campus",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "String",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "capacity",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "Int",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    }
-                ],
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "description": "The `Boolean` scalar type represents `true` or `false`.",
+                "fields": null,
                 "inputFields": null,
-                "interfaces": [],
+                "interfaces": null,
                 "enumValues": null,
                 "possibleTypes": null
             },
@@ -3621,185 +3546,6 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "addLectureStack",
-                        "description": null,
-                        "args": [
-                            {
-                                "name": "lectureStackId",
-                                "description": null,
-                                "type": {
-                                    "kind": "NON_NULL",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "String",
-                                        "ofType": null
-                                    }
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "disciplineId",
-                                "description": null,
-                                "type": {
-                                    "kind": "NON_NULL",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "String",
-                                        "ofType": null
-                                    }
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "moduleIds",
-                                "description": null,
-                                "type": {
-                                    "kind": "LIST",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "String",
-                                        "ofType": null
-                                    }
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "groups",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            }
-                        ],
-                        "type": {
-                            "kind": "OBJECT",
-                            "name": "LectureStack",
-                            "ofType": null
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "editLectureStack",
-                        "description": null,
-                        "args": [
-                            {
-                                "name": "lectureStackId",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "disciplineId",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "moduleIds",
-                                "description": null,
-                                "type": {
-                                    "kind": "LIST",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "String",
-                                        "ofType": null
-                                    }
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "groups",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            }
-                        ],
-                        "type": {
-                            "kind": "OBJECT",
-                            "name": "LectureStack",
-                            "ofType": null
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "deleteLectureStack",
-                        "description": null,
-                        "args": [
-                            {
-                                "name": "lectureStackId",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "disciplineId",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "moduleIds",
-                                "description": null,
-                                "type": {
-                                    "kind": "LIST",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "String",
-                                        "ofType": null
-                                    }
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "groups",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            }
-                        ],
-                        "type": {
-                            "kind": "OBJECT",
-                            "name": "LectureStack",
-                            "ofType": null
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
                         "name": "addModule",
                         "description": null,
                         "args": [
@@ -3821,106 +3567,8 @@
                                 "name": "name",
                                 "description": null,
                                 "type": {
-                                    "kind": "NON_NULL",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "String",
-                                        "ofType": null
-                                    }
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "description",
-                                "description": null,
-                                "type": {
-                                    "kind": "NON_NULL",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "String",
-                                        "ofType": null
-                                    }
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "nqfLevel",
-                                "description": null,
-                                "type": {
-                                    "kind": "NON_NULL",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "String",
-                                        "ofType": null
-                                    }
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "qualificationId",
-                                "description": null,
-                                "type": {
-                                    "kind": "NON_NULL",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "String",
-                                        "ofType": null
-                                    }
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "offeringTypeId",
-                                "description": null,
-                                "type": {
-                                    "kind": "NON_NULL",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "String",
-                                        "ofType": null
-                                    }
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "disciplineId",
-                                "description": null,
-                                "type": {
-                                    "kind": "NON_NULL",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "String",
-                                        "ofType": null
-                                    }
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "credits",
-                                "description": null,
-                                "type": {
-                                    "kind": "NON_NULL",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "Int",
-                                        "ofType": null
-                                    }
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "isMajor",
-                                "description": null,
-                                "type": {
                                     "kind": "SCALAR",
-                                    "name": "Boolean",
+                                    "name": "String",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -3929,7 +3577,77 @@
                                 "name": "type",
                                 "description": null,
                                 "type": {
-                                    "kind": "NON_NULL",
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "assessmentMethod",
+                                "description": null,
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "nqfLevel",
+                                "description": null,
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "qualificationId",
+                                "description": null,
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "offeringTypeId",
+                                "description": null,
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "disciplineId",
+                                "description": null,
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "venueId",
+                                "description": null,
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "blockIds",
+                                "description": null,
+                                "type": {
+                                    "kind": "LIST",
                                     "name": null,
                                     "ofType": {
                                         "kind": "SCALAR",
@@ -3940,21 +3658,25 @@
                                 "defaultValue": null
                             },
                             {
-                                "name": "baseContact",
+                                "name": "userIds",
                                 "description": null,
                                 "type": {
-                                    "kind": "SCALAR",
-                                    "name": "Int",
-                                    "ofType": null
+                                    "kind": "LIST",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
                                 },
                                 "defaultValue": null
                             },
                             {
-                                "name": "basePractical",
+                                "name": "stackId",
                                 "description": null,
                                 "type": {
                                     "kind": "SCALAR",
-                                    "name": "Int",
+                                    "name": "String",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -3976,9 +3698,13 @@
                                 "name": "moduleId",
                                 "description": null,
                                 "type": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
                                 },
                                 "defaultValue": null
                             },
@@ -3993,7 +3719,17 @@
                                 "defaultValue": null
                             },
                             {
-                                "name": "description",
+                                "name": "type",
+                                "description": null,
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "assessmentMethod",
                                 "description": null,
                                 "type": {
                                     "kind": "SCALAR",
@@ -4043,27 +3779,7 @@
                                 "defaultValue": null
                             },
                             {
-                                "name": "credits",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "Int",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "isMajor",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "Boolean",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "type",
+                                "name": "venueId",
                                 "description": null,
                                 "type": {
                                     "kind": "SCALAR",
@@ -4073,21 +3789,39 @@
                                 "defaultValue": null
                             },
                             {
-                                "name": "baseContact",
+                                "name": "blockIds",
                                 "description": null,
                                 "type": {
-                                    "kind": "SCALAR",
-                                    "name": "Int",
-                                    "ofType": null
+                                    "kind": "LIST",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
                                 },
                                 "defaultValue": null
                             },
                             {
-                                "name": "basePractical",
+                                "name": "userIds",
+                                "description": null,
+                                "type": {
+                                    "kind": "LIST",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "stackId",
                                 "description": null,
                                 "type": {
                                     "kind": "SCALAR",
-                                    "name": "Int",
+                                    "name": "String",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -4109,9 +3843,13 @@
                                 "name": "moduleId",
                                 "description": null,
                                 "type": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
                                 },
                                 "defaultValue": null
                             },
@@ -4126,7 +3864,17 @@
                                 "defaultValue": null
                             },
                             {
-                                "name": "description",
+                                "name": "type",
+                                "description": null,
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "assessmentMethod",
                                 "description": null,
                                 "type": {
                                     "kind": "SCALAR",
@@ -4176,27 +3924,7 @@
                                 "defaultValue": null
                             },
                             {
-                                "name": "credits",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "Int",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "isMajor",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "Boolean",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "type",
+                                "name": "venueId",
                                 "description": null,
                                 "type": {
                                     "kind": "SCALAR",
@@ -4206,21 +3934,39 @@
                                 "defaultValue": null
                             },
                             {
-                                "name": "baseContact",
+                                "name": "blockIds",
                                 "description": null,
                                 "type": {
-                                    "kind": "SCALAR",
-                                    "name": "Int",
-                                    "ofType": null
+                                    "kind": "LIST",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
                                 },
                                 "defaultValue": null
                             },
                             {
-                                "name": "basePractical",
+                                "name": "userIds",
+                                "description": null,
+                                "type": {
+                                    "kind": "LIST",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "stackId",
                                 "description": null,
                                 "type": {
                                     "kind": "SCALAR",
-                                    "name": "Int",
+                                    "name": "String",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -4490,13 +4236,9 @@
                                 "name": "type",
                                 "description": null,
                                 "type": {
-                                    "kind": "NON_NULL",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "String",
-                                        "ofType": null
-                                    }
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
                                 },
                                 "defaultValue": null
                             },
@@ -4504,13 +4246,9 @@
                                 "name": "saqaId",
                                 "description": null,
                                 "type": {
-                                    "kind": "NON_NULL",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "String",
-                                        "ofType": null
-                                    }
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
                                 },
                                 "defaultValue": null
                             },
@@ -4518,13 +4256,9 @@
                                 "name": "departmentId",
                                 "description": null,
                                 "type": {
-                                    "kind": "NON_NULL",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "String",
-                                        "ofType": null
-                                    }
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
                                 },
                                 "defaultValue": null
                             },
@@ -5501,7 +5235,7 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "addLectureActivity",
+                        "name": "addFormalInstructionActivity",
                         "description": null,
                         "args": [
                             {
@@ -5549,14 +5283,14 @@
                         ],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "LectureActivity",
+                            "name": "FormalInstructionActivity",
                             "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "editLectureActivity",
+                        "name": "editFormalInstructionActivity",
                         "description": null,
                         "args": [
                             {
@@ -5612,14 +5346,14 @@
                         ],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "LectureActivity",
+                            "name": "FormalInstructionActivity",
                             "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "deleteLectureActivity",
+                        "name": "deleteFormalInstructionActivity",
                         "description": null,
                         "args": [
                             {
@@ -5675,7 +5409,7 @@
                         ],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "LectureActivity",
+                            "name": "FormalInstructionActivity",
                             "ofType": null
                         },
                         "isDeprecated": false,
@@ -6566,7 +6300,7 @@
             },
             {
                 "kind": "OBJECT",
-                "name": "LectureActivity",
+                "name": "FormalInstructionActivity",
                 "description": null,
                 "fields": [
                     {
@@ -6654,28 +6388,24 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "lectureStackId",
+                        "name": "moduleId",
                         "description": null,
                         "args": [],
                         "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "String",
-                                "ofType": null
-                            }
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "lectureStack",
+                        "name": "module",
                         "description": null,
                         "args": [],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "LectureStack",
+                            "name": "Module",
                             "ofType": null
                         },
                         "isDeprecated": false,

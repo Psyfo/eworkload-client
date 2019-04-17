@@ -47,7 +47,7 @@ export class StaffAddComponent implements OnInit {
     }
 
     onBack() {
-        this.router.navigate(["../staff"]);
+        this.router.navigate(["../admin/staff"]);
     }
 
     onReset() {
@@ -55,6 +55,6 @@ export class StaffAddComponent implements OnInit {
     }
 
     accountExists(control: FormControl) {
-        
+
     }
 }

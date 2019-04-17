@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" [@routerTransition]>
     <div class="col-6">
         <form [formGroup]="departmentAddForm" (ngSubmit)="onAdd()" novalidate class="form">
 
@@ -26,7 +26,7 @@
                             <label for="facultyId" class="col-form-label">Faculties</label>
                             <select formControlName="facultyId" class="form-control">
                                 <option [value]="'default'">Select Faculty</option>
-                                <option *ngFor="let faculty of faculties; let i=index;" [value]="faculty.facultyId">{{ faculty.name }}</option>
+                                <option *ngFor="let faculty of faculties; let i=index;" [value]="faculty?.facultyId">{{ faculty.name }}</option>
                             </select>
                         </div>
                     </div>

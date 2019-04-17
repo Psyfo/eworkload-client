@@ -3,11 +3,13 @@ import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AlertService } from "./../../../../shared/services/alert.service";
 import { Component, OnInit } from "@angular/core";
+import { routerTransition } from "../../../../router.animations";
 
 @Component({
     selector: "app-faculty-add",
     templateUrl: "./faculty-add.component.html",
-    styleUrls: ["./faculty-add.component.scss"]
+    styleUrls: ["./faculty-add.component.scss"],
+    animations: [routerTransition()]
 })
 export class FacultyAddComponent implements OnInit {
 
@@ -30,11 +32,11 @@ export class FacultyAddComponent implements OnInit {
 
     onAdd() {
         // Check if ID exist first
-        
+
     }
 
     onBack() {
-        this.router.navigate(["../faculty"]);
+        this.router.navigate(["../admin/faculty"]);
     }
 
     onReset() {

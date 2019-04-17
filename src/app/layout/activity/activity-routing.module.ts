@@ -1,30 +1,35 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { ActivityComponent } from "./activity.component";
+import { ActivityComponent } from './activity.component';
 
 const routes: Routes = [
     {
-        path: "",
+        path: '',
         component: ActivityComponent,
         children: [
             {
-                path: "commInstruction",
+                path: 'community-instruction',
                 loadChildren:
-                    "./commInstruction/commInstruction.module#CommInstructionModule"
+                    './commInstruction/commInstruction.module#CommInstructionModule'
             },
             {
-                path: "lecturing",
-                loadChildren: "./lecturing/lecturing.module#LecturingModule"
+                path: 'lecturing',
+                loadChildren: './lecturing/lecturing.module#LecturingModule'
             },
             {
-                path: "publicService",
+                path: 'public-service',
                 loadChildren:
-                    "./publicService/publicService.module#PublicServiceModule"
+                    './publicService/publicService.module#PublicServiceModule'
             },
             {
-                path: "research",
-                loadChildren: "./research/research.module#ResearchModule"
+                path: 'research',
+                loadChildren: './research/research.module#ResearchModule'
+            },
+            {
+                path: 'supervision',
+                loadChildren:
+                    './supervision/supervision.module#SupervisionModule'
             }
         ]
     }

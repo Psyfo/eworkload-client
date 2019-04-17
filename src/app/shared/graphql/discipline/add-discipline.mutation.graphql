@@ -1,0 +1,7 @@
+mutation addDiscipline($name: String!, $description: String!) {
+    addDiscipline(name: $name, description: $description) {
+        disciplineId
+        name
+        description
+    }
+}

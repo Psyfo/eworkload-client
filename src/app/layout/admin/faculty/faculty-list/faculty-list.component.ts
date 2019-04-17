@@ -5,11 +5,13 @@ import { Subject } from "rxjs";
 import { Component, OnInit, OnDestroy, AfterViewInit, Renderer } from "@angular/core";
 import { FacultiesGQL } from "../../../../shared/generated/output";
 import { Faculty } from "../../../../shared/models/faculty.model";
+import { routerTransition } from "../../../../router.animations";
 
 @Component({
     selector: "app-faculty-list",
     templateUrl: "./faculty-list.component.html",
     styleUrls: ["./faculty-list.component.scss"],
+    animations: [routerTransition()]
 })
 export class FacultyListComponent implements OnInit {
     faculties: Faculty[];
@@ -79,11 +81,13 @@ export class FacultyListComponent implements OnInit {
                     console.log(`Error: ${error.message}`);
                 });
             }
+
+            this.dtTrigger.next();
         });
     }
 
     onAddFaculty() {
-        this.router.navigate(["faculty/add"]);
+        this.router.navigate(["admin/faculty/add"]);
     }
 
 
@@ -91,6 +95,6 @@ export class FacultyListComponent implements OnInit {
         // get all column values as array
         this.dtRouteParam = info[0];
 
-        this.router.navigate(['faculty/view', this.dtRouteParam], { queryParams: { facultyId: info[0] } });
+        this.router.navigate(['admin/faculty/view', this.dtRouteParam], { queryParams: { facultyId: info[0] } });
     }
 }

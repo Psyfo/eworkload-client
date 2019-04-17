@@ -2,8 +2,8 @@ mutation deleteQualification(
     $qualificationId: String!
     $name: String!
     $type: String!
-    $saqaId: String!
-    $departmentId: String!
+    $saqaId: String
+    $departmentId: String
     $heqsfLevel: String
     $purpose: String
     $exitLevelOutcomes: [String]

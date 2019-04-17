@@ -1,8 +1,8 @@
 import { Faculty } from './faculty.model';
 
-export class department {
-    departmentId: string
+export class Department {
+    departmentId: string;
     name: string;
-    facultyId: string
-    faculty: Faculty
+    facultyId: string;
+    faculty: Faculty;
 }

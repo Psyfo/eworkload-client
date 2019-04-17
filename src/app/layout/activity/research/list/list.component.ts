@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../../../router.animations';
 import { AlertService } from '../../../../shared/services';
 import { Router } from '@angular/router';
+import { ResearchActivity } from '../../../../shared/models';
 
 @Component({
     selector: 'app-list',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
     animations: [routerTransition()]
 })
 export class ListComponent implements OnInit {
+    researchActivities: ResearchActivity[];
 
     constructor(
         private alertService: AlertService,

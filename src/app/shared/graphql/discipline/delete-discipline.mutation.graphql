@@ -1,0 +1,7 @@
+mutation deleteDiscipline($disciplineId: String!, $name: String, $description: String) {
+    deleteDiscipline(disciplineId: $disciplineId, name: $name, description: $description) {
+        disciplineId
+        name
+        description
+    }
+}

@@ -14,37 +14,31 @@
                                     Name and Surname:
                                 </dt>
                                 <dd>
-                                    {{ staff?.firstName }} {{ staff?.lastName }}
+                                    {{ user?.firstName }} {{ user?.lastName }}
                                 </dd>
                                 <dt>
                                     Staff Number:
                                 </dt>
                                 <dd>
-                                    {{ staff?.staffId }}
+                                    {{ user?.userId }}
                                 </dd>
                                 <dt>
-                                    Department:
+                                    Discipline:
                                 </dt>
                                 <dd>
-                                    {{ department?.name }}
-                                </dd>
-                                <dt>
-                                    Faculty:
-                                </dt>
-                                <dd>
-                                    {{ faculty?.name }}
+                                    {{ user.discipline?.name }}
                                 </dd>
                                 <dt>
                                     Gender:
                                 </dt>
                                 <dd>
-                                    {{ staff?.gender }}
+                                    {{ user?.gender | titlecase }}
                                 </dd>
                                 <dt>
                                     Nationality:
                                 </dt>
                                 <dd>
-                                    {{ staff?.nationality }}
+                                    {{ user?.nationality | titlecase }}
                                 </dd>
                             </dl>
                         </div>
@@ -62,7 +56,12 @@
                             <input type="text" formControlName="researchLocation" class="form-control" placeholder="e.g. https://ieeexplore.ieee.org/document/7073822">
                         </div>
 
-                        <div formGroupName="supervisionDetails">
+                        <div class="form-group">
+                                <label for="researchLocation">Uploads</label>
+                                <input type="file" class="form-control">
+                            </div>
+
+                        <!-- <div formGroupName="supervisionDetails">
                             <div class="form-group">
                                 <label for="outputType">Research Role: </label>
                                 <select formControlName="researchRole" class="form-control" (change)="onRoleChange($event)">
@@ -75,7 +74,7 @@
                                     <input type="text" class="form-control" placeholder="Student ID" formControlName="studentId">
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
 
                     </div>

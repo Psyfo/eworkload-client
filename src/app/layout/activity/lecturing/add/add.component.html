@@ -16,53 +16,40 @@
                                                     Name and Surname:
                                                 </dt>
                                                 <dd>
-                                                    {{ staff?.firstName }} {{ staff?.lastName }}
+                                                    {{ user?.firstName }} {{ user?.lastName }}
                                                 </dd>
                                                 <dt>
                                                     Staff Number:
                                                 </dt>
                                                 <dd>
-                                                    {{ staff?.staffId }}
+                                                    {{ user?.userId }}
                                                 </dd>
                                                 <dt>
-                                                    Department:
+                                                    Discipline:
                                                 </dt>
                                                 <dd>
-                                                    {{ department?.name }}
-                                                </dd>
-                                                <dt>
-                                                    Faculty:
-                                                </dt>
-                                                <dd>
-                                                    {{ faculty?.name }}
+                                                    {{ user?.discipline?.name }}
                                                 </dd>
                                                 <dt>
                                                     Gender:
                                                 </dt>
                                                 <dd>
-                                                    {{ staff?.gender }}
+                                                    {{ user?.gender }}
                                                 </dd>
                                                 <dt>
                                                     Nationality:
                                                 </dt>
                                                 <dd>
-                                                    {{ staff?.nationality }}
+                                                    {{ user?.nationality }}
                                                 </dd>
                                             </dl>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="outputType">Select a Qualification: </label>
-                                            <select class="form-control" (change)="onQualificationChanged($event)">
-                                                <option *ngFor="let qualification of qualifications; let i = index" [value]="qualification.qualificationId">{{ qualification.name }}</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
                                             <label for="outputType">Select Module(s): </label>
                                             <select class="form-control">
-                                                <option *ngFor="let module of moduleArray; let i = index" [value]="module.moduleId" (change)="onModuleChanged($event)">{{ module.name }}</option>
+                                                <option *ngFor="let module of modules; let i = index" [value]="module.moduleId" (change)="onModuleChanged($event)">{{ module.name }}</option>
                                             </select>
                                         </div>
 

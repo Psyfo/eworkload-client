@@ -2,15 +2,19 @@ import { AlertService } from "./../../../../shared/services/alert.service";
 import { combineLatest } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Component, OnInit, OnDestroy } from "@angular/core";
+import { routerTransition } from "../../../../router.animations";
+import { Faculty } from "../../../../shared/models";
 
 @Component({
     selector: "app-faculty-view",
     templateUrl: "./faculty-view.component.html",
-    styleUrls: ["./faculty-view.component.scss"]
+    styleUrls: ["./faculty-view.component.scss"],
+    animations: [routerTransition()]
 })
 export class FacultyViewComponent implements OnInit {
     //Properties
     facultyId: string;
+    faculty: Faculty;
 
 
     constructor(
@@ -22,7 +26,7 @@ export class FacultyViewComponent implements OnInit {
     ngOnInit() {
 
         // Get ID from route
-        // this.facultyId = this.activatedRoute.snapshot.paramMap.get("id");
+        this.facultyId = this.activatedRoute.snapshot.paramMap.get("id");
 
 
     }
@@ -33,12 +37,12 @@ export class FacultyViewComponent implements OnInit {
     }
 
     onEdit() {
-        this.router.navigate(["faculty/edit", this.facultyId]);
+        this.router.navigate(["admin/faculty/edit", this.facultyId]);
     }
 
     onDelete() {}
 
     onBack() {
-        this.router.navigate(["../faculty"]);
+        this.router.navigate(["../admin/faculty"]);
     }
 }

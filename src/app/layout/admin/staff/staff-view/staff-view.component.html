@@ -4,20 +4,26 @@
             <div class="card-header">
                 <h4>Details</h4>
             </div>
-            <div class="card-body" *ngIf="staff"  >
+            <div class="card-body" *ngIf="user"  >
                 <div class="row">
                     <div class="col">
                         <dl class="row">
-                            <dt class="col-4">Lecturer ID</dt>
-                            <dd class="col-8">{{ staff.staffId }}</dd>
+                            <dt class="col-4">Staff ID</dt>
+                            <dd class="col-8">{{ user?.userId }}</dd>
                             <dt class="col-4">First Name</dt>
-                            <dd class="col-8">{{ staff.firstName}}</dd>
+                            <dd class="col-8">{{ user?.firstName}}</dd>
+                            <dt class="col-4">Email</dt>
+                            <dd class="col-8">{{ user?.email}}</dd>
+                            <dt class="col-4">Gender</dt>
+                            <dd class="col-8">{{ user?.gender | titlecase}}</dd>
+                            <dt class="col-4">Nationality</dt>
+                            <dd class="col-8">{{ user?.nationality | titlecase}}</dd>
                             <dt class="col-4">Last Name</dt>
-                            <dd class="col-8">{{ staff.lastName }}</dd>
-                            <dt class="col-4">Department</dt>
-                            <dd class="col-8">{{ department?.name }}</dd>
-                            <!-- <dt class="col-4">Position</dt>
-                            <dd class="col-8">{{ position?.name }}</dd> -->
+                            <dd class="col-8">{{ user?.lastName }}</dd>
+                            <dt class="col-4">Discipline</dt>
+                            <dd class="col-8">{{ user?.discipline.name }}</dd>
+                            <dt class="col-4">Position</dt>
+                            <dd class="col-8">{{ user?.position.name }}</dd>
                         </dl>
                     </div>
                 </div>

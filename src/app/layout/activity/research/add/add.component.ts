@@ -9,6 +9,9 @@ import {
     FormControl,
     FormArray
 } from '@angular/forms';
+import { User } from '../../../../shared/models';
+import { UserGQL } from '../../../../shared/generated/output';
+import { UserService } from '../../../../shared/services/user.service';
 
 @Component({
     selector: 'app-add',
@@ -17,9 +20,13 @@ import {
     animations: [routerTransition()]
 })
 export class AddComponent implements OnInit {
+    userId: string;
+    user: User;
+    loading: boolean;
+    errors: any;
 
-    outputTypes = ['Journal', 'Proceedings', 'Books', 'Chapter'];
-    researchRoles = ['Author', 'Co-Author', 'Main Supervisor', 'Co-Supervisor'];
+    outputTypes = ['Conference Proceedings', 'Keynote Address', 'Journal', 'Books', 'Chapter'];
+
     supervisionDetails: {
         researchRole: string;
         studentId: string;
@@ -30,25 +37,38 @@ export class AddComponent implements OnInit {
     constructor(
         private alertService: AlertService,
         private router: Router,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private userGql: UserGQL,
+        private userService: UserService
     ) {}
 
     ngOnInit() {
         // initialize form
         this.researchActivityForm = this.fb.group({
             outputType: ['', Validators.required],
-            researchLocation: ['', Validators.required],
-            supervisionDetails: this.fb.group({
-                researchRole: ['', Validators.required],
-                studentId: ['']
-            })
+            researchLocation: ['', Validators.required]
         });
 
         this.initializeForm();
     }
 
     initializeForm() {
+        // Get current user ID
+        this.userService.currentUserId().subscribe(userId => {
+            this.userId = userId;
+            console.log(`Current user id: ${this.userId}`);
 
+            // Fetch user data
+            this.userGql
+                .watch({ userId: this.userId })
+                .valueChanges.subscribe(result => {
+                    this.user = result.data.user as User;
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+
+                    console.log(this.user);
+                });
+        });
     }
 
     onAdd() {
@@ -62,10 +82,5 @@ export class AddComponent implements OnInit {
         this.router.navigate(['activity/research']);
     }
 
-    onRoleChange(e: Event) {
-        this.supervisionDetails.researchRole = this.researchActivityForm[
-            'controls'
-        ].supervisionDetails['controls'].researchRole.value;
-        console.log(this.supervisionDetails.researchRole);
-    }
+
 }

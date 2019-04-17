@@ -1,71 +1,63 @@
 mutation deleteModule(
     $moduleId: String!
-    $name: String!
-    $description: String!
-    $nqfLevel: String!
-    $qualificationId: String!
-    $offeringTypeId: String!
-    $disciplineId: String!
-    $credits: Int!
-    $isMajor: Boolean
-    $type: String!
-    $baseContact: Int
-    $basePractical: Int
+    $name: String
+    $type: String
+    $assessmentMethod: String
+    $nqfLevel: String
+    $qualificationId: String
+    $offeringTypeId: String
+    $disciplineId: String
+    $venueId: String
+    $blockIds: [String]
+    $userIds: [String]
+    $stackId: String
 ) {
     deleteModule(
         moduleId: $moduleId
         name: $name
-        description: $description
+        type: $type
+        assessmentMethod: $assessmentMethod
         nqfLevel: $nqfLevel
         qualificationId: $qualificationId
         offeringTypeId: $offeringTypeId
         disciplineId: $disciplineId
-        credits: $credits
-        isMajor: $isMajor
-        type: $type
-        baseContact: $baseContact
-        basePractical: $basePractical
+        venueId: $venueId
+        blockIds: $blockIds
+        userIds: $userIds
+        stackId: $stackId
     ) {
         moduleId
         name
-        description
+        type
+        assessmentMethod
         nqfLevel
-        qualificationId
         qualification {
             qualificationId
             name
-            type
-            saqaId
-            departmentId
-            department{
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
-            heqsfLevel
-            purpose
-            exitLevelOutcomes
-            graduateAttributes
         }
-        offeringTypeId
         offeringType {
             offeringTypeId
             description
         }
-        disciplineId
         discipline {
             disciplineId
             name
-            description
         }
-        credits
-        isMajor
-        type
-        baseContact
-        basePractical
+        venue {
+            venueId
+            campus
+            capacity
+        }
+        blocks {
+            blockId
+            name
+        }
+        users {
+            userId
+            firstName
+            lastName
+            email
+        }
+        stackId
     }
 }

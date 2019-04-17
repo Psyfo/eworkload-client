@@ -1,0 +1,97 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header text-muted">
+                    <h5>New Task</h5>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="prepModuleForm" (ngSubmit)="onAdd()" novalidate class="form">
+                        <div class="form-group">
+                            <label for="disciplineSelect">Select a Discipline</label>
+                            <select formControlName="disciplineSelect" class="form-control" (change)="onDisciplineChanged()">
+                                <option *ngFor="let discipline of disciplines" [value]="discipline.disciplineId">
+                                    {{discipline.name}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" *ngIf="moduleStackCard" >
+                            <div class="card">
+                                <div class="card-header">
+                                    Module Stacking
+                                </div>
+                                <div class="card-body">
+                                    <div formArrayName="moduleCheck" class="form-check" *ngFor="let module of modules; let i = index">
+                                        <input [formControlName]="i" type="checkbox" class="form-check-input">
+                                        <label for="moduleCheck">{{module.name}}</label>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-outline-primary">Done</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="disciplineSelect">Is Module Shared</label>
+                            <select formControlName="sharedSelect" class="form-control" (change)="onSharedChanged()">
+                                <option *ngFor="let sharedOption of sharedOptions; let i = index" [value]="sharedOptions[i]">
+                                    {{sharedOptions[i]}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" *ngIf="moduleSharedCard == true" >
+                            <div class="card">
+                                <div class="card-header">
+                                    Shared Modules
+                                </div>
+                                <div class="card-body">
+                                    <div formArrayName="moduleCheck2" class="form-check" *ngFor="let sharedModule of sharedModules; let i = index">
+                                        <input [formControlName]="i" type="checkbox" class="form-check-input">
+                                        <label for="moduleCheck2">{{sharedModule.name}}</label>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-outline-primary">Done</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="groups">How many groups?</label>
+                                <input formControlName="groups" type="number" class="form-control" placeholder="0">
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-outline-success">Add</button>
+                            <button type="button" class="btn btn-outline-dark pull-right"
+                                (click)="onReset()">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="col-6">
+            <div class="card">
+                <div class="card-header text-muted">
+                    <h5>Formal Instruction Task List</h5>
+                </div>
+                <div class="card-body">
+                    <div class="card" *ngFor="let lectureStack of lectureStacks" >
+                        <div class="card-body">
+                            {{lectureStack | json}}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>

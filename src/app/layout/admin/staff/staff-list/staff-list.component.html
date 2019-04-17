@@ -6,7 +6,8 @@
         <div class="row">
             <div class="col">
 
-                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="staffListDT" class="table table-hover table-active">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="userListDT"
+                    class="table table-hover table-active">
                     <thead>
                         <tr>
                             <th>
@@ -21,28 +22,39 @@
                             <th>
                                 Email
                             </th>
+                            <th>
+                                Discipline
+                            </th>
+                            <th>
+                                Position
+                            </th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="staffs?.length != 0">
-                        <tr *ngFor="let staff of staffs">
+                    <tbody *ngIf="users?.length != 0">
+                        <tr *ngFor="let user of users">
                             <td>
-                                {{ staff.staffId }}
+                                {{ user.userId }}
                             </td>
                             <td>
-                                {{ staff.firstName }}
+                                {{ user.firstName }}
                             </td>
                             <td>
-                                {{ staff.lastName }}
+                                {{ user.lastName }}
                             </td>
                             <td>
-                                {{ staff.email }}
+                                {{ user.email }}
                             </td>
-
+                            <td>
+                                {{ user.discipline.name }}
+                            </td>
+                            <td>
+                                {{ user.position.name }}
+                            </td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="4">
+                            <td colspan="6">
                             </td>
                         </tr>
                     </tfoot>

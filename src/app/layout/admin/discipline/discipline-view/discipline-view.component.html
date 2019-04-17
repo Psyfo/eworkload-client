@@ -1,0 +1,32 @@
+<div class="row" [@routerTransition]>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Details</h4>
+            </div>
+            <div class="card-body" *ngIf="discipline">
+                <div class="row">
+                    <div class="col">
+                        <dl class="row">
+                            <dt class="col-4">Discipline ID</dt>
+                            <dd class="col-8">{{ discipline?.disciplineId }}</dd>
+                            <dt class="col-4">Name</dt>
+                            <dd class="col-8">{{ discipline?.name}}</dd>
+                            <dt class="col-4">Description</dt>
+                            <dd class="col-8">{{ discipline?.description}}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-outline-warning mr-3" (click)="onEdit()">Edit</button>
+                        <button class="btn btn-outline-primary" (click)="onBack()">Back</button>
+                        <button class="btn btn-outline-danger pull-right" (click)="onDelete()">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

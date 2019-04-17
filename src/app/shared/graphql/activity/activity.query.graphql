@@ -1,0 +1,90 @@
+query activity($activityId: String!) {
+    activity(activityId: $activityId) {
+        activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+        }
+        dutyId
+        duty {
+            dutyId
+            name
+            description
+        }
+        approvalStatus
+        ... on CommInstructionActivity {
+            commInstructionDescription
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+        ... on PublicServiceActivity {
+            publicServiceDescription
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+        ... on FormalInstructionActivity {
+            moduleId
+            module {
+                moduleId
+                name
+                type
+                assessmentMethod
+                nqfLevel
+                qualification {
+                    qualificationId
+                    name
+                }
+                offeringType {
+                    offeringTypeId
+                    description
+                }
+                discipline {
+                    disciplineId
+                    name
+                }
+                venue {
+                    venueId
+                    campus
+                    capacity
+                }
+                blocks {
+                    blockId
+                    name
+                }
+                users {
+                    userId
+                    firstName
+                    lastName
+                    email
+                }
+                stackId
+            }
+        }
+        ... on ResearchActivity {
+            researchType
+            researchUrl
+        }
+        ... on SupervisionActivity {
+            supervisionRole
+            studentId
+            student {
+                studentId
+                firstName
+                lastName
+                title
+                year
+            }
+        }
+    }
+}

@@ -8,7 +8,9 @@ export class User {
     firstName: string;
     lastName: string;
     photoUrl: string;
+    disciplineId: string;
     discipline: Discipline;
+    positionId: string;
     position: Position;
     gender: string;
     nationality: string;

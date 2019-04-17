@@ -1,0 +1,7 @@
+mutation editDiscipline($disciplineId: String!, $name: String, $description: String) {
+    editDiscipline(disciplineId: $disciplineId, name: $name, description: $description) {
+        disciplineId
+        name
+        description
+    }
+}

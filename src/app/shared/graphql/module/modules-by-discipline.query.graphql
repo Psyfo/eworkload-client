@@ -1,0 +1,36 @@
+query modulesByDiscipline($disciplineId: String!) {
+    modulesByDiscipline(disciplineId: $disciplineId) {
+        moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
+        qualification {
+            qualificationId
+            name
+        }
+        offeringType {
+            offeringTypeId
+            description
+        }
+        discipline {
+            disciplineId
+            name
+        }
+        venue {
+            venueId
+            campus
+            capacity
+        }
+        blocks {
+            blockId
+            name
+        }
+        users {
+            userId
+            firstName
+            lastName
+            email
+        }
+    }
+}

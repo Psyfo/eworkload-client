@@ -3,13 +3,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AlertService } from '../../../../shared/services';
+import { routerTransition } from '../../../../router.animations';
+import { Faculty } from '../../../../shared/models';
 
 @Component({
     selector: "app-department-add",
     templateUrl: "./department-add.component.html",
-    styleUrls: ["./department-add.component.scss"]
+    styleUrls: ["./department-add.component.scss"],
+    animations: [routerTransition()]
 })
 export class DepartmentAddComponent implements OnInit {
+    faculties: Faculty[];
 
     departmentAddForm: FormGroup;
 
@@ -47,7 +51,7 @@ export class DepartmentAddComponent implements OnInit {
     }
 
     onBack() {
-        this.router.navigate(['../department']);
+        this.router.navigate(['../admin/department']);
     }
 
     onReset() {
@@ -55,6 +59,6 @@ export class DepartmentAddComponent implements OnInit {
     }
 
     public getFaculties() {
-        
+
     }
 }

@@ -70,7 +70,6 @@ export class HeaderComponent implements OnInit {
                     this.loading = result.loading;
                     this.errors = result.errors;
 
-                    console.log(this.user);
                 });
         });
     }

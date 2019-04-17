@@ -83,30 +83,22 @@ export type Faculty = {
     name: Scalars["String"];
 };
 
-export type LectureActivity = Activity & {
+export type FormalInstructionActivity = Activity & {
     activityId: Scalars["String"];
     userId: Scalars["String"];
     user?: Maybe<User>;
     dutyId: Scalars["String"];
     duty?: Maybe<Duty>;
     approvalStatus?: Maybe<Scalars["Boolean"]>;
-    lectureStackId: Scalars["String"];
-    lectureStack?: Maybe<LectureStack>;
-};
-
-export type LectureStack = {
-    lectureStackId: Scalars["String"];
-    disciplineId: Scalars["String"];
-    discipline?: Maybe<Discipline>;
-    moduleIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    modules?: Maybe<Array<Maybe<Module>>>;
-    groups?: Maybe<Scalars["String"]>;
+    moduleId?: Maybe<Scalars["String"]>;
+    module?: Maybe<Module>;
 };
 
 export type Module = {
     moduleId: Scalars["String"];
     name: Scalars["String"];
-    description: Scalars["String"];
+    type: Scalars["String"];
+    assessmentMethod: Scalars["String"];
     nqfLevel: Scalars["String"];
     qualificationId: Scalars["String"];
     qualification?: Maybe<Qualification>;
@@ -114,11 +106,13 @@ export type Module = {
     offeringType?: Maybe<OfferingType>;
     disciplineId: Scalars["String"];
     discipline?: Maybe<Discipline>;
-    credits: Scalars["Int"];
-    isMajor?: Maybe<Scalars["Boolean"]>;
-    type: Scalars["String"];
-    baseContact?: Maybe<Scalars["Int"]>;
-    basePractical?: Maybe<Scalars["Int"]>;
+    venueId?: Maybe<Scalars["String"]>;
+    venue?: Maybe<Venue>;
+    blockIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    blocks?: Maybe<Array<Maybe<Block>>>;
+    userIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    users?: Maybe<Array<Maybe<User>>>;
+    stackId?: Maybe<Scalars["String"]>;
 };
 
 export type Mutation = {
@@ -146,9 +140,6 @@ export type Mutation = {
     addFaculty?: Maybe<Faculty>;
     editFaculty?: Maybe<Faculty>;
     deleteFaculty?: Maybe<Faculty>;
-    addLectureStack?: Maybe<LectureStack>;
-    editLectureStack?: Maybe<LectureStack>;
-    deleteLectureStack?: Maybe<LectureStack>;
     addModule?: Maybe<Module>;
     editModule?: Maybe<Module>;
     deleteModule?: Maybe<Module>;
@@ -170,9 +161,9 @@ export type Mutation = {
     addPublicServiceActivity?: Maybe<PublicServiceActivity>;
     editPublicServiceActivity?: Maybe<PublicServiceActivity>;
     deletePublicServiceActivity?: Maybe<PublicServiceActivity>;
-    addLectureActivity?: Maybe<LectureActivity>;
-    editLectureActivity?: Maybe<LectureActivity>;
-    deleteLectureActivity?: Maybe<LectureActivity>;
+    addFormalInstructionActivity?: Maybe<FormalInstructionActivity>;
+    editFormalInstructionActivity?: Maybe<FormalInstructionActivity>;
+    deleteFormalInstructionActivity?: Maybe<FormalInstructionActivity>;
     addResearchActivity?: Maybe<ResearchActivity>;
     editResearchActivity?: Maybe<ResearchActivity>;
     deleteResearchActivity?: Maybe<ResearchActivity>;
@@ -341,70 +332,49 @@ export type MutationDeleteFacultyArgs = {
     name?: Maybe<Scalars["String"]>;
 };
 
-export type MutationAddLectureStackArgs = {
-    lectureStackId: Scalars["String"];
-    disciplineId: Scalars["String"];
-    moduleIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    groups?: Maybe<Scalars["String"]>;
-};
-
-export type MutationEditLectureStackArgs = {
-    lectureStackId?: Maybe<Scalars["String"]>;
-    disciplineId?: Maybe<Scalars["String"]>;
-    moduleIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    groups?: Maybe<Scalars["String"]>;
-};
-
-export type MutationDeleteLectureStackArgs = {
-    lectureStackId?: Maybe<Scalars["String"]>;
-    disciplineId?: Maybe<Scalars["String"]>;
-    moduleIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    groups?: Maybe<Scalars["String"]>;
-};
-
 export type MutationAddModuleArgs = {
     moduleId: Scalars["String"];
-    name: Scalars["String"];
-    description: Scalars["String"];
-    nqfLevel: Scalars["String"];
-    qualificationId: Scalars["String"];
-    offeringTypeId: Scalars["String"];
-    disciplineId: Scalars["String"];
-    credits: Scalars["Int"];
-    isMajor?: Maybe<Scalars["Boolean"]>;
-    type: Scalars["String"];
-    baseContact?: Maybe<Scalars["Int"]>;
-    basePractical?: Maybe<Scalars["Int"]>;
+    name?: Maybe<Scalars["String"]>;
+    type?: Maybe<Scalars["String"]>;
+    assessmentMethod?: Maybe<Scalars["String"]>;
+    nqfLevel?: Maybe<Scalars["String"]>;
+    qualificationId?: Maybe<Scalars["String"]>;
+    offeringTypeId?: Maybe<Scalars["String"]>;
+    disciplineId?: Maybe<Scalars["String"]>;
+    venueId?: Maybe<Scalars["String"]>;
+    blockIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    userIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    stackId?: Maybe<Scalars["String"]>;
 };
 
 export type MutationEditModuleArgs = {
-    moduleId?: Maybe<Scalars["String"]>;
+    moduleId: Scalars["String"];
     name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    type?: Maybe<Scalars["String"]>;
+    assessmentMethod?: Maybe<Scalars["String"]>;
     nqfLevel?: Maybe<Scalars["String"]>;
     qualificationId?: Maybe<Scalars["String"]>;
     offeringTypeId?: Maybe<Scalars["String"]>;
     disciplineId?: Maybe<Scalars["String"]>;
-    credits?: Maybe<Scalars["Int"]>;
-    isMajor?: Maybe<Scalars["Boolean"]>;
-    type?: Maybe<Scalars["String"]>;
-    baseContact?: Maybe<Scalars["Int"]>;
-    basePractical?: Maybe<Scalars["Int"]>;
+    venueId?: Maybe<Scalars["String"]>;
+    blockIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    userIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    stackId?: Maybe<Scalars["String"]>;
 };
 
 export type MutationDeleteModuleArgs = {
-    moduleId?: Maybe<Scalars["String"]>;
+    moduleId: Scalars["String"];
     name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    type?: Maybe<Scalars["String"]>;
+    assessmentMethod?: Maybe<Scalars["String"]>;
     nqfLevel?: Maybe<Scalars["String"]>;
     qualificationId?: Maybe<Scalars["String"]>;
     offeringTypeId?: Maybe<Scalars["String"]>;
     disciplineId?: Maybe<Scalars["String"]>;
-    credits?: Maybe<Scalars["Int"]>;
-    isMajor?: Maybe<Scalars["Boolean"]>;
-    type?: Maybe<Scalars["String"]>;
-    baseContact?: Maybe<Scalars["Int"]>;
-    basePractical?: Maybe<Scalars["Int"]>;
+    venueId?: Maybe<Scalars["String"]>;
+    blockIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    userIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    stackId?: Maybe<Scalars["String"]>;
 };
 
 export type MutationAddOfferingTypeArgs = {
@@ -441,9 +411,9 @@ export type MutationDeletePositionArgs = {
 export type MutationAddQualificationArgs = {
     qualificationId: Scalars["String"];
     name: Scalars["String"];
-    type: Scalars["String"];
-    saqaId: Scalars["String"];
-    departmentId: Scalars["String"];
+    type?: Maybe<Scalars["String"]>;
+    saqaId?: Maybe<Scalars["String"]>;
+    departmentId?: Maybe<Scalars["String"]>;
     heqsfLevel?: Maybe<Scalars["String"]>;
     purpose?: Maybe<Scalars["String"]>;
     exitLevelOutcomes?: Maybe<Array<Maybe<Scalars["String"]>>>;
@@ -553,13 +523,13 @@ export type MutationDeletePublicServiceActivityArgs = {
     evidenceId?: Maybe<Scalars["String"]>;
 };
 
-export type MutationAddLectureActivityArgs = {
+export type MutationAddFormalInstructionActivityArgs = {
     userId: Scalars["String"];
     dutyId: Scalars["String"];
     lectureStackId: Scalars["String"];
 };
 
-export type MutationEditLectureActivityArgs = {
+export type MutationEditFormalInstructionActivityArgs = {
     activityId?: Maybe<Scalars["String"]>;
     userId?: Maybe<Scalars["String"]>;
     dutyId?: Maybe<Scalars["String"]>;
@@ -567,7 +537,7 @@ export type MutationEditLectureActivityArgs = {
     lectureStackId?: Maybe<Scalars["String"]>;
 };
 
-export type MutationDeleteLectureActivityArgs = {
+export type MutationDeleteFormalInstructionActivityArgs = {
     activityId?: Maybe<Scalars["String"]>;
     userId?: Maybe<Scalars["String"]>;
     dutyId?: Maybe<Scalars["String"]>;
@@ -671,9 +641,9 @@ export type PublicServiceActivity = Activity & {
 export type Qualification = {
     qualificationId: Scalars["String"];
     name: Scalars["String"];
-    type: Scalars["String"];
-    saqaId: Scalars["String"];
-    departmentId: Scalars["String"];
+    type?: Maybe<Scalars["String"]>;
+    saqaId?: Maybe<Scalars["String"]>;
+    departmentId?: Maybe<Scalars["String"]>;
     department?: Maybe<Department>;
     heqsfLevel?: Maybe<Scalars["String"]>;
     purpose?: Maybe<Scalars["String"]>;
@@ -699,10 +669,9 @@ export type Query = {
     evidences?: Maybe<Array<Maybe<Evidence>>>;
     faculty?: Maybe<Faculty>;
     faculties?: Maybe<Array<Maybe<Faculty>>>;
-    lectureStack?: Maybe<LectureStack>;
-    lectureStacks?: Maybe<Array<Maybe<LectureStack>>>;
     module?: Maybe<Module>;
     modules?: Maybe<Array<Maybe<Module>>>;
+    modulesByDiscipline?: Maybe<Array<Maybe<Module>>>;
     offeringType?: Maybe<OfferingType>;
     offeringTypes?: Maybe<Array<Maybe<OfferingType>>>;
     position?: Maybe<Position>;
@@ -756,12 +725,12 @@ export type QueryFacultyArgs = {
     facultyId: Scalars["String"];
 };
 
-export type QueryLectureStackArgs = {
-    lectureStackId: Scalars["String"];
-};
-
 export type QueryModuleArgs = {
     moduleId: Scalars["String"];
+};
+
+export type QueryModulesByDisciplineArgs = {
+    disciplineId: Scalars["String"];
 };
 
 export type QueryOfferingTypeArgs = {
@@ -848,6 +817,293 @@ export type Venue = {
     campus: Scalars["String"];
     capacity: Scalars["Int"];
 };
+export type ActivitiesQueryVariables = {};
+
+export type ActivitiesQuery = { __typename?: "Query" } & {
+    activities: Maybe<
+        Array<
+            Maybe<
+                Pick<
+                    Activity,
+                    "activityId" | "userId" | "dutyId" | "approvalStatus"
+                > & {
+                    user: Maybe<
+                        { __typename?: "User" } & Pick<
+                            User,
+                            "userId" | "email" | "firstName" | "lastName"
+                        >
+                    >;
+                    duty: Maybe<
+                        { __typename?: "Duty" } & Pick<
+                            Duty,
+                            "dutyId" | "name" | "description"
+                        >
+                    >;
+                } & (
+                        | ({ __typename?: "CommInstructionActivity" } & Pick<
+                              CommInstructionActivity,
+                              "commInstructionDescription" | "evidenceId"
+                          > & {
+                                  evidence: Maybe<
+                                      { __typename?: "Evidence" } & Pick<
+                                          Evidence,
+                                          "evidenceId" | "name" | "item"
+                                      >
+                                  >;
+                              })
+                        | ({ __typename?: "PublicServiceActivity" } & Pick<
+                              PublicServiceActivity,
+                              "publicServiceDescription" | "evidenceId"
+                          > & {
+                                  evidence: Maybe<
+                                      { __typename?: "Evidence" } & Pick<
+                                          Evidence,
+                                          "evidenceId" | "name" | "item"
+                                      >
+                                  >;
+                              })
+                        | ({ __typename?: "FormalInstructionActivity" } & Pick<
+                              FormalInstructionActivity,
+                              "moduleId"
+                          > & {
+                                  module: Maybe<
+                                      { __typename?: "Module" } & Pick<
+                                          Module,
+                                          | "moduleId"
+                                          | "name"
+                                          | "type"
+                                          | "assessmentMethod"
+                                          | "nqfLevel"
+                                          | "stackId"
+                                      > & {
+                                              qualification: Maybe<
+                                                  {
+                                                      __typename?: "Qualification";
+                                                  } & Pick<
+                                                      Qualification,
+                                                      "qualificationId" | "name"
+                                                  >
+                                              >;
+                                              offeringType: Maybe<
+                                                  {
+                                                      __typename?: "OfferingType";
+                                                  } & Pick<
+                                                      OfferingType,
+                                                      | "offeringTypeId"
+                                                      | "description"
+                                                  >
+                                              >;
+                                              discipline: Maybe<
+                                                  {
+                                                      __typename?: "Discipline";
+                                                  } & Pick<
+                                                      Discipline,
+                                                      "disciplineId" | "name"
+                                                  >
+                                              >;
+                                              venue: Maybe<
+                                                  {
+                                                      __typename?: "Venue";
+                                                  } & Pick<
+                                                      Venue,
+                                                      | "venueId"
+                                                      | "campus"
+                                                      | "capacity"
+                                                  >
+                                              >;
+                                              blocks: Maybe<
+                                                  Array<
+                                                      Maybe<
+                                                          {
+                                                              __typename?: "Block";
+                                                          } & Pick<
+                                                              Block,
+                                                              "blockId" | "name"
+                                                          >
+                                                      >
+                                                  >
+                                              >;
+                                              users: Maybe<
+                                                  Array<
+                                                      Maybe<
+                                                          {
+                                                              __typename?: "User";
+                                                          } & Pick<
+                                                              User,
+                                                              | "userId"
+                                                              | "firstName"
+                                                              | "lastName"
+                                                              | "email"
+                                                          >
+                                                      >
+                                                  >
+                                              >;
+                                          }
+                                  >;
+                              })
+                        | ({ __typename?: "ResearchActivity" } & Pick<
+                              ResearchActivity,
+                              "researchType" | "researchUrl"
+                          >)
+                        | ({ __typename?: "SupervisionActivity" } & Pick<
+                              SupervisionActivity,
+                              "supervisionRole" | "studentId"
+                          > & {
+                                  student: Maybe<
+                                      { __typename?: "Student" } & Pick<
+                                          Student,
+                                          | "studentId"
+                                          | "firstName"
+                                          | "lastName"
+                                          | "title"
+                                          | "year"
+                                      >
+                                  >;
+                              }))
+            >
+        >
+    >;
+};
+
+export type ActivityQueryVariables = {
+    activityId: Scalars["String"];
+};
+
+export type ActivityQuery = { __typename?: "Query" } & {
+    activity: Maybe<
+        Pick<
+            Activity,
+            "activityId" | "userId" | "dutyId" | "approvalStatus"
+        > & {
+            user: Maybe<
+                { __typename?: "User" } & Pick<
+                    User,
+                    "userId" | "email" | "firstName" | "lastName"
+                >
+            >;
+            duty: Maybe<
+                { __typename?: "Duty" } & Pick<
+                    Duty,
+                    "dutyId" | "name" | "description"
+                >
+            >;
+        } & (
+                | ({ __typename?: "CommInstructionActivity" } & Pick<
+                      CommInstructionActivity,
+                      "commInstructionDescription" | "evidenceId"
+                  > & {
+                          evidence: Maybe<
+                              { __typename?: "Evidence" } & Pick<
+                                  Evidence,
+                                  "evidenceId" | "name" | "item"
+                              >
+                          >;
+                      })
+                | ({ __typename?: "PublicServiceActivity" } & Pick<
+                      PublicServiceActivity,
+                      "publicServiceDescription" | "evidenceId"
+                  > & {
+                          evidence: Maybe<
+                              { __typename?: "Evidence" } & Pick<
+                                  Evidence,
+                                  "evidenceId" | "name" | "item"
+                              >
+                          >;
+                      })
+                | ({ __typename?: "FormalInstructionActivity" } & Pick<
+                      FormalInstructionActivity,
+                      "moduleId"
+                  > & {
+                          module: Maybe<
+                              { __typename?: "Module" } & Pick<
+                                  Module,
+                                  | "moduleId"
+                                  | "name"
+                                  | "type"
+                                  | "assessmentMethod"
+                                  | "nqfLevel"
+                                  | "stackId"
+                              > & {
+                                      qualification: Maybe<
+                                          {
+                                              __typename?: "Qualification";
+                                          } & Pick<
+                                              Qualification,
+                                              "qualificationId" | "name"
+                                          >
+                                      >;
+                                      offeringType: Maybe<
+                                          {
+                                              __typename?: "OfferingType";
+                                          } & Pick<
+                                              OfferingType,
+                                              "offeringTypeId" | "description"
+                                          >
+                                      >;
+                                      discipline: Maybe<
+                                          { __typename?: "Discipline" } & Pick<
+                                              Discipline,
+                                              "disciplineId" | "name"
+                                          >
+                                      >;
+                                      venue: Maybe<
+                                          { __typename?: "Venue" } & Pick<
+                                              Venue,
+                                              "venueId" | "campus" | "capacity"
+                                          >
+                                      >;
+                                      blocks: Maybe<
+                                          Array<
+                                              Maybe<
+                                                  {
+                                                      __typename?: "Block";
+                                                  } & Pick<
+                                                      Block,
+                                                      "blockId" | "name"
+                                                  >
+                                              >
+                                          >
+                                      >;
+                                      users: Maybe<
+                                          Array<
+                                              Maybe<
+                                                  {
+                                                      __typename?: "User";
+                                                  } & Pick<
+                                                      User,
+                                                      | "userId"
+                                                      | "firstName"
+                                                      | "lastName"
+                                                      | "email"
+                                                  >
+                                              >
+                                          >
+                                      >;
+                                  }
+                          >;
+                      })
+                | ({ __typename?: "ResearchActivity" } & Pick<
+                      ResearchActivity,
+                      "researchType" | "researchUrl"
+                  >)
+                | ({ __typename?: "SupervisionActivity" } & Pick<
+                      SupervisionActivity,
+                      "supervisionRole" | "studentId"
+                  > & {
+                          student: Maybe<
+                              { __typename?: "Student" } & Pick<
+                                  Student,
+                                  | "studentId"
+                                  | "firstName"
+                                  | "lastName"
+                                  | "title"
+                                  | "year"
+                              >
+                          >;
+                      }))
+    >;
+};
+
 export type AddBlockMutationVariables = {
     blockId: Scalars["String"];
     name: Scalars["String"];
@@ -963,6 +1219,35 @@ export type DepartmentsQuery = { __typename?: "Query" } & {
     >;
 };
 
+export type AddDisciplineMutationVariables = {
+    name: Scalars["String"];
+    description: Scalars["String"];
+};
+
+export type AddDisciplineMutation = { __typename?: "Mutation" } & {
+    addDiscipline: Maybe<
+        { __typename?: "Discipline" } & Pick<
+            Discipline,
+            "disciplineId" | "name" | "description"
+        >
+    >;
+};
+
+export type DeleteDisciplineMutationVariables = {
+    disciplineId: Scalars["String"];
+    name?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
+};
+
+export type DeleteDisciplineMutation = { __typename?: "Mutation" } & {
+    deleteDiscipline: Maybe<
+        { __typename?: "Discipline" } & Pick<
+            Discipline,
+            "disciplineId" | "name" | "description"
+        >
+    >;
+};
+
 export type DisciplineQueryVariables = {
     disciplineId: Scalars["String"];
 };
@@ -987,6 +1272,21 @@ export type DisciplinesQuery = { __typename?: "Query" } & {
                     "disciplineId" | "name" | "description"
                 >
             >
+        >
+    >;
+};
+
+export type EditDisciplineMutationVariables = {
+    disciplineId: Scalars["String"];
+    name?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
+};
+
+export type EditDisciplineMutation = { __typename?: "Mutation" } & {
+    editDiscipline: Maybe<
+        { __typename?: "Discipline" } & Pick<
+            Discipline,
+            "disciplineId" | "name" | "description"
         >
     >;
 };
@@ -1081,180 +1381,19 @@ export type FacultyQuery = { __typename?: "Query" } & {
     >;
 };
 
-export type AddLectureStackMutationVariables = {
-    lectureStackId: Scalars["String"];
-    disciplineId: Scalars["String"];
-    moduleIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    groups?: Maybe<Scalars["String"]>;
-};
-
-export type AddLectureStackMutation = { __typename?: "Mutation" } & {
-    addLectureStack: Maybe<
-        { __typename?: "LectureStack" } & Pick<
-            LectureStack,
-            "lectureStackId" | "disciplineId" | "moduleIds" | "groups"
-        > & {
-                discipline: Maybe<
-                    { __typename?: "Discipline" } & Pick<
-                        Discipline,
-                        "disciplineId" | "name" | "description"
-                    >
-                >;
-                modules: Maybe<
-                    Array<
-                        Maybe<
-                            { __typename?: "Module" } & Pick<
-                                Module,
-                                "moduleId" | "name"
-                            >
-                        >
-                    >
-                >;
-            }
-    >;
-};
-
-export type DeleteLectureStackMutationVariables = {
-    lectureStackId?: Maybe<Scalars["String"]>;
-    disciplineId?: Maybe<Scalars["String"]>;
-    moduleIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    groups?: Maybe<Scalars["String"]>;
-};
-
-export type DeleteLectureStackMutation = { __typename?: "Mutation" } & {
-    deleteLectureStack: Maybe<
-        { __typename?: "LectureStack" } & Pick<
-            LectureStack,
-            "lectureStackId" | "disciplineId" | "moduleIds" | "groups"
-        > & {
-                discipline: Maybe<
-                    { __typename?: "Discipline" } & Pick<
-                        Discipline,
-                        "disciplineId" | "name" | "description"
-                    >
-                >;
-                modules: Maybe<
-                    Array<
-                        Maybe<
-                            { __typename?: "Module" } & Pick<
-                                Module,
-                                "moduleId" | "name"
-                            >
-                        >
-                    >
-                >;
-            }
-    >;
-};
-
-export type EditLectureStackMutationVariables = {
-    lectureStackId?: Maybe<Scalars["String"]>;
-    disciplineId?: Maybe<Scalars["String"]>;
-    moduleIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    groups?: Maybe<Scalars["String"]>;
-};
-
-export type EditLectureStackMutation = { __typename?: "Mutation" } & {
-    editLectureStack: Maybe<
-        { __typename?: "LectureStack" } & Pick<
-            LectureStack,
-            "lectureStackId" | "disciplineId" | "moduleIds" | "groups"
-        > & {
-                discipline: Maybe<
-                    { __typename?: "Discipline" } & Pick<
-                        Discipline,
-                        "disciplineId" | "name" | "description"
-                    >
-                >;
-                modules: Maybe<
-                    Array<
-                        Maybe<
-                            { __typename?: "Module" } & Pick<
-                                Module,
-                                "moduleId" | "name"
-                            >
-                        >
-                    >
-                >;
-            }
-    >;
-};
-
-export type LectureStackQueryVariables = {
-    lectureStackId: Scalars["String"];
-};
-
-export type LectureStackQuery = { __typename?: "Query" } & {
-    lectureStack: Maybe<
-        { __typename?: "LectureStack" } & Pick<
-            LectureStack,
-            "lectureStackId" | "disciplineId" | "moduleIds" | "groups"
-        > & {
-                discipline: Maybe<
-                    { __typename?: "Discipline" } & Pick<
-                        Discipline,
-                        "disciplineId" | "name" | "description"
-                    >
-                >;
-                modules: Maybe<
-                    Array<
-                        Maybe<
-                            { __typename?: "Module" } & Pick<
-                                Module,
-                                "moduleId" | "name"
-                            >
-                        >
-                    >
-                >;
-            }
-    >;
-};
-
-export type LectureStacksQueryVariables = {};
-
-export type LectureStacksQuery = { __typename?: "Query" } & {
-    lectureStacks: Maybe<
-        Array<
-            Maybe<
-                { __typename?: "LectureStack" } & Pick<
-                    LectureStack,
-                    "lectureStackId" | "disciplineId" | "moduleIds" | "groups"
-                > & {
-                        discipline: Maybe<
-                            { __typename?: "Discipline" } & Pick<
-                                Discipline,
-                                "disciplineId" | "name" | "description"
-                            >
-                        >;
-                        modules: Maybe<
-                            Array<
-                                Maybe<
-                                    { __typename?: "Module" } & Pick<
-                                        Module,
-                                        "moduleId" | "name"
-                                    >
-                                >
-                            >
-                        >;
-                    }
-            >
-        >
-    >;
-};
-
 export type AddModuleMutationVariables = {
     moduleId: Scalars["String"];
-    name: Scalars["String"];
-    description: Scalars["String"];
-    nqfLevel: Scalars["String"];
-    qualificationId: Scalars["String"];
-    offeringTypeId: Scalars["String"];
-    disciplineId: Scalars["String"];
-    credits: Scalars["Int"];
-    isMajor?: Maybe<Scalars["Boolean"]>;
-    type: Scalars["String"];
-    baseContact?: Maybe<Scalars["Int"]>;
-    basePractical?: Maybe<Scalars["Int"]>;
+    name?: Maybe<Scalars["String"]>;
+    type?: Maybe<Scalars["String"]>;
+    assessmentMethod?: Maybe<Scalars["String"]>;
+    nqfLevel?: Maybe<Scalars["String"]>;
+    qualificationId?: Maybe<Scalars["String"]>;
+    offeringTypeId?: Maybe<Scalars["String"]>;
+    disciplineId?: Maybe<Scalars["String"]>;
+    venueId?: Maybe<Scalars["String"]>;
+    blockIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    userIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    stackId?: Maybe<Scalars["String"]>;
 };
 
 export type AddModuleMutation = { __typename?: "Mutation" } & {
@@ -1263,44 +1402,16 @@ export type AddModuleMutation = { __typename?: "Mutation" } & {
             Module,
             | "moduleId"
             | "name"
-            | "description"
-            | "nqfLevel"
-            | "qualificationId"
-            | "offeringTypeId"
-            | "disciplineId"
-            | "credits"
-            | "isMajor"
             | "type"
-            | "baseContact"
-            | "basePractical"
+            | "assessmentMethod"
+            | "nqfLevel"
+            | "stackId"
         > & {
                 qualification: Maybe<
                     { __typename?: "Qualification" } & Pick<
                         Qualification,
-                        | "qualificationId"
-                        | "name"
-                        | "type"
-                        | "saqaId"
-                        | "departmentId"
-                        | "heqsfLevel"
-                        | "purpose"
-                        | "exitLevelOutcomes"
-                        | "graduateAttributes"
-                    > & {
-                            department: Maybe<
-                                { __typename?: "Department" } & Pick<
-                                    Department,
-                                    "departmentId" | "name" | "facultyId"
-                                > & {
-                                        faculty: Maybe<
-                                            { __typename?: "Faculty" } & Pick<
-                                                Faculty,
-                                                "facultyId" | "name"
-                                            >
-                                        >;
-                                    }
-                            >;
-                        }
+                        "qualificationId" | "name"
+                    >
                 >;
                 offeringType: Maybe<
                     { __typename?: "OfferingType" } & Pick<
@@ -1311,7 +1422,33 @@ export type AddModuleMutation = { __typename?: "Mutation" } & {
                 discipline: Maybe<
                     { __typename?: "Discipline" } & Pick<
                         Discipline,
-                        "disciplineId" | "name" | "description"
+                        "disciplineId" | "name"
+                    >
+                >;
+                venue: Maybe<
+                    { __typename?: "Venue" } & Pick<
+                        Venue,
+                        "venueId" | "campus" | "capacity"
+                    >
+                >;
+                blocks: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: "Block" } & Pick<
+                                Block,
+                                "blockId" | "name"
+                            >
+                        >
+                    >
+                >;
+                users: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "firstName" | "lastName" | "email"
+                            >
+                        >
                     >
                 >;
             }
@@ -1320,17 +1457,17 @@ export type AddModuleMutation = { __typename?: "Mutation" } & {
 
 export type DeleteModuleMutationVariables = {
     moduleId: Scalars["String"];
-    name: Scalars["String"];
-    description: Scalars["String"];
-    nqfLevel: Scalars["String"];
-    qualificationId: Scalars["String"];
-    offeringTypeId: Scalars["String"];
-    disciplineId: Scalars["String"];
-    credits: Scalars["Int"];
-    isMajor?: Maybe<Scalars["Boolean"]>;
-    type: Scalars["String"];
-    baseContact?: Maybe<Scalars["Int"]>;
-    basePractical?: Maybe<Scalars["Int"]>;
+    name?: Maybe<Scalars["String"]>;
+    type?: Maybe<Scalars["String"]>;
+    assessmentMethod?: Maybe<Scalars["String"]>;
+    nqfLevel?: Maybe<Scalars["String"]>;
+    qualificationId?: Maybe<Scalars["String"]>;
+    offeringTypeId?: Maybe<Scalars["String"]>;
+    disciplineId?: Maybe<Scalars["String"]>;
+    venueId?: Maybe<Scalars["String"]>;
+    blockIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    userIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    stackId?: Maybe<Scalars["String"]>;
 };
 
 export type DeleteModuleMutation = { __typename?: "Mutation" } & {
@@ -1339,44 +1476,16 @@ export type DeleteModuleMutation = { __typename?: "Mutation" } & {
             Module,
             | "moduleId"
             | "name"
-            | "description"
-            | "nqfLevel"
-            | "qualificationId"
-            | "offeringTypeId"
-            | "disciplineId"
-            | "credits"
-            | "isMajor"
             | "type"
-            | "baseContact"
-            | "basePractical"
+            | "assessmentMethod"
+            | "nqfLevel"
+            | "stackId"
         > & {
                 qualification: Maybe<
                     { __typename?: "Qualification" } & Pick<
                         Qualification,
-                        | "qualificationId"
-                        | "name"
-                        | "type"
-                        | "saqaId"
-                        | "departmentId"
-                        | "heqsfLevel"
-                        | "purpose"
-                        | "exitLevelOutcomes"
-                        | "graduateAttributes"
-                    > & {
-                            department: Maybe<
-                                { __typename?: "Department" } & Pick<
-                                    Department,
-                                    "departmentId" | "name" | "facultyId"
-                                > & {
-                                        faculty: Maybe<
-                                            { __typename?: "Faculty" } & Pick<
-                                                Faculty,
-                                                "facultyId" | "name"
-                                            >
-                                        >;
-                                    }
-                            >;
-                        }
+                        "qualificationId" | "name"
+                    >
                 >;
                 offeringType: Maybe<
                     { __typename?: "OfferingType" } & Pick<
@@ -1387,7 +1496,33 @@ export type DeleteModuleMutation = { __typename?: "Mutation" } & {
                 discipline: Maybe<
                     { __typename?: "Discipline" } & Pick<
                         Discipline,
-                        "disciplineId" | "name" | "description"
+                        "disciplineId" | "name"
+                    >
+                >;
+                venue: Maybe<
+                    { __typename?: "Venue" } & Pick<
+                        Venue,
+                        "venueId" | "campus" | "capacity"
+                    >
+                >;
+                blocks: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: "Block" } & Pick<
+                                Block,
+                                "blockId" | "name"
+                            >
+                        >
+                    >
+                >;
+                users: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "firstName" | "lastName" | "email"
+                            >
+                        >
                     >
                 >;
             }
@@ -1396,17 +1531,17 @@ export type DeleteModuleMutation = { __typename?: "Mutation" } & {
 
 export type EditModuleMutationVariables = {
     moduleId: Scalars["String"];
-    name: Scalars["String"];
-    description: Scalars["String"];
-    nqfLevel: Scalars["String"];
-    qualificationId: Scalars["String"];
-    offeringTypeId: Scalars["String"];
-    disciplineId: Scalars["String"];
-    credits: Scalars["Int"];
-    isMajor?: Maybe<Scalars["Boolean"]>;
-    type: Scalars["String"];
-    baseContact?: Maybe<Scalars["Int"]>;
-    basePractical?: Maybe<Scalars["Int"]>;
+    name?: Maybe<Scalars["String"]>;
+    type?: Maybe<Scalars["String"]>;
+    assessmentMethod?: Maybe<Scalars["String"]>;
+    nqfLevel?: Maybe<Scalars["String"]>;
+    qualificationId?: Maybe<Scalars["String"]>;
+    offeringTypeId?: Maybe<Scalars["String"]>;
+    disciplineId?: Maybe<Scalars["String"]>;
+    venueId?: Maybe<Scalars["String"]>;
+    blockIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    userIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    stackId?: Maybe<Scalars["String"]>;
 };
 
 export type EditModuleMutation = { __typename?: "Mutation" } & {
@@ -1415,44 +1550,16 @@ export type EditModuleMutation = { __typename?: "Mutation" } & {
             Module,
             | "moduleId"
             | "name"
-            | "description"
-            | "nqfLevel"
-            | "qualificationId"
-            | "offeringTypeId"
-            | "disciplineId"
-            | "credits"
-            | "isMajor"
             | "type"
-            | "baseContact"
-            | "basePractical"
+            | "assessmentMethod"
+            | "nqfLevel"
+            | "stackId"
         > & {
                 qualification: Maybe<
                     { __typename?: "Qualification" } & Pick<
                         Qualification,
-                        | "qualificationId"
-                        | "name"
-                        | "type"
-                        | "saqaId"
-                        | "departmentId"
-                        | "heqsfLevel"
-                        | "purpose"
-                        | "exitLevelOutcomes"
-                        | "graduateAttributes"
-                    > & {
-                            department: Maybe<
-                                { __typename?: "Department" } & Pick<
-                                    Department,
-                                    "departmentId" | "name" | "facultyId"
-                                > & {
-                                        faculty: Maybe<
-                                            { __typename?: "Faculty" } & Pick<
-                                                Faculty,
-                                                "facultyId" | "name"
-                                            >
-                                        >;
-                                    }
-                            >;
-                        }
+                        "qualificationId" | "name"
+                    >
                 >;
                 offeringType: Maybe<
                     { __typename?: "OfferingType" } & Pick<
@@ -1463,7 +1570,33 @@ export type EditModuleMutation = { __typename?: "Mutation" } & {
                 discipline: Maybe<
                     { __typename?: "Discipline" } & Pick<
                         Discipline,
-                        "disciplineId" | "name" | "description"
+                        "disciplineId" | "name"
+                    >
+                >;
+                venue: Maybe<
+                    { __typename?: "Venue" } & Pick<
+                        Venue,
+                        "venueId" | "campus" | "capacity"
+                    >
+                >;
+                blocks: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: "Block" } & Pick<
+                                Block,
+                                "blockId" | "name"
+                            >
+                        >
+                    >
+                >;
+                users: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "firstName" | "lastName" | "email"
+                            >
+                        >
                     >
                 >;
             }
@@ -1480,44 +1613,16 @@ export type ModuleQuery = { __typename?: "Query" } & {
             Module,
             | "moduleId"
             | "name"
-            | "description"
-            | "nqfLevel"
-            | "qualificationId"
-            | "offeringTypeId"
-            | "disciplineId"
-            | "credits"
-            | "isMajor"
             | "type"
-            | "baseContact"
-            | "basePractical"
+            | "assessmentMethod"
+            | "nqfLevel"
+            | "stackId"
         > & {
                 qualification: Maybe<
                     { __typename?: "Qualification" } & Pick<
                         Qualification,
-                        | "qualificationId"
-                        | "name"
-                        | "type"
-                        | "saqaId"
-                        | "departmentId"
-                        | "heqsfLevel"
-                        | "purpose"
-                        | "exitLevelOutcomes"
-                        | "graduateAttributes"
-                    > & {
-                            department: Maybe<
-                                { __typename?: "Department" } & Pick<
-                                    Department,
-                                    "departmentId" | "name" | "facultyId"
-                                > & {
-                                        faculty: Maybe<
-                                            { __typename?: "Faculty" } & Pick<
-                                                Faculty,
-                                                "facultyId" | "name"
-                                            >
-                                        >;
-                                    }
-                            >;
-                        }
+                        "qualificationId" | "name"
+                    >
                 >;
                 offeringType: Maybe<
                     { __typename?: "OfferingType" } & Pick<
@@ -1528,10 +1633,105 @@ export type ModuleQuery = { __typename?: "Query" } & {
                 discipline: Maybe<
                     { __typename?: "Discipline" } & Pick<
                         Discipline,
-                        "disciplineId" | "name" | "description"
+                        "disciplineId" | "name"
+                    >
+                >;
+                venue: Maybe<
+                    { __typename?: "Venue" } & Pick<
+                        Venue,
+                        "venueId" | "campus" | "capacity"
+                    >
+                >;
+                blocks: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: "Block" } & Pick<
+                                Block,
+                                "blockId" | "name"
+                            >
+                        >
+                    >
+                >;
+                users: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "firstName" | "lastName" | "email"
+                            >
+                        >
                     >
                 >;
             }
+    >;
+};
+
+export type ModulesByDisciplineQueryVariables = {
+    disciplineId: Scalars["String"];
+};
+
+export type ModulesByDisciplineQuery = { __typename?: "Query" } & {
+    modulesByDiscipline: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "Module" } & Pick<
+                    Module,
+                    | "moduleId"
+                    | "name"
+                    | "type"
+                    | "assessmentMethod"
+                    | "nqfLevel"
+                > & {
+                        qualification: Maybe<
+                            { __typename?: "Qualification" } & Pick<
+                                Qualification,
+                                "qualificationId" | "name"
+                            >
+                        >;
+                        offeringType: Maybe<
+                            { __typename?: "OfferingType" } & Pick<
+                                OfferingType,
+                                "offeringTypeId" | "description"
+                            >
+                        >;
+                        discipline: Maybe<
+                            { __typename?: "Discipline" } & Pick<
+                                Discipline,
+                                "disciplineId" | "name"
+                            >
+                        >;
+                        venue: Maybe<
+                            { __typename?: "Venue" } & Pick<
+                                Venue,
+                                "venueId" | "campus" | "capacity"
+                            >
+                        >;
+                        blocks: Maybe<
+                            Array<
+                                Maybe<
+                                    { __typename?: "Block" } & Pick<
+                                        Block,
+                                        "blockId" | "name"
+                                    >
+                                >
+                            >
+                        >;
+                        users: Maybe<
+                            Array<
+                                Maybe<
+                                    { __typename?: "User" } & Pick<
+                                        User,
+                                        | "userId"
+                                        | "firstName"
+                                        | "lastName"
+                                        | "email"
+                                    >
+                                >
+                            >
+                        >;
+                    }
+            >
+        >
     >;
 };
 
@@ -1545,48 +1745,15 @@ export type ModulesQuery = { __typename?: "Query" } & {
                     Module,
                     | "moduleId"
                     | "name"
-                    | "description"
-                    | "nqfLevel"
-                    | "qualificationId"
-                    | "offeringTypeId"
-                    | "disciplineId"
-                    | "credits"
-                    | "isMajor"
                     | "type"
-                    | "baseContact"
-                    | "basePractical"
+                    | "assessmentMethod"
+                    | "nqfLevel"
                 > & {
                         qualification: Maybe<
                             { __typename?: "Qualification" } & Pick<
                                 Qualification,
-                                | "qualificationId"
-                                | "name"
-                                | "type"
-                                | "saqaId"
-                                | "departmentId"
-                                | "heqsfLevel"
-                                | "purpose"
-                                | "exitLevelOutcomes"
-                                | "graduateAttributes"
-                            > & {
-                                    department: Maybe<
-                                        { __typename?: "Department" } & Pick<
-                                            Department,
-                                            | "departmentId"
-                                            | "name"
-                                            | "facultyId"
-                                        > & {
-                                                faculty: Maybe<
-                                                    {
-                                                        __typename?: "Faculty";
-                                                    } & Pick<
-                                                        Faculty,
-                                                        "facultyId" | "name"
-                                                    >
-                                                >;
-                                            }
-                                    >;
-                                }
+                                "qualificationId" | "name"
+                            >
                         >;
                         offeringType: Maybe<
                             { __typename?: "OfferingType" } & Pick<
@@ -1597,7 +1764,36 @@ export type ModulesQuery = { __typename?: "Query" } & {
                         discipline: Maybe<
                             { __typename?: "Discipline" } & Pick<
                                 Discipline,
-                                "disciplineId" | "name" | "description"
+                                "disciplineId" | "name"
+                            >
+                        >;
+                        venue: Maybe<
+                            { __typename?: "Venue" } & Pick<
+                                Venue,
+                                "venueId" | "campus" | "capacity"
+                            >
+                        >;
+                        blocks: Maybe<
+                            Array<
+                                Maybe<
+                                    { __typename?: "Block" } & Pick<
+                                        Block,
+                                        "blockId" | "name"
+                                    >
+                                >
+                            >
+                        >;
+                        users: Maybe<
+                            Array<
+                                Maybe<
+                                    { __typename?: "User" } & Pick<
+                                        User,
+                                        | "userId"
+                                        | "firstName"
+                                        | "lastName"
+                                        | "email"
+                                    >
+                                >
                             >
                         >;
                     }
@@ -1707,9 +1903,9 @@ export type PositionsQuery = { __typename?: "Query" } & {
 export type AddQualificationMutationVariables = {
     qualificationId: Scalars["String"];
     name: Scalars["String"];
-    type: Scalars["String"];
-    saqaId: Scalars["String"];
-    departmentId: Scalars["String"];
+    type?: Maybe<Scalars["String"]>;
+    saqaId?: Maybe<Scalars["String"]>;
+    departmentId?: Maybe<Scalars["String"]>;
     heqsfLevel?: Maybe<Scalars["String"]>;
     purpose?: Maybe<Scalars["String"]>;
     exitLevelOutcomes?: Maybe<Array<Maybe<Scalars["String"]>>>;
@@ -1744,8 +1940,8 @@ export type DeleteQualificationMutationVariables = {
     qualificationId: Scalars["String"];
     name: Scalars["String"];
     type: Scalars["String"];
-    saqaId: Scalars["String"];
-    departmentId: Scalars["String"];
+    saqaId?: Maybe<Scalars["String"]>;
+    departmentId?: Maybe<Scalars["String"]>;
     heqsfLevel?: Maybe<Scalars["String"]>;
     purpose?: Maybe<Scalars["String"]>;
     exitLevelOutcomes?: Maybe<Array<Maybe<Scalars["String"]>>>;
@@ -1779,11 +1975,11 @@ export type DeleteQualificationMutation = { __typename?: "Mutation" } & {
 export type EditQualificationMutationVariables = {
     qualificationId: Scalars["String"];
     name: Scalars["String"];
-    type: Scalars["String"];
-    saqaId: Scalars["String"];
-    departmentId: Scalars["String"];
-    heqsfLevel: Scalars["String"];
-    purpose: Scalars["String"];
+    type?: Maybe<Scalars["String"]>;
+    saqaId?: Maybe<Scalars["String"]>;
+    departmentId?: Maybe<Scalars["String"]>;
+    heqsfLevel?: Maybe<Scalars["String"]>;
+    purpose?: Maybe<Scalars["String"]>;
     exitLevelOutcomes?: Maybe<Array<Maybe<Scalars["String"]>>>;
     graduateAttributes?: Maybe<Array<Maybe<Scalars["String"]>>>;
 };
@@ -2197,6 +2393,210 @@ import gql from "graphql-tag";
 import { Injectable } from "@angular/core";
 import * as Apollo from "apollo-angular";
 
+export const ActivitiesDocument = gql`
+    query activities {
+        activities {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            ... on CommInstructionActivity {
+                commInstructionDescription
+                evidenceId
+                evidence {
+                    evidenceId
+                    name
+                    item
+                }
+            }
+            ... on PublicServiceActivity {
+                publicServiceDescription
+                evidenceId
+                evidence {
+                    evidenceId
+                    name
+                    item
+                }
+            }
+            ... on FormalInstructionActivity {
+                moduleId
+                module {
+                    moduleId
+                    name
+                    type
+                    assessmentMethod
+                    nqfLevel
+                    qualification {
+                        qualificationId
+                        name
+                    }
+                    offeringType {
+                        offeringTypeId
+                        description
+                    }
+                    discipline {
+                        disciplineId
+                        name
+                    }
+                    venue {
+                        venueId
+                        campus
+                        capacity
+                    }
+                    blocks {
+                        blockId
+                        name
+                    }
+                    users {
+                        userId
+                        firstName
+                        lastName
+                        email
+                    }
+                    stackId
+                }
+            }
+            ... on ResearchActivity {
+                researchType
+                researchUrl
+            }
+            ... on SupervisionActivity {
+                supervisionRole
+                studentId
+                student {
+                    studentId
+                    firstName
+                    lastName
+                    title
+                    year
+                }
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ActivitiesGQL extends Apollo.Query<
+    ActivitiesQuery,
+    ActivitiesQueryVariables
+> {
+    document = ActivitiesDocument;
+}
+export const ActivityDocument = gql`
+    query activity($activityId: String!) {
+        activity(activityId: $activityId) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            ... on CommInstructionActivity {
+                commInstructionDescription
+                evidenceId
+                evidence {
+                    evidenceId
+                    name
+                    item
+                }
+            }
+            ... on PublicServiceActivity {
+                publicServiceDescription
+                evidenceId
+                evidence {
+                    evidenceId
+                    name
+                    item
+                }
+            }
+            ... on FormalInstructionActivity {
+                moduleId
+                module {
+                    moduleId
+                    name
+                    type
+                    assessmentMethod
+                    nqfLevel
+                    qualification {
+                        qualificationId
+                        name
+                    }
+                    offeringType {
+                        offeringTypeId
+                        description
+                    }
+                    discipline {
+                        disciplineId
+                        name
+                    }
+                    venue {
+                        venueId
+                        campus
+                        capacity
+                    }
+                    blocks {
+                        blockId
+                        name
+                    }
+                    users {
+                        userId
+                        firstName
+                        lastName
+                        email
+                    }
+                    stackId
+                }
+            }
+            ... on ResearchActivity {
+                researchType
+                researchUrl
+            }
+            ... on SupervisionActivity {
+                supervisionRole
+                studentId
+                student {
+                    studentId
+                    firstName
+                    lastName
+                    title
+                    year
+                }
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ActivityGQL extends Apollo.Query<
+    ActivityQuery,
+    ActivityQueryVariables
+> {
+    document = ActivityDocument;
+}
 export const AddBlockDocument = gql`
     mutation addBlock(
         $blockId: String!
@@ -2338,6 +2738,52 @@ export class DepartmentsGQL extends Apollo.Query<
 > {
     document = DepartmentsDocument;
 }
+export const AddDisciplineDocument = gql`
+    mutation addDiscipline($name: String!, $description: String!) {
+        addDiscipline(name: $name, description: $description) {
+            disciplineId
+            name
+            description
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AddDisciplineGQL extends Apollo.Mutation<
+    AddDisciplineMutation,
+    AddDisciplineMutationVariables
+> {
+    document = AddDisciplineDocument;
+}
+export const DeleteDisciplineDocument = gql`
+    mutation deleteDiscipline(
+        $disciplineId: String!
+        $name: String
+        $description: String
+    ) {
+        deleteDiscipline(
+            disciplineId: $disciplineId
+            name: $name
+            description: $description
+        ) {
+            disciplineId
+            name
+            description
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteDisciplineGQL extends Apollo.Mutation<
+    DeleteDisciplineMutation,
+    DeleteDisciplineMutationVariables
+> {
+    document = DeleteDisciplineDocument;
+}
 export const DisciplineDocument = gql`
     query discipline($disciplineId: String!) {
         discipline(disciplineId: $disciplineId) {
@@ -2375,6 +2821,33 @@ export class DisciplinesGQL extends Apollo.Query<
     DisciplinesQueryVariables
 > {
     document = DisciplinesDocument;
+}
+export const EditDisciplineDocument = gql`
+    mutation editDiscipline(
+        $disciplineId: String!
+        $name: String
+        $description: String
+    ) {
+        editDiscipline(
+            disciplineId: $disciplineId
+            name: $name
+            description: $description
+        ) {
+            disciplineId
+            name
+            description
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class EditDisciplineGQL extends Apollo.Mutation<
+    EditDisciplineMutation,
+    EditDisciplineMutationVariables
+> {
+    document = EditDisciplineDocument;
 }
 export const DutyDocument = gql`
     query duty($dutyId: String!) {
@@ -2512,251 +2985,68 @@ export class FacultyGQL extends Apollo.Query<
 > {
     document = FacultyDocument;
 }
-export const AddLectureStackDocument = gql`
-    mutation addLectureStack(
-        $lectureStackId: String!
-        $disciplineId: String!
-        $moduleIds: [String]
-        $groups: String
-    ) {
-        addLectureStack(
-            lectureStackId: $lectureStackId
-            disciplineId: $disciplineId
-            moduleIds: $moduleIds
-            groups: $groups
-        ) {
-            lectureStackId
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            moduleIds
-            modules {
-                moduleId
-                name
-            }
-            groups
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class AddLectureStackGQL extends Apollo.Mutation<
-    AddLectureStackMutation,
-    AddLectureStackMutationVariables
-> {
-    document = AddLectureStackDocument;
-}
-export const DeleteLectureStackDocument = gql`
-    mutation deleteLectureStack(
-        $lectureStackId: String
-        $disciplineId: String
-        $moduleIds: [String]
-        $groups: String
-    ) {
-        deleteLectureStack(
-            lectureStackId: $lectureStackId
-            disciplineId: $disciplineId
-            moduleIds: $moduleIds
-            groups: $groups
-        ) {
-            lectureStackId
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            moduleIds
-            modules {
-                moduleId
-                name
-            }
-            groups
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class DeleteLectureStackGQL extends Apollo.Mutation<
-    DeleteLectureStackMutation,
-    DeleteLectureStackMutationVariables
-> {
-    document = DeleteLectureStackDocument;
-}
-export const EditLectureStackDocument = gql`
-    mutation editLectureStack(
-        $lectureStackId: String
-        $disciplineId: String
-        $moduleIds: [String]
-        $groups: String
-    ) {
-        editLectureStack(
-            lectureStackId: $lectureStackId
-            disciplineId: $disciplineId
-            moduleIds: $moduleIds
-            groups: $groups
-        ) {
-            lectureStackId
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            moduleIds
-            modules {
-                moduleId
-                name
-            }
-            groups
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class EditLectureStackGQL extends Apollo.Mutation<
-    EditLectureStackMutation,
-    EditLectureStackMutationVariables
-> {
-    document = EditLectureStackDocument;
-}
-export const LectureStackDocument = gql`
-    query lectureStack($lectureStackId: String!) {
-        lectureStack(lectureStackId: $lectureStackId) {
-            lectureStackId
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            moduleIds
-            modules {
-                moduleId
-                name
-            }
-            groups
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class LectureStackGQL extends Apollo.Query<
-    LectureStackQuery,
-    LectureStackQueryVariables
-> {
-    document = LectureStackDocument;
-}
-export const LectureStacksDocument = gql`
-    query lectureStacks {
-        lectureStacks {
-            lectureStackId
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            moduleIds
-            modules {
-                moduleId
-                name
-            }
-            groups
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class LectureStacksGQL extends Apollo.Query<
-    LectureStacksQuery,
-    LectureStacksQueryVariables
-> {
-    document = LectureStacksDocument;
-}
 export const AddModuleDocument = gql`
     mutation addModule(
         $moduleId: String!
-        $name: String!
-        $description: String!
-        $nqfLevel: String!
-        $qualificationId: String!
-        $offeringTypeId: String!
-        $disciplineId: String!
-        $credits: Int!
-        $isMajor: Boolean
-        $type: String!
-        $baseContact: Int
-        $basePractical: Int
+        $name: String
+        $type: String
+        $assessmentMethod: String
+        $nqfLevel: String
+        $qualificationId: String
+        $offeringTypeId: String
+        $disciplineId: String
+        $venueId: String
+        $blockIds: [String]
+        $userIds: [String]
+        $stackId: String
     ) {
         addModule(
             moduleId: $moduleId
             name: $name
-            description: $description
+            type: $type
+            assessmentMethod: $assessmentMethod
             nqfLevel: $nqfLevel
             qualificationId: $qualificationId
             offeringTypeId: $offeringTypeId
             disciplineId: $disciplineId
-            credits: $credits
-            isMajor: $isMajor
-            type: $type
-            baseContact: $baseContact
-            basePractical: $basePractical
+            venueId: $venueId
+            blockIds: $blockIds
+            userIds: $userIds
+            stackId: $stackId
         ) {
             moduleId
             name
-            description
+            type
+            assessmentMethod
             nqfLevel
-            qualificationId
             qualification {
                 qualificationId
                 name
-                type
-                saqaId
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                }
-                heqsfLevel
-                purpose
-                exitLevelOutcomes
-                graduateAttributes
             }
-            offeringTypeId
             offeringType {
                 offeringTypeId
                 description
             }
-            disciplineId
             discipline {
                 disciplineId
                 name
-                description
             }
-            credits
-            isMajor
-            type
-            baseContact
-            basePractical
+            venue {
+                venueId
+                campus
+                capacity
+            }
+            blocks {
+                blockId
+                name
+            }
+            users {
+                userId
+                firstName
+                lastName
+                email
+            }
+            stackId
         }
     }
 `;
@@ -2773,73 +3063,65 @@ export class AddModuleGQL extends Apollo.Mutation<
 export const DeleteModuleDocument = gql`
     mutation deleteModule(
         $moduleId: String!
-        $name: String!
-        $description: String!
-        $nqfLevel: String!
-        $qualificationId: String!
-        $offeringTypeId: String!
-        $disciplineId: String!
-        $credits: Int!
-        $isMajor: Boolean
-        $type: String!
-        $baseContact: Int
-        $basePractical: Int
+        $name: String
+        $type: String
+        $assessmentMethod: String
+        $nqfLevel: String
+        $qualificationId: String
+        $offeringTypeId: String
+        $disciplineId: String
+        $venueId: String
+        $blockIds: [String]
+        $userIds: [String]
+        $stackId: String
     ) {
         deleteModule(
             moduleId: $moduleId
             name: $name
-            description: $description
+            type: $type
+            assessmentMethod: $assessmentMethod
             nqfLevel: $nqfLevel
             qualificationId: $qualificationId
             offeringTypeId: $offeringTypeId
             disciplineId: $disciplineId
-            credits: $credits
-            isMajor: $isMajor
-            type: $type
-            baseContact: $baseContact
-            basePractical: $basePractical
+            venueId: $venueId
+            blockIds: $blockIds
+            userIds: $userIds
+            stackId: $stackId
         ) {
             moduleId
             name
-            description
+            type
+            assessmentMethod
             nqfLevel
-            qualificationId
             qualification {
                 qualificationId
                 name
-                type
-                saqaId
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                }
-                heqsfLevel
-                purpose
-                exitLevelOutcomes
-                graduateAttributes
             }
-            offeringTypeId
             offeringType {
                 offeringTypeId
                 description
             }
-            disciplineId
             discipline {
                 disciplineId
                 name
-                description
             }
-            credits
-            isMajor
-            type
-            baseContact
-            basePractical
+            venue {
+                venueId
+                campus
+                capacity
+            }
+            blocks {
+                blockId
+                name
+            }
+            users {
+                userId
+                firstName
+                lastName
+                email
+            }
+            stackId
         }
     }
 `;
@@ -2856,73 +3138,65 @@ export class DeleteModuleGQL extends Apollo.Mutation<
 export const EditModuleDocument = gql`
     mutation editModule(
         $moduleId: String!
-        $name: String!
-        $description: String!
-        $nqfLevel: String!
-        $qualificationId: String!
-        $offeringTypeId: String!
-        $disciplineId: String!
-        $credits: Int!
-        $isMajor: Boolean
-        $type: String!
-        $baseContact: Int
-        $basePractical: Int
+        $name: String
+        $type: String
+        $assessmentMethod: String
+        $nqfLevel: String
+        $qualificationId: String
+        $offeringTypeId: String
+        $disciplineId: String
+        $venueId: String
+        $blockIds: [String]
+        $userIds: [String]
+        $stackId: String
     ) {
         editModule(
             moduleId: $moduleId
             name: $name
-            description: $description
+            type: $type
+            assessmentMethod: $assessmentMethod
             nqfLevel: $nqfLevel
             qualificationId: $qualificationId
             offeringTypeId: $offeringTypeId
             disciplineId: $disciplineId
-            credits: $credits
-            isMajor: $isMajor
-            type: $type
-            baseContact: $baseContact
-            basePractical: $basePractical
+            venueId: $venueId
+            blockIds: $blockIds
+            userIds: $userIds
+            stackId: $stackId
         ) {
             moduleId
             name
-            description
+            type
+            assessmentMethod
             nqfLevel
-            qualificationId
             qualification {
                 qualificationId
                 name
-                type
-                saqaId
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                }
-                heqsfLevel
-                purpose
-                exitLevelOutcomes
-                graduateAttributes
             }
-            offeringTypeId
             offeringType {
                 offeringTypeId
                 description
             }
-            disciplineId
             discipline {
                 disciplineId
                 name
-                description
             }
-            credits
-            isMajor
-            type
-            baseContact
-            basePractical
+            venue {
+                venueId
+                campus
+                capacity
+            }
+            blocks {
+                blockId
+                name
+            }
+            users {
+                userId
+                firstName
+                lastName
+                email
+            }
+            stackId
         }
     }
 `;
@@ -2941,45 +3215,37 @@ export const ModuleDocument = gql`
         module(moduleId: $moduleId) {
             moduleId
             name
-            description
+            type
+            assessmentMethod
             nqfLevel
-            qualificationId
             qualification {
                 qualificationId
                 name
-                type
-                saqaId
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                }
-                heqsfLevel
-                purpose
-                exitLevelOutcomes
-                graduateAttributes
             }
-            offeringTypeId
             offeringType {
                 offeringTypeId
                 description
             }
-            disciplineId
             discipline {
                 disciplineId
                 name
-                description
             }
-            credits
-            isMajor
-            type
-            baseContact
-            basePractical
+            venue {
+                venueId
+                campus
+                capacity
+            }
+            blocks {
+                blockId
+                name
+            }
+            users {
+                userId
+                firstName
+                lastName
+                email
+            }
+            stackId
         }
     }
 `;
@@ -2990,50 +3256,89 @@ export const ModuleDocument = gql`
 export class ModuleGQL extends Apollo.Query<ModuleQuery, ModuleQueryVariables> {
     document = ModuleDocument;
 }
+export const ModulesByDisciplineDocument = gql`
+    query modulesByDiscipline($disciplineId: String!) {
+        modulesByDiscipline(disciplineId: $disciplineId) {
+            moduleId
+            name
+            type
+            assessmentMethod
+            nqfLevel
+            qualification {
+                qualificationId
+                name
+            }
+            offeringType {
+                offeringTypeId
+                description
+            }
+            discipline {
+                disciplineId
+                name
+            }
+            venue {
+                venueId
+                campus
+                capacity
+            }
+            blocks {
+                blockId
+                name
+            }
+            users {
+                userId
+                firstName
+                lastName
+                email
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ModulesByDisciplineGQL extends Apollo.Query<
+    ModulesByDisciplineQuery,
+    ModulesByDisciplineQueryVariables
+> {
+    document = ModulesByDisciplineDocument;
+}
 export const ModulesDocument = gql`
     query modules {
         modules {
             moduleId
             name
-            description
+            type
+            assessmentMethod
             nqfLevel
-            qualificationId
             qualification {
                 qualificationId
                 name
-                type
-                saqaId
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                }
-                heqsfLevel
-                purpose
-                exitLevelOutcomes
-                graduateAttributes
             }
-            offeringTypeId
             offeringType {
                 offeringTypeId
                 description
             }
-            disciplineId
             discipline {
                 disciplineId
                 name
-                description
             }
-            credits
-            isMajor
-            type
-            baseContact
-            basePractical
+            venue {
+                venueId
+                campus
+                capacity
+            }
+            blocks {
+                blockId
+                name
+            }
+            users {
+                userId
+                firstName
+                lastName
+                email
+            }
         }
     }
 `;
@@ -3182,9 +3487,9 @@ export const AddQualificationDocument = gql`
     mutation addQualification(
         $qualificationId: String!
         $name: String!
-        $type: String!
-        $saqaId: String!
-        $departmentId: String!
+        $type: String
+        $saqaId: String
+        $departmentId: String
         $heqsfLevel: String
         $purpose: String
         $exitLevelOutcomes: [String]
@@ -3232,8 +3537,8 @@ export const DeleteQualificationDocument = gql`
         $qualificationId: String!
         $name: String!
         $type: String!
-        $saqaId: String!
-        $departmentId: String!
+        $saqaId: String
+        $departmentId: String
         $heqsfLevel: String
         $purpose: String
         $exitLevelOutcomes: [String]
@@ -3280,11 +3585,11 @@ export const EditQualificationDocument = gql`
     mutation editQualification(
         $qualificationId: String!
         $name: String!
-        $type: String!
-        $saqaId: String!
-        $departmentId: String!
-        $heqsfLevel: String!
-        $purpose: String!
+        $type: String
+        $saqaId: String
+        $departmentId: String
+        $heqsfLevel: String
+        $purpose: String
         $exitLevelOutcomes: [String]
         $graduateAttributes: [String]
     ) {

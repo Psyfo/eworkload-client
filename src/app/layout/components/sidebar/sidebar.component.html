@@ -8,47 +8,99 @@
             <i class="fa fa-fw fa-user"></i>&nbsp;
             <span>{{ 'Profile' | translate }}</span>
         </a>
-        <a [routerLink]="['/activity']" routerLinkActive="router-link-active" class="list-group-item">
-            <i class="fa fa-fw fa-tasks"></i>&nbsp;
-            <span>{{ 'Activities' | translate }}</span>
-        </a>
         <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('pages')">
+            <a class="list-group-item" (click)="addExpandActivity('pages')">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Activities' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showActivityMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/activity/lecturing']" routerLinkActive="router-link-active" class="list-group-item">
+                            <i class="fa fa-fw fa-building"></i>&nbsp;
+                            <span>{{ 'Formal Instruction' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/activity/research']" routerLinkActive="router-link-active" class="list-group-item">
+                            <i class="fa fa-fw fa-building"></i>&nbsp;
+                            <span>{{ 'Research Publication' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/activity/supervision']" routerLinkActive="router-link-active" class="list-group-item">
+                            <i class="fa fa-fw fa-building"></i>&nbsp;
+                            <span>{{ 'Research Supervision' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/activity/community-instruction']" routerLinkActive="router-link-active" class="list-group-item">
+                            <i class="fa fa-fw fa-building"></i>&nbsp;
+                            <span>{{ 'Community Instruction' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/activity/public-service']" routerLinkActive="router-link-active" class="list-group-item">
+                            <i class="fa fa-fw fa-building"></i>&nbsp;
+                            <span>{{ 'Public Service' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandHoD('pages')">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Head of Department' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showHodMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/hod/lecture-tasks']" routerLinkActive="router-link-active" class="list-group-item">
+                            <i class="fa fa-fw fa-building"></i>&nbsp;
+                            <span>{{ 'Lecture Tasks' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/hod/approvals']" routerLinkActive="router-link-active" class="list-group-item">
+                            <i class="fa fa-fw fa-building"></i>&nbsp;
+                            <span>{{ 'Activity Approvals' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandAdmin('pages')">
                 <i class="fa fa-plus"></i>&nbsp;
                 <span>{{ 'Admin' | translate }}</span>
             </a>
-            <li class="nested" [class.expand]="showMenu === 'pages'">
+            <li class="nested" [class.expand]="showAdminMenu === 'pages'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/department']" routerLinkActive="router-link-active" class="list-group-item">
+                        <a [routerLink]="['/admin/department']" routerLinkActive="router-link-active" class="list-group-item">
                             <i class="fa fa-fw fa-building"></i>&nbsp;
                             <span>{{ 'Manage Departments' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/faculty']" routerLinkActive="router-link-active" class="list-group-item">
+                        <a [routerLink]="['/admin/faculty']" routerLinkActive="router-link-active" class="list-group-item">
                             <i class="fa fa-fw fa-building"></i>&nbsp;
                             <span>{{ 'Manage Faculties' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/staff']" routerLinkActive="router-link-active" class="list-group-item">
+                        <a [routerLink]="['/admin/staff']" routerLinkActive="router-link-active" class="list-group-item">
                             <i class="fa fa-fw fa-users"></i>&nbsp;
                             <span>{{ 'Manage Staff' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/venue']" routerLinkActive="router-link-active" class="list-group-item">
+                        <a [routerLink]="['/admin/discipline']" routerLinkActive="router-link-active" class="list-group-item">
                             <i class="fa fa-fw fa-building"></i>&nbsp;
-                            <span>{{ 'Manage Venues' | translate }}</span>
+                            <span>{{ 'Manage Disciplines' | translate }}</span>
                         </a>
                     </li>
-                    <!-- <li>
-                        <a [routerLink]="['/venue']" routerLinkActive="router-link-active" class="list-group-item">
-                            <i class="fa fa-fw fa-building"></i>&nbsp;
-                            <span>{{ 'Manage Venues' | translate }}</span>
-                        </a>
-                    </li>  -->
                 </ul>
             </li>
         </div>

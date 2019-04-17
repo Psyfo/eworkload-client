@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" [@routerTransition]>
     <div class="card-header">
         <h5>Departments</h5>
     </div>
@@ -28,7 +28,7 @@
                                 {{ department.name }}
                             </td>
                             <td>
-                                {{ department.facultyId }}
+                                {{ department.faculty.name }}
                             </td>
                         </tr>
                     </tbody>

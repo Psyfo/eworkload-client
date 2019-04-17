@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertService } from '../../../../shared/services';
 import { routerTransition } from '../../../../router.animations';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { User, Module } from '../../../../shared/models';
 
 @Component({
     selector: 'app-add',
@@ -12,6 +13,11 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class AddComponent implements OnInit {
     moduleSelected: boolean = false;
+    user: User;
+    userId: string;
+    loading: boolean;
+    errors: any;
+    modules: Module[];
 
     lectureStackForm: FormGroup;
 

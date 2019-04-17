@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { routerTransition } from '../../../../router.animations';
 import { AlertService } from './../../../../shared/services/alert.service';
+import { User } from '../../../../shared/models';
+import { UserGQL } from '../../../../shared/generated/output';
 
 @Component({
     selector: "app-staff-view",
@@ -11,21 +13,38 @@ import { AlertService } from './../../../../shared/services/alert.service';
     animations: [routerTransition()]
 })
 export class StaffViewComponent implements OnInit {
-    staffId: string;
+    userId: string;
+    user: User;
+
+    loading: boolean;
+    errors: any;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private userGql: UserGQL
     ) {}
 
     ngOnInit() {
         // Get ID from route
-        this.staffId = this.activatedRoute.snapshot.paramMap.get("id");
+        this.userId = this.activatedRoute.snapshot.paramMap.get("id");
 
+        this.getUser();
     }
 
     // Methods
+    getUser() {
+        this.userGql.watch({userId: this.userId}).valueChanges.subscribe(result => {
+                this.loading = result.loading;
+                this.user = result.data.user as User;
+                this.errors = result.errors;
+
+                if(this.errors) {
+                    console.log(this.errors);
+                }
+        });
+    }
 
     public getCurrentDepartment(dId: string) {
 
@@ -40,11 +59,11 @@ export class StaffViewComponent implements OnInit {
     }
 
     public getPositions(): void {
-        
+
     }
 
     public onEdit() {
-        this.router.navigate(["staff/edit", this.staffId]);
+        this.router.navigate(["staff/edit", this.userId]);
     }
 
     public onBack(): void {
