@@ -1,39 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+#flashMessages .flash-message {
+    display: none;
+}
+#flashMessages .flash-message:last-child {
+    display: block;
+}
 
 // VENDORS
 //@import "~bootstrap/scss/bootstrap";
 //@import 'vendors/font-awesome/scss/font-awesome';
 
 // ABSTRACTS
-@import "abstracts/functions";
-@import "abstracts/mixins";
-@import "abstracts/variables";
-
+@import 'abstracts/functions';
+@import 'abstracts/mixins';
+@import 'abstracts/variables';
 
 // BASE
-@import "base/animations";
-@import "base/base";
-@import "base/typography";
-@import "base/utilities";
-
+@import 'base/animations';
+@import 'base/base';
+@import 'base/typography';
+@import 'base/utilities';
 
 // COMPONENTS
-@import "components/button";
-@import "components/datatable";
-@import "components/flash-message";
-@import "components/form";
-@import "components/login";
-
+@import 'components/button';
+@import 'components/datatable';
+@import 'components/display';
+@import 'components/flash-message';
+@import 'components/form';
+@import 'components/login';
 
 // LAYOUT
-@import "layout/header";
-@import "layout/navigation";
-@import "layout/sidebar";
-
+@import 'layout/header';
+@import 'layout/navigation';
+@import 'layout/sidebar';
 
 // PAGES
-@import "pages/home";
-
+@import 'pages/home';
 
 // THEMES
-

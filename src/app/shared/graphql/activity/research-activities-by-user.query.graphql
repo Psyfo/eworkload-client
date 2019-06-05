@@ -1,0 +1,22 @@
+query researchActivitiesByUser($userId: String!) {
+    researchActivitiesByUser(userId: $userId) {
+        activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+        }
+        dutyId
+        duty {
+            dutyId
+            name
+            description
+        }
+        approvalStatus
+        researchType
+        researchUrl
+        workload
+    }
+}

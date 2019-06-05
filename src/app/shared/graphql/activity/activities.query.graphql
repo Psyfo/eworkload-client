@@ -42,6 +42,7 @@ query activities {
                 type
                 assessmentMethod
                 nqfLevel
+                studyPeriod
                 qualification {
                     qualificationId
                     name
@@ -59,11 +60,11 @@ query activities {
                     campus
                     capacity
                 }
-                blocks {
+                block {
                     blockId
                     name
                 }
-                users {
+                user {
                     userId
                     firstName
                     lastName

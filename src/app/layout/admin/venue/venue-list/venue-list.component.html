@@ -1,11 +1,12 @@
-<div class="card">
+<div class="card" [@routerTransition]>
     <div class="card-header">
         <h5>Venues</h5>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col">
-                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="venueListDT" class="table table-hover table-active">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="venueListDT"
+                    class="table table-hover table-active">
                     <thead>
                         <tr>
                             <th>
@@ -22,21 +23,21 @@
                     <tbody *ngIf="venues?.length != 0">
                         <tr *ngFor="let venue of venues; let i = index">
                             <td>
-                                {{ venue.venueId }}
+                                {{ venue?.venueId }}
                             </td>
                             <td>
-                                {{ venue.capacity }}
+                                {{ venue?.capacity }}
                             </td>
                             <td>
-                                {{ venue.campus }}
+                                {{ venue?.campus }}
                             </td>
                         </tr>
                     </tbody>
                     <tbody *ngIf="venues?.length == 0">
                         <tr>
-                          <td colspan="3" class="no-data-available">No data!</td>
+                            <td colspan="3" class="no-data-available">No data!</td>
                         </tr>
-                      <tbody>
+                    <tbody>
                     <tfoot>
                         <tr>
                             <td colspan="3">
@@ -50,7 +51,7 @@
     <div class="card-footer">
         <div class="row">
             <div class="col">
-                <button class="btn btn-outline-primary" (click)="onAdd()">Add Venue</button>
+                <button class="btn btn-primary" (click)="onAdd()">Add Venue</button>
             </div>
         </div>
     </div>

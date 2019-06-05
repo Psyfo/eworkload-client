@@ -1,7 +1,7 @@
 .img__profile {
     margin: 0 2rem;
-    width: 15rem;
-    height: 15rem;
+    width: 10rem;
+    height: 10rem;
     border-radius: 50%;
     overflow: hidden;
 }
@@ -13,3 +13,32 @@
     min-width: 80px;
 }
 
+.row {
+    &__profile {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+        &--item {
+            display: flex;
+            flex-basis: 45%;
+            flex-grow: 1;
+            margin: 1rem;
+        }
+    }
+
+    &__workload {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        &--item {
+            display: flex;
+            flex-basis: 30%;
+            flex-grow: 1;
+            margin: 1rem;
+        }
+    }
+}

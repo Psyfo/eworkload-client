@@ -3,13 +3,26 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AlertService } from './../../../../shared/services/alert.service';
-import { User, Discipline, Position } from '../../../../shared/models';
+import {
+    User,
+    Discipline,
+    Position,
+    WorkFocus
+} from '../../../../shared/models';
 import {
     EditUserGQL,
     UserGQL,
     DisciplinesGQL,
     PositionsGQL
 } from '../../../../shared/generated/output';
+import {
+    UserService,
+    DisciplineService,
+    PositionService,
+    WorkFocusService
+} from '../../../../shared/services';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-staff-edit',
@@ -18,66 +31,70 @@ import {
 })
 export class StaffEditComponent implements OnInit {
     userId: string;
-    user: User;
-    loading: boolean;
-    errors: any;
+    user: User = new User();
 
     disciplines: Discipline[];
     positions: Position[];
+    workFocuses: WorkFocus[];
 
     userEditForm: FormGroup;
     genders = ['male', 'female'];
+    nationalities = ['african', 'coloured', 'indian', 'white'];
+
+    private unsubscribe = new Subject();
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private alertService: AlertService,
         private fb: FormBuilder,
-        private userGql: UserGQL,
-        private disciplinesGql: DisciplinesGQL,
-        private positionsGql: PositionsGQL,
-        private editUserGql: EditUserGQL
+        private userService: UserService,
+        private disciplineService: DisciplineService,
+        private positionService: PositionService,
+        private workFocusService: WorkFocusService
     ) {}
 
     ngOnInit() {
-        // Get ID from route
-        this.userId = this.activatedRoute.snapshot.paramMap.get('id');
-
         // Build form
         this.userEditForm = this.fb.group({
             userId: [{ value: '', disabled: true }, Validators.required],
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
-            gender: [''],
             email: ['', Validators.required],
-            nationality: ['', Validators.required],
-            qualificationId: [''],
-            disciplineId: [''],
-            positionId: ['']
+            disciplineId: ['', Validators.required],
+            positionId: ['', Validators.required],
+            workFocusName: ['', Validators.required],
+            gender: ['', Validators.required],
+            nationality: ['', Validators.required]
         });
 
-        this.initializeForm();
+        this.getDisciplines();
+        this.getPositions();
+        this.getWorkFocuses();
+
+        // Get ID from route
+        this.activatedRoute.queryParams
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.userId = result.userId;
+
+                this.getUser();
+            });
     }
+    ngOnDestroy(): void {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
+    }
+    ngDoCheck(): void {}
 
     // Methods
-
-    public initializeForm(): any {
-        this.getUser();
-    }
-
-    public getUser() {
-        this.userGql
-            .watch({ userId: this.userId })
-            .valueChanges.subscribe(result => {
-                this.loading = result.loading;
-                this.user = result.data.user as User;
-                if (result.errors) {
-                    this.errors = result.errors;
-                    console.log(result.errors);
-                }
-
-                this.getDisciplines();
-                this.getPositions();
+    public getUser(): void {
+        this.userService
+            .getUser(this.userId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.user = <User>(<unknown>result.data.user);
+                console.log(this.user);
 
                 this.userEditForm.patchValue({
                     userId: this.user.userId,
@@ -86,35 +103,82 @@ export class StaffEditComponent implements OnInit {
                     email: this.user.email,
                     disciplineId: this.user.discipline.disciplineId,
                     positionId: this.user.position.positionId,
+                    workFocusName: this.user.workFocusName,
+                    gender: this.user.gender,
+                    nationality: this.user.nationality
                 });
             });
     }
 
     public getDisciplines(): void {
-        this.disciplinesGql.watch().valueChanges.subscribe(result => {
-            this.loading = result.loading;
-            this.disciplines = result.data.disciplines as Discipline[];
-            if (result.errors) {
-                this.errors = result.errors;
-                console.log(result.errors);
-            }
-        });
+        this.disciplineService
+            .getDisciplines()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result =>
+                    (this.disciplines = result.data.disciplines.map(
+                        discipline => <Discipline>(<unknown>discipline)
+                    ))
+            );
     }
 
     public getPositions(): void {
-        this.positionsGql.watch().valueChanges.subscribe(result => {
-            this.loading = result.loading;
-            this.positions = result.data.positions as Position[];
-            if (result.errors) {
-                this.errors = result.errors;
-                console.log(result.errors);
-            }
-        });
+        this.positionService
+            .getPositions()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result =>
+                    (this.positions = result.data.positions.map(
+                        position => <Position>(<unknown>position)
+                    ))
+            );
     }
 
-    public onEdit(): void {}
+    public getWorkFocuses(): void {
+        this.workFocusService
+            .getWorkFocuses()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result =>
+                    (this.workFocuses = result.data.workFocuses.map(
+                        workFocus => <WorkFocus>(<unknown>workFocus)
+                    ))
+            );
+    }
 
-    onBack() {
+    public onEdit(): void {
+        if (this.userEditForm.invalid) {
+            this.alertService.sendMessage('Form is not valid', 'danger');
+            return;
+        }
+
+        const formVal = this.userEditForm.value;
+        this.user.userId = formVal.userId;
+        this.user.firstName = formVal.firstName;
+        this.user.lastName = formVal.lastName;
+        this.user.email = formVal.email;
+        this.user.disciplineId = formVal.disciplineId;
+        this.user.positionId = formVal.positionId;
+        this.user.workFocusName = formVal.workFocusName;
+        this.user.gender = formVal.gender;
+        this.user.nationality = formVal.nationality;
+
+        console.log(this.user);
+
+        this.userService
+            .editUser(this.user)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.alertService.sendMessage('User data updated', 'success');
+                this.router.navigate(['admin/staff/view', this.userId], {
+                    queryParams: {
+                        userId: this.userId
+                    }
+                });
+            });
+    }
+
+    onCancel() {
         this.router.navigate(['../admin/staff']);
     }
 }

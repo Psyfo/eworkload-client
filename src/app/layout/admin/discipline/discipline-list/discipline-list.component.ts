@@ -1,10 +1,12 @@
 import { Component, OnInit, Renderer } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Discipline } from '../../../../shared/models';
-import { DataTableDirective } from 'angular-datatables';
-import { routerTransition } from '../../../../router.animations';
 import { Router } from '@angular/router';
-import { DisciplinesGQL } from '../../../../shared/generated/output';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { routerTransition } from '../../../../router.animations';
+import { Discipline } from '../../../../shared/models';
+import { DisciplineService } from '../../../../shared/services';
 
 @Component({
     selector: 'app-discipline-list',
@@ -16,8 +18,7 @@ export class DisciplineListComponent implements OnInit {
     discipline: Discipline;
     disciplines: Discipline[];
 
-    loading: boolean;
-    errors: any;
+    private unsubscribe = new Subject();
 
     // Datatable config
     dtOptions: DataTables.Settings = {};
@@ -28,7 +29,7 @@ export class DisciplineListComponent implements OnInit {
     constructor(
         private router: Router,
         private renderer: Renderer,
-        private disciplinesGql: DisciplinesGQL
+        private disciplineService: DisciplineService
     ) {}
 
     ngOnInit() {
@@ -50,7 +51,6 @@ export class DisciplineListComponent implements OnInit {
 
         this.getDisciplines();
     }
-
     ngAfterViewInit(): void {
         this.renderer.listenGlobal('document', 'click', event => {
             // console.log(event.target);
@@ -61,31 +61,33 @@ export class DisciplineListComponent implements OnInit {
             }
         });
     }
-
     ngOnDestroy(): void {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
         this.dtTrigger.unsubscribe();
     }
 
+    // Methods
     getDisciplines() {
-        this.disciplinesGql.watch().valueChanges.subscribe(result => {
-            this.disciplines = result.data.disciplines as Discipline[];
-            this.loading = result.loading;
-            this.errors = result.errors;
-
-            this.dtTrigger.next();
-        });
+        this.disciplineService
+            .getDisciplines()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.disciplines = result.data.disciplines.map(
+                    discipline => <Discipline>(<unknown>discipline)
+                );
+                this.dtTrigger.next();
+            });
     }
-
     onAdd() {
         this.router.navigate(['admin/discipline/add']);
     }
-
     rowClickHandler(info: any) {
         // get all column values as array
-        this.dtRouteParam = info[0];
+        this.dtRouteParam = info[0].toLowerCase();
 
         this.router.navigate(['admin/discipline/view', this.dtRouteParam], {
-            queryParams: { disciplineId: info[0] }
+            queryParams: { disciplineId: this.dtRouteParam }
         });
     }
 }

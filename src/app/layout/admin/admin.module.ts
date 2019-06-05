@@ -10,6 +10,7 @@ import { FacultyModule } from "./faculty/faculty.module";
 import { RoleModule } from "./role/role.module";
 import { StaffModule } from "./staff/staff.module";
 import { VenueModule } from "./venue/venue.module";
+import { ModuleModule } from "./module/module.module";
 
 @NgModule({
     imports: [
@@ -21,6 +22,7 @@ import { VenueModule } from "./venue/venue.module";
         DisciplineModule,
         FacultyModule,
         DepartmentModule,
+        ModuleModule,
         PageHeaderModule
     ],
     declarations: [AdminComponent]

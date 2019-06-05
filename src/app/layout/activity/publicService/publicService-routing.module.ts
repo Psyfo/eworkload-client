@@ -1,15 +1,25 @@
-import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { PublicServiceComponent } from "./publicService.component";
-import { AddComponent } from "./add/add.component";
+import { PublicServiceComponent } from './publicService.component';
+import { AddComponent } from './add/add.component';
+import { ListComponent } from './list/list.component';
 
 const routes: Routes = [
     {
-        path: "",
+        path: '',
         component: PublicServiceComponent,
-        children: [{ path: "add", component: AddComponent }]
+        children: [
+            {
+                path: '',
+                component: ListComponent
+            },
+            {
+                path: 'add',
+                component: AddComponent
+            }
+        ]
     }
 ];
 

@@ -17,7 +17,6 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { AlertComponent } from './shared/directives';
 import { AlertService, BufferService } from './shared/services';
-import { LayoutRoutingModule } from './layout/layout-routing.module';
 
 
 // AoT requires an exported function for factories

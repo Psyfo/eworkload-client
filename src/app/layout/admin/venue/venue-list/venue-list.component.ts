@@ -1,16 +1,22 @@
-import { Component, OnInit, Renderer, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Renderer } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
+import { routerTransition } from '../../../../router.animations';
+import { Venue } from '../../../../shared/generated/output';
 import { AlertService } from '../../../../shared/services';
+import { VenueService } from '../../../../shared/services/venue.service';
 
 @Component({
-    selector: "app-venue-list",
-    templateUrl: "./venue-list.component.html",
-    styleUrls: ["./venue-list.component.scss"]
+    selector: 'app-venue-list',
+    templateUrl: './venue-list.component.html',
+    styleUrls: ['./venue-list.component.scss'],
+    animations: [routerTransition()]
 })
 export class VenueListComponent implements OnInit {
+    venues: Venue[];
 
     // Datatable config
     dtOptions: DataTables.Settings = {};
@@ -18,21 +24,20 @@ export class VenueListComponent implements OnInit {
     dtElement: DataTableDirective;
     dtRouteParam: string;
 
+    private unsubscribe = new Subject();
 
     constructor(
         private alertService: AlertService,
         private router: Router,
         private renderer: Renderer,
+        private venueService: VenueService
     ) {}
 
     // Lifecycle hooks
-    ngOnChanges(changes: SimpleChanges): void {
-
-    }
     ngOnInit() {
         // Initialize DT
         this.dtOptions = {
-            pagingType: "full_numbers",
+            pagingType: 'full_numbers',
             pageLength: 10,
             processing: true,
             responsive: true,
@@ -41,29 +46,29 @@ export class VenueListComponent implements OnInit {
                 const self = this;
                 // Unbind first in order to avoid any duplicate handler
                 // (see https://github.com/l-lin/angular-datatables/issues/87)
-                $("td", row).unbind("click");
-                $("td", row).bind("click", () => {
+                $('td', row).unbind('click');
+                $('td', row).bind('click', () => {
                     self.rowClickHandler(data);
                 });
                 return row;
             }
         };
 
-        this.initializeTable();
-
+        this.getVenues();
     }
     ngAfterViewInit(): void {
-        this.renderer.listenGlobal("document", "click", event => {
+        this.renderer.listenGlobal('document', 'click', event => {
             // console.log(event.target);
 
-            if (event.target.hasAttribute("venueId")) {
+            if (event.target.hasAttribute('venueId')) {
                 //this.router.navigate(["edit/:" + event.target.getAttribute("lecturerId")]);
                 // this.router.navigate(['lecturer-manage/edit'], { queryParams: { lecturerId: this.dtRouteParam } });
             }
         });
     }
     ngOnDestroy(): void {
-        // Do not forget to unsubscribe the event
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
         this.dtTrigger.unsubscribe();
     }
 
@@ -72,16 +77,24 @@ export class VenueListComponent implements OnInit {
         // get all column values as array
         this.dtRouteParam = info[0];
 
-        this.router.navigate(["venue/view", this.dtRouteParam], {
+        this.router.navigate(['admin/venue/view', this.dtRouteParam], {
             queryParams: { departmentId: info[0] }
         });
     }
 
-    initializeTable() {
-        
+    getVenues() {
+        this.venueService
+            .getVenues()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.venues = result.data.venues.map(
+                    venue => <Venue>(<unknown>venue)
+                );
+                this.dtTrigger.next();
+            });
     }
 
     onAdd() {
-        this.router.navigate(["venue/add"]);
+        this.router.navigate(['admin/venue/add']);
     }
 }

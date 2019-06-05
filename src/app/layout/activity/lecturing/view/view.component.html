@@ -1,8 +1,37 @@
 <div class="row" [@routerTransition]>
-    <div class="col">
+    <div class="col-6">
         <div class="card">
+            <div class="card-header">
+                Formal Instruction Activity
+            </div>
             <div class="card-body">
-                <a class="btn btn-primary" [routerLink]="['add']">New Activity</a>
+                <div class="d-flex flex-column">
+                    <div class="d-flex flex-row justify-content-between">
+                        <p><strong>Activity Type(Duty)</strong></p>
+                        {{activity?.duty?.name}}
+                    </div>
+                    <div class="d-flex flex-row justify-content-between">
+                        <p><strong>Module</strong></p>
+                        {{activity?.module?.name}} ({{activity?.module?.moduleId}})
+                    </div>
+                    <div class="d-flex flex-row justify-content-between">
+                        <p><strong>Staff ID</strong></p>
+                        {{activity?.user?.userId}}
+                    </div>
+                    <div class="d-flex flex-row justify-content-between">
+                        <p><strong>Name</strong></p>
+                        {{activity?.user?.firstName}} {{activity?.user?.lastName}}
+                    </div>
+                    <div class="d-flex flex-row justify-content-between">
+                        <p><strong>Approval Status</strong></p>
+                        <span *ngIf="activity?.approvalStatus; else notApproved">Approved</span>
+                        <ng-template #notApproved>Not Approved</ng-template>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-primary mr-3" disabled>Edit</button>
+                <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
             </div>
         </div>
     </div>

@@ -16,7 +16,12 @@ const routes: Routes = [
                 path: 'lecture-tasks',
                 loadChildren:
                     './lecture-tasks/lecture-tasks.module#LectureTasksModule',
-                    pathMatch: 'prefix'
+                pathMatch: 'prefix'
+            },
+            {
+                path: 'enrollment',
+                loadChildren: './enrollment/enrollment.module#EnrollmentModule',
+                pathMatch: 'prefix'
             }
         ]
     }

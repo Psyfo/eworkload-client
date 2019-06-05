@@ -1,10 +1,12 @@
-import { OnInit, Component } from '@angular/core';
-import { AlertService } from '../../../../shared/services';
-import { Discipline } from '../../../../shared/models';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { routerTransition } from '../../../../router.animations';
-import { AddDisciplineGQL } from '../../../../shared/generated/output';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+
+import { routerTransition } from '../../../../router.animations';
+import { Discipline } from '../../../../shared/models';
+import { AlertService, DisciplineService } from '../../../../shared/services';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-discipline-add',
@@ -17,26 +19,66 @@ export class DisciplineAddComponent implements OnInit {
 
     disciplineAddForm: FormGroup;
 
+    private unsubscribe = new Subject();
+
     constructor(
         private alertService: AlertService,
         private router: Router,
         private fb: FormBuilder,
-        private addDiscipline: AddDisciplineGQL
+        private disciplineService: DisciplineService
     ) {}
 
     ngOnInit() {
         this.disciplineAddForm = this.fb.group({
-            name: '',
-            description: ''
+            disciplineId: ['', [Validators.required]],
+            name: ['', [Validators.required]],
+            description: ['', [Validators.required]]
         });
     }
-
-    onAdd() {}
-    onBack() {
-        this.router.navigate(["../admin/discipline"]);
+    ngOnDestroy(): void {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
     }
 
+    // Getters
+    get disciplineId() {
+        return this.disciplineAddForm.get('disciplineId');
+    }
+    get name() {
+        return this.disciplineAddForm.get('name');
+    }
+    get description() {
+        return this.disciplineAddForm.get('description');
+    }
+    get formVal() {
+        return this.disciplineAddForm.value;
+    }
+
+    // Methods
+    onAdd() {
+        this.discipline = this.formVal;
+        this.disciplineService
+            .addDiscipline(this.discipline)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                const newDiscipline = result.data.addDiscipline;
+                console.log(newDiscipline);
+                this.alertService.sendMessage('Discipline added', 'success');
+                this.router.navigate(
+                    ['admin/discipline/view', newDiscipline.disciplineId],
+                    {
+                        queryParams: {
+                            disciplineId: newDiscipline.disciplineId
+                        }
+                    }
+                );
+            });
+    }
+    onCancel() {
+        this.router.navigate(['../admin/discipline']);
+    }
     onReset() {
         this.disciplineAddForm.reset();
+        this.ngOnInit();
     }
 }

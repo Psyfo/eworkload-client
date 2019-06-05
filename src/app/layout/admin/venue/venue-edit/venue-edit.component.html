@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" [@routerTransition]>
     <div class="col-6">
         <form [formGroup]="venueEditForm" novalidate (ngSubmit)="onEdit()" class="form">
             <div class="card">
@@ -16,15 +16,15 @@
 
                     <div class="form-row">
                         <div class="form-group col">
-                            <label for="name">Capacity</label>
-                            <input *ngIf="venue" type="number" formControlName="capacity" class="form-control">
+                            <label for="positionId" class="col-form-label">Campus</label>
+                            <input type="text" formControlName="campus" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col">
-                            <label for="positionId" class="col-form-label">Campus</label>
-                            <input type="text" formControlName="campus" class="form-control">
+                            <label for="name">Capacity</label>
+                            <input *ngIf="venue" type="number" formControlName="capacity" class="form-control">
                         </div>
                     </div>
 
@@ -32,8 +32,9 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col">
-                            <button class="btn btn-outline-success">Update</button>
-                            <button type="button" (click)="onBack()" class="ml-3 btn btn-outline-primary">Back</button>
+                            <button class="btn btn-primary mr-3">Update</button>
+                            <button type="button" (click)="onCancel()" class="btn btn-danger">Back</button>
+                            <button type="button" class="btn btn-warning pull-right">Delete</button>
                         </div>
                     </div>
                 </div>

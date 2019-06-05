@@ -1,0 +1,13 @@
+query enrollmentsByYear($enrollmentYear: String) {
+    enrollmentsByYear(enrollmentYear: $enrollmentYear) {
+        enrollmentYear
+        qualificationId
+        qualification {
+            qualificationId
+            name
+        }
+        firstYearEstimated
+        secondYearEstimated
+        thirdYearEstimated
+    }
+}

@@ -1,12 +1,19 @@
-import { timeout } from 'rxjs/operators';
+import { timeout, takeUntil } from 'rxjs/operators';
 import { AlertService } from './../../../shared/services/alert.service';
-import { Component, OnInit, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    SimpleChanges,
+    ChangeDetectorRef
+} from '@angular/core';
 import { routerTransition } from '../../../router.animations';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router } from '@angular/router';
-import { UserGQL } from '../../../shared/generated/output';
-import { User } from '../../../shared/models';
+import { User, Qualification } from '../../../shared/models';
 import { UserService } from '../../../shared/services/user.service';
+import { Subject } from 'rxjs';
+import { DisciplineService } from '../../../shared/services';
+import { PositionService } from '../../../shared/services/position.service';
 
 @Component({
     selector: 'app-profile-view',
@@ -21,17 +28,51 @@ export class ProfileViewComponent implements OnInit {
     userId: string;
     user: User;
 
+    workloadCurrent = 0;
+    workloadTotal = 1575;
+    formalInstructionCurrent: number = 50;
+    formalInstructionTotal: number;
+    researchCurrent: number = 17;
+    researchTotal: number;
+    serviceCurrent: number = 20;
+    serviceTotal: number;
+
+    private unsubscribe = new Subject();
+
     // Pie
-    public pieChartLabels: string[] = ['Research', 'Lecturing', 'Admin'];
-    public pieChartData: number[] = [300, 500, 100];
-    public pieChartType: string = 'pie';
+    public formalInstructionChartLabels: string[] = [
+        'Formal Instruction Current',
+        'Formal Instruction Total'
+    ];
+    public formalInstructionChartData: number[] = [0, 0];
+    public formalInstructionChartType: string = 'doughnut';
+
+    public researchChartLabels: string[] = [
+        'Research Current',
+        'Research Total'
+    ];
+    public researchChartData: number[] = [0, 0];
+    public researchChartType: string = 'doughnut';
+
+    public supervisionChartLabels: string[] = [
+        'Service Current',
+        'Service Total'
+    ];
+    public supervisionChartData: number[] = [0, 0];
+    public supervisionChartType: string = 'doughnut';
+
+    public workloadChartLabels: string[] = [
+        'Workload Current',
+        'Workload Total'
+    ];
+    public workloadChartData: number[] = [0, 0];
+    public workloadChartType: string = 'doughnut';
 
     constructor(
-        private cdr:ChangeDetectorRef,
+        private cdr: ChangeDetectorRef,
         private flashMessagesService: FlashMessagesService,
         private alertService: AlertService,
         private router: Router,
-        private userGql: UserGQL,
         private userService: UserService
     ) {
         this.getData();
@@ -40,8 +81,9 @@ export class ProfileViewComponent implements OnInit {
     ngOnInit() {
         this.getData();
     }
-    ngOnChanges(changes: SimpleChanges) {
-        this.getData();
+    ngOnDestroy(): void {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
     }
 
     onEdit(): void {
@@ -58,40 +100,49 @@ export class ProfileViewComponent implements OnInit {
     }
 
     public getData() {
-        // Get current user ID
-        this.userService.currentUserId().subscribe(userId => {
-            this.userId = userId;
-            console.log(`Current user id: ${this.userId}`);
+        this.userService
+            .currentUser()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.user = <User>(<unknown>result.data.user);
 
-            // Fetch user data
-            this.userGql
-                .watch({ userId: this.userId })
-                .valueChanges.subscribe(result => {
-                    this.user = result.data.user as User;
-                    this.loading = result.loading;
-                    this.errors = result.errors;
+                if (this.user.workFocus.name == 'teaching') {
+                    this.formalInstructionTotal = 945;
+                    this.researchTotal = 315;
+                    this.serviceTotal = 315;
+                } else if ((this.user.workFocus.name = 'research')) {
+                    this.formalInstructionTotal = 315;
+                    this.researchTotal = 945;
+                    this.serviceTotal = 315;
+                } else if (this.user.workFocus.name == 'balanced') {
+                    this.formalInstructionTotal = 630;
+                    this.researchTotal = 630;
+                    this.serviceTotal = 315;
+                }
 
-                    if (this.errors) {
-                        this.errors.forEach(error => {
-                            this.flashMessagesService.show(
-                                error.message,
-                                'warn'
-                            );
-                        });
-                        return;
-                    }
-                    console.log(this.user);
-                });
-        });
+                this.workloadCurrent =
+                    this.formalInstructionCurrent +
+                    this.researchCurrent +
+                    this.serviceCurrent;
 
-
+                this.formalInstructionChartData = [
+                    this.formalInstructionCurrent,
+                    this.formalInstructionTotal
+                ];
+                this.researchChartData = [
+                    this.researchCurrent,
+                    this.researchTotal
+                ];
+                this.supervisionChartData = [
+                    this.serviceCurrent,
+                    this.serviceTotal
+                ];
+                this.workloadChartData = [
+                    this.workloadCurrent,
+                    this.workloadTotal
+                ];
+            });
     }
-
-    public getQualification(qId: string) {}
-
-    public getDepartment(dId: string) {}
-
-    public getPosition(pId: string) {}
 
     public clearMessage(): void {
         this.alertService.clearMessage();

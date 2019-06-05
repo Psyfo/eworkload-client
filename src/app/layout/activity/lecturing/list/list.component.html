@@ -1,17 +1,69 @@
 <div class="row" [@routerTransition]>
     <div class="col">
         <div class="card">
+            <div class="card-header">
+                <h5>Formal Instruction</h5>
+            </div>
             <div class="card-body">
-                <div class="card">
-                    <div class="card-body" *ngFor="let lectureStack of lectureStacks; let i = index">
-                        {{ lectureStack | json }}
-                    </div>
-                </div>
+
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover table-active"
+                    id="activitiesListDT">
+                    <thead>
+                        <tr>
+                            <th [hidden]="true">
+                                Activity ID
+                            </th>
+                            <th>
+                                User ID
+                            </th>
+                            <th>
+                                Duty
+                            </th>
+                            <th>
+                                Module
+                            </th>
+                            <th>
+                                Credits
+                            </th>
+                            <th>
+                                Workload
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="activities">
+                        <tr *ngFor="let activity of activities">
+                            <td [hidden]="true">
+                                {{activity?.activityId}}
+                            </td>
+                            <td>
+                                {{activity?.userId}}
+                            </td>
+                            <td>
+                                {{activity?.duty?.name}}
+                            </td>
+                            <td>
+                                {{activity?.module?.name}}
+                            </td>
+                            <td>
+                                {{activity?.module?.credits}}
+                            </td>
+                            <td>
+                                {{formalInstructionWorkload}}
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
             </div>
             <div class="card-footer">
-                <a class="btn btn-outline-primary" [routerLink]="['add']">New Activity</a>
+                <a class="btn btn-primary" [routerLink]="['add']">New Activity</a>
             </div>
         </div>
-
     </div>
 </div>

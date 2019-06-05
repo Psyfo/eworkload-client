@@ -1,37 +1,26 @@
 mutation deleteQualification(
     $qualificationId: String!
-    $name: String!
-    $type: String!
-    $saqaId: String
+    $name: String
+    $type: String
     $departmentId: String
-    $heqsfLevel: String
-    $purpose: String
-    $exitLevelOutcomes: [String]
-    $graduateAttributes: [String]
 ) {
     addQualification(
         qualificationId: $qualificationId
         name: $name
         type: $type
-        saqaId: $saqaId
         departmentId: $departmentId
-        heqsfLevel: $heqsfLevel
-        purpose: $purpose
-        exitLevelOutcomes: $exitLevelOutcomes
-        graduateAttributes: $graduateAttributes
     ) {
         qualificationId
         name
         type
-        saqaId
         departmentId
         department {
             departmentId
             name
+            faculty {
+                facultyId
+                name
+            }
         }
-        heqsfLevel
-        purpose
-        exitLevelOutcomes
-        graduateAttributes
     }
 }

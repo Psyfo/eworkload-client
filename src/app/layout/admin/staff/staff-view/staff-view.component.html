@@ -1,29 +1,51 @@
-<div class="row">
+<div class="row" [@routerTransition]>
     <div class="col-6">
         <div class="card">
             <div class="card-header">
-                <h4>Details</h4>
+                <h5>Staff Details</h5>
             </div>
-            <div class="card-body" *ngIf="user"  >
+            <div class="card-body" *ngIf="user">
                 <div class="row">
                     <div class="col">
-                        <dl class="row">
-                            <dt class="col-4">Staff ID</dt>
-                            <dd class="col-8">{{ user?.userId }}</dd>
-                            <dt class="col-4">First Name</dt>
-                            <dd class="col-8">{{ user?.firstName}}</dd>
-                            <dt class="col-4">Email</dt>
-                            <dd class="col-8">{{ user?.email}}</dd>
-                            <dt class="col-4">Gender</dt>
-                            <dd class="col-8">{{ user?.gender | titlecase}}</dd>
-                            <dt class="col-4">Nationality</dt>
-                            <dd class="col-8">{{ user?.nationality | titlecase}}</dd>
-                            <dt class="col-4">Last Name</dt>
-                            <dd class="col-8">{{ user?.lastName }}</dd>
-                            <dt class="col-4">Discipline</dt>
-                            <dd class="col-8">{{ user?.discipline.name }}</dd>
-                            <dt class="col-4">Position</dt>
-                            <dd class="col-8">{{ user?.position.name }}</dd>
+                        <dl class=".d-flex.flex-column.justify-content-between">
+                            <div class="d-flex flex-row justify-content-between mb-3">
+                                <div><strong>Staff ID:</strong></div>
+                                <div class="text-muted">{{ user?.userId }}</div>
+                            </div>
+                            <div class="d-flex flex-row justify-content-between mb-3">
+                                <div><strong>First Name:</strong></div>
+                                <div class="text-muted">{{ user?.firstName}}</div>
+                            </div>
+                            <div class="d-flex flex-row justify-content-between mb-3">
+                                <div><strong>Last Name:</strong></div>
+                                <div class="text-muted">{{ user?.lastName }}</div>
+                            </div>
+                            <div *ngIf="user.email" class="d-flex flex-row justify-content-between mb-3">
+                                <div><strong>Email:</strong></div>
+                                <div class="text-muted">{{ user?.email}}</div>
+                            </div>
+                            <div *ngIf="user.discipline" class="d-flex flex-row justify-content-between mb-3">
+                                <div><strong>Discipline:</strong></div>
+                                <div class="text-muted">{{ user?.discipline?.name }}</div>
+                            </div>
+                            <div *ngIf="user.position" class="d-flex flex-row justify-content-between mb-3">
+                                <div><strong>Position:</strong></div>
+                                <div class="text-muted">{{ user?.position?.name }}</div>
+                            </div>
+                            <div *ngIf="user.workFocus" class="d-flex flex-row justify-content-between mb-3">
+                                <div><strong>Work Focus (Teaching/Research/Service):</strong></div>
+                                <div class="text-muted">{{ user?.workFocusName }}
+                                    ({{user?.workFocus?.teachingRatio}}/{{user?.workFocus?.researchRatio}}/{{user?.workFocus?.teachingRatio}})
+                                </div>
+                            </div>
+                            <div *ngIf="user.gender" class="d-flex flex-row justify-content-between mb-3">
+                                <div><strong>Gender:</strong></div>
+                                <div class="text-muted">{{ user?.gender | titlecase}}</div>
+                            </div>
+                            <div *ngIf="user.nationality" class="d-flex flex-row justify-content-between mb-3">
+                                <div><strong>Nationality:</strong></div>
+                                <div class="text-muted">{{ user?.nationality | titlecase}}</div>
+                            </div>
                         </dl>
                     </div>
                 </div>
@@ -31,9 +53,9 @@
             <div class="card-footer">
                 <div class="row">
                     <div class="col">
-                        <button class="btn btn-outline-warning mr-3" (click)="onEdit()">Edit</button>
-                        <button class="btn btn-outline-primary" (click)="onBack()">Back</button>
-                        <button class="btn btn-outline-danger pull-right" (click)="onDelete()">Delete</button>
+                        <button class="btn btn-primary mr-3" (click)="onEdit()">Edit</button>
+                        <button class="btn btn-danger" (click)="onBack()">Cancel</button>
+                        <button class="btn btn-dark float-right" (click)="onDelete()">Delete</button>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,16 @@
+.display {
+    padding: 2rem;
+
+    &__column{
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+}

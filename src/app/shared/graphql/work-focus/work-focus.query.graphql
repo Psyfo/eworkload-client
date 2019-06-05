@@ -1,0 +1,8 @@
+query workFocus($name: String!) {
+    workFocus(name: $name) {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+    }
+}

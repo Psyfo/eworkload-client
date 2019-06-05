@@ -5,8 +5,9 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 
 import { UserGQL } from '../../../shared/generated/output';
 import { UserService } from '../../../shared/services/user.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { User } from '../../../shared/models';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-header',
@@ -19,6 +20,8 @@ export class HeaderComponent implements OnInit {
     user: User;
     loading: boolean;
     errors: any;
+
+    private unsubscribe = new Subject();
 
     constructor(
         private translate: TranslateService,
@@ -58,20 +61,27 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit() {
         // Get current user ID
-        this.userService.currentUserId().subscribe(userId => {
-            this.userId = userId;
-            console.log(`Current user id: ${this.userId}`);
+        this.userService
+            .currentUserId()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(userId => {
+                this.userId = userId;
+                console.log(`Current user id: ${this.userId}`);
 
-            // Fetch user data
-            this.userGql
-                .watch({ userId: this.userId })
-                .valueChanges.subscribe(result => {
-                    this.user = result.data.user as User;
-                    this.loading = result.loading;
-                    this.errors = result.errors;
+                // Fetch user data
+                this.userGql
+                    .watch({ userId: this.userId })
+                    .valueChanges.subscribe(result => {
+                        this.user = result.data.user as User;
+                        this.loading = result.loading;
+                        this.errors = result.errors;
+                    });
+            });
+    }
 
-                });
-        });
+    ngOnDestroy() {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
     }
 
     isToggled(): boolean {

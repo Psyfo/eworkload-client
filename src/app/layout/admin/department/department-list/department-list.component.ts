@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
+import { routerTransition } from '../../../../router.animations';
 import { DepartmentsGQL } from '../../../../shared/generated/output';
 import { Department } from '../../../../shared/models';
 import { AlertService } from './../../../../shared/services/alert.service';
-import { routerTransition } from '../../../../router.animations';
+import { takeUntil } from 'rxjs/operators';
+import { DepartmentService } from '../../../../shared/services';
 
 @Component({
     selector: 'app-department-list',
@@ -19,6 +21,8 @@ export class DepartmentListComponent implements OnInit {
     loading: boolean = false;
     errors: any;
 
+    private unsubscribe = new Subject();
+
     // Datatable config
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<Department> = new Subject();
@@ -29,7 +33,7 @@ export class DepartmentListComponent implements OnInit {
         private alertService: AlertService,
         private router: Router,
         private renderer: Renderer,
-        private departmentsGql: DepartmentsGQL
+        private departmentsService: DepartmentService
     ) {}
 
     // Lifecycle hooks
@@ -69,6 +73,8 @@ export class DepartmentListComponent implements OnInit {
     ngOnDestroy(): void {
         // Do not forget to unsubscribe the event
         this.dtTrigger.unsubscribe();
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
     }
 
     // Methods
@@ -83,22 +89,16 @@ export class DepartmentListComponent implements OnInit {
 
     getFaculty(dId: string) {}
 
-    getFaculties() {}
-
     getDepartments() {
-        this.departmentsGql.watch().valueChanges.subscribe(result => {
-            this.loading = result.loading;
-            this.departments = result.data.departments as Department[];
-            this.errors = result.errors;
-
-            if (this.errors) {
-                this.errors.forEach(error => {
-                    console.log(`Error: ${error}`);
-                    this.alertService.sendMessage(error.message, 'warn');
-                });
-            }
-            this.dtTrigger.next();
-        });
+        this.departmentsService
+            .getDepartments()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.departments = result.data.departments.map(
+                    department => <Department>(<unknown>department)
+                );
+                this.dtTrigger.next();
+            });
     }
 
     onAdd() {

@@ -5,72 +5,65 @@ import { routerTransition } from '../../../../router.animations';
 import { AlertService } from './../../../../shared/services/alert.service';
 import { User } from '../../../../shared/models';
 import { UserGQL } from '../../../../shared/generated/output';
+import { UserService } from '../../../../shared/services';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
-    selector: "app-staff-view",
-    templateUrl: "./staff-view.component.html",
-    styleUrls: ["./staff-view.component.scss"],
+    selector: 'app-staff-view',
+    templateUrl: './staff-view.component.html',
+    styleUrls: ['./staff-view.component.scss'],
     animations: [routerTransition()]
 })
 export class StaffViewComponent implements OnInit {
     userId: string;
     user: User;
 
-    loading: boolean;
-    errors: any;
+    private unsubscribe = new Subject();
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private alertService: AlertService,
-        private userGql: UserGQL
+        private userService: UserService
     ) {}
 
     ngOnInit() {
         // Get ID from route
-        this.userId = this.activatedRoute.snapshot.paramMap.get("id");
+        this.activatedRoute.queryParams
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.userId = result.userId;
 
-        this.getUser();
+                this.getUser();
+            });
+    }
+    ngOnDestroy(): void {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
     }
 
     // Methods
     getUser() {
-        this.userGql.watch({userId: this.userId}).valueChanges.subscribe(result => {
-                this.loading = result.loading;
-                this.user = result.data.user as User;
-                this.errors = result.errors;
-
-                if(this.errors) {
-                    console.log(this.errors);
-                }
-        });
-    }
-
-    public getCurrentDepartment(dId: string) {
-
-    }
-
-    public getCurrentPosition(pId: string) {
-
-    }
-
-    public getDepartments(): void {
-
-    }
-
-    public getPositions(): void {
-
+        this.userService
+            .getUser(this.userId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.user = <User>(<unknown>result.data.user);
+                console.log(this.user);
+            });
     }
 
     public onEdit() {
-        this.router.navigate(["staff/edit", this.userId]);
+        this.router.navigate(['admin/staff/edit', this.userId], {
+            queryParams: {
+                userId: this.userId
+            }
+        });
     }
 
     public onBack(): void {
-        this.router.navigate(["../staff"]);
+        this.router.navigate(['../admin/staff']);
     }
 
-    public onDelete(): void {
-        this.alertService.sendMessage("Delete service coming soon", "info");
-    }
+    public onDelete(): void {}
 }

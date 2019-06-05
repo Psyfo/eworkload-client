@@ -1,0 +1,19 @@
+mutation addDepartment(
+    $departmentId: String!
+    $name: String!
+    $facultyId: String!
+) {
+    addDepartment(
+        departmentId: $departmentId
+        name: $name
+        facultyId: $facultyId
+    ) {
+        departmentId
+        name
+        facultyId
+        faculty {
+            facultyId
+            name
+        }
+    }
+}

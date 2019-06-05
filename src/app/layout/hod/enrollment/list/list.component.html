@@ -1,0 +1,52 @@
+<div class="row" [@routerTransition]>
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h5>
+                    Enrollments
+                </h5>
+            </div>
+            <div class="card-body">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover"
+                    id="enrollmentListDT">
+                    <thead>
+                        <tr>
+                            <th>Enrollment Year</th>
+                            <th>Qualification ID</th>
+                            <th>Qualification</th>
+                            <th>First Year</th>
+                            <th>Second Year</th>
+                            <th>Third Year</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let enrollment of enrollments">
+                            <td>
+                                {{enrollment?.enrollmentYear}}
+                            </td>
+                            <td>
+                                {{enrollment?.qualification.qualificationId}}
+                            </td>
+                            <td>
+                                {{enrollment?.qualification?.name}}
+                            </td>
+                            <td>
+                                {{enrollment?.firstYearEstimated}}
+                            </td>
+                            <td>
+                                {{enrollment?.secondYearEstimated}}
+                            </td>
+                            <td>
+                                {{enrollment?.thirdYearEstimated}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-primary" (click)="onAdd()">Add Enrollment</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,61 +1,91 @@
-import { AlertService } from "./shared/services/alert.service";
-import { timeout } from "rxjs/operators";
-import { Component, OnInit } from "@angular/core";
-import { FlashMessagesService } from "angular2-flash-messages";
-import { Subscription } from "rxjs";
+import { AlertService } from './shared/services/alert.service';
+import { timeout, takeUntil } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { Subscription, Subject } from 'rxjs';
 
 @Component({
-    selector: "app-root",
-    templateUrl: "./app.component.html",
-    styleUrls: ["./app.component.scss"]
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
     // Properties
     message: any = {};
     subscription: Subscription;
+    private unsubscribe = new Subject();
 
     constructor(
         private flashMessagesService: FlashMessagesService,
         private alertService: AlertService
-    ) {
+    ) {}
+
+    ngOnInit() {
         // Flash messages
-        this.subscription = this.alertService
+        this.alertService
             .getMessage()
+            .pipe(takeUntil(this.unsubscribe))
             .subscribe(message => {
                 let msgText = message.text;
                 let msgParams: any;
                 switch (message.params) {
-                    case "success":
+                    case 'success':
                         msgParams = {
-                            cssClass: 'alert-success',
+                            cssClass: 'alert alert-success',
                             timeout: 5000
                         };
-                    case "danger":
+                        break;
+                    case 'danger':
                         msgParams = {
-                            cssClass: "alert-danger",
+                            cssClass: 'alert alert-danger',
                             timeout: 5000
                         };
-                    case "warning":
+                        break;
+                    case 'info':
                         msgParams = {
-                            cssClass: "alert-warning",
+                            cssClass: 'alert alert-info',
                             timeout: 5000
                         };
-                    case "info":
+                        break;
+                    case 'primary':
                         msgParams = {
-                            cssClass: "alert-info",
+                            cssClass: 'alert alert-primary',
                             timeout: 5000
                         };
+                        break;
+                    case 'secondary':
+                        msgParams = {
+                            cssClass: 'alert alert-secondary',
+                            timeout: 5000
+                        };
+                        break;
+                    case 'dark':
+                        msgParams = {
+                            cssClass: 'alert alert-dark',
+                            timeout: 5000
+                        };
+                        break;
+                    case 'light':
+                        msgParams = {
+                            cssClass: 'alert alert-light',
+                            timeout: 5000
+                        };
+                        break;
+                    default:
+                        msgParams = {
+                            cssClass: 'alert alert-warning',
+                            timeout: 10000
+                        };
+                        break;
                 }
 
                 this.flashMessagesService.show(msgText, msgParams);
             });
     }
-
-    ngOnInit() {
-
-    }
     ngOnDestroy() {
         // unsubscribe to ensure no memory leaks
-        this.subscription.unsubscribe();
+        // this.subscription.unsubscribe();
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
     }
 }

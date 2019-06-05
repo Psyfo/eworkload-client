@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../../../router.animations';
-import { AlertService } from '../../../../shared/services';
+import { AlertService, ActivityService } from '../../../../shared/services';
 import { Router } from '@angular/router';
 import {
     FormGroup,
@@ -12,6 +12,8 @@ import {
 import { User } from '../../../../shared/models';
 import { UserGQL } from '../../../../shared/generated/output';
 import { UserService } from '../../../../shared/services/user.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-add',
@@ -22,15 +24,10 @@ import { UserService } from '../../../../shared/services/user.service';
 export class AddComponent implements OnInit {
     userId: string;
     user: User;
-    loading: boolean;
-    errors: any;
 
-    outputTypes = ['Conference Proceedings', 'Keynote Address', 'Journal', 'Books', 'Chapter'];
+    outputTypes = this.activityService.outputTypes;
 
-    supervisionDetails: {
-        researchRole: string;
-        studentId: string;
-    } = { researchRole: '', studentId: '' };
+    private unsubscribe = new Subject();
 
     researchActivityForm: FormGroup;
 
@@ -38,8 +35,8 @@ export class AddComponent implements OnInit {
         private alertService: AlertService,
         private router: Router,
         private fb: FormBuilder,
-        private userGql: UserGQL,
-        private userService: UserService
+        private userService: UserService,
+        private activityService: ActivityService
     ) {}
 
     ngOnInit() {
@@ -59,14 +56,11 @@ export class AddComponent implements OnInit {
             console.log(`Current user id: ${this.userId}`);
 
             // Fetch user data
-            this.userGql
-                .watch({ userId: this.userId })
-                .valueChanges.subscribe(result => {
-                    this.user = result.data.user as User;
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-
-                    console.log(this.user);
+            this.userService
+                .currentUser()
+                .pipe(takeUntil(this.unsubscribe))
+                .subscribe(result => {
+                    this.user = <User>(<unknown>result.data.user);
                 });
         });
     }
@@ -75,12 +69,9 @@ export class AddComponent implements OnInit {
         if (this.researchActivityForm.invalid) {
             this.alertService.sendMessage('Validation failed!', 'warning');
         }
-
     }
 
-    onBack() {
+    onCancel() {
         this.router.navigate(['activity/research']);
     }
-
-
 }

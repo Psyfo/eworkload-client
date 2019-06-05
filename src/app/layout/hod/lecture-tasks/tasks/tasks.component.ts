@@ -1,12 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { routerTransition } from '../../../../router.animations';
-import { AlertService } from '../../../../shared/services';
-import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import {
+    AlertService,
+    ModuleService,
+    DisciplineService
+} from '../../../../shared/services';
+import {
+    FormBuilder,
+    FormGroup,
+    FormArray,
+    FormControl,
+    Validators
+} from '@angular/forms';
 import {
     Discipline,
     Module,
     User,
-    LectureStack
+    LectureStack,
+    Venue
 } from '../../../../shared/models';
 import {
     ModuleGQL,
@@ -15,9 +26,11 @@ import {
     DisciplinesGQL,
     UserGQL,
     UsersGQL,
-    ModulesByDisciplineGQL
+    ModulesByDisciplineGQL,
+    VenuesGQL
 } from '../../../../shared/generated/output';
 import { UserService } from '../../../../shared/services/user.service';
+import { VenueService } from '../../../../shared/services/venue.service';
 
 @Component({
     selector: 'app-tasks',
@@ -26,113 +39,100 @@ import { UserService } from '../../../../shared/services/user.service';
     animations: [routerTransition()]
 })
 export class TasksComponent implements OnInit {
-    loading: boolean;
-    errors: any;
     userId: string;
     user: User;
     users: User[];
     disciplineId: string;
-    disciplines: Discipline[];
-    discipline: Discipline;
+    disciplines: Discipline[] = [];
+    discipline: Discipline = new Discipline();
+    moduleId: string;
     modules: Module[];
     module: Module;
-    moduleStackCard: boolean = false;
-    moduleSharedCard: boolean = false;
+    venue: Venue;
+    venues: Venue[];
+
+    moduleDropdown: boolean = false;
+    stackRadio: boolean = false;
+    isStacked: boolean = false;
 
     prepModuleForm: FormGroup;
     constructor(
         private alertService: AlertService,
         private fb: FormBuilder,
-        private moduleGql: ModuleGQL,
-        private modulesGql: ModulesGQL,
-        private modulesByDisciplineGql: ModulesByDisciplineGQL,
-        private disciplineGql: DisciplineGQL,
-        private disciplinesGql: DisciplinesGQL,
         private userGql: UserGQL,
-        private usersGql: UsersGQL,
-        private userService: UserService
+        private userService: UserService,
+        private moduleService: ModuleService,
+        private disciplineService: DisciplineService,
+        private venueService: VenueService
     ) {}
 
     ngOnInit() {
         this.prepModuleForm = this.fb.group({
-            disciplineSelect: '',
-            sharedSelect: '',
-            venueSelect: '',
-            moduleCheck: this.fb.array([]),
-            moduleCheck2: this.fb.array([]),
-            usersList: this.fb.array([]),
-            groups: ''
+            discipline: ['', Validators.required],
+            module: ['', Validators.required]
         });
-
-        console.log(this.prepModuleForm.controls);
 
         this.getUser();
         this.getDisciplines();
-        this.getModules();
+        this.getVenues();
+    }
+    ngOnChanges(changes: SimpleChanges): void {
+        this.getFormData();
+    }
+
+    buildForm() {}
+
+    initializeForm() {}
+
+    getFormData() {
+        this.disciplineId = this.prepModuleForm.get('discipline').value;
+        this.moduleId = this.prepModuleForm.get('module').value;
+        this.getDiscipline(this.disciplineId);
     }
 
     getUser() {
-        // Get current user ID
-        this.userService.currentUserId().subscribe(userId => {
-            this.userId = userId;
-            console.log(`Current user id: ${this.userId}`);
-
-            // Fetch user data
-            this.userGql
-                .watch({ userId: this.userId })
-                .valueChanges.subscribe(result => {
-                    this.loading = result.loading;
-                    this.user = result.data.user as User;
-                    if (result.errors) {
-                        this.errors = result.errors;
-                        console.log(result.errors);
-                    }
-                });
+        this.userService.currentUser().subscribe(result => {
+            this.user = <User>(<unknown>result.data.user);
         });
     }
 
     getUsers() {
-        this.usersGql.watch().valueChanges.subscribe(result => {
-            this.loading = result.loading;
-            this.users = result.data.users as User[];
-            if (result.errors) {
-                this.errors = result.errors;
-                console.log(result.errors);
-            }
+        this.userService.getUsers().subscribe(result => {
+            this.users = result.data.users.map(user => <User>(<unknown>user));
         });
+    }
+
+    getDiscipline(disciplineId: string) {
+        this.disciplineService.getDiscipline(disciplineId).subscribe(result => {
+            this.discipline = <Discipline><unknown>result.data.discipline;
+        })
     }
 
     getDisciplines() {
-        this.disciplinesGql.watch().valueChanges.subscribe(result => {
-            this.loading = result.loading;
-            this.disciplines = result.data.disciplines as Discipline[];
-            if (result.errors) {
-                this.errors = result.errors;
-                console.log(result.errors);
-            }
+        this.disciplineService.getDisciplines().subscribe(result => {
+            this.disciplines = result.data.disciplines.map(
+                discipline => <Discipline>(<unknown>discipline)
+            );
         });
     }
 
-    getModules() {
-        this.modulesGql.watch().valueChanges.subscribe(result => {
-            this.loading = result.loading;
-            this.modules = result.data.modules as any[];
-            if (result.errors) {
-                this.errors = result.errors;
-                console.log(result.errors);
-            }
-        });
+    getModulesByDiscipline(disciplineId: string) {
+        this.moduleService
+            .getModulesByDiscipline(disciplineId)
+            .subscribe(result => {
+                this.modules = result.data.modulesByDiscipline.map(
+                    module => <Module>(<unknown>module)
+                );
+            });
     }
 
-    addModules() {
-        const modulesItems = this.prepModuleForm.controls
-            .moduleList as FormArray;
-        modulesItems.push(
-            this.fb.group({
-                moduleItem: ''
-            })
-        );
+    getVenues() {}
+
+    calcGroupSize(): number {
+        return 0;
     }
+
+    addModules() {}
     moduleArray: any;
     getModuleArray() {
         this.moduleArray = this.prepModuleForm.controls.moduleList as FormArray;
@@ -149,78 +149,43 @@ export class TasksComponent implements OnInit {
         console.log(userItems);
     }
 
-    disciplineSelected: boolean;
-    onDisciplineChanged() {
-        this.moduleSharedCard == false;
+    onSelectedDiscipline(event) {
+        const disciplineId = this.prepModuleForm.get('discipline').value;
+        this.getModulesByDiscipline(disciplineId);
+        this.moduleDropdown = true;
+        this.getFormData();
+    }
 
-        this.disciplineId = this.prepModuleForm.controls[
-            'disciplineSelect'
-        ].value;
+    onSelectedModule(event) {
+        this.stackRadio = true;
+        this.getFormData();
+    }
 
-        this.modulesByDisciplineGql
-            .watch({ disciplineId: this.disciplineId })
-            .valueChanges.subscribe(result => {
-                this.loading = result.loading;
-                this.modules = result.data.modulesByDiscipline as any[];
-                console.log(this.modules);
+    onSelectedStack(event) {
+        const target = event.target.id;
+        console.log(target);
 
-                if (result.errors) {
-                    this.errors = result.errors;
-                    console.log(result.errors);
-                }
-
-                this.modules.map((o, i) => {
-                    const control = new FormControl(i === 0);
-                    (this.prepModuleForm.controls
-                        .moduleCheck as FormArray).push(control);
-                });
-            });
-
-        this.moduleStackCard = true;
-        this.disciplineSelected = true;
+        if (target == 'stacked') {
+            this.isStacked = true;
+        } else {
+            this.isStacked = false;
+        }
     }
 
     onStacked() {}
 
     sharedOptions = ['Not Shared', 'Shared'];
     sharedModules: Module[];
-    onSharedChanged() {
-        if (this.prepModuleForm.controls['sharedSelect'].value === 'Shared') {
-            this.moduleSharedCard = true;
-        } else if (
-            this.prepModuleForm.controls['sharedSelect'].value === 'Not Shared'
-        ) {
-            this.moduleSharedCard = false;
-        }
+    onSharedChanged() {}
 
-        this.disciplineId = this.prepModuleForm.controls[
-            'disciplineSelect'
-        ].value;
-
-        this.modulesByDisciplineGql
-            .watch({ disciplineId: this.disciplineId })
-            .valueChanges.subscribe(result => {
-                this.loading = result.loading;
-                this.sharedModules = result.data.modulesByDiscipline as any[];
-
-                if (result.errors) {
-                    this.errors = result.errors;
-                    console.log(result.errors);
-                }
-
-                this.sharedModules.map((o, i) => {
-                    const control = new FormControl(i === 0);
-                    (this.prepModuleForm.controls
-                        .moduleCheck2 as FormArray).push(control);
-                });
-            });
-
-        this.moduleSharedCard = true;
-    }
+    onVenueSelected() {}
 
     onAdd() {}
 
     onReset() {
+        this.moduleDropdown = false;
+        this.stackRadio = false;
+        this.isStacked = false;
         this.prepModuleForm.reset();
     }
 }

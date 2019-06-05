@@ -10,20 +10,20 @@ import { DisciplineComponent } from './discipline.component';
 
 const routes: Routes = [
     {
-        path: "",
+        path: '',
         component: DisciplineComponent,
         children: [
-            { path: "", component: DisciplineListComponent },
-            { path: "add", component: DisciplineAddComponent },
-            { path: "view/:id", component: DisciplineViewComponent },
-            { path: "edit/:id", component: DisciplineEditComponent },
-            { path: "delete/:id", component: DisciplineDeleteComponent }
+            { path: '', component: DisciplineListComponent },
+            { path: 'add', component: DisciplineAddComponent },
+            { path: 'view/:id', component: DisciplineViewComponent },
+            { path: 'edit/:id', component: DisciplineEditComponent },
+            { path: 'delete/:id', component: DisciplineDeleteComponent }
         ]
     }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
-export class DisciplineRoutingModule { }
+export class DisciplineRoutingModule {}

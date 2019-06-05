@@ -1,0 +1,56 @@
+mutation addFormalInstructionActivity(
+    $userId: String!
+    $coordinatorId: String
+    $moderatorId: String
+    $dutyId: String!
+    $moduleId: String!
+    $workload: Int
+) {
+    addFormalInstructionActivity(
+        userId: $userId
+        coordinatorId: $coordinatorId
+        moderatorId: $moderatorId
+        dutyId: $dutyId
+        moduleId: $moduleId
+        workload: $workload
+    ) {
+        activityId
+        dutyId
+        duty {
+            dutyId
+            name
+            description
+        }
+        userId
+        user {
+            userId
+            firstName
+            lastName
+        }
+        coordinatorId
+        coordinator {
+            userId
+            firstName
+            lastName
+        }
+        moderatorId
+        moderator {
+            userId
+            firstName
+            lastName
+        }
+        moduleId
+        module {
+            moduleId
+            name
+            qualification {
+                qualificationId
+                name
+            }
+            credits
+        }
+        workload
+        createdAt
+        updatedAt
+    }
+}

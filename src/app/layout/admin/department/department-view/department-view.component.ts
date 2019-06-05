@@ -1,62 +1,72 @@
-import { Component, OnInit, Renderer } from "@angular/core";
-import { AlertService } from "../../../../shared/services";
-import { Router, ActivatedRoute } from "@angular/router";
-import { Department } from "../../../../shared/models";
-import { DepartmentGQL } from "../../../../shared/generated/output";
-import { routerTransition } from "../../../../router.animations";
+import { Component, OnInit, Renderer } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
+import { routerTransition } from '../../../../router.animations';
+import { Department } from '../../../../shared/models';
+import { AlertService, DepartmentService } from '../../../../shared/services';
 
 @Component({
-    selector: "app-department-view",
-    templateUrl: "./department-view.component.html",
-    styleUrls: ["./department-view.component.scss"],
+    selector: 'app-department-view',
+    templateUrl: './department-view.component.html',
+    styleUrls: ['./department-view.component.scss'],
     animations: [routerTransition()]
 })
 export class DepartmentViewComponent implements OnInit {
-    departmentId: string;
-    department: Department
-    loading: boolean;
-    errors: any;
+    department: Department;
+
+    private unsubscribe = new Subject();
 
     constructor(
         private alertService: AlertService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private renderer: Renderer,
-        private departmentGql: DepartmentGQL
+        private departmentService: DepartmentService
     ) {}
 
     ngOnInit() {
         // Get ID from route
-        this.departmentId = this.activatedRoute.snapshot.paramMap.get("id");
-
-        this.getDepartment(this.departmentId);
+        this.activatedRoute.queryParams
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.getDepartment(result.departmentId);
+            });
+    }
+    ngOnDestroy(): void {
+        //Called once, before the instance is destroyed.
+        //Add 'implements OnDestroy' to the class.
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
     }
 
     // Methods
 
-    getDepartment(dId: string) {
-        this.departmentGql.watch({departmentId: this.departmentId}).valueChanges.subscribe(result => {
-            this.loading = result.loading;
-            this.department = result.data.department as Department;
-            this.errors = result.errors;
-
-            if (this.errors) {
-                this.errors.forEach(error => {
-                    console.log(`Error: ${error}`);
-                    this.alertService.sendMessage(error.message, 'warn');
-                });
-            }
-        })
+    getDepartment(departmentId: string) {
+        this.departmentService
+            .getDepartment(departmentId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.department = <Department>(<unknown>result.data.department);
+            });
     }
-
 
     onEdit() {
-        this.router.navigate(["admin/department/edit", this.departmentId]);
+        console.log(this.department.departmentId);
+
+        this.router.navigate(
+            ['admin/department/edit', this.department.departmentId],
+            {
+                queryParams: {
+                    departmentId: this.department.departmentId
+                }
+            }
+        );
     }
 
-    onBack() {
-        this.router.navigate(["../admin/department"]);
+    onCancel() {
+        this.router.navigate(['../admin/department']);
     }
 
     onDelete() {

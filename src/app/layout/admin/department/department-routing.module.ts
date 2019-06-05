@@ -9,8 +9,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
     {
-        path: '', component: DepartmentComponent, children: [
-            { path: '', component: DepartmentListComponent},
+        path: '',
+        component: DepartmentComponent,
+        children: [
+            { path: '', component: DepartmentListComponent },
             { path: 'add', component: DepartmentAddComponent },
             { path: 'view/:id', component: DepartmentViewComponent },
             { path: 'edit/:id', component: DepartmentEditComponent },
@@ -20,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
-export class DepartmentRoutingModule { }
+export class DepartmentRoutingModule {}

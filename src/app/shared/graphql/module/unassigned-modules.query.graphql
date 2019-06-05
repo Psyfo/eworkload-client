@@ -1,0 +1,54 @@
+query unassignedModules {
+    unassignedModules {
+        moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
+        stackId
+        qualification {
+            qualificationId
+            name
+        }
+        offeringType {
+            offeringTypeId
+            description
+        }
+        discipline {
+            disciplineId
+            name
+        }
+        venue {
+            venueId
+            campus
+            capacity
+        }
+        block {
+            blockId
+            name
+        }
+        userId
+        user {
+            userId
+            firstName
+            lastName
+            email
+        }
+        coordinatorId
+        coordinator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        moderatorId
+        moderator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        credits
+        groupSize
+    }
+}

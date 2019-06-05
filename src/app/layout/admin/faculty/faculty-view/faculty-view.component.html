@@ -5,23 +5,31 @@
                 <h4>Details</h4>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <dl class="row">
-                            <dt class="col-4">Faculty Code</dt>
-                            <dd class="col-8">{{ faculty?.facultyId }}</dd>
-                            <dt class="col-4">Faculty</dt>
-                            <dd class="col-8">{{ faculty?.name }}</dd>
-                        </dl>
+                <div class="d-flex flex-column">
+                    <div class="d-flex flex-row justify-content-between">
+                        <div class="">
+                            Faculty ID
+                        </div>
+                        <div class="text-muted">
+                            {{faculty?.facultyId}}
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between">
+                        <div class="">
+                            Faculty
+                        </div>
+                        <div class="text-muted">
+                            {{faculty?.name}}
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
                 <div class="row">
                     <div class="col">
-                        <button class="btn btn-outline-warning mr-3" (click)="onEdit()">Edit</button>
-                        <button class="btn btn-outline-primary" (click)="onBack()">Back</button>
-                        <button class="btn btn-outline-danger pull-right" (click)="onDelete()">Delete</button>
+                        <button class="btn btn-primary mr-3" (click)="onEdit()">Edit</button>
+                        <button class="btn btn-danger" (click)="onCancel()">Cancel</button>
+                        <button class="btn btn-warning pull-right" (click)="onDelete()">Delete</button>
                     </div>
                 </div>
             </div>

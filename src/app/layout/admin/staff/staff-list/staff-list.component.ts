@@ -1,24 +1,23 @@
-import { AlertService } from "./../../../../shared/services/alert.service";
-import { Component, OnInit, Renderer } from "@angular/core";
-import { Subject } from "rxjs";
-import { Router } from "@angular/router";
-import { environment } from "../../../../../environments/environment";
-import { routerTransition } from "../../../../router.animations";
-import { DataTableDirective } from "angular-datatables";
-import { User, Discipline, Position } from "../../../../shared/models";
-import { UsersGQL } from "../../../../shared/generated/output";
+import { Component, OnInit, Renderer } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+
+import { routerTransition } from '../../../../router.animations';
+import { Discipline, Position, User } from '../../../../shared/models';
+import { UserService } from '../../../../shared/services';
 
 @Component({
-    selector: "app-staff-list",
-    templateUrl: "./staff-list.component.html",
-    styleUrls: ["./staff-list.component.scss"],
+    selector: 'app-staff-list',
+    templateUrl: './staff-list.component.html',
+    styleUrls: ['./staff-list.component.scss'],
     animations: [routerTransition()]
 })
 export class StaffListComponent implements OnInit {
-    user: User;
-    users: User[];
-    positions: Position[];
-    discipline: Discipline;
+    user: User = new User();
+    users: User[] = [];
+    positions: Position[] = [];
+    discipline: Discipline = new Discipline();
 
     loading: boolean;
     errors: any;
@@ -32,22 +31,20 @@ export class StaffListComponent implements OnInit {
     constructor(
         private router: Router,
         private renderer: Renderer,
-        private usersGql: UsersGQL
-    ) {
-
-    }
+        private userService: UserService
+    ) {}
 
     ngOnInit() {
         this.dtOptions = {
-            pagingType: "full_numbers",
+            pagingType: 'full_numbers',
             pageLength: 5,
             processing: true,
             rowCallback: (row: Node, data: any[] | Object, index: number) => {
                 const self = this;
                 // Unbind first in order to avoid any duplicate handler
                 // (see https://github.com/l-lin/angular-datatables/issues/87)
-                $("td", row).unbind("click");
-                $("td", row).bind("click", () => {
+                $('td', row).unbind('click');
+                $('td', row).bind('click', () => {
                     self.rowClickHandler(data);
                 });
                 return row;
@@ -58,10 +55,10 @@ export class StaffListComponent implements OnInit {
     }
 
     ngAfterViewInit(): void {
-        this.renderer.listenGlobal("document", "click", event => {
+        this.renderer.listenGlobal('document', 'click', event => {
             // console.log(event.target);
 
-            if (event.target.hasAttribute("staffId")) {
+            if (event.target.hasAttribute('staffId')) {
                 //this.router.navigate(["edit/:" + event.target.getAttribute("staffId")]);
                 // this.router.navigate(['staff/edit'], { queryParams: { staffId: this.dtRouteParam } });
             }
@@ -73,25 +70,21 @@ export class StaffListComponent implements OnInit {
     }
 
     getUsers() {
-        this.usersGql.watch().valueChanges.subscribe(result => {
-            this.users = result.data.users as User[];
-            this.loading = result.loading;
-            this.errors = result.errors;
-
+        this.userService.getUsers().subscribe(result => {
+            this.users = result.data.users.map(user => <User>(<unknown>user));
             this.dtTrigger.next();
-
         });
     }
 
     onAdd() {
-        this.router.navigate(["admin/staff/add"]);
+        this.router.navigate(['admin/staff/add']);
     }
 
     rowClickHandler(info: any) {
         // get all column values as array
         this.dtRouteParam = info[0];
 
-        this.router.navigate(["admin/staff/view", this.dtRouteParam], {
+        this.router.navigate(['admin/staff/view', this.dtRouteParam], {
             queryParams: { userId: info[0] }
         });
     }

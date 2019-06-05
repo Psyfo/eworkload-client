@@ -31,6 +31,7 @@ mutation deleteUser(
         disciplineId
         positionId
         gender
+        workFocusName
         nationality
     }
 }

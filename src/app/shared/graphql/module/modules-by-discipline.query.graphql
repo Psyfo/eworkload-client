@@ -5,6 +5,7 @@ query modulesByDiscipline($disciplineId: String!) {
         type
         assessmentMethod
         nqfLevel
+        stackId
         qualification {
             qualificationId
             name
@@ -22,15 +23,32 @@ query modulesByDiscipline($disciplineId: String!) {
             campus
             capacity
         }
-        blocks {
+        block {
             blockId
             name
         }
-        users {
+        userId
+        user {
             userId
             firstName
             lastName
             email
         }
+        coordinatorId
+        coordinator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        moderatorId
+        moderator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        credits
+        groupSize
     }
 }

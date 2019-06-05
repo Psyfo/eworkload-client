@@ -11,6 +11,9 @@ $color-tertiary: #55c57a;
 $color-secondary-light: #ffb900;
 $color-secondary-dark: #ff7730;
 
+$color-input-valid: #00b55a;
+$color-input-invalid: #ac3939;
+
 $color-black: #000;
 $color-grey-dark: #777;
 $color-grey-dark-2: #999;
@@ -19,12 +22,10 @@ $color-white: #fff;
 $color-grey-light-1: #f7f7f7;
 $color-grey-light-2: #eee;
 
-
 // FONTS
 $default-font-size: 1.6rem;
 
-
-$sans-serif:  "Source Sans Pro", Helvetica, Verdana, sans-serif;
+$sans-serif: 'Source Sans Pro', Helvetica, Verdana, sans-serif;
 $serif: Merriweather, Georgia, 'Times New Roman', serif;
 $mono: 'Source Code Pro', Courier, mono;
 
@@ -40,6 +41,5 @@ $gutter-horizontal: 6rem;
 
 // BOX-SHADOWS
 
-
 // FONT AWESOME
-$fa-font-path : '../node_modules/font-awesome/fonts';
+$fa-font-path: '../node_modules/font-awesome/fonts';

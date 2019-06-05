@@ -1,56 +1,62 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
-import { AlertService } from '../../../../shared/services';
 import { routerTransition } from '../../../../router.animations';
-import { Faculty } from '../../../../shared/models';
+import { Faculty, Department } from '../../../../shared/models';
+import {
+    AlertService,
+    FacultyService,
+    DepartmentService
+} from '../../../../shared/services';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
-    selector: "app-department-add",
-    templateUrl: "./department-add.component.html",
-    styleUrls: ["./department-add.component.scss"],
+    selector: 'app-department-add',
+    templateUrl: './department-add.component.html',
+    styleUrls: ['./department-add.component.scss'],
     animations: [routerTransition()]
 })
 export class DepartmentAddComponent implements OnInit {
     faculties: Faculty[];
+    department: Department;
 
     departmentAddForm: FormGroup;
 
+    private unsubscribe = new Subject();
+
     // Configs
-    addButtonDisabled: boolean = false;
+    submitAble: boolean = false;
 
     constructor(
         private alertService: AlertService,
         private router: Router,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private facultyService: FacultyService,
+        private departmentService: DepartmentService
     ) {}
 
     ngOnInit() {
-
         //Build form
         this.departmentAddForm = this.fb.group({
             departmentId: ['', Validators.required],
             name: ['', Validators.required],
-            facultyId: ['default']
+            facultyId: ['']
         });
 
         // Fetch dropdown data;
         this.getFaculties();
-
     }
 
-
-
     onAdd() {
-        if(!this.departmentAddForm.valid) {
+        if (!this.departmentAddForm.valid) {
             this.alertService.sendMessage('Form not valid', 'danger');
             return;
         }
-
     }
 
-    onBack() {
+    onCancel() {
         this.router.navigate(['../admin/department']);
     }
 
@@ -59,6 +65,13 @@ export class DepartmentAddComponent implements OnInit {
     }
 
     public getFaculties() {
-
+        this.facultyService
+            .getFaculties()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.faculties = result.data.faculties.map(
+                    faculty => <Faculty>(<unknown>faculty)
+                );
+            });
     }
 }

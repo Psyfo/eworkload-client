@@ -1,16 +1,16 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { DataTablesModule } from 'angular-datatables';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
+import { AdminModule } from './admin/admin.module';
+import { HeaderComponent } from './components/header/header.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { HeaderComponent } from './components/header/header.component';
-import { FlashMessagesModule } from 'angular2-flash-messages';
-import { AdminModule } from './admin/admin.module';
-import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
     imports: [
@@ -23,7 +23,6 @@ import { DataTablesModule } from 'angular-datatables';
         NgbDropdownModule.forRoot(),
         FlashMessagesModule,
         DataTablesModule
-
     ],
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent]
 })

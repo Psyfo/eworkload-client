@@ -1,5 +1,6 @@
 import { Discipline } from './discipline.model';
 import { Position } from './position.model';
+import { WorkFocus } from './work-focus.model';
 
 export class User {
     userId: string;
@@ -13,5 +14,7 @@ export class User {
     positionId: string;
     position: Position;
     gender: string;
+    workFocusName: string;
+    workFocus: WorkFocus;
     nationality: string;
 }

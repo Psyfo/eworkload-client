@@ -1,0 +1,42 @@
+query formalInstructionActivities {
+    formalInstructionActivities {
+        activityId
+        dutyId
+        duty {
+            dutyId
+            name
+            description
+        }
+        userId
+        user {
+            userId
+            firstName
+            lastName
+        }
+        coordinatorId
+        coordinator {
+            userId
+            firstName
+            lastName
+        }
+        moderatorId
+        moderator {
+            userId
+            firstName
+            lastName
+        }
+        moduleId
+        module {
+            moduleId
+            name
+            qualification {
+                qualificationId
+                name
+            }
+            credits
+        }
+        workload
+        createdAt
+        updatedAt
+    }
+}

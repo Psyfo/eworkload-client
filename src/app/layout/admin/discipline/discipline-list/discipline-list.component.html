@@ -11,17 +11,23 @@
                     <thead>
                         <tr>
                             <th>
-                                First Name
+                                DisciplineId
                             </th>
                             <th>
-                                Last Name
+                                Discipline
+                            </th>
+                            <th>
+                                Description
                             </th>
                         </tr>
                     </thead>
                     <tbody *ngIf="disciplines?.length != 0">
                         <tr *ngFor="let discipline of disciplines">
                             <td>
-                                {{ discipline.name }}
+                                {{ discipline.disciplineId | uppercase }}
+                            </td>
+                            <td>
+                                {{ discipline.name | titlecase}}
                             </td>
                             <td>
                                 {{ discipline.description }}
@@ -30,7 +36,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="2">
+                            <td colspan="3">
                             </td>
                         </tr>
                     </tfoot>
@@ -41,7 +47,7 @@
     <div class="card-footer">
         <div class="row">
             <div class="col">
-                <button class="btn btn-outline-primary" (click)="onAdd()">New Discipline</button>
+                <button class="btn btn-primary" (click)="onAdd()">New Discipline</button>
             </div>
         </div>
     </div>

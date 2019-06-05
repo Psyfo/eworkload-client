@@ -1,14 +1,15 @@
 mutation addUser(
     $userId: String!
-    $password: String!
-    $email: String!
-    $firstName: String!
-    $lastName: String!
-    $photoUrl: String!
-    $disciplineId: String!
-    $positionId: String!
-    $gender: String!
-    $nationality: String!
+    $password: String
+    $email: String
+    $firstName: String
+    $lastName: String
+    $photoUrl: String
+    $disciplineId: String
+    $positionId: String
+    $gender: String
+    $workFocusName: String
+    $nationality: String
 ) {
     addUser(
         userId: $userId
@@ -20,6 +21,7 @@ mutation addUser(
         disciplineId: $disciplineId
         positionId: $positionId
         gender: $gender
+        workFocusName: $workFocusName
         nationality: $nationality
     ) {
         userId
@@ -31,6 +33,7 @@ mutation addUser(
         disciplineId
         positionId
         gender
+        workFocusName
         nationality
     }
 }

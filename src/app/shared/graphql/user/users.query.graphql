@@ -18,6 +18,13 @@ query users {
             name
             description
         }
+        workFocusName
+        workFocus {
+            name
+            teachingRatio
+            researchRatio
+            serviceRatio
+        }
         gender
         nationality
     }

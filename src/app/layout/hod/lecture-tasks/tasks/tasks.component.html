@@ -7,91 +7,85 @@
                 </div>
                 <div class="card-body">
                     <form [formGroup]="prepModuleForm" (ngSubmit)="onAdd()" novalidate class="form">
-                        <div class="form-group">
-                            <label for="disciplineSelect">Select a Discipline</label>
-                            <select formControlName="disciplineSelect" class="form-control" (change)="onDisciplineChanged()">
-                                <option *ngFor="let discipline of disciplines" [value]="discipline.disciplineId">
-                                    {{discipline.name}}</option>
-                            </select>
-                        </div>
 
-                        <div class="form-group" *ngIf="moduleStackCard" >
-                            <div class="card">
-                                <div class="card-header">
-                                    Module Stacking
-                                </div>
-                                <div class="card-body">
-                                    <div formArrayName="moduleCheck" class="form-check" *ngFor="let module of modules; let i = index">
-                                        <input [formControlName]="i" type="checkbox" class="form-check-input">
-                                        <label for="moduleCheck">{{module.name}}</label>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <button class="btn btn-outline-primary">Done</button>
-                                </div>
+                        <div class="form-group row">
+                            <div class="col-6">
+                                <label for="discipline">Select a Discipline</label>
+                                <select formControlName="discipline" type="text" class="custom-select"
+                                    (change)="onSelectedDiscipline($event)">
+                                    <option *ngFor="let discipline of disciplines" [value]="discipline.disciplineId">
+                                        {{discipline?.name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-6" [hidden]="moduleDropdown == false">
+                                <label for="module">Select a Module</label>
+                                <select formControlName="module" type="text" class="custom-select"
+                                    (change)="onSelectedModule($event)">
+                                    <option *ngFor="let module of modules" [value]="module.moduleId"
+                                        (change)="onSelectedModule($event)">{{module?.name}}</option>
+                                </select>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="disciplineSelect">Is Module Shared</label>
-                            <select formControlName="sharedSelect" class="form-control" (change)="onSharedChanged()">
-                                <option *ngFor="let sharedOption of sharedOptions; let i = index" [value]="sharedOptions[i]">
-                                    {{sharedOptions[i]}}</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group" *ngIf="moduleSharedCard == true" >
-                            <div class="card">
-                                <div class="card-header">
-                                    Shared Modules
-                                </div>
-                                <div class="card-body">
-                                    <div formArrayName="moduleCheck2" class="form-check" *ngFor="let sharedModule of sharedModules; let i = index">
-                                        <input [formControlName]="i" type="checkbox" class="form-check-input">
-                                        <label for="moduleCheck2">{{sharedModule.name}}</label>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <button class="btn btn-outline-primary">Done</button>
-                                </div>
+                        <div class="form-group" [hidden]="stackRadio == false">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="stacked" name="example"
+                                    value="customEx" (change)="onSelectedStack($event)">
+                                <label class="custom-control-label" for="stacked">Stacked</label>
                             </div>
-                            <div class="form-group">
-                                <label for="groups">How many groups?</label>
-                                <input formControlName="groups" type="number" class="form-control" placeholder="0">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="not-stacked" name="example"
+                                    value="customEx" (change)="onSelectedStack($event)">
+                                <label class="custom-control-label" for="not-stacked">Not Stacked</label>
                             </div>
                         </div>
-
 
                     </form>
                 </div>
                 <div class="card-footer text-muted">
                     <div class="row">
                         <div class="col">
-                            <button class="btn btn-outline-success">Add</button>
-                            <button type="button" class="btn btn-outline-dark pull-right"
-                                (click)="onReset()">Reset</button>
+                            <button class="btn btn-primary">Done</button>
+                            <button type="button" class="btn btn-dark pull-right" (click)="onReset()">Reset</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- <div class="col-6">
-            <div class="card">
-                <div class="card-header text-muted">
-                    <h5>Formal Instruction Task List</h5>
-                </div>
+        <div class="col-6">
+            <div class="card h-100">
                 <div class="card-body">
-                    <div class="card" *ngFor="let lectureStack of lectureStacks" >
-                        <div class="card-body">
-                            {{lectureStack | json}}
+                    <div class="dl">
+                        <div class="row">
+                            <dd class="col-4">
+                                Selected Discipline:
+                            </dd>
+                            <dt class="col-8">
+                                <p class="text-muted">{{discipline?.name || 'Select a Discipline'}}</p>
+                            </dt>
                         </div>
+                        <div class="row">
+                            <dd class="col-4">
+                                Selected Module:
+                            </dd>
+                            <dt class="col-8">
+                                <p class="text-muted">{{module?.name || 'Select a Module'}}</p>
+                            </dt>
+                        </div>
+
+                        <!-- <div class="row">
+                            <dd class="col-4">
+                                Workload:
+                            </dd>
+                            <dt class="col-8">
+                                <p class="text-muted">Workload hours here</p>
+                            </dt>
+                        </div> -->
                     </div>
                 </div>
-                <div class="card-footer text-muted">
-
-                </div>
             </div>
-        </div> -->
+        </div>
+
     </div>
 </div>

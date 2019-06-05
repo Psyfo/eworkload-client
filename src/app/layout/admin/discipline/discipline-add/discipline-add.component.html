@@ -6,24 +6,52 @@
                 <h5>Add Discipline</h5>
             </div>
             <div class="card-body">
-                <div class="">
 
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label for="disciplineId" class="col-form-label">Discipline</label>
+                        <input type="text" class="form-control" formControlName="disciplineId"
+                            placeholder="Name of discipline">
+                        <div *ngIf="disciplineId.errors" class="">
+                            <small
+                                *ngIf="(disciplineId.touched || disciplineId.dirty) && disciplineId.hasError('required')"
+                                class="text-danger">Discipline ID is
+                                required</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
                     <div class="form-group col">
                         <label for="name" class="col-form-label">Discipline</label>
-                        <input type="text" class="form-control" formControlName="name" placeholder="Discipline">
+                        <input type="text" class="form-control" formControlName="name" placeholder="Name of discipline">
+                        <div *ngIf="name.errors" class="">
+                            <small *ngIf="(name.touched || name.dirty) && name.hasError('required')"
+                                class="text-danger">Name is
+                                required</small>
+                        </div>
                     </div>
+                </div>
 
+                <div class="form-row">
                     <div class="form-group col">
                         <label for="description" class="col-form-label">Description</label>
-                        <input type="text" class="form-control" formControlName="description" placeholder="Description">
+                        <input type="text" class="form-control" formControlName="description"
+                            placeholder="Description of discipline">
+                        <div *ngIf="description.errors" class="">
+                            <small
+                                *ngIf="(description.touched || description.dirty) && description.hasError('required')"
+                                class="text-danger">Description is required</small>
+                        </div>
                     </div>
-
                 </div>
+
             </div>
             <div class="card-footer">
-                <button class="btn btn-outline-success mr-3" (click)="onAdd()" [disabled]="!disciplineAddForm.valid">Add Discipline</button>
-                <button class="btn btn-outline-dark" (click)="onBack()">Back</button>
-                <button class="pull-right btn btn-outline-primary" (click)="onReset()">Reset</button>
+                <button class="btn btn-primary mr-3" (click)="onAdd()" [disabled]="disciplineAddForm.invalid">Add
+                    Discipline</button>
+                <button type="button" class="btn btn-danger" (click)="onCancel()">Back</button>
+                <button type="button" class="pull-right btn btn-dark" (click)="onReset()">Reset</button>
             </div>
         </div>
     </form>

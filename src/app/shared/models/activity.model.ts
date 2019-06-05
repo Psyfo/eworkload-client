@@ -3,40 +3,46 @@ import { Evidence } from './evidence.model';
 import { LectureStack } from './lecture-stack.model';
 import { Student } from './student.model';
 import { User } from './user.model';
+import { Module } from './module.model';
 
 export class Activity {
-    activityId: string
-    userId: string
-    user: User
-    dutyId: string
-    duty: Duty
-    approvalStatus: boolean
+    activityId: string;
+    userId: string;
+    user: User;
+    dutyId: string;
+    duty: Duty;
+    approvalStatus: boolean;
+    workload: number;
 }
 
 export class CommInstructionActivity extends Activity {
-    description: string
-    evidenceId: string
-    evidence: Evidence
+    description: string;
+    evidenceId: string;
+    evidence: Evidence;
 }
 
 export class PublicServiceActivity extends Activity {
-    description: string
-    evidenceId: string
-    evidence: Evidence
+    description: string;
+    evidenceId: string;
+    evidence: Evidence;
 }
 
 export class ResearchActivity extends Activity {
-    researchType: string
-    researchUrl: string
+    researchType: string;
+    researchUrl: string;
 }
 
-export class SupervisionActivity extends Activity{
-    supervisionRole: string
-    studentId: string
-    student: Student
+export class SupervisionActivity extends Activity {
+    supervisionRole: string;
+    studentId: string;
+    student: Student;
 }
 
-export class LectureActivity extends Activity {
-    lectureStackId: string
-    lectureStack: LectureStack
+export class FormalInstructionActivity extends Activity {
+    moduleId: string;
+    module: Module;
+    coordinatorId: string;
+    coordinator: User;
+    moderatorId: string;
+    moderator: User;
 }

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from '../../../../shared/services';
+import { AlertService, DisciplineService } from '../../../../shared/services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DisciplineGQL } from '../../../../shared/generated/output';
 import { Discipline } from '../../../../shared/models';
 import { routerTransition } from '../../../../router.animations';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-discipline-view',
@@ -12,28 +14,50 @@ import { routerTransition } from '../../../../router.animations';
     animations: [routerTransition()]
 })
 export class DisciplineViewComponent implements OnInit {
-    disciplineId: string;
     discipline: Discipline;
+
+    private unsubscribe = new Subject();
 
     constructor(
         private alertService: AlertService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private disciplineGql: DisciplineGQL
+        private disciplineService: DisciplineService
     ) {}
 
     ngOnInit() {
-        this.disciplineId = this.activatedRoute.snapshot.paramMap.get('id');
+        this.activatedRoute.queryParams
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.getDiscipline(result.disciplineId);
+            });
+    }
+    ngOnDestroy(): void {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
     }
 
+    public getDiscipline(disciplineId: string) {
+        this.disciplineService
+            .getDiscipline(disciplineId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.discipline = <Discipline>(<unknown>result.data.discipline);
+            });
+    }
     public onEdit() {
-        this.router.navigate(['admin/discipline/edit', this.disciplineId]);
+        this.router.navigate(
+            ['admin/discipline/edit', this.discipline.disciplineId],
+            {
+                queryParams: {
+                    disciplineId: this.discipline.disciplineId
+                }
+            }
+        );
     }
-
-    public onBack(): void {
+    public onCancel(): void {
         this.router.navigate(['../admin/discipline']);
     }
-
     public onDelete(): void {
         this.alertService.sendMessage('Delete service coming soon', 'info');
     }

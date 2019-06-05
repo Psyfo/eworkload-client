@@ -1,48 +1,63 @@
-import { AlertService } from "./../../../../shared/services/alert.service";
-import { combineLatest } from "rxjs";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { routerTransition } from "../../../../router.animations";
-import { Faculty } from "../../../../shared/models";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { routerTransition } from '../../../../router.animations';
+import { Faculty } from '../../../../shared/models';
+import { FacultyService } from '../../../../shared/services';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
-    selector: "app-faculty-view",
-    templateUrl: "./faculty-view.component.html",
-    styleUrls: ["./faculty-view.component.scss"],
+    selector: 'app-faculty-view',
+    templateUrl: './faculty-view.component.html',
+    styleUrls: ['./faculty-view.component.scss'],
     animations: [routerTransition()]
 })
 export class FacultyViewComponent implements OnInit {
-    //Properties
     facultyId: string;
     faculty: Faculty;
 
+    private unsubscribe = new Subject();
 
     constructor(
-        private alertService: AlertService,
         private activatedRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private facultyService: FacultyService
     ) {}
 
     ngOnInit() {
-
         // Get ID from route
-        this.facultyId = this.activatedRoute.snapshot.paramMap.get("id");
-
-
+        this.activatedRoute.queryParams
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.facultyId = result.facultyId;
+                this.getFaculty(this.facultyId);
+            });
+    }
+    ngOnDestroy(): void {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
     }
 
-    ngOnDestroy(): void {
-        //Called once, before the instance is destroyed.
-        //Add 'implements OnDestroy' to the class.
+    getFaculty(facultyId: string) {
+        this.facultyService.getFaculty(facultyId).subscribe(result => {
+            this.faculty = result.data.faculty;
+        });
     }
 
     onEdit() {
-        this.router.navigate(["admin/faculty/edit", this.facultyId]);
+        this.router.navigate(['admin/faculty/edit', this.facultyId], {
+            queryParams: {
+                facultyId: this.facultyId
+            }
+        });
     }
 
-    onDelete() {}
+    onDelete() {
+        this.router.navigate(['admin/faculty/delete', this.facultyId]);
+    }
 
-    onBack() {
-        this.router.navigate(["../admin/faculty"]);
+    onCancel() {
+        this.router.navigate(['../admin/faculty']);
     }
 }

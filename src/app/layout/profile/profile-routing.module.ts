@@ -6,15 +6,18 @@ import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 
 const routes: Routes = [
     {
-        path: '', component: ProfileComponent, children: [
-            { path: '', component: ProfileViewComponent },
+        path: '',
+        component: ProfileComponent,
+        children: [
+            { path: '', redirectTo: 'view' },
+            { path: 'view', component: ProfileViewComponent },
             { path: 'edit', component: ProfileEditComponent }
         ]
     }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
-export class ProfileRoutingModule { }
+export class ProfileRoutingModule {}

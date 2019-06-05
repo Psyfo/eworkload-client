@@ -1,0 +1,55 @@
+<div class="row" [@routerTransition]>
+    <div class="col-6">
+        <form [formGroup]="enrollmentAddForm" (ngSubmit)="onAdd()" class="form">
+            <div class="card">
+                <div class="card-header">Add Enrollment</div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="enrollmentYear">Enrollment Year</label>
+                            <input type="text" formControlName="enrollmentYear" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="qualification">Qualification</label>
+                            <select formControlName="qualification" class="custom-select">
+                                <option *ngFor="let qualification of qualifications"
+                                    [value]="qualification?.qualificationId">{{qualification?.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="firstYearEstimated">First Enrollment Estimated</label>
+                            <input type="number" class="form-control" formControlName="firstYearEstimated">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="secondYearEstimated">First Enrollment Estimated</label>
+                            <input type="number" class="form-control" formControlName="secondYearEstimated">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="thirdYearEstimated">First Enrollment Estimated</label>
+                            <input type="number" class="form-control" formControlName="thirdYearEstimated">
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary mr-3">Done</button>
+                    <button type="button" class="btn btn-danger">Cancel</button>
+                    <button class="btn btn-dark pull-right">Reset</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

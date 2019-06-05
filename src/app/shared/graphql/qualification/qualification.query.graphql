@@ -3,15 +3,14 @@ query qualification($qualificationId: String!) {
         qualificationId
         name
         type
-        saqaId
         departmentId
         department {
             departmentId
             name
+            faculty {
+                facultyId
+                name
+            }
         }
-        heqsfLevel
-        purpose
-        exitLevelOutcomes
-        graduateAttributes
     }
 }

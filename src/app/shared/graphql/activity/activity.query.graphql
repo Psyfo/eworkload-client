@@ -58,11 +58,11 @@ query activity($activityId: String!) {
                     campus
                     capacity
                 }
-                blocks {
+                block {
                     blockId
                     name
                 }
-                users {
+                user {
                     userId
                     firstName
                     lastName

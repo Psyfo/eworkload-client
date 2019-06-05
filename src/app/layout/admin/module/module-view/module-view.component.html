@@ -1,0 +1,89 @@
+<div class="row" [@routerTransition]>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Module</h5>
+            </div>
+            <div class="card-body">
+                <dl>
+                    <div class="row">
+                        <dt class="col-4">
+                            Module ID
+                        </dt>
+                        <dd class="col-6 text-muted">
+                            {{module?.moduleId}}
+                        </dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">
+                            Module
+                        </dt>
+                        <dd class="col-6 text-muted">
+                            {{module?.name}}
+                        </dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">
+                            Type
+                        </dt>
+                        <dd class="col-6 text-muted">
+                            {{module?.type}}
+                        </dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">
+                            Assessment Method
+                        </dt>
+                        <dd class="col-6 text-muted">
+                            {{module?.assessmentMethod}}
+                        </dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">
+                            NQF Level
+                        </dt>
+                        <dd class="col-6 text-muted">
+                            {{module?.nqfLevel}}
+                        </dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">
+                            Discipline
+                        </dt>
+                        <dd class="col-6 text-muted">
+                            {{module?.discipline.name}}
+                        </dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">
+                            Block
+                        </dt>
+                        <dd class="col-6 text-muted">
+                            {{module?.block?.name || 'Block goes here'}}
+                        </dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">
+                            Offering Type
+                        </dt>
+                        <dd class="col-6 text-muted">
+                            {{module?.offeringType?.description || 'Offering type goes here'}}
+                        </dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">
+                            Assigned Lecturers
+                        </dt>
+                        <dd class="col-6 text-muted">
+                            Assigned lecturers here
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary mr-3" (click)="onEdit()">Edit</button>
+                <button class="btn btn-danger" (click)="onCancel()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

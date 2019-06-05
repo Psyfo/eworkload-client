@@ -30,6 +30,10 @@ const routes: Routes = [
             {
                 path: 'discipline',
                 loadChildren: './discipline/discipline.module#DisciplineModule'
+            },
+            {
+                path: 'module',
+                loadChildren: './module/module.module#ModuleModule'
             }
         ]
     }
