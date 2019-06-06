@@ -1,5 +1,5 @@
-query modules {
-    modules {
+mutation addModules($modules: [ModuleInput]) {
+    addModules(input: $modules) {
         moduleId
         name
         type
@@ -49,7 +49,6 @@ query modules {
             email
         }
         credits
-        groupSize
         lecturedBy
         moderation
     }

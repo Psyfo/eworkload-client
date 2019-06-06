@@ -118,16 +118,16 @@ export type FormalInstructionActivity = Activity & {
 
 export type Module = {
     moduleId: Scalars["String"];
-    name: Scalars["String"];
-    type: Scalars["String"];
-    assessmentMethod: Scalars["String"];
-    nqfLevel: Scalars["String"];
+    name?: Maybe<Scalars["String"]>;
+    type?: Maybe<Scalars["String"]>;
+    assessmentMethod?: Maybe<Scalars["String"]>;
+    nqfLevel?: Maybe<Scalars["String"]>;
     credits?: Maybe<Scalars["Int"]>;
-    qualificationId: Scalars["String"];
+    qualificationId?: Maybe<Scalars["String"]>;
     qualification?: Maybe<Qualification>;
-    offeringTypeId: Scalars["String"];
+    offeringTypeId?: Maybe<Scalars["String"]>;
     offeringType?: Maybe<OfferingType>;
-    disciplineId: Scalars["String"];
+    disciplineId?: Maybe<Scalars["String"]>;
     discipline?: Maybe<Discipline>;
     venueId?: Maybe<Scalars["String"]>;
     venue?: Maybe<Venue>;
@@ -142,6 +142,30 @@ export type Module = {
     stackId?: Maybe<Scalars["String"]>;
     studyPeriod?: Maybe<Scalars["String"]>;
     groupSize?: Maybe<Scalars["Int"]>;
+    lecturedBy?: Maybe<Scalars["String"]>;
+    moderation?: Maybe<Scalars["String"]>;
+};
+
+export type ModuleInput = {
+    moduleId: Scalars["String"];
+    name?: Maybe<Scalars["String"]>;
+    type?: Maybe<Scalars["String"]>;
+    assessmentMethod?: Maybe<Scalars["String"]>;
+    nqfLevel?: Maybe<Scalars["String"]>;
+    credits?: Maybe<Scalars["Int"]>;
+    qualificationId?: Maybe<Scalars["String"]>;
+    offeringTypeId?: Maybe<Scalars["String"]>;
+    disciplineId?: Maybe<Scalars["String"]>;
+    venueId?: Maybe<Scalars["String"]>;
+    blockId?: Maybe<Scalars["String"]>;
+    userId?: Maybe<Scalars["String"]>;
+    coordinatorId?: Maybe<Scalars["String"]>;
+    moderatorId?: Maybe<Scalars["String"]>;
+    stackId?: Maybe<Scalars["String"]>;
+    studyPeriod?: Maybe<Scalars["String"]>;
+    groupSize?: Maybe<Scalars["Int"]>;
+    lecturedBy?: Maybe<Scalars["String"]>;
+    moderation?: Maybe<Scalars["String"]>;
 };
 
 export type Mutation = {
@@ -170,6 +194,7 @@ export type Mutation = {
     editFaculty?: Maybe<Faculty>;
     deleteFaculty?: Maybe<Faculty>;
     addModule?: Maybe<Module>;
+    addModules?: Maybe<Array<Maybe<Module>>>;
     editModule?: Maybe<Module>;
     deleteModule?: Maybe<Module>;
     addOfferingType?: Maybe<OfferingType>;
@@ -389,6 +414,12 @@ export type MutationAddModuleArgs = {
     stackId?: Maybe<Scalars["String"]>;
     studyPeriod?: Maybe<Scalars["String"]>;
     groupSize?: Maybe<Scalars["Int"]>;
+    lecturedBy?: Maybe<Scalars["String"]>;
+    moderation?: Maybe<Scalars["String"]>;
+};
+
+export type MutationAddModulesArgs = {
+    input?: Maybe<Array<Maybe<ModuleInput>>>;
 };
 
 export type MutationEditModuleArgs = {
@@ -409,6 +440,8 @@ export type MutationEditModuleArgs = {
     stackId?: Maybe<Scalars["String"]>;
     studyPeriod?: Maybe<Scalars["String"]>;
     groupSize?: Maybe<Scalars["Int"]>;
+    lecturedBy?: Maybe<Scalars["String"]>;
+    moderation?: Maybe<Scalars["String"]>;
 };
 
 export type MutationDeleteModuleArgs = {
@@ -429,6 +462,8 @@ export type MutationDeleteModuleArgs = {
     stackId?: Maybe<Scalars["String"]>;
     studyPeriod?: Maybe<Scalars["String"]>;
     groupSize?: Maybe<Scalars["Int"]>;
+    lecturedBy?: Maybe<Scalars["String"]>;
+    moderation?: Maybe<Scalars["String"]>;
 };
 
 export type MutationAddOfferingTypeArgs = {
@@ -2083,6 +2118,8 @@ export type AddModuleMutationVariables = {
     credits?: Maybe<Scalars["Int"]>;
     groupSize?: Maybe<Scalars["Int"]>;
     stackId?: Maybe<Scalars["String"]>;
+    lecturedBy?: Maybe<Scalars["String"]>;
+    moderation?: Maybe<Scalars["String"]>;
 };
 
 export type AddModuleMutation = { __typename?: "Mutation" } & {
@@ -2099,6 +2136,8 @@ export type AddModuleMutation = { __typename?: "Mutation" } & {
             | "coordinatorId"
             | "moderatorId"
             | "credits"
+            | "lecturedBy"
+            | "moderation"
         > & {
                 qualification: Maybe<
                     { __typename?: "Qualification" } & Pick<
@@ -2149,6 +2188,83 @@ export type AddModuleMutation = { __typename?: "Mutation" } & {
     >;
 };
 
+export type AddModulesMutationVariables = {
+    modules?: Maybe<Array<Maybe<ModuleInput>>>;
+};
+
+export type AddModulesMutation = { __typename?: "Mutation" } & {
+    addModules: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "Module" } & Pick<
+                    Module,
+                    | "moduleId"
+                    | "name"
+                    | "type"
+                    | "assessmentMethod"
+                    | "nqfLevel"
+                    | "stackId"
+                    | "userId"
+                    | "coordinatorId"
+                    | "moderatorId"
+                    | "credits"
+                    | "lecturedBy"
+                    | "moderation"
+                > & {
+                        qualification: Maybe<
+                            { __typename?: "Qualification" } & Pick<
+                                Qualification,
+                                "qualificationId" | "name"
+                            >
+                        >;
+                        offeringType: Maybe<
+                            { __typename?: "OfferingType" } & Pick<
+                                OfferingType,
+                                "offeringTypeId" | "description"
+                            >
+                        >;
+                        discipline: Maybe<
+                            { __typename?: "Discipline" } & Pick<
+                                Discipline,
+                                "disciplineId" | "name"
+                            >
+                        >;
+                        venue: Maybe<
+                            { __typename?: "Venue" } & Pick<
+                                Venue,
+                                "venueId" | "campus" | "capacity"
+                            >
+                        >;
+                        block: Maybe<
+                            { __typename?: "Block" } & Pick<
+                                Block,
+                                "blockId" | "name"
+                            >
+                        >;
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "firstName" | "lastName" | "email"
+                            >
+                        >;
+                        coordinator: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "firstName" | "lastName" | "email"
+                            >
+                        >;
+                        moderator: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "firstName" | "lastName" | "email"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
 export type DeleteModuleMutationVariables = {
     moduleId: Scalars["String"];
     name?: Maybe<Scalars["String"]>;
@@ -2165,6 +2281,8 @@ export type DeleteModuleMutationVariables = {
     moderatorId?: Maybe<Scalars["String"]>;
     credits?: Maybe<Scalars["Int"]>;
     stackId?: Maybe<Scalars["String"]>;
+    lecturedBy?: Maybe<Scalars["String"]>;
+    moderation?: Maybe<Scalars["String"]>;
 };
 
 export type DeleteModuleMutation = { __typename?: "Mutation" } & {
@@ -2181,6 +2299,8 @@ export type DeleteModuleMutation = { __typename?: "Mutation" } & {
             | "coordinatorId"
             | "moderatorId"
             | "groupSize"
+            | "lecturedBy"
+            | "moderation"
         > & {
                 qualification: Maybe<
                     { __typename?: "Qualification" } & Pick<
@@ -2248,6 +2368,8 @@ export type EditModuleMutationVariables = {
     credits?: Maybe<Scalars["Int"]>;
     groupSize?: Maybe<Scalars["Int"]>;
     stackId?: Maybe<Scalars["String"]>;
+    lecturedBy?: Maybe<Scalars["String"]>;
+    moderation?: Maybe<Scalars["String"]>;
 };
 
 export type EditModuleMutation = { __typename?: "Mutation" } & {
@@ -2265,6 +2387,8 @@ export type EditModuleMutation = { __typename?: "Mutation" } & {
             | "moderatorId"
             | "credits"
             | "groupSize"
+            | "lecturedBy"
+            | "moderation"
         > & {
                 qualification: Maybe<
                     { __typename?: "Qualification" } & Pick<
@@ -2339,6 +2463,8 @@ export type ModuleQuery = { __typename?: "Query" } & {
             | "moderatorId"
             | "credits"
             | "groupSize"
+            | "lecturedBy"
+            | "moderation"
         > & {
                 qualification: Maybe<
                     { __typename?: "Qualification" } & Pick<
@@ -2410,6 +2536,8 @@ export type ModulesByDisciplineQuery = { __typename?: "Query" } & {
                     | "moderatorId"
                     | "credits"
                     | "groupSize"
+                    | "lecturedBy"
+                    | "moderation"
                 > & {
                         qualification: Maybe<
                             { __typename?: "Qualification" } & Pick<
@@ -2484,6 +2612,8 @@ export type ModulesQuery = { __typename?: "Query" } & {
                     | "moderatorId"
                     | "credits"
                     | "groupSize"
+                    | "lecturedBy"
+                    | "moderation"
                 > & {
                         qualification: Maybe<
                             { __typename?: "Qualification" } & Pick<
@@ -2560,6 +2690,8 @@ export type StackedWithQuery = { __typename?: "Query" } & {
                     | "moderatorId"
                     | "credits"
                     | "groupSize"
+                    | "lecturedBy"
+                    | "moderation"
                 > & {
                         qualification: Maybe<
                             { __typename?: "Qualification" } & Pick<
@@ -2634,6 +2766,8 @@ export type UnassignedModulesQuery = { __typename?: "Query" } & {
                     | "moderatorId"
                     | "credits"
                     | "groupSize"
+                    | "lecturedBy"
+                    | "moderation"
                 > & {
                         qualification: Maybe<
                             { __typename?: "Qualification" } & Pick<
@@ -4435,6 +4569,8 @@ export const AddModuleDocument = gql`
         $credits: Int
         $groupSize: Int
         $stackId: String
+        $lecturedBy: String
+        $moderation: String
     ) {
         addModule(
             moduleId: $moduleId
@@ -4453,6 +4589,8 @@ export const AddModuleDocument = gql`
             credits: $credits
             groupSize: $groupSize
             stackId: $stackId
+            lecturedBy: $lecturedBy
+            moderation: $moderation
         ) {
             moduleId
             name
@@ -4503,6 +4641,8 @@ export const AddModuleDocument = gql`
                 email
             }
             credits
+            lecturedBy
+            moderation
         }
     }
 `;
@@ -4515,6 +4655,73 @@ export class AddModuleGQL extends Apollo.Mutation<
     AddModuleMutationVariables
 > {
     document = AddModuleDocument;
+}
+export const AddModulesDocument = gql`
+    mutation addModules($modules: [ModuleInput]) {
+        addModules(input: $modules) {
+            moduleId
+            name
+            type
+            assessmentMethod
+            nqfLevel
+            stackId
+            qualification {
+                qualificationId
+                name
+            }
+            offeringType {
+                offeringTypeId
+                description
+            }
+            discipline {
+                disciplineId
+                name
+            }
+            venue {
+                venueId
+                campus
+                capacity
+            }
+            block {
+                blockId
+                name
+            }
+            userId
+            user {
+                userId
+                firstName
+                lastName
+                email
+            }
+            coordinatorId
+            coordinator {
+                userId
+                firstName
+                lastName
+                email
+            }
+            moderatorId
+            moderator {
+                userId
+                firstName
+                lastName
+                email
+            }
+            credits
+            lecturedBy
+            moderation
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AddModulesGQL extends Apollo.Mutation<
+    AddModulesMutation,
+    AddModulesMutationVariables
+> {
+    document = AddModulesDocument;
 }
 export const DeleteModuleDocument = gql`
     mutation deleteModule(
@@ -4533,6 +4740,8 @@ export const DeleteModuleDocument = gql`
         $moderatorId: String
         $credits: Int
         $stackId: String
+        $lecturedBy: String
+        $moderation: String
     ) {
         deleteModule(
             moduleId: $moduleId
@@ -4550,6 +4759,8 @@ export const DeleteModuleDocument = gql`
             moderatorId: $moderatorId
             credits: $credits
             stackId: $stackId
+            lecturedBy: $lecturedBy
+            moderation: $moderation
         ) {
             moduleId
             name
@@ -4600,6 +4811,8 @@ export const DeleteModuleDocument = gql`
                 email
             }
             groupSize
+            lecturedBy
+            moderation
         }
     }
 `;
@@ -4631,6 +4844,8 @@ export const EditModuleDocument = gql`
         $credits: Int
         $groupSize: Int
         $stackId: String
+        $lecturedBy: String
+        $moderation: String
     ) {
         editModule(
             moduleId: $moduleId
@@ -4649,6 +4864,8 @@ export const EditModuleDocument = gql`
             credits: $credits
             groupSize: $groupSize
             stackId: $stackId
+            lecturedBy: $lecturedBy
+            moderation: $moderation
         ) {
             moduleId
             name
@@ -4700,6 +4917,8 @@ export const EditModuleDocument = gql`
             }
             credits
             groupSize
+            lecturedBy
+            moderation
         }
     }
 `;
@@ -4771,6 +4990,8 @@ export const ModuleDocument = gql`
             }
             credits
             groupSize
+            lecturedBy
+            moderation
         }
     }
 `;
@@ -4834,6 +5055,8 @@ export const ModulesByDisciplineDocument = gql`
             }
             credits
             groupSize
+            lecturedBy
+            moderation
         }
     }
 `;
@@ -4900,6 +5123,8 @@ export const ModulesDocument = gql`
             }
             credits
             groupSize
+            lecturedBy
+            moderation
         }
     }
 `;
@@ -4966,6 +5191,8 @@ export const StackedWithDocument = gql`
             }
             credits
             groupSize
+            lecturedBy
+            moderation
         }
     }
 `;
@@ -5032,6 +5259,8 @@ export const UnassignedModulesDocument = gql`
             }
             credits
             groupSize
+            lecturedBy
+            moderation
         }
     }
 `;

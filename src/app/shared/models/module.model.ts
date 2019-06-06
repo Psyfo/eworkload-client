@@ -31,6 +31,8 @@ export class Module {
     groupSize: number;
     stackId: string;
     studyPeriod: string;
+    lecturedBy: string;
+    moderation: string;
 
     constructor() {
         this.moduleId = '';
@@ -50,5 +52,7 @@ export class Module {
         this.groupSize = 0;
         this.stackId = '';
         this.studyPeriod = '';
+        this.lecturedBy = '';
+        this.moderation = '';
     }
 }

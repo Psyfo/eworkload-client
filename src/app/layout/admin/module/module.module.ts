@@ -12,6 +12,7 @@ import { ModuleViewComponent } from './module-view/module-view.component';
 import { ModuleEditComponent } from './module-edit/module-edit.component';
 import { ModuleAddComponent } from './module-add/module-add.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { ReactiveFormsModule } from '@angular/forms';
         ModuleRoutingModule,
         DataTablesModule,
         PageHeaderModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgbModule
     ]
 })
 export class ModuleModule {

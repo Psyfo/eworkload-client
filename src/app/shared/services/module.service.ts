@@ -8,10 +8,11 @@ import {
     EditModuleGQL,
     DeleteModuleGQL,
     StackedWithGQL,
-    UnassignedModulesGQL
+    UnassignedModulesGQL,
+    AddModulesGQL
 } from '../generated/output';
 import { Module } from '../models';
-import { map } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { Observable } from 'apollo-link';
 import { AlertService } from './alert.service';
 
@@ -40,6 +41,7 @@ export class ModuleService {
         private modulesGql: ModulesGQL,
         private modulesByDiscipline: ModulesByDisciplineGQL,
         private addModuleGql: AddModuleGQL,
+        private addModulesGql: AddModulesGQL,
         private editModuleGql: EditModuleGQL,
         private deleteModuleGql: DeleteModuleGQL,
         private stackedWithGql: StackedWithGQL,
@@ -111,13 +113,27 @@ export class ModuleService {
         );
     }
 
+    addModules(modules: Module[]) {
+        console.log(JSON.stringify(modules));
+        console.log(modules);
+
+        return this.addModulesGql.mutate({ modules }).pipe(
+            map(result => {
+                this.loading = result.loading;
+                this.errorService.toConsole(result.errors);
+                this.alertService.sendMessage('Added modules!', 'success');
+                return result;
+            })
+        );
+    }
+
     editModule(module: Module) {
         return this.editModuleGql.mutate(module).pipe(
             map(result => {
                 this.loading = result.loading;
                 this.errorService.toConsole(result.errors);
                 this.alertService.sendMessage('Edit successful!', 'success');
-                console.log(result);
+                return result;
             })
         );
     }

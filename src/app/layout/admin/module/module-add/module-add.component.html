@@ -17,7 +17,6 @@
                                     required</small>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="form-row">
@@ -64,7 +63,7 @@
                             <label for="qualificationId"><strong>Qualification</strong></label>
                             <select formControlName="qualificationId" class="custom-select">
                                 <option *ngFor="let qualification of qualifications"
-                                    [value]="qualification.qualificationId">{{qualification.qualificationId}}
+                                    [value]="qualification.qualificationId">({{qualification.qualificationId}}) -
                                     {{qualification.name}}</option>
                             </select>
                             <div *ngIf="qualificationId.errors">
@@ -79,7 +78,8 @@
                             <label for="offeringTypeId"><strong>Offering Type</strong></label>
                             <select formControlName="offeringTypeId" class="custom-select">
                                 <option *ngFor="let offeringType of offeringTypes"
-                                    [value]="offeringType.offeringTypeId">{{offeringType.description}}</option>
+                                    [value]="offeringType.offeringTypeId">({{offeringType.offeringTypeId}}) -
+                                    {{offeringType.description}}</option>
                             </select>
                             <div *ngIf="offeringTypeId.errors">
                                 <small *ngIf="offeringTypeId.touched && offeringTypeId.hasError('required')"
@@ -91,7 +91,8 @@
                                 <label for="disciplineId"><strong>Discipline</strong></label>
                                 <select formControlName="disciplineId" class="custom-select">
                                     <option *ngFor="let discipline of disciplines" [value]="discipline.disciplineId">
-                                        {{discipline.name}}</option>
+                                        ({{discipline.disciplineId}}) -
+                                        {{discipline.name | titlecase}}</option>
                                 </select>
                                 <div *ngIf="disciplineId.errors">
                                     <small *ngIf="disciplineId.touched && disciplineId.hasError('required')"
@@ -105,7 +106,8 @@
                         <div class="form-group col">
                             <label for="blockId"><strong>Block</strong></label>
                             <select formControlName="blockId" class="custom-select">
-                                <option *ngFor="let block of blocks" [value]="block.blockId">{{block.name}}</option>
+                                <option *ngFor="let block of blocks" [value]="block.blockId">({{block.blockId}}) -
+                                    {{block.name}}</option>
                             </select>
                             <div *ngIf="blockId.errors">
                                 <small *ngIf="blockId.touched && blockId.hasError('required')"

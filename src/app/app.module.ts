@@ -18,7 +18,6 @@ import { AuthGuard } from './shared';
 import { AlertComponent } from './shared/directives';
 import { AlertService, BufferService } from './shared/services';
 
-
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
     /* for development
@@ -53,10 +52,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         ApolloModule,
         HttpLinkModule
     ],
-    declarations: [
-        AppComponent,
-        AlertComponent
-    ],
+    declarations: [AppComponent, AlertComponent],
     providers: [
         AlertService,
         AuthGuard,
@@ -68,12 +64,17 @@ export const createTranslateLoader = (http: HttpClient) => {
                     cache: new InMemoryCache(),
                     link: httpLink.create({
                         uri: 'http://localhost:5000/graphql'
-                    })
-                }
+                    }),
+                    defaultOptions: {
+                        watchQuery: {
+                            errorPolicy: 'all'
+                        }
+                    }
+                };
             },
             deps: [HttpLink]
-        },
+        }
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

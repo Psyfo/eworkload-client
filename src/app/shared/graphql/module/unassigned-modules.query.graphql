@@ -50,5 +50,7 @@ query unassignedModules {
         }
         credits
         groupSize
+        lecturedBy
+        moderation
     }
 }

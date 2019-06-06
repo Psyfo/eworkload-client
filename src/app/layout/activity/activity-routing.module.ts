@@ -30,6 +30,11 @@ const routes: Routes = [
                 path: 'supervision',
                 loadChildren:
                     './supervision/supervision.module#SupervisionModule'
+            },
+            {
+                path: 'moderation',
+                loadChildren:
+                    './moderation/moderation.module#ModerationModule'
             }
         ]
     }

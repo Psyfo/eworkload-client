@@ -55,5 +55,7 @@ query module($moduleId: String!) {
         }
         credits
         groupSize
+        lecturedBy
+        moderation
     }
 }

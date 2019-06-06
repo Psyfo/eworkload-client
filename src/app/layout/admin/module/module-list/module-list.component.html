@@ -1,6 +1,6 @@
 <div [@routerTransition]>
     <div class="card">
-        <div class="card-header">
+        <div id="presentation" class="card-header">
             <h5>Modules</h5>
         </div>
         <div class="card-body">
@@ -42,12 +42,28 @@
         <div class="card-footer">
             <div class="row">
                 <button class="btn btn-primary mr-3" (click)="onAdd()">Add Module</button>
-                <button class="btn btn-primary">Add from Spreadsheet</button>
-                <div class="custom-file col-3">
-                    <input id="my-input" class="custom-file-input" type="file" name="" (change)="upload($event)">
-                    <label for="my-input" class="custom-file-label">Upload from Spreadsheet</label>
-                </div>
+                <button class="btn btn-info" (click)="open(content)">Upload Spreadsheet</button>
             </div>
         </div>
     </div>
 </div>
+
+<ng-template style="max-width: 60vw;" id="content" #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Modules to Import</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="custom-file col">
+            <input id="my-input" class="custom-file-input" type="file" (change)="onFileSelectedExcel($event.target)">
+            <label for="my-input" class="custom-file-label">Upload from Spreadsheet</label>
+        </div>
+        <div class="table modal__content" id="excel"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary m-3" (click)="onAddBulk()">Upload Modules</button>
+        <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+</ng-template>

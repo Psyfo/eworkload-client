@@ -74,6 +74,13 @@
                             <span>{{ 'Community Instruction' | translate }}</span>
                         </a>
                     </li>
+                    <li>
+                        <a [routerLink]="['/activity/moderation']" routerLinkActive="router-link-active"
+                            class="list-group-item">
+                            <i class="fa fa-fw fa-building"></i>&nbsp;
+                            <span>{{ 'Moderation' | translate }}</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
         </div>
@@ -187,7 +194,7 @@
                     <li>
                         <a [routerLink]="['/admin/module']" routerLinkActive="router-link-active"
                             class="list-group-item">
-                            <i class="fa fa-fw fa-address-book"></i>&nbsp;
+                            <i class="fa fa-fw fa-book"></i>&nbsp;
                             <span>{{ 'Manage Modules' | translate }}</span>
                         </a>
                     </li>
