@@ -1,0 +1,8 @@
+mutation editWorkFocus($workFocus: WorkFocusInput) {
+    editWorkFocus(workFocus: $workFocus) {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+    }
+}

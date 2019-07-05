@@ -1,19 +1,5 @@
-mutation editStudent(
-    $studentId: String!
-    $email: String!
-    $firstName: String!
-    $lastName: String!
-    $title: String
-    $year: String
-) {
-    editStudent(
-        studentId: $studentId
-        email: $email
-        firstName: $firstName
-        lastName: $lastName
-        title: $title
-        year: $title
-    ) {
+mutation editStudent($student: StudentInput) {
+    editStudent(student: $student) {
         studentId
         email
         firstName

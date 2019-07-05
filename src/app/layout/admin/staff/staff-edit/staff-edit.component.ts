@@ -101,8 +101,8 @@ export class StaffEditComponent implements OnInit {
                     firstName: this.user.firstName,
                     lastName: this.user.lastName,
                     email: this.user.email,
-                    disciplineId: this.user.discipline.disciplineId,
-                    positionId: this.user.position.positionId,
+                    disciplineId: this.user.disciplineId,
+                    positionId: this.user.positionId,
                     workFocusName: this.user.workFocusName,
                     gender: this.user.gender,
                     nationality: this.user.nationality

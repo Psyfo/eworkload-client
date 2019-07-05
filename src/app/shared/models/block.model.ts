@@ -3,3 +3,9 @@ export class Block {
     name: string;
     description: string;
 }
+
+export class BlockInput {
+    blockId: string;
+    name: string;
+    description: string;
+}

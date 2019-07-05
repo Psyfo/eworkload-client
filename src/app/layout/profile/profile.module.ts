@@ -8,6 +8,7 @@ import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { ProfileComponent } from './profile.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
     imports: [
@@ -17,6 +18,6 @@ import { ProfileComponent } from './profile.component';
         Ng2Charts,
         ReactiveFormsModule
     ],
-    declarations: [ProfileComponent, ProfileViewComponent, ProfileEditComponent]
+    declarations: [ProfileComponent, ProfileViewComponent, ProfileEditComponent, ChangePasswordComponent]
 })
 export class ProfileModule {}

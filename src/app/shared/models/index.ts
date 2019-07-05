@@ -8,7 +8,6 @@ export * from './enrollment.model';
 export * from './event.model';
 export * from './evidence.model';
 export * from './faculty.model';
-export * from './lecture-stack.model';
 export * from './module.model';
 export * from './offering-type.model';
 export * from './position.model';
@@ -20,4 +19,3 @@ export * from './venue.model';
 export * from './work-focus.model';
 export * from './workload.model';
 // end:ng42.barrel
-

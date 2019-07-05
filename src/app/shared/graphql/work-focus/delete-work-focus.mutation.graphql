@@ -1,0 +1,8 @@
+mutation deleteWorkFocus($workFocus: WorkFocusInput) {
+    deleteWorkFocus(workFocus: $workFocus) {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+    }
+}

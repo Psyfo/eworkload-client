@@ -1,5 +1,5 @@
-mutation deleteFaculty($facultyId: String!, $name: String!) {
-    deleteFaculty(facultyId: $facultyId, name: $name) {
+mutation deleteFaculty($faculty: FacultyInput) {
+    deleteFaculty(faculty: $faculty) {
         facultyId
         name
     }

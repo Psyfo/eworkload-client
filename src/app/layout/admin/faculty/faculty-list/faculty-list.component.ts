@@ -14,6 +14,17 @@ import { Faculty } from '../../../../shared/models/faculty.model';
 import { routerTransition } from '../../../../router.animations';
 import { FacultyService } from '../../../../shared/services';
 import { takeUntil } from 'rxjs/operators';
+import gql from 'graphql-tag';
+import { Apollo } from 'apollo-angular';
+
+const facultyList = gql`
+    query faculties {
+        faculties {
+            facultyId
+            name
+        }
+    }
+`;
 
 @Component({
     selector: 'app-faculty-list',
@@ -36,7 +47,8 @@ export class FacultyListComponent implements OnInit {
         private alertService: AlertService,
         private router: Router,
         private renderer: Renderer,
-        private facultyService: FacultyService
+        private facultyService: FacultyService,
+        private apollo: Apollo
     ) {}
 
     ngOnInit() {
@@ -89,6 +101,16 @@ export class FacultyListComponent implements OnInit {
                 );
                 this.dtTrigger.next();
             });
+
+        // this.apollo
+        //     .watchQuery({
+        //         query: facultyList,
+        //         variables: {}
+        //     })
+        //     .valueChanges.pipe(takeUntil(this.unsubscribe))
+        //     .subscribe(result => {
+        //         this.faculties = result.data as Faculty[];
+        //     });
     }
 
     onAddFaculty() {

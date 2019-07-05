@@ -13,8 +13,8 @@
 
                     <div class="form-row">
                         <div class="form-group col">
-                            <label for="qualification">Qualification</label>
-                            <select formControlName="qualification" class="custom-select">
+                            <label for="qualificationId">Qualification</label>
+                            <select formControlName="qualificationId" class="custom-select">
                                 <option *ngFor="let qualification of qualifications"
                                     [value]="qualification?.qualificationId">{{qualification?.name}}</option>
                             </select>

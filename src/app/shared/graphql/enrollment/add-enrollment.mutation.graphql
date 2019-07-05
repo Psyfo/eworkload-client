@@ -1,17 +1,5 @@
-mutation addEnrollment(
-    $enrollmentYear: String
-    $qualificationId: String
-    $firstYearEstimated: Int
-    $secondYearEstimated: Int
-    $thirdYearEstimated: Int
-) {
-    addEnrollment(
-        enrollmentYear: $enrollmentYear
-        qualificationId: $qualificationId
-        firstYearEstimated: $firstYearEstimated
-        secondYearEstimated: $secondYearEstimated
-        thirdYearEstimated: $thirdYearEstimated
-    ) {
+mutation addEnrollment($enrollment: EnrollmentInput) {
+    addEnrollment(enrollment: $enrollment) {
         enrollmentId
         enrollmentYear
         qualificationId

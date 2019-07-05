@@ -1,0 +1,8 @@
+query formalInstructionWorkload($userId: String) {
+    formalInstructionWorkload(userId: $userId) {
+        totalBaseHours
+        totalOtherHours
+        totalOverallHours
+        percentageOfTotal
+    }
+}

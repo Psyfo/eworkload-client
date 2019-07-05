@@ -27,6 +27,18 @@
                         <span *ngIf="activity?.approvalStatus; else notApproved">Approved</span>
                         <ng-template #notApproved>Not Approved</ng-template>
                     </div>
+                    <div class="d-flex flex-row justify-content-between">
+                        <p><strong>Base Contact Hours</strong></p>
+                        {{activity?.baseContactHours}}
+                    </div>
+                    <div class="d-flex flex-row justify-content-between">
+                        <p><strong>Other Hours</strong></p>
+                        {{activity?.otherHours}}
+                    </div>
+                    <div class="d-flex flex-row justify-content-between">
+                        <p><strong>Total Hours</strong></p>
+                        {{activity?.totalHours}}
+                    </div>
                 </div>
             </div>
             <div class="card-footer">

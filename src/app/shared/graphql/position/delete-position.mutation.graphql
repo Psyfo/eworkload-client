@@ -1,5 +1,5 @@
-mutation deletePosition($name: String, $description: String) {
-    deletePosition(name: $name, description: $description){
+mutation deletePosition($position: PositionInput) {
+    deletePosition(position: $position) {
         positionId
         name
         description

@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Block } from '../models';
-import { ErrorService } from './error.service';
+import { Block, BlockInput } from '../models';
 import { AlertService } from './alert.service';
-import { BlockGQL, BlocksGQL } from '../generated/output';
+import {
+    BlockGQL,
+    BlocksGQL,
+    AddBlockGQL,
+    EditBlockGQL,
+    DeleteBlockGQL
+} from '../generated/output';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -14,19 +19,23 @@ export class BlockService {
 
     loading: boolean;
     errors: any;
+    networkStatus: any;
 
     constructor(
-        private errorService: ErrorService,
         private alertService: AlertService,
         private blockGql: BlockGQL,
-        private blocksGql: BlocksGQL
+        private blocksGql: BlocksGQL,
+        private addBlockGql: AddBlockGQL,
+        private editBlockGql: EditBlockGQL,
+        private deleteBlockGql: DeleteBlockGQL
     ) {}
 
     getBlocks() {
         return this.blocksGql.watch().valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
@@ -36,7 +45,39 @@ export class BlockService {
         return this.blockGql.watch({ blockId: blockId }).valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
+                return result;
+            })
+        );
+    }
+
+    addBlock(block: BlockInput) {
+        return this.addBlockGql.mutate({ block: block }).pipe(
+            map(result => {
+                this.loading = result.loading;
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
+                return result;
+            })
+        );
+    }
+    editBlock(block: BlockInput) {
+        return this.editBlockGql.mutate({ block: block }).pipe(
+            map(result => {
+                this.loading = result.loading;
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
+                return result;
+            })
+        );
+    }
+    deleteBlock(block: BlockInput) {
+        return this.deleteBlockGql.mutate({ block: block }).pipe(
+            map(result => {
+                this.loading = result.loading;
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );

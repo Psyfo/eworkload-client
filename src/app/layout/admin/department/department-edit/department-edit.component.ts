@@ -9,14 +9,14 @@ import { Department, Faculty } from '../../../../shared/models';
 import {
     AlertService,
     DepartmentService,
-    FacultyService
+    FacultyService,
 } from '../../../../shared/services';
 
 @Component({
     selector: 'app-department-edit',
     templateUrl: './department-edit.component.html',
     styleUrls: ['./department-edit.component.scss'],
-    animations: [routerTransition()]
+    animations: [routerTransition()],
 })
 export class DepartmentEditComponent implements OnInit {
     faculty: Faculty;
@@ -69,7 +69,7 @@ export class DepartmentEditComponent implements OnInit {
         this.departmentEditForm = this.fb.group({
             departmentId: ['', Validators.required],
             name: ['', Validators.required],
-            facultyId: ['', Validators.required]
+            facultyId: ['', Validators.required],
         });
 
         this.departmentService
@@ -79,10 +79,12 @@ export class DepartmentEditComponent implements OnInit {
                 this.department = <Department>(<unknown>result.data.department);
 
                 this.getFaculties();
+                console.log(this.department);
+
                 this.departmentEditForm.patchValue({
                     departmentId: this.department.departmentId,
                     name: this.department.name,
-                    facultyId: this.department.facultyId
+                    facultyId: this.department.faculty.facultyId,
                 });
             });
     }

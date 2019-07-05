@@ -7,3 +7,10 @@ export class Qualification {
     departmentId: string;
     department: Department;
 }
+
+export class QualificationInput {
+    qualificationId: string;
+    name: string;
+    type: string;
+    departmentId: string;
+}

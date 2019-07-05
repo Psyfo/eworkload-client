@@ -1,5 +1,5 @@
-mutation deleteBlock($blockId: String, $name: String, $description: String) {
-    deleteBlock(blockId: $blockId, name: $name, description: $description) {
+mutation deleteBlock($block: BlockInput) {
+    deleteBlock(block: $block) {
         blockId
         name
         description

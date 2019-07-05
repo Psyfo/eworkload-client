@@ -16,7 +16,7 @@ export type Activity = {
     user?: Maybe<User>;
     dutyId: Scalars["String"];
     duty?: Maybe<Duty>;
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
+    approvalStatus?: Maybe<Scalars["String"]>;
     createdAt?: Maybe<Scalars["String"]>;
     updatedAt?: Maybe<Scalars["String"]>;
 };
@@ -33,6 +33,12 @@ export type Block = {
     description: Scalars["String"];
 };
 
+export type BlockInput = {
+    blockId?: Maybe<Scalars["String"]>;
+    name?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
+};
+
 export enum CacheControlScope {
     Public = "PUBLIC",
     Private = "PRIVATE"
@@ -44,13 +50,21 @@ export type CommInstructionActivity = Activity & {
     user?: Maybe<User>;
     dutyId: Scalars["String"];
     duty?: Maybe<Duty>;
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
+    approvalStatus?: Maybe<Scalars["String"]>;
     createdAt?: Maybe<Scalars["String"]>;
     updatedAt?: Maybe<Scalars["String"]>;
-    commInstructionDescription: Scalars["String"];
+    title?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
     evidenceId?: Maybe<Scalars["String"]>;
     evidence?: Maybe<Evidence>;
-    workload?: Maybe<Scalars["Int"]>;
+};
+
+export type CommInstructionActivityInput = {
+    userId?: Maybe<Scalars["String"]>;
+    dutyId?: Maybe<Scalars["String"]>;
+    title?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
+    evidenceId?: Maybe<Scalars["String"]>;
 };
 
 export type Department = {
@@ -60,14 +74,32 @@ export type Department = {
     faculty?: Maybe<Faculty>;
 };
 
+export type DepartmentInput = {
+    departmentId?: Maybe<Scalars["String"]>;
+    name?: Maybe<Scalars["String"]>;
+    facultyId?: Maybe<Scalars["String"]>;
+};
+
 export type Discipline = {
     disciplineId: Scalars["String"];
     name: Scalars["String"];
     description: Scalars["String"];
 };
 
+export type DisciplineInput = {
+    disciplineId?: Maybe<Scalars["String"]>;
+    name?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
+};
+
 export type Duty = {
     dutyId: Scalars["String"];
+    name?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
+};
+
+export type DutyInput = {
+    dutyId?: Maybe<Scalars["String"]>;
     name?: Maybe<Scalars["String"]>;
     description?: Maybe<Scalars["String"]>;
 };
@@ -77,6 +109,14 @@ export type Enrollment = {
     enrollmentYear?: Maybe<Scalars["String"]>;
     qualificationId?: Maybe<Scalars["String"]>;
     qualification?: Maybe<Qualification>;
+    firstYearEstimated?: Maybe<Scalars["Int"]>;
+    secondYearEstimated?: Maybe<Scalars["Int"]>;
+    thirdYearEstimated?: Maybe<Scalars["Int"]>;
+};
+
+export type EnrollmentInput = {
+    enrollmentYear?: Maybe<Scalars["String"]>;
+    qualificationId?: Maybe<Scalars["String"]>;
     firstYearEstimated?: Maybe<Scalars["Int"]>;
     secondYearEstimated?: Maybe<Scalars["Int"]>;
     thirdYearEstimated?: Maybe<Scalars["Int"]>;
@@ -93,27 +133,67 @@ export type Evidence = {
     item?: Maybe<Scalars["String"]>;
 };
 
+export type ExistData = {
+    exists?: Maybe<Scalars["Boolean"]>;
+};
+
 export type Faculty = {
     facultyId: Scalars["String"];
     name: Scalars["String"];
+};
+
+export type FacultyInput = {
+    facultyId?: Maybe<Scalars["String"]>;
+    name?: Maybe<Scalars["String"]>;
 };
 
 export type FormalInstructionActivity = Activity & {
     activityId: Scalars["String"];
     userId: Scalars["String"];
     user?: Maybe<User>;
-    coordinatorId?: Maybe<Scalars["String"]>;
-    coordinator?: Maybe<User>;
-    moderatorId?: Maybe<Scalars["String"]>;
-    moderator?: Maybe<User>;
     dutyId: Scalars["String"];
     duty?: Maybe<Duty>;
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
+    approvalStatus?: Maybe<Scalars["String"]>;
     createdAt?: Maybe<Scalars["String"]>;
     updatedAt?: Maybe<Scalars["String"]>;
     moduleId?: Maybe<Scalars["String"]>;
     module?: Maybe<Module>;
-    workload?: Maybe<Scalars["Int"]>;
+    blockId?: Maybe<Scalars["String"]>;
+    block?: Maybe<Block>;
+    offeringTypeId?: Maybe<Scalars["String"]>;
+    offeringType?: Maybe<OfferingType>;
+    qualificationId?: Maybe<Scalars["String"]>;
+    qualification?: Maybe<Qualification>;
+    baseContactHours?: Maybe<Scalars["Int"]>;
+    coordinationHours?: Maybe<Scalars["Int"]>;
+    studentSupportHours?: Maybe<Scalars["Int"]>;
+    preparationTimeHours?: Maybe<Scalars["Int"]>;
+    assessmentSettingHours?: Maybe<Scalars["Int"]>;
+    examMarkingHours?: Maybe<Scalars["Int"]>;
+    courseworkMarkingHours?: Maybe<Scalars["Int"]>;
+    feedbackHours?: Maybe<Scalars["Int"]>;
+    formativeAssessmentHours?: Maybe<Scalars["Int"]>;
+    moderationHours?: Maybe<Scalars["Int"]>;
+    otherHours?: Maybe<Scalars["Int"]>;
+    totalHours?: Maybe<Scalars["Int"]>;
+    teachingPercentage?: Maybe<Scalars["Int"]>;
+};
+
+export type FormalInstructionActivityInput = {
+    userId?: Maybe<Scalars["String"]>;
+    dutyId?: Maybe<Scalars["String"]>;
+    moduleId?: Maybe<Scalars["String"]>;
+    blockId?: Maybe<Scalars["String"]>;
+    offeringTypeId?: Maybe<Scalars["String"]>;
+    qualificationId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionWorkload = {
+    totalBaseHours?: Maybe<Scalars["Int"]>;
+    totalOtherHours?: Maybe<Scalars["Int"]>;
+    totalOverallHours?: Maybe<Scalars["Int"]>;
+    percentageOfFocus?: Maybe<Scalars["Int"]>;
+    percentageOfTotal?: Maybe<Scalars["Int"]>;
 };
 
 export type Module = {
@@ -147,7 +227,7 @@ export type Module = {
 };
 
 export type ModuleInput = {
-    moduleId: Scalars["String"];
+    moduleId?: Maybe<Scalars["String"]>;
     name?: Maybe<Scalars["String"]>;
     type?: Maybe<Scalars["String"]>;
     assessmentMethod?: Maybe<Scalars["String"]>;
@@ -175,6 +255,7 @@ export type Mutation = {
     addUser?: Maybe<User>;
     editUser?: Maybe<User>;
     deleteUser?: Maybe<User>;
+    changePassword?: Maybe<User>;
     addDepartment?: Maybe<Department>;
     editDepartment?: Maybe<Department>;
     deleteDepartment?: Maybe<Department>;
@@ -236,117 +317,69 @@ export type Mutation = {
 };
 
 export type MutationAddBlockArgs = {
-    blockId: Scalars["String"];
-    name: Scalars["String"];
-    description: Scalars["String"];
+    block?: Maybe<BlockInput>;
 };
 
 export type MutationEditBlockArgs = {
-    blockId?: Maybe<Scalars["String"]>;
-    name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    block?: Maybe<BlockInput>;
 };
 
 export type MutationDeleteBlockArgs = {
-    blockId?: Maybe<Scalars["String"]>;
-    name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    block?: Maybe<BlockInput>;
 };
 
 export type MutationAddUserArgs = {
-    userId: Scalars["String"];
-    password?: Maybe<Scalars["String"]>;
-    email?: Maybe<Scalars["String"]>;
-    firstName?: Maybe<Scalars["String"]>;
-    lastName?: Maybe<Scalars["String"]>;
-    photoUrl?: Maybe<Scalars["String"]>;
-    disciplineId?: Maybe<Scalars["String"]>;
-    positionId?: Maybe<Scalars["String"]>;
-    workFocusName?: Maybe<Scalars["String"]>;
-    gender?: Maybe<Scalars["String"]>;
-    nationality?: Maybe<Scalars["String"]>;
+    user?: Maybe<UserInput>;
 };
 
 export type MutationEditUserArgs = {
-    userId?: Maybe<Scalars["String"]>;
-    password?: Maybe<Scalars["String"]>;
-    email?: Maybe<Scalars["String"]>;
-    firstName?: Maybe<Scalars["String"]>;
-    lastName?: Maybe<Scalars["String"]>;
-    photoUrl?: Maybe<Scalars["String"]>;
-    disciplineId?: Maybe<Scalars["String"]>;
-    positionId?: Maybe<Scalars["String"]>;
-    workFocusName?: Maybe<Scalars["String"]>;
-    gender?: Maybe<Scalars["String"]>;
-    nationality?: Maybe<Scalars["String"]>;
+    user?: Maybe<UserInput>;
 };
 
 export type MutationDeleteUserArgs = {
+    user?: Maybe<UserInput>;
+};
+
+export type MutationChangePasswordArgs = {
     userId?: Maybe<Scalars["String"]>;
-    password?: Maybe<Scalars["String"]>;
-    email?: Maybe<Scalars["String"]>;
-    firstName?: Maybe<Scalars["String"]>;
-    lastName?: Maybe<Scalars["String"]>;
-    photoUrl?: Maybe<Scalars["String"]>;
-    disciplineId?: Maybe<Scalars["String"]>;
-    positionId?: Maybe<Scalars["String"]>;
-    workFocusName?: Maybe<Scalars["String"]>;
-    gender?: Maybe<Scalars["String"]>;
-    nationality?: Maybe<Scalars["String"]>;
+    oldPassword?: Maybe<Scalars["String"]>;
+    newPassword?: Maybe<Scalars["String"]>;
 };
 
 export type MutationAddDepartmentArgs = {
-    departmentId: Scalars["String"];
-    name: Scalars["String"];
-    facultyId: Scalars["String"];
+    department?: Maybe<DepartmentInput>;
 };
 
 export type MutationEditDepartmentArgs = {
-    departmentId?: Maybe<Scalars["String"]>;
-    name?: Maybe<Scalars["String"]>;
-    facultyId?: Maybe<Scalars["String"]>;
+    department?: Maybe<DepartmentInput>;
 };
 
 export type MutationDeleteDepartmentArgs = {
-    departmentId?: Maybe<Scalars["String"]>;
-    name?: Maybe<Scalars["String"]>;
-    facultyId?: Maybe<Scalars["String"]>;
+    department?: Maybe<DepartmentInput>;
 };
 
 export type MutationAddDisciplineArgs = {
-    disciplineId: Scalars["String"];
-    name: Scalars["String"];
-    description: Scalars["String"];
+    discipline?: Maybe<DisciplineInput>;
 };
 
 export type MutationEditDisciplineArgs = {
-    disciplineId?: Maybe<Scalars["String"]>;
-    name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    discipline?: Maybe<DisciplineInput>;
 };
 
 export type MutationDeleteDisciplineArgs = {
-    disciplineId?: Maybe<Scalars["String"]>;
-    name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    discipline?: Maybe<DisciplineInput>;
 };
 
 export type MutationAddDutyArgs = {
-    dutyId: Scalars["String"];
-    name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    duty?: Maybe<DutyInput>;
 };
 
 export type MutationEditDutyArgs = {
-    dutyId?: Maybe<Scalars["String"]>;
-    name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    duty?: Maybe<DutyInput>;
 };
 
 export type MutationDeleteDutyArgs = {
-    dutyId?: Maybe<Scalars["String"]>;
-    name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    duty?: Maybe<DutyInput>;
 };
 
 export type MutationAddEventArgs = {
@@ -382,406 +415,184 @@ export type MutationDeleteEvidenceArgs = {
 };
 
 export type MutationAddFacultyArgs = {
-    facultyId: Scalars["String"];
-    name: Scalars["String"];
+    faculty?: Maybe<FacultyInput>;
 };
 
 export type MutationEditFacultyArgs = {
-    facultyId?: Maybe<Scalars["String"]>;
-    name?: Maybe<Scalars["String"]>;
+    faculty?: Maybe<FacultyInput>;
 };
 
 export type MutationDeleteFacultyArgs = {
-    facultyId?: Maybe<Scalars["String"]>;
-    name?: Maybe<Scalars["String"]>;
+    faculty?: Maybe<FacultyInput>;
 };
 
 export type MutationAddModuleArgs = {
-    moduleId: Scalars["String"];
-    name?: Maybe<Scalars["String"]>;
-    type?: Maybe<Scalars["String"]>;
-    assessmentMethod?: Maybe<Scalars["String"]>;
-    nqfLevel?: Maybe<Scalars["String"]>;
-    credits?: Maybe<Scalars["Int"]>;
-    qualificationId?: Maybe<Scalars["String"]>;
-    offeringTypeId?: Maybe<Scalars["String"]>;
-    disciplineId?: Maybe<Scalars["String"]>;
-    venueId?: Maybe<Scalars["String"]>;
-    blockId?: Maybe<Scalars["String"]>;
-    userId?: Maybe<Scalars["String"]>;
-    coordinatorId?: Maybe<Scalars["String"]>;
-    moderatorId?: Maybe<Scalars["String"]>;
-    stackId?: Maybe<Scalars["String"]>;
-    studyPeriod?: Maybe<Scalars["String"]>;
-    groupSize?: Maybe<Scalars["Int"]>;
-    lecturedBy?: Maybe<Scalars["String"]>;
-    moderation?: Maybe<Scalars["String"]>;
+    module?: Maybe<ModuleInput>;
 };
 
 export type MutationAddModulesArgs = {
-    input?: Maybe<Array<Maybe<ModuleInput>>>;
+    modules?: Maybe<Array<Maybe<ModuleInput>>>;
 };
 
 export type MutationEditModuleArgs = {
-    moduleId: Scalars["String"];
-    name?: Maybe<Scalars["String"]>;
-    type?: Maybe<Scalars["String"]>;
-    assessmentMethod?: Maybe<Scalars["String"]>;
-    nqfLevel?: Maybe<Scalars["String"]>;
-    credits?: Maybe<Scalars["Int"]>;
-    qualificationId?: Maybe<Scalars["String"]>;
-    offeringTypeId?: Maybe<Scalars["String"]>;
-    disciplineId?: Maybe<Scalars["String"]>;
-    venueId?: Maybe<Scalars["String"]>;
-    blockId?: Maybe<Scalars["String"]>;
-    userId?: Maybe<Scalars["String"]>;
-    coordinatorId?: Maybe<Scalars["String"]>;
-    moderatorId?: Maybe<Scalars["String"]>;
-    stackId?: Maybe<Scalars["String"]>;
-    studyPeriod?: Maybe<Scalars["String"]>;
-    groupSize?: Maybe<Scalars["Int"]>;
-    lecturedBy?: Maybe<Scalars["String"]>;
-    moderation?: Maybe<Scalars["String"]>;
+    module?: Maybe<ModuleInput>;
 };
 
 export type MutationDeleteModuleArgs = {
-    moduleId: Scalars["String"];
-    name?: Maybe<Scalars["String"]>;
-    type?: Maybe<Scalars["String"]>;
-    assessmentMethod?: Maybe<Scalars["String"]>;
-    nqfLevel?: Maybe<Scalars["String"]>;
-    credits?: Maybe<Scalars["Int"]>;
-    qualificationId?: Maybe<Scalars["String"]>;
-    offeringTypeId?: Maybe<Scalars["String"]>;
-    disciplineId?: Maybe<Scalars["String"]>;
-    venueId?: Maybe<Scalars["String"]>;
-    blockId?: Maybe<Scalars["String"]>;
-    userId?: Maybe<Scalars["String"]>;
-    coordinatorId?: Maybe<Scalars["String"]>;
-    moderatorId?: Maybe<Scalars["String"]>;
-    stackId?: Maybe<Scalars["String"]>;
-    studyPeriod?: Maybe<Scalars["String"]>;
-    groupSize?: Maybe<Scalars["Int"]>;
-    lecturedBy?: Maybe<Scalars["String"]>;
-    moderation?: Maybe<Scalars["String"]>;
+    module?: Maybe<ModuleInput>;
 };
 
 export type MutationAddOfferingTypeArgs = {
-    description: Scalars["String"];
+    offeringType?: Maybe<OfferingTypeInput>;
 };
 
 export type MutationEditOfferingTypeArgs = {
-    offeringTypeId?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    offeringType?: Maybe<OfferingTypeInput>;
 };
 
 export type MutationDeleteOfferingTypeArgs = {
-    offeringTypeId?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    offeringType?: Maybe<OfferingTypeInput>;
 };
 
 export type MutationAddPositionArgs = {
-    name: Scalars["String"];
-    description: Scalars["String"];
+    position?: Maybe<PositionInput>;
 };
 
 export type MutationEditPositionArgs = {
-    positionId?: Maybe<Scalars["String"]>;
-    name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    position?: Maybe<PositionInput>;
 };
 
 export type MutationDeletePositionArgs = {
-    positionId?: Maybe<Scalars["String"]>;
-    name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    position?: Maybe<PositionInput>;
 };
 
 export type MutationAddQualificationArgs = {
-    qualificationId: Scalars["String"];
-    name?: Maybe<Scalars["String"]>;
-    type?: Maybe<Scalars["String"]>;
-    departmentId?: Maybe<Scalars["String"]>;
+    qualification?: Maybe<QualificationInput>;
 };
 
 export type MutationEditQualificationArgs = {
-    qualificationId: Scalars["String"];
-    name?: Maybe<Scalars["String"]>;
-    type?: Maybe<Scalars["String"]>;
-    departmentId?: Maybe<Scalars["String"]>;
+    qualification?: Maybe<QualificationInput>;
 };
 
 export type MutationDeleteQualificationArgs = {
-    qualificationId: Scalars["String"];
-    name?: Maybe<Scalars["String"]>;
-    type?: Maybe<Scalars["String"]>;
-    departmentId?: Maybe<Scalars["String"]>;
+    qualification?: Maybe<QualificationInput>;
 };
 
 export type MutationAddStudentArgs = {
-    studentId: Scalars["String"];
-    email: Scalars["String"];
-    firstName: Scalars["String"];
-    lastName: Scalars["String"];
-    title?: Maybe<Scalars["String"]>;
-    year?: Maybe<Scalars["String"]>;
+    student?: Maybe<StudentInput>;
 };
 
 export type MutationEditStudentArgs = {
-    studentId: Scalars["String"];
-    email?: Maybe<Scalars["String"]>;
-    firstName?: Maybe<Scalars["String"]>;
-    lastName?: Maybe<Scalars["String"]>;
-    title?: Maybe<Scalars["String"]>;
-    year?: Maybe<Scalars["String"]>;
+    student?: Maybe<StudentInput>;
 };
 
 export type MutationDeleteStudentArgs = {
-    studentId: Scalars["String"];
-    email?: Maybe<Scalars["String"]>;
-    firstName?: Maybe<Scalars["String"]>;
-    lastName?: Maybe<Scalars["String"]>;
-    title?: Maybe<Scalars["String"]>;
-    year?: Maybe<Scalars["String"]>;
+    student?: Maybe<StudentInput>;
 };
 
 export type MutationAddCommInstructionActivityArgs = {
-    userId: Scalars["String"];
-    dutyId: Scalars["String"];
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
-    createdAt?: Maybe<Scalars["String"]>;
-    updatedAt: Scalars["String"];
-    commInstructionDescription: Scalars["String"];
-    evidenceId?: Maybe<Scalars["String"]>;
-    workload?: Maybe<Scalars["Int"]>;
+    commInstructionActivity?: Maybe<CommInstructionActivityInput>;
 };
 
 export type MutationEditCommInstructionActivityArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-    userId?: Maybe<Scalars["String"]>;
-    dutyId?: Maybe<Scalars["String"]>;
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
-    createdAt?: Maybe<Scalars["String"]>;
-    updatedAt?: Maybe<Scalars["String"]>;
-    commInstructionDescription?: Maybe<Scalars["String"]>;
-    evidenceId?: Maybe<Scalars["String"]>;
-    workload?: Maybe<Scalars["Int"]>;
+    commInstructionActivity?: Maybe<CommInstructionActivityInput>;
 };
 
 export type MutationDeleteCommInstructionActivityArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-    userId?: Maybe<Scalars["String"]>;
-    dutyId?: Maybe<Scalars["String"]>;
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
-    createdAt?: Maybe<Scalars["String"]>;
-    updatedAt?: Maybe<Scalars["String"]>;
-    commInstructionDescription?: Maybe<Scalars["String"]>;
-    evidenceId?: Maybe<Scalars["String"]>;
+    commInstructionActivity?: Maybe<CommInstructionActivityInput>;
 };
 
 export type MutationAddPublicServiceActivityArgs = {
-    userId: Scalars["String"];
-    dutyId: Scalars["String"];
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
-    createdAt?: Maybe<Scalars["String"]>;
-    updatedAt: Scalars["String"];
-    publicServiceDescription: Scalars["String"];
-    evidenceId?: Maybe<Scalars["String"]>;
-    workload?: Maybe<Scalars["Int"]>;
+    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
 };
 
 export type MutationEditPublicServiceActivityArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-    userId?: Maybe<Scalars["String"]>;
-    dutyId?: Maybe<Scalars["String"]>;
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
-    createdAt?: Maybe<Scalars["String"]>;
-    updatedAt?: Maybe<Scalars["String"]>;
-    publicServiceDescription?: Maybe<Scalars["String"]>;
-    evidenceId?: Maybe<Scalars["String"]>;
-    workload?: Maybe<Scalars["Int"]>;
+    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
 };
 
 export type MutationDeletePublicServiceActivityArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-    userId?: Maybe<Scalars["String"]>;
-    dutyId?: Maybe<Scalars["String"]>;
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
-    createdAt?: Maybe<Scalars["String"]>;
-    updatedAt?: Maybe<Scalars["String"]>;
-    publicServiceDescription?: Maybe<Scalars["String"]>;
-    evidenceId?: Maybe<Scalars["String"]>;
+    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
 };
 
 export type MutationAddFormalInstructionActivityArgs = {
-    userId: Scalars["String"];
-    coordinatorId?: Maybe<Scalars["String"]>;
-    moderatorId?: Maybe<Scalars["String"]>;
-    dutyId: Scalars["String"];
-    moduleId: Scalars["String"];
-    workload?: Maybe<Scalars["Int"]>;
+    formalInstructionActivity?: Maybe<FormalInstructionActivityInput>;
 };
 
 export type MutationEditFormalInstructionActivityArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-    userId?: Maybe<Scalars["String"]>;
-    coordinatorId?: Maybe<Scalars["String"]>;
-    moderatorId?: Maybe<Scalars["String"]>;
-    dutyId?: Maybe<Scalars["String"]>;
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
-    createdAt?: Maybe<Scalars["String"]>;
-    updatedAt?: Maybe<Scalars["String"]>;
-    moduleId?: Maybe<Scalars["String"]>;
-    workload?: Maybe<Scalars["Int"]>;
+    formalInstructionActivity?: Maybe<FormalInstructionActivityInput>;
 };
 
 export type MutationDeleteFormalInstructionActivityArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-    userId?: Maybe<Scalars["String"]>;
-    coordinatorId?: Maybe<Scalars["String"]>;
-    moderatorId?: Maybe<Scalars["String"]>;
-    dutyId?: Maybe<Scalars["String"]>;
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
-    createdAt?: Maybe<Scalars["String"]>;
-    updatedAt?: Maybe<Scalars["String"]>;
-    moduleId?: Maybe<Scalars["String"]>;
+    formalInstructionActivity?: Maybe<FormalInstructionActivityInput>;
 };
 
 export type MutationAddResearchActivityArgs = {
-    userId: Scalars["String"];
-    dutyId: Scalars["String"];
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
-    createdAt?: Maybe<Scalars["String"]>;
-    updatedAt: Scalars["String"];
-    researchType: Scalars["String"];
-    researchUrl: Scalars["String"];
-    workload?: Maybe<Scalars["Int"]>;
+    researchActivity?: Maybe<ResearchActivityInput>;
 };
 
 export type MutationEditResearchActivityArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-    userId?: Maybe<Scalars["String"]>;
-    dutyId?: Maybe<Scalars["String"]>;
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
-    createdAt?: Maybe<Scalars["String"]>;
-    updatedAt?: Maybe<Scalars["String"]>;
-    researchType: Scalars["String"];
-    researchUrl: Scalars["String"];
-    workload?: Maybe<Scalars["Int"]>;
+    researchActivity?: Maybe<ResearchActivityInput>;
 };
 
 export type MutationDeleteResearchActivityArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-    userId?: Maybe<Scalars["String"]>;
-    dutyId?: Maybe<Scalars["String"]>;
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
-    createdAt?: Maybe<Scalars["String"]>;
-    updatedAt?: Maybe<Scalars["String"]>;
-    researchType?: Maybe<Scalars["String"]>;
-    researchUrl?: Maybe<Scalars["String"]>;
+    researchActivity?: Maybe<ResearchActivityInput>;
 };
 
 export type MutationAddSupervisionActivityArgs = {
-    userId: Scalars["String"];
-    dutyId: Scalars["String"];
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
-    createdAt?: Maybe<Scalars["String"]>;
-    updatedAt?: Maybe<Scalars["String"]>;
-    supervisionRole: Scalars["String"];
-    studentId: Scalars["String"];
-    workload?: Maybe<Scalars["Int"]>;
+    supervisionActivity?: Maybe<SupervisionActivityInput>;
 };
 
 export type MutationEditSupervisionActivityArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-    userId?: Maybe<Scalars["String"]>;
-    dutyId?: Maybe<Scalars["String"]>;
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
-    createdAt?: Maybe<Scalars["String"]>;
-    updatedAt?: Maybe<Scalars["String"]>;
-    supervisionRole?: Maybe<Scalars["String"]>;
-    studentId?: Maybe<Scalars["String"]>;
-    workload?: Maybe<Scalars["Int"]>;
+    supervisionActivity?: Maybe<SupervisionActivityInput>;
 };
 
 export type MutationDeleteSupervisionActivityArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-    userId?: Maybe<Scalars["String"]>;
-    dutyId?: Maybe<Scalars["String"]>;
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
-    createdAt?: Maybe<Scalars["String"]>;
-    updatedAt?: Maybe<Scalars["String"]>;
-    supervisionRole?: Maybe<Scalars["String"]>;
-    studentId?: Maybe<Scalars["String"]>;
+    supervisionActivity?: Maybe<SupervisionActivityInput>;
 };
 
 export type MutationAddVenueArgs = {
-    venueId: Scalars["String"];
-    campus: Scalars["String"];
-    capacity: Scalars["Int"];
+    venue?: Maybe<VenueInput>;
 };
 
 export type MutationEditVenueArgs = {
-    venueId?: Maybe<Scalars["String"]>;
-    campus?: Maybe<Scalars["String"]>;
-    capacity?: Maybe<Scalars["Int"]>;
+    venue?: Maybe<VenueInput>;
 };
 
 export type MutationDeleteVenueArgs = {
-    venueId?: Maybe<Scalars["String"]>;
-    campus?: Maybe<Scalars["String"]>;
-    capacity?: Maybe<Scalars["Int"]>;
+    venue?: Maybe<VenueInput>;
 };
 
 export type MutationAddEnrollmentArgs = {
-    enrollmentId?: Maybe<Scalars["String"]>;
-    enrollmentYear?: Maybe<Scalars["String"]>;
-    qualificationId?: Maybe<Scalars["String"]>;
-    firstYearEstimated?: Maybe<Scalars["Int"]>;
-    secondYearEstimated?: Maybe<Scalars["Int"]>;
-    thirdYearEstimated?: Maybe<Scalars["Int"]>;
+    enrollment?: Maybe<EnrollmentInput>;
 };
 
 export type MutationEditEnrollmentArgs = {
-    enrollmentYear?: Maybe<Scalars["String"]>;
-    qualificationId?: Maybe<Scalars["String"]>;
-    firstYearEstimated?: Maybe<Scalars["Int"]>;
-    secondYearEstimated?: Maybe<Scalars["Int"]>;
-    thirdYearEstimated?: Maybe<Scalars["Int"]>;
+    enrollment?: Maybe<EnrollmentInput>;
 };
 
 export type MutationDeleteEnrollmentArgs = {
-    enrollmentYear?: Maybe<Scalars["String"]>;
-    qualificationId?: Maybe<Scalars["String"]>;
-    firstYearEstimated?: Maybe<Scalars["Int"]>;
-    secondYearEstimated?: Maybe<Scalars["Int"]>;
-    thirdYearEstimated?: Maybe<Scalars["Int"]>;
+    enrollment?: Maybe<EnrollmentInput>;
 };
 
 export type MutationAddWorkFocusArgs = {
-    name?: Maybe<Scalars["String"]>;
-    teachingRatio?: Maybe<Scalars["Int"]>;
-    researchRatio?: Maybe<Scalars["Int"]>;
-    serviceRatio?: Maybe<Scalars["Int"]>;
+    workFocus?: Maybe<WorkFocusInput>;
 };
 
 export type MutationEditWorkFocusArgs = {
-    name?: Maybe<Scalars["String"]>;
-    teachingRatio?: Maybe<Scalars["Int"]>;
-    researchRatio?: Maybe<Scalars["Int"]>;
-    serviceRatio?: Maybe<Scalars["Int"]>;
+    workFocus?: Maybe<WorkFocusInput>;
 };
 
 export type MutationDeleteWorkFocusArgs = {
-    name?: Maybe<Scalars["String"]>;
-    teachingRatio?: Maybe<Scalars["Int"]>;
-    researchRatio?: Maybe<Scalars["Int"]>;
-    serviceRatio?: Maybe<Scalars["Int"]>;
+    workFocus?: Maybe<WorkFocusInput>;
 };
 
 export type OfferingType = {
     offeringTypeId: Scalars["String"];
     description: Scalars["String"];
+};
+
+export type OfferingTypeInput = {
+    description?: Maybe<Scalars["String"]>;
 };
 
 export type Position = {
@@ -790,19 +601,33 @@ export type Position = {
     description: Scalars["String"];
 };
 
+export type PositionInput = {
+    positionId?: Maybe<Scalars["String"]>;
+    name?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
+};
+
 export type PublicServiceActivity = Activity & {
     activityId: Scalars["String"];
     userId: Scalars["String"];
     user?: Maybe<User>;
     dutyId: Scalars["String"];
     duty?: Maybe<Duty>;
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
+    approvalStatus?: Maybe<Scalars["String"]>;
     createdAt?: Maybe<Scalars["String"]>;
     updatedAt?: Maybe<Scalars["String"]>;
-    publicServiceDescription: Scalars["String"];
+    title?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
     evidenceId?: Maybe<Scalars["String"]>;
     evidence?: Maybe<Evidence>;
-    workload?: Maybe<Scalars["Int"]>;
+};
+
+export type PublicServiceActivityInput = {
+    userId?: Maybe<Scalars["String"]>;
+    dutyId?: Maybe<Scalars["String"]>;
+    title?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
+    evidenceId?: Maybe<Scalars["String"]>;
 };
 
 export type Qualification = {
@@ -813,12 +638,20 @@ export type Qualification = {
     department?: Maybe<Department>;
 };
 
+export type QualificationInput = {
+    qualificationId?: Maybe<Scalars["String"]>;
+    name?: Maybe<Scalars["String"]>;
+    type?: Maybe<Scalars["String"]>;
+    departmentId?: Maybe<Scalars["String"]>;
+};
+
 export type Query = {
     block?: Maybe<Block>;
     blocks?: Maybe<Array<Maybe<Block>>>;
     user?: Maybe<User>;
     users?: Maybe<Array<Maybe<User>>>;
     login?: Maybe<AuthData>;
+    userExists?: Maybe<ExistData>;
     department?: Maybe<Department>;
     departments?: Maybe<Array<Maybe<Department>>>;
     discipline?: Maybe<Discipline>;
@@ -836,6 +669,8 @@ export type Query = {
     modulesByDiscipline?: Maybe<Array<Maybe<Module>>>;
     unassignedModules?: Maybe<Array<Maybe<Module>>>;
     modulesByUser?: Maybe<Array<Maybe<Module>>>;
+    modulesByModerator?: Maybe<Array<Maybe<Module>>>;
+    modulesByCoordinator?: Maybe<Array<Maybe<Module>>>;
     stackedWith?: Maybe<Array<Maybe<Module>>>;
     offeringType?: Maybe<OfferingType>;
     offeringTypes?: Maybe<Array<Maybe<OfferingType>>>;
@@ -850,6 +685,7 @@ export type Query = {
     activitiesByDuty?: Maybe<Array<Maybe<Activity>>>;
     activitiesByUser?: Maybe<Array<Maybe<Activity>>>;
     unapprovedActivities?: Maybe<Array<Maybe<Activity>>>;
+    approvedActivities?: Maybe<Array<Maybe<Activity>>>;
     formalInstructionActivity?: Maybe<FormalInstructionActivity>;
     formalInstructionActivities?: Maybe<
         Array<Maybe<FormalInstructionActivity>>
@@ -868,8 +704,10 @@ export type Query = {
     enrollments?: Maybe<Array<Maybe<Enrollment>>>;
     enrollmentsByYear?: Maybe<Array<Maybe<Enrollment>>>;
     enrollmentsByQualification?: Maybe<Array<Maybe<Enrollment>>>;
+    studentsEnrolled?: Maybe<StudentData>;
     workFocus?: Maybe<WorkFocus>;
     workFocuses?: Maybe<Array<Maybe<WorkFocus>>>;
+    formalInstructionWorkload?: Maybe<FormalInstructionWorkload>;
 };
 
 export type QueryBlockArgs = {
@@ -883,6 +721,10 @@ export type QueryUserArgs = {
 export type QueryLoginArgs = {
     userId: Scalars["String"];
     password: Scalars["String"];
+};
+
+export type QueryUserExistsArgs = {
+    userId?: Maybe<Scalars["String"]>;
 };
 
 export type QueryDepartmentArgs = {
@@ -911,6 +753,9 @@ export type QueryFacultyArgs = {
 
 export type QueryModuleArgs = {
     moduleId: Scalars["String"];
+    blockId: Scalars["String"];
+    offeringTypeId: Scalars["String"];
+    qualificationId: Scalars["String"];
 };
 
 export type QueryModulesByDisciplineArgs = {
@@ -919,6 +764,14 @@ export type QueryModulesByDisciplineArgs = {
 
 export type QueryModulesByUserArgs = {
     userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryModulesByModeratorArgs = {
+    moderatorId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryModulesByCoordinatorArgs = {
+    coordinatorId?: Maybe<Scalars["String"]>;
 };
 
 export type QueryStackedWithArgs = {
@@ -990,8 +843,16 @@ export type QueryEnrollmentsByQualificationArgs = {
     qualificationId?: Maybe<Scalars["String"]>;
 };
 
+export type QueryStudentsEnrolledArgs = {
+    moduleId?: Maybe<Scalars["String"]>;
+};
+
 export type QueryWorkFocusArgs = {
     name: Scalars["String"];
+};
+
+export type QueryFormalInstructionWorkloadArgs = {
+    userId?: Maybe<Scalars["String"]>;
 };
 
 export type ResearchActivity = Activity & {
@@ -1000,15 +861,36 @@ export type ResearchActivity = Activity & {
     user?: Maybe<User>;
     dutyId: Scalars["String"];
     duty?: Maybe<Duty>;
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
+    approvalStatus?: Maybe<Scalars["String"]>;
     createdAt?: Maybe<Scalars["String"]>;
     updatedAt?: Maybe<Scalars["String"]>;
-    researchType: Scalars["String"];
-    researchUrl: Scalars["String"];
-    workload?: Maybe<Scalars["Int"]>;
+    researchType?: Maybe<Scalars["String"]>;
+    researchTitle?: Maybe<Scalars["String"]>;
+    researchDetails?: Maybe<Scalars["String"]>;
+};
+
+export type ResearchActivityInput = {
+    userId?: Maybe<Scalars["String"]>;
+    dutyId?: Maybe<Scalars["String"]>;
+    researchType?: Maybe<Scalars["String"]>;
+    researchTitle?: Maybe<Scalars["String"]>;
+    researchDetails?: Maybe<Scalars["String"]>;
 };
 
 export type Student = {
+    studentId: Scalars["String"];
+    email: Scalars["String"];
+    firstName: Scalars["String"];
+    lastName: Scalars["String"];
+    title: Scalars["String"];
+    year: Scalars["String"];
+};
+
+export type StudentData = {
+    students?: Maybe<Scalars["Int"]>;
+};
+
+export type StudentInput = {
     studentId: Scalars["String"];
     email: Scalars["String"];
     firstName: Scalars["String"];
@@ -1023,13 +905,21 @@ export type SupervisionActivity = Activity & {
     user?: Maybe<User>;
     dutyId: Scalars["String"];
     duty?: Maybe<Duty>;
-    approvalStatus?: Maybe<Scalars["Boolean"]>;
+    approvalStatus?: Maybe<Scalars["String"]>;
     createdAt?: Maybe<Scalars["String"]>;
     updatedAt?: Maybe<Scalars["String"]>;
     supervisionRole: Scalars["String"];
     studentId: Scalars["String"];
     student?: Maybe<Student>;
-    workload?: Maybe<Scalars["Int"]>;
+};
+
+export type SupervisionActivityInput = {
+    userId?: Maybe<Scalars["String"]>;
+    dutyId?: Maybe<Scalars["String"]>;
+    supervisionRole?: Maybe<Scalars["String"]>;
+    studentId?: Maybe<Scalars["String"]>;
+    topic?: Maybe<Scalars["String"]>;
+    year?: Maybe<Scalars["String"]>;
 };
 
 export type User = {
@@ -1049,10 +939,32 @@ export type User = {
     nationality?: Maybe<Scalars["String"]>;
 };
 
+export type UserInput = {
+    userId: Scalars["String"];
+    password?: Maybe<Scalars["String"]>;
+    email?: Maybe<Scalars["String"]>;
+    firstName?: Maybe<Scalars["String"]>;
+    lastName?: Maybe<Scalars["String"]>;
+    photoUrl?: Maybe<Scalars["String"]>;
+    disciplineId?: Maybe<Scalars["String"]>;
+    positionId?: Maybe<Scalars["String"]>;
+    workFocusName?: Maybe<Scalars["String"]>;
+    gender?: Maybe<Scalars["String"]>;
+    nationality?: Maybe<Scalars["String"]>;
+};
+
 export type Venue = {
-    venueId: Scalars["String"];
-    campus: Scalars["String"];
-    capacity: Scalars["Int"];
+    venueId?: Maybe<Scalars["String"]>;
+    campus?: Maybe<Scalars["String"]>;
+    capacity?: Maybe<Scalars["Int"]>;
+    type?: Maybe<Scalars["String"]>;
+};
+
+export type VenueInput = {
+    venueId?: Maybe<Scalars["String"]>;
+    campus?: Maybe<Scalars["String"]>;
+    capacity?: Maybe<Scalars["Int"]>;
+    type?: Maybe<Scalars["String"]>;
 };
 
 export type WorkFocus = {
@@ -1061,10 +973,977 @@ export type WorkFocus = {
     researchRatio?: Maybe<Scalars["Int"]>;
     serviceRatio?: Maybe<Scalars["Int"]>;
 };
-export type ActivitiesQueryVariables = {};
 
-export type ActivitiesQuery = { __typename?: "Query" } & {
-    activities: Maybe<
+export type WorkFocusInput = {
+    name?: Maybe<Scalars["String"]>;
+    teachingRatio?: Maybe<Scalars["Int"]>;
+    researchRatio?: Maybe<Scalars["Int"]>;
+    serviceRatio?: Maybe<Scalars["Int"]>;
+};
+export type ActivityQueryVariables = {
+    activityId: Scalars["String"];
+};
+
+export type ActivityQuery = { __typename?: "Query" } & {
+    activity: Maybe<
+        Pick<
+            Activity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+        > & {
+            user: Maybe<
+                { __typename?: "User" } & Pick<
+                    User,
+                    "userId" | "email" | "firstName" | "lastName"
+                >
+            >;
+            duty: Maybe<
+                { __typename?: "Duty" } & Pick<
+                    Duty,
+                    "dutyId" | "name" | "description"
+                >
+            >;
+        } & (
+                | ({ __typename?: "CommInstructionActivity" } & Pick<
+                      CommInstructionActivity,
+                      "title" | "description" | "evidenceId"
+                  > & {
+                          evidence: Maybe<
+                              { __typename?: "Evidence" } & Pick<
+                                  Evidence,
+                                  "evidenceId" | "name" | "item"
+                              >
+                          >;
+                      })
+                | ({ __typename?: "PublicServiceActivity" } & Pick<
+                      PublicServiceActivity,
+                      "title" | "description" | "evidenceId"
+                  > & {
+                          evidence: Maybe<
+                              { __typename?: "Evidence" } & Pick<
+                                  Evidence,
+                                  "evidenceId" | "name" | "item"
+                              >
+                          >;
+                      })
+                | ({ __typename?: "FormalInstructionActivity" } & Pick<
+                      FormalInstructionActivity,
+                      | "moduleId"
+                      | "blockId"
+                      | "offeringTypeId"
+                      | "qualificationId"
+                      | "baseContactHours"
+                      | "coordinationHours"
+                      | "studentSupportHours"
+                      | "preparationTimeHours"
+                      | "assessmentSettingHours"
+                      | "examMarkingHours"
+                      | "courseworkMarkingHours"
+                      | "feedbackHours"
+                      | "formativeAssessmentHours"
+                      | "moderationHours"
+                      | "otherHours"
+                      | "totalHours"
+                      | "teachingPercentage"
+                  > & {
+                          module: Maybe<
+                              { __typename?: "Module" } & Pick<
+                                  Module,
+                                  | "moduleId"
+                                  | "name"
+                                  | "type"
+                                  | "assessmentMethod"
+                                  | "nqfLevel"
+                                  | "credits"
+                                  | "qualificationId"
+                                  | "offeringTypeId"
+                                  | "disciplineId"
+                                  | "venueId"
+                                  | "blockId"
+                                  | "coordinatorId"
+                                  | "moderatorId"
+                                  | "studyPeriod"
+                                  | "groupSize"
+                                  | "lecturedBy"
+                                  | "moderation"
+                              > & {
+                                      qualification: Maybe<
+                                          {
+                                              __typename?: "Qualification";
+                                          } & Pick<
+                                              Qualification,
+                                              "qualificationId" | "name"
+                                          >
+                                      >;
+                                      offeringType: Maybe<
+                                          {
+                                              __typename?: "OfferingType";
+                                          } & Pick<
+                                              OfferingType,
+                                              "offeringTypeId" | "description"
+                                          >
+                                      >;
+                                      discipline: Maybe<
+                                          { __typename?: "Discipline" } & Pick<
+                                              Discipline,
+                                              "disciplineId" | "name"
+                                          >
+                                      >;
+                                      venue: Maybe<
+                                          { __typename?: "Venue" } & Pick<
+                                              Venue,
+                                              "venueId" | "campus" | "capacity"
+                                          >
+                                      >;
+                                      block: Maybe<
+                                          { __typename?: "Block" } & Pick<
+                                              Block,
+                                              "blockId" | "name"
+                                          >
+                                      >;
+                                      coordinator: Maybe<
+                                          { __typename?: "User" } & Pick<
+                                              User,
+                                              | "userId"
+                                              | "firstName"
+                                              | "lastName"
+                                          > & {
+                                                  discipline: Maybe<
+                                                      {
+                                                          __typename?: "Discipline";
+                                                      } & Pick<
+                                                          Discipline,
+                                                          | "disciplineId"
+                                                          | "name"
+                                                      >
+                                                  >;
+                                                  position: Maybe<
+                                                      {
+                                                          __typename?: "Position";
+                                                      } & Pick<
+                                                          Position,
+                                                          "positionId" | "name"
+                                                      >
+                                                  >;
+                                              }
+                                      >;
+                                      moderator: Maybe<
+                                          { __typename?: "User" } & Pick<
+                                              User,
+                                              | "userId"
+                                              | "firstName"
+                                              | "lastName"
+                                          > & {
+                                                  discipline: Maybe<
+                                                      {
+                                                          __typename?: "Discipline";
+                                                      } & Pick<
+                                                          Discipline,
+                                                          | "disciplineId"
+                                                          | "name"
+                                                      >
+                                                  >;
+                                                  position: Maybe<
+                                                      {
+                                                          __typename?: "Position";
+                                                      } & Pick<
+                                                          Position,
+                                                          "positionId" | "name"
+                                                      >
+                                                  >;
+                                              }
+                                      >;
+                                  }
+                          >;
+                          block: Maybe<
+                              { __typename?: "Block" } & Pick<
+                                  Block,
+                                  "blockId" | "name"
+                              >
+                          >;
+                          offeringType: Maybe<
+                              { __typename?: "OfferingType" } & Pick<
+                                  OfferingType,
+                                  "offeringTypeId" | "description"
+                              >
+                          >;
+                          qualification: Maybe<
+                              { __typename?: "Qualification" } & Pick<
+                                  Qualification,
+                                  "qualificationId" | "name"
+                              >
+                          >;
+                      })
+                | ({ __typename?: "ResearchActivity" } & Pick<
+                      ResearchActivity,
+                      "researchType" | "researchTitle" | "researchDetails"
+                  >)
+                | ({ __typename?: "SupervisionActivity" } & Pick<
+                      SupervisionActivity,
+                      "supervisionRole" | "studentId"
+                  > & {
+                          student: Maybe<
+                              { __typename?: "Student" } & Pick<
+                                  Student,
+                                  | "studentId"
+                                  | "firstName"
+                                  | "lastName"
+                                  | "title"
+                                  | "year"
+                              >
+                          >;
+                      }))
+    >;
+};
+
+export type AddFormalInstructionActivityMutationVariables = {
+    formalInstructionActivity?: Maybe<FormalInstructionActivityInput>;
+};
+
+export type AddFormalInstructionActivityMutation = {
+    __typename?: "Mutation";
+} & {
+    addFormalInstructionActivity: Maybe<
+        { __typename?: "FormalInstructionActivity" } & Pick<
+            FormalInstructionActivity,
+            | "activityId"
+            | "dutyId"
+            | "userId"
+            | "moduleId"
+            | "blockId"
+            | "offeringTypeId"
+            | "qualificationId"
+            | "baseContactHours"
+            | "coordinationHours"
+            | "studentSupportHours"
+            | "preparationTimeHours"
+            | "assessmentSettingHours"
+            | "examMarkingHours"
+            | "courseworkMarkingHours"
+            | "feedbackHours"
+            | "formativeAssessmentHours"
+            | "moderationHours"
+            | "otherHours"
+            | "totalHours"
+            | "teachingPercentage"
+            | "createdAt"
+            | "updatedAt"
+        > & {
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "firstName" | "lastName"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name"
+                                >
+                            >;
+                        }
+                >;
+                module: Maybe<
+                    { __typename?: "Module" } & Pick<
+                        Module,
+                        | "moduleId"
+                        | "name"
+                        | "type"
+                        | "assessmentMethod"
+                        | "nqfLevel"
+                        | "credits"
+                        | "qualificationId"
+                        | "offeringTypeId"
+                        | "disciplineId"
+                        | "venueId"
+                        | "blockId"
+                        | "coordinatorId"
+                        | "moderatorId"
+                        | "studyPeriod"
+                        | "groupSize"
+                        | "lecturedBy"
+                        | "moderation"
+                    > & {
+                            qualification: Maybe<
+                                { __typename?: "Qualification" } & Pick<
+                                    Qualification,
+                                    "qualificationId" | "name"
+                                >
+                            >;
+                            offeringType: Maybe<
+                                { __typename?: "OfferingType" } & Pick<
+                                    OfferingType,
+                                    "offeringTypeId" | "description"
+                                >
+                            >;
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name"
+                                >
+                            >;
+                            venue: Maybe<
+                                { __typename?: "Venue" } & Pick<
+                                    Venue,
+                                    "venueId" | "campus" | "capacity"
+                                >
+                            >;
+                            block: Maybe<
+                                { __typename?: "Block" } & Pick<
+                                    Block,
+                                    "blockId" | "name"
+                                >
+                            >;
+                            coordinator: Maybe<
+                                { __typename?: "User" } & Pick<
+                                    User,
+                                    "userId" | "firstName" | "lastName"
+                                > & {
+                                        discipline: Maybe<
+                                            {
+                                                __typename?: "Discipline";
+                                            } & Pick<
+                                                Discipline,
+                                                "disciplineId" | "name"
+                                            >
+                                        >;
+                                        position: Maybe<
+                                            { __typename?: "Position" } & Pick<
+                                                Position,
+                                                "positionId" | "name"
+                                            >
+                                        >;
+                                    }
+                            >;
+                            moderator: Maybe<
+                                { __typename?: "User" } & Pick<
+                                    User,
+                                    "userId" | "firstName" | "lastName"
+                                > & {
+                                        discipline: Maybe<
+                                            {
+                                                __typename?: "Discipline";
+                                            } & Pick<
+                                                Discipline,
+                                                "disciplineId" | "name"
+                                            >
+                                        >;
+                                        position: Maybe<
+                                            { __typename?: "Position" } & Pick<
+                                                Position,
+                                                "positionId" | "name"
+                                            >
+                                        >;
+                                    }
+                            >;
+                        }
+                >;
+                block: Maybe<
+                    { __typename?: "Block" } & Pick<Block, "blockId" | "name">
+                >;
+                offeringType: Maybe<
+                    { __typename?: "OfferingType" } & Pick<
+                        OfferingType,
+                        "offeringTypeId" | "description"
+                    >
+                >;
+                qualification: Maybe<
+                    { __typename?: "Qualification" } & Pick<
+                        Qualification,
+                        "qualificationId" | "name"
+                    >
+                >;
+            }
+    >;
+};
+
+export type FormalInstructionActivitiesByUserQueryVariables = {
+    userId: Scalars["String"];
+};
+
+export type FormalInstructionActivitiesByUserQuery = {
+    __typename?: "Query";
+} & {
+    formalInstructionActivitiesByUser: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "FormalInstructionActivity" } & Pick<
+                    FormalInstructionActivity,
+                    | "activityId"
+                    | "dutyId"
+                    | "userId"
+                    | "moduleId"
+                    | "blockId"
+                    | "offeringTypeId"
+                    | "qualificationId"
+                    | "baseContactHours"
+                    | "coordinationHours"
+                    | "studentSupportHours"
+                    | "preparationTimeHours"
+                    | "assessmentSettingHours"
+                    | "examMarkingHours"
+                    | "courseworkMarkingHours"
+                    | "feedbackHours"
+                    | "formativeAssessmentHours"
+                    | "moderationHours"
+                    | "otherHours"
+                    | "totalHours"
+                    | "teachingPercentage"
+                    | "createdAt"
+                    | "updatedAt"
+                > & {
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "firstName" | "lastName"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            "disciplineId" | "name"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            "positionId" | "name"
+                                        >
+                                    >;
+                                }
+                        >;
+                        module: Maybe<
+                            { __typename?: "Module" } & Pick<
+                                Module,
+                                | "moduleId"
+                                | "name"
+                                | "type"
+                                | "assessmentMethod"
+                                | "nqfLevel"
+                                | "credits"
+                                | "qualificationId"
+                                | "offeringTypeId"
+                                | "disciplineId"
+                                | "venueId"
+                                | "blockId"
+                                | "coordinatorId"
+                                | "moderatorId"
+                                | "studyPeriod"
+                                | "groupSize"
+                                | "lecturedBy"
+                                | "moderation"
+                            > & {
+                                    qualification: Maybe<
+                                        { __typename?: "Qualification" } & Pick<
+                                            Qualification,
+                                            "qualificationId" | "name"
+                                        >
+                                    >;
+                                    offeringType: Maybe<
+                                        { __typename?: "OfferingType" } & Pick<
+                                            OfferingType,
+                                            "offeringTypeId" | "description"
+                                        >
+                                    >;
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            "disciplineId" | "name"
+                                        >
+                                    >;
+                                    venue: Maybe<
+                                        { __typename?: "Venue" } & Pick<
+                                            Venue,
+                                            "venueId" | "campus" | "capacity"
+                                        >
+                                    >;
+                                    block: Maybe<
+                                        { __typename?: "Block" } & Pick<
+                                            Block,
+                                            "blockId" | "name"
+                                        >
+                                    >;
+                                    coordinator: Maybe<
+                                        { __typename?: "User" } & Pick<
+                                            User,
+                                            "userId" | "firstName" | "lastName"
+                                        > & {
+                                                discipline: Maybe<
+                                                    {
+                                                        __typename?: "Discipline";
+                                                    } & Pick<
+                                                        Discipline,
+                                                        "disciplineId" | "name"
+                                                    >
+                                                >;
+                                                position: Maybe<
+                                                    {
+                                                        __typename?: "Position";
+                                                    } & Pick<
+                                                        Position,
+                                                        "positionId" | "name"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                    moderator: Maybe<
+                                        { __typename?: "User" } & Pick<
+                                            User,
+                                            "userId" | "firstName" | "lastName"
+                                        > & {
+                                                discipline: Maybe<
+                                                    {
+                                                        __typename?: "Discipline";
+                                                    } & Pick<
+                                                        Discipline,
+                                                        "disciplineId" | "name"
+                                                    >
+                                                >;
+                                                position: Maybe<
+                                                    {
+                                                        __typename?: "Position";
+                                                    } & Pick<
+                                                        Position,
+                                                        "positionId" | "name"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                }
+                        >;
+                        block: Maybe<
+                            { __typename?: "Block" } & Pick<
+                                Block,
+                                "blockId" | "name"
+                            >
+                        >;
+                        offeringType: Maybe<
+                            { __typename?: "OfferingType" } & Pick<
+                                OfferingType,
+                                "offeringTypeId" | "description"
+                            >
+                        >;
+                        qualification: Maybe<
+                            { __typename?: "Qualification" } & Pick<
+                                Qualification,
+                                "qualificationId" | "name"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
+export type FormalInstructionActivitiesQueryVariables = {};
+
+export type FormalInstructionActivitiesQuery = { __typename?: "Query" } & {
+    formalInstructionActivities: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "FormalInstructionActivity" } & Pick<
+                    FormalInstructionActivity,
+                    | "activityId"
+                    | "dutyId"
+                    | "userId"
+                    | "moduleId"
+                    | "blockId"
+                    | "offeringTypeId"
+                    | "qualificationId"
+                    | "baseContactHours"
+                    | "coordinationHours"
+                    | "studentSupportHours"
+                    | "preparationTimeHours"
+                    | "assessmentSettingHours"
+                    | "examMarkingHours"
+                    | "courseworkMarkingHours"
+                    | "feedbackHours"
+                    | "formativeAssessmentHours"
+                    | "moderationHours"
+                    | "otherHours"
+                    | "totalHours"
+                    | "teachingPercentage"
+                    | "createdAt"
+                    | "updatedAt"
+                > & {
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "firstName" | "lastName"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            "disciplineId" | "name"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            "positionId" | "name"
+                                        >
+                                    >;
+                                }
+                        >;
+                        module: Maybe<
+                            { __typename?: "Module" } & Pick<
+                                Module,
+                                | "moduleId"
+                                | "name"
+                                | "type"
+                                | "assessmentMethod"
+                                | "nqfLevel"
+                                | "credits"
+                                | "qualificationId"
+                                | "offeringTypeId"
+                                | "disciplineId"
+                                | "venueId"
+                                | "blockId"
+                                | "coordinatorId"
+                                | "moderatorId"
+                                | "studyPeriod"
+                                | "groupSize"
+                                | "lecturedBy"
+                                | "moderation"
+                            > & {
+                                    qualification: Maybe<
+                                        { __typename?: "Qualification" } & Pick<
+                                            Qualification,
+                                            "qualificationId" | "name"
+                                        >
+                                    >;
+                                    offeringType: Maybe<
+                                        { __typename?: "OfferingType" } & Pick<
+                                            OfferingType,
+                                            "offeringTypeId" | "description"
+                                        >
+                                    >;
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            "disciplineId" | "name"
+                                        >
+                                    >;
+                                    venue: Maybe<
+                                        { __typename?: "Venue" } & Pick<
+                                            Venue,
+                                            "venueId" | "campus" | "capacity"
+                                        >
+                                    >;
+                                    block: Maybe<
+                                        { __typename?: "Block" } & Pick<
+                                            Block,
+                                            "blockId" | "name"
+                                        >
+                                    >;
+                                    coordinator: Maybe<
+                                        { __typename?: "User" } & Pick<
+                                            User,
+                                            "userId" | "firstName" | "lastName"
+                                        > & {
+                                                discipline: Maybe<
+                                                    {
+                                                        __typename?: "Discipline";
+                                                    } & Pick<
+                                                        Discipline,
+                                                        "disciplineId" | "name"
+                                                    >
+                                                >;
+                                                position: Maybe<
+                                                    {
+                                                        __typename?: "Position";
+                                                    } & Pick<
+                                                        Position,
+                                                        "positionId" | "name"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                    moderator: Maybe<
+                                        { __typename?: "User" } & Pick<
+                                            User,
+                                            "userId" | "firstName" | "lastName"
+                                        > & {
+                                                discipline: Maybe<
+                                                    {
+                                                        __typename?: "Discipline";
+                                                    } & Pick<
+                                                        Discipline,
+                                                        "disciplineId" | "name"
+                                                    >
+                                                >;
+                                                position: Maybe<
+                                                    {
+                                                        __typename?: "Position";
+                                                    } & Pick<
+                                                        Position,
+                                                        "positionId" | "name"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                }
+                        >;
+                        block: Maybe<
+                            { __typename?: "Block" } & Pick<
+                                Block,
+                                "blockId" | "name"
+                            >
+                        >;
+                        offeringType: Maybe<
+                            { __typename?: "OfferingType" } & Pick<
+                                OfferingType,
+                                "offeringTypeId" | "description"
+                            >
+                        >;
+                        qualification: Maybe<
+                            { __typename?: "Qualification" } & Pick<
+                                Qualification,
+                                "qualificationId" | "name"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
+export type FormalInstructionActivityQueryVariables = {
+    activityId: Scalars["String"];
+};
+
+export type FormalInstructionActivityQuery = { __typename?: "Query" } & {
+    formalInstructionActivity: Maybe<
+        { __typename?: "FormalInstructionActivity" } & Pick<
+            FormalInstructionActivity,
+            | "activityId"
+            | "dutyId"
+            | "userId"
+            | "moduleId"
+            | "blockId"
+            | "offeringTypeId"
+            | "qualificationId"
+            | "baseContactHours"
+            | "coordinationHours"
+            | "studentSupportHours"
+            | "preparationTimeHours"
+            | "assessmentSettingHours"
+            | "examMarkingHours"
+            | "courseworkMarkingHours"
+            | "feedbackHours"
+            | "formativeAssessmentHours"
+            | "moderationHours"
+            | "otherHours"
+            | "totalHours"
+            | "teachingPercentage"
+            | "createdAt"
+            | "updatedAt"
+        > & {
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "firstName" | "lastName"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name"
+                                >
+                            >;
+                        }
+                >;
+                module: Maybe<
+                    { __typename?: "Module" } & Pick<
+                        Module,
+                        | "moduleId"
+                        | "name"
+                        | "type"
+                        | "assessmentMethod"
+                        | "nqfLevel"
+                        | "credits"
+                        | "qualificationId"
+                        | "offeringTypeId"
+                        | "disciplineId"
+                        | "venueId"
+                        | "blockId"
+                        | "coordinatorId"
+                        | "moderatorId"
+                        | "studyPeriod"
+                        | "groupSize"
+                        | "lecturedBy"
+                        | "moderation"
+                    > & {
+                            qualification: Maybe<
+                                { __typename?: "Qualification" } & Pick<
+                                    Qualification,
+                                    "qualificationId" | "name"
+                                >
+                            >;
+                            offeringType: Maybe<
+                                { __typename?: "OfferingType" } & Pick<
+                                    OfferingType,
+                                    "offeringTypeId" | "description"
+                                >
+                            >;
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name"
+                                >
+                            >;
+                            venue: Maybe<
+                                { __typename?: "Venue" } & Pick<
+                                    Venue,
+                                    "venueId" | "campus" | "capacity"
+                                >
+                            >;
+                            block: Maybe<
+                                { __typename?: "Block" } & Pick<
+                                    Block,
+                                    "blockId" | "name"
+                                >
+                            >;
+                            coordinator: Maybe<
+                                { __typename?: "User" } & Pick<
+                                    User,
+                                    "userId" | "firstName" | "lastName"
+                                > & {
+                                        discipline: Maybe<
+                                            {
+                                                __typename?: "Discipline";
+                                            } & Pick<
+                                                Discipline,
+                                                "disciplineId" | "name"
+                                            >
+                                        >;
+                                        position: Maybe<
+                                            { __typename?: "Position" } & Pick<
+                                                Position,
+                                                "positionId" | "name"
+                                            >
+                                        >;
+                                    }
+                            >;
+                            moderator: Maybe<
+                                { __typename?: "User" } & Pick<
+                                    User,
+                                    "userId" | "firstName" | "lastName"
+                                > & {
+                                        discipline: Maybe<
+                                            {
+                                                __typename?: "Discipline";
+                                            } & Pick<
+                                                Discipline,
+                                                "disciplineId" | "name"
+                                            >
+                                        >;
+                                        position: Maybe<
+                                            { __typename?: "Position" } & Pick<
+                                                Position,
+                                                "positionId" | "name"
+                                            >
+                                        >;
+                                    }
+                            >;
+                        }
+                >;
+                block: Maybe<
+                    { __typename?: "Block" } & Pick<Block, "blockId" | "name">
+                >;
+                offeringType: Maybe<
+                    { __typename?: "OfferingType" } & Pick<
+                        OfferingType,
+                        "offeringTypeId" | "description"
+                    >
+                >;
+                qualification: Maybe<
+                    { __typename?: "Qualification" } & Pick<
+                        Qualification,
+                        "qualificationId" | "name"
+                    >
+                >;
+            }
+    >;
+};
+
+export type ResearchActivitiesByUserQueryVariables = {
+    userId: Scalars["String"];
+};
+
+export type ResearchActivitiesByUserQuery = { __typename?: "Query" } & {
+    researchActivitiesByUser: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "ResearchActivity" } & Pick<
+                    ResearchActivity,
+                    | "activityId"
+                    | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "researchType"
+                    | "researchTitle"
+                    | "researchDetails"
+                > & {
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "email" | "firstName" | "lastName"
+                            >
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
+export type UnapprovedActivitiesQueryVariables = {};
+
+export type UnapprovedActivitiesQuery = { __typename?: "Query" } & {
+    unapprovedActivities: Maybe<
         Array<
             Maybe<
                 Pick<
@@ -1086,7 +1965,7 @@ export type ActivitiesQuery = { __typename?: "Query" } & {
                 } & (
                         | ({ __typename?: "CommInstructionActivity" } & Pick<
                               CommInstructionActivity,
-                              "commInstructionDescription" | "evidenceId"
+                              "title" | "description" | "evidenceId"
                           > & {
                                   evidence: Maybe<
                                       { __typename?: "Evidence" } & Pick<
@@ -1097,7 +1976,7 @@ export type ActivitiesQuery = { __typename?: "Query" } & {
                               })
                         | ({ __typename?: "PublicServiceActivity" } & Pick<
                               PublicServiceActivity,
-                              "publicServiceDescription" | "evidenceId"
+                              "title" | "description" | "evidenceId"
                           > & {
                                   evidence: Maybe<
                                       { __typename?: "Evidence" } & Pick<
@@ -1108,8 +1987,55 @@ export type ActivitiesQuery = { __typename?: "Query" } & {
                               })
                         | ({ __typename?: "FormalInstructionActivity" } & Pick<
                               FormalInstructionActivity,
-                              "moduleId"
+                              | "activityId"
+                              | "dutyId"
+                              | "userId"
+                              | "moduleId"
+                              | "blockId"
+                              | "offeringTypeId"
+                              | "qualificationId"
+                              | "baseContactHours"
+                              | "coordinationHours"
+                              | "studentSupportHours"
+                              | "preparationTimeHours"
+                              | "assessmentSettingHours"
+                              | "examMarkingHours"
+                              | "courseworkMarkingHours"
+                              | "feedbackHours"
+                              | "formativeAssessmentHours"
+                              | "moderationHours"
+                              | "otherHours"
+                              | "totalHours"
                           > & {
+                                  duty: Maybe<
+                                      { __typename?: "Duty" } & Pick<
+                                          Duty,
+                                          "dutyId" | "name" | "description"
+                                      >
+                                  >;
+                                  user: Maybe<
+                                      { __typename?: "User" } & Pick<
+                                          User,
+                                          "userId" | "firstName" | "lastName"
+                                      > & {
+                                              discipline: Maybe<
+                                                  {
+                                                      __typename?: "Discipline";
+                                                  } & Pick<
+                                                      Discipline,
+                                                      "disciplineId" | "name"
+                                                  >
+                                              >;
+                                              position: Maybe<
+                                                  {
+                                                      __typename?: "Position";
+                                                  } & Pick<
+                                                      Position,
+                                                      "positionId" | "name"
+                                                  >
+                                              >;
+                                          }
+                                  >;
                                   module: Maybe<
                                       { __typename?: "Module" } & Pick<
                                           Module,
@@ -1118,8 +2044,18 @@ export type ActivitiesQuery = { __typename?: "Query" } & {
                                           | "type"
                                           | "assessmentMethod"
                                           | "nqfLevel"
+                                          | "credits"
+                                          | "qualificationId"
+                                          | "offeringTypeId"
+                                          | "disciplineId"
+                                          | "venueId"
+                                          | "blockId"
+                                          | "coordinatorId"
+                                          | "moderatorId"
                                           | "studyPeriod"
-                                          | "stackId"
+                                          | "groupSize"
+                                          | "lecturedBy"
+                                          | "moderation"
                                       > & {
                                               qualification: Maybe<
                                                   {
@@ -1164,7 +2100,7 @@ export type ActivitiesQuery = { __typename?: "Query" } & {
                                                       "blockId" | "name"
                                                   >
                                               >;
-                                              user: Maybe<
+                                              coordinator: Maybe<
                                                   {
                                                       __typename?: "User";
                                                   } & Pick<
@@ -1172,15 +2108,82 @@ export type ActivitiesQuery = { __typename?: "Query" } & {
                                                       | "userId"
                                                       | "firstName"
                                                       | "lastName"
-                                                      | "email"
-                                                  >
+                                                  > & {
+                                                          discipline: Maybe<
+                                                              {
+                                                                  __typename?: "Discipline";
+                                                              } & Pick<
+                                                                  Discipline,
+                                                                  | "disciplineId"
+                                                                  | "name"
+                                                              >
+                                                          >;
+                                                          position: Maybe<
+                                                              {
+                                                                  __typename?: "Position";
+                                                              } & Pick<
+                                                                  Position,
+                                                                  | "positionId"
+                                                                  | "name"
+                                                              >
+                                                          >;
+                                                      }
+                                              >;
+                                              moderator: Maybe<
+                                                  {
+                                                      __typename?: "User";
+                                                  } & Pick<
+                                                      User,
+                                                      | "userId"
+                                                      | "firstName"
+                                                      | "lastName"
+                                                  > & {
+                                                          discipline: Maybe<
+                                                              {
+                                                                  __typename?: "Discipline";
+                                                              } & Pick<
+                                                                  Discipline,
+                                                                  | "disciplineId"
+                                                                  | "name"
+                                                              >
+                                                          >;
+                                                          position: Maybe<
+                                                              {
+                                                                  __typename?: "Position";
+                                                              } & Pick<
+                                                                  Position,
+                                                                  | "positionId"
+                                                                  | "name"
+                                                              >
+                                                          >;
+                                                      }
                                               >;
                                           }
+                                  >;
+                                  block: Maybe<
+                                      { __typename?: "Block" } & Pick<
+                                          Block,
+                                          "blockId" | "name"
+                                      >
+                                  >;
+                                  offeringType: Maybe<
+                                      { __typename?: "OfferingType" } & Pick<
+                                          OfferingType,
+                                          "offeringTypeId" | "description"
+                                      >
+                                  >;
+                                  qualification: Maybe<
+                                      { __typename?: "Qualification" } & Pick<
+                                          Qualification,
+                                          "qualificationId" | "name"
+                                      >
                                   >;
                               })
                         | ({ __typename?: "ResearchActivity" } & Pick<
                               ResearchActivity,
-                              "researchType" | "researchUrl"
+                              | "researchType"
+                              | "researchTitle"
+                              | "researchDetails"
                           >)
                         | ({ __typename?: "SupervisionActivity" } & Pick<
                               SupervisionActivity,
@@ -1202,424 +2205,8 @@ export type ActivitiesQuery = { __typename?: "Query" } & {
     >;
 };
 
-export type ActivityQueryVariables = {
-    activityId: Scalars["String"];
-};
-
-export type ActivityQuery = { __typename?: "Query" } & {
-    activity: Maybe<
-        Pick<
-            Activity,
-            "activityId" | "userId" | "dutyId" | "approvalStatus"
-        > & {
-            user: Maybe<
-                { __typename?: "User" } & Pick<
-                    User,
-                    "userId" | "email" | "firstName" | "lastName"
-                >
-            >;
-            duty: Maybe<
-                { __typename?: "Duty" } & Pick<
-                    Duty,
-                    "dutyId" | "name" | "description"
-                >
-            >;
-        } & (
-                | ({ __typename?: "CommInstructionActivity" } & Pick<
-                      CommInstructionActivity,
-                      "commInstructionDescription" | "evidenceId"
-                  > & {
-                          evidence: Maybe<
-                              { __typename?: "Evidence" } & Pick<
-                                  Evidence,
-                                  "evidenceId" | "name" | "item"
-                              >
-                          >;
-                      })
-                | ({ __typename?: "PublicServiceActivity" } & Pick<
-                      PublicServiceActivity,
-                      "publicServiceDescription" | "evidenceId"
-                  > & {
-                          evidence: Maybe<
-                              { __typename?: "Evidence" } & Pick<
-                                  Evidence,
-                                  "evidenceId" | "name" | "item"
-                              >
-                          >;
-                      })
-                | ({ __typename?: "FormalInstructionActivity" } & Pick<
-                      FormalInstructionActivity,
-                      "moduleId"
-                  > & {
-                          module: Maybe<
-                              { __typename?: "Module" } & Pick<
-                                  Module,
-                                  | "moduleId"
-                                  | "name"
-                                  | "type"
-                                  | "assessmentMethod"
-                                  | "nqfLevel"
-                                  | "stackId"
-                              > & {
-                                      qualification: Maybe<
-                                          {
-                                              __typename?: "Qualification";
-                                          } & Pick<
-                                              Qualification,
-                                              "qualificationId" | "name"
-                                          >
-                                      >;
-                                      offeringType: Maybe<
-                                          {
-                                              __typename?: "OfferingType";
-                                          } & Pick<
-                                              OfferingType,
-                                              "offeringTypeId" | "description"
-                                          >
-                                      >;
-                                      discipline: Maybe<
-                                          { __typename?: "Discipline" } & Pick<
-                                              Discipline,
-                                              "disciplineId" | "name"
-                                          >
-                                      >;
-                                      venue: Maybe<
-                                          { __typename?: "Venue" } & Pick<
-                                              Venue,
-                                              "venueId" | "campus" | "capacity"
-                                          >
-                                      >;
-                                      block: Maybe<
-                                          { __typename?: "Block" } & Pick<
-                                              Block,
-                                              "blockId" | "name"
-                                          >
-                                      >;
-                                      user: Maybe<
-                                          { __typename?: "User" } & Pick<
-                                              User,
-                                              | "userId"
-                                              | "firstName"
-                                              | "lastName"
-                                              | "email"
-                                          >
-                                      >;
-                                  }
-                          >;
-                      })
-                | ({ __typename?: "ResearchActivity" } & Pick<
-                      ResearchActivity,
-                      "researchType" | "researchUrl"
-                  >)
-                | ({ __typename?: "SupervisionActivity" } & Pick<
-                      SupervisionActivity,
-                      "supervisionRole" | "studentId"
-                  > & {
-                          student: Maybe<
-                              { __typename?: "Student" } & Pick<
-                                  Student,
-                                  | "studentId"
-                                  | "firstName"
-                                  | "lastName"
-                                  | "title"
-                                  | "year"
-                              >
-                          >;
-                      }))
-    >;
-};
-
-export type AddFormalInstructionActivityMutationVariables = {
-    userId: Scalars["String"];
-    coordinatorId?: Maybe<Scalars["String"]>;
-    moderatorId?: Maybe<Scalars["String"]>;
-    dutyId: Scalars["String"];
-    moduleId: Scalars["String"];
-    workload?: Maybe<Scalars["Int"]>;
-};
-
-export type AddFormalInstructionActivityMutation = {
-    __typename?: "Mutation";
-} & {
-    addFormalInstructionActivity: Maybe<
-        { __typename?: "FormalInstructionActivity" } & Pick<
-            FormalInstructionActivity,
-            | "activityId"
-            | "dutyId"
-            | "userId"
-            | "coordinatorId"
-            | "moderatorId"
-            | "moduleId"
-            | "workload"
-            | "createdAt"
-            | "updatedAt"
-        > & {
-                duty: Maybe<
-                    { __typename?: "Duty" } & Pick<
-                        Duty,
-                        "dutyId" | "name" | "description"
-                    >
-                >;
-                user: Maybe<
-                    { __typename?: "User" } & Pick<
-                        User,
-                        "userId" | "firstName" | "lastName"
-                    >
-                >;
-                coordinator: Maybe<
-                    { __typename?: "User" } & Pick<
-                        User,
-                        "userId" | "firstName" | "lastName"
-                    >
-                >;
-                moderator: Maybe<
-                    { __typename?: "User" } & Pick<
-                        User,
-                        "userId" | "firstName" | "lastName"
-                    >
-                >;
-                module: Maybe<
-                    { __typename?: "Module" } & Pick<
-                        Module,
-                        "moduleId" | "name" | "credits"
-                    > & {
-                            qualification: Maybe<
-                                { __typename?: "Qualification" } & Pick<
-                                    Qualification,
-                                    "qualificationId" | "name"
-                                >
-                            >;
-                        }
-                >;
-            }
-    >;
-};
-
-export type FormalInstructionActivitiesByUserQueryVariables = {
-    userId: Scalars["String"];
-};
-
-export type FormalInstructionActivitiesByUserQuery = {
-    __typename?: "Query";
-} & {
-    formalInstructionActivitiesByUser: Maybe<
-        Array<
-            Maybe<
-                { __typename?: "FormalInstructionActivity" } & Pick<
-                    FormalInstructionActivity,
-                    | "activityId"
-                    | "dutyId"
-                    | "userId"
-                    | "coordinatorId"
-                    | "moderatorId"
-                    | "moduleId"
-                    | "workload"
-                    | "createdAt"
-                    | "updatedAt"
-                > & {
-                        duty: Maybe<
-                            { __typename?: "Duty" } & Pick<
-                                Duty,
-                                "dutyId" | "name" | "description"
-                            >
-                        >;
-                        user: Maybe<
-                            { __typename?: "User" } & Pick<
-                                User,
-                                "userId" | "firstName" | "lastName"
-                            >
-                        >;
-                        coordinator: Maybe<
-                            { __typename?: "User" } & Pick<
-                                User,
-                                "userId" | "firstName" | "lastName"
-                            >
-                        >;
-                        moderator: Maybe<
-                            { __typename?: "User" } & Pick<
-                                User,
-                                "userId" | "firstName" | "lastName"
-                            >
-                        >;
-                        module: Maybe<
-                            { __typename?: "Module" } & Pick<
-                                Module,
-                                "moduleId" | "name" | "credits"
-                            > & {
-                                    qualification: Maybe<
-                                        { __typename?: "Qualification" } & Pick<
-                                            Qualification,
-                                            "qualificationId" | "name"
-                                        >
-                                    >;
-                                }
-                        >;
-                    }
-            >
-        >
-    >;
-};
-
-export type FormalInstructionActivitiesQueryVariables = {};
-
-export type FormalInstructionActivitiesQuery = { __typename?: "Query" } & {
-    formalInstructionActivities: Maybe<
-        Array<
-            Maybe<
-                { __typename?: "FormalInstructionActivity" } & Pick<
-                    FormalInstructionActivity,
-                    | "activityId"
-                    | "dutyId"
-                    | "userId"
-                    | "coordinatorId"
-                    | "moderatorId"
-                    | "moduleId"
-                    | "workload"
-                    | "createdAt"
-                    | "updatedAt"
-                > & {
-                        duty: Maybe<
-                            { __typename?: "Duty" } & Pick<
-                                Duty,
-                                "dutyId" | "name" | "description"
-                            >
-                        >;
-                        user: Maybe<
-                            { __typename?: "User" } & Pick<
-                                User,
-                                "userId" | "firstName" | "lastName"
-                            >
-                        >;
-                        coordinator: Maybe<
-                            { __typename?: "User" } & Pick<
-                                User,
-                                "userId" | "firstName" | "lastName"
-                            >
-                        >;
-                        moderator: Maybe<
-                            { __typename?: "User" } & Pick<
-                                User,
-                                "userId" | "firstName" | "lastName"
-                            >
-                        >;
-                        module: Maybe<
-                            { __typename?: "Module" } & Pick<
-                                Module,
-                                "moduleId" | "name" | "credits"
-                            > & {
-                                    qualification: Maybe<
-                                        { __typename?: "Qualification" } & Pick<
-                                            Qualification,
-                                            "qualificationId" | "name"
-                                        >
-                                    >;
-                                }
-                        >;
-                    }
-            >
-        >
-    >;
-};
-
-export type FormalInstructionActivityQueryVariables = {
-    activityId: Scalars["String"];
-};
-
-export type FormalInstructionActivityQuery = { __typename?: "Query" } & {
-    formalInstructionActivity: Maybe<
-        { __typename?: "FormalInstructionActivity" } & Pick<
-            FormalInstructionActivity,
-            | "activityId"
-            | "dutyId"
-            | "userId"
-            | "coordinatorId"
-            | "moderatorId"
-            | "moduleId"
-            | "workload"
-            | "createdAt"
-            | "updatedAt"
-        > & {
-                duty: Maybe<
-                    { __typename?: "Duty" } & Pick<
-                        Duty,
-                        "dutyId" | "name" | "description"
-                    >
-                >;
-                user: Maybe<
-                    { __typename?: "User" } & Pick<
-                        User,
-                        "userId" | "firstName" | "lastName"
-                    >
-                >;
-                coordinator: Maybe<
-                    { __typename?: "User" } & Pick<
-                        User,
-                        "userId" | "firstName" | "lastName"
-                    >
-                >;
-                moderator: Maybe<
-                    { __typename?: "User" } & Pick<
-                        User,
-                        "userId" | "firstName" | "lastName"
-                    >
-                >;
-                module: Maybe<
-                    { __typename?: "Module" } & Pick<
-                        Module,
-                        "moduleId" | "name" | "credits"
-                    > & {
-                            qualification: Maybe<
-                                { __typename?: "Qualification" } & Pick<
-                                    Qualification,
-                                    "qualificationId" | "name"
-                                >
-                            >;
-                        }
-                >;
-            }
-    >;
-};
-
-export type ResearchActivitiesByUserQueryVariables = {
-    userId: Scalars["String"];
-};
-
-export type ResearchActivitiesByUserQuery = { __typename?: "Query" } & {
-    researchActivitiesByUser: Maybe<
-        Array<
-            Maybe<
-                { __typename?: "ResearchActivity" } & Pick<
-                    ResearchActivity,
-                    | "activityId"
-                    | "userId"
-                    | "dutyId"
-                    | "approvalStatus"
-                    | "researchType"
-                    | "researchUrl"
-                    | "workload"
-                > & {
-                        user: Maybe<
-                            { __typename?: "User" } & Pick<
-                                User,
-                                "userId" | "email" | "firstName" | "lastName"
-                            >
-                        >;
-                        duty: Maybe<
-                            { __typename?: "Duty" } & Pick<
-                                Duty,
-                                "dutyId" | "name" | "description"
-                            >
-                        >;
-                    }
-            >
-        >
-    >;
-};
-
 export type AddBlockMutationVariables = {
-    blockId: Scalars["String"];
-    name: Scalars["String"];
-    description: Scalars["String"];
+    block?: Maybe<BlockInput>;
 };
 
 export type AddBlockMutation = { __typename?: "Mutation" } & {
@@ -1660,9 +2247,7 @@ export type BlocksQuery = { __typename?: "Query" } & {
 };
 
 export type DeleteBlockMutationVariables = {
-    blockId?: Maybe<Scalars["String"]>;
-    name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    block?: Maybe<BlockInput>;
 };
 
 export type DeleteBlockMutation = { __typename?: "Mutation" } & {
@@ -1675,9 +2260,7 @@ export type DeleteBlockMutation = { __typename?: "Mutation" } & {
 };
 
 export type EditBlockMutationVariables = {
-    blockId?: Maybe<Scalars["String"]>;
-    name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    block?: Maybe<BlockInput>;
 };
 
 export type EditBlockMutation = { __typename?: "Mutation" } & {
@@ -1690,13 +2273,31 @@ export type EditBlockMutation = { __typename?: "Mutation" } & {
 };
 
 export type AddDepartmentMutationVariables = {
-    departmentId: Scalars["String"];
-    name: Scalars["String"];
-    facultyId: Scalars["String"];
+    department?: Maybe<DepartmentInput>;
 };
 
 export type AddDepartmentMutation = { __typename?: "Mutation" } & {
     addDepartment: Maybe<
+        { __typename?: "Department" } & Pick<
+            Department,
+            "departmentId" | "name" | "facultyId"
+        > & {
+                faculty: Maybe<
+                    { __typename?: "Faculty" } & Pick<
+                        Faculty,
+                        "facultyId" | "name"
+                    >
+                >;
+            }
+    >;
+};
+
+export type DeleteDepartmentMutationVariables = {
+    department?: Maybe<DepartmentInput>;
+};
+
+export type DeleteDepartmentMutation = { __typename?: "Mutation" } & {
+    deleteDepartment: Maybe<
         { __typename?: "Department" } & Pick<
             Department,
             "departmentId" | "name" | "facultyId"
@@ -1754,9 +2355,7 @@ export type DepartmentsQuery = { __typename?: "Query" } & {
 };
 
 export type EditDepartmentMutationVariables = {
-    departmentId: Scalars["String"];
-    name: Scalars["String"];
-    facultyId: Scalars["String"];
+    department?: Maybe<DepartmentInput>;
 };
 
 export type EditDepartmentMutation = { __typename?: "Mutation" } & {
@@ -1776,9 +2375,7 @@ export type EditDepartmentMutation = { __typename?: "Mutation" } & {
 };
 
 export type AddDisciplineMutationVariables = {
-    disciplineId: Scalars["String"];
-    name: Scalars["String"];
-    description: Scalars["String"];
+    discipline?: Maybe<DisciplineInput>;
 };
 
 export type AddDisciplineMutation = { __typename?: "Mutation" } & {
@@ -1791,9 +2388,7 @@ export type AddDisciplineMutation = { __typename?: "Mutation" } & {
 };
 
 export type DeleteDisciplineMutationVariables = {
-    disciplineId: Scalars["String"];
-    name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    discipline?: Maybe<DisciplineInput>;
 };
 
 export type DeleteDisciplineMutation = { __typename?: "Mutation" } & {
@@ -1834,9 +2429,7 @@ export type DisciplinesQuery = { __typename?: "Query" } & {
 };
 
 export type EditDisciplineMutationVariables = {
-    disciplineId: Scalars["String"];
-    name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    discipline?: Maybe<DisciplineInput>;
 };
 
 export type EditDisciplineMutation = { __typename?: "Mutation" } & {
@@ -1844,6 +2437,41 @@ export type EditDisciplineMutation = { __typename?: "Mutation" } & {
         { __typename?: "Discipline" } & Pick<
             Discipline,
             "disciplineId" | "name" | "description"
+        >
+    >;
+};
+
+export type AddDutyMutationVariables = {
+    duty?: Maybe<DutyInput>;
+};
+
+export type AddDutyMutation = { __typename?: "Mutation" } & {
+    addDuty: Maybe<
+        { __typename?: "Duty" } & Pick<Duty, "dutyId" | "name" | "description">
+    >;
+};
+
+export type DeleteDutyMutationVariables = {
+    duty?: Maybe<DutyInput>;
+};
+
+export type DeleteDutyMutation = { __typename?: "Mutation" } & {
+    deleteDuty: Maybe<
+        { __typename?: "Duty" } & Pick<Duty, "dutyId" | "name" | "description">
+    >;
+};
+
+export type DutiesQueryVariables = {};
+
+export type DutiesQuery = { __typename?: "Query" } & {
+    duties: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "Duty" } & Pick<
+                    Duty,
+                    "dutyId" | "name" | "description"
+                >
+            >
         >
     >;
 };
@@ -1858,12 +2486,18 @@ export type DutyQuery = { __typename?: "Query" } & {
     >;
 };
 
+export type EditDutyMutationVariables = {
+    duty?: Maybe<DutyInput>;
+};
+
+export type EditDutyMutation = { __typename?: "Mutation" } & {
+    editDuty: Maybe<
+        { __typename?: "Duty" } & Pick<Duty, "dutyId" | "name" | "description">
+    >;
+};
+
 export type AddEnrollmentMutationVariables = {
-    enrollmentYear?: Maybe<Scalars["String"]>;
-    qualificationId?: Maybe<Scalars["String"]>;
-    firstYearEstimated?: Maybe<Scalars["Int"]>;
-    secondYearEstimated?: Maybe<Scalars["Int"]>;
-    thirdYearEstimated?: Maybe<Scalars["Int"]>;
+    enrollment?: Maybe<EnrollmentInput>;
 };
 
 export type AddEnrollmentMutation = { __typename?: "Mutation" } & {
@@ -1887,12 +2521,32 @@ export type AddEnrollmentMutation = { __typename?: "Mutation" } & {
     >;
 };
 
+export type DeleteEnrollmentMutationVariables = {
+    enrollment?: Maybe<EnrollmentInput>;
+};
+
+export type DeleteEnrollmentMutation = { __typename?: "Mutation" } & {
+    deleteEnrollment: Maybe<
+        { __typename?: "Enrollment" } & Pick<
+            Enrollment,
+            | "enrollmentYear"
+            | "qualificationId"
+            | "firstYearEstimated"
+            | "secondYearEstimated"
+            | "thirdYearEstimated"
+        > & {
+                qualification: Maybe<
+                    { __typename?: "Qualification" } & Pick<
+                        Qualification,
+                        "qualificationId" | "name"
+                    >
+                >;
+            }
+    >;
+};
+
 export type EditEnrollmentMutationVariables = {
-    enrollmentYear?: Maybe<Scalars["String"]>;
-    qualificationId?: Maybe<Scalars["String"]>;
-    firstYearEstimated?: Maybe<Scalars["Int"]>;
-    secondYearEstimated?: Maybe<Scalars["Int"]>;
-    thirdYearEstimated?: Maybe<Scalars["Int"]>;
+    enrollment?: Maybe<EnrollmentInput>;
 };
 
 export type EditEnrollmentMutation = { __typename?: "Mutation" } & {
@@ -2047,8 +2701,7 @@ export type EventsQuery = { __typename?: "Query" } & {
 };
 
 export type AddFacultyMutationVariables = {
-    facultyId: Scalars["String"];
-    name: Scalars["String"];
+    faculty?: Maybe<FacultyInput>;
 };
 
 export type AddFacultyMutation = { __typename?: "Mutation" } & {
@@ -2058,8 +2711,7 @@ export type AddFacultyMutation = { __typename?: "Mutation" } & {
 };
 
 export type DeleteFacultyMutationVariables = {
-    facultyId: Scalars["String"];
-    name: Scalars["String"];
+    faculty?: Maybe<FacultyInput>;
 };
 
 export type DeleteFacultyMutation = { __typename?: "Mutation" } & {
@@ -2069,8 +2721,7 @@ export type DeleteFacultyMutation = { __typename?: "Mutation" } & {
 };
 
 export type EditFacultyMutationVariables = {
-    facultyId: Scalars["String"];
-    name: Scalars["String"];
+    faculty?: Maybe<FacultyInput>;
 };
 
 export type EditFacultyMutation = { __typename?: "Mutation" } & {
@@ -2102,24 +2753,7 @@ export type FacultyQuery = { __typename?: "Query" } & {
 };
 
 export type AddModuleMutationVariables = {
-    moduleId: Scalars["String"];
-    name?: Maybe<Scalars["String"]>;
-    type?: Maybe<Scalars["String"]>;
-    assessmentMethod?: Maybe<Scalars["String"]>;
-    nqfLevel?: Maybe<Scalars["String"]>;
-    qualificationId?: Maybe<Scalars["String"]>;
-    offeringTypeId?: Maybe<Scalars["String"]>;
-    disciplineId?: Maybe<Scalars["String"]>;
-    venueId?: Maybe<Scalars["String"]>;
-    blockId?: Maybe<Scalars["String"]>;
-    userId?: Maybe<Scalars["String"]>;
-    coordinatorId?: Maybe<Scalars["String"]>;
-    moderatorId?: Maybe<Scalars["String"]>;
-    credits?: Maybe<Scalars["Int"]>;
-    groupSize?: Maybe<Scalars["Int"]>;
-    stackId?: Maybe<Scalars["String"]>;
-    lecturedBy?: Maybe<Scalars["String"]>;
-    moderation?: Maybe<Scalars["String"]>;
+    module?: Maybe<ModuleInput>;
 };
 
 export type AddModuleMutation = { __typename?: "Mutation" } & {
@@ -2266,23 +2900,7 @@ export type AddModulesMutation = { __typename?: "Mutation" } & {
 };
 
 export type DeleteModuleMutationVariables = {
-    moduleId: Scalars["String"];
-    name?: Maybe<Scalars["String"]>;
-    type?: Maybe<Scalars["String"]>;
-    assessmentMethod?: Maybe<Scalars["String"]>;
-    nqfLevel?: Maybe<Scalars["String"]>;
-    qualificationId?: Maybe<Scalars["String"]>;
-    offeringTypeId?: Maybe<Scalars["String"]>;
-    disciplineId?: Maybe<Scalars["String"]>;
-    venueId?: Maybe<Scalars["String"]>;
-    blockId?: Maybe<Scalars["String"]>;
-    userId?: Maybe<Scalars["String"]>;
-    coordinatorId?: Maybe<Scalars["String"]>;
-    moderatorId?: Maybe<Scalars["String"]>;
-    credits?: Maybe<Scalars["Int"]>;
-    stackId?: Maybe<Scalars["String"]>;
-    lecturedBy?: Maybe<Scalars["String"]>;
-    moderation?: Maybe<Scalars["String"]>;
+    module?: Maybe<ModuleInput>;
 };
 
 export type DeleteModuleMutation = { __typename?: "Mutation" } & {
@@ -2352,24 +2970,7 @@ export type DeleteModuleMutation = { __typename?: "Mutation" } & {
 };
 
 export type EditModuleMutationVariables = {
-    moduleId: Scalars["String"];
-    name?: Maybe<Scalars["String"]>;
-    type?: Maybe<Scalars["String"]>;
-    assessmentMethod?: Maybe<Scalars["String"]>;
-    nqfLevel?: Maybe<Scalars["String"]>;
-    qualificationId?: Maybe<Scalars["String"]>;
-    offeringTypeId?: Maybe<Scalars["String"]>;
-    disciplineId?: Maybe<Scalars["String"]>;
-    venueId?: Maybe<Scalars["String"]>;
-    blockId?: Maybe<Scalars["String"]>;
-    userId?: Maybe<Scalars["String"]>;
-    coordinatorId?: Maybe<Scalars["String"]>;
-    moderatorId?: Maybe<Scalars["String"]>;
-    credits?: Maybe<Scalars["Int"]>;
-    groupSize?: Maybe<Scalars["Int"]>;
-    stackId?: Maybe<Scalars["String"]>;
-    lecturedBy?: Maybe<Scalars["String"]>;
-    moderation?: Maybe<Scalars["String"]>;
+    module?: Maybe<ModuleInput>;
 };
 
 export type EditModuleMutation = { __typename?: "Mutation" } & {
@@ -2441,6 +3042,9 @@ export type EditModuleMutation = { __typename?: "Mutation" } & {
 
 export type ModuleQueryVariables = {
     moduleId: Scalars["String"];
+    blockId: Scalars["String"];
+    offeringTypeId: Scalars["String"];
+    qualificationId: Scalars["String"];
 };
 
 export type ModuleQuery = { __typename?: "Query" } & {
@@ -2823,6 +3427,45 @@ export type UnassignedModulesQuery = { __typename?: "Query" } & {
     >;
 };
 
+export type AddOfferingTypeMutationVariables = {
+    offeringType?: Maybe<OfferingTypeInput>;
+};
+
+export type AddOfferingTypeMutation = { __typename?: "Mutation" } & {
+    addOfferingType: Maybe<
+        { __typename?: "OfferingType" } & Pick<
+            OfferingType,
+            "offeringTypeId" | "description"
+        >
+    >;
+};
+
+export type DeleteOfferingTypeMutationVariables = {
+    offeringType?: Maybe<OfferingTypeInput>;
+};
+
+export type DeleteOfferingTypeMutation = { __typename?: "Mutation" } & {
+    deleteOfferingType: Maybe<
+        { __typename?: "OfferingType" } & Pick<
+            OfferingType,
+            "offeringTypeId" | "description"
+        >
+    >;
+};
+
+export type EditOfferingTypeMutationVariables = {
+    offeringType?: Maybe<OfferingTypeInput>;
+};
+
+export type EditOfferingTypeMutation = { __typename?: "Mutation" } & {
+    editOfferingType: Maybe<
+        { __typename?: "OfferingType" } & Pick<
+            OfferingType,
+            "offeringTypeId" | "description"
+        >
+    >;
+};
+
 export type OfferingTypeQueryVariables = {
     offeringTypeId: Scalars["String"];
 };
@@ -2852,8 +3495,7 @@ export type OfferingTypesQuery = { __typename?: "Query" } & {
 };
 
 export type AddPositionMutationVariables = {
-    name: Scalars["String"];
-    description: Scalars["String"];
+    position?: Maybe<PositionInput>;
 };
 
 export type AddPositionMutation = { __typename?: "Mutation" } & {
@@ -2866,8 +3508,7 @@ export type AddPositionMutation = { __typename?: "Mutation" } & {
 };
 
 export type DeletePositionMutationVariables = {
-    name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    position?: Maybe<PositionInput>;
 };
 
 export type DeletePositionMutation = { __typename?: "Mutation" } & {
@@ -2880,8 +3521,7 @@ export type DeletePositionMutation = { __typename?: "Mutation" } & {
 };
 
 export type EditPositionMutationVariables = {
-    name?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    position?: Maybe<PositionInput>;
 };
 
 export type EditPositionMutation = { __typename?: "Mutation" } & {
@@ -2922,10 +3562,7 @@ export type PositionsQuery = { __typename?: "Query" } & {
 };
 
 export type AddQualificationMutationVariables = {
-    qualificationId: Scalars["String"];
-    name?: Maybe<Scalars["String"]>;
-    type?: Maybe<Scalars["String"]>;
-    departmentId?: Maybe<Scalars["String"]>;
+    qualification?: Maybe<QualificationInput>;
 };
 
 export type AddQualificationMutation = { __typename?: "Mutation" } & {
@@ -2952,14 +3589,11 @@ export type AddQualificationMutation = { __typename?: "Mutation" } & {
 };
 
 export type DeleteQualificationMutationVariables = {
-    qualificationId: Scalars["String"];
-    name?: Maybe<Scalars["String"]>;
-    type?: Maybe<Scalars["String"]>;
-    departmentId?: Maybe<Scalars["String"]>;
+    qualification?: Maybe<QualificationInput>;
 };
 
 export type DeleteQualificationMutation = { __typename?: "Mutation" } & {
-    addQualification: Maybe<
+    deleteQualification: Maybe<
         { __typename?: "Qualification" } & Pick<
             Qualification,
             "qualificationId" | "name" | "type" | "departmentId"
@@ -2982,10 +3616,7 @@ export type DeleteQualificationMutation = { __typename?: "Mutation" } & {
 };
 
 export type EditQualificationMutationVariables = {
-    qualificationId: Scalars["String"];
-    name?: Maybe<Scalars["String"]>;
-    type?: Maybe<Scalars["String"]>;
-    departmentId?: Maybe<Scalars["String"]>;
+    qualification?: Maybe<QualificationInput>;
 };
 
 export type EditQualificationMutation = { __typename?: "Mutation" } & {
@@ -3068,12 +3699,7 @@ export type QualificationsQuery = { __typename?: "Query" } & {
 };
 
 export type AddStudentMutationVariables = {
-    studentId: Scalars["String"];
-    email: Scalars["String"];
-    firstName: Scalars["String"];
-    lastName: Scalars["String"];
-    title: Scalars["String"];
-    year: Scalars["String"];
+    student?: Maybe<StudentInput>;
 };
 
 export type AddStudentMutation = { __typename?: "Mutation" } & {
@@ -3086,12 +3712,7 @@ export type AddStudentMutation = { __typename?: "Mutation" } & {
 };
 
 export type DeleteStudentMutationVariables = {
-    studentId: Scalars["String"];
-    email: Scalars["String"];
-    firstName: Scalars["String"];
-    lastName: Scalars["String"];
-    title?: Maybe<Scalars["String"]>;
-    year?: Maybe<Scalars["String"]>;
+    student?: Maybe<StudentInput>;
 };
 
 export type DeleteStudentMutation = { __typename?: "Mutation" } & {
@@ -3104,12 +3725,7 @@ export type DeleteStudentMutation = { __typename?: "Mutation" } & {
 };
 
 export type EditStudentMutationVariables = {
-    studentId: Scalars["String"];
-    email: Scalars["String"];
-    firstName: Scalars["String"];
-    lastName: Scalars["String"];
-    title?: Maybe<Scalars["String"]>;
-    year?: Maybe<Scalars["String"]>;
+    student?: Maybe<StudentInput>;
 };
 
 export type EditStudentMutation = { __typename?: "Mutation" } & {
@@ -3155,17 +3771,7 @@ export type StudentsQuery = { __typename?: "Query" } & {
 };
 
 export type AddUserMutationVariables = {
-    userId: Scalars["String"];
-    password?: Maybe<Scalars["String"]>;
-    email?: Maybe<Scalars["String"]>;
-    firstName?: Maybe<Scalars["String"]>;
-    lastName?: Maybe<Scalars["String"]>;
-    photoUrl?: Maybe<Scalars["String"]>;
-    disciplineId?: Maybe<Scalars["String"]>;
-    positionId?: Maybe<Scalars["String"]>;
-    gender?: Maybe<Scalars["String"]>;
-    workFocusName?: Maybe<Scalars["String"]>;
-    nationality?: Maybe<Scalars["String"]>;
+    user?: Maybe<UserInput>;
 };
 
 export type AddUserMutation = { __typename?: "Mutation" } & {
@@ -3187,17 +3793,18 @@ export type AddUserMutation = { __typename?: "Mutation" } & {
     >;
 };
 
-export type DeleteUserMutationVariables = {
+export type ChangePasswordMutationVariables = {
     userId?: Maybe<Scalars["String"]>;
-    password?: Maybe<Scalars["String"]>;
-    email?: Maybe<Scalars["String"]>;
-    firstName?: Maybe<Scalars["String"]>;
-    lastName?: Maybe<Scalars["String"]>;
-    photoUrl?: Maybe<Scalars["String"]>;
-    disciplineId?: Maybe<Scalars["String"]>;
-    positionId?: Maybe<Scalars["String"]>;
-    gender?: Maybe<Scalars["String"]>;
-    nationality?: Maybe<Scalars["String"]>;
+    oldPassword?: Maybe<Scalars["String"]>;
+    newPassword?: Maybe<Scalars["String"]>;
+};
+
+export type ChangePasswordMutation = { __typename?: "Mutation" } & {
+    changePassword: Maybe<{ __typename?: "User" } & Pick<User, "userId">>;
+};
+
+export type DeleteUserMutationVariables = {
+    user?: Maybe<UserInput>;
 };
 
 export type DeleteUserMutation = { __typename?: "Mutation" } & {
@@ -3220,17 +3827,7 @@ export type DeleteUserMutation = { __typename?: "Mutation" } & {
 };
 
 export type EditUserMutationVariables = {
-    userId?: Maybe<Scalars["String"]>;
-    password?: Maybe<Scalars["String"]>;
-    email?: Maybe<Scalars["String"]>;
-    firstName?: Maybe<Scalars["String"]>;
-    lastName?: Maybe<Scalars["String"]>;
-    photoUrl?: Maybe<Scalars["String"]>;
-    disciplineId?: Maybe<Scalars["String"]>;
-    positionId?: Maybe<Scalars["String"]>;
-    workFocusName?: Maybe<Scalars["String"]>;
-    gender?: Maybe<Scalars["String"]>;
-    nationality?: Maybe<Scalars["String"]>;
+    user?: Maybe<UserInput>;
 };
 
 export type EditUserMutation = { __typename?: "Mutation" } & {
@@ -3343,46 +3940,40 @@ export type UsersQuery = { __typename?: "Query" } & {
 };
 
 export type AddVenueMutationVariables = {
-    venueId: Scalars["String"];
-    campus: Scalars["String"];
-    capacity: Scalars["Int"];
+    venue?: Maybe<VenueInput>;
 };
 
 export type AddVenueMutation = { __typename?: "Mutation" } & {
     addVenue: Maybe<
         { __typename?: "Venue" } & Pick<
             Venue,
-            "venueId" | "campus" | "capacity"
+            "venueId" | "campus" | "capacity" | "type"
         >
     >;
 };
 
 export type DeleteVenueMutationVariables = {
-    venueId?: Maybe<Scalars["String"]>;
-    campus?: Maybe<Scalars["String"]>;
-    capacity?: Maybe<Scalars["Int"]>;
+    venue?: Maybe<VenueInput>;
 };
 
 export type DeleteVenueMutation = { __typename?: "Mutation" } & {
     deleteVenue: Maybe<
         { __typename?: "Venue" } & Pick<
             Venue,
-            "venueId" | "campus" | "capacity"
+            "venueId" | "campus" | "capacity" | "type"
         >
     >;
 };
 
 export type EditVenueMutationVariables = {
-    venueId?: Maybe<Scalars["String"]>;
-    campus?: Maybe<Scalars["String"]>;
-    capacity?: Maybe<Scalars["Int"]>;
+    venue?: Maybe<VenueInput>;
 };
 
 export type EditVenueMutation = { __typename?: "Mutation" } & {
     editVenue: Maybe<
         { __typename?: "Venue" } & Pick<
             Venue,
-            "venueId" | "campus" | "capacity"
+            "venueId" | "campus" | "capacity" | "type"
         >
     >;
 };
@@ -3395,7 +3986,7 @@ export type VenueQuery = { __typename?: "Query" } & {
     venue: Maybe<
         { __typename?: "Venue" } & Pick<
             Venue,
-            "venueId" | "campus" | "capacity"
+            "venueId" | "campus" | "capacity" | "type"
         >
     >;
 };
@@ -3408,9 +3999,48 @@ export type VenuesQuery = { __typename?: "Query" } & {
             Maybe<
                 { __typename?: "Venue" } & Pick<
                     Venue,
-                    "venueId" | "campus" | "capacity"
+                    "venueId" | "campus" | "capacity" | "type"
                 >
             >
+        >
+    >;
+};
+
+export type AddWorkFocusMutationVariables = {
+    workFocus?: Maybe<WorkFocusInput>;
+};
+
+export type AddWorkFocusMutation = { __typename?: "Mutation" } & {
+    addWorkFocus: Maybe<
+        { __typename?: "WorkFocus" } & Pick<
+            WorkFocus,
+            "name" | "teachingRatio" | "researchRatio" | "serviceRatio"
+        >
+    >;
+};
+
+export type DeleteWorkFocusMutationVariables = {
+    workFocus?: Maybe<WorkFocusInput>;
+};
+
+export type DeleteWorkFocusMutation = { __typename?: "Mutation" } & {
+    deleteWorkFocus: Maybe<
+        { __typename?: "WorkFocus" } & Pick<
+            WorkFocus,
+            "name" | "teachingRatio" | "researchRatio" | "serviceRatio"
+        >
+    >;
+};
+
+export type EditWorkFocusMutationVariables = {
+    workFocus?: Maybe<WorkFocusInput>;
+};
+
+export type EditWorkFocusMutation = { __typename?: "Mutation" } & {
+    editWorkFocus: Maybe<
+        { __typename?: "WorkFocus" } & Pick<
+            WorkFocus,
+            "name" | "teachingRatio" | "researchRatio" | "serviceRatio"
         >
     >;
 };
@@ -3443,113 +4073,26 @@ export type WorkFocusesQuery = { __typename?: "Query" } & {
     >;
 };
 
+export type FormalInstructionWorkloadQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionWorkloadQuery = { __typename?: "Query" } & {
+    formalInstructionWorkload: Maybe<
+        { __typename?: "FormalInstructionWorkload" } & Pick<
+            FormalInstructionWorkload,
+            | "totalBaseHours"
+            | "totalOtherHours"
+            | "totalOverallHours"
+            | "percentageOfTotal"
+        >
+    >;
+};
+
 import gql from "graphql-tag";
 import { Injectable } from "@angular/core";
 import * as Apollo from "apollo-angular";
 
-export const ActivitiesDocument = gql`
-    query activities {
-        activities {
-            activityId
-            userId
-            user {
-                userId
-                email
-                firstName
-                lastName
-            }
-            dutyId
-            duty {
-                dutyId
-                name
-                description
-            }
-            approvalStatus
-            ... on CommInstructionActivity {
-                commInstructionDescription
-                evidenceId
-                evidence {
-                    evidenceId
-                    name
-                    item
-                }
-            }
-            ... on PublicServiceActivity {
-                publicServiceDescription
-                evidenceId
-                evidence {
-                    evidenceId
-                    name
-                    item
-                }
-            }
-            ... on FormalInstructionActivity {
-                moduleId
-                module {
-                    moduleId
-                    name
-                    type
-                    assessmentMethod
-                    nqfLevel
-                    studyPeriod
-                    qualification {
-                        qualificationId
-                        name
-                    }
-                    offeringType {
-                        offeringTypeId
-                        description
-                    }
-                    discipline {
-                        disciplineId
-                        name
-                    }
-                    venue {
-                        venueId
-                        campus
-                        capacity
-                    }
-                    block {
-                        blockId
-                        name
-                    }
-                    user {
-                        userId
-                        firstName
-                        lastName
-                        email
-                    }
-                    stackId
-                }
-            }
-            ... on ResearchActivity {
-                researchType
-                researchUrl
-            }
-            ... on SupervisionActivity {
-                supervisionRole
-                studentId
-                student {
-                    studentId
-                    firstName
-                    lastName
-                    title
-                    year
-                }
-            }
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class ActivitiesGQL extends Apollo.Query<
-    ActivitiesQuery,
-    ActivitiesQueryVariables
-> {
-    document = ActivitiesDocument;
-}
 export const ActivityDocument = gql`
     query activity($activityId: String!) {
         activity(activityId: $activityId) {
@@ -3568,8 +4111,11 @@ export const ActivityDocument = gql`
                 description
             }
             approvalStatus
+            createdAt
+            updatedAt
             ... on CommInstructionActivity {
-                commInstructionDescription
+                title
+                description
                 evidenceId
                 evidence {
                     evidenceId
@@ -3578,7 +4124,8 @@ export const ActivityDocument = gql`
                 }
             }
             ... on PublicServiceActivity {
-                publicServiceDescription
+                title
+                description
                 evidenceId
                 evidence {
                     evidenceId
@@ -3594,39 +4141,99 @@ export const ActivityDocument = gql`
                     type
                     assessmentMethod
                     nqfLevel
+                    credits
+                    qualificationId
                     qualification {
                         qualificationId
                         name
                     }
+                    offeringTypeId
                     offeringType {
                         offeringTypeId
                         description
                     }
+                    disciplineId
                     discipline {
                         disciplineId
                         name
                     }
+                    venueId
                     venue {
                         venueId
                         campus
                         capacity
                     }
+                    blockId
                     block {
                         blockId
                         name
                     }
-                    user {
+                    coordinatorId
+                    coordinator {
                         userId
                         firstName
                         lastName
-                        email
+                        discipline {
+                            disciplineId
+                            name
+                        }
+                        position {
+                            positionId
+                            name
+                        }
                     }
-                    stackId
+                    moderatorId
+                    moderator {
+                        userId
+                        firstName
+                        lastName
+                        discipline {
+                            disciplineId
+                            name
+                        }
+                        position {
+                            positionId
+                            name
+                        }
+                    }
+                    studyPeriod
+                    groupSize
+                    lecturedBy
+                    moderation
                 }
+                blockId
+                block {
+                    blockId
+                    name
+                }
+                offeringTypeId
+                offeringType {
+                    offeringTypeId
+                    description
+                }
+                qualificationId
+                qualification {
+                    qualificationId
+                    name
+                }
+                baseContactHours
+                coordinationHours
+                studentSupportHours
+                preparationTimeHours
+                assessmentSettingHours
+                examMarkingHours
+                courseworkMarkingHours
+                feedbackHours
+                formativeAssessmentHours
+                moderationHours
+                otherHours
+                totalHours
+                teachingPercentage
             }
             ... on ResearchActivity {
                 researchType
-                researchUrl
+                researchTitle
+                researchDetails
             }
             ... on SupervisionActivity {
                 supervisionRole
@@ -3654,20 +4261,10 @@ export class ActivityGQL extends Apollo.Query<
 }
 export const AddFormalInstructionActivityDocument = gql`
     mutation addFormalInstructionActivity(
-        $userId: String!
-        $coordinatorId: String
-        $moderatorId: String
-        $dutyId: String!
-        $moduleId: String!
-        $workload: Int
+        $formalInstructionActivity: FormalInstructionActivityInput
     ) {
         addFormalInstructionActivity(
-            userId: $userId
-            coordinatorId: $coordinatorId
-            moderatorId: $moderatorId
-            dutyId: $dutyId
-            moduleId: $moduleId
-            workload: $workload
+            formalInstructionActivity: $formalInstructionActivity
         ) {
             activityId
             dutyId
@@ -3681,30 +4278,110 @@ export const AddFormalInstructionActivityDocument = gql`
                 userId
                 firstName
                 lastName
-            }
-            coordinatorId
-            coordinator {
-                userId
-                firstName
-                lastName
-            }
-            moderatorId
-            moderator {
-                userId
-                firstName
-                lastName
+                discipline {
+                    disciplineId
+                    name
+                }
+                position {
+                    positionId
+                    name
+                }
             }
             moduleId
             module {
                 moduleId
                 name
+                type
+                assessmentMethod
+                nqfLevel
+                credits
+                qualificationId
                 qualification {
                     qualificationId
                     name
                 }
-                credits
+                offeringTypeId
+                offeringType {
+                    offeringTypeId
+                    description
+                }
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                }
+                venueId
+                venue {
+                    venueId
+                    campus
+                    capacity
+                }
+                blockId
+                block {
+                    blockId
+                    name
+                }
+                coordinatorId
+                coordinator {
+                    userId
+                    firstName
+                    lastName
+                    discipline {
+                        disciplineId
+                        name
+                    }
+                    position {
+                        positionId
+                        name
+                    }
+                }
+                moderatorId
+                moderator {
+                    userId
+                    firstName
+                    lastName
+                    discipline {
+                        disciplineId
+                        name
+                    }
+                    position {
+                        positionId
+                        name
+                    }
+                }
+                studyPeriod
+                groupSize
+                lecturedBy
+                moderation
             }
-            workload
+            blockId
+            block {
+                blockId
+                name
+            }
+            offeringTypeId
+            offeringType {
+                offeringTypeId
+                description
+            }
+            qualificationId
+            qualification {
+                qualificationId
+                name
+            }
+            baseContactHours
+            coordinationHours
+            studentSupportHours
+            preparationTimeHours
+            assessmentSettingHours
+            examMarkingHours
+            courseworkMarkingHours
+            feedbackHours
+            formativeAssessmentHours
+            moderationHours
+            otherHours
+            totalHours
+            teachingPercentage
             createdAt
             updatedAt
         }
@@ -3735,30 +4412,110 @@ export const FormalInstructionActivitiesByUserDocument = gql`
                 userId
                 firstName
                 lastName
-            }
-            coordinatorId
-            coordinator {
-                userId
-                firstName
-                lastName
-            }
-            moderatorId
-            moderator {
-                userId
-                firstName
-                lastName
+                discipline {
+                    disciplineId
+                    name
+                }
+                position {
+                    positionId
+                    name
+                }
             }
             moduleId
             module {
                 moduleId
                 name
+                type
+                assessmentMethod
+                nqfLevel
+                credits
+                qualificationId
                 qualification {
                     qualificationId
                     name
                 }
-                credits
+                offeringTypeId
+                offeringType {
+                    offeringTypeId
+                    description
+                }
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                }
+                venueId
+                venue {
+                    venueId
+                    campus
+                    capacity
+                }
+                blockId
+                block {
+                    blockId
+                    name
+                }
+                coordinatorId
+                coordinator {
+                    userId
+                    firstName
+                    lastName
+                    discipline {
+                        disciplineId
+                        name
+                    }
+                    position {
+                        positionId
+                        name
+                    }
+                }
+                moderatorId
+                moderator {
+                    userId
+                    firstName
+                    lastName
+                    discipline {
+                        disciplineId
+                        name
+                    }
+                    position {
+                        positionId
+                        name
+                    }
+                }
+                studyPeriod
+                groupSize
+                lecturedBy
+                moderation
             }
-            workload
+            blockId
+            block {
+                blockId
+                name
+            }
+            offeringTypeId
+            offeringType {
+                offeringTypeId
+                description
+            }
+            qualificationId
+            qualification {
+                qualificationId
+                name
+            }
+            baseContactHours
+            coordinationHours
+            studentSupportHours
+            preparationTimeHours
+            assessmentSettingHours
+            examMarkingHours
+            courseworkMarkingHours
+            feedbackHours
+            formativeAssessmentHours
+            moderationHours
+            otherHours
+            totalHours
+            teachingPercentage
             createdAt
             updatedAt
         }
@@ -3789,30 +4546,110 @@ export const FormalInstructionActivitiesDocument = gql`
                 userId
                 firstName
                 lastName
-            }
-            coordinatorId
-            coordinator {
-                userId
-                firstName
-                lastName
-            }
-            moderatorId
-            moderator {
-                userId
-                firstName
-                lastName
+                discipline {
+                    disciplineId
+                    name
+                }
+                position {
+                    positionId
+                    name
+                }
             }
             moduleId
             module {
                 moduleId
                 name
+                type
+                assessmentMethod
+                nqfLevel
+                credits
+                qualificationId
                 qualification {
                     qualificationId
                     name
                 }
-                credits
+                offeringTypeId
+                offeringType {
+                    offeringTypeId
+                    description
+                }
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                }
+                venueId
+                venue {
+                    venueId
+                    campus
+                    capacity
+                }
+                blockId
+                block {
+                    blockId
+                    name
+                }
+                coordinatorId
+                coordinator {
+                    userId
+                    firstName
+                    lastName
+                    discipline {
+                        disciplineId
+                        name
+                    }
+                    position {
+                        positionId
+                        name
+                    }
+                }
+                moderatorId
+                moderator {
+                    userId
+                    firstName
+                    lastName
+                    discipline {
+                        disciplineId
+                        name
+                    }
+                    position {
+                        positionId
+                        name
+                    }
+                }
+                studyPeriod
+                groupSize
+                lecturedBy
+                moderation
             }
-            workload
+            blockId
+            block {
+                blockId
+                name
+            }
+            offeringTypeId
+            offeringType {
+                offeringTypeId
+                description
+            }
+            qualificationId
+            qualification {
+                qualificationId
+                name
+            }
+            baseContactHours
+            coordinationHours
+            studentSupportHours
+            preparationTimeHours
+            assessmentSettingHours
+            examMarkingHours
+            courseworkMarkingHours
+            feedbackHours
+            formativeAssessmentHours
+            moderationHours
+            otherHours
+            totalHours
+            teachingPercentage
             createdAt
             updatedAt
         }
@@ -3843,30 +4680,110 @@ export const FormalInstructionActivityDocument = gql`
                 userId
                 firstName
                 lastName
-            }
-            coordinatorId
-            coordinator {
-                userId
-                firstName
-                lastName
-            }
-            moderatorId
-            moderator {
-                userId
-                firstName
-                lastName
+                discipline {
+                    disciplineId
+                    name
+                }
+                position {
+                    positionId
+                    name
+                }
             }
             moduleId
             module {
                 moduleId
                 name
+                type
+                assessmentMethod
+                nqfLevel
+                credits
+                qualificationId
                 qualification {
                     qualificationId
                     name
                 }
-                credits
+                offeringTypeId
+                offeringType {
+                    offeringTypeId
+                    description
+                }
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                }
+                venueId
+                venue {
+                    venueId
+                    campus
+                    capacity
+                }
+                blockId
+                block {
+                    blockId
+                    name
+                }
+                coordinatorId
+                coordinator {
+                    userId
+                    firstName
+                    lastName
+                    discipline {
+                        disciplineId
+                        name
+                    }
+                    position {
+                        positionId
+                        name
+                    }
+                }
+                moderatorId
+                moderator {
+                    userId
+                    firstName
+                    lastName
+                    discipline {
+                        disciplineId
+                        name
+                    }
+                    position {
+                        positionId
+                        name
+                    }
+                }
+                studyPeriod
+                groupSize
+                lecturedBy
+                moderation
             }
-            workload
+            blockId
+            block {
+                blockId
+                name
+            }
+            offeringTypeId
+            offeringType {
+                offeringTypeId
+                description
+            }
+            qualificationId
+            qualification {
+                qualificationId
+                name
+            }
+            baseContactHours
+            coordinationHours
+            studentSupportHours
+            preparationTimeHours
+            assessmentSettingHours
+            examMarkingHours
+            courseworkMarkingHours
+            feedbackHours
+            formativeAssessmentHours
+            moderationHours
+            otherHours
+            totalHours
+            teachingPercentage
             createdAt
             updatedAt
         }
@@ -3901,8 +4818,8 @@ export const ResearchActivitiesByUserDocument = gql`
             }
             approvalStatus
             researchType
-            researchUrl
-            workload
+            researchTitle
+            researchDetails
         }
     }
 `;
@@ -3916,13 +4833,193 @@ export class ResearchActivitiesByUserGQL extends Apollo.Query<
 > {
     document = ResearchActivitiesByUserDocument;
 }
+export const UnapprovedActivitiesDocument = gql`
+    query unapprovedActivities {
+        unapprovedActivities {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            ... on CommInstructionActivity {
+                title
+                description
+                evidenceId
+                evidence {
+                    evidenceId
+                    name
+                    item
+                }
+            }
+            ... on PublicServiceActivity {
+                title
+                description
+                evidenceId
+                evidence {
+                    evidenceId
+                    name
+                    item
+                }
+            }
+            ... on FormalInstructionActivity {
+                activityId
+                dutyId
+                duty {
+                    dutyId
+                    name
+                    description
+                }
+                userId
+                user {
+                    userId
+                    firstName
+                    lastName
+                    discipline {
+                        disciplineId
+                        name
+                    }
+                    position {
+                        positionId
+                        name
+                    }
+                }
+                moduleId
+                module {
+                    moduleId
+                    name
+                    type
+                    assessmentMethod
+                    nqfLevel
+                    credits
+                    qualificationId
+                    qualification {
+                        qualificationId
+                        name
+                    }
+                    offeringTypeId
+                    offeringType {
+                        offeringTypeId
+                        description
+                    }
+                    disciplineId
+                    discipline {
+                        disciplineId
+                        name
+                    }
+                    venueId
+                    venue {
+                        venueId
+                        campus
+                        capacity
+                    }
+                    blockId
+                    block {
+                        blockId
+                        name
+                    }
+                    coordinatorId
+                    coordinator {
+                        userId
+                        firstName
+                        lastName
+                        discipline {
+                            disciplineId
+                            name
+                        }
+                        position {
+                            positionId
+                            name
+                        }
+                    }
+                    moderatorId
+                    moderator {
+                        userId
+                        firstName
+                        lastName
+                        discipline {
+                            disciplineId
+                            name
+                        }
+                        position {
+                            positionId
+                            name
+                        }
+                    }
+                    studyPeriod
+                    groupSize
+                    lecturedBy
+                    moderation
+                }
+                blockId
+                block {
+                    blockId
+                    name
+                }
+                offeringTypeId
+                offeringType {
+                    offeringTypeId
+                    description
+                }
+                qualificationId
+                qualification {
+                    qualificationId
+                    name
+                }
+                baseContactHours
+                coordinationHours
+                studentSupportHours
+                preparationTimeHours
+                assessmentSettingHours
+                examMarkingHours
+                courseworkMarkingHours
+                feedbackHours
+                formativeAssessmentHours
+                moderationHours
+                otherHours
+                totalHours
+            }
+            ... on ResearchActivity {
+                researchType
+                researchTitle
+                researchDetails
+            }
+            ... on SupervisionActivity {
+                supervisionRole
+                studentId
+                student {
+                    studentId
+                    firstName
+                    lastName
+                    title
+                    year
+                }
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class UnapprovedActivitiesGQL extends Apollo.Query<
+    UnapprovedActivitiesQuery,
+    UnapprovedActivitiesQueryVariables
+> {
+    document = UnapprovedActivitiesDocument;
+}
 export const AddBlockDocument = gql`
-    mutation addBlock(
-        $blockId: String!
-        $name: String!
-        $description: String!
-    ) {
-        addBlock(blockId: $blockId, name: $name, description: $description) {
+    mutation addBlock($block: BlockInput) {
+        addBlock(block: $block) {
             blockId
             name
             description
@@ -3972,12 +5069,8 @@ export class BlocksGQL extends Apollo.Query<BlocksQuery, BlocksQueryVariables> {
     document = BlocksDocument;
 }
 export const DeleteBlockDocument = gql`
-    mutation deleteBlock(
-        $blockId: String
-        $name: String
-        $description: String
-    ) {
-        deleteBlock(blockId: $blockId, name: $name, description: $description) {
+    mutation deleteBlock($block: BlockInput) {
+        deleteBlock(block: $block) {
             blockId
             name
             description
@@ -3995,8 +5088,8 @@ export class DeleteBlockGQL extends Apollo.Mutation<
     document = DeleteBlockDocument;
 }
 export const EditBlockDocument = gql`
-    mutation editBlock($blockId: String, $name: String, $description: String) {
-        editBlock(blockId: $blockId, name: $name, description: $description) {
+    mutation editBlock($block: BlockInput) {
+        editBlock(block: $block) {
             blockId
             name
             description
@@ -4014,16 +5107,8 @@ export class EditBlockGQL extends Apollo.Mutation<
     document = EditBlockDocument;
 }
 export const AddDepartmentDocument = gql`
-    mutation addDepartment(
-        $departmentId: String!
-        $name: String!
-        $facultyId: String!
-    ) {
-        addDepartment(
-            departmentId: $departmentId
-            name: $name
-            facultyId: $facultyId
-        ) {
+    mutation addDepartment($department: DepartmentInput) {
+        addDepartment(department: $department) {
             departmentId
             name
             facultyId
@@ -4043,6 +5128,29 @@ export class AddDepartmentGQL extends Apollo.Mutation<
     AddDepartmentMutationVariables
 > {
     document = AddDepartmentDocument;
+}
+export const DeleteDepartmentDocument = gql`
+    mutation deleteDepartment($department: DepartmentInput) {
+        deleteDepartment(department: $department) {
+            departmentId
+            name
+            facultyId
+            faculty {
+                facultyId
+                name
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteDepartmentGQL extends Apollo.Mutation<
+    DeleteDepartmentMutation,
+    DeleteDepartmentMutationVariables
+> {
+    document = DeleteDepartmentDocument;
 }
 export const DepartmentDocument = gql`
     query department($departmentId: String!) {
@@ -4089,16 +5197,8 @@ export class DepartmentsGQL extends Apollo.Query<
     document = DepartmentsDocument;
 }
 export const EditDepartmentDocument = gql`
-    mutation editDepartment(
-        $departmentId: String!
-        $name: String!
-        $facultyId: String!
-    ) {
-        editDepartment(
-            departmentId: $departmentId
-            name: $name
-            facultyId: $facultyId
-        ) {
+    mutation editDepartment($department: DepartmentInput) {
+        editDepartment(department: $department) {
             departmentId
             name
             facultyId
@@ -4120,16 +5220,8 @@ export class EditDepartmentGQL extends Apollo.Mutation<
     document = EditDepartmentDocument;
 }
 export const AddDisciplineDocument = gql`
-    mutation addDiscipline(
-        $disciplineId: String!
-        $name: String!
-        $description: String!
-    ) {
-        addDiscipline(
-            disciplineId: $disciplineId
-            name: $name
-            description: $description
-        ) {
+    mutation addDiscipline($discipline: DisciplineInput) {
+        addDiscipline(discipline: $discipline) {
             disciplineId
             name
             description
@@ -4147,16 +5239,8 @@ export class AddDisciplineGQL extends Apollo.Mutation<
     document = AddDisciplineDocument;
 }
 export const DeleteDisciplineDocument = gql`
-    mutation deleteDiscipline(
-        $disciplineId: String!
-        $name: String
-        $description: String
-    ) {
-        deleteDiscipline(
-            disciplineId: $disciplineId
-            name: $name
-            description: $description
-        ) {
+    mutation deleteDiscipline($discipline: DisciplineInput) {
+        deleteDiscipline(discipline: $discipline) {
             disciplineId
             name
             description
@@ -4212,16 +5296,8 @@ export class DisciplinesGQL extends Apollo.Query<
     document = DisciplinesDocument;
 }
 export const EditDisciplineDocument = gql`
-    mutation editDiscipline(
-        $disciplineId: String!
-        $name: String
-        $description: String
-    ) {
-        editDiscipline(
-            disciplineId: $disciplineId
-            name: $name
-            description: $description
-        ) {
+    mutation editDiscipline($discipline: DisciplineInput) {
+        editDiscipline(discipline: $discipline) {
             disciplineId
             name
             description
@@ -4237,6 +5313,60 @@ export class EditDisciplineGQL extends Apollo.Mutation<
     EditDisciplineMutationVariables
 > {
     document = EditDisciplineDocument;
+}
+export const AddDutyDocument = gql`
+    mutation addDuty($duty: DutyInput) {
+        addDuty(duty: $duty) {
+            dutyId
+            name
+            description
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AddDutyGQL extends Apollo.Mutation<
+    AddDutyMutation,
+    AddDutyMutationVariables
+> {
+    document = AddDutyDocument;
+}
+export const DeleteDutyDocument = gql`
+    mutation deleteDuty($duty: DutyInput) {
+        deleteDuty(duty: $duty) {
+            dutyId
+            name
+            description
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteDutyGQL extends Apollo.Mutation<
+    DeleteDutyMutation,
+    DeleteDutyMutationVariables
+> {
+    document = DeleteDutyDocument;
+}
+export const DutiesDocument = gql`
+    query duties {
+        duties {
+            dutyId
+            name
+            description
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DutiesGQL extends Apollo.Query<DutiesQuery, DutiesQueryVariables> {
+    document = DutiesDocument;
 }
 export const DutyDocument = gql`
     query duty($dutyId: String!) {
@@ -4254,21 +5384,28 @@ export const DutyDocument = gql`
 export class DutyGQL extends Apollo.Query<DutyQuery, DutyQueryVariables> {
     document = DutyDocument;
 }
+export const EditDutyDocument = gql`
+    mutation editDuty($duty: DutyInput) {
+        editDuty(duty: $duty) {
+            dutyId
+            name
+            description
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class EditDutyGQL extends Apollo.Mutation<
+    EditDutyMutation,
+    EditDutyMutationVariables
+> {
+    document = EditDutyDocument;
+}
 export const AddEnrollmentDocument = gql`
-    mutation addEnrollment(
-        $enrollmentYear: String
-        $qualificationId: String
-        $firstYearEstimated: Int
-        $secondYearEstimated: Int
-        $thirdYearEstimated: Int
-    ) {
-        addEnrollment(
-            enrollmentYear: $enrollmentYear
-            qualificationId: $qualificationId
-            firstYearEstimated: $firstYearEstimated
-            secondYearEstimated: $secondYearEstimated
-            thirdYearEstimated: $thirdYearEstimated
-        ) {
+    mutation addEnrollment($enrollment: EnrollmentInput) {
+        addEnrollment(enrollment: $enrollment) {
             enrollmentId
             enrollmentYear
             qualificationId
@@ -4292,21 +5429,34 @@ export class AddEnrollmentGQL extends Apollo.Mutation<
 > {
     document = AddEnrollmentDocument;
 }
+export const DeleteEnrollmentDocument = gql`
+    mutation deleteEnrollment($enrollment: EnrollmentInput) {
+        deleteEnrollment(enrollment: $enrollment) {
+            enrollmentYear
+            qualificationId
+            qualification {
+                qualificationId
+                name
+            }
+            firstYearEstimated
+            secondYearEstimated
+            thirdYearEstimated
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteEnrollmentGQL extends Apollo.Mutation<
+    DeleteEnrollmentMutation,
+    DeleteEnrollmentMutationVariables
+> {
+    document = DeleteEnrollmentDocument;
+}
 export const EditEnrollmentDocument = gql`
-    mutation editEnrollment(
-        $enrollmentYear: String
-        $qualificationId: String
-        $firstYearEstimated: Int
-        $secondYearEstimated: Int
-        $thirdYearEstimated: Int
-    ) {
-        editEnrollment(
-            enrollmentYear: $enrollmentYear
-            qualificationId: $qualificationId
-            firstYearEstimated: $firstYearEstimated
-            secondYearEstimated: $secondYearEstimated
-            thirdYearEstimated: $thirdYearEstimated
-        ) {
+    mutation editEnrollment($enrollment: EnrollmentInput) {
+        editEnrollment(enrollment: $enrollment) {
             enrollmentYear
             qualificationId
             qualification {
@@ -4462,8 +5612,8 @@ export class EventsGQL extends Apollo.Query<EventsQuery, EventsQueryVariables> {
     document = EventsDocument;
 }
 export const AddFacultyDocument = gql`
-    mutation addFaculty($facultyId: String!, $name: String!) {
-        addFaculty(facultyId: $facultyId, name: $name) {
+    mutation addFaculty($faculty: FacultyInput) {
+        addFaculty(faculty: $faculty) {
             facultyId
             name
         }
@@ -4480,8 +5630,8 @@ export class AddFacultyGQL extends Apollo.Mutation<
     document = AddFacultyDocument;
 }
 export const DeleteFacultyDocument = gql`
-    mutation deleteFaculty($facultyId: String!, $name: String!) {
-        deleteFaculty(facultyId: $facultyId, name: $name) {
+    mutation deleteFaculty($faculty: FacultyInput) {
+        deleteFaculty(faculty: $faculty) {
             facultyId
             name
         }
@@ -4498,8 +5648,8 @@ export class DeleteFacultyGQL extends Apollo.Mutation<
     document = DeleteFacultyDocument;
 }
 export const EditFacultyDocument = gql`
-    mutation editFaculty($facultyId: String!, $name: String!) {
-        addFaculty(facultyId: $facultyId, name: $name) {
+    mutation editFaculty($faculty: FacultyInput) {
+        addFaculty(faculty: $faculty) {
             facultyId
             name
         }
@@ -4552,46 +5702,8 @@ export class FacultyGQL extends Apollo.Query<
     document = FacultyDocument;
 }
 export const AddModuleDocument = gql`
-    mutation addModule(
-        $moduleId: String!
-        $name: String
-        $type: String
-        $assessmentMethod: String
-        $nqfLevel: String
-        $qualificationId: String
-        $offeringTypeId: String
-        $disciplineId: String
-        $venueId: String
-        $blockId: String
-        $userId: String
-        $coordinatorId: String
-        $moderatorId: String
-        $credits: Int
-        $groupSize: Int
-        $stackId: String
-        $lecturedBy: String
-        $moderation: String
-    ) {
-        addModule(
-            moduleId: $moduleId
-            name: $name
-            type: $type
-            assessmentMethod: $assessmentMethod
-            nqfLevel: $nqfLevel
-            qualificationId: $qualificationId
-            offeringTypeId: $offeringTypeId
-            disciplineId: $disciplineId
-            venueId: $venueId
-            blockId: $blockId
-            userId: $userId
-            coordinatorId: $coordinatorId
-            moderatorId: $moderatorId
-            credits: $credits
-            groupSize: $groupSize
-            stackId: $stackId
-            lecturedBy: $lecturedBy
-            moderation: $moderation
-        ) {
+    mutation addModule($module: ModuleInput) {
+        addModule(module: $module) {
             moduleId
             name
             type
@@ -4658,7 +5770,7 @@ export class AddModuleGQL extends Apollo.Mutation<
 }
 export const AddModulesDocument = gql`
     mutation addModules($modules: [ModuleInput]) {
-        addModules(input: $modules) {
+        addModules(modules: $modules) {
             moduleId
             name
             type
@@ -4724,44 +5836,8 @@ export class AddModulesGQL extends Apollo.Mutation<
     document = AddModulesDocument;
 }
 export const DeleteModuleDocument = gql`
-    mutation deleteModule(
-        $moduleId: String!
-        $name: String
-        $type: String
-        $assessmentMethod: String
-        $nqfLevel: String
-        $qualificationId: String
-        $offeringTypeId: String
-        $disciplineId: String
-        $venueId: String
-        $blockId: String
-        $userId: String
-        $coordinatorId: String
-        $moderatorId: String
-        $credits: Int
-        $stackId: String
-        $lecturedBy: String
-        $moderation: String
-    ) {
-        deleteModule(
-            moduleId: $moduleId
-            name: $name
-            type: $type
-            assessmentMethod: $assessmentMethod
-            nqfLevel: $nqfLevel
-            qualificationId: $qualificationId
-            offeringTypeId: $offeringTypeId
-            disciplineId: $disciplineId
-            venueId: $venueId
-            blockId: $blockId
-            userId: $userId
-            coordinatorId: $coordinatorId
-            moderatorId: $moderatorId
-            credits: $credits
-            stackId: $stackId
-            lecturedBy: $lecturedBy
-            moderation: $moderation
-        ) {
+    mutation deleteModule($module: ModuleInput) {
+        deleteModule(module: $module) {
             moduleId
             name
             type
@@ -4827,46 +5903,8 @@ export class DeleteModuleGQL extends Apollo.Mutation<
     document = DeleteModuleDocument;
 }
 export const EditModuleDocument = gql`
-    mutation editModule(
-        $moduleId: String!
-        $name: String
-        $type: String
-        $assessmentMethod: String
-        $nqfLevel: String
-        $qualificationId: String
-        $offeringTypeId: String
-        $disciplineId: String
-        $venueId: String
-        $blockId: String
-        $userId: String
-        $coordinatorId: String
-        $moderatorId: String
-        $credits: Int
-        $groupSize: Int
-        $stackId: String
-        $lecturedBy: String
-        $moderation: String
-    ) {
-        editModule(
-            moduleId: $moduleId
-            name: $name
-            type: $type
-            assessmentMethod: $assessmentMethod
-            nqfLevel: $nqfLevel
-            qualificationId: $qualificationId
-            offeringTypeId: $offeringTypeId
-            disciplineId: $disciplineId
-            venueId: $venueId
-            blockId: $blockId
-            userId: $userId
-            coordinatorId: $coordinatorId
-            moderatorId: $moderatorId
-            credits: $credits
-            groupSize: $groupSize
-            stackId: $stackId
-            lecturedBy: $lecturedBy
-            moderation: $moderation
-        ) {
+    mutation editModule($module: ModuleInput) {
+        editModule(module: $module) {
             moduleId
             name
             type
@@ -4933,8 +5971,18 @@ export class EditModuleGQL extends Apollo.Mutation<
     document = EditModuleDocument;
 }
 export const ModuleDocument = gql`
-    query module($moduleId: String!) {
-        module(moduleId: $moduleId) {
+    query module(
+        $moduleId: String!
+        $blockId: String!
+        $offeringTypeId: String!
+        $qualificationId: String!
+    ) {
+        module(
+            moduleId: $moduleId
+            blockId: $blockId
+            offeringTypeId: $offeringTypeId
+            qualificationId: $qualificationId
+        ) {
             moduleId
             name
             type
@@ -5274,6 +6322,60 @@ export class UnassignedModulesGQL extends Apollo.Query<
 > {
     document = UnassignedModulesDocument;
 }
+export const AddOfferingTypeDocument = gql`
+    mutation addOfferingType($offeringType: OfferingTypeInput) {
+        addOfferingType(offeringType: $offeringType) {
+            offeringTypeId
+            description
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AddOfferingTypeGQL extends Apollo.Mutation<
+    AddOfferingTypeMutation,
+    AddOfferingTypeMutationVariables
+> {
+    document = AddOfferingTypeDocument;
+}
+export const DeleteOfferingTypeDocument = gql`
+    mutation deleteOfferingType($offeringType: OfferingTypeInput) {
+        deleteOfferingType(offeringType: $offeringType) {
+            offeringTypeId
+            description
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteOfferingTypeGQL extends Apollo.Mutation<
+    DeleteOfferingTypeMutation,
+    DeleteOfferingTypeMutationVariables
+> {
+    document = DeleteOfferingTypeDocument;
+}
+export const EditOfferingTypeDocument = gql`
+    mutation editOfferingType($offeringType: OfferingTypeInput) {
+        editOfferingType(offeringType: $offeringType) {
+            offeringTypeId
+            description
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class EditOfferingTypeGQL extends Apollo.Mutation<
+    EditOfferingTypeMutation,
+    EditOfferingTypeMutationVariables
+> {
+    document = EditOfferingTypeDocument;
+}
 export const OfferingTypeDocument = gql`
     query offeringType($offeringTypeId: String!) {
         offeringType(offeringTypeId: $offeringTypeId) {
@@ -5311,8 +6413,8 @@ export class OfferingTypesGQL extends Apollo.Query<
     document = OfferingTypesDocument;
 }
 export const AddPositionDocument = gql`
-    mutation addPosition($name: String!, $description: String!) {
-        addPosition(name: $name, description: $description) {
+    mutation addPosition($position: PositionInput) {
+        addPosition(position: $position) {
             positionId
             name
             description
@@ -5330,8 +6432,8 @@ export class AddPositionGQL extends Apollo.Mutation<
     document = AddPositionDocument;
 }
 export const DeletePositionDocument = gql`
-    mutation deletePosition($name: String, $description: String) {
-        deletePosition(name: $name, description: $description) {
+    mutation deletePosition($position: PositionInput) {
+        deletePosition(position: $position) {
             positionId
             name
             description
@@ -5349,8 +6451,8 @@ export class DeletePositionGQL extends Apollo.Mutation<
     document = DeletePositionDocument;
 }
 export const EditPositionDocument = gql`
-    mutation editPosition($name: String, $description: String) {
-        editPosition(name: $name, description: $description) {
+    mutation editPosition($position: PositionInput) {
+        editPosition(position: $position) {
             positionId
             name
             description
@@ -5406,18 +6508,8 @@ export class PositionsGQL extends Apollo.Query<
     document = PositionsDocument;
 }
 export const AddQualificationDocument = gql`
-    mutation addQualification(
-        $qualificationId: String!
-        $name: String
-        $type: String
-        $departmentId: String
-    ) {
-        addQualification(
-            qualificationId: $qualificationId
-            name: $name
-            type: $type
-            departmentId: $departmentId
-        ) {
+    mutation addQualification($qualification: QualificationInput) {
+        addQualification(qualification: $qualification) {
             qualificationId
             name
             type
@@ -5444,18 +6536,8 @@ export class AddQualificationGQL extends Apollo.Mutation<
     document = AddQualificationDocument;
 }
 export const DeleteQualificationDocument = gql`
-    mutation deleteQualification(
-        $qualificationId: String!
-        $name: String
-        $type: String
-        $departmentId: String
-    ) {
-        addQualification(
-            qualificationId: $qualificationId
-            name: $name
-            type: $type
-            departmentId: $departmentId
-        ) {
+    mutation deleteQualification($qualification: QualificationInput) {
+        deleteQualification(qualification: $qualification) {
             qualificationId
             name
             type
@@ -5482,18 +6564,8 @@ export class DeleteQualificationGQL extends Apollo.Mutation<
     document = DeleteQualificationDocument;
 }
 export const EditQualificationDocument = gql`
-    mutation editQualification(
-        $qualificationId: String!
-        $name: String
-        $type: String
-        $departmentId: String
-    ) {
-        editQualification(
-            qualificationId: $qualificationId
-            name: $name
-            type: $type
-            departmentId: $departmentId
-        ) {
+    mutation editQualification($qualification: QualificationInput) {
+        editQualification(qualification: $qualification) {
             qualificationId
             name
             type
@@ -5576,22 +6648,8 @@ export class QualificationsGQL extends Apollo.Query<
     document = QualificationsDocument;
 }
 export const AddStudentDocument = gql`
-    mutation addStudent(
-        $studentId: String!
-        $email: String!
-        $firstName: String!
-        $lastName: String!
-        $title: String!
-        $year: String!
-    ) {
-        addStudent(
-            studentId: $studentId
-            email: $email
-            firstName: $firstName
-            lastName: $lastName
-            title: $title
-            year: $title
-        ) {
+    mutation addStudent($student: StudentInput) {
+        addStudent(student: $student) {
             studentId
             email
             firstName
@@ -5612,22 +6670,8 @@ export class AddStudentGQL extends Apollo.Mutation<
     document = AddStudentDocument;
 }
 export const DeleteStudentDocument = gql`
-    mutation deleteStudent(
-        $studentId: String!
-        $email: String!
-        $firstName: String!
-        $lastName: String!
-        $title: String
-        $year: String
-    ) {
-        deleteStudent(
-            studentId: $studentId
-            email: $email
-            firstName: $firstName
-            lastName: $lastName
-            title: $title
-            year: $title
-        ) {
+    mutation deleteStudent($student: StudentInput) {
+        deleteStudent(student: $student) {
             studentId
             email
             firstName
@@ -5648,22 +6692,8 @@ export class DeleteStudentGQL extends Apollo.Mutation<
     document = DeleteStudentDocument;
 }
 export const EditStudentDocument = gql`
-    mutation editStudent(
-        $studentId: String!
-        $email: String!
-        $firstName: String!
-        $lastName: String!
-        $title: String
-        $year: String
-    ) {
-        editStudent(
-            studentId: $studentId
-            email: $email
-            firstName: $firstName
-            lastName: $lastName
-            title: $title
-            year: $title
-        ) {
+    mutation editStudent($student: StudentInput) {
+        editStudent(student: $student) {
             studentId
             email
             firstName
@@ -5728,32 +6758,8 @@ export class StudentsGQL extends Apollo.Query<
     document = StudentsDocument;
 }
 export const AddUserDocument = gql`
-    mutation addUser(
-        $userId: String!
-        $password: String
-        $email: String
-        $firstName: String
-        $lastName: String
-        $photoUrl: String
-        $disciplineId: String
-        $positionId: String
-        $gender: String
-        $workFocusName: String
-        $nationality: String
-    ) {
-        addUser(
-            userId: $userId
-            password: $password
-            email: $email
-            firstName: $firstName
-            lastName: $lastName
-            photoUrl: $photoUrl
-            disciplineId: $disciplineId
-            positionId: $positionId
-            gender: $gender
-            workFocusName: $workFocusName
-            nationality: $nationality
-        ) {
+    mutation addUser($user: UserInput) {
+        addUser(user: $user) {
             userId
             password
             email
@@ -5778,31 +6784,34 @@ export class AddUserGQL extends Apollo.Mutation<
 > {
     document = AddUserDocument;
 }
-export const DeleteUserDocument = gql`
-    mutation deleteUser(
+export const ChangePasswordDocument = gql`
+    mutation changePassword(
         $userId: String
-        $password: String
-        $email: String
-        $firstName: String
-        $lastName: String
-        $photoUrl: String
-        $disciplineId: String
-        $positionId: String
-        $gender: String
-        $nationality: String
+        $oldPassword: String
+        $newPassword: String
     ) {
-        deleteUser(
+        changePassword(
             userId: $userId
-            password: $password
-            email: $email
-            firstName: $firstName
-            lastName: $lastName
-            photoUrl: $photoUrl
-            disciplineId: $disciplineId
-            positionId: $positionId
-            gender: $gender
-            nationality: $nationality
+            oldPassword: $oldPassword
+            newPassword: $newPassword
         ) {
+            userId
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ChangePasswordGQL extends Apollo.Mutation<
+    ChangePasswordMutation,
+    ChangePasswordMutationVariables
+> {
+    document = ChangePasswordDocument;
+}
+export const DeleteUserDocument = gql`
+    mutation deleteUser($user: UserInput) {
+        deleteUser(user: $user) {
             userId
             password
             email
@@ -5828,32 +6837,8 @@ export class DeleteUserGQL extends Apollo.Mutation<
     document = DeleteUserDocument;
 }
 export const EditUserDocument = gql`
-    mutation editUser(
-        $userId: String
-        $password: String
-        $email: String
-        $firstName: String
-        $lastName: String
-        $photoUrl: String
-        $disciplineId: String
-        $positionId: String
-        $workFocusName: String
-        $gender: String
-        $nationality: String
-    ) {
-        editUser(
-            userId: $userId
-            password: $password
-            email: $email
-            firstName: $firstName
-            lastName: $lastName
-            photoUrl: $photoUrl
-            disciplineId: $disciplineId
-            positionId: $positionId
-            workFocusName: $workFocusName
-            gender: $gender
-            nationality: $nationality
-        ) {
+    mutation editUser($user: UserInput) {
+        editUser(user: $user) {
             userId
             password
             email
@@ -5957,11 +6942,12 @@ export class UsersGQL extends Apollo.Query<UsersQuery, UsersQueryVariables> {
     document = UsersDocument;
 }
 export const AddVenueDocument = gql`
-    mutation addVenue($venueId: String!, $campus: String!, $capacity: Int!) {
-        addVenue(venueId: $venueId, campus: $campus, capacity: $capacity) {
+    mutation addVenue($venue: VenueInput) {
+        addVenue(venue: $venue) {
             venueId
             campus
             capacity
+            type
         }
     }
 `;
@@ -5976,11 +6962,12 @@ export class AddVenueGQL extends Apollo.Mutation<
     document = AddVenueDocument;
 }
 export const DeleteVenueDocument = gql`
-    mutation deleteVenue($venueId: String, $campus: String, $capacity: Int) {
-        deleteVenue(venueId: $venueId, campus: $campus, capacity: $capacity) {
+    mutation deleteVenue($venue: VenueInput) {
+        deleteVenue(venue: $venue) {
             venueId
             campus
             capacity
+            type
         }
     }
 `;
@@ -5995,11 +6982,12 @@ export class DeleteVenueGQL extends Apollo.Mutation<
     document = DeleteVenueDocument;
 }
 export const EditVenueDocument = gql`
-    mutation editVenue($venueId: String, $campus: String, $capacity: Int) {
-        editVenue(venueId: $venueId, campus: $campus, capacity: $capacity) {
+    mutation editVenue($venue: VenueInput) {
+        editVenue(venue: $venue) {
             venueId
             campus
             capacity
+            type
         }
     }
 `;
@@ -6019,6 +7007,7 @@ export const VenueDocument = gql`
             venueId
             campus
             capacity
+            type
         }
     }
 `;
@@ -6035,6 +7024,7 @@ export const VenuesDocument = gql`
             venueId
             campus
             capacity
+            type
         }
     }
 `;
@@ -6044,6 +7034,66 @@ export const VenuesDocument = gql`
 })
 export class VenuesGQL extends Apollo.Query<VenuesQuery, VenuesQueryVariables> {
     document = VenuesDocument;
+}
+export const AddWorkFocusDocument = gql`
+    mutation addWorkFocus($workFocus: WorkFocusInput) {
+        addWorkFocus(workFocus: $workFocus) {
+            name
+            teachingRatio
+            researchRatio
+            serviceRatio
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AddWorkFocusGQL extends Apollo.Mutation<
+    AddWorkFocusMutation,
+    AddWorkFocusMutationVariables
+> {
+    document = AddWorkFocusDocument;
+}
+export const DeleteWorkFocusDocument = gql`
+    mutation deleteWorkFocus($workFocus: WorkFocusInput) {
+        deleteWorkFocus(workFocus: $workFocus) {
+            name
+            teachingRatio
+            researchRatio
+            serviceRatio
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteWorkFocusGQL extends Apollo.Mutation<
+    DeleteWorkFocusMutation,
+    DeleteWorkFocusMutationVariables
+> {
+    document = DeleteWorkFocusDocument;
+}
+export const EditWorkFocusDocument = gql`
+    mutation editWorkFocus($workFocus: WorkFocusInput) {
+        editWorkFocus(workFocus: $workFocus) {
+            name
+            teachingRatio
+            researchRatio
+            serviceRatio
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class EditWorkFocusGQL extends Apollo.Mutation<
+    EditWorkFocusMutation,
+    EditWorkFocusMutationVariables
+> {
+    document = EditWorkFocusDocument;
 }
 export const WorkFocusDocument = gql`
     query workFocus($name: String!) {
@@ -6084,4 +7134,24 @@ export class WorkFocusesGQL extends Apollo.Query<
     WorkFocusesQueryVariables
 > {
     document = WorkFocusesDocument;
+}
+export const FormalInstructionWorkloadDocument = gql`
+    query formalInstructionWorkload($userId: String) {
+        formalInstructionWorkload(userId: $userId) {
+            totalBaseHours
+            totalOtherHours
+            totalOverallHours
+            percentageOfTotal
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionWorkloadGQL extends Apollo.Query<
+    FormalInstructionWorkloadQuery,
+    FormalInstructionWorkloadQueryVariables
+> {
+    document = FormalInstructionWorkloadDocument;
 }

@@ -1,0 +1,6 @@
+mutation addOfferingType($offeringType: OfferingTypeInput) {
+    addOfferingType(offeringType: $offeringType) {
+        offeringTypeId
+        description
+    }
+}

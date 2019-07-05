@@ -11,7 +11,7 @@ import {
     UnassignedModulesGQL,
     AddModulesGQL
 } from '../generated/output';
-import { Module } from '../models';
+import { Module, ModuleInput } from '../models';
 import { map, takeUntil } from 'rxjs/operators';
 import { Observable } from 'apollo-link';
 import { AlertService } from './alert.service';
@@ -25,6 +25,7 @@ export class ModuleService {
 
     loading: boolean;
     errors: any;
+    networkStatus;
 
     public types: string[] = ['Core', 'Fundamental', '(GE) Institutional'];
     public assessmentMethods: string[] = ['Exam', 'Continuous Assessment'];
@@ -52,7 +53,8 @@ export class ModuleService {
         return this.modulesGql.watch().valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
@@ -64,7 +66,8 @@ export class ModuleService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    this.errorService.toConsole(result.errors);
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
@@ -76,63 +79,86 @@ export class ModuleService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    this.errorService.toConsole(result.errors);
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
     }
 
-    getModule(moduleId: string) {
-        return this.moduleGql.watch({ moduleId: moduleId }).valueChanges.pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
-                return result;
+    getModule(
+        moduleId: string,
+        blockId: string,
+        offeringTypeId: string,
+        qualificationId: string
+    ) {
+        return this.moduleGql
+            .watch({
+                moduleId: moduleId,
+                blockId: blockId,
+                offeringTypeId: offeringTypeId,
+                qualificationId: qualificationId
             })
-        );
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 
     unassignedModule() {
         return this.unassignedModulesGql.watch({}).valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    addModule(module: Module) {
-        return this.addModuleGql.mutate(module).pipe(
+    addModule(module: ModuleInput) {
+        return this.addModuleGql.mutate({ module: module }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
-                this.alertService.sendMessage('Add successful!', 'success');
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    addModules(modules: Module[]) {
-        console.log(JSON.stringify(modules));
-        console.log(modules);
-
-        return this.addModulesGql.mutate({ modules }).pipe(
+    addModules(modules: ModuleInput[]) {
+        return this.addModulesGql.mutate({ modules: modules }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
-                this.alertService.sendMessage('Added modules!', 'success');
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    editModule(module: Module) {
-        return this.editModuleGql.mutate(module).pipe(
+    editModule(module: ModuleInput) {
+        return this.editModuleGql.mutate({ module: module }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
-                this.alertService.sendMessage('Edit successful!', 'success');
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
+                return result;
+            })
+        );
+    }
+
+    deleteModule(module: ModuleInput) {
+        return this.deleteModuleGql.mutate({ module: module }).pipe(
+            map(result => {
+                this.loading = result.loading;
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );

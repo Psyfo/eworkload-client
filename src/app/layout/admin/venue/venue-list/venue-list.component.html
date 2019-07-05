@@ -9,14 +9,8 @@
                     class="table table-hover table-active">
                     <thead>
                         <tr>
-                            <th>
-                                Venue Code
-                            </th>
-                            <th>
-                                Capacity
-                            </th>
-                            <th>
-                                Campus
+                            <th *ngFor="let header of headers">
+                                {{header}}
                             </th>
                         </tr>
                     </thead>
@@ -30,6 +24,9 @@
                             </td>
                             <td>
                                 {{ venue?.campus }}
+                            </td>
+                            <td>
+                                {{ venue?.type }}
                             </td>
                         </tr>
                     </tbody>

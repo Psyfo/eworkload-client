@@ -12,7 +12,7 @@ import { routerTransition } from '../../../../router.animations';
     selector: 'app-venue-view',
     templateUrl: './venue-view.component.html',
     styleUrls: ['./venue-view.component.scss'],
-    animations: [routerTransition()]
+    animations: [routerTransition()],
 })
 export class VenueViewComponent implements OnInit {
     // Properties
@@ -50,7 +50,9 @@ export class VenueViewComponent implements OnInit {
     }
 
     onEdit() {
-        this.router.navigate(['admin/venue/edit', this.venueId]);
+        this.router.navigate(['admin/venue/edit', this.venue.venueId], {
+            queryParams: { venueId: this.venue.venueId },
+        });
     }
 
     onCancel() {

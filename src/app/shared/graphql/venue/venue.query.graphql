@@ -3,5 +3,6 @@ query venue($venueId: String!) {
         venueId
         campus
         capacity
+        type
     }
 }

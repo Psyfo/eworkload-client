@@ -1,12 +1,19 @@
-import { Injectable } from '@angular/core';
-import { AlertService } from './alert.service';
-import { ErrorService } from './error.service';
-import { StudentGQL, StudentsGQL, EditStudentGQL, AddStudentGQL, DeleteStudentGQL } from '../generated/output';
 import { map } from 'rxjs/operators';
-import { Student } from '../models';
+
+import { Injectable } from '@angular/core';
+
+import {
+    AddStudentGQL,
+    DeleteStudentGQL,
+    EditStudentGQL,
+    StudentGQL,
+    StudentsGQL
+} from '../generated/output';
+import { Student, StudentInput } from '../models';
+import { AlertService } from './alert.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class StudentService {
     student: Student;
@@ -14,10 +21,10 @@ export class StudentService {
 
     loading: boolean;
     errors: any;
+    networkStatus: any;
 
     constructor(
         private alertService: AlertService,
-        private errorService: ErrorService,
         private studentGql: StudentGQL,
         private studentsGql: StudentsGQL,
         private editStudentGql: EditStudentGQL,
@@ -31,11 +38,8 @@ export class StudentService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    if (result.errors != undefined) {
-                        this.errorService.toConsole(result.errors);
-
-                        return;
-                    }
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
@@ -45,40 +49,41 @@ export class StudentService {
         return this.studentsGql.watch().valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    addStudent(student) {
-        return this.addStudentGql.mutate(student).pipe(
+    addStudent(student: StudentInput) {
+        return this.addStudentGql.mutate({ student: student }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
-                this.alertService.sendMessage('Student added', 'success');
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    editStudent(student) {
-        return this.editStudentGql.mutate(student).pipe(
+    editStudent(student: StudentInput) {
+        return this.editStudentGql.mutate({ student: student }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
-                this.alertService.sendMessage('Student edited', 'success');
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    deleteStudent(student) {
-        return this.deleteStudentGql.mutate(student).pipe(
+    deleteStudent(student: StudentInput) {
+        return this.deleteStudentGql.mutate({ student: student }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
-                this.alertService.sendMessage('Student deleted', 'success');
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );

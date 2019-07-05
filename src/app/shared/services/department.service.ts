@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+
+import { Injectable } from '@angular/core';
 
 import {
     AddDepartmentGQL,
+    DeleteDepartmentGQL,
     DepartmentGQL,
     DepartmentsGQL,
     EditDepartmentGQL
 } from '../generated/output';
-import { Department } from '../models';
+import { Department, DepartmentInput } from '../models';
 import { AlertService } from './alert.service';
-import { ErrorService } from './error.service';
 
 @Injectable({
     providedIn: 'root'
@@ -20,21 +21,23 @@ export class DepartmentService {
 
     loading: boolean;
     errors: any;
+    networkStatus: any;
 
     constructor(
-        private errorService: ErrorService,
         private alertService: AlertService,
         private departmentGql: DepartmentGQL,
         private departmentsGql: DepartmentsGQL,
         private addDepartmentGql: AddDepartmentGQL,
-        private editDepartmentGql: EditDepartmentGQL
+        private editDepartmentGql: EditDepartmentGQL,
+        private deleteDepartmentGql: DeleteDepartmentGQL
     ) {}
 
     getDepartments() {
         return this.departmentsGql.watch().valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
@@ -46,27 +49,41 @@ export class DepartmentService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    this.errorService.toConsole(result.errors);
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
     }
 
-    addDepartment(department: Department) {
-        return this.addDepartmentGql.mutate(department).pipe(
+    addDepartment(department: DepartmentInput) {
+        return this.addDepartmentGql.mutate({ department: department }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    editDepartment(department: Department) {
-        return this.editDepartmentGql.mutate(department).pipe(
+    editDepartment(department: DepartmentInput) {
+        return this.editDepartmentGql.mutate({ department: department }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
+                return result;
+            })
+        );
+    }
+
+    deleteDepartment(department: DepartmentInput) {
+        return this.deleteDepartmentGql.mutate({ department: department }).pipe(
+            map(result => {
+                this.loading = result.loading;
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );

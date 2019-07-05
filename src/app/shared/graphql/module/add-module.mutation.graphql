@@ -1,43 +1,5 @@
-mutation addModule(
-    $moduleId: String!
-    $name: String
-    $type: String
-    $assessmentMethod: String
-    $nqfLevel: String
-    $qualificationId: String
-    $offeringTypeId: String
-    $disciplineId: String
-    $venueId: String
-    $blockId: String
-    $userId: String
-    $coordinatorId: String
-    $moderatorId: String
-    $credits: Int
-    $groupSize: Int
-    $stackId: String
-    $lecturedBy: String
-    $moderation: String
-) {
-    addModule(
-        moduleId: $moduleId
-        name: $name
-        type: $type
-        assessmentMethod: $assessmentMethod
-        nqfLevel: $nqfLevel
-        qualificationId: $qualificationId
-        offeringTypeId: $offeringTypeId
-        disciplineId: $disciplineId
-        venueId: $venueId
-        blockId: $blockId
-        userId: $userId
-        coordinatorId: $coordinatorId
-        moderatorId: $moderatorId
-        credits: $credits
-        groupSize: $groupSize
-        stackId: $stackId
-        lecturedBy: $lecturedBy
-        moderation: $moderation
-    ) {
+mutation addModule($module: ModuleInput) {
+    addModule(module: $module) {
         moduleId
         name
         type

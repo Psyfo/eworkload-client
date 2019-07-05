@@ -16,7 +16,7 @@ query researchActivitiesByUser($userId: String!) {
         }
         approvalStatus
         researchType
-        researchUrl
-        workload
+        researchTitle
+        researchDetails
     }
 }

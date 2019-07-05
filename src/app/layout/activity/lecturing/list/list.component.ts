@@ -79,7 +79,6 @@ export class ListComponent implements OnInit {
                             (<unknown>activity)
                         );
 
-                        this.getWorkload(this.activity);
                         return <FormalInstructionActivity>(<unknown>activity);
                     }
                 );
@@ -87,11 +86,7 @@ export class ListComponent implements OnInit {
                 this.dtTrigger.next();
             });
     }
-    getWorkload(formalInstructionActivity: FormalInstructionActivity) {
-        this.formalInstructionWorkload = this.workloadService.calcBaseContact(
-            formalInstructionActivity.module
-        );
-    }
+
     currentUser() {
         return this.userService.currentUserIdStatic();
     }

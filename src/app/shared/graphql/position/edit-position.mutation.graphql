@@ -1,5 +1,5 @@
-mutation editPosition($name: String, $description: String) {
-    editPosition(name: $name, description: $description){
+mutation editPosition($position: PositionInput) {
+    editPosition(position: $position) {
         positionId
         name
         description

@@ -1,15 +1,5 @@
-mutation deleteQualification(
-    $qualificationId: String!
-    $name: String
-    $type: String
-    $departmentId: String
-) {
-    addQualification(
-        qualificationId: $qualificationId
-        name: $name
-        type: $type
-        departmentId: $departmentId
-    ) {
+mutation deleteQualification($qualification: QualificationInput) {
+    deleteQualification(qualification: $qualification) {
         qualificationId
         name
         type

@@ -1,15 +1,5 @@
-mutation editQualification(
-    $qualificationId: String!
-    $name: String
-    $type: String
-    $departmentId: String
-) {
-    editQualification(
-        qualificationId: $qualificationId
-        name: $name
-        type: $type
-        departmentId: $departmentId
-    ) {
+mutation editQualification($qualification: QualificationInput) {
+    editQualification(qualification: $qualification) {
         qualificationId
         name
         type

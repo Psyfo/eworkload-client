@@ -157,6 +157,21 @@
             </li>
         </div>
         <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandReport('pages')">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Reports' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showReportMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="'/report'" routerLinkActive="router-link-active" class="list-group-item">
+                            <i class="fa fa-fw fa-clipboard"></i>&nbsp;
+                            <span>{{ 'HEMIS' | translate}}</span> </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandAdmin('pages')">
                 <i class="fa fa-plus"></i>&nbsp;
                 <span>{{ 'Admin' | translate }}</span>
@@ -171,20 +186,6 @@
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/admin/faculty']" routerLinkActive="router-link-active"
-                            class="list-group-item">
-                            <i class="fa fa-fw fa-building"></i>&nbsp;
-                            <span>{{ 'Manage Faculties' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/admin/staff']" routerLinkActive="router-link-active"
-                            class="list-group-item">
-                            <i class="fa fa-fw fa-users"></i>&nbsp;
-                            <span>{{ 'Manage Staff' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
                         <a [routerLink]="['/admin/discipline']" routerLinkActive="router-link-active"
                             class="list-group-item">
                             <i class="fa fa-fw fa-building"></i>&nbsp;
@@ -192,10 +193,31 @@
                         </a>
                     </li>
                     <li>
+                        <a [routerLink]="['/admin/faculty']" routerLinkActive="router-link-active"
+                            class="list-group-item">
+                            <i class="fa fa-fw fa-building"></i>&nbsp;
+                            <span>{{ 'Manage Faculties' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
                         <a [routerLink]="['/admin/module']" routerLinkActive="router-link-active"
                             class="list-group-item">
                             <i class="fa fa-fw fa-book"></i>&nbsp;
                             <span>{{ 'Manage Modules' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/qualification']" routerLinkActive="router-link-active"
+                            class="list-group-item">
+                            <i class="fa fa-fw fa-book"></i>&nbsp;
+                            <span>{{ 'Manage Qualifications' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/staff']" routerLinkActive="router-link-active"
+                            class="list-group-item">
+                            <i class="fa fa-fw fa-users"></i>&nbsp;
+                            <span>{{ 'Manage Staff' | translate }}</span>
                         </a>
                     </li>
                     <li>
@@ -208,6 +230,7 @@
                 </ul>
             </li>
         </div>
+
         <!-- <a routerLink="/department" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-building"></i>&nbsp;
             <span>{{ 'Departments' | translate }}</span>

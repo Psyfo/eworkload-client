@@ -33,22 +33,22 @@
                     <tbody *ngIf="users?.length != 0">
                         <tr *ngFor="let user of users">
                             <td>
-                                {{ user.userId }}
+                                {{ user?.userId }}
                             </td>
                             <td>
-                                {{ user.firstName }}
+                                {{ user?.firstName }}
                             </td>
                             <td>
-                                {{ user.lastName }}
+                                {{ user?.lastName }}
                             </td>
                             <td>
-                                {{ user.email }}
+                                {{ user?.email }}
                             </td>
                             <td>
-                                {{ user.discipline.name }}
+                                {{ user?.discipline?.name }}
                             </td>
                             <td>
-                                {{ user.position.name }}
+                                {{ user?.position?.name }}
                             </td>
                         </tr>
                     </tbody>

@@ -1,7 +1,8 @@
-mutation addVenue($venueId: String!, $campus: String!, $capacity: Int!) {
-    addVenue(venueId: $venueId, campus: $campus, capacity: $capacity) {
+mutation addVenue($venue: VenueInput) {
+    addVenue(venue: $venue) {
         venueId
         campus
         capacity
+        type
     }
 }

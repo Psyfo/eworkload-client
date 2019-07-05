@@ -1,0 +1,6 @@
+mutation deleteOfferingType($offeringType: OfferingTypeInput) {
+    deleteOfferingType(offeringType: $offeringType) {
+        offeringTypeId
+        description
+    }
+}

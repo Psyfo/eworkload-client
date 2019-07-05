@@ -1,17 +1,18 @@
-import { Injectable } from '@angular/core';
-import { AlertService } from './alert.service';
-import { ErrorService } from './error.service';
-import {
-    EnrollmentGQL,
-    FacultiesGQL,
-    EditEnrollmentGQL,
-    AddEnrollmentGQL,
-    EnrollmentsGQL,
-    EnrollmentsByYearGQL,
-    EnrollmentsByQualificationGQL
-} from '../generated/output';
 import { map } from 'rxjs/operators';
-import { Enrollment } from '../models/enrollment.model';
+
+import { Injectable } from '@angular/core';
+
+import {
+    AddEnrollmentGQL,
+    DeleteEnrollmentGQL,
+    EditEnrollmentGQL,
+    EnrollmentGQL,
+    EnrollmentsByQualificationGQL,
+    EnrollmentsByYearGQL,
+    EnrollmentsGQL
+} from '../generated/output';
+import { Enrollment, EnrollmentInput } from '../models/enrollment.model';
+import { AlertService } from './alert.service';
 
 @Injectable({
     providedIn: 'root'
@@ -22,16 +23,17 @@ export class EnrollmentService {
 
     loading: boolean;
     errors: any;
+    networkStatus: any;
 
     constructor(
         private alertService: AlertService,
-        private errorService: ErrorService,
         private enrollmentGql: EnrollmentGQL,
         private enrollmentsGql: EnrollmentsGQL,
         private enrollmentsByYearGql: EnrollmentsByYearGQL,
         private enrollmentsByQualificationGql: EnrollmentsByQualificationGQL,
+        private addEnrollmentGql: AddEnrollmentGQL,
         private editEnrollmentGql: EditEnrollmentGQL,
-        private addEnrollmentGql: AddEnrollmentGQL
+        private deleteEnrollmentGql: DeleteEnrollmentGQL
     ) {}
 
     getEnrollment(enrollmentYear: string, qualificationId: string) {
@@ -43,7 +45,8 @@ export class EnrollmentService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    this.errorService.toConsole(result.errors);
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
@@ -59,7 +62,8 @@ export class EnrollmentService {
         return this.enrollmentsGql.watch().valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
@@ -71,7 +75,8 @@ export class EnrollmentService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    this.errorService.toConsole(result.errors);
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
@@ -83,29 +88,41 @@ export class EnrollmentService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    this.errorService.toConsole(result.errors);
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
     }
 
-    addEnrollment(enrollment) {
-        return this.addEnrollmentGql.mutate(enrollment).pipe(
+    addEnrollment(enrollment: EnrollmentInput) {
+        return this.addEnrollmentGql.mutate({ enrollment: enrollment }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
-                this.alertService.sendMessage('Enrollment added', 'success');
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    editEnrollment(enrollment) {
-        return this.editEnrollmentGql.mutate(enrollment).pipe(
+    editEnrollment(enrollment: EnrollmentInput) {
+        return this.editEnrollmentGql.mutate({ enrollment: enrollment }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
-                this.alertService.sendMessage('Enrollment edited', 'success');
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
+                return result;
+            })
+        );
+    }
+
+    deleteEnrollment(enrollment: EnrollmentInput) {
+        return this.deleteEnrollmentGql.mutate({ enrollment: enrollment }).pipe(
+            map(result => {
+                this.loading = result.loading;
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );

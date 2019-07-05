@@ -1,3 +1,6 @@
+import { ChangePasswordGQL } from './../generated/output';
+import gql from 'graphql-tag';
+import { Apollo } from 'apollo-angular';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,7 +11,7 @@ import {
     AddUserGQL,
     EditUserGQL
 } from '../generated/output';
-import { User } from '../models';
+import { User, UserInput } from '../models';
 import { AlertService } from './alert.service';
 import { ErrorService } from './error.service';
 
@@ -21,14 +24,15 @@ export class UserService {
 
     loading: boolean;
     errors: any;
+    networkStatus: any;
 
     constructor(
         private alertService: AlertService,
-        private errorService: ErrorService,
         private userGql: UserGQL,
         private usersGql: UsersGQL,
         private addUserGql: AddUserGQL,
-        private editUserGql: EditUserGQL
+        private editUserGql: EditUserGQL,
+        private changePasswordGql: ChangePasswordGQL
     ) {}
 
     isAuthenticated(): boolean {
@@ -52,7 +56,8 @@ export class UserService {
         return this.userGql.watch({ userId: userId }).valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
@@ -66,7 +71,8 @@ export class UserService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    this.errorService.toConsole(result.errors);
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
@@ -76,29 +82,49 @@ export class UserService {
         return this.usersGql.watch().valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    addUser(user: User) {
-        return this.addUserGql.mutate(user).pipe(
+    addUser(user: UserInput) {
+        return this.addUserGql.mutate({ user: user }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    editUser(user: User) {
-        return this.editUserGql.mutate(user).pipe(
+    editUser(user: UserInput) {
+        return this.editUserGql.mutate({ user: user }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
+    }
+
+    changePassword(userId: string, oldPassword: string, newPassword: string) {
+        return this.changePasswordGql
+            .mutate({
+                userId: userId,
+                oldPassword: oldPassword,
+                newPassword: newPassword
+            })
+            .pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 }

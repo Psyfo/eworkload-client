@@ -1,10 +1,16 @@
-import { Component, OnInit, Renderer } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Renderer,
+    ChangeDetectorRef,
+    ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
 import { routerTransition } from '../../../../router.animations';
-import { Module } from '../../../../shared/models';
+import { Module, ModuleInput } from '../../../../shared/models';
 import { ModuleService, AlertService } from '../../../../shared/services';
 import { takeUntil } from 'rxjs/operators';
 import * as XLXS from 'xlsx';
@@ -14,34 +20,39 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
     selector: 'app-module-list',
     templateUrl: './module-list.component.html',
     styleUrls: ['./module-list.component.scss'],
-    animations: [routerTransition()]
+    animations: [routerTransition()],
 })
 export class ModuleListComponent implements OnInit {
     module: Module = new Module();
     modules: Module[];
+
     csv: any;
     fileData = [];
     itemData = [];
     moduleArray: Module[] = [];
     worksheetData = [];
-    uploadedModules: Module[] = [];
+    uploadedModules: ModuleInput[] = [];
     selectedFile: File;
 
     private unsubscribe = new Subject();
 
     // Datatable config
+    @ViewChild(DataTableDirective)
+    dtElement: DataTableDirective;
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<Module> = new Subject();
-    dtElement: DataTableDirective;
     dtRouteParam: string;
 
     constructor(
         private alertService: AlertService,
         private router: Router,
         private renderer: Renderer,
+        private changeDetector: ChangeDetectorRef,
         private modalService: NgbModal,
         private moduleService: ModuleService
-    ) {}
+    ) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    }
 
     ngOnInit() {
         this.getModules();
@@ -62,7 +73,7 @@ export class ModuleListComponent implements OnInit {
                     self.rowClickHandler(data);
                 });
                 return row;
-            }
+            },
         };
     }
     ngOnDestroy(): void {
@@ -87,7 +98,21 @@ export class ModuleListComponent implements OnInit {
         this.dtRouteParam = info[0];
 
         this.router.navigate(['admin/module/view', this.dtRouteParam], {
-            queryParams: { moduleId: info[0] }
+            queryParams: {
+                moduleId: info[0],
+                blockId: info[1],
+                offeringTypeId: info[2],
+                qualificationId: info[3],
+            },
+        });
+    }
+    rerender(): void {
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            // Destroy the table first
+            dtInstance.destroy();
+
+            // Call the dtTrigger to rerender again
+            this.dtTrigger.next();
         });
     }
     getModules() {
@@ -121,17 +146,16 @@ export class ModuleListComponent implements OnInit {
 
             // Get work sheet data into module array
             wsdata.forEach(element => {
-                let module = new Module();
-                module = new Module();
-                module.moduleId = element[1];
-                module.qualificationId = element[0];
+                let module = new ModuleInput();
+                module.moduleId = element[3];
+                module.qualificationId = element[2];
                 module.name = element[4];
-                module.blockId = element[5];
+                module.blockId = String(element[5]);
                 module.offeringTypeId = element[6];
-                module.nqfLevel = element[7];
+                module.nqfLevel = String(element[7]);
                 module.credits = parseInt(element[8]);
-                module.studyPeriod = element[9];
-                module.lecturedBy = element[10];
+                module.studyPeriod = String(element[9]);
+                module.lecturedBy = String(element[10]);
                 module.disciplineId = element[11];
                 module.assessmentMethod =
                     element[12] === 'CA' ? 'Continuous Assessment' : 'Exam';
@@ -139,6 +163,7 @@ export class ModuleListComponent implements OnInit {
                     element[13] === 'I' ? 'Internal' : 'External';
                 module.type = 'Core';
                 module.venueId = 'DB0001';
+                module.groupSize = 1;
 
                 this.uploadedModules.push(module);
             });
@@ -146,7 +171,7 @@ export class ModuleListComponent implements OnInit {
             // Configure xlxs output
             const htmlstr = XLXS.write(wb, {
                 type: 'string',
-                bookType: 'html'
+                bookType: 'html',
             });
 
             // Open modal and present excel html then return focus to modal
@@ -162,27 +187,31 @@ export class ModuleListComponent implements OnInit {
         this.router.navigate(['admin/module/add']);
     }
     onAddBulk() {
-        console.log();
+        setTimeout(() => {
+            this.moduleService
+                .addModules(this.uploadedModules.slice(1))
+                .pipe(takeUntil(this.unsubscribe))
+                .subscribe(result => {
+                    console.log(result.addModules);
+                    this.alertService.sendMessage(
+                        'Bulk upload complete',
+                        'success'
+                    );
 
-        console.log('This works. Something else is wrong.');
-
-        this.moduleService
-            .addModules(this.uploadedModules.slice(1))
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                console.log(result.addModules);
-                this.alertService.sendMessage(
-                    'Bulk upload complete',
-                    'success'
-                );
-
-                this.modalService.dismissAll('Operations complete');
-                this.dtTrigger.next();
-            });
-
-        console.log('End of method reached');
+                    this.modalService.dismissAll('Operations complete');
+                });
+            this.rerender();
+        });
     }
-
+    enabled: boolean;
+    reloadTree() {
+        this.enabled = false;
+        // now notify angular to check for updates
+        this.changeDetector.detectChanges();
+        // change detection should remove the component now
+        // then we can enable it again to create a new instance
+        this.enabled = true;
+    }
     closeResult: string;
     open(content) {
         this.modalService

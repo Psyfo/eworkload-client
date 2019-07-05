@@ -1,0 +1,7 @@
+mutation deleteDuty($duty: DutyInput) {
+    deleteDuty(duty: $duty) {
+        dutyId
+        name
+        description
+    }
+}

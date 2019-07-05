@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import {
     AlertService,
     UserService,
     ModuleService,
     ActivityService,
-    WorkloadService
+    WorkloadService,
 } from '../../../../shared/services';
 import { routerTransition } from '../../../../router.animations';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
     User,
     Module,
-    FormalInstructionActivity
+    FormalInstructionActivity,
 } from '../../../../shared/models';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -22,13 +22,17 @@ import { resultKeyNameFromField } from 'apollo-utilities';
     selector: 'app-add',
     templateUrl: './add.component.html',
     styleUrls: ['./add.component.scss'],
-    animations: [routerTransition()]
+    animations: [routerTransition()],
 })
 export class AddComponent implements OnInit {
     user: User;
     users: User[];
     module: Module = new Module();
     modules: Module[];
+
+    blockId: string;
+    oId;
+    qId;
 
     baseContact: number;
     coordinationWorkload: number;
@@ -57,12 +61,14 @@ export class AddComponent implements OnInit {
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
-
+    getVals(event) {
+        console.log(event);
+    }
     buildForm() {
         this.formalInstructionAddForm = this.fb.group({
             userId: [{ value: '', disabled: true }, [Validators.required]],
             moduleId: ['', [Validators.required]],
-            isCoordinator: ['', [Validators.required]]
+            isCoordinator: ['', [Validators.required]],
         });
 
         this.userService
@@ -76,7 +82,7 @@ export class AddComponent implements OnInit {
                 );
 
                 this.formalInstructionAddForm.patchValue({
-                    userId: this.user.userId
+                    userId: this.user.userId,
                 });
             });
     }
@@ -98,26 +104,24 @@ export class AddComponent implements OnInit {
                 this.modules = result.data.modulesByDiscipline.map(
                     module => <Module>(<unknown>module)
                 );
+                console.log(this.modules);
             });
     }
-    getModule(moduleId) {
+    getModule(moduleId, blockId, offeringTypeId, qualificationId) {
         this.moduleService
-            .getModule(moduleId)
+            .getModule(moduleId, blockId, offeringTypeId, qualificationId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.module = <Module>(<unknown>result.data.module);
-                this.baseContact = this.workloadService.calcBaseContact(
-                    this.module
-                );
-                if (this.isCoordinator.value === true) {
-                    this.coordinationWorkload = this.workloadService.calcCoordinationWorkload(
-                        this.module
-                    );
-                } else if (this.isCoordinator.value === false) {
-                    this.coordinationWorkload = null;
-                }
-                console.log(this.baseContact);
-                console.log(this.coordinationWorkload);
+                console.log(this.module);
+            });
+    }
+    editModule(module: Module) {
+        this.moduleService
+            .editModule(module)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                console.log(result.data.editModule);
             });
     }
 
@@ -125,8 +129,20 @@ export class AddComponent implements OnInit {
         this.moduleId.valueChanges
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
+                const position = this.moduleId.value;
+                const moduleModel = this.modules[position];
+                console.log(moduleModel.moduleId);
+                console.log(moduleModel.block.blockId);
+                console.log(moduleModel.offeringType.offeringTypeId);
+                console.log(moduleModel.qualification.qualificationId);
+
                 if (result !== null) {
-                    this.getModule(this.moduleId.value);
+                    this.getModule(
+                        moduleModel.moduleId,
+                        moduleModel.block.blockId,
+                        moduleModel.offeringType.offeringTypeId,
+                        moduleModel.qualification.qualificationId
+                    );
                 }
             });
 
@@ -135,10 +151,19 @@ export class AddComponent implements OnInit {
             .subscribe(result => {});
     }
     onAdd() {
+        this.formalInstructionActivity.userId = this.userService.currentUserIdStatic();
         this.formalInstructionActivity.dutyId = '11';
-        this.formalInstructionActivity.moduleId = this.moduleId.value;
+        this.formalInstructionActivity.moduleId = this.module.moduleId;
+        this.formalInstructionActivity.blockId = this.module.blockId;
+        this.formalInstructionActivity.offeringTypeId = this.module.offeringTypeId;
+        this.formalInstructionActivity.qualificationId = this.module.qualificationId;
+        console.log(this.formalInstructionActivity);
+
         if (this.isCoordinator.value === true) {
-            this.formalInstructionActivity.coordinatorId = this.userService.currentUserIdStatic();
+            this.addCoordinator(
+                this.userService.currentUserIdStatic(),
+                this.module
+            );
         }
 
         this.activityService
@@ -147,7 +172,7 @@ export class AddComponent implements OnInit {
             .subscribe(result => {
                 this.alertService.sendMessage('Activity added', 'success');
 
-                this.router.navigate(['../admin/lecturing']);
+                this.router.navigate(['activity/lecturing']);
             });
     }
     onBack() {
@@ -156,6 +181,15 @@ export class AddComponent implements OnInit {
     onReset() {
         this.formalInstructionAddForm.reset();
         this.ngOnInit();
+    }
+    addCoordinator(coordinatorId: string, module: Module) {
+        module.coordinatorId = coordinatorId;
+        this.moduleService
+            .editModule(module)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.alertService.sendMessage('Coordinator added', 'success');
+            });
     }
 
     // Getters

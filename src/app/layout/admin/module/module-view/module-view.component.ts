@@ -2,7 +2,7 @@ import {
     Component,
     OnInit,
     ChangeDetectorRef,
-    SimpleChanges
+    SimpleChanges,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { takeUntil } from 'rxjs/operators';
     selector: 'app-module-view',
     templateUrl: './module-view.component.html',
     styleUrls: ['./module-view.component.scss'],
-    animations: [routerTransition()]
+    animations: [routerTransition()],
 })
 export class ModuleViewComponent implements OnInit {
     module: any;
@@ -36,7 +36,12 @@ export class ModuleViewComponent implements OnInit {
         this.activatedRoute.queryParams
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.getModule(result.moduleId);
+                this.getModule(
+                    result.moduleId,
+                    result.blockId,
+                    result.offeringTypeId,
+                    result.qualificationId
+                );
             });
     }
     ngOnDestroy(): void {
@@ -44,17 +49,26 @@ export class ModuleViewComponent implements OnInit {
         this.unsubscribe.complete();
     }
 
-    getModule(moduleId: string) {
-        this.moduleService.getModule(moduleId).subscribe(result => {
-            this.module = <Module>(<unknown>result.data.module);
-        });
+    getModule(
+        moduleId: string,
+        blockId: string,
+        offeringTypeId: string,
+        qualificationId: string
+    ) {
+        this.moduleService
+            .getModule(moduleId, blockId, offeringTypeId, qualificationId)
+            .subscribe(result => {
+                this.module = <Module>(<unknown>result.data.module);
+            });
     }
 
     onEdit() {
         this.router.navigate(['admin/module/edit', this.module.moduleId], {
             queryParams: {
-                moduleId: this.module.moduleId
-            }
+                moduleId: this.module.moduleId,
+                blockId: this.module.block.blockId,
+                offeringTypeId: this.module.offeringType.offeringTypeId,
+            },
         });
     }
 

@@ -3,5 +3,6 @@ query venues {
         venueId
         campus
         capacity
+        type
     }
 }

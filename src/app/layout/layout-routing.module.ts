@@ -11,34 +11,39 @@ const routes: Routes = [
             {
                 path: 'dashboard',
                 loadChildren: './dashboard/dashboard.module#DashboardModule',
-                pathMatch: 'prefix'
+                pathMatch: 'prefix',
             },
             {
                 path: 'profile',
                 loadChildren: './profile/profile.module#ProfileModule',
-                pathMatch: 'prefix'
+                pathMatch: 'prefix',
             },
             {
                 path: 'activity',
                 loadChildren: './activity/activity.module#ActivityModule',
-                pathMatch: 'prefix'
+                pathMatch: 'prefix',
             },
             {
                 path: 'admin',
                 loadChildren: './admin/admin.module#AdminModule',
-                pathMatch: 'prefix'
+                pathMatch: 'prefix',
             },
             {
                 path: 'hod',
                 loadChildren: './hod/hod.module#HodModule',
-                pathMatch: 'prefix'
-            }
-        ]
-    }
+                pathMatch: 'prefix',
+            },
+            {
+                path: 'report',
+                loadChildren: './report/report.module#ReportModule',
+                pathMatch: 'prefix',
+            },
+        ],
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class LayoutRoutingModule {}

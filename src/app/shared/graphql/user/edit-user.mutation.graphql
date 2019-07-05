@@ -1,29 +1,5 @@
-mutation editUser(
-    $userId: String
-    $password: String
-    $email: String
-    $firstName: String
-    $lastName: String
-    $photoUrl: String
-    $disciplineId: String
-    $positionId: String
-    $workFocusName: String
-    $gender: String
-    $nationality: String
-) {
-    editUser(
-        userId: $userId
-        password: $password
-        email: $email
-        firstName: $firstName
-        lastName: $lastName
-        photoUrl: $photoUrl
-        disciplineId: $disciplineId
-        positionId: $positionId
-        workFocusName: $workFocusName
-        gender: $gender
-        nationality: $nationality
-    ) {
+mutation editUser($user: UserInput) {
+    editUser(user: $user) {
         userId
         password
         email

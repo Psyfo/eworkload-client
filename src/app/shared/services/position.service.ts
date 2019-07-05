@@ -10,6 +10,7 @@ import {
     PositionsGQL
 } from '../generated/output';
 import { map } from 'rxjs/operators';
+import { PositionInput } from '../models';
 
 @Injectable({
     providedIn: 'root'
@@ -20,10 +21,10 @@ export class PositionService {
 
     loading: boolean;
     errors: any;
+    networkStatus: any;
 
     constructor(
         private alertService: AlertService,
-        private errorService: ErrorService,
         private positionGql: PositionGQL,
         private positionsGql: PositionsGQL,
         private editPositionGql: EditPositionGQL,
@@ -37,11 +38,8 @@ export class PositionService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    if (result.errors != undefined) {
-                        this.errorService.toConsole(result.errors);
-
-                        return;
-                    }
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
@@ -51,40 +49,41 @@ export class PositionService {
         return this.positionsGql.watch().valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    addPosition(position) {
-        return this.addPositionGql.mutate(position).pipe(
+    addPosition(position: PositionInput) {
+        return this.addPositionGql.mutate({ position: position }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
-                this.alertService.sendMessage('Position added', 'success');
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    editPosition(position) {
-        return this.editPositionGql.mutate(position).pipe(
+    editPosition(position: PositionInput) {
+        return this.editPositionGql.mutate({ position: position }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
-                this.alertService.sendMessage('Position edited', 'success');
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    deletePosition(position) {
-        return this.deletePositionGql.mutate(position).pipe(
+    deletePosition(position: PositionInput) {
+        return this.deletePositionGql.mutate({ position: position }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
-                this.alertService.sendMessage('Position deleted', 'success');
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );

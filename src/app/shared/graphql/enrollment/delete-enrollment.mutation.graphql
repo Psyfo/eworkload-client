@@ -1,0 +1,13 @@
+mutation deleteEnrollment($enrollment: EnrollmentInput) {
+    deleteEnrollment(enrollment: $enrollment) {
+        enrollmentYear
+        qualificationId
+        qualification {
+            qualificationId
+            name
+        }
+        firstYearEstimated
+        secondYearEstimated
+        thirdYearEstimated
+    }
+}

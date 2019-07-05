@@ -1,5 +1,5 @@
-mutation editFaculty($facultyId: String!, $name: String!) {
-    addFaculty(facultyId: $facultyId, name: $name) {
+mutation editFaculty($faculty: FacultyInput) {
+    addFaculty(faculty: $faculty) {
         facultyId
         name
     }

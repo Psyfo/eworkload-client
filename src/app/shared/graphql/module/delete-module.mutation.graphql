@@ -1,41 +1,5 @@
-mutation deleteModule(
-    $moduleId: String!
-    $name: String
-    $type: String
-    $assessmentMethod: String
-    $nqfLevel: String
-    $qualificationId: String
-    $offeringTypeId: String
-    $disciplineId: String
-    $venueId: String
-    $blockId: String
-    $userId: String
-    $coordinatorId: String
-    $moderatorId: String
-    $credits: Int
-    $stackId: String
-    $lecturedBy: String
-    $moderation: String
-) {
-    deleteModule(
-        moduleId: $moduleId
-        name: $name
-        type: $type
-        assessmentMethod: $assessmentMethod
-        nqfLevel: $nqfLevel
-        qualificationId: $qualificationId
-        offeringTypeId: $offeringTypeId
-        disciplineId: $disciplineId
-        venueId: $venueId
-        blockId: $blockId
-        userId: $userId
-        coordinatorId: $coordinatorId
-        moderatorId: $moderatorId
-        credits: $credits
-        stackId: $stackId
-        lecturedBy: $lecturedBy
-        moderation: $moderation
-    ) {
+mutation deleteModule($module: ModuleInput) {
+    deleteModule(module: $module) {
         moduleId
         name
         type

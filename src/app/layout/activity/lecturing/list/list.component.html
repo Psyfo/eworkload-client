@@ -23,10 +23,25 @@
                                 Module
                             </th>
                             <th>
+                                Block
+                            </th>
+                            <th>
+                                Offering
+                            </th>
+                            <th>
+                                Qualification
+                            </th>
+                            <th>
                                 Credits
                             </th>
                             <th>
-                                Workload
+                                Base Contact
+                            </th>
+                            <th>
+                                Other
+                            </th>
+                            <th>
+                                Total
                             </th>
                         </tr>
                     </thead>
@@ -45,16 +60,31 @@
                                 {{activity?.module?.name}}
                             </td>
                             <td>
+                                {{activity?.blockId}}
+                            </td>
+                            <td>
+                                {{activity?.offeringTypeId}}
+                            </td>
+                            <td>
+                                {{activity?.qualificationId}}
+                            </td>
+                            <td>
                                 {{activity?.module?.credits}}
                             </td>
                             <td>
-                                {{formalInstructionWorkload}}
+                                {{activity?.baseContactHours}}
+                            </td>
+                            <td>
+                                {{activity.otherHours}}
+                            </td>
+                            <td>
+                                {{activity.totalHours}}
                             </td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="5">
+                            <td colspan="10">
                             </td>
                         </tr>
                     </tfoot>

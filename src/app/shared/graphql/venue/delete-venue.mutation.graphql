@@ -1,7 +1,8 @@
-mutation deleteVenue($venueId: String, $campus: String, $capacity: Int) {
-    deleteVenue(venueId: $venueId, campus: $campus, capacity: $capacity) {
+mutation deleteVenue($venue: VenueInput) {
+    deleteVenue(venue: $venue) {
         venueId
         campus
         capacity
+        type
     }
 }

@@ -96,13 +96,13 @@ export class ModuleEditComponent implements OnInit {
             groupSize: ['', [Validators.required]]
         });
 
-        this.moduleService
-            .getModule(moduleId)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.module = <Module>(<unknown>result.data.module);
-                this.moduleEditForm.patchValue(this.module);
-            });
+        // this.moduleService
+        //     .getModule(moduleId)
+        //     .pipe(takeUntil(this.unsubscribe))
+        //     .subscribe(result => {
+        //         this.module = <Module>(<unknown>result.data.module);
+        //         this.moduleEditForm.patchValue(this.module);
+        //     });
     }
     getOfferingTypes() {
         this.offeringTypeService

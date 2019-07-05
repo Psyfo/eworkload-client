@@ -56,3 +56,25 @@ export class Module {
         this.moderation = '';
     }
 }
+
+export class ModuleInput {
+    moduleId: string;
+    name: string;
+    type: string;
+    assessmentMethod: string;
+    nqfLevel: string;
+    qualificationId: string;
+    offeringTypeId: string;
+    disciplineId: string;
+    venueId: string;
+    blockId: string;
+    userId: string;
+    coordinatorId: string;
+    moderatorId: string;
+    credits: number;
+    groupSize: number;
+    stackId: string;
+    studyPeriod: string;
+    lecturedBy: string;
+    moderation: string;
+}

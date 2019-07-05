@@ -13,12 +13,13 @@ import { VenueService } from '../../../../shared/services/venue.service';
     selector: 'app-venue-list',
     templateUrl: './venue-list.component.html',
     styleUrls: ['./venue-list.component.scss'],
-    animations: [routerTransition()]
+    animations: [routerTransition()],
 })
 export class VenueListComponent implements OnInit {
     venues: Venue[];
 
     // Datatable config
+    headers = this.venueService.headers;
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
     dtElement: DataTableDirective;
@@ -51,7 +52,7 @@ export class VenueListComponent implements OnInit {
                     self.rowClickHandler(data);
                 });
                 return row;
-            }
+            },
         };
 
         this.getVenues();
@@ -78,7 +79,7 @@ export class VenueListComponent implements OnInit {
         this.dtRouteParam = info[0];
 
         this.router.navigate(['admin/venue/view', this.dtRouteParam], {
-            queryParams: { departmentId: info[0] }
+            queryParams: { venueId: info[0] },
         });
     }
 

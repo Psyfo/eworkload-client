@@ -8,3 +8,11 @@ export class Enrollment {
     secondYearEstimated: number;
     thirdYearEstimated: number;
 }
+
+export class EnrollmentInput {
+    enrollmentYear: string;
+    qualificationId: string;
+    firstYearEstimated: number;
+    secondYearEstimated: number;
+    thirdYearEstimated: number;
+}

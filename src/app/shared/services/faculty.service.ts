@@ -8,7 +8,7 @@ import {
     AddFacultyGQL,
     DeleteFacultyGQL
 } from '../generated/output';
-import { Faculty } from '../models';
+import { Faculty, FacultyInput } from '../models';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -20,10 +20,10 @@ export class FacultyService {
 
     loading: boolean;
     errors: any;
+    networkStatus: any;
 
     constructor(
         private alertService: AlertService,
-        private errorService: ErrorService,
         private facultyGql: FacultyGQL,
         private facultiesGql: FacultiesGQL,
         private editFacultyGql: EditFacultyGQL,
@@ -37,11 +37,8 @@ export class FacultyService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    if(result.errors != undefined) {
-                        this.errorService.toConsole(result.errors);
-                        
-                        return;
-                    }
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
@@ -51,40 +48,41 @@ export class FacultyService {
         return this.facultiesGql.watch().valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    addFaculty(faculty) {
-        return this.addFacultyGql.mutate(faculty).pipe(
+    addFaculty(faculty: FacultyInput) {
+        return this.addFacultyGql.mutate({ faculty: faculty }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
-                this.alertService.sendMessage('Faculty added', 'success');
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    editFaculty(faculty) {
-        return this.editFacultyGql.mutate(faculty).pipe(
+    editFaculty(faculty: FacultyInput) {
+        return this.editFacultyGql.mutate({ faculty: faculty }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
-                this.alertService.sendMessage('Faculty edited', 'success');
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    deleteFaculty(faculty) {
-        return this.deleteFacultyGql.mutate(faculty).pipe(
+    deleteFaculty(faculty: FacultyInput) {
+        return this.deleteFacultyGql.mutate({ faculty: faculty }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
-                this.alertService.sendMessage('Faculty deleted', 'success');
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );

@@ -12,29 +12,71 @@
                             Module ID
                         </th>
                         <th>
+                            Block ID
+                        </th>
+                        <th>
+                            Offering Type ID
+                        </th>
+                        <th>
+                            Qualification ID
+                        </th>
+                        <th>
                             Name
                         </th>
                         <th>
                             Discipline
+                        </th>
+                        <th>
+                            Qualification
+                        </th>
+                        <th>
+                            NQF
+                        </th>
+                        <th>
+                            Credits
+                        </th>
+                        <th>
+                            Block
                         </th>
                     </tr>
                 </thead>
                 <tbody *ngIf="modules?.length != 0">
                     <tr *ngFor="let module of modules; let i = index">
                         <td>
-                            {{ module.moduleId }}
+                            {{ module?.moduleId }}
                         </td>
                         <td>
-                            {{ module.name }}
+                            {{ module?.block?.blockId }}
                         </td>
                         <td>
-                            {{ module.discipline.name }}
+                            {{ module?.offeringType?.offeringTypeId }}
+                        </td>
+                        <td>
+                            {{ module?.qualification?.qualificationId}}
+                        </td>
+                        <td>
+                            {{ module?.name }}
+                        </td>
+                        <td>
+                            {{ module?.discipline?.name }}
+                        </td>
+                        <td>
+                            {{module?.qualification?.name}} ({{module?.qualification?.qualificationId}})
+                        </td>
+                        <td>
+                            {{module?.nqfLevel}}
+                        </td>
+                        <td>
+                            {{module?.credits}}
+                        </td>
+                        <td>
+                            {{module?.block?.name}} ({{module?.block?.blockId}})
                         </td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="3"></td>
+                        <td colspan="7"></td>
                     </tr>
                 </tfoot>
             </table>

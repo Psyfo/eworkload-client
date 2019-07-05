@@ -1,7 +1,7 @@
+import { UnapprovedActivitiesGQL } from './../generated/output';
 import { Injectable } from '@angular/core';
 
 import {
-    ActivitiesGQL,
     ActivityGQL,
     FormalInstructionActivitiesGQL,
     FormalInstructionActivityGQL,
@@ -14,7 +14,8 @@ import {
     FormalInstructionActivity,
     PublicServiceActivity,
     ResearchActivity,
-    SupervisionActivity
+    SupervisionActivity,
+    FormalInstructionActivityInput
 } from '../models';
 import { AlertService } from './alert.service';
 import { ErrorService } from './error.service';
@@ -31,6 +32,8 @@ export class ActivityService {
     formalInstructionActivity: FormalInstructionActivity;
 
     loading: boolean;
+    errors: any;
+    networkStatus: any;
 
     public outputTypes = [
         'Conference Proceedings',
@@ -45,12 +48,12 @@ export class ActivityService {
         private alertService: AlertService,
         private errorService: ErrorService,
         private activityGql: ActivityGQL,
-        private activitiesGql: ActivitiesGQL,
         private formalInstructionActivityGql: FormalInstructionActivityGQL,
         private formalInstructionActivitiesGql: FormalInstructionActivitiesGQL,
         private formalInstructionActivitiesByUserGql: FormalInstructionActivitiesByUserGQL,
         private addFormalInstructionActivityGql: AddFormalInstructionActivityGQL,
-        private researchActivitiesByUserGql: ResearchActivitiesByUserGQL
+        private researchActivitiesByUserGql: ResearchActivitiesByUserGQL,
+        private unapprovedActivitiesGql: UnapprovedActivitiesGQL
     ) {}
 
     getActivity(activityId: string) {
@@ -59,17 +62,30 @@ export class ActivityService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    this.errorService.toConsole(result.errors);
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
     }
 
-    getActivities() {
-        return this.activitiesGql.watch().valueChanges.pipe(
+    getUnapprovedActivities() {
+        return this.unapprovedActivitiesGql.watch({}).valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
+                return result;
+            })
+        );
+    }
+
+    getApprovedActivities() {
+        return this.unapprovedActivitiesGql.watch({}).valueChanges.pipe(
+            map(result => {
+                this.loading = result.loading;
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
@@ -81,7 +97,8 @@ export class ActivityService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    this.errorService.toConsole(result.errors);
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
@@ -98,7 +115,8 @@ export class ActivityService {
         return this.formalInstructionActivitiesGql.watch().valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
@@ -110,21 +128,23 @@ export class ActivityService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    this.errorService.toConsole(result.errors);
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
     }
 
     addFormalInstructionActivity(
-        formalInstructionActivity: FormalInstructionActivity
+        formalInstructionActivity: FormalInstructionActivityInput
     ) {
         return this.addFormalInstructionActivityGql
-            .mutate(formalInstructionActivity)
+            .mutate({ formalInstructionActivity: formalInstructionActivity })
             .pipe(
                 map(result => {
                     this.loading = result.loading;
-                    this.errorService.toConsole(result.errors);
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );

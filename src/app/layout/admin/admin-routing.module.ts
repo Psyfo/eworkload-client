@@ -1,5 +1,6 @@
+import { CustomRouteReuseStategy } from './../../shared/helpers/routing-strategy';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, RouteReuseStrategy } from '@angular/router';
 import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
@@ -9,38 +10,46 @@ const routes: Routes = [
         children: [
             {
                 path: 'department',
-                loadChildren: './department/department.module#DepartmentModule'
+                loadChildren: './department/department.module#DepartmentModule',
             },
             {
                 path: 'faculty',
-                loadChildren: './faculty/faculty.module#FacultyModule'
+                loadChildren: './faculty/faculty.module#FacultyModule',
             },
             {
                 path: 'role',
-                loadChildren: './role/role.module#RoleModule'
+                loadChildren: './role/role.module#RoleModule',
             },
             {
                 path: 'staff',
-                loadChildren: './staff/staff.module#StaffModule'
+                loadChildren: './staff/staff.module#StaffModule',
             },
             {
                 path: 'venue',
-                loadChildren: './venue/venue.module#VenueModule'
+                loadChildren: './venue/venue.module#VenueModule',
             },
             {
                 path: 'discipline',
-                loadChildren: './discipline/discipline.module#DisciplineModule'
+                loadChildren: './discipline/discipline.module#DisciplineModule',
             },
             {
                 path: 'module',
-                loadChildren: './module/module.module#ModuleModule'
-            }
-        ]
-    }
+                loadChildren: './module/module.module#ModuleModule',
+            },
+            {
+                path: 'qualification',
+                loadChildren:
+                    './qualification/qualification.module#QualificationModule',
+            },
+        ],
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers: [
+        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStategy },
+    ],
 })
 export class AdminRoutingModule {}

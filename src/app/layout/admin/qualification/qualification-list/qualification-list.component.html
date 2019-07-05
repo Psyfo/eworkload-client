@@ -1,0 +1,54 @@
+<div [@routerTransition]>
+    <div class="card">
+        <div id="presentation" class="card-header">
+            <h5>Qualifications</h5>
+        </div>
+        <div class="card-body">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="qualificationsDT"
+                class="table table-hover table-active">
+                <thead class="thead-light">
+                    <tr>
+                        <th>
+                            Qualification ID
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Department
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="qualifications?.length != 0">
+                    <tr *ngFor="let qualification of qualifications; let i = index">
+                        <td>
+                            {{ qualification?.qualificationId }}
+                        </td>
+                        <td>
+                            {{ qualification?.name }}
+                        </td>
+                        <td>
+                            {{ qualification?.type }}
+                        </td>
+                        <td>
+                            {{qualification?.department?.name}} ({{qualification?.department?.departmentId}})
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <button class="btn btn-primary mr-3" (click)="onAdd()">Add Qualification</button>
+            </div>
+        </div>
+    </div>
+</div>

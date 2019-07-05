@@ -1,13 +1,5 @@
-mutation editDepartment(
-    $departmentId: String!
-    $name: String!
-    $facultyId: String!
-) {
-    editDepartment(
-        departmentId: $departmentId
-        name: $name
-        facultyId: $facultyId
-    ) {
+mutation editDepartment($department: DepartmentInput) {
+    editDepartment(department: $department) {
         departmentId
         name
         facultyId

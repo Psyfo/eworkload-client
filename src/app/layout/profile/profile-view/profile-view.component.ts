@@ -4,7 +4,7 @@ import {
     Component,
     OnInit,
     SimpleChanges,
-    ChangeDetectorRef
+    ChangeDetectorRef,
 } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -20,7 +20,7 @@ import { PositionService } from '../../../shared/services/position.service';
     moduleId: module.id,
     templateUrl: 'profile-view.component.html',
     styleUrls: ['profile-view.component.scss'],
-    animations: [routerTransition()]
+    animations: [routerTransition()],
 })
 export class ProfileViewComponent implements OnInit {
     loading: boolean;
@@ -42,28 +42,28 @@ export class ProfileViewComponent implements OnInit {
     // Pie
     public formalInstructionChartLabels: string[] = [
         'Formal Instruction Current',
-        'Formal Instruction Total'
+        'Formal Instruction Total',
     ];
     public formalInstructionChartData: number[] = [0, 0];
     public formalInstructionChartType: string = 'doughnut';
 
     public researchChartLabels: string[] = [
         'Research Current',
-        'Research Total'
+        'Research Total',
     ];
     public researchChartData: number[] = [0, 0];
     public researchChartType: string = 'doughnut';
 
     public supervisionChartLabels: string[] = [
         'Service Current',
-        'Service Total'
+        'Service Total',
     ];
     public supervisionChartData: number[] = [0, 0];
     public supervisionChartType: string = 'doughnut';
 
     public workloadChartLabels: string[] = [
         'Workload Current',
-        'Workload Total'
+        'Workload Total',
     ];
     public workloadChartData: number[] = [0, 0];
     public workloadChartType: string = 'doughnut';
@@ -88,6 +88,9 @@ export class ProfileViewComponent implements OnInit {
 
     onEdit(): void {
         this.router.navigate(['profile/edit']);
+    }
+    onChangePassword(): void {
+        this.router.navigate(['profile/change-password']);
     }
 
     // events
@@ -127,19 +130,19 @@ export class ProfileViewComponent implements OnInit {
 
                 this.formalInstructionChartData = [
                     this.formalInstructionCurrent,
-                    this.formalInstructionTotal
+                    this.formalInstructionTotal,
                 ];
                 this.researchChartData = [
                     this.researchCurrent,
-                    this.researchTotal
+                    this.researchTotal,
                 ];
                 this.supervisionChartData = [
                     this.serviceCurrent,
-                    this.serviceTotal
+                    this.serviceTotal,
                 ];
                 this.workloadChartData = [
                     this.workloadCurrent,
-                    this.workloadTotal
+                    this.workloadTotal,
                 ];
             });
     }

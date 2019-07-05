@@ -8,7 +8,7 @@ import {
     EditDisciplineGQL,
     DeleteDisciplineGQL
 } from '../generated/output';
-import { Discipline } from '../models';
+import { Discipline, DisciplineInput } from '../models';
 import { AlertService } from './alert.service';
 import { ErrorService } from './error.service';
 
@@ -21,6 +21,7 @@ export class DisciplineService {
 
     loading: boolean;
     errors: any;
+    networkStatus: any;
 
     constructor(
         private errorService: ErrorService,
@@ -36,7 +37,8 @@ export class DisciplineService {
         return this.disciplinesGql.watch().valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
@@ -48,31 +50,43 @@ export class DisciplineService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    this.errorService.toConsole(result.errors);
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
     }
 
-    addDiscipline(discipline: Discipline) {
-        return this.addDisciplineGql.mutate(discipline).pipe(
+    addDiscipline(discipline: DisciplineInput) {
+        return this.addDisciplineGql.mutate({ discipline: discipline }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    editDiscipline(discipline: Discipline) {
-        return this.editDisciplineGql.mutate(discipline).pipe(
+    editDiscipline(discipline: DisciplineInput) {
+        return this.editDisciplineGql.mutate({ discipline: discipline }).pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
     }
 
-    deleteDiscipline() {}
+    deleteDiscipline(discipline: DisciplineInput) {
+        return this.deleteDisciplineGql.mutate({ discipline: discipline }).pipe(
+            map(result => {
+                this.loading = result.loading;
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
+                return result;
+            })
+        );
+    }
 }

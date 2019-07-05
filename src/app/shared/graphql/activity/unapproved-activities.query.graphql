@@ -1,0 +1,173 @@
+query unapprovedActivities {
+    unapprovedActivities {
+        activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+        }
+        dutyId
+        duty {
+            dutyId
+            name
+            description
+        }
+        approvalStatus
+
+        ... on CommInstructionActivity {
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+        ... on PublicServiceActivity {
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+        ... on FormalInstructionActivity {
+            activityId
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            userId
+            user {
+                userId
+                firstName
+                lastName
+                discipline {
+                    disciplineId
+                    name
+                }
+                position {
+                    positionId
+                    name
+                }
+            }
+            moduleId
+            module {
+                moduleId
+                name
+                type
+                assessmentMethod
+                nqfLevel
+                credits
+                qualificationId
+                qualification {
+                    qualificationId
+                    name
+                }
+                offeringTypeId
+                offeringType {
+                    offeringTypeId
+                    description
+                }
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                }
+                venueId
+                venue {
+                    venueId
+                    campus
+                    capacity
+                }
+                blockId
+                block {
+                    blockId
+                    name
+                }
+                coordinatorId
+                coordinator {
+                    userId
+                    firstName
+                    lastName
+                    discipline {
+                        disciplineId
+                        name
+                    }
+                    position {
+                        positionId
+                        name
+                    }
+                }
+                moderatorId
+                moderator {
+                    userId
+                    firstName
+                    lastName
+                    discipline {
+                        disciplineId
+                        name
+                    }
+                    position {
+                        positionId
+                        name
+                    }
+                }
+                studyPeriod
+                groupSize
+                lecturedBy
+                moderation
+            }
+            blockId
+            block {
+                blockId
+                name
+            }
+            offeringTypeId
+            offeringType {
+                offeringTypeId
+                description
+            }
+            qualificationId
+            qualification {
+                qualificationId
+                name
+            }
+            baseContactHours
+            coordinationHours
+            studentSupportHours
+            preparationTimeHours
+            assessmentSettingHours
+            examMarkingHours
+            courseworkMarkingHours
+            feedbackHours
+            formativeAssessmentHours
+            moderationHours
+            otherHours
+            totalHours
+        }
+        ... on ResearchActivity {
+            researchType
+            researchTitle
+            researchDetails
+        }
+        ... on SupervisionActivity {
+            supervisionRole
+            studentId
+            student {
+                studentId
+                firstName
+                lastName
+                title
+                year
+            }
+        }
+    }
+}

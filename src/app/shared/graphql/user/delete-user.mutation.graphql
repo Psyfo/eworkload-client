@@ -1,27 +1,5 @@
-mutation deleteUser(
-    $userId: String
-    $password: String
-    $email: String
-    $firstName: String
-    $lastName: String
-    $photoUrl: String
-    $disciplineId: String
-    $positionId: String
-    $gender: String
-    $nationality: String
-) {
-    deleteUser(
-        userId: $userId
-        password: $password
-        email: $email
-        firstName: $firstName
-        lastName: $lastName
-        photoUrl: $photoUrl
-        disciplineId: $disciplineId
-        positionId: $positionId
-        gender: $gender
-        nationality: $nationality
-    ) {
+mutation deleteUser($user: UserInput) {
+    deleteUser(user: $user) {
         userId
         password
         email

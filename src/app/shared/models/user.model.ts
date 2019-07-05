@@ -18,3 +18,17 @@ export class User {
     workFocus: WorkFocus;
     nationality: string;
 }
+
+export class UserInput {
+    userId: string;
+    password: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    photoUrl: string;
+    disciplineId: string;
+    positionId: string;
+    gender: string;
+    workFocusName: string;
+    nationality: string;
+}

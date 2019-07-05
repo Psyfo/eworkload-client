@@ -1,5 +1,6 @@
+import { CustomRouteReuseStategy } from './../../../shared/helpers/routing-strategy';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, RouteReuseStrategy } from '@angular/router';
 
 import { StaffAddComponent } from './staff-add/staff-add.component';
 import { StaffDeleteComponent } from './staff-delete/staff-delete.component';
@@ -10,20 +11,23 @@ import { StaffComponent } from './staff.component';
 
 const routes: Routes = [
     {
-        path: "",
+        path: '',
         component: StaffComponent,
         children: [
-            { path: "", component: StaffListComponent },
-            { path: "add", component: StaffAddComponent },
-            { path: "view/:id", component: StaffViewComponent },
-            { path: "edit/:id", component: StaffEditComponent },
-            { path: "delete/:id", component: StaffDeleteComponent }
-        ]
-    }
+            { path: '', component: StaffListComponent },
+            { path: 'add', component: StaffAddComponent },
+            { path: 'view/:id', component: StaffViewComponent },
+            { path: 'edit/:id', component: StaffEditComponent },
+            { path: 'delete/:id', component: StaffDeleteComponent },
+        ],
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers: [
+        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStategy },
+    ],
 })
 export class StaffRoutingModule {}

@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -5,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
     selector: 'app-sidebar',
     templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.scss']
+    styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
     isActive: boolean = false;
@@ -16,6 +17,7 @@ export class SidebarComponent {
     showTeachingMenu: string = '';
     showResearchMenu: string = '';
     showServiceMenu: string = '';
+    showReportMenu: string = '';
     pushRightClass: string = 'push-right';
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
@@ -88,6 +90,14 @@ export class SidebarComponent {
             this.showServiceMenu = '0';
         } else {
             this.showServiceMenu = element;
+        }
+    }
+
+    addExpandReport(element: any) {
+        if (element === this.showReportMenu) {
+            this.showReportMenu = '0';
+        } else {
+            this.showReportMenu = element;
         }
     }
 

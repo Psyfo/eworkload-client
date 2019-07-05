@@ -1,5 +1,15 @@
-query module($moduleId: String!) {
-    module(moduleId: $moduleId) {
+query module(
+    $moduleId: String!
+    $blockId: String!
+    $offeringTypeId: String!
+    $qualificationId: String!
+) {
+    module(
+        moduleId: $moduleId
+        blockId: $blockId
+        offeringTypeId: $offeringTypeId
+        qualificationId: $qualificationId
+    ) {
         moduleId
         name
         type

@@ -1,5 +1,5 @@
-mutation editBlock($blockId: String, $name: String, $description: String) {
-    editBlock(blockId: $blockId, name: $name, description: $description) {
+mutation editBlock($block: BlockInput) {
+    editBlock(block: $block) {
         blockId
         name
         description

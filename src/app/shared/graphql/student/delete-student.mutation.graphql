@@ -1,19 +1,5 @@
-mutation deleteStudent(
-    $studentId: String!
-    $email: String!
-    $firstName: String!
-    $lastName: String!
-    $title: String
-    $year: String
-) {
-    deleteStudent(
-        studentId: $studentId
-        email: $email
-        firstName: $firstName
-        lastName: $lastName
-        title: $title
-        year: $title
-    ) {
+mutation deleteStudent($student: StudentInput) {
+    deleteStudent(student: $student) {
         studentId
         email
         firstName

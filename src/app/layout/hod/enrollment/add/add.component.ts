@@ -14,7 +14,7 @@ import { AlertService } from '../../../../shared/services';
     selector: 'app-add',
     templateUrl: './add.component.html',
     styleUrls: ['./add.component.scss'],
-    animations: [routerTransition()]
+    animations: [routerTransition()],
 })
 export class AddComponent implements OnInit {
     enrollment: Enrollment = new Enrollment();
@@ -41,16 +41,16 @@ export class AddComponent implements OnInit {
         this.enrollmentAddForm = this.fb.group({
             enrollmentYear: [
                 { value: '', disabled: true },
-                Validators.required
+                Validators.required,
             ],
-            qualification: ['', Validators.required],
+            qualificationId: ['', Validators.required],
             firstYearEstimated: ['', Validators.required],
             secondYearEstimated: ['', Validators.required],
-            thirdYearEstimated: ['', Validators.required]
+            thirdYearEstimated: ['', Validators.required],
         });
 
         this.enrollmentAddForm.patchValue({
-            enrollmentYear: this.currentYear
+            enrollmentYear: this.currentYear,
         });
     }
 
@@ -67,11 +67,7 @@ export class AddComponent implements OnInit {
 
     getFormValues() {
         const formVal = this.enrollmentAddForm.value;
-        this.enrollment.enrollmentYear = this.currentYear.toString();
-        this.enrollment.qualificationId = formVal.qualification;
-        this.enrollment.firstYearEstimated = formVal.firstYearEstimated;
-        this.enrollment.secondYearEstimated = formVal.secondYearEstimated;
-        this.enrollment.thirdYearEstimated = formVal.thirdYearEstimated;
+
         console.log(this.enrollment);
     }
 
@@ -80,7 +76,7 @@ export class AddComponent implements OnInit {
             this.alertService.sendMessage('Form is invalid', 'danger');
             return;
         }
-        this.getFormValues();
+        this.enrollment = this.formVal;
         this.enrollmentService
             .addEnrollment(this.enrollment)
             .pipe(takeUntil(this.unsubscribe))
@@ -92,5 +88,26 @@ export class AddComponent implements OnInit {
 
     onReset() {
         this.enrollmentAddForm.reset();
+    }
+
+    // Getters
+
+    get qualificationId() {
+        return this.enrollmentAddForm.get('qualificationId');
+    }
+    get enrollmentYear() {
+        return this.enrollmentAddForm.get('enrollmentYear');
+    }
+    get firstYearEstimated() {
+        return this.enrollmentAddForm.get('firstYearEstimated');
+    }
+    get secondYearEstimated() {
+        return this.enrollmentAddForm.get('secondYearEstimated');
+    }
+    get thirdYearEstimated() {
+        return this.enrollmentAddForm.get('thirdYearEstimated');
+    }
+    get formVal() {
+        return this.enrollmentAddForm.getRawValue();
     }
 }

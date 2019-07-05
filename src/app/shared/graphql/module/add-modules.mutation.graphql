@@ -1,5 +1,5 @@
 mutation addModules($modules: [ModuleInput]) {
-    addModules(input: $modules) {
+    addModules(modules: $modules) {
         moduleId
         name
         type

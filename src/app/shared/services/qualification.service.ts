@@ -1,5 +1,10 @@
+import {
+    AddQualificationGQL,
+    EditQualificationGQL,
+    DeleteQualificationGQL
+} from './../generated/output';
 import { Injectable } from '@angular/core';
-import { Qualification } from '../models';
+import { Qualification, QualificationInput } from '../models';
 import { ErrorService } from './error.service';
 import { AlertService } from './alert.service';
 import { QualificationGQL, QualificationsGQL } from '../generated/output';
@@ -14,19 +19,25 @@ export class QualificationService {
 
     loading: boolean;
     errors: any;
+    networkStatus: any;
+
+    public types = ['Diploma', 'Bachelor', 'Masters', 'Doctorate'];
 
     constructor(
-        private errorService: ErrorService,
         private alertService: AlertService,
         private qualificationGql: QualificationGQL,
-        private qualificationsGql: QualificationsGQL
+        private qualificationsGql: QualificationsGQL,
+        private addQualificationGql: AddQualificationGQL,
+        private editQualificationGql: EditQualificationGQL,
+        private deleteQualificationGql: DeleteQualificationGQL
     ) {}
 
     getQualifications() {
         return this.qualificationsGql.watch().valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
@@ -38,7 +49,47 @@ export class QualificationService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    this.errorService.toConsole(result.errors);
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
+    }
+
+    addQualification(qualification: QualificationInput) {
+        return this.addQualificationGql
+            .mutate({ qualification: qualification })
+            .pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
+    }
+
+    editQualification(qualification: QualificationInput) {
+        return this.editQualificationGql
+            .mutate({ qualification: qualification })
+            .pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
+    }
+
+    deleteQualification(qualification: QualificationInput) {
+        return this.deleteQualificationGql
+            .mutate({ qualification: qualification })
+            .pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
