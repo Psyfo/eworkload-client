@@ -9,29 +9,36 @@
                 <div class="card-body">
 
                     <div class="form-row">
-                        <div class="form-group">
+                        <div class="form-group col">
                             <label for="venueId">Venue Code</label>
                             <input formControlName="venueId" type="text" class="form-control" placeholder="Venue Code">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group">
+                        <div class="form-group col">
                             <label for="capacity">Capacity</label>
                             <input formControlName="capacity" type="number" class="form-control">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group">
+                        <div class="form-group col">
                             <label for="capacity">Campus</label>
                             <input formControlName="campus" type="text" class="form-control" placeholder="Campus">
                         </div>
                     </div>
-
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="type">Type</label>
+                            <select class="custom-select" formControlName="type">
+                                <option *ngFor="let type of types" [value]="type">{{type}}</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <div class="row">
                         <div class="col">
-                            <button class="btn btn-primary mr-3">Done</button>
+                            <button class="btn btn-primary mr-3" [disabled]="venueAddForm.invalid">Add</button>
                             <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
                             <button type="button" class="btn btn-dark pull-right" (click)="onReset()">Reset</button>
                         </div>

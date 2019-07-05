@@ -4,8 +4,9 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { routerTransition } from '../../../../router.animations';
-import { Department } from '../../../../shared/models';
+import { Department, DepartmentInput } from '../../../../shared/models';
 import { AlertService, DepartmentService } from '../../../../shared/services';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-department-view',
@@ -14,7 +15,8 @@ import { AlertService, DepartmentService } from '../../../../shared/services';
     animations: [routerTransition()]
 })
 export class DepartmentViewComponent implements OnInit {
-    department: Department;
+    department: Department = new Department();
+    departmentInput: DepartmentInput = new DepartmentInput();
 
     private unsubscribe = new Subject();
 
@@ -23,7 +25,8 @@ export class DepartmentViewComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private renderer: Renderer,
-        private departmentService: DepartmentService
+        private departmentService: DepartmentService,
+        private modalService: NgbModal
     ) {}
 
     ngOnInit() {
@@ -53,8 +56,6 @@ export class DepartmentViewComponent implements OnInit {
     }
 
     onEdit() {
-        console.log(this.department.departmentId);
-
         this.router.navigate(
             ['admin/department/edit', this.department.departmentId],
             {
@@ -69,7 +70,50 @@ export class DepartmentViewComponent implements OnInit {
         this.router.navigate(['../admin/department']);
     }
 
-    onDelete() {
-        this.alertService.sendMessage('Delete function coming soon!', 'info');
+    async onDelete() {
+        this.departmentInput.departmentId = await this.department.departmentId;
+        this.departmentInput.name = await this.department.name;
+        this.departmentInput.facultyId = await this.department.faculty
+            .facultyId;
+        console.log('Dept input', this.departmentInput);
+
+        this.departmentService
+            .deleteDepartment(this.departmentInput)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                console.log('Errors:', result.errors);
+                console.log('Network Status:', result.networkStatus);
+                this.alertService.sendMessage('Department deleted', 'success');
+                setTimeout(() => {
+                    this.modalService.dismissAll('Operations complete');
+                    this.router.navigate(['admin/department']);
+                }, 1000);
+            });
+    }
+
+    closeResult: string;
+    open(content) {
+        this.modalService
+            .open(content, { ariaLabelledBy: 'modal-basic-title' })
+            .result.then(
+                result => {
+                    this.closeResult = `Closed with: ${result}`;
+                },
+                reason => {
+                    this.closeResult = `Dismissed ${this.getDismissReason(
+                        reason
+                    )}`;
+                }
+            );
+    }
+
+    private getDismissReason(reason: any): string {
+        if (reason === ModalDismissReasons.ESC) {
+            return 'by pressing ESC';
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+            return 'by clicking on a backdrop';
+        } else {
+            return `with: ${reason}`;
+        }
     }
 }

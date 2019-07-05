@@ -1,7 +1,7 @@
 import {
     AddVenueGQL,
     EditVenueGQL,
-    DeleteVenueGQL,
+    DeleteVenueGQL
 } from './../generated/output';
 import { Injectable } from '@angular/core';
 import { Venue, VenueInput } from '../models';
@@ -11,17 +11,17 @@ import { VenueGQL, VenuesGQL } from '../generated/output';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class VenueService {
     venue: Venue;
     venues: Venue[];
 
-    types = ['Class', 'Laboratory'];
-    headers = ['Venue Id', 'Campus', 'Capacity', 'Type'];
+    public types = ['Class', 'Laboratory'];
+    public headers = ['Venue Id', 'Campus', 'Capacity', 'Type'];
 
-    loading: boolean;
-    errors: any;
+    public loading: boolean;
+    public errors: any;
 
     constructor(
         private alertService: AlertService,

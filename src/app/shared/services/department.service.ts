@@ -79,6 +79,8 @@ export class DepartmentService {
     }
 
     deleteDepartment(department: DepartmentInput) {
+        console.log('dept del model:', department);
+
         return this.deleteDepartmentGql.mutate({ department: department }).pipe(
             map(result => {
                 this.loading = result.loading;

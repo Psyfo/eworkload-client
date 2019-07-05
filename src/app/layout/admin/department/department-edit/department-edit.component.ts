@@ -5,22 +5,26 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { routerTransition } from '../../../../router.animations';
-import { Department, Faculty } from '../../../../shared/models';
+import {
+    Department,
+    Faculty,
+    DepartmentInput
+} from '../../../../shared/models';
 import {
     AlertService,
     DepartmentService,
-    FacultyService,
+    FacultyService
 } from '../../../../shared/services';
 
 @Component({
     selector: 'app-department-edit',
     templateUrl: './department-edit.component.html',
     styleUrls: ['./department-edit.component.scss'],
-    animations: [routerTransition()],
+    animations: [routerTransition()]
 })
 export class DepartmentEditComponent implements OnInit {
-    faculty: Faculty;
     faculties: Faculty[];
+    departmentInput: DepartmentInput;
     department: Department;
 
     departmentEditForm: FormGroup;
@@ -42,7 +46,6 @@ export class DepartmentEditComponent implements OnInit {
             .subscribe(result => {
                 this.buildForm(result.departmentId);
             });
-        this.valueChanges();
     }
     ngOnDestroy(): void {
         this.unsubscribe.next();
@@ -60,16 +63,19 @@ export class DepartmentEditComponent implements OnInit {
         return this.departmentEditForm.get('facultyId');
     }
     get formVal() {
-        return this.departmentEditForm.value;
+        return this.departmentEditForm.getRawValue();
     }
 
     // Methods
 
     public buildForm(departmentId: string) {
         this.departmentEditForm = this.fb.group({
-            departmentId: ['', Validators.required],
-            name: ['', Validators.required],
-            facultyId: ['', Validators.required],
+            departmentId: [
+                { value: '', disabled: true },
+                [Validators.required]
+            ],
+            name: ['', [Validators.required]],
+            facultyId: ['', [Validators.required]]
         });
 
         this.departmentService
@@ -79,12 +85,12 @@ export class DepartmentEditComponent implements OnInit {
                 this.department = <Department>(<unknown>result.data.department);
 
                 this.getFaculties();
-                console.log(this.department);
+                console.log('Dept Id:', this.department.departmentId);
 
                 this.departmentEditForm.patchValue({
                     departmentId: this.department.departmentId,
                     name: this.department.name,
-                    facultyId: this.department.faculty.facultyId,
+                    facultyId: this.department.faculty.facultyId
                 });
             });
     }
@@ -98,23 +104,39 @@ export class DepartmentEditComponent implements OnInit {
                 );
             });
     }
-    public getFaculty(facultyId: string) {
-        this.facultyService
-            .getFaculty(facultyId)
+    public onEdit() {
+        this.departmentInput = this.formVal;
+        this.departmentService
+            .editDepartment(this.departmentInput)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.faculty = <Faculty>(<unknown>result.data.faculty);
-            });
-    }
-    public valueChanges() {
-        this.facultyId.valueChanges
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(facultyId => {
-                this.getFaculty(facultyId);
+                console.log('Errors:', result.errors);
+                console.log('Network Status:', result.networkStatus);
+                this.alertService.sendMessage('Department edited', 'success');
+                setTimeout(() => {
+                    this.router.navigate(
+                        ['admin/department/view', this.departmentId.value],
+                        {
+                            queryParams: {
+                                departmentId: this.departmentId.value
+                            }
+                        }
+                    );
+                }, 3000);
             });
     }
     public onCancel() {
-        this.router.navigate(['../admin/department']);
+        this.router.navigate(
+            ['admin/department/view', this.departmentId.value],
+            {
+                queryParams: {
+                    departmentId: this.departmentId.value
+                }
+            }
+        );
     }
-    public onEdit() {}
+    public onReset() {
+        this.departmentEditForm.reset();
+        this.ngOnInit();
+    }
 }

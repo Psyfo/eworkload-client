@@ -3,9 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AlertService } from '../../../../shared/services';
-import { Venue } from '../../../../shared/models';
+import { Venue, VenueInput } from '../../../../shared/models';
 import { VenueService } from '../../../../shared/services/venue.service';
 import { routerTransition } from '../../../../router.animations';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-venue-add',
@@ -14,9 +16,12 @@ import { routerTransition } from '../../../../router.animations';
     animations: [routerTransition()]
 })
 export class VenueAddComponent implements OnInit {
-    venue: Venue;
+    venue: VenueInput;
+    types = this.venueService.types;
 
     venueAddForm: FormGroup;
+
+    private unsubscribe = new Subject();
 
     constructor(
         private alertService: AlertService,
@@ -34,20 +39,50 @@ export class VenueAddComponent implements OnInit {
         });
     }
 
-    getFormData() {}
-
+    ngOnDestroy(): void {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
+    }
     onAdd() {
-        if (this.venueAddForm.invalid) {
-            this.alertService.sendMessage('Form is invalid', 'danger');
-            return;
-        }
+        this.venue = this.formVal;
+        this.venueService
+            .addVenue(this.venue)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.alertService.sendMessage('Venue added', 'success');
+                setTimeout(() => {
+                    this.router.navigate(
+                        ['admin/venue/view', this.venueId.value],
+                        {
+                            queryParams: this.venueId.value
+                        }
+                    );
+                }, 1000);
+            });
     }
 
     onCancel() {
-        this.router.navigate(['../admin/venue']);
+        this.router.navigate(['admin/venue']);
     }
 
     onReset() {
         this.venueAddForm.reset();
+    }
+
+    // Getters
+    get venueId() {
+        return this.venueAddForm.get('venueId');
+    }
+    get campus() {
+        return this.venueAddForm.get('campus');
+    }
+    get capacity() {
+        return this.venueAddForm.get('capacity');
+    }
+    get type() {
+        return this.venueAddForm.get('type');
+    }
+    get formVal() {
+        return this.venueAddForm.getRawValue();
     }
 }

@@ -1,16 +1,21 @@
+import { Subject } from 'rxjs';
+import { takeUntil, take } from 'rxjs/operators';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 
 import { routerTransition } from '../../../../router.animations';
-import { Faculty, Department } from '../../../../shared/models';
+import {
+    Department,
+    DepartmentInput,
+    Faculty
+} from '../../../../shared/models';
 import {
     AlertService,
-    FacultyService,
-    DepartmentService
+    DepartmentService,
+    FacultyService
 } from '../../../../shared/services';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-department-add',
@@ -20,14 +25,13 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class DepartmentAddComponent implements OnInit {
     faculties: Faculty[];
-    department: Department;
+    department: DepartmentInput;
 
     departmentAddForm: FormGroup;
 
     private unsubscribe = new Subject();
 
     // Configs
-    submitAble: boolean = false;
 
     constructor(
         private alertService: AlertService,
@@ -40,20 +44,39 @@ export class DepartmentAddComponent implements OnInit {
     ngOnInit() {
         //Build form
         this.departmentAddForm = this.fb.group({
-            departmentId: ['', Validators.required],
-            name: ['', Validators.required],
-            facultyId: ['']
+            departmentId: ['', [Validators.required]],
+            name: ['', [Validators.required]],
+            facultyId: ['', [Validators.required]]
         });
 
         // Fetch dropdown data;
         this.getFaculties();
     }
+    ngOnDestroy(): void {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
+    }
 
     onAdd() {
-        if (!this.departmentAddForm.valid) {
-            this.alertService.sendMessage('Form not valid', 'danger');
-            return;
-        }
+        this.department = this.formVal;
+        this.departmentService
+            .addDepartment(this.department)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                console.log('Errors:', result.errors);
+                console.log('Network Status:', result.networkStatus);
+                this.alertService.sendMessage('Department added', 'success');
+                setTimeout(() => {
+                    this.router.navigate(
+                        ['admin/department/view', this.departmentId.value],
+                        {
+                            queryParams: {
+                                departmentId: this.departmentId.value
+                            }
+                        }
+                    );
+                }, 3000);
+            });
     }
 
     onCancel() {
@@ -73,5 +96,19 @@ export class DepartmentAddComponent implements OnInit {
                     faculty => <Faculty>(<unknown>faculty)
                 );
             });
+    }
+
+    // Getters
+    get departmentId() {
+        return this.departmentAddForm.get('departmentId');
+    }
+    get name() {
+        return this.departmentAddForm.get('name');
+    }
+    get facultyId() {
+        return this.departmentAddForm.get('facultyId');
+    }
+    get formVal() {
+        return this.departmentAddForm.getRawValue();
     }
 }
