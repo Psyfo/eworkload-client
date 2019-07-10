@@ -37,7 +37,7 @@ export class ModuleListComponent implements OnInit {
     private unsubscribe = new Subject();
 
     // Datatable config
-    @ViewChild(DataTableDirective)
+    @ViewChild(DataTableDirective, {static: false})
     dtElement: DataTableDirective;
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<Module> = new Subject();

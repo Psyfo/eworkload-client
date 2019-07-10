@@ -1,7 +1,12 @@
 import { OnInit, Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { routerTransition } from '../router.animations';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import {
+    FormGroup,
+    FormControl,
+    Validators,
+    FormBuilder
+} from '@angular/forms';
 import { first, timeout } from 'rxjs/operators';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { environment } from '../../environments/environment';
@@ -18,24 +23,21 @@ export class LoginComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private flashMessagesService: FlashMessagesService,
-    ) {
-
-    }
-
+        private flashMessagesService: FlashMessagesService
+    ) {}
 
     ngOnInit() {
         this.loginForm = new FormGroup({
-            'userId': new FormControl(null, [Validators.required]),
-            'password': new FormControl(null, [Validators.required])
+            userId: new FormControl(null, [Validators.required]),
+            password: new FormControl(null, [Validators.required])
         });
     }
 
-    private onLoggedIn(): void {
+    onLoggedIn(): void {
         const authData = {
             isLoggedIn: true,
             userId: this.loginForm.controls['userId'].value
-        }
+        };
         // dummy login
         localStorage.setItem('authData', JSON.stringify(authData));
         this.router.navigate(['dashboard']);

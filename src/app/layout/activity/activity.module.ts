@@ -14,20 +14,20 @@ import { PublicServiceModule } from './publicService/publicService.module';
 import { ResearchModule } from './research/research.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ActivityRoutingModule,
-    PageHeaderModule,
-    FormsModule,
-    ReactiveFormsModule,
-    FlashMessagesModule,
-    DataTablesModule,
-    LecturingModule,
-    ResearchModule,
-    CommInstructionModule,
-    PublicServiceModule,
-    NgbModule.forRoot(),
-  ],
-  declarations: [ActivityComponent]
+    imports: [
+        CommonModule,
+        ActivityRoutingModule,
+        PageHeaderModule,
+        FormsModule,
+        ReactiveFormsModule,
+        FlashMessagesModule,
+        DataTablesModule,
+        LecturingModule,
+        ResearchModule,
+        CommInstructionModule,
+        PublicServiceModule,
+        NgbModule
+    ],
+    declarations: [ActivityComponent]
 })
-export class ActivityModule { }
+export class ActivityModule {}

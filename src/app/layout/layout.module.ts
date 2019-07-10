@@ -20,7 +20,7 @@ import { LayoutComponent } from './layout.component';
         ReactiveFormsModule,
         TranslateModule,
         AdminModule,
-        NgbDropdownModule.forRoot(),
+        NgbDropdownModule,
         FlashMessagesModule,
         DataTablesModule
     ],

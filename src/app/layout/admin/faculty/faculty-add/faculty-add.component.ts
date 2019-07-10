@@ -1,12 +1,12 @@
-import { FormBuilder, Validators } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AlertService } from './../../../../shared/services/alert.service';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { routerTransition } from '../../../../router.animations';
 import { Faculty } from '../../../../shared/models';
 import { FacultyService } from '../../../../shared/services';
-import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
+import { AlertService } from '../../../../shared/services/alert.service';
 
 @Component({
     selector: 'app-faculty-add',
@@ -40,8 +40,8 @@ export class FacultyAddComponent implements OnInit {
     }
 
     onAdd() {
-        if(this.facultyAddForm.invalid){
-            alert('Form not valid!')
+        if (this.facultyAddForm.invalid) {
+            alert('Form not valid!');
             return;
         }
         this.getFormValue();
