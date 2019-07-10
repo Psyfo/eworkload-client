@@ -27,3 +27,34 @@ query user($userId: String!) {
         nationality
     }
 }
+query users {
+    users {
+        userId
+        password
+        email
+        firstName
+        lastName
+        photoUrl
+        disciplineId
+        discipline {
+            disciplineId
+            name
+            description
+        }
+        positionId
+        position {
+            positionId
+            name
+            description
+        }
+        workFocusName
+        workFocus {
+            name
+            teachingRatio
+            researchRatio
+            serviceRatio
+        }
+        gender
+        nationality
+    }
+}

@@ -1,8 +1,0 @@
-mutation deleteVenue($venue: VenueInput) {
-    deleteVenue(venue: $venue) {
-        venueId
-        campus
-        capacity
-        type
-    }
-}

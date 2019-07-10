@@ -22,6 +22,7 @@ export class VenueService {
 
     public loading: boolean;
     public errors: any;
+    public networkStatus: any;
 
     constructor(
         private alertService: AlertService,
@@ -37,7 +38,8 @@ export class VenueService {
         return this.venuesGql.watch().valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
@@ -47,7 +49,8 @@ export class VenueService {
         return this.venueGql.watch({ venueId: venueId }).valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
-                this.errorService.toConsole(result.errors);
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
@@ -58,6 +61,7 @@ export class VenueService {
             map(result => {
                 this.loading = result.loading;
                 this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
@@ -67,6 +71,17 @@ export class VenueService {
             map(result => {
                 this.loading = result.loading;
                 this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
+                return result;
+            })
+        );
+    }
+    deleteVenue(venue: VenueInput) {
+        return this.deleteVenueGql.mutate({ venue: venue }).pipe(
+            map(result => {
+                this.loading = result.loading;
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
                 return result;
             })
         );

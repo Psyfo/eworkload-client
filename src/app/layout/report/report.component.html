@@ -1,53 +1,61 @@
 <div class="hemis">
     <div class="heading">Allocation of Time</div>
-    <div class="programme__heading">
-        <div class="programme__heading--programme">
-            PROGRAMME/SUB-PROGRAMME
+    <div class="programme">
+        <div class="programme__heading">
+            <div class="programme__heading--programme">
+                PROGRAMME/SUB-PROGRAMME
+            </div>
+            <div class="programme__heading--time">
+                % TIME
+            </div>
         </div>
-        <div class="programme__heading--time">
-            % TIME
-        </div>
-    </div>
-    <div class="programme__content" *ngFor="let duty of duties; let i = index">
-        <div class="programme__item--code">
-            {{duty?.dutyId}}
-        </div>
-        <div class="programme__item--name">
-            {{duty?.name}}
-        </div>
-        <div *ngIf="i === 0" class="programme__item--value">
-            {{formalInstructionWorkload?.percentageOfTotal}}
+        <div class="programme__content" *ngFor="let duty of duties; let i = index">
+            <div class="programme__item">
+                <div class="programme__item--code">
+                    {{duty?.dutyId}}
+                </div>
+                <div class="programme__item--name">
+                    {{duty?.name}}
+                </div>
+                <div *ngIf="i === 0" class="programme__item--value">
+                    {{sumPercentageOfTotal}}%
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="heading">Breakdown of 1.1: Formal Instruction</div>
-    <div class="breakdown__heading">
-        <div class="breakdown__heading--subject">SUBJECT</div>
-        <div class="breakdown__heading--code">CODE</div>
-        <div class="breakdown__heading--description">DESCRIPTION</div>
-        <div class="breakdown__heading--annual-hours">ANNUAL HOURS</div>
-        <div class="breakdown__heading--contact">CONTACT</div>
-        <div class="breakdown__heading--other">OTHER</div>
-        <div class="breakdown__heading--time">% TIME</div>
-        <div class="breakdown__heading--students">NO OF STUDENTS</div>
-        <div class="breakdown__heading--venue">LECTURE ROOM NO</div>
-        <div class="breakdown__heading--venue-type">C/L</div>
-    </div>
-    <div class="breakdown__content" *ngFor="let activity of activities">
-        <div class="breakdown__content--code">{{activity?.module?.moduleId}}</div>
-        <div class="breakdown__content--description">{{activity?.module?.name}}</div>
-        <div class="breakdown__content--contact">{{activity?.baseContactHours}}</div>
-        <div class="breakdown__content--other">{{activity?.otherHours}}</div>
-        <div class="breakdown__content--time">{{activity?.teachingPercentage}}</div>
-        <div class="breakdown__content--students">{{students}}</div>
-        <div class="breakdown__content--venue">{{activity?.module?.venueId}}</div>
-        <div class="breakdown__content--venue-type"></div>
-    </div>
-    <div class="breakdown__total">
-        <div class="breakdowno__total--total">Total</div>
-        <div class="breakdown__total--contact">{{formalInstructionWorkload?.totalBaseHours}}</div>
-        <div class="breakdown__total--other">{{formalInstructionWorkload?.totalOtherHours}}</div>
-        <div class="breakdown__total--time">{{formalInstructionWorkload?.percentageOfTotal}}</div>
+    <div class="breakdown">
+        <div class="breakdown__heading">
+            <div class="breakdown__heading--subject">SUBJECT</div>
+            <div class="breakdown__heading--code">CODE</div>
+            <div class="breakdown__heading--description">DESCRIPTION</div>
+            <div class="breakdown__heading--annual-hours">ANNUAL HOURS</div>
+            <div class="breakdown__heading--contact">CONTACT</div>
+            <div class="breakdown__heading--other">OTHER</div>
+            <div class="breakdown__heading--time">% TIME</div>
+            <div class="breakdown__heading--students">NO OF STUDENTS</div>
+            <div class="breakdown__heading--venue">LECTURE ROOM</div>
+            <div class="breakdown__heading--venue-type">C/L</div>
+        </div>
+        <div class="breakdown__content" *ngFor="let hemisItem of hemisData; let i = index;">
+            <div class="breakdown__content--code">{{hemisItem?.activity?.module?.moduleId}}</div>
+            <div class="breakdown__content--description">{{hemisItem?.activity?.module?.name}},
+                {{hemisItem?.activity?.module?.block?.blockId}},
+                {{hemisItem?.activity?.module?.offeringType?.offeringTypeId}},</div>
+            <div class="breakdown__content--contact">{{hemisItem?.baseContact}}</div>
+            <div class="breakdown__content--other">{{hemisItem ?.other}}</div>
+            <div class="breakdown__content--time">{{hemisItem?.percentageOfTotal}}</div>
+            <div class="breakdown__content--students">{{hemisItem?.studentsEnrolled}}</div>
+            <div class="breakdown__content--venue">{{'TBD'}}</div>
+            <div class="breakdown__content--venue-type">{{'Classroom'}}</div>
+        </div>
+        <div class="breakdown__total">
+            <div class="breakdown__total--total">Total</div>
+            <div class="breakdown__total--contact">{{''}}</div>
+            <div class="breakdown__total--other">{{''}}</div>
+            <div class="breakdown__total--time">{{sumPercentageOfTotal}}%</div>
+        </div>
     </div>
 </div>
 <div class="signature">

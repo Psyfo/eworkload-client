@@ -1,0 +1,24 @@
+mutation addVenue($venue: VenueInput) {
+    addVenue(venue: $venue) {
+        venueId
+        campus
+        capacity
+        type
+    }
+}
+mutation editVenue($venue: VenueInput) {
+    editVenue(venue: $venue) {
+        venueId
+        campus
+        capacity
+        type
+    }
+}
+mutation deleteVenue($venue: VenueInput) {
+    deleteVenue(venue: $venue) {
+        venueId
+        campus
+        capacity
+        type
+    }
+}

@@ -3,6 +3,42 @@
         <h5>Venues</h5>
     </div>
     <div class="card-body">
+        <p-table [value]="venues">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Venue Id</th>
+                    <th>Year</th>
+                    <th>Brand</th>
+                    <th>Color</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-venue>
+                <tr>
+                    <td>
+                        {{ venue?.venueId }}
+                    </td>
+                    <td>
+                        {{ venue?.capacity }}
+                    </td>
+                    <td>
+                        {{ venue?.campus }}
+                    </td>
+                    <td>
+                        {{ venue?.type }}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="card-footer">
+
+    </div>
+</div>
+<div class="card" [@routerTransition]>
+    <div class="card-header">
+        <h5>Venues</h5>
+    </div>
+    <div class="card-body">
         <div class="row">
             <div class="col">
                 <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="venueListDT"

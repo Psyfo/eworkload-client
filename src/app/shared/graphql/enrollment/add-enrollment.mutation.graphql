@@ -1,6 +1,5 @@
 mutation addEnrollment($enrollment: EnrollmentInput) {
     addEnrollment(enrollment: $enrollment) {
-        enrollmentId
         enrollmentYear
         qualificationId
         qualification {

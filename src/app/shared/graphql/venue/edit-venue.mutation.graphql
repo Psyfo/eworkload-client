@@ -1,8 +1,0 @@
-mutation editVenue($venue: VenueInput) {
-    editVenue(venue: $venue) {
-        venueId
-        campus
-        capacity
-        type
-    }
-}

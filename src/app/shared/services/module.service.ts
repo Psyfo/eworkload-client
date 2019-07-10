@@ -7,8 +7,8 @@ import {
     AddModuleGQL,
     EditModuleGQL,
     DeleteModuleGQL,
-    StackedWithGQL,
-    UnassignedModulesGQL,
+    ModulesByStackGQL,
+    ModulesByUnassignedGQL,
     AddModulesGQL
 } from '../generated/output';
 import { Module, ModuleInput } from '../models';
@@ -45,8 +45,8 @@ export class ModuleService {
         private addModulesGql: AddModulesGQL,
         private editModuleGql: EditModuleGQL,
         private deleteModuleGql: DeleteModuleGQL,
-        private stackedWithGql: StackedWithGQL,
-        private unassignedModulesGql: UnassignedModulesGQL
+        private modulesByStackGql: ModulesByStackGQL,
+        private modulesByUnassignedGql: ModulesByUnassignedGQL
     ) {}
 
     getModules() {
@@ -73,8 +73,8 @@ export class ModuleService {
             );
     }
 
-    stackedWith(stackId: string) {
-        return this.stackedWithGql
+    modulesByStack(stackId: string) {
+        return this.modulesByStackGql
             .watch({ stackId: stackId })
             .valueChanges.pipe(
                 map(result => {
@@ -110,7 +110,7 @@ export class ModuleService {
     }
 
     unassignedModule() {
-        return this.unassignedModulesGql.watch({}).valueChanges.pipe(
+        return this.modulesByUnassignedGql.watch({}).valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
                 this.errors = result.errors;

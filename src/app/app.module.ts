@@ -1,3 +1,11 @@
+import { DataTablesModule } from 'angular-datatables';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { Apollo, ApolloModule } from 'apollo-angular';
+import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloLink } from 'apollo-link';
+import { onError } from 'apollo-link-error';
+
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -6,19 +14,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { DataTablesModule } from 'angular-datatables';
-import { FlashMessagesModule } from 'angular2-flash-messages';
-import { Apollo, ApolloModule } from 'apollo-angular';
-import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { onError } from 'apollo-link-error';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { AlertComponent } from './shared/directives';
 import { AlertService, BufferService } from './shared/services';
-import { ApolloLink } from 'apollo-link';
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {

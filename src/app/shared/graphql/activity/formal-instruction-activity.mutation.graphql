@@ -1,5 +1,9 @@
-query formalInstructionActivity($activityId: String!) {
-    formalInstructionActivity(activityId: $activityId) {
+mutation addFormalInstructionActivity(
+    $formalInstructionActivity: FormalInstructionActivityInput
+) {
+    addFormalInstructionActivity(
+        formalInstructionActivity: $formalInstructionActivity
+    ) {
         activityId
         dutyId
         duty {
@@ -107,8 +111,12 @@ query formalInstructionActivity($activityId: String!) {
         updatedAt
     }
 }
-query formalInstructionActivities {
-    formalInstructionActivities {
+mutation editFormalInstructionActivity(
+    $formalInstructionActivity: FormalInstructionActivityInput
+) {
+    editFormalInstructionActivity(
+        formalInstructionActivity: $formalInstructionActivity
+    ) {
         activityId
         dutyId
         duty {
@@ -216,8 +224,12 @@ query formalInstructionActivities {
         updatedAt
     }
 }
-query formalInstructionActivitiesByUser($userId: String!) {
-    formalInstructionActivitiesByUser(userId: $userId) {
+mutation deleteFormalInstructionActivity(
+    $formalInstructionActivity: FormalInstructionActivityInput
+) {
+    deleteFormalInstructionActivity(
+        formalInstructionActivity: $formalInstructionActivity
+    ) {
         activityId
         dutyId
         duty {

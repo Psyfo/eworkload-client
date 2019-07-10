@@ -1,8 +1,0 @@
-query venues {
-    venues {
-        venueId
-        campus
-        capacity
-        type
-    }
-}

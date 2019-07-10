@@ -69,3 +69,396 @@ query module(
         moderation
     }
 }
+query modules {
+    modules {
+        moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
+        stackId
+        qualification {
+            qualificationId
+            name
+        }
+        offeringType {
+            offeringTypeId
+            description
+        }
+        discipline {
+            disciplineId
+            name
+        }
+        venue {
+            venueId
+            campus
+            capacity
+        }
+        block {
+            blockId
+            name
+        }
+        userId
+        user {
+            userId
+            firstName
+            lastName
+            email
+        }
+        coordinatorId
+        coordinator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        moderatorId
+        moderator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        credits
+        groupSize
+        lecturedBy
+        moderation
+    }
+}
+query modulesByDiscipline($disciplineId: String!) {
+    modulesByDiscipline(disciplineId: $disciplineId) {
+        moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
+        stackId
+        qualification {
+            qualificationId
+            name
+        }
+        offeringType {
+            offeringTypeId
+            description
+        }
+        discipline {
+            disciplineId
+            name
+        }
+        venue {
+            venueId
+            campus
+            capacity
+        }
+        block {
+            blockId
+            name
+        }
+        userId
+        user {
+            userId
+            firstName
+            lastName
+            email
+        }
+        coordinatorId
+        coordinator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        moderatorId
+        moderator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        credits
+        groupSize
+        lecturedBy
+        moderation
+    }
+}
+query modulesByUnassigned {
+    modulesByUnassigned {
+        moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
+        stackId
+        qualification {
+            qualificationId
+            name
+        }
+        offeringType {
+            offeringTypeId
+            description
+        }
+        discipline {
+            disciplineId
+            name
+        }
+        venue {
+            venueId
+            campus
+            capacity
+        }
+        block {
+            blockId
+            name
+        }
+        userId
+        user {
+            userId
+            firstName
+            lastName
+            email
+        }
+        coordinatorId
+        coordinator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        moderatorId
+        moderator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        credits
+        groupSize
+        lecturedBy
+        moderation
+    }
+}
+query modulesByUser($userId: String!) {
+    modulesByUser(userId: $userId) {
+        moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
+        stackId
+        qualification {
+            qualificationId
+            name
+        }
+        offeringType {
+            offeringTypeId
+            description
+        }
+        discipline {
+            disciplineId
+            name
+        }
+        venue {
+            venueId
+            campus
+            capacity
+        }
+        block {
+            blockId
+            name
+        }
+        userId
+        user {
+            userId
+            firstName
+            lastName
+            email
+        }
+        coordinatorId
+        coordinator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        moderatorId
+        moderator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        credits
+        groupSize
+        lecturedBy
+        moderation
+    }
+}
+query modulesByModerator($moderatorId: String!) {
+    modulesByModerator(moderatorId: $moderatorId) {
+        moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
+        stackId
+        qualification {
+            qualificationId
+            name
+        }
+        offeringType {
+            offeringTypeId
+            description
+        }
+        discipline {
+            disciplineId
+            name
+        }
+        venue {
+            venueId
+            campus
+            capacity
+        }
+        block {
+            blockId
+            name
+        }
+        userId
+        user {
+            userId
+            firstName
+            lastName
+            email
+        }
+        coordinatorId
+        coordinator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        moderatorId
+        moderator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        credits
+        groupSize
+        lecturedBy
+        moderation
+    }
+}
+query modulesByCoordinator($coordinatorId: String!) {
+    modulesByCoordinator(coordinatorId: $coordinatorId) {
+        moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
+        stackId
+        qualification {
+            qualificationId
+            name
+        }
+        offeringType {
+            offeringTypeId
+            description
+        }
+        discipline {
+            disciplineId
+            name
+        }
+        venue {
+            venueId
+            campus
+            capacity
+        }
+        block {
+            blockId
+            name
+        }
+        userId
+        user {
+            userId
+            firstName
+            lastName
+            email
+        }
+        coordinatorId
+        coordinator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        moderatorId
+        moderator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        credits
+        groupSize
+        lecturedBy
+        moderation
+    }
+}
+
+query modulesByStack($stackId: String!) {
+    modulesByStack(stackId: $stackId) {
+        moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
+        stackId
+        qualification {
+            qualificationId
+            name
+        }
+        offeringType {
+            offeringTypeId
+            description
+        }
+        discipline {
+            disciplineId
+            name
+        }
+        venue {
+            venueId
+            campus
+            capacity
+        }
+        block {
+            blockId
+            name
+        }
+        userId
+        user {
+            userId
+            firstName
+            lastName
+            email
+        }
+        coordinatorId
+        coordinator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        moderatorId
+        moderator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        credits
+        groupSize
+        lecturedBy
+        moderation
+    }
+}

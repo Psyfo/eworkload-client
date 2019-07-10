@@ -1,0 +1,91 @@
+query baseContact($activityId: String) {
+    baseContact(activityId: $activityId)
+}
+query coordination($activityId: String) {
+    coordination(activityId: $activityId)
+}
+query studentSupport($activityId: String) {
+    studentSupport(activityId: $activityId)
+}
+query preparationTime($activityId: String) {
+    preparationTime(activityId: $activityId)
+}
+query assessmentSetting($activityId: String) {
+    assessmentSetting(activityId: $activityId)
+}
+query examMarking($activityId: String) {
+    examMarking(activityId: $activityId)
+}
+query courseworkMarking($activityId: String) {
+    courseworkMarking(activityId: $activityId)
+}
+query feedback($activityId: String) {
+    feedback(activityId: $activityId)
+}
+query formativeAssessment($activityId: String) {
+    formativeAssessment(activityId: $activityId)
+}
+query moderation($activityId: String) {
+    moderation(activityId: $activityId)
+}
+query other($activityId: String) {
+    other(activityId: $activityId)
+}
+query total($activityId: String) {
+    total(activityId: $activityId)
+}
+query sumTotal($userId: String) {
+    sumTotal(userId: $userId)
+}
+query teachingFocus($userId: String) {
+    teachingFocus(userId: $userId)
+}
+query percentageOfTotal($activityId: String) {
+    percentageOfTotal(activityId: $activityId)
+}
+query percentageOfFocus($activityId: String) {
+    percentageOfFocus(activityId: $activityId)
+}
+query sumPercentageOfTotal($userId: String) {
+    sumPercentageOfTotal(userId: $userId)
+}
+query studentsEnrolled($activityId: String) {
+    studentsEnrolled(activityId: $activityId)
+}
+
+query hemis($userId: String) {
+    hemis(userId: $userId) {
+        activity {
+            activityId
+            module {
+                moduleId
+                name
+                blockId
+                block {
+                    blockId
+                    name
+                    description
+                }
+                offeringTypeId
+                offeringType {
+                    offeringTypeId
+                    description
+                }
+                qualificationId
+                qualification {
+                    qualificationId
+                    name
+                }
+            }
+            user {
+                userId
+            }
+        }
+        baseContact
+        other
+        total
+        sumTotal
+        percentageOfTotal
+        studentsEnrolled
+    }
+}

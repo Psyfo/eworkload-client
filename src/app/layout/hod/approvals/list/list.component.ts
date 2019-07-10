@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
     selector: 'app-list',
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.scss'],
-    animations: [routerTransition()],
+    animations: [routerTransition()]
 })
 export class ListComponent implements OnInit {
     activity: Activity;
@@ -19,14 +19,5 @@ export class ListComponent implements OnInit {
 
     constructor(private activityService: ActivityService) {}
 
-    ngOnInit() {
-        this.activityService
-            .getUnapprovedActivities()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.activities = result.data.unapprovedActivities.map(
-                    activity => <Activity>(<unknown>activity)
-                );
-            });
-    }
+    ngOnInit() {}
 }

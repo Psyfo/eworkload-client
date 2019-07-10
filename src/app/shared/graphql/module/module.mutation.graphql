@@ -1,0 +1,221 @@
+mutation addModule($module: ModuleInput) {
+    addModule(module: $module) {
+        moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
+        stackId
+        qualification {
+            qualificationId
+            name
+        }
+        offeringType {
+            offeringTypeId
+            description
+        }
+        discipline {
+            disciplineId
+            name
+        }
+        venue {
+            venueId
+            campus
+            capacity
+        }
+        block {
+            blockId
+            name
+        }
+        userId
+        user {
+            userId
+            firstName
+            lastName
+            email
+        }
+        coordinatorId
+        coordinator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        moderatorId
+        moderator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        credits
+        lecturedBy
+        moderation
+    }
+}
+mutation addModules($modules: [ModuleInput]) {
+    addModules(modules: $modules) {
+        moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
+        stackId
+        qualification {
+            qualificationId
+            name
+        }
+        offeringType {
+            offeringTypeId
+            description
+        }
+        discipline {
+            disciplineId
+            name
+        }
+        venue {
+            venueId
+            campus
+            capacity
+        }
+        block {
+            blockId
+            name
+        }
+        userId
+        user {
+            userId
+            firstName
+            lastName
+            email
+        }
+        coordinatorId
+        coordinator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        moderatorId
+        moderator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        credits
+        lecturedBy
+        moderation
+    }
+}
+mutation editModule($module: ModuleInput) {
+    editModule(module: $module) {
+        moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
+        stackId
+        qualification {
+            qualificationId
+            name
+        }
+        offeringType {
+            offeringTypeId
+            description
+        }
+        discipline {
+            disciplineId
+            name
+        }
+        venue {
+            venueId
+            campus
+            capacity
+        }
+        block {
+            blockId
+            name
+        }
+        userId
+        user {
+            userId
+            firstName
+            lastName
+            email
+        }
+        coordinatorId
+        coordinator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        moderatorId
+        moderator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        credits
+        groupSize
+        lecturedBy
+        moderation
+    }
+}
+mutation deleteModule($module: ModuleInput) {
+    deleteModule(module: $module) {
+        moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
+        stackId
+        qualification {
+            qualificationId
+            name
+        }
+        offeringType {
+            offeringTypeId
+            description
+        }
+        discipline {
+            disciplineId
+            name
+        }
+        venue {
+            venueId
+            campus
+            capacity
+        }
+        block {
+            blockId
+            name
+        }
+        userId
+        user {
+            userId
+            firstName
+            lastName
+            email
+        }
+        coordinatorId
+        coordinator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        moderatorId
+        moderator {
+            userId
+            firstName
+            lastName
+            email
+        }
+        groupSize
+        lecturedBy
+        moderation
+    }
+}

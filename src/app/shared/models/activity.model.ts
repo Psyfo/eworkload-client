@@ -74,19 +74,6 @@ export class FormalInstructionActivity extends Activity {
     offeringType: OfferingType;
     qualificationId: string;
     qualification: Qualification;
-    baseContactHours: number;
-    coordinationHours: number;
-    studentSupportHours: number;
-    preparationTimeHours: number;
-    assessmentSettingHours: number;
-    examMarkingHours: number;
-    courseworkMarkingHours: number;
-    feedbackHours: number;
-    formativeAssessmentHours: number;
-    moderationHours: number;
-    otherHours: number;
-    totalHours: number;
-    teachingPercentage: number;
 }
 export class FormalInstructionActivityInput {
     userId: string;

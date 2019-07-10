@@ -16,7 +16,6 @@ import {
     Discipline,
     Module,
     User,
-    LectureStack,
     Venue
 } from '../../../../shared/models';
 import {

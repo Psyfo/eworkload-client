@@ -1,8 +1,9 @@
-import { Component, OnInit, Renderer } from '@angular/core';
-import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+import { Component, OnInit, Renderer } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { routerTransition } from '../../../../router.animations';
 import { Venue } from '../../../../shared/generated/output';
@@ -13,7 +14,7 @@ import { VenueService } from '../../../../shared/services/venue.service';
     selector: 'app-venue-list',
     templateUrl: './venue-list.component.html',
     styleUrls: ['./venue-list.component.scss'],
-    animations: [routerTransition()],
+    animations: [routerTransition()]
 })
 export class VenueListComponent implements OnInit {
     venues: Venue[];
@@ -52,7 +53,7 @@ export class VenueListComponent implements OnInit {
                     self.rowClickHandler(data);
                 });
                 return row;
-            },
+            }
         };
 
         this.getVenues();
@@ -79,7 +80,7 @@ export class VenueListComponent implements OnInit {
         this.dtRouteParam = info[0];
 
         this.router.navigate(['admin/venue/view', this.dtRouteParam], {
-            queryParams: { venueId: info[0] },
+            queryParams: { venueId: info[0] }
         });
     }
 

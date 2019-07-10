@@ -1,4 +1,4 @@
-import { UnapprovedActivitiesGQL } from './../generated/output';
+import { ActivitiesByUnapprovedGQL } from './../generated/output';
 import { Injectable } from '@angular/core';
 
 import {
@@ -53,7 +53,7 @@ export class ActivityService {
         private formalInstructionActivitiesByUserGql: FormalInstructionActivitiesByUserGQL,
         private addFormalInstructionActivityGql: AddFormalInstructionActivityGQL,
         private researchActivitiesByUserGql: ResearchActivitiesByUserGQL,
-        private unapprovedActivitiesGql: UnapprovedActivitiesGQL
+        private activitiesByUnapprovedGql: ActivitiesByUnapprovedGQL
     ) {}
 
     getActivity(activityId: string) {
@@ -69,8 +69,8 @@ export class ActivityService {
             );
     }
 
-    getUnapprovedActivities() {
-        return this.unapprovedActivitiesGql.watch({}).valueChanges.pipe(
+    getActivitiesByUnapproved() {
+        return this.activitiesByUnapprovedGql.watch({}).valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
                 this.errors = result.errors;
@@ -81,7 +81,7 @@ export class ActivityService {
     }
 
     getApprovedActivities() {
-        return this.unapprovedActivitiesGql.watch({}).valueChanges.pipe(
+        return this.activitiesByUnapprovedGql.watch({}).valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
                 this.errors = result.errors;

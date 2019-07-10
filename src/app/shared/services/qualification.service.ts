@@ -1,7 +1,8 @@
 import {
     AddQualificationGQL,
     EditQualificationGQL,
-    DeleteQualificationGQL
+    DeleteQualificationGQL,
+    QualificationsNoEnrollmentGQL
 } from './../generated/output';
 import { Injectable } from '@angular/core';
 import { Qualification, QualificationInput } from '../models';
@@ -29,7 +30,8 @@ export class QualificationService {
         private qualificationsGql: QualificationsGQL,
         private addQualificationGql: AddQualificationGQL,
         private editQualificationGql: EditQualificationGQL,
-        private deleteQualificationGql: DeleteQualificationGQL
+        private deleteQualificationGql: DeleteQualificationGQL,
+        private qualificationsNoEnrollmentGql: QualificationsNoEnrollmentGQL
     ) {}
 
     getQualifications() {
@@ -54,6 +56,17 @@ export class QualificationService {
                     return result;
                 })
             );
+    }
+
+    getQualificationsNoEnrollment() {
+        return this.qualificationsNoEnrollmentGql.watch({}).valueChanges.pipe(
+            map(result => {
+                this.loading = result.loading;
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
+                return result;
+            })
+        );
     }
 
     addQualification(qualification: QualificationInput) {

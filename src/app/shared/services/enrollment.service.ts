@@ -9,7 +9,8 @@ import {
     EnrollmentGQL,
     EnrollmentsByQualificationGQL,
     EnrollmentsByYearGQL,
-    EnrollmentsGQL
+    EnrollmentsGQL,
+    StudentsEnrolledGQL
 } from '../generated/output';
 import { Enrollment, EnrollmentInput } from '../models/enrollment.model';
 import { AlertService } from './alert.service';

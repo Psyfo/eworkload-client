@@ -6,3 +6,11 @@ query venue($venueId: String!) {
         type
     }
 }
+query venues {
+    venues {
+        venueId
+        campus
+        capacity
+        type
+    }
+}

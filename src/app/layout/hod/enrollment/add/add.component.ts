@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../../../router.animations';
-import { Enrollment } from '../../../../shared/models/enrollment.model';
+import {
+    Enrollment,
+    EnrollmentInput
+} from '../../../../shared/models/enrollment.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Qualification } from '../../../../shared/models';
@@ -14,12 +17,12 @@ import { AlertService } from '../../../../shared/services';
     selector: 'app-add',
     templateUrl: './add.component.html',
     styleUrls: ['./add.component.scss'],
-    animations: [routerTransition()],
+    animations: [routerTransition()]
 })
 export class AddComponent implements OnInit {
-    enrollment: Enrollment = new Enrollment();
+    enrollment: EnrollmentInput = new EnrollmentInput();
     qualifications: Qualification[];
-    currentYear = new Date().getFullYear();
+    currentYear = new Date().getFullYear().toString();
     private unsubscribe = new Subject();
 
     enrollmentAddForm: FormGroup;
@@ -41,53 +44,58 @@ export class AddComponent implements OnInit {
         this.enrollmentAddForm = this.fb.group({
             enrollmentYear: [
                 { value: '', disabled: true },
-                Validators.required,
+                Validators.required
             ],
             qualificationId: ['', Validators.required],
             firstYearEstimated: ['', Validators.required],
             secondYearEstimated: ['', Validators.required],
-            thirdYearEstimated: ['', Validators.required],
+            thirdYearEstimated: ['', Validators.required]
         });
 
         this.enrollmentAddForm.patchValue({
-            enrollmentYear: this.currentYear,
+            enrollmentYear: this.currentYear
         });
     }
 
     getQualifications() {
         this.qualificationService
-            .getQualifications()
+            .getQualificationsNoEnrollment()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.qualifications = result.data.qualifications.map(
+                this.qualifications = result.data.qualificationsNoEnrollment.map(
                     qualification => <Qualification>(<unknown>qualification)
                 );
             });
     }
 
-    getFormValues() {
-        const formVal = this.enrollmentAddForm.value;
-
-        console.log(this.enrollment);
-    }
-
     onAdd() {
-        if (this.enrollmentAddForm.invalid) {
-            this.alertService.sendMessage('Form is invalid', 'danger');
-            return;
-        }
         this.enrollment = this.formVal;
+        console.log(this.enrollment);
+
         this.enrollmentService
             .addEnrollment(this.enrollment)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.alertService.sendMessage('Enrollment Added', 'success');
-                this.router.navigate(['hod/enrollment']);
+                setTimeout(() => {
+                    this.router.navigate(
+                        ['hod/enrollment/view', this.qualificationId.value],
+                        {
+                            queryParams: {
+                                enrollmentYear: this.currentYear,
+                                qualificationId: this.qualificationId.value
+                            }
+                        }
+                    );
+                }, 1000);
             });
     }
 
     onReset() {
         this.enrollmentAddForm.reset();
+    }
+    onCancel() {
+        this.router.navigate(['admin/enrollment']);
     }
 
     // Getters
