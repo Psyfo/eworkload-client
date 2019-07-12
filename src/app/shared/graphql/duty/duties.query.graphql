@@ -1,7 +1,0 @@
-query duties {
-    duties {
-        dutyId
-        name
-        description
-    }
-}

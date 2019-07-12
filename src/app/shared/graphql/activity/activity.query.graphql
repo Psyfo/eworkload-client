@@ -17,7 +17,37 @@ query activity($activityId: String!) {
         approvalStatus
         createdAt
         updatedAt
-        ... on CommInstructionActivity {
+        ... on AcademicAdministrationActivity {
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+        ... on ExecutiveManagementActivity {
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+        ... on PersonnelDevelopmentActivity {
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+        ... on CommunityInstructionActivity {
             title
             description
             evidenceId
@@ -122,12 +152,19 @@ query activity($activityId: String!) {
             }
         }
         ... on ResearchActivity {
-            researchType
-            researchTitle
-            researchDetails
+            output
+            title
+            details
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
         }
         ... on SupervisionActivity {
             supervisionRole
+            split
             studentId
             student {
                 studentId
@@ -158,7 +195,7 @@ query activitiesByUnapproved {
         }
         approvalStatus
 
-        ... on CommInstructionActivity {
+        ... on CommunityInstructionActivity {
             title
             description
             evidenceId
@@ -284,9 +321,15 @@ query activitiesByUnapproved {
             }
         }
         ... on ResearchActivity {
-            researchType
-            researchTitle
-            researchDetails
+            output
+            title
+            details
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
         }
         ... on SupervisionActivity {
             supervisionRole

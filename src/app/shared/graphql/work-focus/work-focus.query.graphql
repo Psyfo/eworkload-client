@@ -6,3 +6,11 @@ query workFocus($name: String!) {
         serviceRatio
     }
 }
+query workFocuses {
+    workFocuses {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+    }
+}

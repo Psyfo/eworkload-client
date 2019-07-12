@@ -325,3 +325,94 @@ query formalInstructionActivitiesByUser($userId: String!) {
         updatedAt
     }
 }
+
+query supervisionActivity($activityId: String!) {
+    supervisionActivity(activityId: $activityId) {
+        activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+        }
+        dutyId
+        duty {
+            dutyId
+            name
+            description
+        }
+        approvalStatus
+        supervisionRole
+        split
+        studentId
+        student {
+            studentId
+            firstName
+            lastName
+            email
+            title
+            year
+        }
+    }
+}
+query supervisionActivities {
+    supervisionActivities {
+        activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+        }
+        dutyId
+        duty {
+            dutyId
+            name
+            description
+        }
+        approvalStatus
+        supervisionRole
+        split
+        studentId
+        student {
+            studentId
+            firstName
+            lastName
+            email
+            title
+            year
+        }
+    }
+}
+query supervisionActivitiesByUser($userId: String!) {
+    supervisionActivitiesByUser(userId: $userId) {
+        activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+        }
+        dutyId
+        duty {
+            dutyId
+            name
+            description
+        }
+        approvalStatus
+        supervisionRole
+        split
+        studentId
+        student {
+            studentId
+            firstName
+            lastName
+            email
+            title
+            year
+        }
+    }
+}

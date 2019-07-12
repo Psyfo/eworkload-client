@@ -1,7 +1,0 @@
-query blocks {
-    blocks {
-        blockId
-        name
-        description
-    }
-}

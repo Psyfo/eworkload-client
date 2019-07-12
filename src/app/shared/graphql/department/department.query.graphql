@@ -8,3 +8,13 @@ query department($departmentId: String!) {
         }
     }
 }
+query departments {
+    departments {
+        departmentId
+        name
+        faculty {
+            facultyId
+            name
+        }
+    }
+}

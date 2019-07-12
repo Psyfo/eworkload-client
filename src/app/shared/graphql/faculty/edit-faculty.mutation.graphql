@@ -1,6 +1,0 @@
-mutation editFaculty($faculty: FacultyInput) {
-    addFaculty(faculty: $faculty) {
-        facultyId
-        name
-    }
-}

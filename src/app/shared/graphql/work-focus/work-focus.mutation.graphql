@@ -1,0 +1,24 @@
+mutation addWorkFocus($workFocus: WorkFocusInput) {
+    addWorkFocus(workFocus: $workFocus) {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+    }
+}
+mutation editWorkFocus($workFocus: WorkFocusInput) {
+    editWorkFocus(workFocus: $workFocus) {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+    }
+}
+mutation deleteWorkFocus($workFocus: WorkFocusInput) {
+    deleteWorkFocus(workFocus: $workFocus) {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+    }
+}

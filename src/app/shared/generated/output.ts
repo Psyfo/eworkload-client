@@ -1,4 +1,7 @@
-type Maybe<T> = T | null;
+import gql from "graphql-tag";
+import { Injectable } from "@angular/core";
+import * as Apollo from "apollo-angular";
+export type Maybe<T> = T | null;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
     ID: string;
@@ -8,6 +11,30 @@ export type Scalars = {
     Float: number;
     /** The `Upload` scalar type represents a file upload. */
     Upload: any;
+};
+
+export type AcademicAdministrationActivity = Activity & {
+    __typename?: "AcademicAdministrationActivity";
+    activityId: Scalars["String"];
+    userId: Scalars["String"];
+    user?: Maybe<User>;
+    dutyId: Scalars["String"];
+    duty?: Maybe<Duty>;
+    approvalStatus?: Maybe<Scalars["String"]>;
+    createdAt?: Maybe<Scalars["String"]>;
+    updatedAt?: Maybe<Scalars["String"]>;
+    title?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
+    evidenceId?: Maybe<Scalars["String"]>;
+    evidence?: Maybe<Evidence>;
+};
+
+export type AcademicAdministrationActivityInput = {
+    userId?: Maybe<Scalars["String"]>;
+    dutyId?: Maybe<Scalars["String"]>;
+    title?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
+    evidenceId?: Maybe<Scalars["String"]>;
 };
 
 export type Activity = {
@@ -22,12 +49,14 @@ export type Activity = {
 };
 
 export type AuthData = {
+    __typename?: "AuthData";
     userId: Scalars["String"];
     token: Scalars["String"];
     tokenExpiration: Scalars["Int"];
 };
 
 export type Block = {
+    __typename?: "Block";
     blockId: Scalars["String"];
     name: Scalars["String"];
     description: Scalars["String"];
@@ -44,7 +73,8 @@ export enum CacheControlScope {
     Private = "PRIVATE"
 }
 
-export type CommInstructionActivity = Activity & {
+export type CommunityInstructionActivity = Activity & {
+    __typename?: "CommunityInstructionActivity";
     activityId: Scalars["String"];
     userId: Scalars["String"];
     user?: Maybe<User>;
@@ -59,7 +89,7 @@ export type CommInstructionActivity = Activity & {
     evidence?: Maybe<Evidence>;
 };
 
-export type CommInstructionActivityInput = {
+export type CommunityInstructionActivityInput = {
     userId?: Maybe<Scalars["String"]>;
     dutyId?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
@@ -68,6 +98,7 @@ export type CommInstructionActivityInput = {
 };
 
 export type Department = {
+    __typename?: "Department";
     departmentId: Scalars["String"];
     name: Scalars["String"];
     facultyId: Scalars["String"];
@@ -81,6 +112,7 @@ export type DepartmentInput = {
 };
 
 export type Discipline = {
+    __typename?: "Discipline";
     disciplineId: Scalars["String"];
     name: Scalars["String"];
     description: Scalars["String"];
@@ -93,6 +125,7 @@ export type DisciplineInput = {
 };
 
 export type Duty = {
+    __typename?: "Duty";
     dutyId: Scalars["String"];
     name?: Maybe<Scalars["String"]>;
     description?: Maybe<Scalars["String"]>;
@@ -105,6 +138,7 @@ export type DutyInput = {
 };
 
 export type Enrollment = {
+    __typename?: "Enrollment";
     enrollmentYear?: Maybe<Scalars["String"]>;
     qualificationId?: Maybe<Scalars["String"]>;
     qualification?: Maybe<Qualification>;
@@ -122,21 +156,49 @@ export type EnrollmentInput = {
 };
 
 export type Event = {
+    __typename?: "Event";
     eventId: Scalars["String"];
     description: Scalars["String"];
 };
 
 export type Evidence = {
+    __typename?: "Evidence";
     evidenceId: Scalars["String"];
     name: Scalars["String"];
     item?: Maybe<Scalars["String"]>;
 };
 
+export type ExecutiveManagementActivity = Activity & {
+    __typename?: "ExecutiveManagementActivity";
+    activityId: Scalars["String"];
+    userId: Scalars["String"];
+    user?: Maybe<User>;
+    dutyId: Scalars["String"];
+    duty?: Maybe<Duty>;
+    approvalStatus?: Maybe<Scalars["String"]>;
+    createdAt?: Maybe<Scalars["String"]>;
+    updatedAt?: Maybe<Scalars["String"]>;
+    title?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
+    evidenceId?: Maybe<Scalars["String"]>;
+    evidence?: Maybe<Evidence>;
+};
+
+export type ExecutiveManagementActivityInput = {
+    userId?: Maybe<Scalars["String"]>;
+    dutyId?: Maybe<Scalars["String"]>;
+    title?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
+    evidenceId?: Maybe<Scalars["String"]>;
+};
+
 export type ExistData = {
+    __typename?: "ExistData";
     exists?: Maybe<Scalars["Boolean"]>;
 };
 
 export type Faculty = {
+    __typename?: "Faculty";
     facultyId: Scalars["String"];
     name: Scalars["String"];
 };
@@ -147,6 +209,7 @@ export type FacultyInput = {
 };
 
 export type FormalInstructionActivity = Activity & {
+    __typename?: "FormalInstructionActivity";
     activityId: Scalars["String"];
     userId: Scalars["String"];
     user?: Maybe<User>;
@@ -175,6 +238,7 @@ export type FormalInstructionActivityInput = {
 };
 
 export type FormalInstructionWorkload = {
+    __typename?: "FormalInstructionWorkload";
     baseContact?: Maybe<Scalars["Int"]>;
     coordination?: Maybe<Scalars["Int"]>;
     studentSupport?: Maybe<Scalars["Int"]>;
@@ -193,6 +257,7 @@ export type FormalInstructionWorkload = {
 };
 
 export type HemisData = {
+    __typename?: "HemisData";
     activity?: Maybe<FormalInstructionActivity>;
     baseContact?: Maybe<Scalars["Int"]>;
     other?: Maybe<Scalars["Int"]>;
@@ -203,6 +268,7 @@ export type HemisData = {
 };
 
 export type Module = {
+    __typename?: "Module";
     moduleId: Scalars["String"];
     name?: Maybe<Scalars["String"]>;
     type?: Maybe<Scalars["String"]>;
@@ -255,13 +321,10 @@ export type ModuleInput = {
 };
 
 export type Mutation = {
+    __typename?: "Mutation";
     addBlock?: Maybe<Block>;
     editBlock?: Maybe<Block>;
     deleteBlock?: Maybe<Block>;
-    addUser?: Maybe<User>;
-    editUser?: Maybe<User>;
-    deleteUser?: Maybe<User>;
-    changePassword?: Maybe<User>;
     addDepartment?: Maybe<Department>;
     editDepartment?: Maybe<Department>;
     deleteDepartment?: Maybe<Department>;
@@ -271,6 +334,9 @@ export type Mutation = {
     addDuty?: Maybe<Duty>;
     editDuty?: Maybe<Duty>;
     deleteDuty?: Maybe<Duty>;
+    addEnrollment?: Maybe<Enrollment>;
+    editEnrollment?: Maybe<Enrollment>;
+    deleteEnrollment?: Maybe<Enrollment>;
     addEvent?: Maybe<Event>;
     editEvent?: Maybe<Event>;
     deleteEvent?: Maybe<Event>;
@@ -296,30 +362,42 @@ export type Mutation = {
     addStudent?: Maybe<Student>;
     editStudent?: Maybe<Student>;
     deleteStudent?: Maybe<Student>;
-    addCommInstructionActivity?: Maybe<CommInstructionActivity>;
-    editCommInstructionActivity?: Maybe<CommInstructionActivity>;
-    deleteCommInstructionActivity?: Maybe<CommInstructionActivity>;
-    addPublicServiceActivity?: Maybe<PublicServiceActivity>;
-    editPublicServiceActivity?: Maybe<PublicServiceActivity>;
-    deletePublicServiceActivity?: Maybe<PublicServiceActivity>;
-    addFormalInstructionActivity?: Maybe<FormalInstructionActivity>;
-    editFormalInstructionActivity?: Maybe<FormalInstructionActivity>;
-    deleteFormalInstructionActivity?: Maybe<FormalInstructionActivity>;
-    addResearchActivity?: Maybe<ResearchActivity>;
-    editResearchActivity?: Maybe<ResearchActivity>;
-    deleteResearchActivity?: Maybe<ResearchActivity>;
-    addSupervisionActivity?: Maybe<SupervisionActivity>;
-    editSupervisionActivity?: Maybe<SupervisionActivity>;
-    deleteSupervisionActivity?: Maybe<SupervisionActivity>;
+    addUser?: Maybe<User>;
+    editUser?: Maybe<User>;
+    deleteUser?: Maybe<User>;
+    changePassword?: Maybe<User>;
     addVenue?: Maybe<Venue>;
     editVenue?: Maybe<Venue>;
     deleteVenue?: Maybe<Venue>;
-    addEnrollment?: Maybe<Enrollment>;
-    editEnrollment?: Maybe<Enrollment>;
-    deleteEnrollment?: Maybe<Enrollment>;
     addWorkFocus?: Maybe<WorkFocus>;
     editWorkFocus?: Maybe<WorkFocus>;
     deleteWorkFocus?: Maybe<WorkFocus>;
+    addAcademicAdministrationActivity?: Maybe<AcademicAdministrationActivity>;
+    editAcademicAdministrationActivity?: Maybe<AcademicAdministrationActivity>;
+    deleteAcademicAdministrationActivity?: Maybe<
+        AcademicAdministrationActivity
+    >;
+    addCommunityInstructionActivity?: Maybe<CommunityInstructionActivity>;
+    editCommunityInstructionActivity?: Maybe<CommunityInstructionActivity>;
+    deleteCommunityInstructionActivity?: Maybe<CommunityInstructionActivity>;
+    addExecutiveManagementActivity?: Maybe<ExecutiveManagementActivity>;
+    editExecutiveManagementActivity?: Maybe<ExecutiveManagementActivity>;
+    deleteExecutiveManagementActivity?: Maybe<ExecutiveManagementActivity>;
+    addFormalInstructionActivity?: Maybe<FormalInstructionActivity>;
+    editFormalInstructionActivity?: Maybe<FormalInstructionActivity>;
+    deleteFormalInstructionActivity?: Maybe<FormalInstructionActivity>;
+    addSupervisionActivity?: Maybe<SupervisionActivity>;
+    editSupervisionActivity?: Maybe<SupervisionActivity>;
+    deleteSupervisionActivity?: Maybe<SupervisionActivity>;
+    addPersonnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivity>;
+    editPersonnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivity>;
+    deletePersonnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivity>;
+    addPublicServiceActivity?: Maybe<PublicServiceActivity>;
+    editPublicServiceActivity?: Maybe<PublicServiceActivity>;
+    deletePublicServiceActivity?: Maybe<PublicServiceActivity>;
+    addResearchActivity?: Maybe<ResearchActivity>;
+    editResearchActivity?: Maybe<ResearchActivity>;
+    deleteResearchActivity?: Maybe<ResearchActivity>;
 };
 
 export type MutationAddBlockArgs = {
@@ -332,24 +410,6 @@ export type MutationEditBlockArgs = {
 
 export type MutationDeleteBlockArgs = {
     block?: Maybe<BlockInput>;
-};
-
-export type MutationAddUserArgs = {
-    user?: Maybe<UserInput>;
-};
-
-export type MutationEditUserArgs = {
-    user?: Maybe<UserInput>;
-};
-
-export type MutationDeleteUserArgs = {
-    user?: Maybe<UserInput>;
-};
-
-export type MutationChangePasswordArgs = {
-    userId?: Maybe<Scalars["String"]>;
-    oldPassword?: Maybe<Scalars["String"]>;
-    newPassword?: Maybe<Scalars["String"]>;
 };
 
 export type MutationAddDepartmentArgs = {
@@ -386,6 +446,18 @@ export type MutationEditDutyArgs = {
 
 export type MutationDeleteDutyArgs = {
     duty?: Maybe<DutyInput>;
+};
+
+export type MutationAddEnrollmentArgs = {
+    enrollment?: Maybe<EnrollmentInput>;
+};
+
+export type MutationEditEnrollmentArgs = {
+    enrollment?: Maybe<EnrollmentInput>;
+};
+
+export type MutationDeleteEnrollmentArgs = {
+    enrollment?: Maybe<EnrollmentInput>;
 };
 
 export type MutationAddEventArgs = {
@@ -496,64 +568,22 @@ export type MutationDeleteStudentArgs = {
     student?: Maybe<StudentInput>;
 };
 
-export type MutationAddCommInstructionActivityArgs = {
-    commInstructionActivity?: Maybe<CommInstructionActivityInput>;
+export type MutationAddUserArgs = {
+    user?: Maybe<UserInput>;
 };
 
-export type MutationEditCommInstructionActivityArgs = {
-    commInstructionActivity?: Maybe<CommInstructionActivityInput>;
+export type MutationEditUserArgs = {
+    user?: Maybe<UserInput>;
 };
 
-export type MutationDeleteCommInstructionActivityArgs = {
-    commInstructionActivity?: Maybe<CommInstructionActivityInput>;
+export type MutationDeleteUserArgs = {
+    user?: Maybe<UserInput>;
 };
 
-export type MutationAddPublicServiceActivityArgs = {
-    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
-};
-
-export type MutationEditPublicServiceActivityArgs = {
-    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
-};
-
-export type MutationDeletePublicServiceActivityArgs = {
-    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
-};
-
-export type MutationAddFormalInstructionActivityArgs = {
-    formalInstructionActivity?: Maybe<FormalInstructionActivityInput>;
-};
-
-export type MutationEditFormalInstructionActivityArgs = {
-    formalInstructionActivity?: Maybe<FormalInstructionActivityInput>;
-};
-
-export type MutationDeleteFormalInstructionActivityArgs = {
-    formalInstructionActivity?: Maybe<FormalInstructionActivityInput>;
-};
-
-export type MutationAddResearchActivityArgs = {
-    researchActivity?: Maybe<ResearchActivityInput>;
-};
-
-export type MutationEditResearchActivityArgs = {
-    researchActivity?: Maybe<ResearchActivityInput>;
-};
-
-export type MutationDeleteResearchActivityArgs = {
-    researchActivity?: Maybe<ResearchActivityInput>;
-};
-
-export type MutationAddSupervisionActivityArgs = {
-    supervisionActivity?: Maybe<SupervisionActivityInput>;
-};
-
-export type MutationEditSupervisionActivityArgs = {
-    supervisionActivity?: Maybe<SupervisionActivityInput>;
-};
-
-export type MutationDeleteSupervisionActivityArgs = {
-    supervisionActivity?: Maybe<SupervisionActivityInput>;
+export type MutationChangePasswordArgs = {
+    userId?: Maybe<Scalars["String"]>;
+    oldPassword?: Maybe<Scalars["String"]>;
+    newPassword?: Maybe<Scalars["String"]>;
 };
 
 export type MutationAddVenueArgs = {
@@ -568,18 +598,6 @@ export type MutationDeleteVenueArgs = {
     venue?: Maybe<VenueInput>;
 };
 
-export type MutationAddEnrollmentArgs = {
-    enrollment?: Maybe<EnrollmentInput>;
-};
-
-export type MutationEditEnrollmentArgs = {
-    enrollment?: Maybe<EnrollmentInput>;
-};
-
-export type MutationDeleteEnrollmentArgs = {
-    enrollment?: Maybe<EnrollmentInput>;
-};
-
 export type MutationAddWorkFocusArgs = {
     workFocus?: Maybe<WorkFocusInput>;
 };
@@ -592,7 +610,104 @@ export type MutationDeleteWorkFocusArgs = {
     workFocus?: Maybe<WorkFocusInput>;
 };
 
+export type MutationAddAcademicAdministrationActivityArgs = {
+    academicAdministrationActivity?: Maybe<AcademicAdministrationActivityInput>;
+};
+
+export type MutationEditAcademicAdministrationActivityArgs = {
+    academicAdministrationActivity?: Maybe<AcademicAdministrationActivityInput>;
+};
+
+export type MutationDeleteAcademicAdministrationActivityArgs = {
+    academicAdministrationActivity?: Maybe<AcademicAdministrationActivityInput>;
+};
+
+export type MutationAddCommunityInstructionActivityArgs = {
+    communityInstructionActivity?: Maybe<CommunityInstructionActivityInput>;
+};
+
+export type MutationEditCommunityInstructionActivityArgs = {
+    communityInstructionActivity?: Maybe<CommunityInstructionActivityInput>;
+};
+
+export type MutationDeleteCommunityInstructionActivityArgs = {
+    communityInstructionActivity?: Maybe<CommunityInstructionActivityInput>;
+};
+
+export type MutationAddExecutiveManagementActivityArgs = {
+    executiveManagementActivity?: Maybe<ExecutiveManagementActivityInput>;
+};
+
+export type MutationEditExecutiveManagementActivityArgs = {
+    executiveManagementActivity?: Maybe<ExecutiveManagementActivityInput>;
+};
+
+export type MutationDeleteExecutiveManagementActivityArgs = {
+    executiveManagementActivity?: Maybe<ExecutiveManagementActivityInput>;
+};
+
+export type MutationAddFormalInstructionActivityArgs = {
+    formalInstructionActivity?: Maybe<FormalInstructionActivityInput>;
+};
+
+export type MutationEditFormalInstructionActivityArgs = {
+    formalInstructionActivity?: Maybe<FormalInstructionActivityInput>;
+};
+
+export type MutationDeleteFormalInstructionActivityArgs = {
+    formalInstructionActivity?: Maybe<FormalInstructionActivityInput>;
+};
+
+export type MutationAddSupervisionActivityArgs = {
+    supervisionActivity?: Maybe<SupervisionActivityInput>;
+};
+
+export type MutationEditSupervisionActivityArgs = {
+    supervisionActivity?: Maybe<SupervisionActivityInput>;
+};
+
+export type MutationDeleteSupervisionActivityArgs = {
+    supervisionActivity?: Maybe<SupervisionActivityInput>;
+};
+
+export type MutationAddPersonnelDevelopmentActivityArgs = {
+    personnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivityInput>;
+};
+
+export type MutationEditPersonnelDevelopmentActivityArgs = {
+    personnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivityInput>;
+};
+
+export type MutationDeletePersonnelDevelopmentActivityArgs = {
+    personnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivityInput>;
+};
+
+export type MutationAddPublicServiceActivityArgs = {
+    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
+};
+
+export type MutationEditPublicServiceActivityArgs = {
+    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
+};
+
+export type MutationDeletePublicServiceActivityArgs = {
+    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
+};
+
+export type MutationAddResearchActivityArgs = {
+    researchActivity?: Maybe<ResearchActivityInput>;
+};
+
+export type MutationEditResearchActivityArgs = {
+    researchActivity?: Maybe<ResearchActivityInput>;
+};
+
+export type MutationDeleteResearchActivityArgs = {
+    researchActivity?: Maybe<ResearchActivityInput>;
+};
+
 export type OfferingType = {
+    __typename?: "OfferingType";
     offeringTypeId: Scalars["String"];
     description: Scalars["String"];
 };
@@ -601,7 +716,32 @@ export type OfferingTypeInput = {
     description?: Maybe<Scalars["String"]>;
 };
 
+export type PersonnelDevelopmentActivity = Activity & {
+    __typename?: "PersonnelDevelopmentActivity";
+    activityId: Scalars["String"];
+    userId: Scalars["String"];
+    user?: Maybe<User>;
+    dutyId: Scalars["String"];
+    duty?: Maybe<Duty>;
+    approvalStatus?: Maybe<Scalars["String"]>;
+    createdAt?: Maybe<Scalars["String"]>;
+    updatedAt?: Maybe<Scalars["String"]>;
+    title?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
+    evidenceId?: Maybe<Scalars["String"]>;
+    evidence?: Maybe<Evidence>;
+};
+
+export type PersonnelDevelopmentActivityInput = {
+    userId?: Maybe<Scalars["String"]>;
+    dutyId?: Maybe<Scalars["String"]>;
+    title?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
+    evidenceId?: Maybe<Scalars["String"]>;
+};
+
 export type Position = {
+    __typename?: "Position";
     positionId: Scalars["String"];
     name: Scalars["String"];
     description: Scalars["String"];
@@ -614,6 +754,7 @@ export type PositionInput = {
 };
 
 export type PublicServiceActivity = Activity & {
+    __typename?: "PublicServiceActivity";
     activityId: Scalars["String"];
     userId: Scalars["String"];
     user?: Maybe<User>;
@@ -637,6 +778,7 @@ export type PublicServiceActivityInput = {
 };
 
 export type Qualification = {
+    __typename?: "Qualification";
     qualificationId: Scalars["String"];
     name?: Maybe<Scalars["String"]>;
     type?: Maybe<Scalars["String"]>;
@@ -652,18 +794,25 @@ export type QualificationInput = {
 };
 
 export type Query = {
+    __typename?: "Query";
+    activity?: Maybe<Activity>;
+    activities?: Maybe<Array<Maybe<Activity>>>;
+    activitiesByDuty?: Maybe<Array<Maybe<Activity>>>;
+    activitiesByUser?: Maybe<Array<Maybe<Activity>>>;
+    activitiesByUnapproved?: Maybe<Array<Maybe<Activity>>>;
+    activitiesByApproved?: Maybe<Array<Maybe<Activity>>>;
     block?: Maybe<Block>;
     blocks?: Maybe<Array<Maybe<Block>>>;
-    user?: Maybe<User>;
-    users?: Maybe<Array<Maybe<User>>>;
-    login?: Maybe<AuthData>;
-    userExists?: Maybe<ExistData>;
     department?: Maybe<Department>;
     departments?: Maybe<Array<Maybe<Department>>>;
     discipline?: Maybe<Discipline>;
     disciplines?: Maybe<Array<Maybe<Discipline>>>;
     duty?: Maybe<Duty>;
     duties?: Maybe<Array<Maybe<Duty>>>;
+    enrollment?: Maybe<Enrollment>;
+    enrollments?: Maybe<Array<Maybe<Enrollment>>>;
+    enrollmentsByYear?: Maybe<Array<Maybe<Enrollment>>>;
+    enrollmentsByQualification?: Maybe<Array<Maybe<Enrollment>>>;
     event?: Maybe<Event>;
     events?: Maybe<Array<Maybe<Event>>>;
     evidence?: Maybe<Evidence>;
@@ -687,30 +836,12 @@ export type Query = {
     qualificationsNoEnrollment?: Maybe<Array<Maybe<Qualification>>>;
     student?: Maybe<Student>;
     students?: Maybe<Array<Maybe<Student>>>;
-    activity?: Maybe<Activity>;
-    activities?: Maybe<Array<Maybe<Activity>>>;
-    activitiesByDuty?: Maybe<Array<Maybe<Activity>>>;
-    activitiesByUser?: Maybe<Array<Maybe<Activity>>>;
-    activitiesByUnapproved?: Maybe<Array<Maybe<Activity>>>;
-    approvedActivities?: Maybe<Array<Maybe<Activity>>>;
-    formalInstructionActivity?: Maybe<FormalInstructionActivity>;
-    formalInstructionActivities?: Maybe<
-        Array<Maybe<FormalInstructionActivity>>
-    >;
-    formalInstructionActivitiesByUser?: Maybe<
-        Array<Maybe<FormalInstructionActivity>>
-    >;
-    researchActivity?: Maybe<ResearchActivity>;
-    researchActivities?: Maybe<Array<Maybe<ResearchActivity>>>;
-    researchActivitiesByUser?: Maybe<Array<Maybe<ResearchActivity>>>;
-    supervisionActivity?: Maybe<SupervisionActivity>;
-    supervisionActivities?: Maybe<Array<Maybe<SupervisionActivity>>>;
+    user?: Maybe<User>;
+    users?: Maybe<Array<Maybe<User>>>;
+    login?: Maybe<AuthData>;
+    userExists?: Maybe<ExistData>;
     venue?: Maybe<Venue>;
     venues?: Maybe<Array<Maybe<Venue>>>;
-    enrollment?: Maybe<Enrollment>;
-    enrollments?: Maybe<Array<Maybe<Enrollment>>>;
-    enrollmentsByYear?: Maybe<Array<Maybe<Enrollment>>>;
-    enrollmentsByQualification?: Maybe<Array<Maybe<Enrollment>>>;
     workFocus?: Maybe<WorkFocus>;
     workFocuses?: Maybe<Array<Maybe<WorkFocus>>>;
     baseContact?: Maybe<Scalars["Int"]>;
@@ -732,23 +863,66 @@ export type Query = {
     sumPercentageOfTotal?: Maybe<Scalars["Int"]>;
     studentsEnrolled?: Maybe<Scalars["Int"]>;
     hemis?: Maybe<Array<Maybe<HemisData>>>;
+    academicAdministrationActivity?: Maybe<AcademicAdministrationActivity>;
+    academicAdministrationActivities?: Maybe<
+        Array<Maybe<AcademicAdministrationActivity>>
+    >;
+    academicAdministrationActivitiesByUser?: Maybe<
+        Array<Maybe<AcademicAdministrationActivity>>
+    >;
+    communityInstructionActivity?: Maybe<CommunityInstructionActivity>;
+    communityInstructionActivities?: Maybe<
+        Array<Maybe<CommunityInstructionActivity>>
+    >;
+    communityInstructionActivitiesByUser?: Maybe<
+        Array<Maybe<CommunityInstructionActivity>>
+    >;
+    executiveManagementActivity?: Maybe<ExecutiveManagementActivity>;
+    executiveManagementActivities?: Maybe<
+        Array<Maybe<ExecutiveManagementActivity>>
+    >;
+    executiveManagementActivitiesByUser?: Maybe<
+        Array<Maybe<ExecutiveManagementActivity>>
+    >;
+    formalInstructionActivity?: Maybe<FormalInstructionActivity>;
+    formalInstructionActivities?: Maybe<
+        Array<Maybe<FormalInstructionActivity>>
+    >;
+    formalInstructionActivitiesByUser?: Maybe<
+        Array<Maybe<FormalInstructionActivity>>
+    >;
+    supervisionActivity?: Maybe<SupervisionActivity>;
+    supervisionActivities?: Maybe<Array<Maybe<SupervisionActivity>>>;
+    supervisionActivitiesByUser?: Maybe<Array<Maybe<SupervisionActivity>>>;
+    personnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivity>;
+    personnelDevelopmentActivities?: Maybe<
+        Array<Maybe<PersonnelDevelopmentActivity>>
+    >;
+    personnelDevelopmentActivitiesByUser?: Maybe<
+        Array<Maybe<PersonnelDevelopmentActivity>>
+    >;
+    publicServiceActivity?: Maybe<PublicServiceActivity>;
+    publicServiceActivities?: Maybe<Array<Maybe<PublicServiceActivity>>>;
+    publicServiceActivitiesByUser?: Maybe<Array<Maybe<PublicServiceActivity>>>;
+    researchActivity?: Maybe<ResearchActivity>;
+    researchActivities?: Maybe<Array<Maybe<ResearchActivity>>>;
+    researchActivitiesByUser?: Maybe<Array<Maybe<ResearchActivity>>>;
+};
+
+export type QueryActivityArgs = {
+    activityId: Scalars["String"];
+};
+
+export type QueryActivitiesByDutyArgs = {
+    dutyId: Scalars["String"];
+};
+
+export type QueryActivitiesByUserArgs = {
+    userId: Scalars["String"];
 };
 
 export type QueryBlockArgs = {
     blockId: Scalars["String"];
-};
-
-export type QueryUserArgs = {
-    userId: Scalars["String"];
-};
-
-export type QueryLoginArgs = {
-    userId: Scalars["String"];
-    password: Scalars["String"];
-};
-
-export type QueryUserExistsArgs = {
-    userId?: Maybe<Scalars["String"]>;
 };
 
 export type QueryDepartmentArgs = {
@@ -761,6 +935,19 @@ export type QueryDisciplineArgs = {
 
 export type QueryDutyArgs = {
     dutyId: Scalars["String"];
+};
+
+export type QueryEnrollmentArgs = {
+    enrollmentYear?: Maybe<Scalars["String"]>;
+    qualificationId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryEnrollmentsByYearArgs = {
+    enrollmentYear?: Maybe<Scalars["String"]>;
+};
+
+export type QueryEnrollmentsByQualificationArgs = {
+    qualificationId?: Maybe<Scalars["String"]>;
 };
 
 export type QueryEventArgs = {
@@ -818,53 +1005,21 @@ export type QueryStudentArgs = {
     studentId: Scalars["String"];
 };
 
-export type QueryActivityArgs = {
-    activityId: Scalars["String"];
-};
-
-export type QueryActivitiesByDutyArgs = {
-    dutyId: Scalars["String"];
-};
-
-export type QueryActivitiesByUserArgs = {
+export type QueryUserArgs = {
     userId: Scalars["String"];
 };
 
-export type QueryFormalInstructionActivityArgs = {
-    activityId: Scalars["String"];
-};
-
-export type QueryFormalInstructionActivitiesByUserArgs = {
+export type QueryLoginArgs = {
     userId: Scalars["String"];
+    password: Scalars["String"];
 };
 
-export type QueryResearchActivityArgs = {
-    activityId: Scalars["String"];
-};
-
-export type QueryResearchActivitiesByUserArgs = {
-    userId: Scalars["String"];
-};
-
-export type QuerySupervisionActivityArgs = {
-    activityId: Scalars["String"];
+export type QueryUserExistsArgs = {
+    userId?: Maybe<Scalars["String"]>;
 };
 
 export type QueryVenueArgs = {
     venueId: Scalars["String"];
-};
-
-export type QueryEnrollmentArgs = {
-    enrollmentYear?: Maybe<Scalars["String"]>;
-    qualificationId?: Maybe<Scalars["String"]>;
-};
-
-export type QueryEnrollmentsByYearArgs = {
-    enrollmentYear?: Maybe<Scalars["String"]>;
-};
-
-export type QueryEnrollmentsByQualificationArgs = {
-    qualificationId?: Maybe<Scalars["String"]>;
 };
 
 export type QueryWorkFocusArgs = {
@@ -947,7 +1102,72 @@ export type QueryHemisArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
 
+export type QueryAcademicAdministrationActivityArgs = {
+    activityId: Scalars["String"];
+};
+
+export type QueryAcademicAdministrationActivitiesByUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryCommunityInstructionActivityArgs = {
+    activityId: Scalars["String"];
+};
+
+export type QueryCommunityInstructionActivitiesByUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryExecutiveManagementActivityArgs = {
+    activityId: Scalars["String"];
+};
+
+export type QueryExecutiveManagementActivitiesByUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionActivityArgs = {
+    activityId: Scalars["String"];
+};
+
+export type QueryFormalInstructionActivitiesByUserArgs = {
+    userId: Scalars["String"];
+};
+
+export type QuerySupervisionActivityArgs = {
+    activityId: Scalars["String"];
+};
+
+export type QuerySupervisionActivitiesByUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPersonnelDevelopmentActivityArgs = {
+    activityId: Scalars["String"];
+};
+
+export type QueryPersonnelDevelopmentActivitiesByUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPublicServiceActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPublicServiceActivitiesByUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryResearchActivityArgs = {
+    activityId: Scalars["String"];
+};
+
+export type QueryResearchActivitiesByUserArgs = {
+    userId: Scalars["String"];
+};
+
 export type ResearchActivity = Activity & {
+    __typename?: "ResearchActivity";
     activityId: Scalars["String"];
     userId: Scalars["String"];
     user?: Maybe<User>;
@@ -956,21 +1176,24 @@ export type ResearchActivity = Activity & {
     approvalStatus?: Maybe<Scalars["String"]>;
     createdAt?: Maybe<Scalars["String"]>;
     updatedAt?: Maybe<Scalars["String"]>;
-    researchType?: Maybe<Scalars["String"]>;
-    researchTitle?: Maybe<Scalars["String"]>;
-    researchDetails?: Maybe<Scalars["String"]>;
+    output?: Maybe<Scalars["String"]>;
+    title?: Maybe<Scalars["String"]>;
+    details?: Maybe<Scalars["String"]>;
+    evidenceId?: Maybe<Scalars["String"]>;
+    evidence?: Maybe<Evidence>;
 };
 
 export type ResearchActivityInput = {
     userId?: Maybe<Scalars["String"]>;
     dutyId?: Maybe<Scalars["String"]>;
-    researchType?: Maybe<Scalars["String"]>;
-    researchTitle?: Maybe<Scalars["String"]>;
-    researchDetails?: Maybe<Scalars["String"]>;
+    output?: Maybe<Scalars["String"]>;
+    title?: Maybe<Scalars["String"]>;
+    details?: Maybe<Scalars["String"]>;
     evidenceId?: Maybe<Scalars["String"]>;
 };
 
 export type Student = {
+    __typename?: "Student";
     studentId: Scalars["String"];
     email: Scalars["String"];
     firstName: Scalars["String"];
@@ -990,6 +1213,7 @@ export type StudentInput = {
 };
 
 export type SupervisionActivity = Activity & {
+    __typename?: "SupervisionActivity";
     activityId: Scalars["String"];
     userId: Scalars["String"];
     user?: Maybe<User>;
@@ -999,6 +1223,7 @@ export type SupervisionActivity = Activity & {
     createdAt?: Maybe<Scalars["String"]>;
     updatedAt?: Maybe<Scalars["String"]>;
     supervisionRole: Scalars["String"];
+    split?: Maybe<Scalars["Int"]>;
     studentId: Scalars["String"];
     student?: Maybe<Student>;
 };
@@ -1007,12 +1232,12 @@ export type SupervisionActivityInput = {
     userId?: Maybe<Scalars["String"]>;
     dutyId?: Maybe<Scalars["String"]>;
     supervisionRole?: Maybe<Scalars["String"]>;
+    split?: Maybe<Scalars["Int"]>;
     studentId?: Maybe<Scalars["String"]>;
-    topic?: Maybe<Scalars["String"]>;
-    year?: Maybe<Scalars["String"]>;
 };
 
 export type User = {
+    __typename?: "User";
     userId: Scalars["String"];
     password?: Maybe<Scalars["String"]>;
     email?: Maybe<Scalars["String"]>;
@@ -1044,6 +1269,7 @@ export type UserInput = {
 };
 
 export type Venue = {
+    __typename?: "Venue";
     venueId?: Maybe<Scalars["String"]>;
     campus?: Maybe<Scalars["String"]>;
     capacity?: Maybe<Scalars["Int"]>;
@@ -1058,6 +1284,7 @@ export type VenueInput = {
 };
 
 export type WorkFocus = {
+    __typename?: "WorkFocus";
     name: Scalars["String"];
     teachingRatio?: Maybe<Scalars["Int"]>;
     researchRatio?: Maybe<Scalars["Int"]>;
@@ -1070,13 +1297,277 @@ export type WorkFocusInput = {
     researchRatio?: Maybe<Scalars["Int"]>;
     serviceRatio?: Maybe<Scalars["Int"]>;
 };
+export type AddAcademicAdministrationActivityMutationVariables = {
+    academicAdministrationActivity?: Maybe<AcademicAdministrationActivityInput>;
+};
+
+export type AddAcademicAdministrationActivityMutation = {
+    __typename?: "Mutation";
+} & {
+    addAcademicAdministrationActivity: Maybe<
+        { __typename?: "AcademicAdministrationActivity" } & Pick<
+            AcademicAdministrationActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type EditAcademicAdministrationActivityMutationVariables = {
+    academicAdministrationActivity?: Maybe<AcademicAdministrationActivityInput>;
+};
+
+export type EditAcademicAdministrationActivityMutation = {
+    __typename?: "Mutation";
+} & {
+    editAcademicAdministrationActivity: Maybe<
+        { __typename?: "AcademicAdministrationActivity" } & Pick<
+            AcademicAdministrationActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type DeleteAcademicAdministrationActivityMutationVariables = {
+    academicAdministrationActivity?: Maybe<AcademicAdministrationActivityInput>;
+};
+
+export type DeleteAcademicAdministrationActivityMutation = {
+    __typename?: "Mutation";
+} & {
+    deleteAcademicAdministrationActivity: Maybe<
+        { __typename?: "AcademicAdministrationActivity" } & Pick<
+            AcademicAdministrationActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type AcademicAdministrationActivityQueryVariables = {
+    activityId: Scalars["String"];
+};
+
+export type AcademicAdministrationActivityQuery = { __typename?: "Query" } & {
+    academicAdministrationActivity: Maybe<
+        { __typename?: "AcademicAdministrationActivity" } & Pick<
+            AcademicAdministrationActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type AcademicAdministrationActivitiesQueryVariables = {};
+
+export type AcademicAdministrationActivitiesQuery = { __typename?: "Query" } & {
+    academicAdministrationActivities: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "AcademicAdministrationActivity" } & Pick<
+                    AcademicAdministrationActivity,
+                    | "activityId"
+                    | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "title"
+                    | "description"
+                    | "evidenceId"
+                > & {
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "email" | "firstName" | "lastName"
+                            >
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                        evidence: Maybe<
+                            { __typename?: "Evidence" } & Pick<
+                                Evidence,
+                                "evidenceId" | "name" | "item"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
+export type AcademicAdministrationActivitiesByUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type AcademicAdministrationActivitiesByUserQuery = {
+    __typename?: "Query";
+} & {
+    academicAdministrationActivitiesByUser: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "AcademicAdministrationActivity" } & Pick<
+                    AcademicAdministrationActivity,
+                    | "activityId"
+                    | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "title"
+                    | "description"
+                    | "evidenceId"
+                > & {
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "email" | "firstName" | "lastName"
+                            >
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                        evidence: Maybe<
+                            { __typename?: "Evidence" } & Pick<
+                                Evidence,
+                                "evidenceId" | "name" | "item"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
 export type ActivityQueryVariables = {
     activityId: Scalars["String"];
 };
 
 export type ActivityQuery = { __typename?: "Query" } & {
     activity: Maybe<
-        Pick<
+        {
+            __typename?:
+                | "FormalInstructionActivity"
+                | "AcademicAdministrationActivity"
+                | "CommunityInstructionActivity"
+                | "ExecutiveManagementActivity"
+                | "SupervisionActivity"
+                | "PersonnelDevelopmentActivity"
+                | "PublicServiceActivity"
+                | "ResearchActivity";
+        } & Pick<
             Activity,
             | "activityId"
             | "userId"
@@ -1085,21 +1576,54 @@ export type ActivityQuery = { __typename?: "Query" } & {
             | "createdAt"
             | "updatedAt"
         > & {
-            user: Maybe<
-                { __typename?: "User" } & Pick<
-                    User,
-                    "userId" | "email" | "firstName" | "lastName"
-                >
-            >;
-            duty: Maybe<
-                { __typename?: "Duty" } & Pick<
-                    Duty,
-                    "dutyId" | "name" | "description"
-                >
-            >;
-        } & (
-                | ({ __typename?: "CommInstructionActivity" } & Pick<
-                      CommInstructionActivity,
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+            } & (
+                | ({ __typename?: "AcademicAdministrationActivity" } & Pick<
+                      AcademicAdministrationActivity,
+                      "title" | "description" | "evidenceId"
+                  > & {
+                          evidence: Maybe<
+                              { __typename?: "Evidence" } & Pick<
+                                  Evidence,
+                                  "evidenceId" | "name" | "item"
+                              >
+                          >;
+                      })
+                | ({ __typename?: "ExecutiveManagementActivity" } & Pick<
+                      ExecutiveManagementActivity,
+                      "title" | "description" | "evidenceId"
+                  > & {
+                          evidence: Maybe<
+                              { __typename?: "Evidence" } & Pick<
+                                  Evidence,
+                                  "evidenceId" | "name" | "item"
+                              >
+                          >;
+                      })
+                | ({ __typename?: "PersonnelDevelopmentActivity" } & Pick<
+                      PersonnelDevelopmentActivity,
+                      "title" | "description" | "evidenceId"
+                  > & {
+                          evidence: Maybe<
+                              { __typename?: "Evidence" } & Pick<
+                                  Evidence,
+                                  "evidenceId" | "name" | "item"
+                              >
+                          >;
+                      })
+                | ({ __typename?: "CommunityInstructionActivity" } & Pick<
+                      CommunityInstructionActivity,
                       "title" | "description" | "evidenceId"
                   > & {
                           evidence: Maybe<
@@ -1257,11 +1781,18 @@ export type ActivityQuery = { __typename?: "Query" } & {
                       })
                 | ({ __typename?: "ResearchActivity" } & Pick<
                       ResearchActivity,
-                      "researchType" | "researchTitle" | "researchDetails"
-                  >)
+                      "output" | "title" | "details" | "evidenceId"
+                  > & {
+                          evidence: Maybe<
+                              { __typename?: "Evidence" } & Pick<
+                                  Evidence,
+                                  "evidenceId" | "name" | "item"
+                              >
+                          >;
+                      })
                 | ({ __typename?: "SupervisionActivity" } & Pick<
                       SupervisionActivity,
-                      "supervisionRole" | "studentId"
+                      "supervisionRole" | "split" | "studentId"
                   > & {
                           student: Maybe<
                               { __typename?: "Student" } & Pick<
@@ -1283,25 +1814,37 @@ export type ActivitiesByUnapprovedQuery = { __typename?: "Query" } & {
     activitiesByUnapproved: Maybe<
         Array<
             Maybe<
-                Pick<
+                {
+                    __typename?:
+                        | "FormalInstructionActivity"
+                        | "AcademicAdministrationActivity"
+                        | "CommunityInstructionActivity"
+                        | "ExecutiveManagementActivity"
+                        | "SupervisionActivity"
+                        | "PersonnelDevelopmentActivity"
+                        | "PublicServiceActivity"
+                        | "ResearchActivity";
+                } & Pick<
                     Activity,
                     "activityId" | "userId" | "dutyId" | "approvalStatus"
                 > & {
-                    user: Maybe<
-                        { __typename?: "User" } & Pick<
-                            User,
-                            "userId" | "email" | "firstName" | "lastName"
-                        >
-                    >;
-                    duty: Maybe<
-                        { __typename?: "Duty" } & Pick<
-                            Duty,
-                            "dutyId" | "name" | "description"
-                        >
-                    >;
-                } & (
-                        | ({ __typename?: "CommInstructionActivity" } & Pick<
-                              CommInstructionActivity,
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "email" | "firstName" | "lastName"
+                            >
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                    } & (
+                        | ({
+                              __typename?: "CommunityInstructionActivity";
+                          } & Pick<
+                              CommunityInstructionActivity,
                               "title" | "description" | "evidenceId"
                           > & {
                                   evidence: Maybe<
@@ -1506,10 +2049,15 @@ export type ActivitiesByUnapprovedQuery = { __typename?: "Query" } & {
                               })
                         | ({ __typename?: "ResearchActivity" } & Pick<
                               ResearchActivity,
-                              | "researchType"
-                              | "researchTitle"
-                              | "researchDetails"
-                          >)
+                              "output" | "title" | "details" | "evidenceId"
+                          > & {
+                                  evidence: Maybe<
+                                      { __typename?: "Evidence" } & Pick<
+                                          Evidence,
+                                          "evidenceId" | "name" | "item"
+                                      >
+                                  >;
+                              })
                         | ({ __typename?: "SupervisionActivity" } & Pick<
                               SupervisionActivity,
                               "supervisionRole" | "studentId"
@@ -1525,6 +2073,514 @@ export type ActivitiesByUnapprovedQuery = { __typename?: "Query" } & {
                                       >
                                   >;
                               }))
+            >
+        >
+    >;
+};
+
+export type AddCommunityInstructionActivityMutationVariables = {
+    communityInstructionActivity?: Maybe<CommunityInstructionActivityInput>;
+};
+
+export type AddCommunityInstructionActivityMutation = {
+    __typename?: "Mutation";
+} & {
+    addCommunityInstructionActivity: Maybe<
+        { __typename?: "CommunityInstructionActivity" } & Pick<
+            CommunityInstructionActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type EditCommunityInstructionActivityMutationVariables = {
+    communityInstructionActivity?: Maybe<CommunityInstructionActivityInput>;
+};
+
+export type EditCommunityInstructionActivityMutation = {
+    __typename?: "Mutation";
+} & {
+    editCommunityInstructionActivity: Maybe<
+        { __typename?: "CommunityInstructionActivity" } & Pick<
+            CommunityInstructionActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type DeleteCommunityInstructionActivityMutationVariables = {
+    communityInstructionActivity?: Maybe<CommunityInstructionActivityInput>;
+};
+
+export type DeleteCommunityInstructionActivityMutation = {
+    __typename?: "Mutation";
+} & {
+    deleteCommunityInstructionActivity: Maybe<
+        { __typename?: "CommunityInstructionActivity" } & Pick<
+            CommunityInstructionActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type CommunityInstructionActivityQueryVariables = {
+    activityId: Scalars["String"];
+};
+
+export type CommunityInstructionActivityQuery = { __typename?: "Query" } & {
+    communityInstructionActivity: Maybe<
+        { __typename?: "CommunityInstructionActivity" } & Pick<
+            CommunityInstructionActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type CommunityInstructionActivitiesQueryVariables = {};
+
+export type CommunityInstructionActivitiesQuery = { __typename?: "Query" } & {
+    communityInstructionActivities: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "CommunityInstructionActivity" } & Pick<
+                    CommunityInstructionActivity,
+                    | "activityId"
+                    | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "title"
+                    | "description"
+                    | "evidenceId"
+                > & {
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "email" | "firstName" | "lastName"
+                            >
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                        evidence: Maybe<
+                            { __typename?: "Evidence" } & Pick<
+                                Evidence,
+                                "evidenceId" | "name" | "item"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
+export type CommunityInstructionActivitiesByUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type CommunityInstructionActivitiesByUserQuery = {
+    __typename?: "Query";
+} & {
+    communityInstructionActivitiesByUser: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "CommunityInstructionActivity" } & Pick<
+                    CommunityInstructionActivity,
+                    | "activityId"
+                    | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "title"
+                    | "description"
+                    | "evidenceId"
+                > & {
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "email" | "firstName" | "lastName"
+                            >
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                        evidence: Maybe<
+                            { __typename?: "Evidence" } & Pick<
+                                Evidence,
+                                "evidenceId" | "name" | "item"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
+export type AddExecutiveManagementActivityMutationVariables = {
+    executiveManagementActivity?: Maybe<ExecutiveManagementActivityInput>;
+};
+
+export type AddExecutiveManagementActivityMutation = {
+    __typename?: "Mutation";
+} & {
+    addExecutiveManagementActivity: Maybe<
+        { __typename?: "ExecutiveManagementActivity" } & Pick<
+            ExecutiveManagementActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type EditExecutiveManagementActivityMutationVariables = {
+    executiveManagementActivity?: Maybe<ExecutiveManagementActivityInput>;
+};
+
+export type EditExecutiveManagementActivityMutation = {
+    __typename?: "Mutation";
+} & {
+    editExecutiveManagementActivity: Maybe<
+        { __typename?: "ExecutiveManagementActivity" } & Pick<
+            ExecutiveManagementActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type DeleteExecutiveManagementActivityMutationVariables = {
+    executiveManagementActivity?: Maybe<ExecutiveManagementActivityInput>;
+};
+
+export type DeleteExecutiveManagementActivityMutation = {
+    __typename?: "Mutation";
+} & {
+    deleteExecutiveManagementActivity: Maybe<
+        { __typename?: "ExecutiveManagementActivity" } & Pick<
+            ExecutiveManagementActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type ExecutiveManagementActivityQueryVariables = {
+    activityId: Scalars["String"];
+};
+
+export type ExecutiveManagementActivityQuery = { __typename?: "Query" } & {
+    executiveManagementActivity: Maybe<
+        { __typename?: "ExecutiveManagementActivity" } & Pick<
+            ExecutiveManagementActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type ExecutiveManagementActivitiesQueryVariables = {};
+
+export type ExecutiveManagementActivitiesQuery = { __typename?: "Query" } & {
+    executiveManagementActivities: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "ExecutiveManagementActivity" } & Pick<
+                    ExecutiveManagementActivity,
+                    | "activityId"
+                    | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "title"
+                    | "description"
+                    | "evidenceId"
+                > & {
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "email" | "firstName" | "lastName"
+                            >
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                        evidence: Maybe<
+                            { __typename?: "Evidence" } & Pick<
+                                Evidence,
+                                "evidenceId" | "name" | "item"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
+export type ExecutiveManagementActivitiesByUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type ExecutiveManagementActivitiesByUserQuery = {
+    __typename?: "Query";
+} & {
+    executiveManagementActivitiesByUser: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "ExecutiveManagementActivity" } & Pick<
+                    ExecutiveManagementActivity,
+                    | "activityId"
+                    | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "title"
+                    | "description"
+                    | "evidenceId"
+                > & {
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "email" | "firstName" | "lastName"
+                            >
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                        evidence: Maybe<
+                            { __typename?: "Evidence" } & Pick<
+                                Evidence,
+                                "evidenceId" | "name" | "item"
+                            >
+                        >;
+                    }
             >
         >
     >;
@@ -2001,6 +3057,142 @@ export type DeleteFormalInstructionActivityMutation = {
                     { __typename?: "Qualification" } & Pick<
                         Qualification,
                         "qualificationId" | "name"
+                    >
+                >;
+            }
+    >;
+};
+
+export type AddSupervisionActivityMutationVariables = {
+    supervisionActivity?: Maybe<SupervisionActivityInput>;
+};
+
+export type AddSupervisionActivityMutation = { __typename?: "Mutation" } & {
+    addSupervisionActivity: Maybe<
+        { __typename?: "SupervisionActivity" } & Pick<
+            SupervisionActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "supervisionRole"
+            | "split"
+            | "studentId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                student: Maybe<
+                    { __typename?: "Student" } & Pick<
+                        Student,
+                        | "studentId"
+                        | "firstName"
+                        | "lastName"
+                        | "email"
+                        | "title"
+                        | "year"
+                    >
+                >;
+            }
+    >;
+};
+
+export type EditSupervisionActivityMutationVariables = {
+    supervisionActivity?: Maybe<SupervisionActivityInput>;
+};
+
+export type EditSupervisionActivityMutation = { __typename?: "Mutation" } & {
+    addSupervisionActivity: Maybe<
+        { __typename?: "SupervisionActivity" } & Pick<
+            SupervisionActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "supervisionRole"
+            | "createdAt"
+            | "updatedAt"
+            | "supervisionRole"
+            | "split"
+            | "studentId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                student: Maybe<
+                    { __typename?: "Student" } & Pick<
+                        Student,
+                        | "studentId"
+                        | "firstName"
+                        | "lastName"
+                        | "email"
+                        | "title"
+                        | "year"
+                    >
+                >;
+            }
+    >;
+};
+
+export type DeleteSupervisionActivityMutationVariables = {
+    supervisionActivity?: Maybe<SupervisionActivityInput>;
+};
+
+export type DeleteSupervisionActivityMutation = { __typename?: "Mutation" } & {
+    addSupervisionActivity: Maybe<
+        { __typename?: "SupervisionActivity" } & Pick<
+            SupervisionActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "supervisionRole"
+            | "split"
+            | "studentId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                student: Maybe<
+                    { __typename?: "Student" } & Pick<
+                        Student,
+                        | "studentId"
+                        | "firstName"
+                        | "lastName"
+                        | "email"
+                        | "title"
+                        | "year"
                     >
                 >;
             }
@@ -2500,6 +3692,854 @@ export type FormalInstructionActivitiesByUserQuery = {
     >;
 };
 
+export type SupervisionActivityQueryVariables = {
+    activityId: Scalars["String"];
+};
+
+export type SupervisionActivityQuery = { __typename?: "Query" } & {
+    supervisionActivity: Maybe<
+        { __typename?: "SupervisionActivity" } & Pick<
+            SupervisionActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "supervisionRole"
+            | "split"
+            | "studentId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                student: Maybe<
+                    { __typename?: "Student" } & Pick<
+                        Student,
+                        | "studentId"
+                        | "firstName"
+                        | "lastName"
+                        | "email"
+                        | "title"
+                        | "year"
+                    >
+                >;
+            }
+    >;
+};
+
+export type SupervisionActivitiesQueryVariables = {};
+
+export type SupervisionActivitiesQuery = { __typename?: "Query" } & {
+    supervisionActivities: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "SupervisionActivity" } & Pick<
+                    SupervisionActivity,
+                    | "activityId"
+                    | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "supervisionRole"
+                    | "split"
+                    | "studentId"
+                > & {
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "email" | "firstName" | "lastName"
+                            >
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                        student: Maybe<
+                            { __typename?: "Student" } & Pick<
+                                Student,
+                                | "studentId"
+                                | "firstName"
+                                | "lastName"
+                                | "email"
+                                | "title"
+                                | "year"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
+export type SupervisionActivitiesByUserQueryVariables = {
+    userId: Scalars["String"];
+};
+
+export type SupervisionActivitiesByUserQuery = { __typename?: "Query" } & {
+    supervisionActivitiesByUser: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "SupervisionActivity" } & Pick<
+                    SupervisionActivity,
+                    | "activityId"
+                    | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "supervisionRole"
+                    | "split"
+                    | "studentId"
+                > & {
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "email" | "firstName" | "lastName"
+                            >
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                        student: Maybe<
+                            { __typename?: "Student" } & Pick<
+                                Student,
+                                | "studentId"
+                                | "firstName"
+                                | "lastName"
+                                | "email"
+                                | "title"
+                                | "year"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
+export type AddPersonnelDevelopmentActivityMutationVariables = {
+    personnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivityInput>;
+};
+
+export type AddPersonnelDevelopmentActivityMutation = {
+    __typename?: "Mutation";
+} & {
+    addPersonnelDevelopmentActivity: Maybe<
+        { __typename?: "PersonnelDevelopmentActivity" } & Pick<
+            PersonnelDevelopmentActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type EditPersonnelDevelopmentActivityMutationVariables = {
+    personnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivityInput>;
+};
+
+export type EditPersonnelDevelopmentActivityMutation = {
+    __typename?: "Mutation";
+} & {
+    editPersonnelDevelopmentActivity: Maybe<
+        { __typename?: "PersonnelDevelopmentActivity" } & Pick<
+            PersonnelDevelopmentActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type DeletePersonnelDevelopmentActivityMutationVariables = {
+    personnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivityInput>;
+};
+
+export type DeletePersonnelDevelopmentActivityMutation = {
+    __typename?: "Mutation";
+} & {
+    deletePersonnelDevelopmentActivity: Maybe<
+        { __typename?: "PersonnelDevelopmentActivity" } & Pick<
+            PersonnelDevelopmentActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type PersonnelDevelopmentActivityQueryVariables = {
+    activityId: Scalars["String"];
+};
+
+export type PersonnelDevelopmentActivityQuery = { __typename?: "Query" } & {
+    personnelDevelopmentActivity: Maybe<
+        { __typename?: "PersonnelDevelopmentActivity" } & Pick<
+            PersonnelDevelopmentActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type PersonnelDevelopmentActivitiesQueryVariables = {};
+
+export type PersonnelDevelopmentActivitiesQuery = { __typename?: "Query" } & {
+    personnelDevelopmentActivities: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "PersonnelDevelopmentActivity" } & Pick<
+                    PersonnelDevelopmentActivity,
+                    | "activityId"
+                    | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "title"
+                    | "description"
+                    | "evidenceId"
+                > & {
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "email" | "firstName" | "lastName"
+                            >
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                        evidence: Maybe<
+                            { __typename?: "Evidence" } & Pick<
+                                Evidence,
+                                "evidenceId" | "name" | "item"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
+export type PersonnelDevelopmentActivitiesByUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type PersonnelDevelopmentActivitiesByUserQuery = {
+    __typename?: "Query";
+} & {
+    personnelDevelopmentActivitiesByUser: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "PersonnelDevelopmentActivity" } & Pick<
+                    PersonnelDevelopmentActivity,
+                    | "activityId"
+                    | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "title"
+                    | "description"
+                    | "evidenceId"
+                > & {
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "email" | "firstName" | "lastName"
+                            >
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                        evidence: Maybe<
+                            { __typename?: "Evidence" } & Pick<
+                                Evidence,
+                                "evidenceId" | "name" | "item"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
+export type AddPublicServiceActivityMutationVariables = {
+    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
+};
+
+export type AddPublicServiceActivityMutation = { __typename?: "Mutation" } & {
+    addPublicServiceActivity: Maybe<
+        { __typename?: "PublicServiceActivity" } & Pick<
+            PublicServiceActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type EditPublicServiceActivityMutationVariables = {
+    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
+};
+
+export type EditPublicServiceActivityMutation = { __typename?: "Mutation" } & {
+    editPublicServiceActivity: Maybe<
+        { __typename?: "PublicServiceActivity" } & Pick<
+            PublicServiceActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type DeletePublicServiceActivityMutationVariables = {
+    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
+};
+
+export type DeletePublicServiceActivityMutation = {
+    __typename?: "Mutation";
+} & {
+    deletePublicServiceActivity: Maybe<
+        { __typename?: "PublicServiceActivity" } & Pick<
+            PublicServiceActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type PublicServiceActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type PublicServiceActivityQuery = { __typename?: "Query" } & {
+    publicServiceActivity: Maybe<
+        { __typename?: "PublicServiceActivity" } & Pick<
+            PublicServiceActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "title"
+            | "description"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type PublicServiceActivitiesQueryVariables = {};
+
+export type PublicServiceActivitiesQuery = { __typename?: "Query" } & {
+    publicServiceActivities: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "PublicServiceActivity" } & Pick<
+                    PublicServiceActivity,
+                    | "activityId"
+                    | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "title"
+                    | "description"
+                    | "evidenceId"
+                > & {
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "email" | "firstName" | "lastName"
+                            >
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                        evidence: Maybe<
+                            { __typename?: "Evidence" } & Pick<
+                                Evidence,
+                                "evidenceId" | "name" | "item"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
+export type PublicServiceActivitiesByUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type PublicServiceActivitiesByUserQuery = { __typename?: "Query" } & {
+    publicServiceActivitiesByUser: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "PublicServiceActivity" } & Pick<
+                    PublicServiceActivity,
+                    | "activityId"
+                    | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "title"
+                    | "description"
+                    | "evidenceId"
+                > & {
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "email" | "firstName" | "lastName"
+                            >
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                        evidence: Maybe<
+                            { __typename?: "Evidence" } & Pick<
+                                Evidence,
+                                "evidenceId" | "name" | "item"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
+export type AddResearchActivityMutationVariables = {
+    researchActivity?: Maybe<ResearchActivityInput>;
+};
+
+export type AddResearchActivityMutation = { __typename?: "Mutation" } & {
+    addResearchActivity: Maybe<
+        { __typename?: "ResearchActivity" } & Pick<
+            ResearchActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "output"
+            | "title"
+            | "details"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type EditResearchActivityMutationVariables = {
+    researchActivity?: Maybe<ResearchActivityInput>;
+};
+
+export type EditResearchActivityMutation = { __typename?: "Mutation" } & {
+    editResearchActivity: Maybe<
+        { __typename?: "ResearchActivity" } & Pick<
+            ResearchActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "output"
+            | "title"
+            | "details"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type DeleteResearchActivityMutationVariables = {
+    researchActivity?: Maybe<ResearchActivityInput>;
+};
+
+export type DeleteResearchActivityMutation = { __typename?: "Mutation" } & {
+    deleteResearchActivity: Maybe<
+        { __typename?: "ResearchActivity" } & Pick<
+            ResearchActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "output"
+            | "title"
+            | "details"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
+    >;
+};
+
+export type ResearchActivityQueryVariables = {
+    userId: Scalars["String"];
+};
+
+export type ResearchActivityQuery = { __typename?: "Query" } & {
+    researchActivitiesByUser: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "ResearchActivity" } & Pick<
+                    ResearchActivity,
+                    | "activityId"
+                    | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "output"
+                    | "title"
+                    | "details"
+                    | "evidenceId"
+                > & {
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "email" | "firstName" | "lastName"
+                            >
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                        evidence: Maybe<
+                            { __typename?: "Evidence" } & Pick<
+                                Evidence,
+                                "evidenceId" | "name" | "item"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
+export type ResearchActivitiesQueryVariables = {};
+
+export type ResearchActivitiesQuery = { __typename?: "Query" } & {
+    researchActivities: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "ResearchActivity" } & Pick<
+                    ResearchActivity,
+                    | "activityId"
+                    | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "output"
+                    | "title"
+                    | "details"
+                    | "evidenceId"
+                > & {
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                "userId" | "email" | "firstName" | "lastName"
+                            >
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
+                        >;
+                        evidence: Maybe<
+                            { __typename?: "Evidence" } & Pick<
+                                Evidence,
+                                "evidenceId" | "name" | "item"
+                            >
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
 export type ResearchActivitiesByUserQueryVariables = {
     userId: Scalars["String"];
 };
@@ -2514,9 +4554,12 @@ export type ResearchActivitiesByUserQuery = { __typename?: "Query" } & {
                     | "userId"
                     | "dutyId"
                     | "approvalStatus"
-                    | "researchType"
-                    | "researchTitle"
-                    | "researchDetails"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "output"
+                    | "title"
+                    | "details"
+                    | "evidenceId"
                 > & {
                         user: Maybe<
                             { __typename?: "User" } & Pick<
@@ -2528,6 +4571,12 @@ export type ResearchActivitiesByUserQuery = { __typename?: "Query" } & {
                             { __typename?: "Duty" } & Pick<
                                 Duty,
                                 "dutyId" | "name" | "description"
+                            >
+                        >;
+                        evidence: Maybe<
+                            { __typename?: "Evidence" } & Pick<
+                                Evidence,
+                                "evidenceId" | "name" | "item"
                             >
                         >;
                     }
@@ -2542,6 +4591,32 @@ export type AddBlockMutationVariables = {
 
 export type AddBlockMutation = { __typename?: "Mutation" } & {
     addBlock: Maybe<
+        { __typename?: "Block" } & Pick<
+            Block,
+            "blockId" | "name" | "description"
+        >
+    >;
+};
+
+export type EditBlockMutationVariables = {
+    block?: Maybe<BlockInput>;
+};
+
+export type EditBlockMutation = { __typename?: "Mutation" } & {
+    editBlock: Maybe<
+        { __typename?: "Block" } & Pick<
+            Block,
+            "blockId" | "name" | "description"
+        >
+    >;
+};
+
+export type DeleteBlockMutationVariables = {
+    block?: Maybe<BlockInput>;
+};
+
+export type DeleteBlockMutation = { __typename?: "Mutation" } & {
+    deleteBlock: Maybe<
         { __typename?: "Block" } & Pick<
             Block,
             "blockId" | "name" | "description"
@@ -2577,38 +4652,32 @@ export type BlocksQuery = { __typename?: "Query" } & {
     >;
 };
 
-export type DeleteBlockMutationVariables = {
-    block?: Maybe<BlockInput>;
-};
-
-export type DeleteBlockMutation = { __typename?: "Mutation" } & {
-    deleteBlock: Maybe<
-        { __typename?: "Block" } & Pick<
-            Block,
-            "blockId" | "name" | "description"
-        >
-    >;
-};
-
-export type EditBlockMutationVariables = {
-    block?: Maybe<BlockInput>;
-};
-
-export type EditBlockMutation = { __typename?: "Mutation" } & {
-    editBlock: Maybe<
-        { __typename?: "Block" } & Pick<
-            Block,
-            "blockId" | "name" | "description"
-        >
-    >;
-};
-
 export type AddDepartmentMutationVariables = {
     department?: Maybe<DepartmentInput>;
 };
 
 export type AddDepartmentMutation = { __typename?: "Mutation" } & {
     addDepartment: Maybe<
+        { __typename?: "Department" } & Pick<
+            Department,
+            "departmentId" | "name" | "facultyId"
+        > & {
+                faculty: Maybe<
+                    { __typename?: "Faculty" } & Pick<
+                        Faculty,
+                        "facultyId" | "name"
+                    >
+                >;
+            }
+    >;
+};
+
+export type EditDepartmentMutationVariables = {
+    department?: Maybe<DepartmentInput>;
+};
+
+export type EditDepartmentMutation = { __typename?: "Mutation" } & {
+    editDepartment: Maybe<
         { __typename?: "Department" } & Pick<
             Department,
             "departmentId" | "name" | "facultyId"
@@ -2685,32 +4754,25 @@ export type DepartmentsQuery = { __typename?: "Query" } & {
     >;
 };
 
-export type EditDepartmentMutationVariables = {
-    department?: Maybe<DepartmentInput>;
-};
-
-export type EditDepartmentMutation = { __typename?: "Mutation" } & {
-    editDepartment: Maybe<
-        { __typename?: "Department" } & Pick<
-            Department,
-            "departmentId" | "name" | "facultyId"
-        > & {
-                faculty: Maybe<
-                    { __typename?: "Faculty" } & Pick<
-                        Faculty,
-                        "facultyId" | "name"
-                    >
-                >;
-            }
-    >;
-};
-
 export type AddDisciplineMutationVariables = {
     discipline?: Maybe<DisciplineInput>;
 };
 
 export type AddDisciplineMutation = { __typename?: "Mutation" } & {
     addDiscipline: Maybe<
+        { __typename?: "Discipline" } & Pick<
+            Discipline,
+            "disciplineId" | "name" | "description"
+        >
+    >;
+};
+
+export type EditDisciplineMutationVariables = {
+    discipline?: Maybe<DisciplineInput>;
+};
+
+export type EditDisciplineMutation = { __typename?: "Mutation" } & {
+    editDiscipline: Maybe<
         { __typename?: "Discipline" } & Pick<
             Discipline,
             "disciplineId" | "name" | "description"
@@ -2759,19 +4821,6 @@ export type DisciplinesQuery = { __typename?: "Query" } & {
     >;
 };
 
-export type EditDisciplineMutationVariables = {
-    discipline?: Maybe<DisciplineInput>;
-};
-
-export type EditDisciplineMutation = { __typename?: "Mutation" } & {
-    editDiscipline: Maybe<
-        { __typename?: "Discipline" } & Pick<
-            Discipline,
-            "disciplineId" | "name" | "description"
-        >
-    >;
-};
-
 export type AddDutyMutationVariables = {
     duty?: Maybe<DutyInput>;
 };
@@ -2782,12 +4831,32 @@ export type AddDutyMutation = { __typename?: "Mutation" } & {
     >;
 };
 
+export type EditDutyMutationVariables = {
+    duty?: Maybe<DutyInput>;
+};
+
+export type EditDutyMutation = { __typename?: "Mutation" } & {
+    editDuty: Maybe<
+        { __typename?: "Duty" } & Pick<Duty, "dutyId" | "name" | "description">
+    >;
+};
+
 export type DeleteDutyMutationVariables = {
     duty?: Maybe<DutyInput>;
 };
 
 export type DeleteDutyMutation = { __typename?: "Mutation" } & {
     deleteDuty: Maybe<
+        { __typename?: "Duty" } & Pick<Duty, "dutyId" | "name" | "description">
+    >;
+};
+
+export type DutyQueryVariables = {
+    dutyId: Scalars["String"];
+};
+
+export type DutyQuery = { __typename?: "Query" } & {
+    duty: Maybe<
         { __typename?: "Duty" } & Pick<Duty, "dutyId" | "name" | "description">
     >;
 };
@@ -2807,56 +4876,12 @@ export type DutiesQuery = { __typename?: "Query" } & {
     >;
 };
 
-export type DutyQueryVariables = {
-    dutyId: Scalars["String"];
-};
-
-export type DutyQuery = { __typename?: "Query" } & {
-    duty: Maybe<
-        { __typename?: "Duty" } & Pick<Duty, "dutyId" | "name" | "description">
-    >;
-};
-
-export type EditDutyMutationVariables = {
-    duty?: Maybe<DutyInput>;
-};
-
-export type EditDutyMutation = { __typename?: "Mutation" } & {
-    editDuty: Maybe<
-        { __typename?: "Duty" } & Pick<Duty, "dutyId" | "name" | "description">
-    >;
-};
-
 export type AddEnrollmentMutationVariables = {
     enrollment?: Maybe<EnrollmentInput>;
 };
 
 export type AddEnrollmentMutation = { __typename?: "Mutation" } & {
     addEnrollment: Maybe<
-        { __typename?: "Enrollment" } & Pick<
-            Enrollment,
-            | "enrollmentYear"
-            | "qualificationId"
-            | "firstYearEstimated"
-            | "secondYearEstimated"
-            | "thirdYearEstimated"
-        > & {
-                qualification: Maybe<
-                    { __typename?: "Qualification" } & Pick<
-                        Qualification,
-                        "qualificationId" | "name"
-                    >
-                >;
-            }
-    >;
-};
-
-export type DeleteEnrollmentMutationVariables = {
-    enrollment?: Maybe<EnrollmentInput>;
-};
-
-export type DeleteEnrollmentMutation = { __typename?: "Mutation" } & {
-    deleteEnrollment: Maybe<
         { __typename?: "Enrollment" } & Pick<
             Enrollment,
             | "enrollmentYear"
@@ -2899,6 +4924,30 @@ export type EditEnrollmentMutation = { __typename?: "Mutation" } & {
     >;
 };
 
+export type DeleteEnrollmentMutationVariables = {
+    enrollment?: Maybe<EnrollmentInput>;
+};
+
+export type DeleteEnrollmentMutation = { __typename?: "Mutation" } & {
+    deleteEnrollment: Maybe<
+        { __typename?: "Enrollment" } & Pick<
+            Enrollment,
+            | "enrollmentYear"
+            | "qualificationId"
+            | "firstYearEstimated"
+            | "secondYearEstimated"
+            | "thirdYearEstimated"
+        > & {
+                qualification: Maybe<
+                    { __typename?: "Qualification" } & Pick<
+                        Qualification,
+                        "qualificationId" | "name"
+                    >
+                >;
+            }
+    >;
+};
+
 export type EnrollmentQueryVariables = {
     enrollmentYear?: Maybe<Scalars["String"]>;
     qualificationId?: Maybe<Scalars["String"]>;
@@ -2920,6 +4969,32 @@ export type EnrollmentQuery = { __typename?: "Query" } & {
                     >
                 >;
             }
+    >;
+};
+
+export type EnrollmentsQueryVariables = {};
+
+export type EnrollmentsQuery = { __typename?: "Query" } & {
+    enrollments: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "Enrollment" } & Pick<
+                    Enrollment,
+                    | "enrollmentYear"
+                    | "qualificationId"
+                    | "firstYearEstimated"
+                    | "secondYearEstimated"
+                    | "thirdYearEstimated"
+                > & {
+                        qualification: Maybe<
+                            { __typename?: "Qualification" } & Pick<
+                                Qualification,
+                                "qualificationId" | "name"
+                            >
+                        >;
+                    }
+            >
+        >
     >;
 };
 
@@ -2979,32 +5054,6 @@ export type EnrollmentsByYearQuery = { __typename?: "Query" } & {
     >;
 };
 
-export type EnrollmentsQueryVariables = {};
-
-export type EnrollmentsQuery = { __typename?: "Query" } & {
-    enrollments: Maybe<
-        Array<
-            Maybe<
-                { __typename?: "Enrollment" } & Pick<
-                    Enrollment,
-                    | "enrollmentYear"
-                    | "qualificationId"
-                    | "firstYearEstimated"
-                    | "secondYearEstimated"
-                    | "thirdYearEstimated"
-                > & {
-                        qualification: Maybe<
-                            { __typename?: "Qualification" } & Pick<
-                                Qualification,
-                                "qualificationId" | "name"
-                            >
-                        >;
-                    }
-            >
-        >
-    >;
-};
-
 export type EventQueryVariables = {
     eventId: Scalars["String"];
 };
@@ -3040,6 +5089,16 @@ export type AddFacultyMutation = { __typename?: "Mutation" } & {
     >;
 };
 
+export type EditFacultyMutationVariables = {
+    faculty?: Maybe<FacultyInput>;
+};
+
+export type EditFacultyMutation = { __typename?: "Mutation" } & {
+    addFaculty: Maybe<
+        { __typename?: "Faculty" } & Pick<Faculty, "facultyId" | "name">
+    >;
+};
+
 export type DeleteFacultyMutationVariables = {
     faculty?: Maybe<FacultyInput>;
 };
@@ -3050,12 +5109,12 @@ export type DeleteFacultyMutation = { __typename?: "Mutation" } & {
     >;
 };
 
-export type EditFacultyMutationVariables = {
-    faculty?: Maybe<FacultyInput>;
+export type FacultyQueryVariables = {
+    facultyId: Scalars["String"];
 };
 
-export type EditFacultyMutation = { __typename?: "Mutation" } & {
-    addFaculty: Maybe<
+export type FacultyQuery = { __typename?: "Query" } & {
+    faculty: Maybe<
         { __typename?: "Faculty" } & Pick<Faculty, "facultyId" | "name">
     >;
 };
@@ -3069,16 +5128,6 @@ export type FacultiesQuery = { __typename?: "Query" } & {
                 { __typename?: "Faculty" } & Pick<Faculty, "facultyId" | "name">
             >
         >
-    >;
-};
-
-export type FacultyQueryVariables = {
-    facultyId: Scalars["String"];
-};
-
-export type FacultyQuery = { __typename?: "Query" } & {
-    faculty: Maybe<
-        { __typename?: "Faculty" } & Pick<Faculty, "facultyId" | "name">
     >;
 };
 
@@ -4004,12 +6053,12 @@ export type AddOfferingTypeMutation = { __typename?: "Mutation" } & {
     >;
 };
 
-export type DeleteOfferingTypeMutationVariables = {
+export type EditOfferingTypeMutationVariables = {
     offeringType?: Maybe<OfferingTypeInput>;
 };
 
-export type DeleteOfferingTypeMutation = { __typename?: "Mutation" } & {
-    deleteOfferingType: Maybe<
+export type EditOfferingTypeMutation = { __typename?: "Mutation" } & {
+    editOfferingType: Maybe<
         { __typename?: "OfferingType" } & Pick<
             OfferingType,
             "offeringTypeId" | "description"
@@ -4017,12 +6066,12 @@ export type DeleteOfferingTypeMutation = { __typename?: "Mutation" } & {
     >;
 };
 
-export type EditOfferingTypeMutationVariables = {
+export type DeleteOfferingTypeMutationVariables = {
     offeringType?: Maybe<OfferingTypeInput>;
 };
 
-export type EditOfferingTypeMutation = { __typename?: "Mutation" } & {
-    editOfferingType: Maybe<
+export type DeleteOfferingTypeMutation = { __typename?: "Mutation" } & {
+    deleteOfferingType: Maybe<
         { __typename?: "OfferingType" } & Pick<
             OfferingType,
             "offeringTypeId" | "description"
@@ -4071,12 +6120,12 @@ export type AddPositionMutation = { __typename?: "Mutation" } & {
     >;
 };
 
-export type DeletePositionMutationVariables = {
+export type EditPositionMutationVariables = {
     position?: Maybe<PositionInput>;
 };
 
-export type DeletePositionMutation = { __typename?: "Mutation" } & {
-    deletePosition: Maybe<
+export type EditPositionMutation = { __typename?: "Mutation" } & {
+    editPosition: Maybe<
         { __typename?: "Position" } & Pick<
             Position,
             "positionId" | "name" | "description"
@@ -4084,12 +6133,12 @@ export type DeletePositionMutation = { __typename?: "Mutation" } & {
     >;
 };
 
-export type EditPositionMutationVariables = {
+export type DeletePositionMutationVariables = {
     position?: Maybe<PositionInput>;
 };
 
-export type EditPositionMutation = { __typename?: "Mutation" } & {
-    editPosition: Maybe<
+export type DeletePositionMutation = { __typename?: "Mutation" } & {
+    deletePosition: Maybe<
         { __typename?: "Position" } & Pick<
             Position,
             "positionId" | "name" | "description"
@@ -4152,12 +6201,12 @@ export type AddQualificationMutation = { __typename?: "Mutation" } & {
     >;
 };
 
-export type DeleteQualificationMutationVariables = {
+export type EditQualificationMutationVariables = {
     qualification?: Maybe<QualificationInput>;
 };
 
-export type DeleteQualificationMutation = { __typename?: "Mutation" } & {
-    deleteQualification: Maybe<
+export type EditQualificationMutation = { __typename?: "Mutation" } & {
+    editQualification: Maybe<
         { __typename?: "Qualification" } & Pick<
             Qualification,
             "qualificationId" | "name" | "type" | "departmentId"
@@ -4179,12 +6228,12 @@ export type DeleteQualificationMutation = { __typename?: "Mutation" } & {
     >;
 };
 
-export type EditQualificationMutationVariables = {
+export type DeleteQualificationMutationVariables = {
     qualification?: Maybe<QualificationInput>;
 };
 
-export type EditQualificationMutation = { __typename?: "Mutation" } & {
-    editQualification: Maybe<
+export type DeleteQualificationMutation = { __typename?: "Mutation" } & {
+    deleteQualification: Maybe<
         { __typename?: "Qualification" } & Pick<
             Qualification,
             "qualificationId" | "name" | "type" | "departmentId"
@@ -4233,10 +6282,10 @@ export type QualificationQuery = { __typename?: "Query" } & {
     >;
 };
 
-export type QualificationsNoEnrollmentQueryVariables = {};
+export type QualificationsQueryVariables = {};
 
-export type QualificationsNoEnrollmentQuery = { __typename?: "Query" } & {
-    qualificationsNoEnrollment: Maybe<
+export type QualificationsQuery = { __typename?: "Query" } & {
+    qualifications: Maybe<
         Array<
             Maybe<
                 { __typename?: "Qualification" } & Pick<
@@ -4262,10 +6311,10 @@ export type QualificationsNoEnrollmentQuery = { __typename?: "Query" } & {
     >;
 };
 
-export type QualificationsQueryVariables = {};
+export type QualificationsNoEnrollmentQueryVariables = {};
 
-export type QualificationsQuery = { __typename?: "Query" } & {
-    qualifications: Maybe<
+export type QualificationsNoEnrollmentQuery = { __typename?: "Query" } & {
+    qualificationsNoEnrollment: Maybe<
         Array<
             Maybe<
                 { __typename?: "Qualification" } & Pick<
@@ -4304,12 +6353,12 @@ export type AddStudentMutation = { __typename?: "Mutation" } & {
     >;
 };
 
-export type DeleteStudentMutationVariables = {
+export type EditStudentMutationVariables = {
     student?: Maybe<StudentInput>;
 };
 
-export type DeleteStudentMutation = { __typename?: "Mutation" } & {
-    deleteStudent: Maybe<
+export type EditStudentMutation = { __typename?: "Mutation" } & {
+    editStudent: Maybe<
         { __typename?: "Student" } & Pick<
             Student,
             "studentId" | "email" | "firstName" | "lastName" | "title" | "year"
@@ -4317,12 +6366,12 @@ export type DeleteStudentMutation = { __typename?: "Mutation" } & {
     >;
 };
 
-export type EditStudentMutationVariables = {
+export type DeleteStudentMutationVariables = {
     student?: Maybe<StudentInput>;
 };
 
-export type EditStudentMutation = { __typename?: "Mutation" } & {
-    editStudent: Maybe<
+export type DeleteStudentMutation = { __typename?: "Mutation" } & {
+    deleteStudent: Maybe<
         { __typename?: "Student" } & Pick<
             Student,
             "studentId" | "email" | "firstName" | "lastName" | "title" | "year"
@@ -4612,12 +6661,12 @@ export type AddWorkFocusMutation = { __typename?: "Mutation" } & {
     >;
 };
 
-export type DeleteWorkFocusMutationVariables = {
+export type EditWorkFocusMutationVariables = {
     workFocus?: Maybe<WorkFocusInput>;
 };
 
-export type DeleteWorkFocusMutation = { __typename?: "Mutation" } & {
-    deleteWorkFocus: Maybe<
+export type EditWorkFocusMutation = { __typename?: "Mutation" } & {
+    editWorkFocus: Maybe<
         { __typename?: "WorkFocus" } & Pick<
             WorkFocus,
             "name" | "teachingRatio" | "researchRatio" | "serviceRatio"
@@ -4625,12 +6674,12 @@ export type DeleteWorkFocusMutation = { __typename?: "Mutation" } & {
     >;
 };
 
-export type EditWorkFocusMutationVariables = {
+export type DeleteWorkFocusMutationVariables = {
     workFocus?: Maybe<WorkFocusInput>;
 };
 
-export type EditWorkFocusMutation = { __typename?: "Mutation" } & {
-    editWorkFocus: Maybe<
+export type DeleteWorkFocusMutation = { __typename?: "Mutation" } & {
+    deleteWorkFocus: Maybe<
         { __typename?: "WorkFocus" } & Pick<
             WorkFocus,
             "name" | "teachingRatio" | "researchRatio" | "serviceRatio"
@@ -4891,10 +6940,264 @@ export type HemisQuery = { __typename?: "Query" } & {
     >;
 };
 
-import gql from "graphql-tag";
-import { Injectable } from "@angular/core";
-import * as Apollo from "apollo-angular";
+export const AddAcademicAdministrationActivityDocument = gql`
+    mutation addAcademicAdministrationActivity(
+        $academicAdministrationActivity: AcademicAdministrationActivityInput
+    ) {
+        addAcademicAdministrationActivity(
+            academicAdministrationActivity: $academicAdministrationActivity
+        ) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
 
+@Injectable({
+    providedIn: "root"
+})
+export class AddAcademicAdministrationActivityGQL extends Apollo.Mutation<
+    AddAcademicAdministrationActivityMutation,
+    AddAcademicAdministrationActivityMutationVariables
+> {
+    document = AddAcademicAdministrationActivityDocument;
+}
+export const EditAcademicAdministrationActivityDocument = gql`
+    mutation editAcademicAdministrationActivity(
+        $academicAdministrationActivity: AcademicAdministrationActivityInput
+    ) {
+        editAcademicAdministrationActivity(
+            academicAdministrationActivity: $academicAdministrationActivity
+        ) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class EditAcademicAdministrationActivityGQL extends Apollo.Mutation<
+    EditAcademicAdministrationActivityMutation,
+    EditAcademicAdministrationActivityMutationVariables
+> {
+    document = EditAcademicAdministrationActivityDocument;
+}
+export const DeleteAcademicAdministrationActivityDocument = gql`
+    mutation deleteAcademicAdministrationActivity(
+        $academicAdministrationActivity: AcademicAdministrationActivityInput
+    ) {
+        deleteAcademicAdministrationActivity(
+            academicAdministrationActivity: $academicAdministrationActivity
+        ) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteAcademicAdministrationActivityGQL extends Apollo.Mutation<
+    DeleteAcademicAdministrationActivityMutation,
+    DeleteAcademicAdministrationActivityMutationVariables
+> {
+    document = DeleteAcademicAdministrationActivityDocument;
+}
+export const AcademicAdministrationActivityDocument = gql`
+    query academicAdministrationActivity($activityId: String!) {
+        academicAdministrationActivity(activityId: $activityId) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AcademicAdministrationActivityGQL extends Apollo.Query<
+    AcademicAdministrationActivityQuery,
+    AcademicAdministrationActivityQueryVariables
+> {
+    document = AcademicAdministrationActivityDocument;
+}
+export const AcademicAdministrationActivitiesDocument = gql`
+    query academicAdministrationActivities {
+        academicAdministrationActivities {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AcademicAdministrationActivitiesGQL extends Apollo.Query<
+    AcademicAdministrationActivitiesQuery,
+    AcademicAdministrationActivitiesQueryVariables
+> {
+    document = AcademicAdministrationActivitiesDocument;
+}
+export const AcademicAdministrationActivitiesByUserDocument = gql`
+    query academicAdministrationActivitiesByUser($userId: String) {
+        academicAdministrationActivitiesByUser(userId: $userId) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AcademicAdministrationActivitiesByUserGQL extends Apollo.Query<
+    AcademicAdministrationActivitiesByUserQuery,
+    AcademicAdministrationActivitiesByUserQueryVariables
+> {
+    document = AcademicAdministrationActivitiesByUserDocument;
+}
 export const ActivityDocument = gql`
     query activity($activityId: String!) {
         activity(activityId: $activityId) {
@@ -4915,7 +7218,37 @@ export const ActivityDocument = gql`
             approvalStatus
             createdAt
             updatedAt
-            ... on CommInstructionActivity {
+            ... on AcademicAdministrationActivity {
+                title
+                description
+                evidenceId
+                evidence {
+                    evidenceId
+                    name
+                    item
+                }
+            }
+            ... on ExecutiveManagementActivity {
+                title
+                description
+                evidenceId
+                evidence {
+                    evidenceId
+                    name
+                    item
+                }
+            }
+            ... on PersonnelDevelopmentActivity {
+                title
+                description
+                evidenceId
+                evidence {
+                    evidenceId
+                    name
+                    item
+                }
+            }
+            ... on CommunityInstructionActivity {
                 title
                 description
                 evidenceId
@@ -5020,12 +7353,19 @@ export const ActivityDocument = gql`
                 }
             }
             ... on ResearchActivity {
-                researchType
-                researchTitle
-                researchDetails
+                output
+                title
+                details
+                evidenceId
+                evidence {
+                    evidenceId
+                    name
+                    item
+                }
             }
             ... on SupervisionActivity {
                 supervisionRole
+                split
                 studentId
                 student {
                     studentId
@@ -5066,7 +7406,7 @@ export const ActivitiesByUnapprovedDocument = gql`
                 description
             }
             approvalStatus
-            ... on CommInstructionActivity {
+            ... on CommunityInstructionActivity {
                 title
                 description
                 evidenceId
@@ -5192,9 +7532,15 @@ export const ActivitiesByUnapprovedDocument = gql`
                 }
             }
             ... on ResearchActivity {
-                researchType
-                researchTitle
-                researchDetails
+                output
+                title
+                details
+                evidenceId
+                evidence {
+                    evidenceId
+                    name
+                    item
+                }
             }
             ... on SupervisionActivity {
                 supervisionRole
@@ -5219,6 +7565,522 @@ export class ActivitiesByUnapprovedGQL extends Apollo.Query<
     ActivitiesByUnapprovedQueryVariables
 > {
     document = ActivitiesByUnapprovedDocument;
+}
+export const AddCommunityInstructionActivityDocument = gql`
+    mutation addCommunityInstructionActivity(
+        $communityInstructionActivity: CommunityInstructionActivityInput
+    ) {
+        addCommunityInstructionActivity(
+            communityInstructionActivity: $communityInstructionActivity
+        ) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AddCommunityInstructionActivityGQL extends Apollo.Mutation<
+    AddCommunityInstructionActivityMutation,
+    AddCommunityInstructionActivityMutationVariables
+> {
+    document = AddCommunityInstructionActivityDocument;
+}
+export const EditCommunityInstructionActivityDocument = gql`
+    mutation editCommunityInstructionActivity(
+        $communityInstructionActivity: CommunityInstructionActivityInput
+    ) {
+        editCommunityInstructionActivity(
+            communityInstructionActivity: $communityInstructionActivity
+        ) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class EditCommunityInstructionActivityGQL extends Apollo.Mutation<
+    EditCommunityInstructionActivityMutation,
+    EditCommunityInstructionActivityMutationVariables
+> {
+    document = EditCommunityInstructionActivityDocument;
+}
+export const DeleteCommunityInstructionActivityDocument = gql`
+    mutation deleteCommunityInstructionActivity(
+        $communityInstructionActivity: CommunityInstructionActivityInput
+    ) {
+        deleteCommunityInstructionActivity(
+            communityInstructionActivity: $communityInstructionActivity
+        ) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteCommunityInstructionActivityGQL extends Apollo.Mutation<
+    DeleteCommunityInstructionActivityMutation,
+    DeleteCommunityInstructionActivityMutationVariables
+> {
+    document = DeleteCommunityInstructionActivityDocument;
+}
+export const CommunityInstructionActivityDocument = gql`
+    query communityInstructionActivity($activityId: String!) {
+        communityInstructionActivity(activityId: $activityId) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class CommunityInstructionActivityGQL extends Apollo.Query<
+    CommunityInstructionActivityQuery,
+    CommunityInstructionActivityQueryVariables
+> {
+    document = CommunityInstructionActivityDocument;
+}
+export const CommunityInstructionActivitiesDocument = gql`
+    query communityInstructionActivities {
+        communityInstructionActivities {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class CommunityInstructionActivitiesGQL extends Apollo.Query<
+    CommunityInstructionActivitiesQuery,
+    CommunityInstructionActivitiesQueryVariables
+> {
+    document = CommunityInstructionActivitiesDocument;
+}
+export const CommunityInstructionActivitiesByUserDocument = gql`
+    query communityInstructionActivitiesByUser($userId: String) {
+        communityInstructionActivitiesByUser(userId: $userId) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class CommunityInstructionActivitiesByUserGQL extends Apollo.Query<
+    CommunityInstructionActivitiesByUserQuery,
+    CommunityInstructionActivitiesByUserQueryVariables
+> {
+    document = CommunityInstructionActivitiesByUserDocument;
+}
+export const AddExecutiveManagementActivityDocument = gql`
+    mutation addExecutiveManagementActivity(
+        $executiveManagementActivity: ExecutiveManagementActivityInput
+    ) {
+        addExecutiveManagementActivity(
+            executiveManagementActivity: $executiveManagementActivity
+        ) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AddExecutiveManagementActivityGQL extends Apollo.Mutation<
+    AddExecutiveManagementActivityMutation,
+    AddExecutiveManagementActivityMutationVariables
+> {
+    document = AddExecutiveManagementActivityDocument;
+}
+export const EditExecutiveManagementActivityDocument = gql`
+    mutation editExecutiveManagementActivity(
+        $executiveManagementActivity: ExecutiveManagementActivityInput
+    ) {
+        editExecutiveManagementActivity(
+            executiveManagementActivity: $executiveManagementActivity
+        ) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class EditExecutiveManagementActivityGQL extends Apollo.Mutation<
+    EditExecutiveManagementActivityMutation,
+    EditExecutiveManagementActivityMutationVariables
+> {
+    document = EditExecutiveManagementActivityDocument;
+}
+export const DeleteExecutiveManagementActivityDocument = gql`
+    mutation deleteExecutiveManagementActivity(
+        $executiveManagementActivity: ExecutiveManagementActivityInput
+    ) {
+        deleteExecutiveManagementActivity(
+            executiveManagementActivity: $executiveManagementActivity
+        ) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteExecutiveManagementActivityGQL extends Apollo.Mutation<
+    DeleteExecutiveManagementActivityMutation,
+    DeleteExecutiveManagementActivityMutationVariables
+> {
+    document = DeleteExecutiveManagementActivityDocument;
+}
+export const ExecutiveManagementActivityDocument = gql`
+    query executiveManagementActivity($activityId: String!) {
+        executiveManagementActivity(activityId: $activityId) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ExecutiveManagementActivityGQL extends Apollo.Query<
+    ExecutiveManagementActivityQuery,
+    ExecutiveManagementActivityQueryVariables
+> {
+    document = ExecutiveManagementActivityDocument;
+}
+export const ExecutiveManagementActivitiesDocument = gql`
+    query executiveManagementActivities {
+        executiveManagementActivities {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ExecutiveManagementActivitiesGQL extends Apollo.Query<
+    ExecutiveManagementActivitiesQuery,
+    ExecutiveManagementActivitiesQueryVariables
+> {
+    document = ExecutiveManagementActivitiesDocument;
+}
+export const ExecutiveManagementActivitiesByUserDocument = gql`
+    query executiveManagementActivitiesByUser($userId: String) {
+        executiveManagementActivitiesByUser(userId: $userId) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ExecutiveManagementActivitiesByUserGQL extends Apollo.Query<
+    ExecutiveManagementActivitiesByUserQuery,
+    ExecutiveManagementActivitiesByUserQueryVariables
+> {
+    document = ExecutiveManagementActivitiesByUserDocument;
 }
 export const AddFormalInstructionActivityDocument = gql`
     mutation addFormalInstructionActivity(
@@ -5595,6 +8457,145 @@ export class DeleteFormalInstructionActivityGQL extends Apollo.Mutation<
 > {
     document = DeleteFormalInstructionActivityDocument;
 }
+export const AddSupervisionActivityDocument = gql`
+    mutation addSupervisionActivity(
+        $supervisionActivity: SupervisionActivityInput
+    ) {
+        addSupervisionActivity(supervisionActivity: $supervisionActivity) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            supervisionRole
+            split
+            studentId
+            student {
+                studentId
+                firstName
+                lastName
+                email
+                title
+                year
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AddSupervisionActivityGQL extends Apollo.Mutation<
+    AddSupervisionActivityMutation,
+    AddSupervisionActivityMutationVariables
+> {
+    document = AddSupervisionActivityDocument;
+}
+export const EditSupervisionActivityDocument = gql`
+    mutation editSupervisionActivity(
+        $supervisionActivity: SupervisionActivityInput
+    ) {
+        addSupervisionActivity(supervisionActivity: $supervisionActivity) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            supervisionRole
+            createdAt
+            updatedAt
+            supervisionRole
+            split
+            studentId
+            student {
+                studentId
+                firstName
+                lastName
+                email
+                title
+                year
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class EditSupervisionActivityGQL extends Apollo.Mutation<
+    EditSupervisionActivityMutation,
+    EditSupervisionActivityMutationVariables
+> {
+    document = EditSupervisionActivityDocument;
+}
+export const DeleteSupervisionActivityDocument = gql`
+    mutation deleteSupervisionActivity(
+        $supervisionActivity: SupervisionActivityInput
+    ) {
+        addSupervisionActivity(supervisionActivity: $supervisionActivity) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            supervisionRole
+            split
+            studentId
+            student {
+                studentId
+                firstName
+                lastName
+                email
+                title
+                year
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteSupervisionActivityGQL extends Apollo.Mutation<
+    DeleteSupervisionActivityMutation,
+    DeleteSupervisionActivityMutationVariables
+> {
+    document = DeleteSupervisionActivityDocument;
+}
 export const FormalInstructionActivityDocument = gql`
     query formalInstructionActivity($activityId: String!) {
         formalInstructionActivity(activityId: $activityId) {
@@ -5958,6 +8959,858 @@ export class FormalInstructionActivitiesByUserGQL extends Apollo.Query<
 > {
     document = FormalInstructionActivitiesByUserDocument;
 }
+export const SupervisionActivityDocument = gql`
+    query supervisionActivity($activityId: String!) {
+        supervisionActivity(activityId: $activityId) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            supervisionRole
+            split
+            studentId
+            student {
+                studentId
+                firstName
+                lastName
+                email
+                title
+                year
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class SupervisionActivityGQL extends Apollo.Query<
+    SupervisionActivityQuery,
+    SupervisionActivityQueryVariables
+> {
+    document = SupervisionActivityDocument;
+}
+export const SupervisionActivitiesDocument = gql`
+    query supervisionActivities {
+        supervisionActivities {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            supervisionRole
+            split
+            studentId
+            student {
+                studentId
+                firstName
+                lastName
+                email
+                title
+                year
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class SupervisionActivitiesGQL extends Apollo.Query<
+    SupervisionActivitiesQuery,
+    SupervisionActivitiesQueryVariables
+> {
+    document = SupervisionActivitiesDocument;
+}
+export const SupervisionActivitiesByUserDocument = gql`
+    query supervisionActivitiesByUser($userId: String!) {
+        supervisionActivitiesByUser(userId: $userId) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            supervisionRole
+            split
+            studentId
+            student {
+                studentId
+                firstName
+                lastName
+                email
+                title
+                year
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class SupervisionActivitiesByUserGQL extends Apollo.Query<
+    SupervisionActivitiesByUserQuery,
+    SupervisionActivitiesByUserQueryVariables
+> {
+    document = SupervisionActivitiesByUserDocument;
+}
+export const AddPersonnelDevelopmentActivityDocument = gql`
+    mutation addPersonnelDevelopmentActivity(
+        $personnelDevelopmentActivity: PersonnelDevelopmentActivityInput
+    ) {
+        addPersonnelDevelopmentActivity(
+            personnelDevelopmentActivity: $personnelDevelopmentActivity
+        ) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AddPersonnelDevelopmentActivityGQL extends Apollo.Mutation<
+    AddPersonnelDevelopmentActivityMutation,
+    AddPersonnelDevelopmentActivityMutationVariables
+> {
+    document = AddPersonnelDevelopmentActivityDocument;
+}
+export const EditPersonnelDevelopmentActivityDocument = gql`
+    mutation editPersonnelDevelopmentActivity(
+        $personnelDevelopmentActivity: PersonnelDevelopmentActivityInput
+    ) {
+        editPersonnelDevelopmentActivity(
+            personnelDevelopmentActivity: $personnelDevelopmentActivity
+        ) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class EditPersonnelDevelopmentActivityGQL extends Apollo.Mutation<
+    EditPersonnelDevelopmentActivityMutation,
+    EditPersonnelDevelopmentActivityMutationVariables
+> {
+    document = EditPersonnelDevelopmentActivityDocument;
+}
+export const DeletePersonnelDevelopmentActivityDocument = gql`
+    mutation deletePersonnelDevelopmentActivity(
+        $personnelDevelopmentActivity: PersonnelDevelopmentActivityInput
+    ) {
+        deletePersonnelDevelopmentActivity(
+            personnelDevelopmentActivity: $personnelDevelopmentActivity
+        ) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeletePersonnelDevelopmentActivityGQL extends Apollo.Mutation<
+    DeletePersonnelDevelopmentActivityMutation,
+    DeletePersonnelDevelopmentActivityMutationVariables
+> {
+    document = DeletePersonnelDevelopmentActivityDocument;
+}
+export const PersonnelDevelopmentActivityDocument = gql`
+    query personnelDevelopmentActivity($activityId: String!) {
+        personnelDevelopmentActivity(activityId: $activityId) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PersonnelDevelopmentActivityGQL extends Apollo.Query<
+    PersonnelDevelopmentActivityQuery,
+    PersonnelDevelopmentActivityQueryVariables
+> {
+    document = PersonnelDevelopmentActivityDocument;
+}
+export const PersonnelDevelopmentActivitiesDocument = gql`
+    query personnelDevelopmentActivities {
+        personnelDevelopmentActivities {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PersonnelDevelopmentActivitiesGQL extends Apollo.Query<
+    PersonnelDevelopmentActivitiesQuery,
+    PersonnelDevelopmentActivitiesQueryVariables
+> {
+    document = PersonnelDevelopmentActivitiesDocument;
+}
+export const PersonnelDevelopmentActivitiesByUserDocument = gql`
+    query personnelDevelopmentActivitiesByUser($userId: String) {
+        personnelDevelopmentActivitiesByUser(userId: $userId) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PersonnelDevelopmentActivitiesByUserGQL extends Apollo.Query<
+    PersonnelDevelopmentActivitiesByUserQuery,
+    PersonnelDevelopmentActivitiesByUserQueryVariables
+> {
+    document = PersonnelDevelopmentActivitiesByUserDocument;
+}
+export const AddPublicServiceActivityDocument = gql`
+    mutation addPublicServiceActivity(
+        $publicServiceActivity: PublicServiceActivityInput
+    ) {
+        addPublicServiceActivity(
+            publicServiceActivity: $publicServiceActivity
+        ) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AddPublicServiceActivityGQL extends Apollo.Mutation<
+    AddPublicServiceActivityMutation,
+    AddPublicServiceActivityMutationVariables
+> {
+    document = AddPublicServiceActivityDocument;
+}
+export const EditPublicServiceActivityDocument = gql`
+    mutation editPublicServiceActivity(
+        $publicServiceActivity: PublicServiceActivityInput
+    ) {
+        editPublicServiceActivity(
+            publicServiceActivity: $publicServiceActivity
+        ) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class EditPublicServiceActivityGQL extends Apollo.Mutation<
+    EditPublicServiceActivityMutation,
+    EditPublicServiceActivityMutationVariables
+> {
+    document = EditPublicServiceActivityDocument;
+}
+export const DeletePublicServiceActivityDocument = gql`
+    mutation deletePublicServiceActivity(
+        $publicServiceActivity: PublicServiceActivityInput
+    ) {
+        deletePublicServiceActivity(
+            publicServiceActivity: $publicServiceActivity
+        ) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeletePublicServiceActivityGQL extends Apollo.Mutation<
+    DeletePublicServiceActivityMutation,
+    DeletePublicServiceActivityMutationVariables
+> {
+    document = DeletePublicServiceActivityDocument;
+}
+export const PublicServiceActivityDocument = gql`
+    query publicServiceActivity($activityId: String) {
+        publicServiceActivity(activityId: $activityId) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PublicServiceActivityGQL extends Apollo.Query<
+    PublicServiceActivityQuery,
+    PublicServiceActivityQueryVariables
+> {
+    document = PublicServiceActivityDocument;
+}
+export const PublicServiceActivitiesDocument = gql`
+    query publicServiceActivities {
+        publicServiceActivities {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PublicServiceActivitiesGQL extends Apollo.Query<
+    PublicServiceActivitiesQuery,
+    PublicServiceActivitiesQueryVariables
+> {
+    document = PublicServiceActivitiesDocument;
+}
+export const PublicServiceActivitiesByUserDocument = gql`
+    query publicServiceActivitiesByUser($userId: String) {
+        publicServiceActivitiesByUser(userId: $userId) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            title
+            description
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PublicServiceActivitiesByUserGQL extends Apollo.Query<
+    PublicServiceActivitiesByUserQuery,
+    PublicServiceActivitiesByUserQueryVariables
+> {
+    document = PublicServiceActivitiesByUserDocument;
+}
+export const AddResearchActivityDocument = gql`
+    mutation addResearchActivity($researchActivity: ResearchActivityInput) {
+        addResearchActivity(researchActivity: $researchActivity) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            output
+            title
+            details
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AddResearchActivityGQL extends Apollo.Mutation<
+    AddResearchActivityMutation,
+    AddResearchActivityMutationVariables
+> {
+    document = AddResearchActivityDocument;
+}
+export const EditResearchActivityDocument = gql`
+    mutation editResearchActivity($researchActivity: ResearchActivityInput) {
+        editResearchActivity(researchActivity: $researchActivity) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            output
+            title
+            details
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class EditResearchActivityGQL extends Apollo.Mutation<
+    EditResearchActivityMutation,
+    EditResearchActivityMutationVariables
+> {
+    document = EditResearchActivityDocument;
+}
+export const DeleteResearchActivityDocument = gql`
+    mutation deleteResearchActivity($researchActivity: ResearchActivityInput) {
+        deleteResearchActivity(researchActivity: $researchActivity) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            output
+            title
+            details
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteResearchActivityGQL extends Apollo.Mutation<
+    DeleteResearchActivityMutation,
+    DeleteResearchActivityMutationVariables
+> {
+    document = DeleteResearchActivityDocument;
+}
+export const ResearchActivityDocument = gql`
+    query researchActivity($userId: String!) {
+        researchActivitiesByUser(userId: $userId) {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            output
+            title
+            details
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ResearchActivityGQL extends Apollo.Query<
+    ResearchActivityQuery,
+    ResearchActivityQueryVariables
+> {
+    document = ResearchActivityDocument;
+}
+export const ResearchActivitiesDocument = gql`
+    query researchActivities {
+        researchActivities {
+            activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+            }
+            dutyId
+            duty {
+                dutyId
+                name
+                description
+            }
+            approvalStatus
+            createdAt
+            updatedAt
+            output
+            title
+            details
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ResearchActivitiesGQL extends Apollo.Query<
+    ResearchActivitiesQuery,
+    ResearchActivitiesQueryVariables
+> {
+    document = ResearchActivitiesDocument;
+}
 export const ResearchActivitiesByUserDocument = gql`
     query researchActivitiesByUser($userId: String!) {
         researchActivitiesByUser(userId: $userId) {
@@ -5976,9 +9829,17 @@ export const ResearchActivitiesByUserDocument = gql`
                 description
             }
             approvalStatus
-            researchType
-            researchTitle
-            researchDetails
+            createdAt
+            updatedAt
+            output
+            title
+            details
+            evidenceId
+            evidence {
+                evidenceId
+                name
+                item
+            }
         }
     }
 `;
@@ -6010,6 +9871,44 @@ export class AddBlockGQL extends Apollo.Mutation<
     AddBlockMutationVariables
 > {
     document = AddBlockDocument;
+}
+export const EditBlockDocument = gql`
+    mutation editBlock($block: BlockInput) {
+        editBlock(block: $block) {
+            blockId
+            name
+            description
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class EditBlockGQL extends Apollo.Mutation<
+    EditBlockMutation,
+    EditBlockMutationVariables
+> {
+    document = EditBlockDocument;
+}
+export const DeleteBlockDocument = gql`
+    mutation deleteBlock($block: BlockInput) {
+        deleteBlock(block: $block) {
+            blockId
+            name
+            description
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteBlockGQL extends Apollo.Mutation<
+    DeleteBlockMutation,
+    DeleteBlockMutationVariables
+> {
+    document = DeleteBlockDocument;
 }
 export const BlockDocument = gql`
     query block($blockId: String!) {
@@ -6043,44 +9942,6 @@ export const BlocksDocument = gql`
 export class BlocksGQL extends Apollo.Query<BlocksQuery, BlocksQueryVariables> {
     document = BlocksDocument;
 }
-export const DeleteBlockDocument = gql`
-    mutation deleteBlock($block: BlockInput) {
-        deleteBlock(block: $block) {
-            blockId
-            name
-            description
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class DeleteBlockGQL extends Apollo.Mutation<
-    DeleteBlockMutation,
-    DeleteBlockMutationVariables
-> {
-    document = DeleteBlockDocument;
-}
-export const EditBlockDocument = gql`
-    mutation editBlock($block: BlockInput) {
-        editBlock(block: $block) {
-            blockId
-            name
-            description
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class EditBlockGQL extends Apollo.Mutation<
-    EditBlockMutation,
-    EditBlockMutationVariables
-> {
-    document = EditBlockDocument;
-}
 export const AddDepartmentDocument = gql`
     mutation addDepartment($department: DepartmentInput) {
         addDepartment(department: $department) {
@@ -6103,6 +9964,29 @@ export class AddDepartmentGQL extends Apollo.Mutation<
     AddDepartmentMutationVariables
 > {
     document = AddDepartmentDocument;
+}
+export const EditDepartmentDocument = gql`
+    mutation editDepartment($department: DepartmentInput) {
+        editDepartment(department: $department) {
+            departmentId
+            name
+            facultyId
+            faculty {
+                facultyId
+                name
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class EditDepartmentGQL extends Apollo.Mutation<
+    EditDepartmentMutation,
+    EditDepartmentMutationVariables
+> {
+    document = EditDepartmentDocument;
 }
 export const DeleteDepartmentDocument = gql`
     mutation deleteDepartment($department: DepartmentInput) {
@@ -6171,29 +10055,6 @@ export class DepartmentsGQL extends Apollo.Query<
 > {
     document = DepartmentsDocument;
 }
-export const EditDepartmentDocument = gql`
-    mutation editDepartment($department: DepartmentInput) {
-        editDepartment(department: $department) {
-            departmentId
-            name
-            facultyId
-            faculty {
-                facultyId
-                name
-            }
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class EditDepartmentGQL extends Apollo.Mutation<
-    EditDepartmentMutation,
-    EditDepartmentMutationVariables
-> {
-    document = EditDepartmentDocument;
-}
 export const AddDisciplineDocument = gql`
     mutation addDiscipline($discipline: DisciplineInput) {
         addDiscipline(discipline: $discipline) {
@@ -6212,6 +10073,25 @@ export class AddDisciplineGQL extends Apollo.Mutation<
     AddDisciplineMutationVariables
 > {
     document = AddDisciplineDocument;
+}
+export const EditDisciplineDocument = gql`
+    mutation editDiscipline($discipline: DisciplineInput) {
+        editDiscipline(discipline: $discipline) {
+            disciplineId
+            name
+            description
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class EditDisciplineGQL extends Apollo.Mutation<
+    EditDisciplineMutation,
+    EditDisciplineMutationVariables
+> {
+    document = EditDisciplineDocument;
 }
 export const DeleteDisciplineDocument = gql`
     mutation deleteDiscipline($discipline: DisciplineInput) {
@@ -6270,25 +10150,6 @@ export class DisciplinesGQL extends Apollo.Query<
 > {
     document = DisciplinesDocument;
 }
-export const EditDisciplineDocument = gql`
-    mutation editDiscipline($discipline: DisciplineInput) {
-        editDiscipline(discipline: $discipline) {
-            disciplineId
-            name
-            description
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class EditDisciplineGQL extends Apollo.Mutation<
-    EditDisciplineMutation,
-    EditDisciplineMutationVariables
-> {
-    document = EditDisciplineDocument;
-}
 export const AddDutyDocument = gql`
     mutation addDuty($duty: DutyInput) {
         addDuty(duty: $duty) {
@@ -6307,6 +10168,25 @@ export class AddDutyGQL extends Apollo.Mutation<
     AddDutyMutationVariables
 > {
     document = AddDutyDocument;
+}
+export const EditDutyDocument = gql`
+    mutation editDuty($duty: DutyInput) {
+        editDuty(duty: $duty) {
+            dutyId
+            name
+            description
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class EditDutyGQL extends Apollo.Mutation<
+    EditDutyMutation,
+    EditDutyMutationVariables
+> {
+    document = EditDutyDocument;
 }
 export const DeleteDutyDocument = gql`
     mutation deleteDuty($duty: DutyInput) {
@@ -6327,22 +10207,6 @@ export class DeleteDutyGQL extends Apollo.Mutation<
 > {
     document = DeleteDutyDocument;
 }
-export const DutiesDocument = gql`
-    query duties {
-        duties {
-            dutyId
-            name
-            description
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class DutiesGQL extends Apollo.Query<DutiesQuery, DutiesQueryVariables> {
-    document = DutiesDocument;
-}
 export const DutyDocument = gql`
     query duty($dutyId: String!) {
         duty(dutyId: $dutyId) {
@@ -6359,9 +10223,9 @@ export const DutyDocument = gql`
 export class DutyGQL extends Apollo.Query<DutyQuery, DutyQueryVariables> {
     document = DutyDocument;
 }
-export const EditDutyDocument = gql`
-    mutation editDuty($duty: DutyInput) {
-        editDuty(duty: $duty) {
+export const DutiesDocument = gql`
+    query duties {
+        duties {
             dutyId
             name
             description
@@ -6372,11 +10236,8 @@ export const EditDutyDocument = gql`
 @Injectable({
     providedIn: "root"
 })
-export class EditDutyGQL extends Apollo.Mutation<
-    EditDutyMutation,
-    EditDutyMutationVariables
-> {
-    document = EditDutyDocument;
+export class DutiesGQL extends Apollo.Query<DutiesQuery, DutiesQueryVariables> {
+    document = DutiesDocument;
 }
 export const AddEnrollmentDocument = gql`
     mutation addEnrollment($enrollment: EnrollmentInput) {
@@ -6403,31 +10264,6 @@ export class AddEnrollmentGQL extends Apollo.Mutation<
 > {
     document = AddEnrollmentDocument;
 }
-export const DeleteEnrollmentDocument = gql`
-    mutation deleteEnrollment($enrollment: EnrollmentInput) {
-        deleteEnrollment(enrollment: $enrollment) {
-            enrollmentYear
-            qualificationId
-            qualification {
-                qualificationId
-                name
-            }
-            firstYearEstimated
-            secondYearEstimated
-            thirdYearEstimated
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class DeleteEnrollmentGQL extends Apollo.Mutation<
-    DeleteEnrollmentMutation,
-    DeleteEnrollmentMutationVariables
-> {
-    document = DeleteEnrollmentDocument;
-}
 export const EditEnrollmentDocument = gql`
     mutation editEnrollment($enrollment: EnrollmentInput) {
         editEnrollment(enrollment: $enrollment) {
@@ -6452,6 +10288,31 @@ export class EditEnrollmentGQL extends Apollo.Mutation<
     EditEnrollmentMutationVariables
 > {
     document = EditEnrollmentDocument;
+}
+export const DeleteEnrollmentDocument = gql`
+    mutation deleteEnrollment($enrollment: EnrollmentInput) {
+        deleteEnrollment(enrollment: $enrollment) {
+            enrollmentYear
+            qualificationId
+            qualification {
+                qualificationId
+                name
+            }
+            firstYearEstimated
+            secondYearEstimated
+            thirdYearEstimated
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteEnrollmentGQL extends Apollo.Mutation<
+    DeleteEnrollmentMutation,
+    DeleteEnrollmentMutationVariables
+> {
+    document = DeleteEnrollmentDocument;
 }
 export const EnrollmentDocument = gql`
     query enrollment($enrollmentYear: String, $qualificationId: String) {
@@ -6479,6 +10340,31 @@ export class EnrollmentGQL extends Apollo.Query<
     EnrollmentQueryVariables
 > {
     document = EnrollmentDocument;
+}
+export const EnrollmentsDocument = gql`
+    query enrollments {
+        enrollments {
+            enrollmentYear
+            qualificationId
+            qualification {
+                qualificationId
+                name
+            }
+            firstYearEstimated
+            secondYearEstimated
+            thirdYearEstimated
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class EnrollmentsGQL extends Apollo.Query<
+    EnrollmentsQuery,
+    EnrollmentsQueryVariables
+> {
+    document = EnrollmentsDocument;
 }
 export const EnrollmentsByQualificationDocument = gql`
     query enrollmentsByQualification($qualificationId: String) {
@@ -6530,31 +10416,6 @@ export class EnrollmentsByYearGQL extends Apollo.Query<
 > {
     document = EnrollmentsByYearDocument;
 }
-export const EnrollmentsDocument = gql`
-    query enrollments {
-        enrollments {
-            enrollmentYear
-            qualificationId
-            qualification {
-                qualificationId
-                name
-            }
-            firstYearEstimated
-            secondYearEstimated
-            thirdYearEstimated
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class EnrollmentsGQL extends Apollo.Query<
-    EnrollmentsQuery,
-    EnrollmentsQueryVariables
-> {
-    document = EnrollmentsDocument;
-}
 export const EventDocument = gql`
     query event($eventId: String!) {
         event(eventId: $eventId) {
@@ -6603,24 +10464,6 @@ export class AddFacultyGQL extends Apollo.Mutation<
 > {
     document = AddFacultyDocument;
 }
-export const DeleteFacultyDocument = gql`
-    mutation deleteFaculty($faculty: FacultyInput) {
-        deleteFaculty(faculty: $faculty) {
-            facultyId
-            name
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class DeleteFacultyGQL extends Apollo.Mutation<
-    DeleteFacultyMutation,
-    DeleteFacultyMutationVariables
-> {
-    document = DeleteFacultyDocument;
-}
 export const EditFacultyDocument = gql`
     mutation editFaculty($faculty: FacultyInput) {
         addFaculty(faculty: $faculty) {
@@ -6639,9 +10482,9 @@ export class EditFacultyGQL extends Apollo.Mutation<
 > {
     document = EditFacultyDocument;
 }
-export const FacultiesDocument = gql`
-    query faculties {
-        faculties {
+export const DeleteFacultyDocument = gql`
+    mutation deleteFaculty($faculty: FacultyInput) {
+        deleteFaculty(faculty: $faculty) {
             facultyId
             name
         }
@@ -6651,11 +10494,11 @@ export const FacultiesDocument = gql`
 @Injectable({
     providedIn: "root"
 })
-export class FacultiesGQL extends Apollo.Query<
-    FacultiesQuery,
-    FacultiesQueryVariables
+export class DeleteFacultyGQL extends Apollo.Mutation<
+    DeleteFacultyMutation,
+    DeleteFacultyMutationVariables
 > {
-    document = FacultiesDocument;
+    document = DeleteFacultyDocument;
 }
 export const FacultyDocument = gql`
     query faculty($facultyId: String!) {
@@ -6674,6 +10517,24 @@ export class FacultyGQL extends Apollo.Query<
     FacultyQueryVariables
 > {
     document = FacultyDocument;
+}
+export const FacultiesDocument = gql`
+    query faculties {
+        faculties {
+            facultyId
+            name
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FacultiesGQL extends Apollo.Query<
+    FacultiesQuery,
+    FacultiesQueryVariables
+> {
+    document = FacultiesDocument;
 }
 export const AddModuleDocument = gql`
     mutation addModule($module: ModuleInput) {
@@ -7518,24 +11379,6 @@ export class AddOfferingTypeGQL extends Apollo.Mutation<
 > {
     document = AddOfferingTypeDocument;
 }
-export const DeleteOfferingTypeDocument = gql`
-    mutation deleteOfferingType($offeringType: OfferingTypeInput) {
-        deleteOfferingType(offeringType: $offeringType) {
-            offeringTypeId
-            description
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class DeleteOfferingTypeGQL extends Apollo.Mutation<
-    DeleteOfferingTypeMutation,
-    DeleteOfferingTypeMutationVariables
-> {
-    document = DeleteOfferingTypeDocument;
-}
 export const EditOfferingTypeDocument = gql`
     mutation editOfferingType($offeringType: OfferingTypeInput) {
         editOfferingType(offeringType: $offeringType) {
@@ -7553,6 +11396,24 @@ export class EditOfferingTypeGQL extends Apollo.Mutation<
     EditOfferingTypeMutationVariables
 > {
     document = EditOfferingTypeDocument;
+}
+export const DeleteOfferingTypeDocument = gql`
+    mutation deleteOfferingType($offeringType: OfferingTypeInput) {
+        deleteOfferingType(offeringType: $offeringType) {
+            offeringTypeId
+            description
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteOfferingTypeGQL extends Apollo.Mutation<
+    DeleteOfferingTypeMutation,
+    DeleteOfferingTypeMutationVariables
+> {
+    document = DeleteOfferingTypeDocument;
 }
 export const OfferingTypeDocument = gql`
     query offeringType($offeringTypeId: String!) {
@@ -7609,25 +11470,6 @@ export class AddPositionGQL extends Apollo.Mutation<
 > {
     document = AddPositionDocument;
 }
-export const DeletePositionDocument = gql`
-    mutation deletePosition($position: PositionInput) {
-        deletePosition(position: $position) {
-            positionId
-            name
-            description
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class DeletePositionGQL extends Apollo.Mutation<
-    DeletePositionMutation,
-    DeletePositionMutationVariables
-> {
-    document = DeletePositionDocument;
-}
 export const EditPositionDocument = gql`
     mutation editPosition($position: PositionInput) {
         editPosition(position: $position) {
@@ -7646,6 +11488,25 @@ export class EditPositionGQL extends Apollo.Mutation<
     EditPositionMutationVariables
 > {
     document = EditPositionDocument;
+}
+export const DeletePositionDocument = gql`
+    mutation deletePosition($position: PositionInput) {
+        deletePosition(position: $position) {
+            positionId
+            name
+            description
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeletePositionGQL extends Apollo.Mutation<
+    DeletePositionMutation,
+    DeletePositionMutationVariables
+> {
+    document = DeletePositionDocument;
 }
 export const PositionDocument = gql`
     query position($positionId: String!) {
@@ -7713,34 +11574,6 @@ export class AddQualificationGQL extends Apollo.Mutation<
 > {
     document = AddQualificationDocument;
 }
-export const DeleteQualificationDocument = gql`
-    mutation deleteQualification($qualification: QualificationInput) {
-        deleteQualification(qualification: $qualification) {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                faculty {
-                    facultyId
-                    name
-                }
-            }
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class DeleteQualificationGQL extends Apollo.Mutation<
-    DeleteQualificationMutation,
-    DeleteQualificationMutationVariables
-> {
-    document = DeleteQualificationDocument;
-}
 export const EditQualificationDocument = gql`
     mutation editQualification($qualification: QualificationInput) {
         editQualification(qualification: $qualification) {
@@ -7768,6 +11601,34 @@ export class EditQualificationGQL extends Apollo.Mutation<
     EditQualificationMutationVariables
 > {
     document = EditQualificationDocument;
+}
+export const DeleteQualificationDocument = gql`
+    mutation deleteQualification($qualification: QualificationInput) {
+        deleteQualification(qualification: $qualification) {
+            qualificationId
+            name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                faculty {
+                    facultyId
+                    name
+                }
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteQualificationGQL extends Apollo.Mutation<
+    DeleteQualificationMutation,
+    DeleteQualificationMutationVariables
+> {
+    document = DeleteQualificationDocument;
 }
 export const QualificationDocument = gql`
     query qualification($qualificationId: String!) {
@@ -7797,34 +11658,6 @@ export class QualificationGQL extends Apollo.Query<
 > {
     document = QualificationDocument;
 }
-export const QualificationsNoEnrollmentDocument = gql`
-    query qualificationsNoEnrollment {
-        qualificationsNoEnrollment {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                faculty {
-                    facultyId
-                    name
-                }
-            }
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class QualificationsNoEnrollmentGQL extends Apollo.Query<
-    QualificationsNoEnrollmentQuery,
-    QualificationsNoEnrollmentQueryVariables
-> {
-    document = QualificationsNoEnrollmentDocument;
-}
 export const QualificationsDocument = gql`
     query qualifications {
         qualifications {
@@ -7853,6 +11686,34 @@ export class QualificationsGQL extends Apollo.Query<
 > {
     document = QualificationsDocument;
 }
+export const QualificationsNoEnrollmentDocument = gql`
+    query qualificationsNoEnrollment {
+        qualificationsNoEnrollment {
+            qualificationId
+            name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                faculty {
+                    facultyId
+                    name
+                }
+            }
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class QualificationsNoEnrollmentGQL extends Apollo.Query<
+    QualificationsNoEnrollmentQuery,
+    QualificationsNoEnrollmentQueryVariables
+> {
+    document = QualificationsNoEnrollmentDocument;
+}
 export const AddStudentDocument = gql`
     mutation addStudent($student: StudentInput) {
         addStudent(student: $student) {
@@ -7875,28 +11736,6 @@ export class AddStudentGQL extends Apollo.Mutation<
 > {
     document = AddStudentDocument;
 }
-export const DeleteStudentDocument = gql`
-    mutation deleteStudent($student: StudentInput) {
-        deleteStudent(student: $student) {
-            studentId
-            email
-            firstName
-            lastName
-            title
-            year
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class DeleteStudentGQL extends Apollo.Mutation<
-    DeleteStudentMutation,
-    DeleteStudentMutationVariables
-> {
-    document = DeleteStudentDocument;
-}
 export const EditStudentDocument = gql`
     mutation editStudent($student: StudentInput) {
         editStudent(student: $student) {
@@ -7918,6 +11757,28 @@ export class EditStudentGQL extends Apollo.Mutation<
     EditStudentMutationVariables
 > {
     document = EditStudentDocument;
+}
+export const DeleteStudentDocument = gql`
+    mutation deleteStudent($student: StudentInput) {
+        deleteStudent(student: $student) {
+            studentId
+            email
+            firstName
+            lastName
+            title
+            year
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteStudentGQL extends Apollo.Mutation<
+    DeleteStudentMutation,
+    DeleteStudentMutationVariables
+> {
+    document = DeleteStudentDocument;
 }
 export const StudentDocument = gql`
     query student($studentId: String!) {
@@ -8261,26 +12122,6 @@ export class AddWorkFocusGQL extends Apollo.Mutation<
 > {
     document = AddWorkFocusDocument;
 }
-export const DeleteWorkFocusDocument = gql`
-    mutation deleteWorkFocus($workFocus: WorkFocusInput) {
-        deleteWorkFocus(workFocus: $workFocus) {
-            name
-            teachingRatio
-            researchRatio
-            serviceRatio
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class DeleteWorkFocusGQL extends Apollo.Mutation<
-    DeleteWorkFocusMutation,
-    DeleteWorkFocusMutationVariables
-> {
-    document = DeleteWorkFocusDocument;
-}
 export const EditWorkFocusDocument = gql`
     mutation editWorkFocus($workFocus: WorkFocusInput) {
         editWorkFocus(workFocus: $workFocus) {
@@ -8300,6 +12141,26 @@ export class EditWorkFocusGQL extends Apollo.Mutation<
     EditWorkFocusMutationVariables
 > {
     document = EditWorkFocusDocument;
+}
+export const DeleteWorkFocusDocument = gql`
+    mutation deleteWorkFocus($workFocus: WorkFocusInput) {
+        deleteWorkFocus(workFocus: $workFocus) {
+            name
+            teachingRatio
+            researchRatio
+            serviceRatio
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class DeleteWorkFocusGQL extends Apollo.Mutation<
+    DeleteWorkFocusMutation,
+    DeleteWorkFocusMutationVariables
+> {
+    document = DeleteWorkFocusDocument;
 }
 export const WorkFocusDocument = gql`
     query workFocus($name: String!) {

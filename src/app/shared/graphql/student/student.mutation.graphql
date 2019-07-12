@@ -1,0 +1,30 @@
+mutation addStudent($student: StudentInput) {
+    addStudent(student: $student) {
+        studentId
+        email
+        firstName
+        lastName
+        title
+        year
+    }
+}
+mutation editStudent($student: StudentInput) {
+    editStudent(student: $student) {
+        studentId
+        email
+        firstName
+        lastName
+        title
+        year
+    }
+}
+mutation deleteStudent($student: StudentInput) {
+    deleteStudent(student: $student) {
+        studentId
+        email
+        firstName
+        lastName
+        title
+        year
+    }
+}

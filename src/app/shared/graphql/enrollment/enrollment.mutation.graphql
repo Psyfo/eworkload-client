@@ -1,20 +1,5 @@
-query enrollment($enrollmentYear: String, $qualificationId: String) {
-    enrollment(
-        enrollmentYear: $enrollmentYear
-        qualificationId: $qualificationId
-    ) {
-        enrollmentYear
-        qualification {
-            qualificationId
-            name
-        }
-        firstYearEstimated
-        secondYearEstimated
-        thirdYearEstimated
-    }
-}
-query enrollments {
-    enrollments {
+mutation addEnrollment($enrollment: EnrollmentInput) {
+    addEnrollment(enrollment: $enrollment) {
         enrollmentYear
         qualificationId
         qualification {
@@ -26,9 +11,8 @@ query enrollments {
         thirdYearEstimated
     }
 }
-
-query enrollmentsByQualification($qualificationId: String) {
-    enrollmentsByQualification(qualificationId: $qualificationId) {
+mutation editEnrollment($enrollment: EnrollmentInput) {
+    editEnrollment(enrollment: $enrollment) {
         enrollmentYear
         qualificationId
         qualification {
@@ -40,8 +24,8 @@ query enrollmentsByQualification($qualificationId: String) {
         thirdYearEstimated
     }
 }
-query enrollmentsByYear($enrollmentYear: String) {
-    enrollmentsByYear(enrollmentYear: $enrollmentYear) {
+mutation deleteEnrollment($enrollment: EnrollmentInput) {
+    deleteEnrollment(enrollment: $enrollment) {
         enrollmentYear
         qualificationId
         qualification {

@@ -1,5 +1,5 @@
-query researchActivity($userId: String!) {
-    researchActivitiesByUser(userId: $userId) {
+query personnelDevelopmentActivity($activityId: String!) {
+    personnelDevelopmentActivity(activityId: $activityId) {
         activityId
         userId
         user {
@@ -17,9 +17,8 @@ query researchActivity($userId: String!) {
         approvalStatus
         createdAt
         updatedAt
-        output
         title
-        details
+        description
         evidenceId
         evidence {
             evidenceId
@@ -28,8 +27,9 @@ query researchActivity($userId: String!) {
         }
     }
 }
-query researchActivities {
-    researchActivities {
+
+query personnelDevelopmentActivities {
+    personnelDevelopmentActivities {
         activityId
         userId
         user {
@@ -47,9 +47,8 @@ query researchActivities {
         approvalStatus
         createdAt
         updatedAt
-        output
         title
-        details
+        description
         evidenceId
         evidence {
             evidenceId
@@ -58,8 +57,9 @@ query researchActivities {
         }
     }
 }
-query researchActivitiesByUser($userId: String!) {
-    researchActivitiesByUser(userId: $userId) {
+
+query personnelDevelopmentActivitiesByUser($userId: String) {
+    personnelDevelopmentActivitiesByUser(userId: $userId) {
         activityId
         userId
         user {
@@ -77,9 +77,8 @@ query researchActivitiesByUser($userId: String!) {
         approvalStatus
         createdAt
         updatedAt
-        output
         title
-        details
+        description
         evidenceId
         evidence {
             evidenceId

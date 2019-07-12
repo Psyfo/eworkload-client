@@ -1,7 +1,0 @@
-mutation deleteDiscipline($discipline: DisciplineInput) {
-    deleteDiscipline(discipline: $discipline) {
-        disciplineId
-        name
-        description
-    }
-}

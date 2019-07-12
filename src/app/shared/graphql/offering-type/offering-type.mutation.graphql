@@ -1,0 +1,18 @@
+mutation addOfferingType($offeringType: OfferingTypeInput) {
+    addOfferingType(offeringType: $offeringType) {
+        offeringTypeId
+        description
+    }
+}
+mutation editOfferingType($offeringType: OfferingTypeInput) {
+    editOfferingType(offeringType: $offeringType) {
+        offeringTypeId
+        description
+    }
+}
+mutation deleteOfferingType($offeringType: OfferingTypeInput) {
+    deleteOfferingType(offeringType: $offeringType) {
+        offeringTypeId
+        description
+    }
+}

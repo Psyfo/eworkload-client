@@ -1,7 +1,0 @@
-mutation editDiscipline($discipline: DisciplineInput) {
-    editDiscipline(discipline: $discipline) {
-        disciplineId
-        name
-        description
-    }
-}

@@ -1,7 +1,0 @@
-mutation editBlock($block: BlockInput) {
-    editBlock(block: $block) {
-        blockId
-        name
-        description
-    }
-}

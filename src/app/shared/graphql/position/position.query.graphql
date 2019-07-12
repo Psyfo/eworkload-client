@@ -5,3 +5,10 @@ query position($positionId: String!) {
         description
     }
 }
+query positions {
+    positions {
+        positionId
+        name
+        description
+    }
+}

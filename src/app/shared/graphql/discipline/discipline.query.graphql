@@ -5,3 +5,10 @@ query discipline($disciplineId: String!) {
         description
     }
 }
+query disciplines {
+    disciplines {
+        disciplineId
+        name
+        description
+    }
+}

@@ -1,8 +1,0 @@
-query workFocuses {
-    workFocuses {
-        name
-        teachingRatio
-        researchRatio
-        serviceRatio
-    }
-}

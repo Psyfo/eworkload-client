@@ -1,7 +1,0 @@
-mutation deleteBlock($block: BlockInput) {
-    deleteBlock(block: $block) {
-        blockId
-        name
-        description
-    }
-}

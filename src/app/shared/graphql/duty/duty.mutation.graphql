@@ -1,0 +1,21 @@
+mutation addDuty($duty: DutyInput) {
+    addDuty(duty: $duty) {
+        dutyId
+        name
+        description
+    }
+}
+mutation editDuty($duty: DutyInput) {
+    editDuty(duty: $duty) {
+        dutyId
+        name
+        description
+    }
+}
+mutation deleteDuty($duty: DutyInput) {
+    deleteDuty(duty: $duty) {
+        dutyId
+        name
+        description
+    }
+}

@@ -1,7 +1,0 @@
-mutation editPosition($position: PositionInput) {
-    editPosition(position: $position) {
-        positionId
-        name
-        description
-    }
-}

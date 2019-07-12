@@ -1,5 +1,9 @@
-query researchActivity($userId: String!) {
-    researchActivitiesByUser(userId: $userId) {
+mutation addPersonnelDevelopmentActivity(
+    $personnelDevelopmentActivity: PersonnelDevelopmentActivityInput
+) {
+    addPersonnelDevelopmentActivity(
+        personnelDevelopmentActivity: $personnelDevelopmentActivity
+    ) {
         activityId
         userId
         user {
@@ -17,9 +21,8 @@ query researchActivity($userId: String!) {
         approvalStatus
         createdAt
         updatedAt
-        output
         title
-        details
+        description
         evidenceId
         evidence {
             evidenceId
@@ -28,8 +31,12 @@ query researchActivity($userId: String!) {
         }
     }
 }
-query researchActivities {
-    researchActivities {
+mutation editPersonnelDevelopmentActivity(
+    $personnelDevelopmentActivity: PersonnelDevelopmentActivityInput
+) {
+    editPersonnelDevelopmentActivity(
+        personnelDevelopmentActivity: $personnelDevelopmentActivity
+    ) {
         activityId
         userId
         user {
@@ -47,9 +54,8 @@ query researchActivities {
         approvalStatus
         createdAt
         updatedAt
-        output
         title
-        details
+        description
         evidenceId
         evidence {
             evidenceId
@@ -58,8 +64,12 @@ query researchActivities {
         }
     }
 }
-query researchActivitiesByUser($userId: String!) {
-    researchActivitiesByUser(userId: $userId) {
+mutation deletePersonnelDevelopmentActivity(
+    $personnelDevelopmentActivity: PersonnelDevelopmentActivityInput
+) {
+    deletePersonnelDevelopmentActivity(
+        personnelDevelopmentActivity: $personnelDevelopmentActivity
+    ) {
         activityId
         userId
         user {
@@ -77,9 +87,8 @@ query researchActivitiesByUser($userId: String!) {
         approvalStatus
         createdAt
         updatedAt
-        output
         title
-        details
+        description
         evidenceId
         evidence {
             evidenceId

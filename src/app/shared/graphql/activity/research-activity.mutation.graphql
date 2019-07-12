@@ -1,0 +1,90 @@
+mutation addResearchActivity($researchActivity: ResearchActivityInput) {
+    addResearchActivity(researchActivity: $researchActivity) {
+        activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+        }
+        dutyId
+        duty {
+            dutyId
+            name
+            description
+        }
+        approvalStatus
+        createdAt
+        updatedAt
+        output
+        title
+        details
+        evidenceId
+        evidence {
+            evidenceId
+            name
+            item
+        }
+    }
+}
+mutation editResearchActivity($researchActivity: ResearchActivityInput) {
+    editResearchActivity(researchActivity: $researchActivity) {
+        activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+        }
+        dutyId
+        duty {
+            dutyId
+            name
+            description
+        }
+        approvalStatus
+        createdAt
+        updatedAt
+        output
+        title
+        details
+        evidenceId
+        evidence {
+            evidenceId
+            name
+            item
+        }
+    }
+}
+mutation deleteResearchActivity($researchActivity: ResearchActivityInput) {
+    deleteResearchActivity(researchActivity: $researchActivity) {
+        activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+        }
+        dutyId
+        duty {
+            dutyId
+            name
+            description
+        }
+        approvalStatus
+        createdAt
+        updatedAt
+        output
+        title
+        details
+        evidenceId
+        evidence {
+            evidenceId
+            name
+            item
+        }
+    }
+}

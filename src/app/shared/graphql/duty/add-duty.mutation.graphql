@@ -1,7 +1,0 @@
-mutation addDuty($duty: DutyInput) {
-    addDuty(duty: $duty) {
-        dutyId
-        name
-        description
-    }
-}

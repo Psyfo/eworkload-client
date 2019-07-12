@@ -5,3 +5,10 @@ query block($blockId: String!) {
         description
     }
 }
+query blocks {
+    blocks {
+        blockId
+        name
+        description
+    }
+}

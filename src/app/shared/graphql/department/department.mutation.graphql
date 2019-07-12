@@ -1,0 +1,33 @@
+mutation addDepartment($department: DepartmentInput) {
+    addDepartment(department: $department) {
+        departmentId
+        name
+        facultyId
+        faculty {
+            facultyId
+            name
+        }
+    }
+}
+mutation editDepartment($department: DepartmentInput) {
+    editDepartment(department: $department) {
+        departmentId
+        name
+        facultyId
+        faculty {
+            facultyId
+            name
+        }
+    }
+}
+mutation deleteDepartment($department: DepartmentInput) {
+    deleteDepartment(department: $department) {
+        departmentId
+        name
+        facultyId
+        faculty {
+            facultyId
+            name
+        }
+    }
+}

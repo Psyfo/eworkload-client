@@ -1,6 +1,0 @@
-mutation deleteFaculty($faculty: FacultyInput) {
-    deleteFaculty(faculty: $faculty) {
-        facultyId
-        name
-    }
-}

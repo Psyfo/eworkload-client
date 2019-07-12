@@ -5,3 +5,10 @@ query duty($dutyId: String!) {
         description
     }
 }
+query duties {
+    duties {
+        dutyId
+        name
+        description
+    }
+}

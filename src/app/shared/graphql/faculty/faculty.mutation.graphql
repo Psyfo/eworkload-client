@@ -1,0 +1,18 @@
+mutation addFaculty($faculty: FacultyInput) {
+    addFaculty(faculty: $faculty) {
+        facultyId
+        name
+    }
+}
+mutation editFaculty($faculty: FacultyInput) {
+    addFaculty(faculty: $faculty) {
+        facultyId
+        name
+    }
+}
+mutation deleteFaculty($faculty: FacultyInput) {
+    deleteFaculty(faculty: $faculty) {
+        facultyId
+        name
+    }
+}

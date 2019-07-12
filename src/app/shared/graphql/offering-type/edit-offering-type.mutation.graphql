@@ -1,6 +1,0 @@
-mutation editOfferingType($offeringType: OfferingTypeInput) {
-    editOfferingType(offeringType: $offeringType) {
-        offeringTypeId
-        description
-    }
-}

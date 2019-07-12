@@ -337,3 +337,107 @@ mutation deleteFormalInstructionActivity(
         updatedAt
     }
 }
+
+mutation addSupervisionActivity(
+    $supervisionActivity: SupervisionActivityInput
+) {
+    addSupervisionActivity(supervisionActivity: $supervisionActivity) {
+        activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+        }
+        dutyId
+        duty {
+            dutyId
+            name
+            description
+        }
+        approvalStatus
+        createdAt
+        updatedAt
+        supervisionRole
+        split
+        studentId
+        student {
+            studentId
+            firstName
+            lastName
+            email
+            title
+            year
+        }
+    }
+}
+mutation editSupervisionActivity(
+    $supervisionActivity: SupervisionActivityInput
+) {
+    addSupervisionActivity(supervisionActivity: $supervisionActivity) {
+        activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+        }
+        dutyId
+        duty {
+            dutyId
+            name
+            description
+        }
+        approvalStatus
+        supervisionRole
+        createdAt
+        updatedAt
+        supervisionRole
+        split
+        studentId
+        student {
+            studentId
+            firstName
+            lastName
+            email
+            title
+            year
+        }
+    }
+}
+mutation deleteSupervisionActivity(
+    $supervisionActivity: SupervisionActivityInput
+) {
+    addSupervisionActivity(supervisionActivity: $supervisionActivity) {
+        activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+        }
+        dutyId
+        duty {
+            dutyId
+            name
+            description
+        }
+        approvalStatus
+        createdAt
+        updatedAt
+        supervisionRole
+        split
+        studentId
+        student {
+            studentId
+            firstName
+            lastName
+            email
+            title
+            year
+        }
+    }
+}
