@@ -29,25 +29,39 @@ export class DutyService {
     ) {}
 
     getDuty(dutyId: string) {
-        return this.dutyGql.watch({ dutyId: dutyId }).valueChanges.pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.dutyGql
+            .watch(
+                { dutyId: dutyId },
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 
     getDuties() {
-        return this.dutiesGql.watch().valueChanges.pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.dutiesGql
+            .watch(
+                {},
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 
     addDuty(duty: DutyInput) {

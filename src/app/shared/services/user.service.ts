@@ -53,21 +53,33 @@ export class UserService {
     }
 
     getUser(userId: string) {
-        return this.userGql.watch({ userId: userId }).valueChanges.pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.userGql
+            .watch(
+                { userId: userId },
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 
     currentUser() {
         const authData = JSON.parse(localStorage.getItem('authData'));
 
         return this.userGql
-            .watch({ userId: authData.userId })
+            .watch(
+                { userId: authData.userId },
+                {
+                    pollInterval: 2000
+                }
+            )
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -79,14 +91,21 @@ export class UserService {
     }
 
     getUsers() {
-        return this.usersGql.watch().valueChanges.pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.usersGql
+            .watch(
+                {},
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 
     addUser(user: UserInput) {

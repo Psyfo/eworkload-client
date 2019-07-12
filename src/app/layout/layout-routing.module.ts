@@ -10,40 +10,52 @@ const routes: Routes = [
             { path: '', redirectTo: 'profile', pathMatch: 'prefix' },
             {
                 path: 'dashboard',
-                loadChildren: './dashboard/dashboard.module#DashboardModule',
-                pathMatch: 'prefix',
+                loadChildren: () =>
+                    import('./dashboard/dashboard.module').then(
+                        m => m.DashboardModule
+                    ),
+                pathMatch: 'prefix'
             },
             {
                 path: 'profile',
-                loadChildren: './profile/profile.module#ProfileModule',
-                pathMatch: 'prefix',
+                loadChildren: () =>
+                    import('./profile/profile.module').then(
+                        m => m.ProfileModule
+                    ),
+                pathMatch: 'prefix'
             },
             {
                 path: 'activity',
-                loadChildren: './activity/activity.module#ActivityModule',
-                pathMatch: 'prefix',
+                loadChildren: () =>
+                    import('./activity/activity.module').then(
+                        m => m.ActivityModule
+                    ),
+                pathMatch: 'prefix'
             },
             {
                 path: 'admin',
-                loadChildren: './admin/admin.module#AdminModule',
-                pathMatch: 'prefix',
+                loadChildren: () =>
+                    import('./admin/admin.module').then(m => m.AdminModule),
+                pathMatch: 'prefix'
             },
             {
                 path: 'hod',
-                loadChildren: './hod/hod.module#HodModule',
-                pathMatch: 'prefix',
+                loadChildren: () =>
+                    import('./hod/hod.module').then(m => m.HodModule),
+                pathMatch: 'prefix'
             },
             {
                 path: 'report',
-                loadChildren: './report/report.module#ReportModule',
-                pathMatch: 'prefix',
-            },
-        ],
-    },
+                loadChildren: () =>
+                    import('./report/report.module').then(m => m.ReportModule),
+                pathMatch: 'prefix'
+            }
+        ]
+    }
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
+    exports: [RouterModule]
 })
 export class LayoutRoutingModule {}

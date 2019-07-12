@@ -39,10 +39,15 @@ export class EnrollmentService {
 
     getEnrollment(enrollmentYear: string, qualificationId: string) {
         return this.enrollmentGql
-            .watch({
-                enrollmentYear: enrollmentYear,
-                qualificationId: qualificationId
-            })
+            .watch(
+                {
+                    enrollmentYear: enrollmentYear,
+                    qualificationId: qualificationId
+                },
+                {
+                    pollInterval: 2000
+                }
+            )
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -53,26 +58,41 @@ export class EnrollmentService {
             );
     }
     getEnrollmentStatic(enrollmentYear: string, qualificationId: string) {
-        return this.enrollmentGql.fetch({
-            enrollmentYear: enrollmentYear,
-            qualificationId: qualificationId
-        });
+        return this.enrollmentGql.fetch(
+            {
+                enrollmentYear: enrollmentYear,
+                qualificationId: qualificationId
+            },
+            {}
+        );
     }
 
     getEnrollments() {
-        return this.enrollmentsGql.watch().valueChanges.pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.enrollmentsGql
+            .watch(
+                {},
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 
     getEnrollmentsByYear(enrollmentYear: string) {
         return this.enrollmentsByYearGql
-            .watch({ enrollmentYear: enrollmentYear })
+            .watch(
+                { enrollmentYear: enrollmentYear },
+                {
+                    pollInterval: 2000
+                }
+            )
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -85,7 +105,12 @@ export class EnrollmentService {
 
     getEnrollmentsByQualification(qualificationId: string) {
         return this.enrollmentsByQualificationGql
-            .watch({ qualificationId: qualificationId })
+            .watch(
+                { qualificationId: qualificationId },
+                {
+                    pollInterval: 2000
+                }
+            )
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;

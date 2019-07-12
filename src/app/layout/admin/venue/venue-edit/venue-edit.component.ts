@@ -12,7 +12,7 @@ import { Venue, VenueInput } from '../../../../shared/models';
     selector: 'app-venue-edit',
     templateUrl: './venue-edit.component.html',
     styleUrls: ['./venue-edit.component.scss'],
-    animations: [routerTransition()],
+    animations: [routerTransition()]
 })
 export class VenueEditComponent implements OnInit {
     venue: VenueInput = new VenueInput();
@@ -48,7 +48,7 @@ export class VenueEditComponent implements OnInit {
             venueId: ['', Validators.required],
             capacity: [0, Validators.required],
             campus: ['', Validators.required],
-            type: ['', [Validators.required]],
+            type: ['', [Validators.required]]
         });
 
         this.getVenue(venueId);
@@ -65,31 +65,32 @@ export class VenueEditComponent implements OnInit {
                     venueId: this.venue.venueId,
                     campus: this.venue.campus,
                     capacity: this.venue.capacity,
-                    type: this.venue.type,
+                    type: this.venue.type
                 });
             });
     }
 
-    onEdit() {
+    async onEdit() {
         this.venue = this.formVal;
-        this.venueService
+        console.log('Venue: ', this.venue);
+
+        await this.venueService
             .editVenue(this.venue)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.alertService.sendMessage('Venue edited', 'success');
-                this.router.navigate(['admin/venue/view', this.venueId.value], {
-                    queryParams: {
-                        venueId: this.venueId.value,
-                    },
-                });
-            });
+            .subscribe(result => {});
+        this.alertService.sendMessage('Venue edited', 'success');
+        this.router.navigate(['admin/venue/view', this.venueId.value], {
+            queryParams: {
+                venueId: this.venueId.value
+            }
+        });
     }
 
     onCancel() {
         this.router.navigate(['admin/venue/view', this.venueId.value], {
             queryParams: {
-                venueId: this.venueId.value,
-            },
+                venueId: this.venueId.value
+            }
         });
     }
 

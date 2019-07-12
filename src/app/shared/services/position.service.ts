@@ -34,7 +34,12 @@ export class PositionService {
 
     getPosition(positionId: string) {
         return this.positionGql
-            .watch({ positionId: positionId })
+            .watch(
+                { positionId: positionId },
+                {
+                    pollInterval: 2000
+                }
+            )
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -46,14 +51,21 @@ export class PositionService {
     }
 
     getPositions() {
-        return this.positionsGql.watch().valueChanges.pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.positionsGql
+            .watch(
+                {},
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 
     addPosition(position: PositionInput) {

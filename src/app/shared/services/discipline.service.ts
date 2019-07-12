@@ -34,19 +34,31 @@ export class DisciplineService {
     ) {}
 
     getDisciplines() {
-        return this.disciplinesGql.watch().valueChanges.pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.disciplinesGql
+            .watch(
+                {},
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 
     getDiscipline(disciplineId: string) {
         return this.disciplineGql
-            .watch({ disciplineId: disciplineId })
+            .watch(
+                { disciplineId: disciplineId },
+                {
+                    pollInterval: 2000
+                }
+            )
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;

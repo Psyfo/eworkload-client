@@ -63,7 +63,10 @@ export class WorkloadService {
 
     baseContact(activityId: string) {
         return this.baseContactGql
-            .watch({ activityId: activityId })
+            .watch({ activityId: activityId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -75,7 +78,10 @@ export class WorkloadService {
     }
     coordination(activityId: string) {
         return this.coordinationGql
-            .watch({ activityId: activityId })
+            .watch({ activityId: activityId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -87,7 +93,10 @@ export class WorkloadService {
     }
     studentSupport(activityId: string) {
         return this.studentSupportGql
-            .watch({ activityId: activityId })
+            .watch({ activityId: activityId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -99,7 +108,10 @@ export class WorkloadService {
     }
     preparationTime(activityId: string) {
         return this.preparationTimeGql
-            .watch({ activityId: activityId })
+            .watch({ activityId: activityId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -111,7 +123,10 @@ export class WorkloadService {
     }
     assessmentSetting(activityId: string) {
         return this.assessmentSettingGql
-            .watch({ activityId: activityId })
+            .watch({ activityId: activityId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -123,7 +138,10 @@ export class WorkloadService {
     }
     examMarking(activityId: string) {
         return this.examMarkingGql
-            .watch({ activityId: activityId })
+            .watch({ activityId: activityId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -135,7 +153,10 @@ export class WorkloadService {
     }
     courseworkMarking(activityId: string) {
         return this.courseworkMarkingGql
-            .watch({ activityId: activityId })
+            .watch({ activityId: activityId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -147,7 +168,10 @@ export class WorkloadService {
     }
     feedback(activityId: string) {
         return this.feedbackGql
-            .watch({ activityId: activityId })
+            .watch({ activityId: activityId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -159,7 +183,10 @@ export class WorkloadService {
     }
     formativeAssessment(activityId: string) {
         return this.formativeAssessmentGql
-            .watch({ activityId: activityId })
+            .watch({ activityId: activityId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -171,7 +198,10 @@ export class WorkloadService {
     }
     moderation(activityId: string) {
         return this.moderationGql
-            .watch({ activityId: activityId })
+            .watch({ activityId: activityId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -183,7 +213,10 @@ export class WorkloadService {
     }
     other(activityId: string) {
         return this.otherGql
-            .watch({ activityId: activityId })
+            .watch({ activityId: activityId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -195,7 +228,10 @@ export class WorkloadService {
     }
     total(activityId: string) {
         return this.totalGql
-            .watch({ activityId: activityId })
+            .watch({ activityId: activityId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -206,7 +242,10 @@ export class WorkloadService {
             );
     }
     sumTotal(userId: string) {
-        return this.sumTotalGql.watch({ userId: userId }).valueChanges.pipe(
+        return this.sumTotalGql.watch({ userId: userId },
+            {
+                pollInterval: 2000
+            }).valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
                 this.errors = result.errors;
@@ -217,7 +256,10 @@ export class WorkloadService {
     }
     teachingFocus(userId: string) {
         return this.teachingFocusGql
-            .watch({ userId: userId })
+            .watch({ userId: userId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -229,7 +271,10 @@ export class WorkloadService {
     }
     percentageOfTotal(activityId: string) {
         return this.percentageOfTotalGql
-            .watch({ activityId: activityId })
+            .watch({ activityId: activityId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -241,7 +286,10 @@ export class WorkloadService {
     }
     percentageOfFocus(activityId: string) {
         return this.percentageOfFocusGql
-            .watch({ activityId: activityId })
+            .watch({ activityId: activityId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -253,7 +301,10 @@ export class WorkloadService {
     }
     sumPercentageOfTotal(userId: string) {
         return this.sumPercentageOfTotalGql
-            .watch({ userId: userId })
+            .watch({ userId: userId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -265,7 +316,10 @@ export class WorkloadService {
     }
     studentsEnrolled(activityId) {
         return this.studentsEnrolledGql
-            .watch({ activityId: activityId })
+            .watch({ activityId: activityId },
+                {
+                    pollInterval: 2000
+                })
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -276,7 +330,10 @@ export class WorkloadService {
             );
     }
     hemis(userId: string) {
-        return this.hemisGql.watch({ userId: userId }).valueChanges.pipe(
+        return this.hemisGql.watch({ userId: userId },
+            {
+                pollInterval: 2000
+            }).valueChanges.pipe(
             map(result => {
                 this.loading = result.loading;
                 this.errors = result.errors;

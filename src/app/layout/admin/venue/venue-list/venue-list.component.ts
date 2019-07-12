@@ -33,7 +33,9 @@ export class VenueListComponent implements OnInit {
         private router: Router,
         private renderer: Renderer,
         private venueService: VenueService
-    ) {}
+    ) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    }
 
     // Lifecycle hooks
     ngOnInit() {

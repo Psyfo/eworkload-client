@@ -1,12 +1,13 @@
-import { CustomRouteReuseStategy } from './../../../shared/helpers/routing-strategy';
-import { FacultyListComponent } from './faculty-list/faculty-list.component';
-import { FacultyDeleteComponent } from './faculty-delete/faculty-delete.component';
+import { NgModule } from '@angular/core';
+import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
+
+import { CustomRouteReuseStrategy } from '../../../shared/helpers/routing-strategy';
 import { FacultyAddComponent } from './faculty-add/faculty-add.component';
+import { FacultyDeleteComponent } from './faculty-delete/faculty-delete.component';
 import { FacultyEditComponent } from './faculty-edit/faculty-edit.component';
+import { FacultyListComponent } from './faculty-list/faculty-list.component';
 import { FacultyViewComponent } from './faculty-view/faculty-view.component';
 import { FacultyComponent } from './faculty.component';
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule, RouteReuseStrategy } from '@angular/router';
 
 const routes: Routes = [
     {
@@ -17,16 +18,16 @@ const routes: Routes = [
             { path: 'add', component: FacultyAddComponent },
             { path: 'view/:id', component: FacultyViewComponent },
             { path: 'edit/:id', component: FacultyEditComponent },
-            { path: 'delete/:id', component: FacultyDeleteComponent },
-        ],
-    },
+            { path: 'delete/:id', component: FacultyDeleteComponent }
+        ]
+    }
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
     providers: [
-        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStategy },
-    ],
+        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }
+    ]
 })
 export class FacultyRoutingModule {}

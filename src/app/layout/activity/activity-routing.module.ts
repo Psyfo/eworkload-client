@@ -10,31 +10,45 @@ const routes: Routes = [
         children: [
             {
                 path: 'community-instruction',
-                loadChildren:
-                    './commInstruction/commInstruction.module#CommInstructionModule'
+                loadChildren: () =>
+                    import('./commInstruction/commInstruction.module').then(
+                        m => m.CommInstructionModule
+                    )
             },
             {
                 path: 'lecturing',
-                loadChildren: './lecturing/lecturing.module#LecturingModule'
+                loadChildren: () =>
+                    import('./lecturing/lecturing.module').then(
+                        m => m.LecturingModule
+                    )
             },
             {
                 path: 'public-service',
-                loadChildren:
-                    './publicService/publicService.module#PublicServiceModule'
+                loadChildren: () =>
+                    import('./publicService/publicService.module').then(
+                        m => m.PublicServiceModule
+                    )
             },
             {
                 path: 'research',
-                loadChildren: './research/research.module#ResearchModule'
+                loadChildren: () =>
+                    import('./research/research.module').then(
+                        m => m.ResearchModule
+                    )
             },
             {
                 path: 'supervision',
-                loadChildren:
-                    './supervision/supervision.module#SupervisionModule'
+                loadChildren: () =>
+                    import('./supervision/supervision.module').then(
+                        m => m.SupervisionModule
+                    )
             },
             {
                 path: 'moderation',
-                loadChildren:
-                    './moderation/moderation.module#ModerationModule'
+                loadChildren: () =>
+                    import('./moderation/moderation.module').then(
+                        m => m.ModerationModule
+                    )
             }
         ]
     }

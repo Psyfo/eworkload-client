@@ -34,7 +34,12 @@ export class StudentService {
 
     getStudent(studentId: string) {
         return this.studentGql
-            .watch({ studentId: studentId })
+            .watch(
+                { studentId: studentId },
+                {
+                    pollInterval: 2000
+                }
+            )
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -46,14 +51,21 @@ export class StudentService {
     }
 
     getStudents() {
-        return this.studentsGql.watch().valueChanges.pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.studentsGql
+            .watch(
+                {},
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 
     addStudent(student: StudentInput) {

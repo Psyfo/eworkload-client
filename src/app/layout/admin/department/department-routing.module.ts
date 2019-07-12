@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 
-import { CustomRouteReuseStategy } from './../../../shared/helpers/routing-strategy';
+import { CustomRouteReuseStrategy } from '../../../shared/helpers/routing-strategy';
 import { DepartmentAddComponent } from './department-add/department-add.component';
 import { DepartmentDeleteComponent } from './department-delete/department-delete.component';
 import { DepartmentEditComponent } from './department-edit/department-edit.component';
@@ -18,16 +18,16 @@ const routes: Routes = [
             { path: 'add', component: DepartmentAddComponent },
             { path: 'view/:id', component: DepartmentViewComponent },
             { path: 'edit/:id', component: DepartmentEditComponent },
-            { path: 'delete/:id', component: DepartmentDeleteComponent },
-        ],
-    },
+            { path: 'delete/:id', component: DepartmentDeleteComponent }
+        ]
+    }
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
     providers: [
-        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStategy },
-    ],
+        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }
+    ]
 })
 export class DepartmentRoutingModule {}

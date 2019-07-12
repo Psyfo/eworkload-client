@@ -33,7 +33,12 @@ export class FacultyService {
 
     getFaculty(facultyId: string) {
         return this.facultyGql
-            .watch({ facultyId: facultyId })
+            .watch(
+                { facultyId: facultyId },
+                {
+                    pollInterval: 2000
+                }
+            )
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -45,14 +50,21 @@ export class FacultyService {
     }
 
     getFaculties() {
-        return this.facultiesGql.watch().valueChanges.pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.facultiesGql
+            .watch(
+                {},
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 
     addFaculty(faculty: FacultyInput) {

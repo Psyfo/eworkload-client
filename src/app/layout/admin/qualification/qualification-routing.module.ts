@@ -1,4 +1,4 @@
-import { CustomRouteReuseStategy } from './../../../shared/helpers/routing-strategy';
+import { CustomRouteReuseStrategy } from './../../../shared/helpers/routing-strategy';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, RouteReuseStrategy } from '@angular/router';
 import { QualificationComponent } from './qualification.component';
@@ -15,16 +15,16 @@ const routes: Routes = [
             { path: '', component: QualificationListComponent },
             { path: 'add', component: QualificationAddComponent },
             { path: 'view/:id', component: QualificationViewComponent },
-            { path: 'edit/:id', component: QualificationEditComponent },
-        ],
-    },
+            { path: 'edit/:id', component: QualificationEditComponent }
+        ]
+    }
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
     providers: [
-        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStategy },
-    ],
+        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }
+    ]
 })
 export class QualificationRoutingModule {}

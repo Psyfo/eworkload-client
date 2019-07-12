@@ -50,19 +50,31 @@ export class ModuleService {
     ) {}
 
     getModules() {
-        return this.modulesGql.watch().valueChanges.pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.modulesGql
+            .watch(
+                {},
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 
     getModulesByDiscipline(disciplineId: string) {
         return this.modulesByDiscipline
-            .watch({ disciplineId: disciplineId })
+            .watch(
+                { disciplineId: disciplineId },
+                {
+                    pollInterval: 2000
+                }
+            )
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -75,7 +87,12 @@ export class ModuleService {
 
     modulesByStack(stackId: string) {
         return this.modulesByStackGql
-            .watch({ stackId: stackId })
+            .watch(
+                { stackId: stackId },
+                {
+                    pollInterval: 2000
+                }
+            )
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -93,12 +110,17 @@ export class ModuleService {
         qualificationId: string
     ) {
         return this.moduleGql
-            .watch({
-                moduleId: moduleId,
-                blockId: blockId,
-                offeringTypeId: offeringTypeId,
-                qualificationId: qualificationId
-            })
+            .watch(
+                {
+                    moduleId: moduleId,
+                    blockId: blockId,
+                    offeringTypeId: offeringTypeId,
+                    qualificationId: qualificationId
+                },
+                {
+                    pollInterval: 2000
+                }
+            )
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -109,15 +131,22 @@ export class ModuleService {
             );
     }
 
-    unassignedModule() {
-        return this.modulesByUnassignedGql.watch({}).valueChanges.pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+    modulesByUnassigned() {
+        return this.modulesByUnassignedGql
+            .watch(
+                {},
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 
     addModule(module: ModuleInput) {

@@ -1,4 +1,4 @@
-import { CustomRouteReuseStategy } from './../../../shared/helpers/routing-strategy';
+import { CustomRouteReuseStrategy } from './../../../shared/helpers/routing-strategy';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, RouteReuseStrategy } from '@angular/router';
 import { ModuleComponent } from './module.component';
@@ -14,29 +14,29 @@ const routes: Routes = [
         children: [
             {
                 path: '',
-                component: ModuleListComponent,
+                component: ModuleListComponent
             },
             {
                 path: 'view/:id',
-                component: ModuleViewComponent,
+                component: ModuleViewComponent
             },
             {
                 path: 'edit/:id',
-                component: ModuleEditComponent,
+                component: ModuleEditComponent
             },
             {
                 path: 'add',
-                component: ModuleAddComponent,
-            },
-        ],
-    },
+                component: ModuleAddComponent
+            }
+        ]
+    }
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
     providers: [
-        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStategy },
-    ],
+        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }
+    ]
 })
 export class ModuleRoutingModule {}

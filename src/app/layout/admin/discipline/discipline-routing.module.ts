@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 
-import { CustomRouteReuseStategy } from './../../../shared/helpers/routing-strategy';
+import { CustomRouteReuseStrategy } from './../../../shared/helpers/routing-strategy';
 import { DisciplineAddComponent } from './discipline-add/discipline-add.component';
 import { DisciplineDeleteComponent } from './discipline-delete/discipline-delete.component';
 import { DisciplineEditComponent } from './discipline-edit/discipline-edit.component';
@@ -18,16 +18,16 @@ const routes: Routes = [
             { path: 'add', component: DisciplineAddComponent },
             { path: 'view/:id', component: DisciplineViewComponent },
             { path: 'edit/:id', component: DisciplineEditComponent },
-            { path: 'delete/:id', component: DisciplineDeleteComponent },
-        ],
-    },
+            { path: 'delete/:id', component: DisciplineDeleteComponent }
+        ]
+    }
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
     providers: [
-        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStategy },
-    ],
+        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }
+    ]
 })
 export class DisciplineRoutingModule {}

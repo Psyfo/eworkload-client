@@ -12,6 +12,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouteReuseStrategy } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -19,6 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { AlertComponent } from './shared/directives';
+import { CustomRouteReuseStrategy } from './shared/helpers/routing-strategy';
 import { AlertService, BufferService } from './shared/services';
 
 // AoT requires an exported function for factories
@@ -59,19 +61,8 @@ export const createTranslateLoader = (http: HttpClient) => {
     providers: [
         AlertService,
         AuthGuard,
-        BufferService
-        // {
-        //     provide: APOLLO_OPTIONS,
-        //     useFactory: (httpLink: HttpLink) => {
-        //         return {
-        //             cache: new InMemoryCache(),
-        //             link: httpLink.create({
-        //                 uri: 'http://localhost:5000/graphql'
-        //             })
-        //         };
-        //     },
-        //     deps: [HttpLink]
-        // }
+        BufferService,
+        [{ provide: RouteReuseStrategy, userClass: CustomRouteReuseStrategy }]
     ],
     bootstrap: [AppComponent]
 })

@@ -23,13 +23,13 @@
                     <tbody *ngIf="departments?.length != 0">
                         <tr *ngFor="let department of departments; let i = index">
                             <td>
-                                {{ department.departmentId }}
+                                {{ department?.departmentId }}
                             </td>
                             <td>
-                                {{ department.name }}
+                                {{ department?.name }}
                             </td>
                             <td>
-                                {{ department.faculty.name }}
+                                {{ department?.faculty?.name }}
                             </td>
                         </tr>
                     </tbody>

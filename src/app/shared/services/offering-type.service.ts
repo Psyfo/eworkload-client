@@ -34,7 +34,12 @@ export class OfferingTypeService {
 
     getOfferingType(offeringTypeId: string) {
         return this.offeringTypeGql
-            .watch({ offeringTypeId: offeringTypeId })
+            .watch(
+                { offeringTypeId: offeringTypeId },
+                {
+                    pollInterval: 2000
+                }
+            )
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -46,14 +51,21 @@ export class OfferingTypeService {
     }
 
     getOfferingTypes() {
-        return this.offeringTypesGql.watch().valueChanges.pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.offeringTypesGql
+            .watch(
+                {},
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 
     addOfferingType(offeringType: OfferingTypeInput) {

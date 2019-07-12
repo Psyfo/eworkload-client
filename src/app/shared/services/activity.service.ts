@@ -58,7 +58,12 @@ export class ActivityService {
 
     getActivity(activityId: string) {
         return this.activityGql
-            .watch({ activityId: activityId })
+            .watch(
+                { activityId: activityId },
+                {
+                    pollInterval: 2000
+                }
+            )
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -70,30 +75,49 @@ export class ActivityService {
     }
 
     getActivitiesByUnapproved() {
-        return this.activitiesByUnapprovedGql.watch({}).valueChanges.pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.activitiesByUnapprovedGql
+            .watch(
+                {},
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 
     getApprovedActivities() {
-        return this.activitiesByUnapprovedGql.watch({}).valueChanges.pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.activitiesByUnapprovedGql
+            .watch(
+                {},
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 
     getFormalInstructionActivity(activityId: string) {
         return this.formalInstructionActivityGql
-            .watch({ activityId: activityId })
+            .watch(
+                { activityId: activityId },
+                {
+                    pollInterval: 2000
+                }
+            )
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -112,19 +136,31 @@ export class ActivityService {
     }
 
     getFormalInstructionActivities() {
-        return this.formalInstructionActivitiesGql.watch().valueChanges.pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.formalInstructionActivitiesGql
+            .watch(
+                {},
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
     }
 
     getFormalInstructionActivitiesByUser(userId: string) {
         return this.formalInstructionActivitiesByUserGql
-            .watch({ userId: userId })
+            .watch(
+                { userId: userId },
+                {
+                    pollInterval: 2000
+                }
+            )
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
+
+import { CustomRouteReuseStrategy } from '../../shared/helpers/routing-strategy';
 import { HodComponent } from './hod.component';
 
 const routes: Routes = [
@@ -9,18 +11,26 @@ const routes: Routes = [
         children: [
             {
                 path: 'approvals',
-                loadChildren: './approvals/approvals.module#ApprovalsModule',
+                loadChildren: () =>
+                    import('./approvals/approvals.module').then(
+                        m => m.ApprovalsModule
+                    ),
                 pathMatch: 'prefix'
             },
             {
                 path: 'lecture-tasks',
-                loadChildren:
-                    './lecture-tasks/lecture-tasks.module#LectureTasksModule',
+                loadChildren: () =>
+                    import('./lecture-tasks/lecture-tasks.module').then(
+                        m => m.LectureTasksModule
+                    ),
                 pathMatch: 'prefix'
             },
             {
                 path: 'enrollment',
-                loadChildren: './enrollment/enrollment.module#EnrollmentModule',
+                loadChildren: () =>
+                    import('./enrollment/enrollment.module').then(
+                        m => m.EnrollmentModule
+                    ),
                 pathMatch: 'prefix'
             }
         ]
@@ -29,6 +39,9 @@ const routes: Routes = [
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers: [
+        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }
+    ]
 })
 export class HodRoutingModule {}

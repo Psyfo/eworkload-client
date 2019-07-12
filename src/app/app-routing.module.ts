@@ -10,29 +10,32 @@ const routes: Routes = [
         children: [
             {
                 path: '',
-                loadChildren: './layout/layout.module#LayoutModule',
+                loadChildren: () =>
+                    import('./layout/layout.module').then(m => m.LayoutModule),
                 canActivate: [AuthGuard]
             },
             { path: 'login', loadChildren: './login/login.module#LoginModule' },
             {
                 path: 'signup',
-                loadChildren: './signup/signup.module#SignupModule'
+                loadChildren: () =>
+                    import('./signup/signup.module').then(m => m.SignupModule)
             },
             {
                 path: 'error',
-                loadChildren:
-                    './server-error/server-error.module#ServerErrorModule'
+                loadChildren: () =>
+                    import('./server-error/server-error.module').then(m => m.ServerErrorModule)
             },
             {
                 path: 'access-denied',
-                loadChildren:
-                    './access-denied/access-denied.module#AccessDeniedModule'
+                loadChildren: () =>
+                    import('./access-denied/access-denied.module').then(m => m.AccessDeniedModule)
             },
             {
                 path: 'not-found',
-                loadChildren: './not-found/not-found.module#NotFoundModule'
-            }
-            // { path: '**', redirectTo: 'not-found' }
+                loadChildren: () =>
+                    import('./not-found/not-found.module').then(m => m.NotFoundModule)
+            },
+             { path: '**', redirectTo: 'not-found' }
         ]
     }
 ];

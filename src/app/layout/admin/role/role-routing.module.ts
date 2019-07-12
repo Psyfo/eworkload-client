@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 
-import { CustomRouteReuseStategy } from './../../../shared/helpers/routing-strategy';
+import { CustomRouteReuseStrategy } from './../../../shared/helpers/routing-strategy';
 import { RoleAddComponent } from './role-add/role-add.component';
 import { RoleDeleteComponent } from './role-delete/role-delete.component';
 import { RoleEditComponent } from './role-edit/role-edit.component';
@@ -18,16 +18,16 @@ const routes: Routes = [
             { path: 'add', component: RoleAddComponent },
             { path: 'view/:id', component: RoleViewComponent },
             { path: 'edit/:id', component: RoleEditComponent },
-            { path: 'delete/:id', component: RoleDeleteComponent },
-        ],
-    },
+            { path: 'delete/:id', component: RoleDeleteComponent }
+        ]
+    }
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
     providers: [
-        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStategy },
-    ],
+        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }
+    ]
 })
 export class RoleRoutingModule {}

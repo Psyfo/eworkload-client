@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 
-import { CustomRouteReuseStategy } from './../../../shared/helpers/routing-strategy';
+import { CustomRouteReuseStrategy } from './../../../shared/helpers/routing-strategy';
 import { VenueAddComponent } from './venue-add/venue-add.component';
 import { VenueDeleteComponent } from './venue-delete/venue-delete.component';
 import { VenueEditComponent } from './venue-edit/venue-edit.component';
@@ -16,18 +16,22 @@ const routes: Routes = [
         children: [
             { path: '', component: VenueListComponent },
             { path: 'add', component: VenueAddComponent },
-            { path: 'view/:id', component: VenueViewComponent },
+            {
+                path: 'view/:id',
+                component: VenueViewComponent,
+                data: { reuse: true }
+            },
             { path: 'edit/:id', component: VenueEditComponent },
-            { path: 'delete/:id', component: VenueDeleteComponent },
-        ],
-    },
+            { path: 'delete/:id', component: VenueDeleteComponent }
+        ]
+    }
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
     providers: [
-        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStategy },
-    ],
+        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }
+    ]
 })
 export class VenueRoutingModule {}
