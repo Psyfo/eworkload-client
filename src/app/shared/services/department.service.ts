@@ -7,18 +7,15 @@ import {
     DeleteDepartmentGQL,
     DepartmentGQL,
     DepartmentsGQL,
-    EditDepartmentGQL
+    EditDepartmentGQL,
+    DepartmentInput
 } from '../generated/output';
-import { Department, DepartmentInput } from '../models';
 import { AlertService } from './alert.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DepartmentService {
-    department: Department;
-    departments: Department[];
-
     loading: boolean;
     errors: any;
     networkStatus: any;

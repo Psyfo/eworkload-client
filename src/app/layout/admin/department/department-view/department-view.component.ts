@@ -1,12 +1,13 @@
-import { Component, OnInit, Renderer } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Department, DepartmentInput } from 'src/app/shared/generated/output';
+
+import { Component, OnInit, Renderer } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { routerTransition } from '../../../../router.animations';
-import { Department, DepartmentInput } from '../../../../shared/models';
 import { AlertService, DepartmentService } from '../../../../shared/services';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-department-view',
@@ -15,8 +16,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
     animations: [routerTransition()]
 })
 export class DepartmentViewComponent implements OnInit {
-    department: Department = new Department();
-    departmentInput: DepartmentInput = new DepartmentInput();
+    department: Department;
+    departmentInput: DepartmentInput;
 
     private unsubscribe = new Subject();
 

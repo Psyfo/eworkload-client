@@ -3,10 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { Venue } from '../../../../shared/models';
 import { AlertService } from '../../../../shared/services';
 import { VenueService } from '../../../../shared/services/venue.service';
 import { routerTransition } from '../../../../router.animations';
+import { Venue } from 'src/app/shared/generated/output';
 
 @Component({
     selector: 'app-venue-view',

@@ -1,11 +1,13 @@
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Discipline } from 'src/app/shared/generated/output';
+
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { routerTransition } from '../../../../router.animations';
 import { AlertService, DisciplineService } from '../../../../shared/services';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Discipline } from '../../../../shared/models';
-import { Subject } from 'rxjs';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-discipline-edit',
@@ -14,7 +16,7 @@ import { takeUntil } from 'rxjs/operators';
     animations: [routerTransition()]
 })
 export class DisciplineEditComponent implements OnInit {
-    discipline: Discipline = new Discipline();
+    discipline: Discipline;
 
     private unsubscribe = new Subject();
 

@@ -9,8 +9,8 @@ import {
     FormControl,
     FormArray
 } from '@angular/forms';
-import { User } from '../../../../shared/models';
-import { UserGQL } from '../../../../shared/generated/output';
+
+import { UserGQL, User } from '../../../../shared/generated/output';
 import { UserService } from '../../../../shared/services/user.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';

@@ -1,14 +1,14 @@
-import { Component, OnInit, Renderer, SimpleChanges } from '@angular/core';
-import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { Component, OnInit, Renderer, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { routerTransition } from '../../../../router.animations';
-import { DepartmentsGQL } from '../../../../shared/generated/output';
-import { Department } from '../../../../shared/models';
-import { AlertService } from './../../../../shared/services/alert.service';
-import { takeUntil } from 'rxjs/operators';
+import { Department } from '../../../../shared/generated/output';
 import { DepartmentService } from '../../../../shared/services';
+import { AlertService } from '../../../../shared/services/alert.service';
 
 @Component({
     selector: 'app-department-list',

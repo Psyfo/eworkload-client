@@ -1,0 +1,13 @@
+query communityInstructionWorkloadPerUser($userId: String) {
+    communityInstructionWorkloadPerUser(userId: $userId) {
+        communityInstructionWorkloadData {
+            communityInstructionTotalHoursPerActivity
+            communityInstructionPercentageOfWorkFocusPerActivity
+            communityInstructionPercentageOfAnnualHoursPerActivity
+        }
+        communityInstructionGlobalTarrif
+        communityInstructionTotalHoursPerUser
+        communityInstructionPercentageOfWorkFocusPerUser
+        communityInstructionPercentageOfAnnualHoursPerUser
+    }
+}

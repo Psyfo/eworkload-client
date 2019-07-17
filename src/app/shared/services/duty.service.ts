@@ -4,18 +4,15 @@ import {
     DutiesGQL,
     AddDutyGQL,
     EditDutyGQL,
-    DeleteDutyGQL
+    DeleteDutyGQL,
+    DutyInput
 } from './../generated/output';
 import { Injectable } from '@angular/core';
-import { Duty, DutyInput } from '../models';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DutyService {
-    duty: Duty;
-    duties: Duty[];
-
     loading: boolean;
     errors: any;
     networkStatus: any;

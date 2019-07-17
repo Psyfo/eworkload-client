@@ -1,0 +1,13 @@
+query researchWorkloadPerUser($userId: String) {
+    researchWorkloadPerUser(userId: $userId) {
+        researchWorkloadData {
+            researchTotalHoursPerActivity
+            researchPercentageOfWorkFocusPerActivity
+            researchPercentageOfAnnualHoursPerActivity
+        }
+        researchGlobalTarrif
+        researchTotalHoursPerUser
+        researchPercentageOfWorkFocusPerUser
+        researchPercentageOfAnnualHoursPerUser
+    }
+}

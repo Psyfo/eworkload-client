@@ -1,0 +1,13 @@
+query publicServiceWorkloadPerUser($userId: String) {
+    publicServiceWorkloadPerUser(userId: $userId) {
+        publicServiceWorkloadData {
+            publicServiceTotalHoursPerActivity
+            publicServicePercentageOfWorkFocusPerActivity
+            publicServicePercentageOfAnnualHoursPerActivity
+        }
+        publicServiceGlobalTarrif
+        publicServiceTotalHoursPerUser
+        publicServicePercentageOfWorkFocusPerUser
+        publicServicePercentageOfAnnualHoursPerUser
+    }
+}

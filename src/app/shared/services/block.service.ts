@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Block, BlockInput } from '../models';
 import { AlertService } from './alert.service';
 import {
     BlockGQL,
     BlocksGQL,
     AddBlockGQL,
     EditBlockGQL,
-    DeleteBlockGQL
+    DeleteBlockGQL,
+    BlockInput
 } from '../generated/output';
 import { map } from 'rxjs/operators';
 
@@ -14,9 +14,6 @@ import { map } from 'rxjs/operators';
     providedIn: 'root'
 })
 export class BlockService {
-    block: Block;
-    blocks: Block[];
-
     loading: boolean;
     errors: any;
     networkStatus: any;

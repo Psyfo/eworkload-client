@@ -1,11 +1,12 @@
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Faculty } from 'src/app/shared/generated/output';
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { routerTransition } from '../../../../router.animations';
-import { Faculty } from '../../../../shared/models';
 import { FacultyService } from '../../../../shared/services';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-faculty-view',
@@ -44,7 +45,6 @@ export class FacultyViewComponent implements OnInit {
             this.faculty = result.data.faculty;
         });
     }
-
     onEdit() {
         this.router.navigate(['admin/faculty/edit', this.facultyId], {
             queryParams: {
@@ -52,11 +52,9 @@ export class FacultyViewComponent implements OnInit {
             }
         });
     }
-
     onDelete() {
         this.router.navigate(['admin/faculty/delete', this.facultyId]);
     }
-
     onCancel() {
         this.router.navigate(['../admin/faculty']);
     }

@@ -1,22 +1,23 @@
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Department, Qualification } from 'src/app/shared/generated/output';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 import { routerTransition } from '../../../../router.animations';
-import { Department, Qualification } from '../../../../shared/models';
 import {
     AlertService,
     DepartmentService,
-    QualificationService,
+    QualificationService
 } from '../../../../shared/services';
 
 @Component({
     selector: 'app-qualification-add',
     templateUrl: './qualification-add.component.html',
     styleUrls: ['./qualification-add.component.scss'],
-    animations: [routerTransition()],
+    animations: [routerTransition()]
 })
 export class QualificationAddComponent implements OnInit {
     qualification: Qualification;
@@ -52,7 +53,7 @@ export class QualificationAddComponent implements OnInit {
             qualificationId: ['', [Validators.required]],
             name: ['', [Validators.required]],
             type: ['', [Validators.required]],
-            departmentId: ['', [Validators.required]],
+            departmentId: ['', [Validators.required]]
         });
     }
     getDepartments() {
@@ -75,12 +76,12 @@ export class QualificationAddComponent implements OnInit {
                 this.router.navigate(
                     [
                         'admin/qualification/view',
-                        this.qualification.qualificationId,
+                        this.qualification.qualificationId
                     ],
                     {
                         queryParams: {
-                            qualificationId: this.qualification.qualificationId,
-                        },
+                            qualificationId: this.qualification.qualificationId
+                        }
                     }
                 );
             });

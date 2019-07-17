@@ -6,9 +6,9 @@ import {
     DisciplinesGQL,
     AddDisciplineGQL,
     EditDisciplineGQL,
-    DeleteDisciplineGQL
+    DeleteDisciplineGQL,
+    DisciplineInput
 } from '../generated/output';
-import { Discipline, DisciplineInput } from '../models';
 import { AlertService } from './alert.service';
 import { ErrorService } from './error.service';
 
@@ -16,9 +16,6 @@ import { ErrorService } from './error.service';
     providedIn: 'root'
 })
 export class DisciplineService {
-    discipline: Discipline;
-    disciplines: Discipline[];
-
     loading: boolean;
     errors: any;
     networkStatus: any;

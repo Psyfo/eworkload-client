@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../../../router.animations';
-import {
-    Enrollment,
-    EnrollmentInput
-} from '../../../../shared/models/enrollment.model';
+
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Qualification } from '../../../../shared/models';
 import { QualificationService } from '../../../../shared/services/qualification.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EnrollmentService } from '../../../../shared/services/enrollment.service';
 import { AlertService } from '../../../../shared/services';
+import {
+    EnrollmentInput,
+    Qualification
+} from 'src/app/shared/generated/output';
 
 @Component({
     selector: 'app-add',
@@ -20,7 +20,7 @@ import { AlertService } from '../../../../shared/services';
     animations: [routerTransition()]
 })
 export class AddComponent implements OnInit {
-    enrollment: EnrollmentInput = new EnrollmentInput();
+    enrollment: EnrollmentInput;
     qualifications: Qualification[];
     currentYear = new Date().getFullYear().toString();
     private unsubscribe = new Subject();
@@ -62,9 +62,7 @@ export class AddComponent implements OnInit {
             .getQualificationsNoEnrollment()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.qualifications = result.data.qualificationsNoEnrollment.map(
-                    qualification => <Qualification>(<unknown>qualification)
-                );
+                this.qualifications = result.data.qualificationsNoEnrollment;
             });
     }
 

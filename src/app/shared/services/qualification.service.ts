@@ -1,25 +1,24 @@
+import { Subject, Subscription } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
+
+import { Injectable } from '@angular/core';
+
 import {
     AddQualificationGQL,
-    EditQualificationGQL,
     DeleteQualificationGQL,
-    QualificationsNoEnrollmentGQL
-} from './../generated/output';
-import { Injectable } from '@angular/core';
-import { Qualification, QualificationInput, Department } from '../models';
-import { ErrorService } from './error.service';
+    EditQualificationGQL,
+    QualificationGQL,
+    QualificationsGQL,
+    QualificationsNoEnrollmentGQL,
+    QualificationInput
+} from '../generated/output';
 import { AlertService } from './alert.service';
-import { QualificationGQL, QualificationsGQL } from '../generated/output';
-import { map, takeUntil } from 'rxjs/operators';
 import { DepartmentService } from './department.service';
-import { Subscription, Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class QualificationService {
-    qualification: Qualification;
-    qualifications: Qualification[];
-
     loading: boolean;
     errors: any;
     networkStatus: any;
@@ -35,16 +34,8 @@ export class QualificationService {
         private addQualificationGql: AddQualificationGQL,
         private editQualificationGql: EditQualificationGQL,
         private deleteQualificationGql: DeleteQualificationGQL,
-        private qualificationsNoEnrollmentGql: QualificationsNoEnrollmentGQL,
-        private departmentService: DepartmentService
+        private qualificationsNoEnrollmentGql: QualificationsNoEnrollmentGQL
     ) {}
-
-    ngOnDestroy(): void {
-        //Called once, before the instance is destroyed.
-        //Add 'implements OnDestroy' to the class.
-        this.unsubscribe.next();
-        this.unsubscribe.complete();
-    }
 
     getQualifications() {
         return this.qualificationsGql
@@ -137,16 +128,5 @@ export class QualificationService {
                     return result;
                 })
             );
-    }
-
-    departmentList() {
-        return this.departmentService
-            .getDepartments()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                return result.data.departments.map(
-                    department => <Department>(<unknown>department)
-                );
-            });
     }
 }

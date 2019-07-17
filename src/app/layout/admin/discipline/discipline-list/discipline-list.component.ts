@@ -1,11 +1,12 @@
-import { Component, OnInit, Renderer } from '@angular/core';
-import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Discipline } from 'src/app/shared/generated/output';
+
+import { Component, OnInit, Renderer, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { routerTransition } from '../../../../router.animations';
-import { Discipline } from '../../../../shared/models';
 import { DisciplineService } from '../../../../shared/services';
 
 @Component({
@@ -21,10 +22,12 @@ export class DisciplineListComponent implements OnInit {
     private unsubscribe = new Subject();
 
     // Datatable config
-    dtOptions: DataTables.Settings = {};
-    dtTrigger: Subject<Discipline> = new Subject();
-    dtElement: DataTableDirective;
-    dtRouteParam: string;
+    @ViewChild(DataTableDirective, { static: false }) table;
+    public dtElement: DataTableDirective;
+    public dtOptions: DataTables.Settings = {};
+    public dtInstance: DataTables.Api;
+    public dtTrigger: Subject<Discipline> = new Subject();
+    public dtRouteParam: string;
 
     constructor(
         private router: Router,
@@ -48,10 +51,10 @@ export class DisciplineListComponent implements OnInit {
                 return row;
             }
         };
-
-        this.getDisciplines();
     }
     ngAfterViewInit(): void {
+        this.getDisciplines();
+
         this.renderer.listenGlobal('document', 'click', event => {
             // console.log(event.target);
 
@@ -79,15 +82,22 @@ export class DisciplineListComponent implements OnInit {
                 this.dtTrigger.next();
             });
     }
+
     onAdd() {
         this.router.navigate(['admin/discipline/add']);
     }
     rowClickHandler(info: any) {
         // get all column values as array
-        this.dtRouteParam = info[0].toLowerCase();
+        this.dtRouteParam = info[0];
 
         this.router.navigate(['admin/discipline/view', this.dtRouteParam], {
             queryParams: { disciplineId: this.dtRouteParam }
+        });
+    }
+    rerender(): void {
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.destroy();
+            this.dtTrigger.next();
         });
     }
 }

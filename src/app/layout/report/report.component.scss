@@ -6,6 +6,8 @@
 }
 
 .heading {
+    grid-column: auto;
+    grid-row: auto;
     margin-top: 2rem;
     height: 3rem;
     grid-column: 1/2;
@@ -192,7 +194,7 @@
     }
 }
 .signature {
-    height: 10rem;
+    height: 40rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: minmax(3rem, max-content);

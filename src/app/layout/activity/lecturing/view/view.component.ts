@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../../../router.animations';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlertService, ActivityService } from '../../../../shared/services';
-import { FormalInstructionActivity } from '../../../../shared/models';
+import {
+    AlertService,
+    ActivityService,
+    FormalInstructionService
+} from '../../../../shared/services';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { FormalInstructionActivity } from 'src/app/shared/generated/output';
 
 @Component({
     selector: 'app-view',
@@ -22,7 +26,7 @@ export class ViewComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private alertService: AlertService,
-        private activityService: ActivityService
+        private formalInstructionService: FormalInstructionService
     ) {}
 
     ngOnInit() {
@@ -35,13 +39,11 @@ export class ViewComponent implements OnInit {
     }
 
     getActivity() {
-        this.activityService
-            .getFormalInstructionActivity(this.activityId)
+        this.formalInstructionService
+            .formalInstructionActivity(this.activityId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.activity = <FormalInstructionActivity>(
-                    (<unknown>result.data.formalInstructionActivity)
-                );
+                this.activity = result.data.formalInstructionActivity;
             });
     }
 

@@ -1,26 +1,27 @@
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Module } from 'src/app/shared/generated/output';
+
 import {
+    ChangeDetectorRef,
     Component,
     OnInit,
-    ChangeDetectorRef,
-    SimpleChanges,
+    SimpleChanges
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
 
 import { routerTransition } from '../../../../router.animations';
-import { Module } from '../../../../shared/models';
 import { ModuleService } from '../../../../shared/services';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-module-view',
     templateUrl: './module-view.component.html',
     styleUrls: ['./module-view.component.scss'],
-    animations: [routerTransition()],
+    animations: [routerTransition()]
 })
 export class ModuleViewComponent implements OnInit {
-    module: any;
+    module: Module;
 
     editModuleForm: FormGroup;
 
@@ -67,8 +68,8 @@ export class ModuleViewComponent implements OnInit {
             queryParams: {
                 moduleId: this.module.moduleId,
                 blockId: this.module.block.blockId,
-                offeringTypeId: this.module.offeringType.offeringTypeId,
-            },
+                offeringTypeId: this.module.offeringType.offeringTypeId
+            }
         });
     }
 

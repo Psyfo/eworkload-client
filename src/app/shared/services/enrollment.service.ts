@@ -10,18 +10,14 @@ import {
     EnrollmentsByQualificationGQL,
     EnrollmentsByYearGQL,
     EnrollmentsGQL,
-    StudentsEnrolledGQL
+    EnrollmentInput
 } from '../generated/output';
-import { Enrollment, EnrollmentInput } from '../models/enrollment.model';
 import { AlertService } from './alert.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class EnrollmentService {
-    enrollment: Enrollment;
-    enrollments: Enrollment[];
-
     loading: boolean;
     errors: any;
     networkStatus: any;

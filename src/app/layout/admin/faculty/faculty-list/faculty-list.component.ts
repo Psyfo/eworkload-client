@@ -9,22 +9,11 @@ import {
     AfterViewInit,
     Renderer
 } from '@angular/core';
-import { FacultiesGQL } from '../../../../shared/generated/output';
-import { Faculty } from '../../../../shared/models/faculty.model';
+import { Faculty } from '../../../../shared/generated/output';
 import { routerTransition } from '../../../../router.animations';
 import { FacultyService } from '../../../../shared/services';
 import { takeUntil } from 'rxjs/operators';
 import gql from 'graphql-tag';
-import { Apollo } from 'apollo-angular';
-
-const facultyList = gql`
-    query faculties {
-        faculties {
-            facultyId
-            name
-        }
-    }
-`;
 
 @Component({
     selector: 'app-faculty-list',
@@ -47,8 +36,7 @@ export class FacultyListComponent implements OnInit {
         private alertService: AlertService,
         private router: Router,
         private renderer: Renderer,
-        private facultyService: FacultyService,
-        private apollo: Apollo
+        private facultyService: FacultyService
     ) {}
 
     ngOnInit() {
@@ -71,7 +59,6 @@ export class FacultyListComponent implements OnInit {
 
         this.getFaculties();
     }
-
     ngAfterViewInit(): void {
         this.renderer.listenGlobal('document', 'click', event => {
             // console.log(event.target);
@@ -82,7 +69,6 @@ export class FacultyListComponent implements OnInit {
             }
         });
     }
-
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
@@ -90,7 +76,6 @@ export class FacultyListComponent implements OnInit {
     }
 
     // Methods
-
     getFaculties(): void {
         this.facultyService
             .getFaculties()
@@ -101,22 +86,10 @@ export class FacultyListComponent implements OnInit {
                 );
                 this.dtTrigger.next();
             });
-
-        // this.apollo
-        //     .watchQuery({
-        //         query: facultyList,
-        //         variables: {}
-        //     })
-        //     .valueChanges.pipe(takeUntil(this.unsubscribe))
-        //     .subscribe(result => {
-        //         this.faculties = result.data as Faculty[];
-        //     });
     }
-
     onAddFaculty() {
         this.router.navigate(['admin/faculty/add']);
     }
-
     rowClickHandler(info: any) {
         // get all column values as array
         this.dtRouteParam = info[0];

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Enrollment } from 'src/app/shared/generated/output';
+
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { routerTransition } from '../../../../router.animations';
 import { EnrollmentService } from '../../../../shared/services';
-import { Enrollment } from '../../../../shared/models/enrollment.model';
 
 @Component({
     selector: 'app-view',
@@ -17,7 +18,7 @@ export class ViewComponent implements OnInit {
     enrollmentYear: string = '';
     qualificationId: string = '';
 
-    enrollment: Enrollment = new Enrollment();
+    enrollment: Enrollment;
 
     private unsubscribe = new Subject();
 

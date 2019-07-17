@@ -6,18 +6,15 @@ import {
     FacultiesGQL,
     EditFacultyGQL,
     AddFacultyGQL,
-    DeleteFacultyGQL
+    DeleteFacultyGQL,
+    FacultyInput
 } from '../generated/output';
-import { Faculty, FacultyInput } from '../models';
 import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
 })
 export class FacultyService {
-    faculty: Faculty;
-    faculties: Faculty[];
-
     loading: boolean;
     errors: any;
     networkStatus: any;

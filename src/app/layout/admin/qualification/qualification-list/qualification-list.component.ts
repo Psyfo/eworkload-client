@@ -1,25 +1,25 @@
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Qualification } from 'src/app/shared/generated/output';
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { routerTransition } from '../../../../router.animations';
-import { Qualification } from '../../../../shared/models';
 import {
     AlertService,
-    QualificationService,
+    QualificationService
 } from '../../../../shared/services';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-qualification-list',
     templateUrl: './qualification-list.component.html',
     styleUrls: ['./qualification-list.component.scss'],
-    animations: [routerTransition()],
+    animations: [routerTransition()]
 })
 export class QualificationListComponent implements OnInit {
-    qualification: Qualification = new Qualification();
+    qualification: Qualification;
     qualifications: Qualification[];
 
     private unsubscribe = new Subject();
@@ -55,7 +55,7 @@ export class QualificationListComponent implements OnInit {
                     self.rowClickHandler(data);
                 });
                 return row;
-            },
+            }
         };
     }
     ngOnDestroy(): void {
@@ -70,9 +70,7 @@ export class QualificationListComponent implements OnInit {
             .getQualifications()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.qualifications = result.data.qualifications.map(
-                    qualification => <Qualification>(<unknown>qualification)
-                );
+                this.qualifications = result.data.qualifications;
                 this.dtTrigger.next();
             });
     }
@@ -84,7 +82,7 @@ export class QualificationListComponent implements OnInit {
         this.dtRouteParam = info[0];
 
         this.router.navigate(['admin/qualification/view', this.dtRouteParam], {
-            queryParams: { qualificationId: info[0] },
+            queryParams: { qualificationId: info[0] }
         });
     }
 }

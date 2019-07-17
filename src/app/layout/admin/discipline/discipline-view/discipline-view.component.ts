@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService, DisciplineService } from '../../../../shared/services';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DisciplineGQL } from '../../../../shared/generated/output';
-import { Discipline } from '../../../../shared/models';
+import { DisciplineGQL, Discipline } from '../../../../shared/generated/output';
 import { routerTransition } from '../../../../router.animations';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';

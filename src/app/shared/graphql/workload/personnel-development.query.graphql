@@ -1,0 +1,13 @@
+query personnelDevelopmentWorkloadPerUser($userId: String) {
+    personnelDevelopmentWorkloadPerUser(userId: $userId) {
+        personnelDevelopmentWorkloadData {
+            personnelDevelopmentTotalHoursPerActivity
+            personnelDevelopmentPercentageOfWorkFocusPerActivity
+            personnelDevelopmentPercentageOfAnnualHoursPerActivity
+        }
+        personnelDevelopmentGlobalTarrif
+        personnelDevelopmentTotalHoursPerUser
+        personnelDevelopmentPercentageOfWorkFocusPerUser
+        personnelDevelopmentPercentageOfAnnualHoursPerUser
+    }
+}

@@ -37,6 +37,30 @@ export type AcademicAdministrationActivityInput = {
     evidenceId?: Maybe<Scalars["String"]>;
 };
 
+export type AcademicAdministrationWorkloadPerActivity = {
+    __typename?: "AcademicAdministrationWorkloadPerActivity";
+    academicAdministrationTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    academicAdministrationPercentageOfWorkFocusPerActivity?: Maybe<
+        Scalars["Int"]
+    >;
+    academicAdministrationPercentageOfAnnualHoursPerActivity?: Maybe<
+        Scalars["Int"]
+    >;
+};
+
+export type AcademicAdministrationWorkloadPerUser = {
+    __typename?: "AcademicAdministrationWorkloadPerUser";
+    academicAdministrationWorkloadData?: Maybe<
+        Array<Maybe<AcademicAdministrationWorkloadPerActivity>>
+    >;
+    academicAdministrationGlobalTarrif?: Maybe<Scalars["Int"]>;
+    academicAdministrationTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    academicAdministrationPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    academicAdministrationPercentageOfAnnualHoursPerUser?: Maybe<
+        Scalars["Int"]
+    >;
+};
+
 export type Activity = {
     activityId: Scalars["String"];
     userId: Scalars["String"];
@@ -95,6 +119,28 @@ export type CommunityInstructionActivityInput = {
     title?: Maybe<Scalars["String"]>;
     description?: Maybe<Scalars["String"]>;
     evidenceId?: Maybe<Scalars["String"]>;
+};
+
+export type CommunityInstructionWorkloadPerActivity = {
+    __typename?: "CommunityInstructionWorkloadPerActivity";
+    communityInstructionTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    communityInstructionPercentageOfWorkFocusPerActivity?: Maybe<
+        Scalars["Int"]
+    >;
+    communityInstructionPercentageOfAnnualHoursPerActivity?: Maybe<
+        Scalars["Int"]
+    >;
+};
+
+export type CommunityInstructionWorkloadPerUser = {
+    __typename?: "CommunityInstructionWorkloadPerUser";
+    communityInstructionWorkloadData?: Maybe<
+        Array<Maybe<CommunityInstructionWorkloadPerActivity>>
+    >;
+    communityInstructionGlobalTarrif?: Maybe<Scalars["Int"]>;
+    communityInstructionTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    communityInstructionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    communityInstructionPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
 };
 
 export type Department = {
@@ -192,6 +238,26 @@ export type ExecutiveManagementActivityInput = {
     evidenceId?: Maybe<Scalars["String"]>;
 };
 
+export type ExecutiveManagementWorkloadPerActivity = {
+    __typename?: "ExecutiveManagementWorkloadPerActivity";
+    executiveManagementTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    executiveManagementPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
+    executiveManagementPercentageOfAnnualHoursPerActivity?: Maybe<
+        Scalars["Int"]
+    >;
+};
+
+export type ExecutiveManagementWorkloadPerUser = {
+    __typename?: "ExecutiveManagementWorkloadPerUser";
+    executiveManagementWorkloadData?: Maybe<
+        Array<Maybe<ExecutiveManagementWorkloadPerActivity>>
+    >;
+    executiveManagementGlobalTarrif?: Maybe<Scalars["Int"]>;
+    executiveManagementTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    executiveManagementPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    executiveManagementPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+};
+
 export type ExistData = {
     __typename?: "ExistData";
     exists?: Maybe<Scalars["Boolean"]>;
@@ -237,34 +303,34 @@ export type FormalInstructionActivityInput = {
     qualificationId?: Maybe<Scalars["String"]>;
 };
 
-export type FormalInstructionWorkload = {
-    __typename?: "FormalInstructionWorkload";
-    baseContact?: Maybe<Scalars["Int"]>;
-    coordination?: Maybe<Scalars["Int"]>;
-    studentSupport?: Maybe<Scalars["Int"]>;
-    preparationTime?: Maybe<Scalars["Int"]>;
-    assessmentSetting?: Maybe<Scalars["Int"]>;
-    examMarking?: Maybe<Scalars["Int"]>;
-    courseworkMarking?: Maybe<Scalars["Int"]>;
-    feedback?: Maybe<Scalars["Int"]>;
-    formativeAssessment?: Maybe<Scalars["Int"]>;
-    moderation?: Maybe<Scalars["Int"]>;
-    other?: Maybe<Scalars["Int"]>;
-    total?: Maybe<Scalars["Int"]>;
-    percentageOfFormalInstruction?: Maybe<Scalars["Int"]>;
-    percentageOfTotal?: Maybe<Scalars["Int"]>;
-    sumFormalInstruction?: Maybe<Scalars["Int"]>;
+export type FormalInstructionWorkloadPerActivity = {
+    __typename?: "FormalInstructionWorkloadPerActivity";
+    formalInstructionActivity?: Maybe<FormalInstructionActivity>;
+    formalInstructionStudentsEnrolled?: Maybe<Scalars["Int"]>;
+    formalInstructionBaseContactHours?: Maybe<Scalars["Int"]>;
+    formalInstructionCoordinationHours?: Maybe<Scalars["Int"]>;
+    formalInstructionStudentSupportHours?: Maybe<Scalars["Int"]>;
+    formalInstructionPreparationTimeHours?: Maybe<Scalars["Int"]>;
+    formalInstructionAssessmentSettingHours?: Maybe<Scalars["Int"]>;
+    formalInstructionExamMarkingHours?: Maybe<Scalars["Int"]>;
+    formalInstructionCourseworkMarkingHours?: Maybe<Scalars["Int"]>;
+    formalInstructionFeedbackHours?: Maybe<Scalars["Int"]>;
+    formalInstructionFormativeAssessmentHours?: Maybe<Scalars["Int"]>;
+    formalInstructionModerationHours?: Maybe<Scalars["Int"]>;
+    formalInstructionOtherHoursPerActivity?: Maybe<Scalars["Int"]>;
+    formalInstructionTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    formalInstructionPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
+    formalInstructionPercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Int"]>;
 };
 
-export type HemisData = {
-    __typename?: "HemisData";
-    activity?: Maybe<FormalInstructionActivity>;
-    baseContact?: Maybe<Scalars["Int"]>;
-    other?: Maybe<Scalars["Int"]>;
-    total?: Maybe<Scalars["Int"]>;
-    sumTotal?: Maybe<Scalars["Int"]>;
-    percentageOfTotal?: Maybe<Scalars["Int"]>;
-    studentsEnrolled?: Maybe<Scalars["Int"]>;
+export type FormalInstructionWorkloadPerUser = {
+    __typename?: "FormalInstructionWorkloadPerUser";
+    formalInstructionWorkloadData?: Maybe<
+        Array<Maybe<FormalInstructionWorkloadPerActivity>>
+    >;
+    formalInstructionTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    formalInstructionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    formalInstructionPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
 };
 
 export type Module = {
@@ -740,6 +806,28 @@ export type PersonnelDevelopmentActivityInput = {
     evidenceId?: Maybe<Scalars["String"]>;
 };
 
+export type PersonnelDevelopmentWorkloadPerActivity = {
+    __typename?: "PersonnelDevelopmentWorkloadPerActivity";
+    personnelDevelopmentTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    personnelDevelopmentPercentageOfWorkFocusPerActivity?: Maybe<
+        Scalars["Int"]
+    >;
+    personnelDevelopmentPercentageOfAnnualHoursPerActivity?: Maybe<
+        Scalars["Int"]
+    >;
+};
+
+export type PersonnelDevelopmentWorkloadPerUser = {
+    __typename?: "PersonnelDevelopmentWorkloadPerUser";
+    personnelDevelopmentWorkloadData?: Maybe<
+        Array<Maybe<PersonnelDevelopmentWorkloadPerActivity>>
+    >;
+    personnelDevelopmentGlobalTarrif?: Maybe<Scalars["Int"]>;
+    personnelDevelopmentTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    personnelDevelopmentPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    personnelDevelopmentPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+};
+
 export type Position = {
     __typename?: "Position";
     positionId: Scalars["String"];
@@ -775,6 +863,24 @@ export type PublicServiceActivityInput = {
     title?: Maybe<Scalars["String"]>;
     description?: Maybe<Scalars["String"]>;
     evidenceId?: Maybe<Scalars["String"]>;
+};
+
+export type PublicServiceWorkloadPerActivity = {
+    __typename?: "PublicServiceWorkloadPerActivity";
+    publicServiceTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    publicServicePercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
+    publicServicePercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Int"]>;
+};
+
+export type PublicServiceWorkloadPerUser = {
+    __typename?: "PublicServiceWorkloadPerUser";
+    publicServiceWorkloadData?: Maybe<
+        Array<Maybe<PublicServiceWorkloadPerActivity>>
+    >;
+    publicServiceGlobalTarrif?: Maybe<Scalars["Int"]>;
+    publicServiceTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    publicServicePercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    publicServicePercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
 };
 
 export type Qualification = {
@@ -844,25 +950,22 @@ export type Query = {
     venues?: Maybe<Array<Maybe<Venue>>>;
     workFocus?: Maybe<WorkFocus>;
     workFocuses?: Maybe<Array<Maybe<WorkFocus>>>;
-    baseContact?: Maybe<Scalars["Int"]>;
-    coordination?: Maybe<Scalars["Int"]>;
-    studentSupport?: Maybe<Scalars["Int"]>;
-    preparationTime?: Maybe<Scalars["Int"]>;
-    assessmentSetting?: Maybe<Scalars["Int"]>;
-    examMarking?: Maybe<Scalars["Int"]>;
-    courseworkMarking?: Maybe<Scalars["Int"]>;
-    feedback?: Maybe<Scalars["Int"]>;
-    formativeAssessment?: Maybe<Scalars["Int"]>;
-    moderation?: Maybe<Scalars["Int"]>;
-    other?: Maybe<Scalars["Int"]>;
-    total?: Maybe<Scalars["Int"]>;
-    sumTotal?: Maybe<Scalars["Int"]>;
-    teachingFocus?: Maybe<Scalars["Int"]>;
-    percentageOfTotal?: Maybe<Scalars["Int"]>;
-    percentageOfFocus?: Maybe<Scalars["Int"]>;
-    sumPercentageOfTotal?: Maybe<Scalars["Int"]>;
-    studentsEnrolled?: Maybe<Scalars["Int"]>;
-    hemis?: Maybe<Array<Maybe<HemisData>>>;
+    academicAdministrationWorkloadPerUser?: Maybe<
+        AcademicAdministrationWorkloadPerUser
+    >;
+    communityInstructionWorkloadPerUser?: Maybe<
+        CommunityInstructionWorkloadPerUser
+    >;
+    executiveManagementWorkloadPerUser?: Maybe<
+        ExecutiveManagementWorkloadPerUser
+    >;
+    formalInstructionWorkloadPerUser?: Maybe<FormalInstructionWorkloadPerUser>;
+    personnelDevelopmentWorkloadPerUser?: Maybe<
+        PersonnelDevelopmentWorkloadPerUser
+    >;
+    publicServiceWorkloadPerUser?: Maybe<PublicServiceWorkloadPerUser>;
+    researchWorkloadPerUser?: Maybe<ResearchWorkloadPerUser>;
+    supervisionWorkloadPerUser?: Maybe<SupervisionWorkloadPerUser>;
     academicAdministrationActivity?: Maybe<AcademicAdministrationActivity>;
     academicAdministrationActivities?: Maybe<
         Array<Maybe<AcademicAdministrationActivity>>
@@ -1026,79 +1129,35 @@ export type QueryWorkFocusArgs = {
     name: Scalars["String"];
 };
 
-export type QueryBaseContactArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type QueryCoordinationArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type QueryStudentSupportArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type QueryPreparationTimeArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type QueryAssessmentSettingArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type QueryExamMarkingArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type QueryCourseworkMarkingArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type QueryFeedbackArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type QueryFormativeAssessmentArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type QueryModerationArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type QueryOtherArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type QueryTotalArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type QuerySumTotalArgs = {
+export type QueryAcademicAdministrationWorkloadPerUserArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
 
-export type QueryTeachingFocusArgs = {
+export type QueryCommunityInstructionWorkloadPerUserArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
 
-export type QueryPercentageOfTotalArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type QueryPercentageOfFocusArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type QuerySumPercentageOfTotalArgs = {
+export type QueryExecutiveManagementWorkloadPerUserArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
 
-export type QueryStudentsEnrolledArgs = {
-    activityId?: Maybe<Scalars["String"]>;
+export type QueryFormalInstructionWorkloadPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
 };
 
-export type QueryHemisArgs = {
+export type QueryPersonnelDevelopmentWorkloadPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPublicServiceWorkloadPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryResearchWorkloadPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QuerySupervisionWorkloadPerUserArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
 
@@ -1192,12 +1251,29 @@ export type ResearchActivityInput = {
     evidenceId?: Maybe<Scalars["String"]>;
 };
 
+export type ResearchWorkloadPerActivity = {
+    __typename?: "ResearchWorkloadPerActivity";
+    researchTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    researchPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
+    researchPercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Int"]>;
+};
+
+export type ResearchWorkloadPerUser = {
+    __typename?: "ResearchWorkloadPerUser";
+    researchWorkloadData?: Maybe<Array<Maybe<ResearchWorkloadPerActivity>>>;
+    researchGlobalTarrif?: Maybe<Scalars["Int"]>;
+    researchTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    researchPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    researchPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+};
+
 export type Student = {
     __typename?: "Student";
     studentId: Scalars["String"];
-    email: Scalars["String"];
     firstName: Scalars["String"];
     lastName: Scalars["String"];
+    email: Scalars["String"];
+    type: Scalars["String"];
     title: Scalars["String"];
     year: Scalars["String"];
     graduationDate?: Maybe<Scalars["String"]>;
@@ -1205,9 +1281,10 @@ export type Student = {
 
 export type StudentInput = {
     studentId: Scalars["String"];
-    email: Scalars["String"];
     firstName: Scalars["String"];
     lastName: Scalars["String"];
+    email: Scalars["String"];
+    type: Scalars["String"];
     title: Scalars["String"];
     year: Scalars["String"];
 };
@@ -1236,10 +1313,27 @@ export type SupervisionActivityInput = {
     studentId?: Maybe<Scalars["String"]>;
 };
 
+export type SupervisionWorkloadPerActivity = {
+    __typename?: "SupervisionWorkloadPerActivity";
+    supervisionTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    supervisionPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
+    supervisionPercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Int"]>;
+};
+
+export type SupervisionWorkloadPerUser = {
+    __typename?: "SupervisionWorkloadPerUser";
+    supervisionWorkloadData?: Maybe<
+        Array<Maybe<SupervisionWorkloadPerActivity>>
+    >;
+    supervisionGlobalTarrif?: Maybe<Scalars["Int"]>;
+    supervisionTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    supervisionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    supervisionPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+};
+
 export type User = {
     __typename?: "User";
     userId: Scalars["String"];
-    password?: Maybe<Scalars["String"]>;
     email?: Maybe<Scalars["String"]>;
     firstName?: Maybe<Scalars["String"]>;
     lastName?: Maybe<Scalars["String"]>;
@@ -4453,47 +4547,43 @@ export type DeleteResearchActivityMutation = { __typename?: "Mutation" } & {
 };
 
 export type ResearchActivityQueryVariables = {
-    userId: Scalars["String"];
+    activityId: Scalars["String"];
 };
 
 export type ResearchActivityQuery = { __typename?: "Query" } & {
-    researchActivitiesByUser: Maybe<
-        Array<
-            Maybe<
-                { __typename?: "ResearchActivity" } & Pick<
-                    ResearchActivity,
-                    | "activityId"
-                    | "userId"
-                    | "dutyId"
-                    | "approvalStatus"
-                    | "createdAt"
-                    | "updatedAt"
-                    | "output"
-                    | "title"
-                    | "details"
-                    | "evidenceId"
-                > & {
-                        user: Maybe<
-                            { __typename?: "User" } & Pick<
-                                User,
-                                "userId" | "email" | "firstName" | "lastName"
-                            >
-                        >;
-                        duty: Maybe<
-                            { __typename?: "Duty" } & Pick<
-                                Duty,
-                                "dutyId" | "name" | "description"
-                            >
-                        >;
-                        evidence: Maybe<
-                            { __typename?: "Evidence" } & Pick<
-                                Evidence,
-                                "evidenceId" | "name" | "item"
-                            >
-                        >;
-                    }
-            >
-        >
+    researchActivity: Maybe<
+        { __typename?: "ResearchActivity" } & Pick<
+            ResearchActivity,
+            | "activityId"
+            | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
+            | "output"
+            | "title"
+            | "details"
+            | "evidenceId"
+        > & {
+                user: Maybe<
+                    { __typename?: "User" } & Pick<
+                        User,
+                        "userId" | "email" | "firstName" | "lastName"
+                    >
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
+                >;
+                evidence: Maybe<
+                    { __typename?: "Evidence" } & Pick<
+                        Evidence,
+                        "evidenceId" | "name" | "item"
+                    >
+                >;
+            }
     >;
 };
 
@@ -6348,7 +6438,13 @@ export type AddStudentMutation = { __typename?: "Mutation" } & {
     addStudent: Maybe<
         { __typename?: "Student" } & Pick<
             Student,
-            "studentId" | "email" | "firstName" | "lastName" | "title" | "year"
+            | "studentId"
+            | "email"
+            | "firstName"
+            | "lastName"
+            | "type"
+            | "title"
+            | "year"
         >
     >;
 };
@@ -6361,7 +6457,13 @@ export type EditStudentMutation = { __typename?: "Mutation" } & {
     editStudent: Maybe<
         { __typename?: "Student" } & Pick<
             Student,
-            "studentId" | "email" | "firstName" | "lastName" | "title" | "year"
+            | "studentId"
+            | "email"
+            | "firstName"
+            | "lastName"
+            | "type"
+            | "title"
+            | "year"
         >
     >;
 };
@@ -6374,7 +6476,13 @@ export type DeleteStudentMutation = { __typename?: "Mutation" } & {
     deleteStudent: Maybe<
         { __typename?: "Student" } & Pick<
             Student,
-            "studentId" | "email" | "firstName" | "lastName" | "title" | "year"
+            | "studentId"
+            | "email"
+            | "firstName"
+            | "lastName"
+            | "type"
+            | "title"
+            | "year"
         >
     >;
 };
@@ -6387,7 +6495,13 @@ export type StudentQuery = { __typename?: "Query" } & {
     student: Maybe<
         { __typename?: "Student" } & Pick<
             Student,
-            "studentId" | "email" | "firstName" | "lastName" | "title" | "year"
+            | "studentId"
+            | "email"
+            | "firstName"
+            | "lastName"
+            | "type"
+            | "title"
+            | "year"
         >
     >;
 };
@@ -6404,6 +6518,7 @@ export type StudentsQuery = { __typename?: "Query" } & {
                     | "email"
                     | "firstName"
                     | "lastName"
+                    | "type"
                     | "title"
                     | "year"
                 >
@@ -6421,7 +6536,6 @@ export type AddUserMutation = { __typename?: "Mutation" } & {
         { __typename?: "User" } & Pick<
             User,
             | "userId"
-            | "password"
             | "email"
             | "firstName"
             | "lastName"
@@ -6444,7 +6558,6 @@ export type EditUserMutation = { __typename?: "Mutation" } & {
         { __typename?: "User" } & Pick<
             User,
             | "userId"
-            | "password"
             | "email"
             | "firstName"
             | "lastName"
@@ -6467,7 +6580,6 @@ export type DeleteUserMutation = { __typename?: "Mutation" } & {
         { __typename?: "User" } & Pick<
             User,
             | "userId"
-            | "password"
             | "email"
             | "firstName"
             | "lastName"
@@ -6500,7 +6612,6 @@ export type UserQuery = { __typename?: "Query" } & {
         { __typename?: "User" } & Pick<
             User,
             | "userId"
-            | "password"
             | "email"
             | "firstName"
             | "lastName"
@@ -6543,7 +6654,6 @@ export type UsersQuery = { __typename?: "Query" } & {
                 { __typename?: "User" } & Pick<
                     User,
                     | "userId"
-                    | "password"
                     | "email"
                     | "firstName"
                     | "lastName"
@@ -6715,187 +6825,260 @@ export type WorkFocusesQuery = { __typename?: "Query" } & {
     >;
 };
 
-export type BaseContactQueryVariables = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type BaseContactQuery = { __typename?: "Query" } & Pick<
-    Query,
-    "baseContact"
->;
-
-export type CoordinationQueryVariables = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type CoordinationQuery = { __typename?: "Query" } & Pick<
-    Query,
-    "coordination"
->;
-
-export type StudentSupportQueryVariables = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type StudentSupportQuery = { __typename?: "Query" } & Pick<
-    Query,
-    "studentSupport"
->;
-
-export type PreparationTimeQueryVariables = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type PreparationTimeQuery = { __typename?: "Query" } & Pick<
-    Query,
-    "preparationTime"
->;
-
-export type AssessmentSettingQueryVariables = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type AssessmentSettingQuery = { __typename?: "Query" } & Pick<
-    Query,
-    "assessmentSetting"
->;
-
-export type ExamMarkingQueryVariables = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type ExamMarkingQuery = { __typename?: "Query" } & Pick<
-    Query,
-    "examMarking"
->;
-
-export type CourseworkMarkingQueryVariables = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type CourseworkMarkingQuery = { __typename?: "Query" } & Pick<
-    Query,
-    "courseworkMarking"
->;
-
-export type FeedbackQueryVariables = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type FeedbackQuery = { __typename?: "Query" } & Pick<Query, "feedback">;
-
-export type FormativeAssessmentQueryVariables = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type FormativeAssessmentQuery = { __typename?: "Query" } & Pick<
-    Query,
-    "formativeAssessment"
->;
-
-export type ModerationQueryVariables = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type ModerationQuery = { __typename?: "Query" } & Pick<
-    Query,
-    "moderation"
->;
-
-export type OtherQueryVariables = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type OtherQuery = { __typename?: "Query" } & Pick<Query, "other">;
-
-export type TotalQueryVariables = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type TotalQuery = { __typename?: "Query" } & Pick<Query, "total">;
-
-export type SumTotalQueryVariables = {
+export type AcademicAdministrationWorkloadPerUserQueryVariables = {
     userId?: Maybe<Scalars["String"]>;
 };
 
-export type SumTotalQuery = { __typename?: "Query" } & Pick<Query, "sumTotal">;
+export type AcademicAdministrationWorkloadPerUserQuery = {
+    __typename?: "Query";
+} & {
+    academicAdministrationWorkloadPerUser: Maybe<
+        { __typename?: "AcademicAdministrationWorkloadPerUser" } & Pick<
+            AcademicAdministrationWorkloadPerUser,
+            | "academicAdministrationGlobalTarrif"
+            | "academicAdministrationTotalHoursPerUser"
+            | "academicAdministrationPercentageOfWorkFocusPerUser"
+            | "academicAdministrationPercentageOfAnnualHoursPerUser"
+        > & {
+                academicAdministrationWorkloadData: Maybe<
+                    Array<
+                        Maybe<
+                            {
+                                __typename?: "AcademicAdministrationWorkloadPerActivity";
+                            } & Pick<
+                                AcademicAdministrationWorkloadPerActivity,
+                                | "academicAdministrationTotalHoursPerActivity"
+                                | "academicAdministrationPercentageOfWorkFocusPerActivity"
+                                | "academicAdministrationPercentageOfAnnualHoursPerActivity"
+                            >
+                        >
+                    >
+                >;
+            }
+    >;
+};
 
-export type TeachingFocusQueryVariables = {
+export type CommunityInstructionWorkloadPerUserQueryVariables = {
     userId?: Maybe<Scalars["String"]>;
 };
 
-export type TeachingFocusQuery = { __typename?: "Query" } & Pick<
-    Query,
-    "teachingFocus"
->;
-
-export type PercentageOfTotalQueryVariables = {
-    activityId?: Maybe<Scalars["String"]>;
+export type CommunityInstructionWorkloadPerUserQuery = {
+    __typename?: "Query";
+} & {
+    communityInstructionWorkloadPerUser: Maybe<
+        { __typename?: "CommunityInstructionWorkloadPerUser" } & Pick<
+            CommunityInstructionWorkloadPerUser,
+            | "communityInstructionGlobalTarrif"
+            | "communityInstructionTotalHoursPerUser"
+            | "communityInstructionPercentageOfWorkFocusPerUser"
+            | "communityInstructionPercentageOfAnnualHoursPerUser"
+        > & {
+                communityInstructionWorkloadData: Maybe<
+                    Array<
+                        Maybe<
+                            {
+                                __typename?: "CommunityInstructionWorkloadPerActivity";
+                            } & Pick<
+                                CommunityInstructionWorkloadPerActivity,
+                                | "communityInstructionTotalHoursPerActivity"
+                                | "communityInstructionPercentageOfWorkFocusPerActivity"
+                                | "communityInstructionPercentageOfAnnualHoursPerActivity"
+                            >
+                        >
+                    >
+                >;
+            }
+    >;
 };
 
-export type PercentageOfTotalQuery = { __typename?: "Query" } & Pick<
-    Query,
-    "percentageOfTotal"
->;
-
-export type PercentageOfFocusQueryVariables = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
-export type PercentageOfFocusQuery = { __typename?: "Query" } & Pick<
-    Query,
-    "percentageOfFocus"
->;
-
-export type SumPercentageOfTotalQueryVariables = {
+export type ExecutiveManagementWorkloadPerUserQueryVariables = {
     userId?: Maybe<Scalars["String"]>;
 };
 
-export type SumPercentageOfTotalQuery = { __typename?: "Query" } & Pick<
-    Query,
-    "sumPercentageOfTotal"
->;
-
-export type StudentsEnrolledQueryVariables = {
-    activityId?: Maybe<Scalars["String"]>;
+export type ExecutiveManagementWorkloadPerUserQuery = {
+    __typename?: "Query";
+} & {
+    executiveManagementWorkloadPerUser: Maybe<
+        { __typename?: "ExecutiveManagementWorkloadPerUser" } & Pick<
+            ExecutiveManagementWorkloadPerUser,
+            | "executiveManagementGlobalTarrif"
+            | "executiveManagementTotalHoursPerUser"
+            | "executiveManagementPercentageOfWorkFocusPerUser"
+            | "executiveManagementPercentageOfAnnualHoursPerUser"
+        > & {
+                executiveManagementWorkloadData: Maybe<
+                    Array<
+                        Maybe<
+                            {
+                                __typename?: "ExecutiveManagementWorkloadPerActivity";
+                            } & Pick<
+                                ExecutiveManagementWorkloadPerActivity,
+                                | "executiveManagementTotalHoursPerActivity"
+                                | "executiveManagementPercentageOfWorkFocusPerActivity"
+                                | "executiveManagementPercentageOfAnnualHoursPerActivity"
+                            >
+                        >
+                    >
+                >;
+            }
+    >;
 };
 
-export type StudentsEnrolledQuery = { __typename?: "Query" } & Pick<
-    Query,
-    "studentsEnrolled"
->;
-
-export type HemisQueryVariables = {
+export type FormalInstructionWorkloadPerUserQueryVariables = {
     userId?: Maybe<Scalars["String"]>;
 };
 
-export type HemisQuery = { __typename?: "Query" } & {
-    hemis: Maybe<
-        Array<
-            Maybe<
-                { __typename?: "HemisData" } & Pick<
-                    HemisData,
-                    | "baseContact"
-                    | "other"
-                    | "total"
-                    | "sumTotal"
-                    | "percentageOfTotal"
-                    | "studentsEnrolled"
-                > & {
-                        activity: Maybe<
-                            { __typename?: "FormalInstructionActivity" } & Pick<
-                                FormalInstructionActivity,
-                                "activityId"
+export type FormalInstructionWorkloadPerUserQuery = { __typename?: "Query" } & {
+    formalInstructionWorkloadPerUser: Maybe<
+        { __typename?: "FormalInstructionWorkloadPerUser" } & Pick<
+            FormalInstructionWorkloadPerUser,
+            | "formalInstructionTotalHoursPerUser"
+            | "formalInstructionPercentageOfWorkFocusPerUser"
+            | "formalInstructionPercentageOfAnnualHoursPerUser"
+        > & {
+                formalInstructionWorkloadData: Maybe<
+                    Array<
+                        Maybe<
+                            {
+                                __typename?: "FormalInstructionWorkloadPerActivity";
+                            } & Pick<
+                                FormalInstructionWorkloadPerActivity,
+                                | "formalInstructionStudentsEnrolled"
+                                | "formalInstructionBaseContactHours"
+                                | "formalInstructionCoordinationHours"
+                                | "formalInstructionStudentSupportHours"
+                                | "formalInstructionPreparationTimeHours"
+                                | "formalInstructionAssessmentSettingHours"
+                                | "formalInstructionExamMarkingHours"
+                                | "formalInstructionCourseworkMarkingHours"
+                                | "formalInstructionFeedbackHours"
+                                | "formalInstructionFormativeAssessmentHours"
+                                | "formalInstructionModerationHours"
+                                | "formalInstructionOtherHoursPerActivity"
+                                | "formalInstructionTotalHoursPerActivity"
+                                | "formalInstructionPercentageOfWorkFocusPerActivity"
+                                | "formalInstructionPercentageOfAnnualHoursPerActivity"
                             > & {
-                                    module: Maybe<
-                                        { __typename?: "Module" } & Pick<
-                                            Module,
-                                            | "moduleId"
-                                            | "name"
-                                            | "blockId"
-                                            | "offeringTypeId"
-                                            | "qualificationId"
+                                    formalInstructionActivity: Maybe<
+                                        {
+                                            __typename?: "FormalInstructionActivity";
+                                        } & Pick<
+                                            FormalInstructionActivity,
+                                            "activityId"
                                         > & {
+                                                duty: Maybe<
+                                                    {
+                                                        __typename?: "Duty";
+                                                    } & Pick<
+                                                        Duty,
+                                                        "dutyId" | "name"
+                                                    >
+                                                >;
+                                                module: Maybe<
+                                                    {
+                                                        __typename?: "Module";
+                                                    } & Pick<
+                                                        Module,
+                                                        | "moduleId"
+                                                        | "name"
+                                                        | "type"
+                                                        | "assessmentMethod"
+                                                        | "nqfLevel"
+                                                        | "stackId"
+                                                        | "qualificationId"
+                                                        | "offeringTypeId"
+                                                        | "disciplineId"
+                                                        | "venueId"
+                                                        | "blockId"
+                                                        | "userId"
+                                                        | "coordinatorId"
+                                                        | "moderatorId"
+                                                        | "credits"
+                                                        | "groupSize"
+                                                        | "lecturedBy"
+                                                        | "moderation"
+                                                    > & {
+                                                            qualification: Maybe<
+                                                                {
+                                                                    __typename?: "Qualification";
+                                                                } & Pick<
+                                                                    Qualification,
+                                                                    | "qualificationId"
+                                                                    | "name"
+                                                                >
+                                                            >;
+                                                            offeringType: Maybe<
+                                                                {
+                                                                    __typename?: "OfferingType";
+                                                                } & Pick<
+                                                                    OfferingType,
+                                                                    | "offeringTypeId"
+                                                                    | "description"
+                                                                >
+                                                            >;
+                                                            discipline: Maybe<
+                                                                {
+                                                                    __typename?: "Discipline";
+                                                                } & Pick<
+                                                                    Discipline,
+                                                                    | "disciplineId"
+                                                                    | "name"
+                                                                >
+                                                            >;
+                                                            venue: Maybe<
+                                                                {
+                                                                    __typename?: "Venue";
+                                                                } & Pick<
+                                                                    Venue,
+                                                                    | "venueId"
+                                                                    | "campus"
+                                                                    | "capacity"
+                                                                >
+                                                            >;
+                                                            block: Maybe<
+                                                                {
+                                                                    __typename?: "Block";
+                                                                } & Pick<
+                                                                    Block,
+                                                                    | "blockId"
+                                                                    | "name"
+                                                                >
+                                                            >;
+                                                            user: Maybe<
+                                                                {
+                                                                    __typename?: "User";
+                                                                } & Pick<
+                                                                    User,
+                                                                    | "userId"
+                                                                    | "firstName"
+                                                                    | "lastName"
+                                                                    | "email"
+                                                                >
+                                                            >;
+                                                            coordinator: Maybe<
+                                                                {
+                                                                    __typename?: "User";
+                                                                } & Pick<
+                                                                    User,
+                                                                    | "userId"
+                                                                    | "firstName"
+                                                                    | "lastName"
+                                                                    | "email"
+                                                                >
+                                                            >;
+                                                            moderator: Maybe<
+                                                                {
+                                                                    __typename?: "User";
+                                                                } & Pick<
+                                                                    User,
+                                                                    | "userId"
+                                                                    | "firstName"
+                                                                    | "lastName"
+                                                                    | "email"
+                                                                >
+                                                            >;
+                                                        }
+                                                >;
                                                 block: Maybe<
                                                     {
                                                         __typename?: "Block";
@@ -6922,21 +7105,190 @@ export type HemisQuery = { __typename?: "Query" } & {
                                                         Qualification,
                                                         | "qualificationId"
                                                         | "name"
+                                                        | "type"
+                                                        | "departmentId"
                                                     >
+                                                >;
+                                                user: Maybe<
+                                                    {
+                                                        __typename?: "User";
+                                                    } & Pick<
+                                                        User,
+                                                        | "userId"
+                                                        | "email"
+                                                        | "firstName"
+                                                        | "lastName"
+                                                        | "photoUrl"
+                                                        | "workFocusName"
+                                                        | "gender"
+                                                        | "nationality"
+                                                    > & {
+                                                            discipline: Maybe<
+                                                                {
+                                                                    __typename?: "Discipline";
+                                                                } & Pick<
+                                                                    Discipline,
+                                                                    | "disciplineId"
+                                                                    | "name"
+                                                                    | "description"
+                                                                >
+                                                            >;
+                                                            position: Maybe<
+                                                                {
+                                                                    __typename?: "Position";
+                                                                } & Pick<
+                                                                    Position,
+                                                                    | "positionId"
+                                                                    | "name"
+                                                                    | "description"
+                                                                >
+                                                            >;
+                                                            workFocus: Maybe<
+                                                                {
+                                                                    __typename?: "WorkFocus";
+                                                                } & Pick<
+                                                                    WorkFocus,
+                                                                    | "name"
+                                                                    | "teachingRatio"
+                                                                    | "researchRatio"
+                                                                    | "serviceRatio"
+                                                                >
+                                                            >;
+                                                        }
                                                 >;
                                             }
                                     >;
-                                    user: Maybe<
-                                        { __typename?: "User" } & Pick<
-                                            User,
-                                            "userId"
-                                        >
-                                    >;
                                 }
-                        >;
-                    }
-            >
-        >
+                        >
+                    >
+                >;
+            }
+    >;
+};
+
+export type PersonnelDevelopmentWorkloadPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type PersonnelDevelopmentWorkloadPerUserQuery = {
+    __typename?: "Query";
+} & {
+    personnelDevelopmentWorkloadPerUser: Maybe<
+        { __typename?: "PersonnelDevelopmentWorkloadPerUser" } & Pick<
+            PersonnelDevelopmentWorkloadPerUser,
+            | "personnelDevelopmentGlobalTarrif"
+            | "personnelDevelopmentTotalHoursPerUser"
+            | "personnelDevelopmentPercentageOfWorkFocusPerUser"
+            | "personnelDevelopmentPercentageOfAnnualHoursPerUser"
+        > & {
+                personnelDevelopmentWorkloadData: Maybe<
+                    Array<
+                        Maybe<
+                            {
+                                __typename?: "PersonnelDevelopmentWorkloadPerActivity";
+                            } & Pick<
+                                PersonnelDevelopmentWorkloadPerActivity,
+                                | "personnelDevelopmentTotalHoursPerActivity"
+                                | "personnelDevelopmentPercentageOfWorkFocusPerActivity"
+                                | "personnelDevelopmentPercentageOfAnnualHoursPerActivity"
+                            >
+                        >
+                    >
+                >;
+            }
+    >;
+};
+
+export type PublicServiceWorkloadPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type PublicServiceWorkloadPerUserQuery = { __typename?: "Query" } & {
+    publicServiceWorkloadPerUser: Maybe<
+        { __typename?: "PublicServiceWorkloadPerUser" } & Pick<
+            PublicServiceWorkloadPerUser,
+            | "publicServiceGlobalTarrif"
+            | "publicServiceTotalHoursPerUser"
+            | "publicServicePercentageOfWorkFocusPerUser"
+            | "publicServicePercentageOfAnnualHoursPerUser"
+        > & {
+                publicServiceWorkloadData: Maybe<
+                    Array<
+                        Maybe<
+                            {
+                                __typename?: "PublicServiceWorkloadPerActivity";
+                            } & Pick<
+                                PublicServiceWorkloadPerActivity,
+                                | "publicServiceTotalHoursPerActivity"
+                                | "publicServicePercentageOfWorkFocusPerActivity"
+                                | "publicServicePercentageOfAnnualHoursPerActivity"
+                            >
+                        >
+                    >
+                >;
+            }
+    >;
+};
+
+export type ResearchWorkloadPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type ResearchWorkloadPerUserQuery = { __typename?: "Query" } & {
+    researchWorkloadPerUser: Maybe<
+        { __typename?: "ResearchWorkloadPerUser" } & Pick<
+            ResearchWorkloadPerUser,
+            | "researchGlobalTarrif"
+            | "researchTotalHoursPerUser"
+            | "researchPercentageOfWorkFocusPerUser"
+            | "researchPercentageOfAnnualHoursPerUser"
+        > & {
+                researchWorkloadData: Maybe<
+                    Array<
+                        Maybe<
+                            {
+                                __typename?: "ResearchWorkloadPerActivity";
+                            } & Pick<
+                                ResearchWorkloadPerActivity,
+                                | "researchTotalHoursPerActivity"
+                                | "researchPercentageOfWorkFocusPerActivity"
+                                | "researchPercentageOfAnnualHoursPerActivity"
+                            >
+                        >
+                    >
+                >;
+            }
+    >;
+};
+
+export type SupervisionWorkloadPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type SupervisionWorkloadPerUserQuery = { __typename?: "Query" } & {
+    supervisionWorkloadPerUser: Maybe<
+        { __typename?: "SupervisionWorkloadPerUser" } & Pick<
+            SupervisionWorkloadPerUser,
+            | "supervisionGlobalTarrif"
+            | "supervisionTotalHoursPerUser"
+            | "supervisionPercentageOfWorkFocusPerUser"
+            | "supervisionPercentageOfAnnualHoursPerUser"
+        > & {
+                supervisionWorkloadData: Maybe<
+                    Array<
+                        Maybe<
+                            {
+                                __typename?: "SupervisionWorkloadPerActivity";
+                            } & Pick<
+                                SupervisionWorkloadPerActivity,
+                                | "supervisionTotalHoursPerActivity"
+                                | "supervisionPercentageOfWorkFocusPerActivity"
+                                | "supervisionPercentageOfAnnualHoursPerActivity"
+                            >
+                        >
+                    >
+                >;
+            }
     >;
 };
 
@@ -9728,8 +10080,8 @@ export class DeleteResearchActivityGQL extends Apollo.Mutation<
     document = DeleteResearchActivityDocument;
 }
 export const ResearchActivityDocument = gql`
-    query researchActivity($userId: String!) {
-        researchActivitiesByUser(userId: $userId) {
+    query researchActivity($activityId: String!) {
+        researchActivity(activityId: $activityId) {
             activityId
             userId
             user {
@@ -11721,6 +12073,7 @@ export const AddStudentDocument = gql`
             email
             firstName
             lastName
+            type
             title
             year
         }
@@ -11743,6 +12096,7 @@ export const EditStudentDocument = gql`
             email
             firstName
             lastName
+            type
             title
             year
         }
@@ -11765,6 +12119,7 @@ export const DeleteStudentDocument = gql`
             email
             firstName
             lastName
+            type
             title
             year
         }
@@ -11787,6 +12142,7 @@ export const StudentDocument = gql`
             email
             firstName
             lastName
+            type
             title
             year
         }
@@ -11809,6 +12165,7 @@ export const StudentsDocument = gql`
             email
             firstName
             lastName
+            type
             title
             year
         }
@@ -11828,7 +12185,6 @@ export const AddUserDocument = gql`
     mutation addUser($user: UserInput) {
         addUser(user: $user) {
             userId
-            password
             email
             firstName
             lastName
@@ -11855,7 +12211,6 @@ export const EditUserDocument = gql`
     mutation editUser($user: UserInput) {
         editUser(user: $user) {
             userId
-            password
             email
             firstName
             lastName
@@ -11882,7 +12237,6 @@ export const DeleteUserDocument = gql`
     mutation deleteUser($user: UserInput) {
         deleteUser(user: $user) {
             userId
-            password
             email
             firstName
             lastName
@@ -11934,7 +12288,6 @@ export const UserDocument = gql`
     query user($userId: String!) {
         user(userId: $userId) {
             userId
-            password
             email
             firstName
             lastName
@@ -11972,7 +12325,6 @@ export const UsersDocument = gql`
     query users {
         users {
             userId
-            password
             email
             firstName
             lastName
@@ -12202,305 +12554,18 @@ export class WorkFocusesGQL extends Apollo.Query<
 > {
     document = WorkFocusesDocument;
 }
-export const BaseContactDocument = gql`
-    query baseContact($activityId: String) {
-        baseContact(activityId: $activityId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class BaseContactGQL extends Apollo.Query<
-    BaseContactQuery,
-    BaseContactQueryVariables
-> {
-    document = BaseContactDocument;
-}
-export const CoordinationDocument = gql`
-    query coordination($activityId: String) {
-        coordination(activityId: $activityId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class CoordinationGQL extends Apollo.Query<
-    CoordinationQuery,
-    CoordinationQueryVariables
-> {
-    document = CoordinationDocument;
-}
-export const StudentSupportDocument = gql`
-    query studentSupport($activityId: String) {
-        studentSupport(activityId: $activityId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class StudentSupportGQL extends Apollo.Query<
-    StudentSupportQuery,
-    StudentSupportQueryVariables
-> {
-    document = StudentSupportDocument;
-}
-export const PreparationTimeDocument = gql`
-    query preparationTime($activityId: String) {
-        preparationTime(activityId: $activityId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class PreparationTimeGQL extends Apollo.Query<
-    PreparationTimeQuery,
-    PreparationTimeQueryVariables
-> {
-    document = PreparationTimeDocument;
-}
-export const AssessmentSettingDocument = gql`
-    query assessmentSetting($activityId: String) {
-        assessmentSetting(activityId: $activityId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class AssessmentSettingGQL extends Apollo.Query<
-    AssessmentSettingQuery,
-    AssessmentSettingQueryVariables
-> {
-    document = AssessmentSettingDocument;
-}
-export const ExamMarkingDocument = gql`
-    query examMarking($activityId: String) {
-        examMarking(activityId: $activityId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class ExamMarkingGQL extends Apollo.Query<
-    ExamMarkingQuery,
-    ExamMarkingQueryVariables
-> {
-    document = ExamMarkingDocument;
-}
-export const CourseworkMarkingDocument = gql`
-    query courseworkMarking($activityId: String) {
-        courseworkMarking(activityId: $activityId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class CourseworkMarkingGQL extends Apollo.Query<
-    CourseworkMarkingQuery,
-    CourseworkMarkingQueryVariables
-> {
-    document = CourseworkMarkingDocument;
-}
-export const FeedbackDocument = gql`
-    query feedback($activityId: String) {
-        feedback(activityId: $activityId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class FeedbackGQL extends Apollo.Query<
-    FeedbackQuery,
-    FeedbackQueryVariables
-> {
-    document = FeedbackDocument;
-}
-export const FormativeAssessmentDocument = gql`
-    query formativeAssessment($activityId: String) {
-        formativeAssessment(activityId: $activityId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class FormativeAssessmentGQL extends Apollo.Query<
-    FormativeAssessmentQuery,
-    FormativeAssessmentQueryVariables
-> {
-    document = FormativeAssessmentDocument;
-}
-export const ModerationDocument = gql`
-    query moderation($activityId: String) {
-        moderation(activityId: $activityId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class ModerationGQL extends Apollo.Query<
-    ModerationQuery,
-    ModerationQueryVariables
-> {
-    document = ModerationDocument;
-}
-export const OtherDocument = gql`
-    query other($activityId: String) {
-        other(activityId: $activityId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class OtherGQL extends Apollo.Query<OtherQuery, OtherQueryVariables> {
-    document = OtherDocument;
-}
-export const TotalDocument = gql`
-    query total($activityId: String) {
-        total(activityId: $activityId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class TotalGQL extends Apollo.Query<TotalQuery, TotalQueryVariables> {
-    document = TotalDocument;
-}
-export const SumTotalDocument = gql`
-    query sumTotal($userId: String) {
-        sumTotal(userId: $userId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class SumTotalGQL extends Apollo.Query<
-    SumTotalQuery,
-    SumTotalQueryVariables
-> {
-    document = SumTotalDocument;
-}
-export const TeachingFocusDocument = gql`
-    query teachingFocus($userId: String) {
-        teachingFocus(userId: $userId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class TeachingFocusGQL extends Apollo.Query<
-    TeachingFocusQuery,
-    TeachingFocusQueryVariables
-> {
-    document = TeachingFocusDocument;
-}
-export const PercentageOfTotalDocument = gql`
-    query percentageOfTotal($activityId: String) {
-        percentageOfTotal(activityId: $activityId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class PercentageOfTotalGQL extends Apollo.Query<
-    PercentageOfTotalQuery,
-    PercentageOfTotalQueryVariables
-> {
-    document = PercentageOfTotalDocument;
-}
-export const PercentageOfFocusDocument = gql`
-    query percentageOfFocus($activityId: String) {
-        percentageOfFocus(activityId: $activityId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class PercentageOfFocusGQL extends Apollo.Query<
-    PercentageOfFocusQuery,
-    PercentageOfFocusQueryVariables
-> {
-    document = PercentageOfFocusDocument;
-}
-export const SumPercentageOfTotalDocument = gql`
-    query sumPercentageOfTotal($userId: String) {
-        sumPercentageOfTotal(userId: $userId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class SumPercentageOfTotalGQL extends Apollo.Query<
-    SumPercentageOfTotalQuery,
-    SumPercentageOfTotalQueryVariables
-> {
-    document = SumPercentageOfTotalDocument;
-}
-export const StudentsEnrolledDocument = gql`
-    query studentsEnrolled($activityId: String) {
-        studentsEnrolled(activityId: $activityId)
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class StudentsEnrolledGQL extends Apollo.Query<
-    StudentsEnrolledQuery,
-    StudentsEnrolledQueryVariables
-> {
-    document = StudentsEnrolledDocument;
-}
-export const HemisDocument = gql`
-    query hemis($userId: String) {
-        hemis(userId: $userId) {
-            activity {
-                activityId
-                module {
-                    moduleId
-                    name
-                    blockId
-                    block {
-                        blockId
-                        name
-                        description
-                    }
-                    offeringTypeId
-                    offeringType {
-                        offeringTypeId
-                        description
-                    }
-                    qualificationId
-                    qualification {
-                        qualificationId
-                        name
-                    }
-                }
-                user {
-                    userId
-                }
+export const AcademicAdministrationWorkloadPerUserDocument = gql`
+    query academicAdministrationWorkloadPerUser($userId: String) {
+        academicAdministrationWorkloadPerUser(userId: $userId) {
+            academicAdministrationWorkloadData {
+                academicAdministrationTotalHoursPerActivity
+                academicAdministrationPercentageOfWorkFocusPerActivity
+                academicAdministrationPercentageOfAnnualHoursPerActivity
             }
-            baseContact
-            other
-            total
-            sumTotal
-            percentageOfTotal
-            studentsEnrolled
+            academicAdministrationGlobalTarrif
+            academicAdministrationTotalHoursPerUser
+            academicAdministrationPercentageOfWorkFocusPerUser
+            academicAdministrationPercentageOfAnnualHoursPerUser
         }
     }
 `;
@@ -12508,6 +12573,302 @@ export const HemisDocument = gql`
 @Injectable({
     providedIn: "root"
 })
-export class HemisGQL extends Apollo.Query<HemisQuery, HemisQueryVariables> {
-    document = HemisDocument;
+export class AcademicAdministrationWorkloadPerUserGQL extends Apollo.Query<
+    AcademicAdministrationWorkloadPerUserQuery,
+    AcademicAdministrationWorkloadPerUserQueryVariables
+> {
+    document = AcademicAdministrationWorkloadPerUserDocument;
+}
+export const CommunityInstructionWorkloadPerUserDocument = gql`
+    query communityInstructionWorkloadPerUser($userId: String) {
+        communityInstructionWorkloadPerUser(userId: $userId) {
+            communityInstructionWorkloadData {
+                communityInstructionTotalHoursPerActivity
+                communityInstructionPercentageOfWorkFocusPerActivity
+                communityInstructionPercentageOfAnnualHoursPerActivity
+            }
+            communityInstructionGlobalTarrif
+            communityInstructionTotalHoursPerUser
+            communityInstructionPercentageOfWorkFocusPerUser
+            communityInstructionPercentageOfAnnualHoursPerUser
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class CommunityInstructionWorkloadPerUserGQL extends Apollo.Query<
+    CommunityInstructionWorkloadPerUserQuery,
+    CommunityInstructionWorkloadPerUserQueryVariables
+> {
+    document = CommunityInstructionWorkloadPerUserDocument;
+}
+export const ExecutiveManagementWorkloadPerUserDocument = gql`
+    query executiveManagementWorkloadPerUser($userId: String) {
+        executiveManagementWorkloadPerUser(userId: $userId) {
+            executiveManagementWorkloadData {
+                executiveManagementTotalHoursPerActivity
+                executiveManagementPercentageOfWorkFocusPerActivity
+                executiveManagementPercentageOfAnnualHoursPerActivity
+            }
+            executiveManagementGlobalTarrif
+            executiveManagementTotalHoursPerUser
+            executiveManagementPercentageOfWorkFocusPerUser
+            executiveManagementPercentageOfAnnualHoursPerUser
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ExecutiveManagementWorkloadPerUserGQL extends Apollo.Query<
+    ExecutiveManagementWorkloadPerUserQuery,
+    ExecutiveManagementWorkloadPerUserQueryVariables
+> {
+    document = ExecutiveManagementWorkloadPerUserDocument;
+}
+export const FormalInstructionWorkloadPerUserDocument = gql`
+    query formalInstructionWorkloadPerUser($userId: String) {
+        formalInstructionWorkloadPerUser(userId: $userId) {
+            formalInstructionWorkloadData {
+                formalInstructionActivity {
+                    activityId
+                    duty {
+                        dutyId
+                        name
+                    }
+                    module {
+                        moduleId
+                        name
+                        type
+                        assessmentMethod
+                        nqfLevel
+                        stackId
+                        qualificationId
+                        qualification {
+                            qualificationId
+                            name
+                        }
+                        offeringTypeId
+                        offeringType {
+                            offeringTypeId
+                            description
+                        }
+                        disciplineId
+                        discipline {
+                            disciplineId
+                            name
+                        }
+                        venueId
+                        venue {
+                            venueId
+                            campus
+                            capacity
+                        }
+                        blockId
+                        block {
+                            blockId
+                            name
+                        }
+                        userId
+                        user {
+                            userId
+                            firstName
+                            lastName
+                            email
+                        }
+                        coordinatorId
+                        coordinator {
+                            userId
+                            firstName
+                            lastName
+                            email
+                        }
+                        moderatorId
+                        moderator {
+                            userId
+                            firstName
+                            lastName
+                            email
+                        }
+                        credits
+                        groupSize
+                        lecturedBy
+                        moderation
+                    }
+                    block {
+                        blockId
+                        name
+                        description
+                    }
+                    offeringType {
+                        offeringTypeId
+                        description
+                    }
+                    qualification {
+                        qualificationId
+                        name
+                        type
+                        departmentId
+                    }
+                    user {
+                        userId
+                        email
+                        firstName
+                        lastName
+                        photoUrl
+                        discipline {
+                            disciplineId
+                            name
+                            description
+                        }
+                        position {
+                            positionId
+                            name
+                            description
+                        }
+                        workFocusName
+                        workFocus {
+                            name
+                            teachingRatio
+                            researchRatio
+                            serviceRatio
+                        }
+                        gender
+                        nationality
+                    }
+                }
+                formalInstructionStudentsEnrolled
+                formalInstructionBaseContactHours
+                formalInstructionCoordinationHours
+                formalInstructionStudentSupportHours
+                formalInstructionPreparationTimeHours
+                formalInstructionAssessmentSettingHours
+                formalInstructionExamMarkingHours
+                formalInstructionCourseworkMarkingHours
+                formalInstructionFeedbackHours
+                formalInstructionFormativeAssessmentHours
+                formalInstructionModerationHours
+                formalInstructionOtherHoursPerActivity
+                formalInstructionTotalHoursPerActivity
+                formalInstructionPercentageOfWorkFocusPerActivity
+                formalInstructionPercentageOfAnnualHoursPerActivity
+            }
+            formalInstructionTotalHoursPerUser
+            formalInstructionPercentageOfWorkFocusPerUser
+            formalInstructionPercentageOfAnnualHoursPerUser
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionWorkloadPerUserGQL extends Apollo.Query<
+    FormalInstructionWorkloadPerUserQuery,
+    FormalInstructionWorkloadPerUserQueryVariables
+> {
+    document = FormalInstructionWorkloadPerUserDocument;
+}
+export const PersonnelDevelopmentWorkloadPerUserDocument = gql`
+    query personnelDevelopmentWorkloadPerUser($userId: String) {
+        personnelDevelopmentWorkloadPerUser(userId: $userId) {
+            personnelDevelopmentWorkloadData {
+                personnelDevelopmentTotalHoursPerActivity
+                personnelDevelopmentPercentageOfWorkFocusPerActivity
+                personnelDevelopmentPercentageOfAnnualHoursPerActivity
+            }
+            personnelDevelopmentGlobalTarrif
+            personnelDevelopmentTotalHoursPerUser
+            personnelDevelopmentPercentageOfWorkFocusPerUser
+            personnelDevelopmentPercentageOfAnnualHoursPerUser
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PersonnelDevelopmentWorkloadPerUserGQL extends Apollo.Query<
+    PersonnelDevelopmentWorkloadPerUserQuery,
+    PersonnelDevelopmentWorkloadPerUserQueryVariables
+> {
+    document = PersonnelDevelopmentWorkloadPerUserDocument;
+}
+export const PublicServiceWorkloadPerUserDocument = gql`
+    query publicServiceWorkloadPerUser($userId: String) {
+        publicServiceWorkloadPerUser(userId: $userId) {
+            publicServiceWorkloadData {
+                publicServiceTotalHoursPerActivity
+                publicServicePercentageOfWorkFocusPerActivity
+                publicServicePercentageOfAnnualHoursPerActivity
+            }
+            publicServiceGlobalTarrif
+            publicServiceTotalHoursPerUser
+            publicServicePercentageOfWorkFocusPerUser
+            publicServicePercentageOfAnnualHoursPerUser
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PublicServiceWorkloadPerUserGQL extends Apollo.Query<
+    PublicServiceWorkloadPerUserQuery,
+    PublicServiceWorkloadPerUserQueryVariables
+> {
+    document = PublicServiceWorkloadPerUserDocument;
+}
+export const ResearchWorkloadPerUserDocument = gql`
+    query researchWorkloadPerUser($userId: String) {
+        researchWorkloadPerUser(userId: $userId) {
+            researchWorkloadData {
+                researchTotalHoursPerActivity
+                researchPercentageOfWorkFocusPerActivity
+                researchPercentageOfAnnualHoursPerActivity
+            }
+            researchGlobalTarrif
+            researchTotalHoursPerUser
+            researchPercentageOfWorkFocusPerUser
+            researchPercentageOfAnnualHoursPerUser
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ResearchWorkloadPerUserGQL extends Apollo.Query<
+    ResearchWorkloadPerUserQuery,
+    ResearchWorkloadPerUserQueryVariables
+> {
+    document = ResearchWorkloadPerUserDocument;
+}
+export const SupervisionWorkloadPerUserDocument = gql`
+    query supervisionWorkloadPerUser($userId: String) {
+        supervisionWorkloadPerUser(userId: $userId) {
+            supervisionWorkloadData {
+                supervisionTotalHoursPerActivity
+                supervisionPercentageOfWorkFocusPerActivity
+                supervisionPercentageOfAnnualHoursPerActivity
+            }
+            supervisionGlobalTarrif
+            supervisionTotalHoursPerUser
+            supervisionPercentageOfWorkFocusPerUser
+            supervisionPercentageOfAnnualHoursPerUser
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class SupervisionWorkloadPerUserGQL extends Apollo.Query<
+    SupervisionWorkloadPerUserQuery,
+    SupervisionWorkloadPerUserQueryVariables
+> {
+    document = SupervisionWorkloadPerUserDocument;
 }

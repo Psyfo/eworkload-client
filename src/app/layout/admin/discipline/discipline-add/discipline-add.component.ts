@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { routerTransition } from '../../../../router.animations';
-import { Discipline } from '../../../../shared/models';
 import { AlertService, DisciplineService } from '../../../../shared/services';
 import { takeUntil } from 'rxjs/operators';
+import { Discipline } from 'src/app/shared/generated/output';
 
 @Component({
     selector: 'app-discipline-add',

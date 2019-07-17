@@ -1,19 +1,18 @@
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import {
     Department,
-    Qualification,
     QualificationInput
-} from 'src/app/shared/models';
+} from 'src/app/shared/generated/output';
 import {
     AlertService,
-    QualificationService,
-    DepartmentService
+    DepartmentService,
+    QualificationService
 } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-qualification-edit',
@@ -64,9 +63,7 @@ export class QualificationEditComponent implements OnInit {
             .getQualification(qualificationId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                const qualification = <Qualification>(
-                    (<unknown>result.data.qualification)
-                );
+                const qualification = result.data.qualification;
                 this.qualificationEditForm.patchValue(qualification);
             });
     }

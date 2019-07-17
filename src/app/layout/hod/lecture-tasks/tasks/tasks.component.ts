@@ -12,24 +12,17 @@ import {
     FormControl,
     Validators
 } from '@angular/forms';
-import {
-    Discipline,
-    Module,
-    User,
-    Venue
-} from '../../../../shared/models';
-import {
-    ModuleGQL,
-    ModulesGQL,
-    DisciplineGQL,
-    DisciplinesGQL,
-    UserGQL,
-    UsersGQL,
-    ModulesByDisciplineGQL,
-    VenuesGQL
-} from '../../../../shared/generated/output';
+
 import { UserService } from '../../../../shared/services/user.service';
 import { VenueService } from '../../../../shared/services/venue.service';
+import {
+    User,
+    Discipline,
+    Module,
+    Venue
+} from 'src/app/shared/generated/output';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-tasks',
@@ -42,8 +35,8 @@ export class TasksComponent implements OnInit {
     user: User;
     users: User[];
     disciplineId: string;
-    disciplines: Discipline[] = [];
-    discipline: Discipline = new Discipline();
+    disciplines: Discipline[];
+    discipline: Discipline;
     moduleId: string;
     modules: Module[];
     module: Module;
@@ -55,10 +48,12 @@ export class TasksComponent implements OnInit {
     isStacked: boolean = false;
 
     prepModuleForm: FormGroup;
+
+    unsubscribe = new Subject();
+
     constructor(
         private alertService: AlertService,
         private fb: FormBuilder,
-        private userGql: UserGQL,
         private userService: UserService,
         private moduleService: ModuleService,
         private disciplineService: DisciplineService,
@@ -78,6 +73,10 @@ export class TasksComponent implements OnInit {
     ngOnChanges(changes: SimpleChanges): void {
         this.getFormData();
     }
+    ngOnDestroy(): void {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
+    }
 
     buildForm() {}
 
@@ -90,38 +89,47 @@ export class TasksComponent implements OnInit {
     }
 
     getUser() {
-        this.userService.currentUser().subscribe(result => {
-            this.user = <User>(<unknown>result.data.user);
-        });
+        this.userService
+            .currentUser()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.user = result.data.user;
+            });
     }
 
     getUsers() {
-        this.userService.getUsers().subscribe(result => {
-            this.users = result.data.users.map(user => <User>(<unknown>user));
-        });
+        this.userService
+            .getUsers()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.users = result.data.users;
+            });
     }
 
     getDiscipline(disciplineId: string) {
-        this.disciplineService.getDiscipline(disciplineId).subscribe(result => {
-            this.discipline = <Discipline><unknown>result.data.discipline;
-        })
+        this.disciplineService
+            .getDiscipline(disciplineId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.discipline = result.data.discipline;
+            });
     }
 
     getDisciplines() {
-        this.disciplineService.getDisciplines().subscribe(result => {
-            this.disciplines = result.data.disciplines.map(
-                discipline => <Discipline>(<unknown>discipline)
-            );
-        });
+        this.disciplineService
+            .getDisciplines()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.disciplines = result.data.disciplines;
+            });
     }
 
     getModulesByDiscipline(disciplineId: string) {
         this.moduleService
             .getModulesByDiscipline(disciplineId)
+            .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.modules = result.data.modulesByDiscipline.map(
-                    module => <Module>(<unknown>module)
-                );
+                this.modules = result.data.modulesByDiscipline;
             });
     }
 

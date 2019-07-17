@@ -8,9 +8,10 @@ import { routerTransition } from '../../../../router.animations';
 import {
     ActivityService,
     UserService,
-    WorkloadService
+    WorkloadService,
+    FormalInstructionService
 } from '../../../../shared/services';
-import { FormalInstructionActivity } from '../../../../shared/models';
+import { FormalInstructionActivity } from 'src/app/shared/generated/output';
 
 @Component({
     selector: 'app-list',
@@ -36,7 +37,7 @@ export class ListComponent implements OnInit {
     constructor(
         private router: Router,
         private renderer: Renderer,
-        private activityService: ActivityService,
+        private formalInstructionService: FormalInstructionService,
         private userService: UserService,
         private workloadService: WorkloadService
     ) {}
@@ -69,19 +70,11 @@ export class ListComponent implements OnInit {
     }
 
     getActivities() {
-        this.activityService
-            .getFormalInstructionActivitiesByUser(this.currentUser())
+        this.formalInstructionService
+            .formalInstructionActivitiesByUser(this.currentUser())
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.activities = result.data.formalInstructionActivitiesByUser.map(
-                    activity => {
-                        this.activity = <FormalInstructionActivity>(
-                            (<unknown>activity)
-                        );
-
-                        return <FormalInstructionActivity>(<unknown>activity);
-                    }
-                );
+                this.activities = result.data.formalInstructionActivitiesByUser;
 
                 this.dtTrigger.next();
             });

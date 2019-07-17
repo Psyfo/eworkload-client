@@ -6,28 +6,30 @@ import {
     ModuleService,
     ActivityService,
     WorkloadService,
+    FormalInstructionService
 } from '../../../../shared/services';
 import { routerTransition } from '../../../../router.animations';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {
-    User,
-    Module,
-    FormalInstructionActivity,
-} from '../../../../shared/models';
+
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { resultKeyNameFromField } from 'apollo-utilities';
+import {
+    Module,
+    User,
+    FormalInstructionActivity
+} from 'src/app/shared/generated/output';
 
 @Component({
     selector: 'app-add',
     templateUrl: './add.component.html',
     styleUrls: ['./add.component.scss'],
-    animations: [routerTransition()],
+    animations: [routerTransition()]
 })
 export class AddComponent implements OnInit {
     user: User;
     users: User[];
-    module: Module = new Module();
+    module: Module;
     modules: Module[];
 
     blockId: string;
@@ -37,7 +39,7 @@ export class AddComponent implements OnInit {
     baseContact: number;
     coordinationWorkload: number;
 
-    formalInstructionActivity: FormalInstructionActivity = new FormalInstructionActivity();
+    formalInstructionActivity: FormalInstructionActivity;
 
     private unsubscribe = new Subject();
 
@@ -49,13 +51,11 @@ export class AddComponent implements OnInit {
         private fb: FormBuilder,
         private userService: UserService,
         private moduleService: ModuleService,
-        private activityService: ActivityService,
-        private workloadService: WorkloadService
+        private formalInstructionService: FormalInstructionService
     ) {}
 
     ngOnInit() {
         this.buildForm();
-        this.valueChanges();
     }
     ngOnDestroy(): void {
         this.unsubscribe.next();
@@ -68,7 +68,7 @@ export class AddComponent implements OnInit {
         this.formalInstructionAddForm = this.fb.group({
             userId: [{ value: '', disabled: true }, [Validators.required]],
             moduleId: ['', [Validators.required]],
-            isCoordinator: ['', [Validators.required]],
+            isCoordinator: ['', [Validators.required]]
         });
 
         this.userService
@@ -82,7 +82,7 @@ export class AddComponent implements OnInit {
                 );
 
                 this.formalInstructionAddForm.patchValue({
-                    userId: this.user.userId,
+                    userId: this.user.userId
                 });
             });
     }
@@ -101,10 +101,7 @@ export class AddComponent implements OnInit {
             .getModulesByDiscipline(disciplineId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.modules = result.data.modulesByDiscipline.map(
-                    module => <Module>(<unknown>module)
-                );
-                console.log(this.modules);
+                this.modules = result.data.modulesByDiscipline;
             });
     }
     getModule(moduleId, blockId, offeringTypeId, qualificationId) {
@@ -112,8 +109,7 @@ export class AddComponent implements OnInit {
             .getModule(moduleId, blockId, offeringTypeId, qualificationId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.module = <Module>(<unknown>result.data.module);
-                console.log(this.module);
+                this.module = result.data.module;
             });
     }
     editModule(module: Module) {
@@ -125,31 +121,6 @@ export class AddComponent implements OnInit {
             });
     }
 
-    valueChanges() {
-        this.moduleId.valueChanges
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                const position = this.moduleId.value;
-                const moduleModel = this.modules[position];
-                console.log(moduleModel.moduleId);
-                console.log(moduleModel.block.blockId);
-                console.log(moduleModel.offeringType.offeringTypeId);
-                console.log(moduleModel.qualification.qualificationId);
-
-                if (result !== null) {
-                    this.getModule(
-                        moduleModel.moduleId,
-                        moduleModel.block.blockId,
-                        moduleModel.offeringType.offeringTypeId,
-                        moduleModel.qualification.qualificationId
-                    );
-                }
-            });
-
-        this.isCoordinator.valueChanges
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {});
-    }
     onAdd() {
         this.formalInstructionActivity.userId = this.userService.currentUserIdStatic();
         this.formalInstructionActivity.dutyId = '11';
@@ -166,7 +137,7 @@ export class AddComponent implements OnInit {
             );
         }
 
-        this.activityService
+        this.formalInstructionService
             .addFormalInstructionActivity(this.formalInstructionActivity)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {

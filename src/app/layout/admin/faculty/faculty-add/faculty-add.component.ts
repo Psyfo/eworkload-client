@@ -1,10 +1,10 @@
+import { Faculty } from 'src/app/shared/generated/output';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { routerTransition } from '../../../../router.animations';
-import { Faculty } from '../../../../shared/models';
 import { FacultyService } from '../../../../shared/services';
 import { AlertService } from '../../../../shared/services/alert.service';
 
@@ -15,7 +15,7 @@ import { AlertService } from '../../../../shared/services/alert.service';
     animations: [routerTransition()]
 })
 export class FacultyAddComponent implements OnInit {
-    faculty: Faculty = new Faculty();
+    faculty: Faculty;
 
     facultyAddForm: FormGroup;
 

@@ -6,19 +6,15 @@ import {
     OfferingTypesGQL,
     AddOfferingTypeGQL,
     EditOfferingTypeGQL,
-    DeleteOfferingTypeGQL
+    DeleteOfferingTypeGQL,
+    OfferingTypeInput
 } from '../generated/output';
-import { OfferingType, OfferingTypeInput } from '../models';
 import { AlertService } from './alert.service';
-import { ErrorService } from './error.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class OfferingTypeService {
-    offeringType: OfferingType;
-    offeringTypes: OfferingType[];
-
     loading: boolean;
     errors: any;
     networkStatus: any;

@@ -1,16 +1,12 @@
 import { Subject } from 'rxjs';
-import { takeUntil, take } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
+import { DepartmentInput, Faculty } from 'src/app/shared/generated/output';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { routerTransition } from '../../../../router.animations';
-import {
-    Department,
-    DepartmentInput,
-    Faculty
-} from '../../../../shared/models';
 import {
     AlertService,
     DepartmentService,

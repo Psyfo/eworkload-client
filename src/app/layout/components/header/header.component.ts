@@ -3,10 +3,9 @@ import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
-import { UserGQL } from '../../../shared/generated/output';
+import { UserGQL, User } from '../../../shared/generated/output';
 import { UserService } from '../../../shared/services/user.service';
 import { Observable, Subject } from 'rxjs';
-import { User } from '../../../shared/models';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

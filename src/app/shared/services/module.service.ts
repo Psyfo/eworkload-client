@@ -1,28 +1,26 @@
+import { Observable } from 'apollo-link';
+import { map, takeUntil } from 'rxjs/operators';
+
 import { Injectable } from '@angular/core';
-import { ErrorService } from './error.service';
+
 import {
-    ModulesGQL,
-    ModuleGQL,
-    ModulesByDisciplineGQL,
     AddModuleGQL,
-    EditModuleGQL,
+    AddModulesGQL,
     DeleteModuleGQL,
+    EditModuleGQL,
+    ModuleGQL,
+    ModuleInput,
+    ModulesByDisciplineGQL,
     ModulesByStackGQL,
     ModulesByUnassignedGQL,
-    AddModulesGQL
+    ModulesGQL
 } from '../generated/output';
-import { Module, ModuleInput } from '../models';
-import { map, takeUntil } from 'rxjs/operators';
-import { Observable } from 'apollo-link';
 import { AlertService } from './alert.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ModuleService {
-    module: Module;
-    modules: Module[];
-
     loading: boolean;
     errors: any;
     networkStatus;
@@ -37,7 +35,6 @@ export class ModuleService {
 
     constructor(
         private alertService: AlertService,
-        private errorService: ErrorService,
         private moduleGql: ModuleGQL,
         private modulesGql: ModulesGQL,
         private modulesByDiscipline: ModulesByDisciplineGQL,

@@ -1,28 +1,26 @@
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AlertService } from './../../../../shared/services/alert.service';
 import {
-    User,
     Discipline,
-    Position,
-    WorkFocus
-} from '../../../../shared/models';
-import {
-    EditUserGQL,
-    UserGQL,
     DisciplinesGQL,
-    PositionsGQL
+    EditUserGQL,
+    PositionsGQL,
+    User,
+    UserGQL,
+    WorkFocus
 } from '../../../../shared/generated/output';
 import {
-    UserService,
     DisciplineService,
     PositionService,
+    UserService,
     WorkFocusService
 } from '../../../../shared/services';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { AlertService } from '../../../../shared/services/alert.service';
 
 @Component({
     selector: 'app-staff-edit',
@@ -31,7 +29,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class StaffEditComponent implements OnInit {
     userId: string;
-    user: User = new User();
+    user: User;
 
     disciplines: Discipline[];
     positions: Position[];

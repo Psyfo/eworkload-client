@@ -1,13 +1,14 @@
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { VenueInput } from 'src/app/shared/generated/output';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AlertService } from '../../../../shared/services';
-import { Venue, VenueInput } from '../../../../shared/models';
-import { VenueService } from '../../../../shared/services/venue.service';
 import { routerTransition } from '../../../../router.animations';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { AlertService } from '../../../../shared/services';
+import { VenueService } from '../../../../shared/services/venue.service';
 
 @Component({
     selector: 'app-venue-add',

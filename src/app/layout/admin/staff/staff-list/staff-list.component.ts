@@ -4,8 +4,8 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
 import { routerTransition } from '../../../../router.animations';
-import { Discipline, Position, User } from '../../../../shared/models';
 import { UserService } from '../../../../shared/services';
+import { User, Discipline } from 'src/app/shared/generated/output';
 
 @Component({
     selector: 'app-staff-list',
@@ -14,10 +14,10 @@ import { UserService } from '../../../../shared/services';
     animations: [routerTransition()]
 })
 export class StaffListComponent implements OnInit {
-    user: User = new User();
+    user: User;
     users: User[] = [];
     positions: Position[] = [];
-    discipline: Discipline = new Discipline();
+    discipline: Discipline;
 
     loading: boolean;
     errors: any;

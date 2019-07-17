@@ -1,9 +1,14 @@
+import {
+    Student,
+    SupervisionActivity,
+    User
+} from 'src/app/shared/generated/output';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { routerTransition } from '../../../../router.animations';
-import { Student, User, SupervisionActivity } from '../../../../shared/models';
 import { ActivityService, UserService } from '../../../../shared/services';
 import { StudentService } from '../../../../shared/services/student.service';
 
@@ -14,16 +19,9 @@ import { StudentService } from '../../../../shared/services/student.service';
     animations: [routerTransition()]
 })
 export class AddComponent implements OnInit {
-    user: User = new User();
+    user: User;
     supervisionActivity: SupervisionActivity;
-    student: Student = {
-        studentId: 'Student ID goes here',
-        email: 'Email goes here',
-        firstName: 'Firstname here',
-        lastName: 'Lastname here',
-        title: 'Topic title here',
-        year: 'Topic year here'
-    };
+    student: Student;
 
     students: Student[];
 
@@ -34,7 +32,6 @@ export class AddComponent implements OnInit {
         private router: Router,
         private fb: FormBuilder,
         private studentService: StudentService,
-        private activityService: ActivityService,
         private userService: UserService
     ) {}
 
@@ -51,7 +48,8 @@ export class AddComponent implements OnInit {
     getFormValue() {
         this.supervisionAddForm.valueChanges.pipe().subscribe(value => {
             this.student.studentId = value.studentId;
-            this.supervisionActivity.supervisionRole = value.supervisionRole.value;
+            this.supervisionActivity.supervisionRole =
+                value.supervisionRole.value;
         });
     }
 
@@ -63,7 +61,7 @@ export class AddComponent implements OnInit {
 
     getStudents() {
         this.studentService.getStudents().subscribe(result => {
-            this.students = result.data.students.map(student => student);
+            this.students = result.data.students;
         });
     }
 

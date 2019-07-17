@@ -1,0 +1,13 @@
+query academicAdministrationWorkloadPerUser($userId: String) {
+    academicAdministrationWorkloadPerUser(userId: $userId) {
+        academicAdministrationWorkloadData {
+            academicAdministrationTotalHoursPerActivity
+            academicAdministrationPercentageOfWorkFocusPerActivity
+            academicAdministrationPercentageOfAnnualHoursPerActivity
+        }
+        academicAdministrationGlobalTarrif
+        academicAdministrationTotalHoursPerUser
+        academicAdministrationPercentageOfWorkFocusPerUser
+        academicAdministrationPercentageOfAnnualHoursPerUser
+    }
+}

@@ -3,14 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { routerTransition } from '../../../../router.animations';
-import {
-    Block,
-    Discipline,
-    Module,
-    OfferingType,
-    Qualification,
-    Venue
-} from '../../../../shared/models';
+
 import {
     ModuleService,
     DisciplineService,
@@ -22,6 +15,14 @@ import { takeUntil } from 'rxjs/operators';
 import { OfferingTypeService } from '../../../../shared/services/offering-type.service';
 import { BlockService } from '../../../../shared/services/block.service';
 import { QualificationService } from '../../../../shared/services/qualification.service';
+import {
+    Module,
+    Discipline,
+    Block,
+    OfferingType,
+    Qualification,
+    Venue
+} from 'src/app/shared/generated/output';
 
 @Component({
     selector: 'app-module-edit',
@@ -30,14 +31,14 @@ import { QualificationService } from '../../../../shared/services/qualification.
     animations: [routerTransition()]
 })
 export class ModuleEditComponent implements OnInit {
-    module: Module = new Module();
-    discipline: Discipline = new Discipline();
+    module: Module;
+    discipline: Discipline;
     disciplines: Discipline[];
-    block: Block = new Block();
+    block: Block;
     blocks: Block[];
-    offeringType: OfferingType = new OfferingType();
+    offeringType: OfferingType;
     offeringTypes: OfferingType[];
-    qualification: Qualification = new Qualification();
+    qualification: Qualification;
     qualifications: Qualification[];
     venues: Venue[];
 
@@ -95,14 +96,6 @@ export class ModuleEditComponent implements OnInit {
             credits: ['', [Validators.required]],
             groupSize: ['', [Validators.required]]
         });
-
-        // this.moduleService
-        //     .getModule(moduleId)
-        //     .pipe(takeUntil(this.unsubscribe))
-        //     .subscribe(result => {
-        //         this.module = <Module>(<unknown>result.data.module);
-        //         this.moduleEditForm.patchValue(this.module);
-        //     });
     }
     getOfferingTypes() {
         this.offeringTypeService

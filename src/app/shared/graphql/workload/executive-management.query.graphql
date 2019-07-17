@@ -1,0 +1,13 @@
+query executiveManagementWorkloadPerUser($userId: String) {
+    executiveManagementWorkloadPerUser(userId: $userId) {
+        executiveManagementWorkloadData {
+            executiveManagementTotalHoursPerActivity
+            executiveManagementPercentageOfWorkFocusPerActivity
+            executiveManagementPercentageOfAnnualHoursPerActivity
+        }
+        executiveManagementGlobalTarrif
+        executiveManagementTotalHoursPerUser
+        executiveManagementPercentageOfWorkFocusPerUser
+        executiveManagementPercentageOfAnnualHoursPerUser
+    }
+}

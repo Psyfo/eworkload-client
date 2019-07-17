@@ -1,17 +1,20 @@
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import {
+    Block,
+    Discipline,
+    Module,
+    OfferingType,
+    Qualification,
+    Venue
+} from 'src/app/shared/generated/output';
+
+import { invalid } from '@angular/compiler/src/render3/view/util';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 
 import { routerTransition } from '../../../../router.animations';
-import {
-    Module,
-    Qualification,
-    OfferingType,
-    Discipline,
-    Venue,
-    Block
-} from '../../../../shared/models';
 import {
     AlertService,
     BlockService,
@@ -21,8 +24,6 @@ import {
     QualificationService,
     VenueService
 } from '../../../../shared/services';
-import { takeUntil } from 'rxjs/operators';
-import { invalid } from '@angular/compiler/src/render3/view/util';
 
 @Component({
     selector: 'app-module-add',
@@ -31,7 +32,7 @@ import { invalid } from '@angular/compiler/src/render3/view/util';
     animations: [routerTransition()]
 })
 export class ModuleAddComponent implements OnInit {
-    module: Module = new Module();
+    module: Module;
     qualifications: Qualification[];
     offeringTypes: OfferingType[];
     disciplines: Discipline[];

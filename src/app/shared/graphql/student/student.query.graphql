@@ -4,6 +4,7 @@ query student($studentId: String!) {
         email
         firstName
         lastName
+        type
         title
         year
     }
@@ -14,6 +15,7 @@ query students {
         email
         firstName
         lastName
+        type
         title
         year
     }

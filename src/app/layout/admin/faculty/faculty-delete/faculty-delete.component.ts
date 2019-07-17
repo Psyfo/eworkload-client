@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { routerTransition } from '../../../../router.animations';
 import { FacultyService } from '../../../../shared/services';
-import { Faculty } from '../../../../shared/models';
+import { Faculty } from 'src/app/shared/generated/output';
 
 @Component({
     selector: 'app-faculty-delete',
@@ -14,6 +14,7 @@ import { Faculty } from '../../../../shared/models';
 export class FacultyDeleteComponent implements OnInit {
     facultyId: string;
     faculty: Faculty;
+
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,

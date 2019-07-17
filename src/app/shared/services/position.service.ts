@@ -1,24 +1,18 @@
+import { map } from 'rxjs/operators';
+
 import { Injectable } from '@angular/core';
-import { AlertService } from './alert.service';
-import { ErrorService } from './error.service';
+
 import {
-    PositionGQL,
-    FacultiesGQL,
-    EditPositionGQL,
-    AddPositionGQL,
-    DeletePositionGQL,
+    AddPositionGQL, DeletePositionGQL, EditPositionGQL, FacultiesGQL, PositionGQL, PositionInput,
     PositionsGQL
 } from '../generated/output';
-import { map } from 'rxjs/operators';
-import { PositionInput } from '../models';
+import { AlertService } from './alert.service';
+import { ErrorService } from './error.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class PositionService {
-    position: Position;
-    positions: Position[];
-
     loading: boolean;
     errors: any;
     networkStatus: any;

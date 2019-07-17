@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Activity } from '../../../../shared/models';
 import { routerTransition } from '../../../../router.animations';
+import { SupervisionActivity } from 'src/app/shared/generated/output';
 
 @Component({
     selector: 'app-list',
@@ -9,7 +9,7 @@ import { routerTransition } from '../../../../router.animations';
     animations: [routerTransition()]
 })
 export class ListComponent implements OnInit {
-    supervisionActivities: Activity[];
+    supervisionActivities: SupervisionActivity[];
 
     constructor() {}
 

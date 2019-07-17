@@ -1,19 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { WorkloadService } from '../../shared/services';
-import { FormalInstructionActivity } from './../../shared/models/activity.model';
-import { Duty } from './../../shared/models/duty.model';
-import { Enrollment } from './../../shared/models/enrollment.model';
-import { FormalInstructionWorkload } from './../../shared/models/workload.model';
-import { ActivityService } from './../../shared/services/activity.service';
-import { AlertService } from './../../shared/services/alert.service';
-import { DutyService } from './../../shared/services/duty.service';
-import { EnrollmentService } from './../../shared/services/enrollment.service';
-import { UserService } from './../../shared/services/user.service';
-import { HemisData } from '../../shared/generated/output';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import {
+    AcademicAdministrationWorkloadPerUser,
+    CommunityInstructionWorkloadPerUser,
+    ExecutiveManagementWorkloadPerUser,
+    FormalInstructionWorkloadPerUser,
+    PersonnelDevelopmentWorkloadPerUser,
+    PublicServiceWorkloadPerUser,
+    ResearchWorkloadPerUser,
+    SupervisionWorkloadPerUser,
+    User,
+    Duty
+} from '../../shared/generated/output';
+import {
+    AlertService,
+    UserService,
+    WorkloadService
+} from 'src/app/shared/services';
 
 @Component({
     selector: 'app-report',
@@ -21,132 +28,122 @@ import { HemisData } from '../../shared/generated/output';
     styleUrls: ['./report.component.scss']
 })
 export class ReportComponent implements OnInit {
-    activities: FormalInstructionActivity[];
-    duties: Duty[];
-    enrollment: Enrollment;
-    hemisData: HemisData[];
     userId: string = this.userService.currentUserIdStatic();
-    students;
-    studentsList = [];
-    percentageOfTotal: number;
-    sumPercentageOfTotal: number;
-    formalInstructionWorkload: FormalInstructionWorkload;
-    formalInstructionWorkloads: FormalInstructionWorkload[];
+    user: User;
+
+    duties: Duty[];
+
+    academicAdministrationWorkload: AcademicAdministrationWorkloadPerUser;
+    communityInstructionWorkload: CommunityInstructionWorkloadPerUser;
+    executiveManagementWorkload: ExecutiveManagementWorkloadPerUser;
+    formalInstructionWorkload: FormalInstructionWorkloadPerUser;
+    personnelDevelopmentWorkload: PersonnelDevelopmentWorkloadPerUser;
+    publicServiceWorkload: PublicServiceWorkloadPerUser;
+    researchWorkload: ResearchWorkloadPerUser;
+    supervisionWorkload: SupervisionWorkloadPerUser;
+
     private unsubscribe = new Subject();
     constructor(
         private router: Router,
         private alertService: AlertService,
-        private activityService: ActivityService,
         private userService: UserService,
-        private enrollmentService: EnrollmentService,
-        private dutyService: DutyService,
         private workloadService: WorkloadService
     ) {}
 
-    ngOnInit() {
-        this.getHemisData();
-        this.getSumPercentageOfTotal();
-        this.getDuties();
+    async ngOnInit() {
+        this.getUser();
+        await this.getAcademicAdministrationWorkload();
+        this.getCommunityInstructionWorkload();
+        this.getExecutiveManagementWorkload();
+        await this.getFormalInstructionWorkload();
+        this.getPersonnelDevelopmentWorkload();
+        this.getPublicServiceWorkload();
+        this.getResearchWorkload();
+        this.getSupervisionWorkload();
     }
-
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
 
-    getHemisData() {
-        const userId = this.userService.currentUserIdStatic();
+    getUser() {
+        this.userService
+            .getUser(this.userId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.user = result.data.user;
+            });
+    }
+    getAcademicAdministrationWorkload() {
         this.workloadService
-            .hemis(userId)
+            .academicAdministrationWorkloadPerUser(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.hemisData = result.data.hemis.map(
-                    hemisItem => <HemisData>(<unknown>hemisItem)
-                );
+                this.academicAdministrationWorkload =
+                    result.data.academicAdministrationWorkloadPerUser;
             });
     }
-
-    baseContact(activityId: string) {
-        return this.workloadService
-            .baseContact(activityId)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                console.log('Base Contact: ', result.data.baseContact);
-                return result.data.baseContact;
-            });
-    }
-
-    other(activityId: string) {
-        return this.workloadService
-            .other(activityId)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                return result.data.other;
-            });
-    }
-
-    total(activityId: string) {
-        return this.workloadService
-            .total(activityId)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                return result.data.total;
-            });
-    }
-
-    studentsEnrolled(activityId: string) {
-        return this.workloadService
-            .studentsEnrolled(activityId)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                return result.data.studentsEnrolled;
-            });
-    }
-
-    getPercentageOfTotal(activityId: string) {
+    getCommunityInstructionWorkload() {
         this.workloadService
-            .percentageOfTotal(activityId)
+            .communityInstructionWorkloadPerUser(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.percentageOfTotal = <number>(
-                    (<unknown>result.data.percentageOfTotal)
-                );
+                this.communityInstructionWorkload =
+                    result.data.communityInstructionWorkloadPerUser;
             });
     }
-
-    getSumPercentageOfTotal() {
-        const userId = this.userService.currentUserIdStatic();
+    getExecutiveManagementWorkload() {
         this.workloadService
-            .sumPercentageOfTotal(userId)
+            .executiveManagementWorkloadPerUser(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                console.log(result.data.sumPercentageOfTotal);
-
-                this.sumPercentageOfTotal = <number>(
-                    (<unknown>result.data.sumPercentageOfTotal)
-                );
+                this.executiveManagementWorkload =
+                    result.data.executiveManagementWorkloadPerUser;
             });
     }
-
-    getDuties() {
-        this.dutyService
-            .getDuties()
+    getFormalInstructionWorkload() {
+        this.workloadService
+            .formalInstructionWorkloadPerUser(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.duties = result.data.duties.map(
-                    duty => <Duty>(<unknown>duty)
-                );
+                this.formalInstructionWorkload =
+                    result.data.formalInstructionWorkloadPerUser;
+                console.log(this.formalInstructionWorkload);
             });
     }
-
-    getEnrollment(qualificationId: string) {
-        this.enrollmentService
-            .getEnrollment(new Date().getFullYear().toString(), qualificationId)
+    getPersonnelDevelopmentWorkload() {
+        this.workloadService
+            .personnelDevelopmentWorkloadPerUser(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.enrollment = <Enrollment>(<unknown>result.data.enrollment);
+                this.personnelDevelopmentWorkload =
+                    result.data.personnelDevelopmentWorkloadPerUser;
             });
     }
-
-    getStudents(activityId: string) {}
+    getPublicServiceWorkload() {
+        this.workloadService
+            .publicServiceWorkloadPerUser(this.userId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.publicServiceWorkload =
+                    result.data.publicServiceWorkloadPerUser;
+            });
+    }
+    getResearchWorkload() {
+        this.workloadService
+            .researchWorkloadPerUser(this.userId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.researchWorkload = result.data.researchWorkloadPerUser;
+            });
+    }
+    getSupervisionWorkload() {
+        this.workloadService
+            .supervisionWorkloadPerUser(this.userId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.supervisionWorkload =
+                    result.data.supervisionWorkloadPerUser;
+            });
+    }
 }

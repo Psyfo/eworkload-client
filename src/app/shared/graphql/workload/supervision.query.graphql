@@ -1,0 +1,13 @@
+query supervisionWorkloadPerUser($userId: String) {
+    supervisionWorkloadPerUser(userId: $userId) {
+        supervisionWorkloadData {
+            supervisionTotalHoursPerActivity
+            supervisionPercentageOfWorkFocusPerActivity
+            supervisionPercentageOfAnnualHoursPerActivity
+        }
+        supervisionGlobalTarrif
+        supervisionTotalHoursPerUser
+        supervisionPercentageOfWorkFocusPerUser
+        supervisionPercentageOfAnnualHoursPerUser
+    }
+}

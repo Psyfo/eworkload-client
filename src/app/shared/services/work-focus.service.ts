@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { WorkFocusesGQL, WorkFocusGQL } from '../generated/output';
-import { WorkFocus } from '../models';
 import { AlertService } from './alert.service';
 import { ErrorService } from './error.service';
 
@@ -10,14 +9,10 @@ import { ErrorService } from './error.service';
     providedIn: 'root'
 })
 export class WorkFocusService {
-    workFocus: WorkFocus;
-    workFocuses: WorkFocus[];
-
     loading: boolean;
     errors: any;
 
     constructor(
-        private alertService: AlertService,
         private errorService: ErrorService,
         private workFocusGql: WorkFocusGQL,
         private workFocusesGql: WorkFocusesGQL

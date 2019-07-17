@@ -5,32 +5,39 @@
                 <h4>Details</h4>
             </div>
             <div class="card-body" *ngIf="discipline">
-                <div class="display__column">
-                    <div class="display__row">
+                <div class="row">
+                    <div class=" col">
                         <strong>
                             Discipline ID
                         </strong>
-                        <div class="text-muted">
-                            {{discipline?.disciplineId | uppercase}}
-                        </div>
                     </div>
-                    <div class="display__row">
+                    <div class="text-muted col">
+                        {{discipline?.disciplineId | uppercase}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
                         <strong>
                             Name
                         </strong>
-                        <div class="text-muted">
-                            {{discipline?.name | titlecase}}
-                        </div>
                     </div>
-                    <div class="display__row">
+
+                    <div class="text-muted col">
+                        {{discipline?.name | titlecase}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
                         <strong>
                             Description
                         </strong>
-                        <div class="text-muted">
-                            {{discipline?.description}}
-                        </div>
+                    </div>
+
+                    <div class="text-muted col">
+                        {{discipline?.description}}
                     </div>
                 </div>
+
             </div>
             <div class="card-footer">
                 <div class="row">

@@ -10,11 +10,20 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { routerTransition } from '../../../router.animations';
-import { Discipline, Position, User, WorkFocus } from '../../../shared/models';
-import { DisciplineService, UserService } from '../../../shared/services';
-import { PositionService } from '../../../shared/services/position.service';
-import { AlertService } from './../../../shared/services/alert.service';
-import { WorkFocusService } from '../../../shared/services/work-focus.service';
+
+import {
+    User,
+    Discipline,
+    WorkFocus,
+    UserInput
+} from 'src/app/shared/generated/output';
+import {
+    AlertService,
+    UserService,
+    DisciplineService,
+    PositionService,
+    WorkFocusService
+} from 'src/app/shared/services';
 
 @Component({
     selector: 'app-profile-edit',
@@ -23,8 +32,8 @@ import { WorkFocusService } from '../../../shared/services/work-focus.service';
     animations: [routerTransition()]
 })
 export class ProfileEditComponent implements OnInit {
-    user: User;
-    userModel: User = new User();
+    user: UserInput;
+    userModel: User;
     discipline: Discipline;
     disciplines: Discipline[];
     position: Position;
@@ -32,8 +41,8 @@ export class ProfileEditComponent implements OnInit {
     workFocus: WorkFocus;
     workFocuses: WorkFocus[];
 
-    genders = ['male', 'female'];
-    nationalities = ['african', 'coloured', 'indian', 'white'];
+    genders = this.userService.genders;
+    nationalities = this.userService.nationalities;
 
     private unsubscribe = new Subject();
 
@@ -77,6 +86,14 @@ export class ProfileEditComponent implements OnInit {
         this.unsubscribe.complete();
     }
 
+    // Getters
+    // get userId() {
+    //     return this.profileEditForm.get('userId');
+    // }
+    get formVal() {
+        return this.profileEditForm.getRawValue();
+    }
+
     // Methods
     public buildForm() {
         this.userService
@@ -85,17 +102,7 @@ export class ProfileEditComponent implements OnInit {
             .subscribe(result => {
                 this.user = <User>(<unknown>result.data.user);
 
-                this.profileEditForm.patchValue({
-                    userId: this.user.userId,
-                    firstName: this.user.firstName,
-                    lastName: this.user.lastName,
-                    email: this.user.email,
-                    disciplineId: this.user.discipline.disciplineId,
-                    positionId: this.user.position.positionId,
-                    workFocusName: this.user.workFocusName,
-                    gender: this.user.gender,
-                    nationality: this.user.nationality
-                });
+                this.profileEditForm.patchValue(this.user);
             });
     }
     public getDisciplines(): void {
@@ -133,9 +140,7 @@ export class ProfileEditComponent implements OnInit {
             .getDiscipline(disciplineId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.userModel.discipline = <Discipline>(
-                    (<unknown>result.data.discipline)
-                );
+                this.discipline = <Discipline>(<unknown>result.data.discipline);
             });
     }
     public getPosition(positionId: string) {
@@ -143,14 +148,12 @@ export class ProfileEditComponent implements OnInit {
             .getPosition(positionId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.userModel.position = <Position>(
-                    (<unknown>result.data.position)
-                );
+                this.position = <Position>(<unknown>result.data.position);
             });
     }
     // Edit form
     public onEdit(): void {
-        this.user = this.formValue;
+        this.user = this.formVal;
 
         this.userService
             .editUser(this.user)

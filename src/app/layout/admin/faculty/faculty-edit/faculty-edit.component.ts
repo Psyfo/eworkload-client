@@ -4,9 +4,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from './../../../../shared/services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../../../router.animations';
-import { Faculty } from '../../../../shared/models';
 import { FacultyService } from '../../../../shared/services';
 import { takeUntil } from 'rxjs/operators';
+import { Faculty } from 'src/app/shared/generated/output';
 
 @Component({
     selector: 'app-faculty-edit',

@@ -21,7 +21,27 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { AlertComponent } from './shared/directives';
 import { CustomRouteReuseStrategy } from './shared/helpers/routing-strategy';
-import { AlertService, BufferService } from './shared/services';
+import {
+    AlertService,
+    BufferService,
+    ActivityService,
+    BlockService,
+    DepartmentService,
+    EnrollmentService,
+    FacultyService,
+    ModuleService,
+    OfferingTypeService,
+    QualificationService,
+    PositionService,
+    StudentService,
+    UploadService,
+    UserService,
+    VenueService,
+    WorkFocusService,
+    WorkloadService
+} from './shared/services';
+import { DutyService } from './shared/services/duty.service';
+import { ValidationService } from './shared/services/validation.service';
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
@@ -62,7 +82,24 @@ export const createTranslateLoader = (http: HttpClient) => {
         AlertService,
         AuthGuard,
         BufferService,
-        [{ provide: RouteReuseStrategy, userClass: CustomRouteReuseStrategy }]
+        [{ provide: RouteReuseStrategy, userClass: CustomRouteReuseStrategy }],
+        ActivityService,
+        BlockService,
+        DepartmentService,
+        DutyService,
+        EnrollmentService,
+        FacultyService,
+        ModuleService,
+        OfferingTypeService,
+        PositionService,
+        QualificationService,
+        StudentService,
+        UploadService,
+        UserService,
+        ValidationService,
+        VenueService,
+        WorkFocusService,
+        WorkloadService
     ],
     bootstrap: [AppComponent]
 })

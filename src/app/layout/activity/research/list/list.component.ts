@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../../../router.animations';
 import { AlertService } from '../../../../shared/services';
 import { Router } from '@angular/router';
-import { ResearchActivity } from '../../../../shared/models';
+import { ResearchActivity } from 'src/app/shared/generated/output';
 
 @Component({
     selector: 'app-list',
@@ -13,12 +13,7 @@ import { ResearchActivity } from '../../../../shared/models';
 export class ListComponent implements OnInit {
     researchActivities: ResearchActivity[];
 
-    constructor(
-        private alertService: AlertService,
-        private router: Router,
-    ) {}
+    constructor(private alertService: AlertService, private router: Router) {}
 
-    ngOnInit() {
-
-    }
+    ngOnInit() {}
 }

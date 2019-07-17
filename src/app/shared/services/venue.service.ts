@@ -1,10 +1,10 @@
 import {
     AddVenueGQL,
     EditVenueGQL,
-    DeleteVenueGQL
+    DeleteVenueGQL,
+    VenueInput
 } from './../generated/output';
 import { Injectable } from '@angular/core';
-import { Venue, VenueInput } from '../models';
 import { AlertService } from './alert.service';
 import { ErrorService } from './error.service';
 import { VenueGQL, VenuesGQL } from '../generated/output';
@@ -15,9 +15,6 @@ import { timer, interval, Subject } from 'rxjs';
     providedIn: 'root'
 })
 export class VenueService {
-    venue: Venue;
-    venues: Venue[];
-
     public types = ['Class', 'Laboratory'];
     public headers = ['Venue Id', 'Campus', 'Capacity', 'Type'];
 

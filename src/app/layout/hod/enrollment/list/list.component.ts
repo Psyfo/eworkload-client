@@ -5,8 +5,8 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { routerTransition } from '../../../../router.animations';
-import { Enrollment } from '../../../../shared/models/enrollment.model';
 import { EnrollmentService } from '../../../../shared/services/enrollment.service';
+import { Enrollment } from 'src/app/shared/generated/output';
 
 @Component({
     selector: 'app-list',
@@ -63,9 +63,7 @@ export class ListComponent implements OnInit {
             .getEnrollments()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.enrollments = result.data.enrollments.map(
-                    enrollment => <Enrollment>(<unknown>enrollment)
-                );
+                this.enrollments = result.data.enrollments;
 
                 this.dtTrigger.next();
             });

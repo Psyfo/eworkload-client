@@ -1,7 +1,6 @@
 mutation addUser($user: UserInput) {
     addUser(user: $user) {
         userId
-        password
         email
         firstName
         lastName
@@ -16,7 +15,6 @@ mutation addUser($user: UserInput) {
 mutation editUser($user: UserInput) {
     editUser(user: $user) {
         userId
-        password
         email
         firstName
         lastName
@@ -31,7 +29,6 @@ mutation editUser($user: UserInput) {
 mutation deleteUser($user: UserInput) {
     deleteUser(user: $user) {
         userId
-        password
         email
         firstName
         lastName

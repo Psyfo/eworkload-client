@@ -1,5 +1,5 @@
-query researchActivity($userId: String!) {
-    researchActivitiesByUser(userId: $userId) {
+query researchActivity($activityId: String!) {
+    researchActivity(activityId: $activityId) {
         activityId
         userId
         user {

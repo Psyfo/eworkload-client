@@ -1,7 +1,6 @@
 query user($userId: String!) {
     user(userId: $userId) {
         userId
-        password
         email
         firstName
         lastName
@@ -30,7 +29,6 @@ query user($userId: String!) {
 query users {
     users {
         userId
-        password
         email
         firstName
         lastName

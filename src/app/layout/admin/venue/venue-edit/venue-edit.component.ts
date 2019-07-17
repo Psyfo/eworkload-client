@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertService } from '../../../../shared/services';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { routerTransition } from '../../../../router.animations';
-import { VenueService } from '../../../../shared/services/venue.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Venue, VenueInput } from '../../../../shared/models';
+import { VenueInput } from 'src/app/shared/generated/output';
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { routerTransition } from '../../../../router.animations';
+import { AlertService } from '../../../../shared/services';
+import { VenueService } from '../../../../shared/services/venue.service';
 
 @Component({
     selector: 'app-venue-edit',
@@ -15,7 +17,7 @@ import { Venue, VenueInput } from '../../../../shared/models';
     animations: [routerTransition()]
 })
 export class VenueEditComponent implements OnInit {
-    venue: VenueInput = new VenueInput();
+    venue: VenueInput;
     types = this.venueService.types;
 
     private unsubscribe = new Subject();

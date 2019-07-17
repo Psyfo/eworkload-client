@@ -7,18 +7,15 @@ import {
     DeleteStudentGQL,
     EditStudentGQL,
     StudentGQL,
+    StudentInput,
     StudentsGQL
 } from '../generated/output';
-import { Student, StudentInput } from '../models';
 import { AlertService } from './alert.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class StudentService {
-    student: Student;
-    students: Student[];
-
     loading: boolean;
     errors: any;
     networkStatus: any;

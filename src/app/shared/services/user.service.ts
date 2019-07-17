@@ -1,4 +1,4 @@
-import { ChangePasswordGQL } from './../generated/output';
+import { ChangePasswordGQL, User, UserInput } from './../generated/output';
 import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular';
 import { Injectable } from '@angular/core';
@@ -11,7 +11,6 @@ import {
     AddUserGQL,
     EditUserGQL
 } from '../generated/output';
-import { User, UserInput } from '../models';
 import { AlertService } from './alert.service';
 import { ErrorService } from './error.service';
 
@@ -21,6 +20,8 @@ import { ErrorService } from './error.service';
 export class UserService {
     user: User;
     users: User[];
+    public nationalities = ['Black', 'Coloured', 'Indian', 'White'];
+    public genders = ['Male', 'Female'];
 
     loading: boolean;
     errors: any;

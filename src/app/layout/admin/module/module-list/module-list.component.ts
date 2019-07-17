@@ -1,43 +1,44 @@
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Module, ModuleInput } from 'src/app/shared/generated/output';
+import * as XLXS from 'xlsx';
+
 import {
+    ChangeDetectorRef,
     Component,
     OnInit,
     Renderer,
-    ChangeDetectorRef,
-    ViewChild,
+    ViewChild
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataTableDirective } from 'angular-datatables';
-import { Subject } from 'rxjs';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { routerTransition } from '../../../../router.animations';
-import { Module, ModuleInput } from '../../../../shared/models';
-import { ModuleService, AlertService } from '../../../../shared/services';
-import { takeUntil } from 'rxjs/operators';
-import * as XLXS from 'xlsx';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { AlertService, ModuleService } from '../../../../shared/services';
 
 @Component({
     selector: 'app-module-list',
     templateUrl: './module-list.component.html',
     styleUrls: ['./module-list.component.scss'],
-    animations: [routerTransition()],
+    animations: [routerTransition()]
 })
 export class ModuleListComponent implements OnInit {
-    module: Module = new Module();
+    module: Module;
     modules: Module[];
 
     csv: any;
     fileData = [];
     itemData = [];
-    moduleArray: Module[] = [];
+    moduleArray: Module[];
     worksheetData = [];
-    uploadedModules: ModuleInput[] = [];
+    uploadedModules: ModuleInput[];
     selectedFile: File;
 
     private unsubscribe = new Subject();
 
     // Datatable config
-    @ViewChild(DataTableDirective, {static: false})
+    @ViewChild(DataTableDirective, { static: false })
     dtElement: DataTableDirective;
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<Module> = new Subject();
@@ -73,7 +74,7 @@ export class ModuleListComponent implements OnInit {
                     self.rowClickHandler(data);
                 });
                 return row;
-            },
+            }
         };
     }
     ngOnDestroy(): void {
@@ -102,8 +103,8 @@ export class ModuleListComponent implements OnInit {
                 moduleId: info[0],
                 blockId: info[1],
                 offeringTypeId: info[2],
-                qualificationId: info[3],
-            },
+                qualificationId: info[3]
+            }
         });
     }
     rerender(): void {
@@ -146,7 +147,7 @@ export class ModuleListComponent implements OnInit {
 
             // Get work sheet data into module array
             wsdata.forEach(element => {
-                let module = new ModuleInput();
+                let module: ModuleInput;
                 module.moduleId = element[3];
                 module.qualificationId = element[2];
                 module.name = element[4];
@@ -171,7 +172,7 @@ export class ModuleListComponent implements OnInit {
             // Configure xlxs output
             const htmlstr = XLXS.write(wb, {
                 type: 'string',
-                bookType: 'html',
+                bookType: 'html'
             });
 
             // Open modal and present excel html then return focus to modal

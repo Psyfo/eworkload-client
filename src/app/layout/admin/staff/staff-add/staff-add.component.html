@@ -16,15 +16,6 @@
                         </span> -->
                     </div>
 
-                    <div class="form-group">
-                        <label for="password" class="col-form-label">Password</label>
-                        <input type="password" class="form-control" formControlName="password" placeholder="Password">
-                        <!-- <span class="alert-danger"
-                            *ngIf="!staffAddForm.get('password').valid && staffAddForm.get('password').touched">
-                            <span *ngIf="staffAddForm.get('password').errors['required']">Password field is
-                                required</span>
-                        </span> -->
-                    </div>
 
                     <div class="form-group">
                         <label for="firstName" class="col-form-label">First Name</label>
@@ -57,20 +48,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="disciplineId" class="col-form-label">Select a Discipline</label>
-                        <select formControlName="disciplineId" class="custom-select">
-                            <option *ngFor="let discipline of disciplines" [value]="discipline.disciplineId">
-                                {{ discipline.name }}</option>
-                        </select>
-                        <!-- <span class="alert-danger"
-                            *ngIf="!staffAddForm.get('disciplineId').valid && staffAddForm.get('disciplineId').touched">
-                            <span *ngIf="!disciplineId.get('value').errors['required']">
-                                Please select a discipline
-                            </span>
-                        </span> -->
-                    </div>
-
-                    <div class="form-group">
                         <label for="positionId" class="col-form-label">Select a Position</label>
                         <select formControlName="positionId" class="custom-select">
                             <option *ngFor="let position of positions" [value]="position.positionId">
@@ -82,53 +59,6 @@
                                     Please select a position
                                 </span>
                             </span> -->
-                    </div>
-
-                    <div class="form-group">
-                        <label for="workFocusName">Select Work Focus (Teaching/Research/Service)</label>
-                        <select formControlName="workFocusName" class="custom-select">
-                            <option *ngFor="let workFocus of workFocuses" [value]="workFocus.name">{{workFocus.name | titlecase}}
-                                ({{workFocus.teachingRatio}}/{{workFocus.researchRatio}}/{{workFocus.serviceRatio}})
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nationality" class="col-form-label">Nationality</label>
-                        <select formControlName="nationality" class="custom-select">
-                            <option *ngFor="let nationality of nationalities" [value]="nationality">{{ nationality }}
-                            </option>
-                        </select>
-                        <!-- <span class="alert-danger"
-                            *ngIf="!staffAddForm.get('nationality').valid && staffAddForm.get('nationality').touched">
-                            <span *ngIf="!nationality.get('value').errors['required']">
-                                Please select a nationality
-                            </span>
-                        </span> -->
-                    </div>
-
-                    <div class="form-group">
-                        <label for="gender">Gender</label>
-                        <select formControlName="gender" class="form-control">
-                            <option *ngFor="let gender of genders" [value]="gender">{{ gender }}</option>
-                        </select>
-                        <span class="alert-danger"
-                            *ngIf="!staffAddForm.get('gender').valid && staffAddForm.get('gender').touched">
-                            <span *ngIf="!gender.get('value').errors['required']">
-                                Please select a gender
-                            </span>
-                        </span>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="custom-file">
-                            <input formControlName="photoUrl" type="file" class="custom-file-input"
-                                (change)="onFileChanged($event)">
-                            <label for="photoUrl" class="custom-file-label">{{selectedFile?.name}}</label>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar bg-info" [style.width.%]="progress"></div>
-                        </div>
                     </div>
 
                 </div>
