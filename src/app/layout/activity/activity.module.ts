@@ -1,11 +1,11 @@
+import { DataTablesModule } from 'angular-datatables';
+import { PageHeaderModule } from 'src/app/shared/modules';
+
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DataTablesModule } from 'angular-datatables';
-import { FlashMessagesModule } from 'angular2-flash-messages';
 
-import { PageHeaderModule } from '../../shared';
 import { ActivityRoutingModule } from './activity-routing.module';
 import { ActivityComponent } from './activity.component';
 import { CommInstructionModule } from './commInstruction/commInstruction.module';
@@ -20,7 +20,6 @@ import { ResearchModule } from './research/research.module';
         PageHeaderModule,
         FormsModule,
         ReactiveFormsModule,
-        FlashMessagesModule,
         DataTablesModule,
         LecturingModule,
         ResearchModule,

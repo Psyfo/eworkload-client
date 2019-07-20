@@ -1,12 +1,11 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Enrollment } from 'src/app/shared/generated/output';
+import { routerTransition } from 'src/app/router.animations';
+import { Enrollment } from 'src/app/shared/generated';
+import { EnrollmentService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { routerTransition } from '../../../../router.animations';
-import { EnrollmentService } from '../../../../shared/services';
 
 @Component({
     selector: 'app-view',

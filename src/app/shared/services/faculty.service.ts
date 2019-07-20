@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AlertService } from './alert.service';
-import { ErrorService } from './error.service';
 import {
     FacultyGQL,
     FacultiesGQL,
@@ -20,7 +18,6 @@ export class FacultyService {
     networkStatus: any;
 
     constructor(
-        private alertService: AlertService,
         private facultyGql: FacultyGQL,
         private facultiesGql: FacultiesGQL,
         private editFacultyGql: EditFacultyGQL,

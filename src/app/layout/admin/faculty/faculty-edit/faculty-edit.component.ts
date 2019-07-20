@@ -1,12 +1,13 @@
-import { Observable, Subject } from 'rxjs';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AlertService } from './../../../../shared/services/alert.service';
-import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../../../router.animations';
-import { FacultyService } from '../../../../shared/services';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Faculty } from 'src/app/shared/generated/output';
+import { routerTransition } from 'src/app/router.animations';
+import { Faculty } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+import { FacultyService } from 'src/app/shared/services';
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-faculty-edit',
@@ -77,7 +78,7 @@ export class FacultyEditComponent implements OnInit {
             .editFaculty(this.faculty)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.alertService.sendMessage('Faculty edited', 'success');
+                this.alertService.success('Faculty edited');
                 this.router.navigate(
                     ['admin/faculty/view', this.facultyId.value],
                     {

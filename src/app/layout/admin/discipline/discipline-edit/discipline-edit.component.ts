@@ -1,13 +1,13 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Discipline } from 'src/app/shared/generated/output';
+import { routerTransition } from 'src/app/router.animations';
+import { Discipline } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+import { DisciplineService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { routerTransition } from '../../../../router.animations';
-import { AlertService, DisciplineService } from '../../../../shared/services';
 
 @Component({
     selector: 'app-discipline-edit',
@@ -82,7 +82,7 @@ export class DisciplineEditComponent implements OnInit {
             .editDiscipline(this.discipline)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.alertService.sendMessage('Discipline edited', 'success');
+                this.alertService.success('Discipline edited');
 
                 this.router.navigate(
                     ['admin/discipline/view', this.disciplineId.value],

@@ -1,18 +1,12 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Module } from 'src/app/shared/generated/output';
+import { routerTransition } from 'src/app/router.animations';
+import { Module } from 'src/app/shared/generated';
+import { ModuleService } from 'src/app/shared/services';
 
-import {
-    ChangeDetectorRef,
-    Component,
-    OnInit,
-    SimpleChanges
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { routerTransition } from '../../../../router.animations';
-import { ModuleService } from '../../../../shared/services';
 
 @Component({
     selector: 'app-module-view',

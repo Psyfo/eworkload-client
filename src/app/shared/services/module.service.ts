@@ -15,7 +15,6 @@ import {
     ModulesByUnassignedGQL,
     ModulesGQL
 } from '../generated/output';
-import { AlertService } from './alert.service';
 
 @Injectable({
     providedIn: 'root'
@@ -34,7 +33,6 @@ export class ModuleService {
     ];
 
     constructor(
-        private alertService: AlertService,
         private moduleGql: ModuleGQL,
         private modulesGql: ModulesGQL,
         private modulesByDiscipline: ModulesByDisciplineGQL,

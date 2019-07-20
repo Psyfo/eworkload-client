@@ -1,16 +1,10 @@
-import {
-    Student,
-    SupervisionActivity,
-    User
-} from 'src/app/shared/generated/output';
+import { routerTransition } from 'src/app/router.animations';
+import { Student, SupervisionActivity, User } from 'src/app/shared/generated';
+import { StudentService, UserService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-
-import { routerTransition } from '../../../../router.animations';
-import { ActivityService, UserService } from '../../../../shared/services';
-import { StudentService } from '../../../../shared/services/student.service';
 
 @Component({
     selector: 'app-add',

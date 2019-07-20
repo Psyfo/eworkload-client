@@ -1,20 +1,15 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { routerTransition } from '../../../../router.animations';
-import {
-    Enrollment,
-    FormalInstructionActivitiesDocument,
-    Qualification
-} from '../../../../shared/generated/output';
+import { routerTransition } from 'src/app/router.animations';
+import { Enrollment, Qualification } from 'src/app/shared/generated';
 import {
     EnrollmentService,
     QualificationService
-} from '../../../../shared/services';
+} from 'src/app/shared/services';
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-edit',

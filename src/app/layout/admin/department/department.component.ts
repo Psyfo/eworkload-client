@@ -1,17 +1,15 @@
+import { routerTransition } from 'src/app/router.animations';
+
 import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../../router.animations';
 
 @Component({
-  selector: 'app-department',
-  templateUrl: './department.component.html',
-  styleUrls: ['./department.component.scss'],
-  animations: [routerTransition()]
+    selector: 'app-department',
+    templateUrl: './department.component.html',
+    styleUrls: ['./department.component.scss'],
+    animations: [routerTransition()]
 })
 export class DepartmentComponent implements OnInit {
+    constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+    ngOnInit() {}
 }

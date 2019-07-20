@@ -1,12 +1,12 @@
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { FlashMessagesService } from 'angular2-flash-messages';
 
-import { UserGQL, User } from '../../../shared/generated/output';
+import { User } from '../../../shared/generated/output';
 import { UserService } from '../../../shared/services/user.service';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-header',
@@ -25,8 +25,6 @@ export class HeaderComponent implements OnInit {
     constructor(
         private translate: TranslateService,
         public router: Router,
-        private flashMessagesService: FlashMessagesService,
-        private userGql: UserGQL,
         private userService: UserService
     ) {
         this.translate.addLangs([
@@ -61,20 +59,10 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {
         // Get current user ID
         this.userService
-            .currentUserId()
+            .currentUser()
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(userId => {
-                this.userId = userId;
-                console.log(`Current user id: ${this.userId}`);
-
-                // Fetch user data
-                this.userGql
-                    .watch({ userId: this.userId })
-                    .valueChanges.subscribe(result => {
-                        this.user = result.data.user as User;
-                        this.loading = result.loading;
-                        this.errors = result.errors;
-                    });
+            .subscribe(result => {
+                this.user = result.data.user;
             });
     }
 

@@ -1,13 +1,11 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { routerTransition } from 'src/app/router.animations';
+import { User } from 'src/app/shared/generated';
+import { UserService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { routerTransition } from '../../../../router.animations';
-import { User, UserGQL } from '../../../../shared/generated/output';
-import { UserService } from '../../../../shared/services';
-import { AlertService } from '../../../../shared/services/alert.service';
 
 @Component({
     selector: 'app-staff-view',

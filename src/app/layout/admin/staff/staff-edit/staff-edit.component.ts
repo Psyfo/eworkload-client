@@ -1,26 +1,17 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import {
-    Discipline,
-    DisciplinesGQL,
-    EditUserGQL,
-    PositionsGQL,
-    User,
-    UserGQL,
-    WorkFocus
-} from '../../../../shared/generated/output';
+import { Discipline, User, WorkFocus } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
 import {
     DisciplineService,
     PositionService,
     UserService,
     WorkFocusService
-} from '../../../../shared/services';
-import { AlertService } from '../../../../shared/services/alert.service';
+} from 'src/app/shared/services';
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-staff-edit',
@@ -146,7 +137,7 @@ export class StaffEditComponent implements OnInit {
 
     public onEdit(): void {
         if (this.userEditForm.invalid) {
-            this.alertService.sendMessage('Form is not valid', 'danger');
+            this.alertService.success('Form is not valid');
             return;
         }
 
@@ -167,7 +158,7 @@ export class StaffEditComponent implements OnInit {
             .editUser(this.user)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.alertService.sendMessage('User data updated', 'success');
+                this.alertService.success('User data updated');
                 this.router.navigate(['admin/staff/view', this.userId], {
                     queryParams: {
                         userId: this.userId

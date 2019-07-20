@@ -6,8 +6,7 @@ import {
     AddPositionGQL, DeletePositionGQL, EditPositionGQL, FacultiesGQL, PositionGQL, PositionInput,
     PositionsGQL
 } from '../generated/output';
-import { AlertService } from './alert.service';
-import { ErrorService } from './error.service';
+
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +17,6 @@ export class PositionService {
     networkStatus: any;
 
     constructor(
-        private alertService: AlertService,
         private positionGql: PositionGQL,
         private positionsGql: PositionsGQL,
         private editPositionGql: EditPositionGQL,

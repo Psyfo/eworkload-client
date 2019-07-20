@@ -1,13 +1,13 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Department, DepartmentInput } from 'src/app/shared/generated/output';
+import { routerTransition } from 'src/app/router.animations';
+import { Department, DepartmentInput } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+import { DepartmentService } from 'src/app/shared/services';
 
 import { Component, OnInit, Renderer } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-import { routerTransition } from '../../../../router.animations';
-import { AlertService, DepartmentService } from '../../../../shared/services';
 
 @Component({
     selector: 'app-department-view',
@@ -84,7 +84,7 @@ export class DepartmentViewComponent implements OnInit {
             .subscribe(result => {
                 console.log('Errors:', result.errors);
                 console.log('Network Status:', result.networkStatus);
-                this.alertService.sendMessage('Department deleted', 'success');
+                this.alertService.success('Department deleted');
                 setTimeout(() => {
                     this.modalService.dismissAll('Operations complete');
                     this.router.navigate(['admin/department']);

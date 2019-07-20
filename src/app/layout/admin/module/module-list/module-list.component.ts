@@ -1,7 +1,10 @@
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Module, ModuleInput } from 'src/app/shared/generated/output';
+import { routerTransition } from 'src/app/router.animations';
+import { Module, ModuleInput } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+import { ModuleService } from 'src/app/shared/services';
 import * as XLXS from 'xlsx';
 
 import {
@@ -13,9 +16,6 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-import { routerTransition } from '../../../../router.animations';
-import { AlertService, ModuleService } from '../../../../shared/services';
 
 @Component({
     selector: 'app-module-list',
@@ -194,10 +194,7 @@ export class ModuleListComponent implements OnInit {
                 .pipe(takeUntil(this.unsubscribe))
                 .subscribe(result => {
                     console.log(result.addModules);
-                    this.alertService.sendMessage(
-                        'Bulk upload complete',
-                        'success'
-                    );
+                    this.alertService.success('Bulk upload complete');
 
                     this.modalService.dismissAll('Operations complete');
                 });

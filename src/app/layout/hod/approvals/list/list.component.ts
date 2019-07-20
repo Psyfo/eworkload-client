@@ -1,8 +1,6 @@
-import { takeUntil } from 'rxjs/operators';
+import { routerTransition } from 'src/app/router.animations';
+
 import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../../../router.animations';
-import { ActivityService } from '../../../../shared/services';
-import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-list',
@@ -11,8 +9,6 @@ import { Subject } from 'rxjs';
     animations: [routerTransition()]
 })
 export class ListComponent implements OnInit {
-    private unsubscribe = new Subject();
-
     constructor() {}
 
     ngOnInit() {}

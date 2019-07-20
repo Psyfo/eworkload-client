@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
     selector: 'app-layout',
@@ -7,15 +6,10 @@ import { FlashMessagesService } from 'angular2-flash-messages';
     styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-
     collapedSideBar: boolean;
-    constructor(
-        private flashMessagesService: FlashMessagesService
-    ) { }
+    constructor() {}
 
-    ngOnInit() {
-        
-    }
+    ngOnInit() {}
 
     receiveCollapsed($event) {
         this.collapedSideBar = $event;

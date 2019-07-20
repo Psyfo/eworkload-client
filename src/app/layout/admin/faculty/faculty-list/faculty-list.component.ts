@@ -1,19 +1,20 @@
-import { Router } from '@angular/router';
-import { AlertService } from './../../../../shared/services/alert.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { AlertService } from 'src/app/shared/modules';
+
 import {
-    Component,
-    OnInit,
-    OnDestroy,
     AfterViewInit,
+    Component,
+    OnDestroy,
+    OnInit,
     Renderer
 } from '@angular/core';
-import { Faculty } from '../../../../shared/generated/output';
+import { Router } from '@angular/router';
+
 import { routerTransition } from '../../../../router.animations';
+import { Faculty } from '../../../../shared/generated/output';
 import { FacultyService } from '../../../../shared/services';
-import { takeUntil } from 'rxjs/operators';
-import gql from 'graphql-tag';
 
 @Component({
     selector: 'app-faculty-list',

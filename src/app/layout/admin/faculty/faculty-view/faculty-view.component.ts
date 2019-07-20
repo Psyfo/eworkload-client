@@ -1,12 +1,11 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Faculty } from 'src/app/shared/generated/output';
+import { routerTransition } from 'src/app/router.animations';
+import { Faculty } from 'src/app/shared/generated';
+import { FacultyService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { routerTransition } from '../../../../router.animations';
-import { FacultyService } from '../../../../shared/services';
 
 @Component({
     selector: 'app-faculty-view',

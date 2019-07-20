@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
-import { AlertService } from './alert.service';
-import {
-    BlockGQL,
-    BlocksGQL,
-    AddBlockGQL,
-    EditBlockGQL,
-    DeleteBlockGQL,
-    BlockInput
-} from '../generated/output';
 import { map } from 'rxjs/operators';
+
+import { Injectable } from '@angular/core';
+
+import {
+    AddBlockGQL,
+    BlockGQL,
+    BlockInput,
+    BlocksGQL,
+    DeleteBlockGQL,
+    EditBlockGQL
+} from '../generated/output';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +20,6 @@ export class BlockService {
     networkStatus: any;
 
     constructor(
-        private alertService: AlertService,
         private blockGql: BlockGQL,
         private blocksGql: BlocksGQL,
         private addBlockGql: AddBlockGQL,

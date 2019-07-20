@@ -1,10 +1,11 @@
 import { DataTablesModule } from 'angular-datatables';
-import { FlashMessagesModule } from 'angular2-flash-messages';
 import { Apollo, ApolloModule } from 'apollo-angular';
 import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-link';
 import { onError } from 'apollo-link-error';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -18,12 +19,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthGuard } from './shared';
-import { AlertComponent } from './shared/directives';
+import { AuthGuard } from './shared/guard';
 import { CustomRouteReuseStrategy } from './shared/helpers/routing-strategy';
+import { AlertModule } from './shared/modules/alert/alert.module';
 import {
-    AlertService,
-    BufferService,
     ActivityService,
     BlockService,
     DepartmentService,
@@ -31,8 +30,8 @@ import {
     FacultyService,
     ModuleService,
     OfferingTypeService,
-    QualificationService,
     PositionService,
+    QualificationService,
     StudentService,
     UploadService,
     UserService,
@@ -42,6 +41,10 @@ import {
 } from './shared/services';
 import { DutyService } from './shared/services/duty.service';
 import { ValidationService } from './shared/services/validation.service';
+import { AlertService } from './shared/modules';
+import { PanelModule } from 'primeng/panel';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
@@ -71,17 +74,18 @@ export const createTranslateLoader = (http: HttpClient) => {
             }
         }),
         AppRoutingModule,
-        FlashMessagesModule.forRoot(),
         DataTablesModule.forRoot(),
         //GraphQLModule,
         ApolloModule,
-        HttpLinkModule
+        HttpLinkModule,
+        AlertModule,
+        MessagesModule,
+        MessageModule
     ],
-    declarations: [AppComponent, AlertComponent],
+    declarations: [AppComponent],
     providers: [
         AlertService,
         AuthGuard,
-        BufferService,
         [{ provide: RouteReuseStrategy, userClass: CustomRouteReuseStrategy }],
         ActivityService,
         BlockService,

@@ -1,17 +1,16 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Department, Qualification } from 'src/app/shared/generated/output';
+import { routerTransition } from 'src/app/router.animations';
+import { Department, Qualification } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+import {
+    DepartmentService,
+    QualificationService
+} from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { routerTransition } from '../../../../router.animations';
-import {
-    AlertService,
-    DepartmentService,
-    QualificationService
-} from '../../../../shared/services';
 
 @Component({
     selector: 'app-qualification-add',
@@ -72,7 +71,7 @@ export class QualificationAddComponent implements OnInit {
             .addQualification(this.qualification)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.alertService.sendMessage('Qualification added', 'success');
+                this.alertService.success('Qualification added');
                 this.router.navigate(
                     [
                         'admin/qualification/view',

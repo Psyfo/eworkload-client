@@ -1,16 +1,15 @@
-import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
+import { Injectable } from '@angular/core';
+
 import {
-    DisciplineGQL,
-    DisciplinesGQL,
     AddDisciplineGQL,
-    EditDisciplineGQL,
     DeleteDisciplineGQL,
-    DisciplineInput
+    DisciplineGQL,
+    DisciplineInput,
+    DisciplinesGQL,
+    EditDisciplineGQL
 } from '../generated/output';
-import { AlertService } from './alert.service';
-import { ErrorService } from './error.service';
 
 @Injectable({
     providedIn: 'root'
@@ -21,8 +20,6 @@ export class DisciplineService {
     networkStatus: any;
 
     constructor(
-        private errorService: ErrorService,
-        private alertService: AlertService,
         private disciplineGql: DisciplineGQL,
         private disciplinesGql: DisciplinesGQL,
         private addDisciplineGql: AddDisciplineGQL,

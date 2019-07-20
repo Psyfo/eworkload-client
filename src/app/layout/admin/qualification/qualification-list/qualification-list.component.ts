@@ -1,16 +1,13 @@
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Qualification } from 'src/app/shared/generated/output';
+import { routerTransition } from 'src/app/router.animations';
+import { Qualification } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+import { QualificationService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { routerTransition } from '../../../../router.animations';
-import {
-    AlertService,
-    QualificationService
-} from '../../../../shared/services';
 
 @Component({
     selector: 'app-qualification-list',

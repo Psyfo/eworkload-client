@@ -10,7 +10,6 @@ import {
     StudentInput,
     StudentsGQL
 } from '../generated/output';
-import { AlertService } from './alert.service';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +20,6 @@ export class StudentService {
     networkStatus: any;
 
     constructor(
-        private alertService: AlertService,
         private studentGql: StudentGQL,
         private studentsGql: StudentsGQL,
         private editStudentGql: EditStudentGQL,

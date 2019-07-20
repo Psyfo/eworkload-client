@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../../../router.animations';
-import { Router, ActivatedRoute } from '@angular/router';
-import {
-    AlertService,
-    ActivityService,
-    FormalInstructionService
-} from '../../../../shared/services';
-import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { FormalInstructionActivity } from 'src/app/shared/generated/output';
+import { AlertService } from 'src/app/shared/modules';
+import { FormalInstructionService } from 'src/app/shared/services';
+
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { routerTransition } from '../../../../router.animations';
 
 @Component({
     selector: 'app-view',

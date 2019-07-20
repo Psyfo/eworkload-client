@@ -1,28 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { routerTransition } from '../../../../router.animations';
-
-import {
-    ModuleService,
-    DisciplineService,
-    VenueService,
-    AlertService
-} from '../../../../shared/services';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { OfferingTypeService } from '../../../../shared/services/offering-type.service';
-import { BlockService } from '../../../../shared/services/block.service';
-import { QualificationService } from '../../../../shared/services/qualification.service';
+import { routerTransition } from 'src/app/router.animations';
 import {
-    Module,
-    Discipline,
     Block,
+    Discipline,
+    Module,
     OfferingType,
     Qualification,
     Venue
-} from 'src/app/shared/generated/output';
+} from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+import {
+    BlockService,
+    DisciplineService,
+    ModuleService,
+    OfferingTypeService,
+    QualificationService,
+    VenueService
+} from 'src/app/shared/services';
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-module-edit',
@@ -155,7 +154,7 @@ export class ModuleEditComponent implements OnInit {
         this.module = this.formVal as Module;
 
         this.moduleService.editModule(this.module).subscribe(result => {
-            this.alertService.sendMessage('Module edited', 'success');
+            this.alertService.success('Module edited');
             this.router.navigate(['admin/module/view', this.moduleId.value], {
                 queryParams: {
                     moduleId: this.moduleId.value

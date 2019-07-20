@@ -1,18 +1,18 @@
+import { DataTablesModule } from 'angular-datatables';
+import { AlertService, PageHeaderModule } from 'src/app/shared/modules';
+
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataTablesModule } from 'angular-datatables';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { PageHeaderModule } from '../../../shared';
-import { AlertService } from '../../../shared/services';
+import { ModuleAddComponent } from './module-add/module-add.component';
+import { ModuleEditComponent } from './module-edit/module-edit.component';
 import { ModuleListComponent } from './module-list/module-list.component';
 import { ModuleRoutingModule } from './module-routing.module';
-import { ModuleComponent } from './module.component';
 import { ModuleViewComponent } from './module-view/module-view.component';
-import { ModuleEditComponent } from './module-edit/module-edit.component';
-import { ModuleAddComponent } from './module-add/module-add.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModuleComponent } from './module.component';
 
 @NgModule({
     declarations: [

@@ -1,5 +1,6 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { routerTransition } from 'src/app/router.animations';
 import {
     Block,
     Discipline,
@@ -8,22 +9,20 @@ import {
     Qualification,
     Venue
 } from 'src/app/shared/generated/output';
-
-import { invalid } from '@angular/compiler/src/render3/view/util';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-
-import { routerTransition } from '../../../../router.animations';
+import { AlertService } from 'src/app/shared/modules';
 import {
-    AlertService,
     BlockService,
     DisciplineService,
     ModuleService,
     OfferingTypeService,
     QualificationService,
     VenueService
-} from '../../../../shared/services';
+} from 'src/app/shared/services';
+
+import { invalid } from '@angular/compiler/src/render3/view/util';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-module-add',
@@ -157,7 +156,7 @@ export class ModuleAddComponent implements OnInit {
             .addModule(this.module)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.alertService.sendMessage('Module added', 'success');
+                this.alertService.success('Module added');
 
                 this.router.navigate(
                     ['admin/module/view', this.moduleId.value],

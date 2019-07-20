@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
+import { Injectable } from '@angular/core';
+
 import { WorkFocusesGQL, WorkFocusGQL } from '../generated/output';
-import { AlertService } from './alert.service';
 import { ErrorService } from './error.service';
 
 @Injectable({

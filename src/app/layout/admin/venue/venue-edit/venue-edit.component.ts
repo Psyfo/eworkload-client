@@ -1,14 +1,13 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { VenueInput } from 'src/app/shared/generated/output';
+import { routerTransition } from 'src/app/router.animations';
+import { VenueInput } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+import { VenueService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { routerTransition } from '../../../../router.animations';
-import { AlertService } from '../../../../shared/services';
-import { VenueService } from '../../../../shared/services/venue.service';
 
 @Component({
     selector: 'app-venue-edit',
@@ -80,7 +79,7 @@ export class VenueEditComponent implements OnInit {
             .editVenue(this.venue)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {});
-        this.alertService.sendMessage('Venue edited', 'success');
+        this.alertService.success('Venue edited');
         this.router.navigate(['admin/venue/view', this.venueId.value], {
             queryParams: {
                 venueId: this.venueId.value

@@ -1,21 +1,13 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import {
-    Department,
-    DepartmentInput,
-    Faculty
-} from 'src/app/shared/generated/output';
+import { routerTransition } from 'src/app/router.animations';
+import { Department, DepartmentInput, Faculty } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+import { DepartmentService, FacultyService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { routerTransition } from '../../../../router.animations';
-import {
-    AlertService,
-    DepartmentService,
-    FacultyService
-} from '../../../../shared/services';
 
 @Component({
     selector: 'app-department-edit',
@@ -113,7 +105,7 @@ export class DepartmentEditComponent implements OnInit {
             .subscribe(result => {
                 console.log('Errors:', result.errors);
                 console.log('Network Status:', result.networkStatus);
-                this.alertService.sendMessage('Department edited', 'success');
+                this.alertService.success('Department edited');
                 setTimeout(() => {
                     this.router.navigate(
                         ['admin/department/view', this.departmentId.value],

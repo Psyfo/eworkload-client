@@ -1,297 +1,308 @@
-<div class="row">
-    <div class="col-6">
-        <h4><strong>Part One: General Information</strong></h4>
-        <div class="row">
-            <div class="col">
-                <strong>
-                    Employee Number:
-                </strong>
+<ng-template #stillLoading>
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</ng-template>
+
+<div *ngIf="formalInstructionWorkload !== undefined; else stillLoading">
+    <div class="row mt-4 mb-4">
+        <div class="col-6">
+            <h4><strong>Part One: General Information</strong></h4>
+            <div class="row">
+                <div class="col">
+                    <strong>
+                        Employee Number:
+                    </strong>
+                </div>
+                <div class="col text-mutede">
+                    {{user?.userId}}
+                </div>
             </div>
-            <div class="col text-mutede">
-                {{user?.userId}}
+            <div class="row">
+                <div class="col">
+                    <strong>
+                        Name:
+                    </strong>
+                </div>
+                <div class="col text-mutede">
+                    {{user?.firstName}} {{user?.lastName}}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <strong>
-                    Name:
-                </strong>
+            <div class="row">
+                <div class="col">
+                    <strong>
+                        Position
+                    </strong>
+                </div>
+                <div class="col text-mutede">
+                    {{user?.position?.name}}
+                </div>
             </div>
-            <div class="col text-mutede">
-                {{user?.firstName}} {{user?.lastName}}
+            <div class="row">
+                <div class="col">
+                    <strong>
+                        Faculty:
+                    </strong>
+                </div>
+                <div class="col text-mutede">
+                    {{'Accounting and Informatics'}}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <strong>
-                    Position
-                </strong>
-            </div>
-            <div class="col text-mutede">
-                {{user?.position?.name}}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <strong>
-                    Faculty:
-                </strong>
-            </div>
-            <div class="col text-mutede">
-                {{'Accounting and Informatics'}}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <strong>
-                    Department:
-                </strong>
-            </div>
-            <div class="col text-mutede">
-                {{'Information Technology'}}
+            <div class="row">
+                <div class="col">
+                    <strong>
+                        Department:
+                    </strong>
+                </div>
+                <div class="col text-mutede">
+                    {{'Information Technology'}}
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="hemis">
-    <div class="heading">Allocation of Time</div>
-    <div class="programme">
-        <div class="programme__heading">
-            <div class="programme__heading--programme">
-                PROGRAMME/SUB-PROGRAMME
+    <div class="hemis" *ngIf="formalInstructionWorkload !== undefined; else stillLoading">
+        <h4><strong>Part One: Allocation of Time</strong></h4>
+        <div class="programme">
+            <div class="programme__heading">
+                <div class="programme__heading--programme">
+                    PROGRAMME/SUB-PROGRAMME
+                </div>
+                <div class="programme__heading--time">
+                    % TIME
+                </div>
             </div>
-            <div class="programme__heading--time">
-                % TIME
+            <div class="programme__content">
+                <div class="programme__item">
+                    <div class="programme__item--code">
+                        11
+                    </div>
+                    <div class="programme__item--name">
+                        Formal Instruction
+                    </div>
+                    <div class="programme__item--value">
+                        {{formalInstructionWorkload?.formalInstructionPercentageOfAnnualHoursPerUser }}%
+                    </div>
+                </div>
+                <div class="programme__item">
+                    <div class="programme__item--code">
+                        12
+                    </div>
+                    <div class="programme__item--name">
+                        Community Instruction
+                    </div>
+                    <div class="programme__item--value">
+                        {{communityInstructionWorkload?.communityInstructionPercentageOfAnnualHoursPerUser }}%
+                    </div>
+                </div>
+                <div class="programme__item">
+                    <div class="programme__item--code">
+                        20
+                    </div>
+                    <div class="programme__item--name">
+                        Research
+                    </div>
+                    <div class="programme__item--value">
+                        {{researchWorkload?.researchPercentageOfAnnualHoursPerUser }}%
+                    </div>
+                </div>
+                <div class="programme__item">
+                    <div class="programme__item--code">
+                        30
+                    </div>
+                    <div class="programme__item--name">
+                        Public Service
+                    </div>
+                    <div class="programme__item--value">
+                        {{publicServiceWorkload?.publicServicePercentageOfAnnualHoursPerUser}}%
+                    </div>
+                </div>
+                <div class="programme__item">
+                    <div class="programme__item--code">
+                        46
+                    </div>
+                    <div class="programme__item--name">
+                        Academic Administration
+                    </div>
+                    <div class="programme__item--value">
+                        {{academicAdministrationWorkload?.academicAdministrationPercentageOfAnnualHoursPerUser }}%
+                    </div>
+                </div>
+                <div class="programme__item">
+                    <div class="programme__item--code">
+                        48
+                    </div>
+                    <div class="programme__item--name">
+                        Academic Personnel Development
+                    </div>
+                    <div class="programme__item--value">
+                        {{personnelDevelopmentWorkload?.personnelDevelopmentPercentageOfAnnualHoursPerUser}}%
+                    </div>
+                </div>
+                <div class="programme__item">
+                    <div class="programme__item--code">
+                        60
+                    </div>
+                    <div class="programme__item--name">
+                        Executive Management
+                    </div>
+                    <div class="programme__item--value">
+                        {{executiveManagementWorkload?.executiveManagementPercentageOfAnnualHoursPerUser }}%
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="programme__content">
-            <div class="programme__item">
-                <div class="programme__item--code">
-                    11
-                </div>
-                <div class="programme__item--name">
-                    Formal Instruction
-                </div>
-                <div class="programme__item--value">
-                    {{formalInstructionWorkload?.formalInstructionPercentageOfAnnualHoursPerUser }}%
-                </div>
+
+        <div class="heading">Breakdown of 1.1: Formal Instruction</div>
+        <div class="breakdown">
+            <div class="breakdown__heading">
+                <div class="breakdown__heading--subject">SUBJECT</div>
+                <div class="breakdown__heading--code">CODE</div>
+                <div class="breakdown__heading--description">DESCRIPTION</div>
+                <div class="breakdown__heading--annual-hours">ANNUAL HOURS</div>
+                <div class="breakdown__heading--contact">CONTACT</div>
+                <div class="breakdown__heading--other">OTHER</div>
+                <div class="breakdown__heading--time">% TIME</div>
+                <div class="breakdown__heading--students">NO OF STUDENTS</div>
+                <div class="breakdown__heading--venue">LECTURE ROOM</div>
+                <div class="breakdown__heading--venue-type">C/L</div>
             </div>
-            <div class="programme__item">
-                <div class="programme__item--code">
-                    12
+            <div class="breakdown__content"
+                *ngFor="let formalInstructionData of formalInstructionWorkload?.formalInstructionWorkloadData; let i = index;">
+                <div class="breakdown__content--code">
+                    {{formalInstructionData?.formalInstructionActivity?.module?.moduleId }}
                 </div>
-                <div class="programme__item--name">
-                    Community Instruction
+                <div class="breakdown__content--description">
+                    {{formalInstructionData?.formalInstructionActivity?.module?.name }},
+                    (Block {{formalInstructionData?.formalInstructionActivity?.module?.block?.blockId }}),
+                    (Offering Type
+                    {{formalInstructionData?.formalInstructionActivity?.module?.offeringType?.offeringTypeId }}),
                 </div>
-                <div class="programme__item--value">
-                    {{communityInstructionWorkload?.communityInstructionPercentageOfAnnualHoursPerUser }}%
-                </div>
+                <div class="breakdown__content--contact">
+                    {{formalInstructionData?.formalInstructionBaseContactHours }}</div>
+                <div class="breakdown__content--other">
+                    {{formalInstructionData?.formalInstructionOtherHoursPerActivity }}</div>
+                <div class="breakdown__content--time">
+                    {{formalInstructionData?.formalInstructionPercentageOfAnnualHoursPerActivity }}</div>
+                <div class="breakdown__content--students">
+                    {{formalInstructionData?.formalInstructionStudentsEnrolled }}</div>
+                <div class="breakdown__content--venue">
+                    {{formalInstructionData?.formalInstructionActivity?.module?.venue?.venueId }}</div>
+                <div class="breakdown__content--venue-type">
+                    {{formalInstructionData?.formalInstructionActivity.module?.venue?.type }}</div>
             </div>
-            <div class="programme__item">
-                <div class="programme__item--code">
-                    20
-                </div>
-                <div class="programme__item--name">
-                    Research
-                </div>
-                <div class="programme__item--value">
-                    {{researchWorkload?.researchPercentageOfAnnualHoursPerUser }}%
-                </div>
+            <div class="breakdown__total">
+                <div class="breakdown__total--total">Total</div>
+                <div class="breakdown__total--contact">{{''}}</div>
+                <div class="breakdown__total--other">{{''}}</div>
+                <div class="breakdown__total--time">
+                    {{formalInstructionWorkload?.formalInstructionPercentageOfAnnualHoursPerUser }}%</div>
             </div>
-            <div class="programme__item">
-                <div class="programme__item--code">
-                    30
-                </div>
-                <div class="programme__item--name">
-                    Public Service
-                </div>
-                <div class="programme__item--value">
+        </div>
+
+        <div class="heading">Breakdown of 20: Research</div>
+        <div class="breakdown">
+            <div class="breakdown__heading">
+
+            </div>
+            <div class="breakdown__content" *ngFor="let researchData of researchWorkload?.researchWorkloadData">
+
+            </div>
+            <div class="breakdown__total">
+                <div class="breakdown__total--total">Total</div>
+                <div class="breakdown__total--contact">{{''}}</div>
+                <div class="breakdown__total--other">{{''}}</div>
+                <div class="breakdown__total--time">{{researchWorkload?.researchPercentageOfAnnualHoursPerUser}}%</div>
+            </div>
+        </div>
+
+        <div class="heading">Breakdown of 30: Public Service</div>
+        <div class="breakdown">
+            <div class="breakdown__heading">
+
+            </div>
+            <div class="breakdown__content"
+                *ngFor="let publicServiceData of publicServiceWorkload?.publicServiceWorkloadData; let i = index;">
+
+            </div>
+            <div class="breakdown__total">
+                <div class="breakdown__total--total">Total</div>
+                <div class="breakdown__total--contact">{{''}}</div>
+                <div class="breakdown__total--other">{{''}}</div>
+                <div class="breakdown__total--time">
                     {{publicServiceWorkload?.publicServicePercentageOfAnnualHoursPerUser}}%
                 </div>
             </div>
-            <div class="programme__item">
-                <div class="programme__item--code">
-                    46
-                </div>
-                <div class="programme__item--name">
-                    Academic Administration
-                </div>
-                <div class="programme__item--value">
-                    {{academicAdministrationWorkload?.academicAdministrationPercentageOfAnnualHoursPerUser }}%
-                </div>
+        </div>
+
+        <div class="heading">Breakdown of 46: Academic Administration</div>
+        <div class="breakdown">
+            <div class="breakdown__heading">
+
             </div>
-            <div class="programme__item">
-                <div class="programme__item--code">
-                    48
-                </div>
-                <div class="programme__item--name">
-                    Academic Personnel Development
-                </div>
-                <div class="programme__item--value">
-                    {{personnelDevelopmentWorkload?.personnelDevelopmentPercentageOfAnnualHoursPerUser}}%
-                </div>
+            <div class="breakdown__content"
+                *ngFor="let academicAdministrationData of academicAdministrationWorkload?.academicAdministrationWorkloadData; let i = index;">
+
             </div>
-            <div class="programme__item">
-                <div class="programme__item--code">
-                    60
-                </div>
-                <div class="programme__item--name">
-                    Executive Management
-                </div>
-                <div class="programme__item--value">
-                    {{executiveManagementWorkload?.executiveManagementPercentageOfAnnualHoursPerUser }}%
-                </div>
+            <div class="breakdown__total">
+                <div class="breakdown__total--total">Total</div>
+                <div class="breakdown__total--contact">{{''}}</div>
+                <div class="breakdown__total--other">{{''}}</div>
+                <div class="breakdown__total--time">
+                    {{academicAdministrationWorkload?.academicAdministrationPercentageOfAnnualHoursPerUser}}%</div>
             </div>
         </div>
-    </div>
 
-    <div class="heading">Breakdown of 1.1: Formal Instruction</div>
-    <div class="breakdown">
-        <div class="breakdown__heading">
-            <div class="breakdown__heading--subject">SUBJECT</div>
-            <div class="breakdown__heading--code">CODE</div>
-            <div class="breakdown__heading--description">DESCRIPTION</div>
-            <div class="breakdown__heading--annual-hours">ANNUAL HOURS</div>
-            <div class="breakdown__heading--contact">CONTACT</div>
-            <div class="breakdown__heading--other">OTHER</div>
-            <div class="breakdown__heading--time">% TIME</div>
-            <div class="breakdown__heading--students">NO OF STUDENTS</div>
-            <div class="breakdown__heading--venue">LECTURE ROOM</div>
-            <div class="breakdown__heading--venue-type">C/L</div>
-        </div>
-        <div class="breakdown__content"
-            *ngFor="let formalInstructionData of formalInstructionWorkload?.formalInstructionWorkloadData; let i = index;">
-            <div class="breakdown__content--code">
-                {{formalInstructionData?.formalInstructionActivity?.module?.moduleId }}
+        <div class="heading">Breakdown of 48: Personnel Development</div>
+        <div class="breakdown">
+            <div class="breakdown__heading">
+
             </div>
-            <div class="breakdown__content--description">
-                {{formalInstructionData?.formalInstructionActivity?.module?.name }},
-                (Block {{formalInstructionData?.formalInstructionActivity?.module?.block?.blockId }}),
-                (Offering Type
-                {{formalInstructionData?.formalInstructionActivity?.module?.offeringType?.offeringTypeId }}),
+            <div class="breakdown__content"
+                *ngFor="let personnelDevelopmentData of personnelDevelopmentWorkload?.personnelDevelopmentWorkloadData; let i = index;">
+
             </div>
-            <div class="breakdown__content--contact">
-                {{formalInstructionData?.formalInstructionBaseContactHours }}</div>
-            <div class="breakdown__content--other">
-                {{formalInstructionData?.formalInstructionOtherHoursPerActivity }}</div>
-            <div class="breakdown__content--time">
-                {{formalInstructionData?.formalInstructionPercentageOfAnnualHoursPerActivity }}</div>
-            <div class="breakdown__content--students">
-                {{formalInstructionData?.formalInstructionStudentsEnrolled }}</div>
-            <div class="breakdown__content--venue">
-                {{formalInstructionData?.formalInstructionActivity?.module?.venue?.venueId }}</div>
-            <div class="breakdown__content--venue-type">
-                {{formalInstructionData?.formalInstructionActivity.module?.venue?.type }}</div>
+            <div class="breakdown__total">
+                <div class="breakdown__total--total">Total</div>
+                <div class="breakdown__total--contact">{{''}}</div>
+                <div class="breakdown__total--other">{{''}}</div>
+                <div class="breakdown__total--time">
+                    {{personnelDevelopmentWorkload?.personnelDevelopmentPercentageOfAnnualHoursPerUser}}%</div>
+            </div>
         </div>
-        <div class="breakdown__total">
-            <div class="breakdown__total--total">Total</div>
-            <div class="breakdown__total--contact">{{''}}</div>
-            <div class="breakdown__total--other">{{''}}</div>
-            <div class="breakdown__total--time">
-                {{formalInstructionWorkload?.formalInstructionPercentageOfAnnualHoursPerUser }}%</div>
-        </div>
-    </div>
 
-    <div class="heading">Breakdown of 20: Research</div>
-    <div class="breakdown">
-        <div class="breakdown__heading">
+        <div class="heading">Breakdown of 60: Executive Management</div>
+        <div class="breakdown">
+            <div class="breakdown__heading">
 
-        </div>
-        <div class="breakdown__content" *ngFor="let researchData of researchWorkload?.researchWorkloadData">
+            </div>
+            <div class="breakdown__content"
+                *ngFor="let executiveManagementData of executiveManagementWorkload?.executiveManagementWorkloadData; let i = index;">
 
-        </div>
-        <div class="breakdown__total">
-            <div class="breakdown__total--total">Total</div>
-            <div class="breakdown__total--contact">{{''}}</div>
-            <div class="breakdown__total--other">{{''}}</div>
-            <div class="breakdown__total--time">{{researchWorkload?.researchPercentageOfAnnualHoursPerUser}}%</div>
-        </div>
-    </div>
-
-    <div class="heading">Breakdown of 30: Public Service</div>
-    <div class="breakdown">
-        <div class="breakdown__heading">
-
-        </div>
-        <div class="breakdown__content"
-            *ngFor="let publicServiceData of publicServiceWorkload?.publicServiceWorkloadData; let i = index;">
-
-        </div>
-        <div class="breakdown__total">
-            <div class="breakdown__total--total">Total</div>
-            <div class="breakdown__total--contact">{{''}}</div>
-            <div class="breakdown__total--other">{{''}}</div>
-            <div class="breakdown__total--time">{{publicServiceWorkload?.publicServicePercentageOfAnnualHoursPerUser}}%
+            </div>
+            <div class="breakdown__total">
+                <div class="breakdown__total--total">Total</div>
+                <div class="breakdown__total--contact">{{''}}</div>
+                <div class="breakdown__total--other">{{''}}</div>
+                <div class="breakdown__total--time">
+                    {{executiveManagementWorkload?.executiveManagementPercentageOfAnnualHoursPerUser}}%</div>
             </div>
         </div>
     </div>
-
-    <div class="heading">Breakdown of 46: Academic Administration</div>
-    <div class="breakdown">
-        <div class="breakdown__heading">
-
+    <div class="signature mt-10 mb-4">
+        <div class="signature__user">
+            <div class="signature__user--sig"></div>
+            <div class="signature__user--text">Staff Signature</div>
         </div>
-        <div class="breakdown__content"
-            *ngFor="let academicAdministrationData of academicAdministrationWorkload?.academicAdministrationWorkloadData; let i = index;">
-
+        <div class="signature__date">
+            <div class="datepicker-input">
+                <input type="date" class="datepicker-input">
+            </div>
         </div>
-        <div class="breakdown__total">
-            <div class="breakdown__total--total">Total</div>
-            <div class="breakdown__total--contact">{{''}}</div>
-            <div class="breakdown__total--other">{{''}}</div>
-            <div class="breakdown__total--time">
-                {{academicAdministrationWorkload?.academicAdministrationPercentageOfAnnualHoursPerUser}}%</div>
+        <div class="signature__hod">
+            <div class="signature__hod--sig"></div>
+            <div class="signature__hod--text">HOD Signature</div>
         </div>
-    </div>
-
-    <div class="heading">Breakdown of 48: Personnel Development</div>
-    <div class="breakdown">
-        <div class="breakdown__heading">
-
-        </div>
-        <div class="breakdown__content"
-            *ngFor="let personnelDevelopmentData of personnelDevelopmentWorkload?.personnelDevelopmentWorkloadData; let i = index;">
-
-        </div>
-        <div class="breakdown__total">
-            <div class="breakdown__total--total">Total</div>
-            <div class="breakdown__total--contact">{{''}}</div>
-            <div class="breakdown__total--other">{{''}}</div>
-            <div class="breakdown__total--time">
-                {{personnelDevelopmentWorkload?.personnelDevelopmentPercentageOfAnnualHoursPerUser}}%</div>
-        </div>
-    </div>
-
-    <div class="heading">Breakdown of 60: Executive Management</div>
-    <div class="breakdown">
-        <div class="breakdown__heading">
-
-        </div>
-        <div class="breakdown__content"
-            *ngFor="let executiveManagementData of executiveManagementWorkload?.executiveManagementWorkloadData; let i = index;">
-
-        </div>
-        <div class="breakdown__total">
-            <div class="breakdown__total--total">Total</div>
-            <div class="breakdown__total--contact">{{''}}</div>
-            <div class="breakdown__total--other">{{''}}</div>
-            <div class="breakdown__total--time">
-                {{executiveManagementWorkload?.executiveManagementPercentageOfAnnualHoursPerUser}}%</div>
-        </div>
-    </div>
-</div>
-<div class="signature">
-    <div class="signature__user">
-        <div class="signature__user--sig"></div>
-        <div class="signature__user--text">Staff Signature</div>
-    </div>
-    <div class="signature__date">
-        <div class="datepicker-input">
-            <input type="date" class="datepicker-input">
-        </div>
-    </div>
-    <div class="signature__hod">
-        <div class="signature__hod--sig"></div>
-        <div class="signature__hod--text">HOD Signature</div>
     </div>
 </div>

@@ -1,12 +1,12 @@
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { routerTransition } from 'src/app/router.animations';
+import { Venue } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+import { VenueService } from 'src/app/shared/services';
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, timer } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-
-import { AlertService } from '../../../../shared/services';
-import { VenueService } from '../../../../shared/services/venue.service';
-import { routerTransition } from '../../../../router.animations';
-import { Venue } from 'src/app/shared/generated/output';
 
 @Component({
     selector: 'app-venue-view',
@@ -66,6 +66,6 @@ export class VenueViewComponent implements OnInit {
     }
 
     onDelete() {
-        this.alertService.sendMessage('Delete function coming soon!', 'info');
+        this.alertService.info('Delete function coming soon!');
     }
 }

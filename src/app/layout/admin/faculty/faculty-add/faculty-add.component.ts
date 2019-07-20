@@ -1,12 +1,10 @@
-import { Faculty } from 'src/app/shared/generated/output';
+import { routerTransition } from 'src/app/router.animations';
+import { Faculty } from 'src/app/shared/generated';
+import { FacultyService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { routerTransition } from '../../../../router.animations';
-import { FacultyService } from '../../../../shared/services';
-import { AlertService } from '../../../../shared/services/alert.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-faculty-add',

@@ -12,7 +12,6 @@ import {
     QualificationsNoEnrollmentGQL,
     QualificationInput
 } from '../generated/output';
-import { AlertService } from './alert.service';
 import { DepartmentService } from './department.service';
 
 @Injectable({
@@ -28,7 +27,6 @@ export class QualificationService {
     private unsubscribe = new Subject();
 
     constructor(
-        private alertService: AlertService,
         private qualificationGql: QualificationGQL,
         private qualificationsGql: QualificationsGQL,
         private addQualificationGql: AddQualificationGQL,

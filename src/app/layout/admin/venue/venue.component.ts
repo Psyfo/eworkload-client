@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { routerTransition } from 'src/app/router.animations';
 
-import { routerTransition } from '../../../router.animations';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-venue',

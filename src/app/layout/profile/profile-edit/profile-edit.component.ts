@@ -1,29 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import {
-    FormBuilder,
-    FormGroup,
-    Validators,
-    AbstractControl
-} from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
-import { routerTransition } from '../../../router.animations';
-
+import { routerTransition } from 'src/app/router.animations';
 import {
-    User,
     Discipline,
-    WorkFocus,
-    UserInput
-} from 'src/app/shared/generated/output';
+    Position,
+    User,
+    UserInput,
+    WorkFocus
+} from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
 import {
-    AlertService,
-    UserService,
     DisciplineService,
     PositionService,
+    UserService,
     WorkFocusService
 } from 'src/app/shared/services';
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-profile-edit',
@@ -159,7 +154,7 @@ export class ProfileEditComponent implements OnInit {
             .editUser(this.user)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.alertService.sendMessage('User edited', 'success');
+                this.alertService.success('User edited');
                 console.log(this.user.userId);
 
                 this.router.navigate(['../profile']);

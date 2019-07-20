@@ -1,24 +1,25 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import {
-    AlertService,
-    UserService,
-    ModuleService,
-    ActivityService,
-    WorkloadService,
-    FormalInstructionService
-} from '../../../../shared/services';
-import { routerTransition } from '../../../../router.animations';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { resultKeyNameFromField } from 'apollo-utilities';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { resultKeyNameFromField } from 'apollo-utilities';
 import {
+    FormalInstructionActivity,
     Module,
-    User,
-    FormalInstructionActivity
+    User
 } from 'src/app/shared/generated/output';
+
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { routerTransition } from '../../../../router.animations';
+import {
+    ActivityService,
+    FormalInstructionService,
+    ModuleService,
+    UserService,
+    WorkloadService
+} from '../../../../shared/services';
+import { AlertService } from 'src/app/shared/modules';
 
 @Component({
     selector: 'app-add',
@@ -141,7 +142,7 @@ export class AddComponent implements OnInit {
             .addFormalInstructionActivity(this.formalInstructionActivity)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.alertService.sendMessage('Activity added', 'success');
+                this.alertService.success('Activity added');
 
                 this.router.navigate(['activity/lecturing']);
             });
@@ -159,7 +160,7 @@ export class AddComponent implements OnInit {
             .editModule(module)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.alertService.sendMessage('Coordinator added', 'success');
+                this.alertService.success('Coordinator added');
             });
     }
 

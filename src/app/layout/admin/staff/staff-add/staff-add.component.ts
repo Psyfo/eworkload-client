@@ -1,19 +1,13 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Position, UserInput } from 'src/app/shared/generated/output';
+import { routerTransition } from 'src/app/router.animations';
+import { Position, UserInput } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+import { PositionService, UserService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
-import { routerTransition } from '../../../../router.animations';
-import {
-    AlertService,
-    DisciplineService,
-    UserService,
-    WorkFocusService
-} from '../../../../shared/services';
-import { PositionService } from '../../../../shared/services/position.service';
 
 @Component({
     selector: 'app-staff-add',
@@ -99,10 +93,7 @@ export class StaffAddComponent implements OnInit {
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 console.log(result.data.addUser);
-                this.alertService.sendMessage(
-                    'Added new staff member',
-                    'success'
-                );
+                this.alertService.success('Added new staff member');
             });
         this.router.navigate(['admin/staff']);
     }

@@ -1,5 +1,6 @@
+import { routerTransition } from 'src/app/router.animations';
+
 import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../../router.animations';
 
 @Component({
     selector: 'app-discipline',

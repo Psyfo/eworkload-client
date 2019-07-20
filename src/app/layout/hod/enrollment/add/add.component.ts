@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../../../router.animations';
-
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { QualificationService } from '../../../../shared/services/qualification.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { EnrollmentService } from '../../../../shared/services/enrollment.service';
-import { AlertService } from '../../../../shared/services';
+import { routerTransition } from 'src/app/router.animations';
+import { EnrollmentInput, Qualification } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
 import {
-    EnrollmentInput,
-    Qualification
-} from 'src/app/shared/generated/output';
+    EnrollmentService,
+    QualificationService
+} from 'src/app/shared/services';
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-add',
@@ -74,7 +73,7 @@ export class AddComponent implements OnInit {
             .addEnrollment(this.enrollment)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.alertService.sendMessage('Enrollment Added', 'success');
+                this.alertService.success('Enrollment Added');
                 setTimeout(() => {
                     this.router.navigate(
                         ['hod/enrollment/view', this.qualificationId.value],

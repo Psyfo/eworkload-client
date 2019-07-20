@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../../../router.animations';
-import { AlertService } from '../../../../shared/services';
+
+import { routerTransition } from 'src/app/router.animations';
+
+import { ResearchActivity } from 'src/app/shared/generated';
+
+import { AlertService } from 'src/app/shared/modules';
+
 import { Router } from '@angular/router';
-import { ResearchActivity } from 'src/app/shared/generated/output';
 
 @Component({
     selector: 'app-list',

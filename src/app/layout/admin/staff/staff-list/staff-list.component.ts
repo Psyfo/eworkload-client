@@ -1,11 +1,11 @@
-import { Component, OnInit, Renderer } from '@angular/core';
-import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { routerTransition } from 'src/app/router.animations';
+import { Discipline, User } from 'src/app/shared/generated';
+import { UserService } from 'src/app/shared/services';
 
-import { routerTransition } from '../../../../router.animations';
-import { UserService } from '../../../../shared/services';
-import { User, Discipline } from 'src/app/shared/generated/output';
+import { Component, OnInit, Renderer } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-staff-list',

@@ -1,15 +1,9 @@
-import { OnInit, Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { routerTransition } from '../router.animations';
-import {
-    FormGroup,
-    FormControl,
-    Validators,
-    FormBuilder
-} from '@angular/forms';
-import { first, timeout } from 'rxjs/operators';
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { environment } from '../../environments/environment';
+import { AlertService } from '../shared/modules';
 
 @Component({
     selector: 'app-login',
@@ -23,7 +17,7 @@ export class LoginComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private flashMessagesService: FlashMessagesService
+        private alertService: AlertService
     ) {}
 
     ngOnInit() {
@@ -40,6 +34,7 @@ export class LoginComponent implements OnInit {
         };
         // dummy login
         localStorage.setItem('authData', JSON.stringify(authData));
+        this.alertService.success('Redirecting to Profile');
         this.router.navigate(['dashboard']);
     }
 }

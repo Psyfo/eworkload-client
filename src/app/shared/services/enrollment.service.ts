@@ -12,7 +12,6 @@ import {
     EnrollmentsGQL,
     EnrollmentInput
 } from '../generated/output';
-import { AlertService } from './alert.service';
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +22,6 @@ export class EnrollmentService {
     networkStatus: any;
 
     constructor(
-        private alertService: AlertService,
         private enrollmentGql: EnrollmentGQL,
         private enrollmentsGql: EnrollmentsGQL,
         private enrollmentsByYearGql: EnrollmentsByYearGQL,

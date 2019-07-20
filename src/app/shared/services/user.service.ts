@@ -1,18 +1,17 @@
-import { ChangePasswordGQL, User, UserInput } from './../generated/output';
-import gql from 'graphql-tag';
-import { Apollo } from 'apollo-angular';
-import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { Injectable } from '@angular/core';
+
 import {
-    UserGQL,
-    UsersGQL,
     AddUserGQL,
-    EditUserGQL
+    ChangePasswordGQL,
+    EditUserGQL,
+    User,
+    UserGQL,
+    UserInput,
+    UsersGQL
 } from '../generated/output';
-import { AlertService } from './alert.service';
-import { ErrorService } from './error.service';
 
 @Injectable({
     providedIn: 'root'
@@ -28,7 +27,6 @@ export class UserService {
     networkStatus: any;
 
     constructor(
-        private alertService: AlertService,
         private userGql: UserGQL,
         private usersGql: UsersGQL,
         private addUserGql: AddUserGQL,

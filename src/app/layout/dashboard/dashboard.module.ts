@@ -1,15 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NgbCarouselModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { StatModule } from 'src/app/shared/modules';
 
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { NgbAlertModule, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+
+import {
+    ChatComponent,
+    NotificationComponent,
+    TimelineComponent
+} from './components';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
-import {
-    TimelineComponent,
-    NotificationComponent,
-    ChatComponent
-} from './components';
-import { StatModule } from '../../shared';
 
 @NgModule({
     imports: [

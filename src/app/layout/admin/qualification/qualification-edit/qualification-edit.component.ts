@@ -1,11 +1,8 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Department, QualificationInput } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
 import {
-    Department,
-    QualificationInput
-} from 'src/app/shared/generated/output';
-import {
-    AlertService,
     DepartmentService,
     QualificationService
 } from 'src/app/shared/services';

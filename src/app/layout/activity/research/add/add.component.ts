@@ -1,19 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../../../router.animations';
-import { AlertService, ActivityService } from '../../../../shared/services';
-import { Router } from '@angular/router';
-import {
-    FormGroup,
-    FormBuilder,
-    Validators,
-    FormControl,
-    FormArray
-} from '@angular/forms';
-
-import { UserGQL, User } from '../../../../shared/generated/output';
-import { UserService } from '../../../../shared/services/user.service';
-import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { routerTransition } from 'src/app/router.animations';
+import { User } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+import { ActivityService, UserService } from 'src/app/shared/services';
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-add',
@@ -67,7 +61,7 @@ export class AddComponent implements OnInit {
 
     onAdd() {
         if (this.researchActivityForm.invalid) {
-            this.alertService.sendMessage('Validation failed!', 'warning');
+            this.alertService.success('Validation failed!');
         }
     }
 

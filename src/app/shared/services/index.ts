@@ -1,7 +1,5 @@
 // start:ng42.barrel
-export * from './alert.service';
 export * from './block.service';
-export * from './buffer.service';
 export * from './department.service';
 export * from './discipline.service';
 export * from './duty.service';

@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
+import { SharedPipesModule } from 'src/app/shared/pipes/shared-pipes.module';
+
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
 import { ReportRoutingModule } from './report-routing.module';
 import { ReportComponent } from './report.component';
-import { SharedPipesModule } from '../../shared';
 
 @NgModule({
     declarations: [ReportComponent],

@@ -1,8 +1,12 @@
 import { OnInit, Component } from '@angular/core';
 import { routerTransition } from '../router.animations';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
-import { FlashMessagesService } from 'angular2-flash-messages';
+import {
+    FormGroup,
+    FormControl,
+    Validators,
+    FormsModule
+} from '@angular/forms';
 
 @Component({
     selector: 'app-signup',
@@ -11,19 +15,9 @@ import { FlashMessagesService } from 'angular2-flash-messages';
     animations: [routerTransition()]
 })
 export class SignupComponent implements OnInit {
+    constructor(private router: Router) {}
 
-    constructor(
-        private router: Router,
-        private flashMessagesService: FlashMessagesService) { }
+    ngOnInit() {}
 
-    ngOnInit() {
-
-
-    }
-
-
-    onSignup() {
-
-
-    }
+    onSignup() {}
 }

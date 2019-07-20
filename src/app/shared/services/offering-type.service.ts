@@ -9,7 +9,6 @@ import {
     DeleteOfferingTypeGQL,
     OfferingTypeInput
 } from '../generated/output';
-import { AlertService } from './alert.service';
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +19,6 @@ export class OfferingTypeService {
     networkStatus: any;
 
     constructor(
-        private alertService: AlertService,
         private offeringTypeGql: OfferingTypeGQL,
         private offeringTypesGql: OfferingTypesGQL,
         private addOfferingTypeGql: AddOfferingTypeGQL,

@@ -1,26 +1,22 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
 import {
     AcademicAdministrationWorkloadPerUser,
     CommunityInstructionWorkloadPerUser,
+    Duty,
     ExecutiveManagementWorkloadPerUser,
     FormalInstructionWorkloadPerUser,
     PersonnelDevelopmentWorkloadPerUser,
     PublicServiceWorkloadPerUser,
     ResearchWorkloadPerUser,
     SupervisionWorkloadPerUser,
-    User,
-    Duty
-} from '../../shared/generated/output';
-import {
-    AlertService,
-    UserService,
-    WorkloadService
-} from 'src/app/shared/services';
+    User
+} from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+import { UserService, WorkloadService } from 'src/app/shared/services';
+
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-report',

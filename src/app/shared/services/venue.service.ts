@@ -1,15 +1,15 @@
+import { map } from 'rxjs/operators';
+
+import { Injectable } from '@angular/core';
+
 import {
     AddVenueGQL,
-    EditVenueGQL,
     DeleteVenueGQL,
-    VenueInput
-} from './../generated/output';
-import { Injectable } from '@angular/core';
-import { AlertService } from './alert.service';
-import { ErrorService } from './error.service';
-import { VenueGQL, VenuesGQL } from '../generated/output';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { timer, interval, Subject } from 'rxjs';
+    EditVenueGQL,
+    VenueGQL,
+    VenueInput,
+    VenuesGQL
+} from '../generated/output';
 
 @Injectable({
     providedIn: 'root'
@@ -22,24 +22,13 @@ export class VenueService {
     public errors: any;
     public networkStatus: any;
 
-    private unsubscribe = new Subject();
-
     constructor(
-        private alertService: AlertService,
-        private errorService: ErrorService,
         private venueGql: VenueGQL,
         private venuesGql: VenuesGQL,
         private addVenueGql: AddVenueGQL,
         private editVenueGql: EditVenueGQL,
         private deleteVenueGql: DeleteVenueGQL
     ) {}
-
-    ngOnDestroy(): void {
-        //Called once, before the instance is destroyed.
-        //Add 'implements OnDestroy' to the class.
-        this.unsubscribe.next();
-        this.unsubscribe.complete();
-    }
 
     getVenues() {
         return this.venuesGql

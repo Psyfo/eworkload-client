@@ -1,28 +1,17 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
-import { routerTransition } from '../../../../router.animations';
-import {
-    AlertService,
-    ModuleService,
-    DisciplineService
-} from '../../../../shared/services';
-import {
-    FormBuilder,
-    FormGroup,
-    FormArray,
-    FormControl,
-    Validators
-} from '@angular/forms';
-
-import { UserService } from '../../../../shared/services/user.service';
-import { VenueService } from '../../../../shared/services/venue.service';
-import {
-    User,
-    Discipline,
-    Module,
-    Venue
-} from 'src/app/shared/generated/output';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { routerTransition } from 'src/app/router.animations';
+import { Discipline, Module, User, Venue } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+import {
+    DisciplineService,
+    ModuleService,
+    UserService,
+    VenueService
+} from 'src/app/shared/services';
+
+import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-tasks',

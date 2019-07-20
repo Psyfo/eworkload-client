@@ -1,18 +1,24 @@
-import { FormBuilder, Validators } from '@angular/forms';
-import { UserService } from './../../../shared/services/user.service';
-import { AlertService } from './../../../shared/services/alert.service';
-import { Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+
+import { routerTransition } from 'src/app/router.animations';
+
 import { Subject } from 'rxjs';
-import { routerTransition } from '../../../router.animations';
+
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { Router } from '@angular/router';
+
+import { AlertService } from 'src/app/shared/modules';
+
+import { UserService } from 'src/app/shared/services';
+
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-change-password',
     templateUrl: './change-password.component.html',
     styleUrls: ['./change-password.component.scss'],
-    animations: [routerTransition()],
+    animations: [routerTransition()]
 })
 export class ChangePasswordComponent implements OnInit {
     userId: string;
@@ -33,7 +39,7 @@ export class ChangePasswordComponent implements OnInit {
         this.changePasswordForm = this.fb.group({
             oldPassword: ['', [Validators.required]],
             newPassword: ['', [Validators.required]],
-            confirmPassword: ['', [Validators.required]],
+            confirmPassword: ['', [Validators.required]]
         });
 
         this.userService

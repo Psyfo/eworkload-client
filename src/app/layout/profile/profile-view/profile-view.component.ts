@@ -1,13 +1,12 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { User } from 'src/app/shared/generated/output';
+import { routerTransition } from 'src/app/router.animations';
+import { User } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
 import { UserService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { routerTransition } from '../../../router.animations';
-import { AlertService } from '../../../shared/services/alert.service';
 
 @Component({
     selector: 'app-profile-view',
@@ -140,6 +139,6 @@ export class ProfileViewComponent implements OnInit {
     }
 
     public clearMessage(): void {
-        this.alertService.clearMessage();
+        this.alertService.clear();
     }
 }

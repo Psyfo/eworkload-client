@@ -1,16 +1,13 @@
-import { NgModule } from '@angular/core';
+import { PageHeaderModule } from 'src/app/shared/modules';
+
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
 import { HodRoutingModule } from './hod-routing.module';
 import { HodComponent } from './hod.component';
-import { PageHeaderModule } from '../../shared';
 
 @NgModule({
-  declarations: [HodComponent],
-  imports: [
-    CommonModule,
-    HodRoutingModule,
-    PageHeaderModule
-  ]
+    declarations: [HodComponent],
+    imports: [CommonModule, HodRoutingModule, PageHeaderModule]
 })
-export class HodModule { }
+export class HodModule {}

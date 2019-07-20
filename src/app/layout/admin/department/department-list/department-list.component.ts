@@ -1,14 +1,13 @@
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { routerTransition } from 'src/app/router.animations';
+import { Department } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+import { DepartmentService } from 'src/app/shared/services';
 
 import { Component, OnInit, Renderer, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { routerTransition } from '../../../../router.animations';
-import { Department } from '../../../../shared/generated/output';
-import { DepartmentService } from '../../../../shared/services';
-import { AlertService } from '../../../../shared/services/alert.service';
 
 @Component({
     selector: 'app-department-list',

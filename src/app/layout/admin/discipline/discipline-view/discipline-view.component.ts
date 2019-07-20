@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertService, DisciplineService } from '../../../../shared/services';
-import { Router, ActivatedRoute } from '@angular/router';
-import { DisciplineGQL, Discipline } from '../../../../shared/generated/output';
-import { routerTransition } from '../../../../router.animations';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { routerTransition } from 'src/app/router.animations';
+import { Discipline } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+import { DisciplineService } from 'src/app/shared/services';
+
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-discipline-view',
@@ -58,6 +60,6 @@ export class DisciplineViewComponent implements OnInit {
         this.router.navigate(['../admin/discipline']);
     }
     public onDelete(): void {
-        this.alertService.sendMessage('Delete service coming soon', 'info');
+        this.alertService.success('Delete service coming soon');
     }
 }

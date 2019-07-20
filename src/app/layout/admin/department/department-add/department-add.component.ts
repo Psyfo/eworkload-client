@@ -7,11 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { routerTransition } from '../../../../router.animations';
-import {
-    AlertService,
-    DepartmentService,
-    FacultyService
-} from '../../../../shared/services';
+import { AlertService } from 'src/app/shared/modules';
+import { FacultyService, DepartmentService } from 'src/app/shared/services';
 
 @Component({
     selector: 'app-department-add',
@@ -61,7 +58,7 @@ export class DepartmentAddComponent implements OnInit {
             .subscribe(result => {
                 console.log('Errors:', result.errors);
                 console.log('Network Status:', result.networkStatus);
-                this.alertService.sendMessage('Department added', 'success');
+                this.alertService.success('Department added');
                 setTimeout(() => {
                     this.router.navigate(
                         ['admin/department/view', this.departmentId.value],

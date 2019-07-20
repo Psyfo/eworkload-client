@@ -1,55 +1,46 @@
-<div class="card" [@routerTransition]>
-    <div class="card-header">
-        <h5>Venues</h5>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col">
-                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="venueListDT"
-                    class="table table-hover table-active">
-                    <thead>
-                        <tr>
-                            <th *ngFor="let header of headers">
-                                {{header}}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody *ngIf="venues?.length != 0">
-                        <tr *ngFor="let venue of venues; let i = index">
-                            <td>
-                                {{ venue?.venueId }}
-                            </td>
-                            <td>
-                                {{ venue?.capacity }}
-                            </td>
-                            <td>
-                                {{ venue?.campus }}
-                            </td>
-                            <td>
-                                {{ venue?.type }}
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tbody *ngIf="venues?.length == 0">
-                        <tr>
-                            <td colspan="4" class="no-data-available">No data!</td>
-                        </tr>
-                    <tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="4">
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="card-footer">
-        <div class="row">
-            <div class="col">
-                <button class="btn btn-primary" (click)="onAdd()">Add Venue</button>
-            </div>
-        </div>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <p-panel header="Venues">
+            <p-header>
+
+            </p-header>
+
+            <p-table [columns]="cols" [value]="venues">
+                <ng-template pTemplate="caption">
+                    Venues
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let column of columns">
+                            {{column.header}}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-venue let-columns="columns">
+                    <tr>
+                        <td *ngFor="let column of columns">
+                            {{venue[column.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer" let-columns>
+                    <tr>
+                        <td *ngFor="let column of columns">
+                            {{column.header}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+
+                </ng-template>
+            </p-table>
+
+
+            <p-footer>
+                <button pButton type="button" label="Add Venue" icon="pi pi-plus" iconPos="left"
+                    (click)="onAdd()"></button>
+            </p-footer>
+        </p-panel>
     </div>
 </div>

@@ -10,7 +10,6 @@ import {
     EditDepartmentGQL,
     DepartmentInput
 } from '../generated/output';
-import { AlertService } from './alert.service';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +20,6 @@ export class DepartmentService {
     networkStatus: any;
 
     constructor(
-        private alertService: AlertService,
         private departmentGql: DepartmentGQL,
         private departmentsGql: DepartmentsGQL,
         private addDepartmentGql: AddDepartmentGQL,
