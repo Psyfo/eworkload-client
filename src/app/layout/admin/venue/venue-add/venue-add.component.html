@@ -1,50 +1,89 @@
-<div class="row" [@routerTransition]>
-    <div class="col-6">
-        <form [formGroup]="venueAddForm" (ngSubmit)="onAdd()" novalidate class="form">
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col-12">
+        <form [formGroup]="venueAddForm" (ngsubmit)="onAdd($event)">
+            <p-panel header="Add Venue">
+                <p-header>
+                </p-header>
 
-            <div class="card">
-                <div class="card-header">
-                    <h5>Add Venue</h5>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="venueId">Venue Id:</label>
+                    </div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText placeholder="Venue Id" formControlName="venueId"
+                            pKeyFilter="alphanum">
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Venue Id is required"
+                            *ngIf="(venueId.touched||venueId.dirty)&&venueId.hasError('required')">
+                        </p-message>
+                    </div>
                 </div>
-                <div class="card-body">
 
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="venueId">Venue Code</label>
-                            <input formControlName="venueId" type="text" class="form-control" placeholder="Venue Code">
-                        </div>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="capacity">Capacity</label>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="capacity">Capacity</label>
-                            <input formControlName="capacity" type="number" class="form-control">
-                        </div>
+                    <div class="p-col-6">
+                        <input type="number" pInputText placeholder="Venue Id" formControlName="capacity"
+                            pKeyFilter="pint">
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="capacity">Campus</label>
-                            <input formControlName="campus" type="text" class="form-control" placeholder="Campus">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="type">Type</label>
-                            <select class="custom-select" formControlName="type">
-                                <option *ngFor="let type of types" [value]="type">{{type}}</option>
-                            </select>
-                        </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Capacity is required"
+                            *ngIf="(capacity.touched||capacity.dirty)&&capacity.hasError('required')">
+                        </p-message>
+                        <p-message severity="error" text="Minimum 10 required"
+                            *ngIf="(capacity.touched||capacity.dirty)&&capacity.hasError('min')">
+                        </p-message>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col">
-                            <button class="btn btn-primary mr-3" [disabled]="venueAddForm.invalid">Add</button>
-                            <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
-                            <button type="button" class="btn btn-dark pull-right" (click)="onReset()">Reset</button>
-                        </div>
+
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="campus">Campus:</label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="campuses" formControlName="campus" placeholder="Campus"></p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Campus is required"
+                            *ngIf="(campus.touched||campus.dirty) && (campus.value==='' || campus.hasError('required'))">
+                        </p-message>
                     </div>
                 </div>
-            </div>
+
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="type">Type:</label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="types" formControlName="type" placeholder="Venue Type"></p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Type is required"
+                            *ngIf="(type.touched||type.dirty) && (type.value==='' || type.hasError('required'))">
+                        </p-message>
+                    </div>
+                </div>
+
+                <p-footer>
+                    <div class="p-grid">
+                        <div class="p-col-1"><button pButton label="Add Venue" icon="pi pi-plus" (click)="onAdd($event)"
+                                [disabled]="venueAddForm.invalid"></button>
+                        </div>
+                        <div class="p-col-1">
+                            <button pButton type="button" label="Back" icon="pi pi-arrow-left" (click)="onBack($event)"
+                                class="ui-button-danger"></button>
+                        </div>
+                        <div class="p-col"></div>
+                        <div class="p-col-1 p-col-align-end">
+                            <button pButton type="button" label="Reset" icon="pi pi-refresh" (click)="onReset($event)"
+                                class="ui-button-secondary"></button>
+                        </div>
+                    </div>
+                </p-footer>
+            </p-panel>
         </form>
     </div>
 </div>

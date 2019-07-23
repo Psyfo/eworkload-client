@@ -1,7 +1,3 @@
-import { DataTablesModule } from 'angular-datatables';
-import { ButtonModule } from 'primeng/button';
-import { PanelModule } from 'primeng/panel';
-import { TableModule } from 'primeng/table';
 import { PageHeaderModule } from 'src/app/shared/modules';
 
 import { CommonModule } from '@angular/common';
@@ -15,17 +11,15 @@ import { VenueListComponent } from './venue-list/venue-list.component';
 import { VenueRoutingModule } from './venue-routing.module';
 import { VenueViewComponent } from './venue-view/venue-view.component';
 import { VenueComponent } from './venue.component';
+import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
 
 @NgModule({
     imports: [
         CommonModule,
         VenueRoutingModule,
         PageHeaderModule,
-        DataTablesModule,
         ReactiveFormsModule,
-        TableModule,
-        PanelModule,
-        ButtonModule
+        PrimeNgModulesModule
     ],
     declarations: [
         VenueComponent,

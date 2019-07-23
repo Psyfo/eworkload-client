@@ -23,7 +23,7 @@ export class AlertService {
     success(detail: string, key?: string) {
         this.messageService.add({
             severity: 'success',
-            summary: 'Success Message',
+            summary: 'Success',
             detail: detail,
             key: key
         });
@@ -31,7 +31,7 @@ export class AlertService {
     error(detail: string, key?: string) {
         this.messageService.add({
             severity: 'error',
-            summary: 'Error Message',
+            summary: 'Error',
             detail: detail,
             key: key
         });
@@ -39,7 +39,7 @@ export class AlertService {
     info(detail: string, key?: string) {
         this.messageService.add({
             severity: 'info',
-            summary: 'Info Message',
+            summary: 'Info',
             detail: detail,
             key: key
         });
@@ -47,9 +47,84 @@ export class AlertService {
     warn(detail: string, key?: string) {
         this.messageService.add({
             severity: 'warn',
-            summary: 'Warning Message',
+            summary: 'Warning',
             detail: detail,
             key: key
+        });
+    }
+    successToast(
+        detail: string,
+        key: string = 'toast',
+        life = 5000,
+        sticky: boolean = false
+    ) {
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: detail,
+            key: key,
+            life: life,
+            sticky: sticky
+        });
+    }
+    errorToast(
+        detail: string,
+        key: string = 'toast',
+        life = 5000,
+        sticky: boolean = false
+    ) {
+        console.log('Key passed:', key);
+
+        this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: detail,
+            key: key,
+            life: life,
+            sticky: sticky
+        });
+    }
+    infoToast(
+        detail: string,
+        key: string = 'toast',
+        life = 5000,
+        sticky: boolean = false
+    ) {
+        this.messageService.add({
+            severity: 'info',
+            summary: 'Info',
+            detail: detail,
+            key: key,
+            life: life,
+            sticky: sticky
+        });
+    }
+    warnToast(
+        detail: string,
+        key: string = 'toast',
+        life = 5000,
+        sticky: boolean = false
+    ) {
+        this.messageService.add({
+            severity: 'warn',
+            summary: 'Warning',
+            detail: detail,
+            key: key,
+            life: life,
+            sticky: sticky
+        });
+    }
+    confirm(
+        key: string,
+        detail = 'Confirm to Proceed',
+        summary = 'Are you sure?'
+    ) {
+        this.messageService.add({
+            severity: 'warn',
+            summary: summary,
+            detail: detail,
+            key: key,
+            sticky: true
         });
     }
 

@@ -1,9 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-#flashMessages .flash-message {
-    display: none;
-}
-#flashMessages .flash-message:last-child {
-    display: block;
+.ui-dropdown,
+.ui-message,
+.ui-inputtext {
+    width: 100%;
 }
 
 // VENDORS

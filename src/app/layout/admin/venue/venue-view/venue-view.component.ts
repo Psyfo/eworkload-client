@@ -1,3 +1,4 @@
+import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -16,7 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class VenueViewComponent implements OnInit {
     // Properties
-
+    breadcrumbs: MenuItem[];
     venueId: string;
     venue: Venue;
 
@@ -44,28 +45,49 @@ export class VenueViewComponent implements OnInit {
         this.unsubscribe.complete();
     }
 
-    getVenue(vId: string) {
+    getVenue(venueId: string) {
         this.venueService
-            .getVenue(vId)
+            .getVenue(venueId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.venue = <Venue>(<unknown>result.data.venue);
-                console.log('Time: ', new Date().getTime().toString());
-                console.log('Venue: ', this.venue);
+                this.venue = result.data.venue;
+
+                this.breadcrumbs = [
+                    { label: 'admin' },
+                    { label: 'venue', url: 'admin/venue' },
+                    { label: 'view' },
+                    { label: this.venue.venueId }
+                ];
             });
     }
 
-    onEdit() {
+    onEdit(event) {
         this.router.navigate(['admin/venue/edit', this.venue.venueId], {
             queryParams: { venueId: this.venue.venueId }
         });
     }
 
-    onCancel() {
-        this.router.navigate(['../admin/venue']);
+    onBack(event) {
+        this.router.navigate(['admin/venue']);
     }
-
-    onDelete() {
-        this.alertService.info('Delete function coming soon!');
+    showConfirm() {
+        this.alertService.clear();
+        this.alertService.confirm('venueDelete');
+    }
+    onConfirm() {
+        this.venueService
+            .deleteVenue(this.venue)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                try {
+                    this.alertService.infoToast('Venue deleted');
+                    this.router.navigate(['admin/venue']);
+                } catch (error) {
+                    this.alertService.errorToast(error, 'errorToast');
+                }
+            });
+    }
+    onReject() {
+        this.alertService.clear();
     }
 }

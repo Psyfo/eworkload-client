@@ -2,23 +2,48 @@
 <div class="p-grid" [@routerTransition]>
     <div class="p-col">
         <p-panel header="Venues">
-            <p-header>
 
-            </p-header>
 
-            <p-table [columns]="cols" [value]="venues">
+            <p-table #venueTable [columns]="cols" [value]="venues" [paginator]="true" [rows]="10" selectionMode="single"
+                [(selection)]="selectedVenue" datakey="venueId" (onRowSelect)="onRowSelect($event)"
+                [reorderableColumns]="true" [responsive]="true" [loading]="loading" [contextMenu]="cm"
+                contextMenuSelectionMode="joint">
                 <ng-template pTemplate="caption">
-                    Venues
+                    <div style="text-align: right;">
+                        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Global Filter"
+                            (input)="venueTable.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
                 </ng-template>
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th *ngFor="let column of columns">
+                        <th *ngFor="let column of columns" [pSortableColumn]="column.field" pReorderableColumn>
                             {{column.header}}
+                            <p-sortIcon [field]="column.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let column of columns" [ngSwitch]="column.field">
+                            <input type="text" pInputText *ngSwitchCase="'venueId'"
+                                (input)="venueTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                                style="width: 100%;">
+                            <div *ngSwitchCase="'capacity'">
+                                Venue capacity = {{capacityFilter}} students
+                                <i class="fa fa-close"
+                                    (click)="capacityFilter=null; venueTable.filter(null, column.field, column.filterMatchMode)"
+                                    style="cursor: pointer" *ngIf="capacityFilter"></i>
+                                <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="capacityFilter"
+                                    [min]="1" [max]="500" (onChange)="onCapacityChange($event, venueTable)"></p-slider>
+                            </div>
+                            <p-dropdown *ngSwitchCase="'campus'" [options]="campuses" [style]="{'width':'100%'}"
+                                (onChange)="venueTable.filter($event.value, column.field, 'equals')"></p-dropdown>
+                            <p-dropdown *ngSwitchCase="'type'" [options]="types" [style]="{'width':'100%'}"
+                                (onChange)="venueTable.filter($event.value, column.field, 'equals')"></p-dropdown>
                         </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-venue let-columns="columns">
-                    <tr>
+                    <tr [pSelectableRow]="venue" [pContextMenuRow]="venue">
                         <td *ngFor="let column of columns">
                             {{venue[column.field]}}
                         </td>
@@ -34,12 +59,22 @@
                 <ng-template pTemplate="summary">
 
                 </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="columns.length">
+                            No records found
+                        </td>
+                    </tr>
+                </ng-template>
             </p-table>
+            <p-contextMenu #cm [model]="menuItems"></p-contextMenu>
 
 
             <p-footer>
                 <button pButton type="button" label="Add Venue" icon="pi pi-plus" iconPos="left"
                     (click)="onAdd()"></button>
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export CSV"
+                    (click)="venueTable.exportCSV()" style="float:right"></button>
             </p-footer>
         </p-panel>
     </div>

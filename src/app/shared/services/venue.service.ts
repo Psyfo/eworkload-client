@@ -1,4 +1,5 @@
-import { map } from 'rxjs/operators';
+import { ErrorService } from './error.service';
+import { map, catchError } from 'rxjs/operators';
 
 import { Injectable } from '@angular/core';
 
@@ -10,19 +11,32 @@ import {
     VenueInput,
     VenuesGQL
 } from '../generated/output';
+import { SelectItem } from 'primeng/components/common/selectitem';
+import { of } from 'zen-observable';
 
 @Injectable({
     providedIn: 'root'
 })
 export class VenueService {
-    public types = ['Class', 'Laboratory'];
+    public types: SelectItem[] = [
+        { label: 'Select Venue Type', value: '' },
+        { label: 'Class', value: 'Class' },
+        { label: 'Laboratory', value: 'Laboratory' }
+    ];
     public headers = ['Venue Id', 'Campus', 'Capacity', 'Type'];
+    public campuses: SelectItem[] = [
+        { label: 'Select Campus', value: '' },
+        { label: 'ML Sultan', value: 'ML Sultan' },
+        { label: 'Ritson', value: 'Ritson' },
+        { label: 'Steve Biko', value: 'Steve Biko' }
+    ];
 
     public loading: boolean;
     public errors: any;
     public networkStatus: any;
 
     constructor(
+        private errorService: ErrorService,
         private venueGql: VenueGQL,
         private venuesGql: VenuesGQL,
         private addVenueGql: AddVenueGQL,
@@ -35,7 +49,7 @@ export class VenueService {
             .watch(
                 {},
                 {
-                    pollInterval: 2000
+                    pollInterval: 1000
                 }
             )
             .valueChanges.pipe(
@@ -47,13 +61,12 @@ export class VenueService {
                 })
             );
     }
-
     getVenue(venueId: string) {
         return this.venueGql
             .watch(
                 { venueId: venueId },
                 {
-                    pollInterval: 2000
+                    pollInterval: 1000
                 }
             )
             .valueChanges.pipe(
@@ -66,7 +79,6 @@ export class VenueService {
                 })
             );
     }
-
     addVenue(venue: VenueInput) {
         return this.addVenueGql
             .mutate({ venue: venue }, { errorPolicy: 'all' })

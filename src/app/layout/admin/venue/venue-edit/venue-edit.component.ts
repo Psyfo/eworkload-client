@@ -1,3 +1,4 @@
+import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -16,8 +17,10 @@ import { ActivatedRoute, Router } from '@angular/router';
     animations: [routerTransition()]
 })
 export class VenueEditComponent implements OnInit {
+    breadcrumbs: MenuItem[];
     venue: VenueInput;
     types = this.venueService.types;
+    campuses = this.venueService.campuses;
 
     private unsubscribe = new Subject();
 
@@ -60,8 +63,13 @@ export class VenueEditComponent implements OnInit {
             .getVenue(venueId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.venue = <VenueInput>(<unknown>result.data.venue);
-                console.log('Errors:', result.errors);
+                this.venue = result.data.venue;
+                this.breadcrumbs = [
+                    { label: 'admin' },
+                    { label: 'venue', url: 'admin/venue' },
+                    { label: 'view' },
+                    { label: this.venue.venueId }
+                ];
                 this.venueEditForm.patchValue({
                     venueId: this.venue.venueId,
                     campus: this.venue.campus,
@@ -71,15 +79,15 @@ export class VenueEditComponent implements OnInit {
             });
     }
 
-    async onEdit() {
+    onEdit() {
         this.venue = this.formVal;
         console.log('Venue: ', this.venue);
 
-        await this.venueService
+        this.venueService
             .editVenue(this.venue)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {});
-        this.alertService.success('Venue edited');
+        this.alertService.successToast('Venue edited');
         this.router.navigate(['admin/venue/view', this.venueId.value], {
             queryParams: {
                 venueId: this.venueId.value
@@ -87,14 +95,17 @@ export class VenueEditComponent implements OnInit {
         });
     }
 
-    onCancel() {
-        this.router.navigate(['admin/venue/view', this.venueId.value], {
-            queryParams: {
-                venueId: this.venueId.value
-            }
-        });
+    onBack(event) {
+        this.router.navigate(['admin/venue']);
     }
 
+    onReset(event) {
+        this.venueEditForm.reset();
+        this.alertService.clear();
+        this.ngOnInit();
+    }
+
+    // Getters
     get venueId() {
         return this.venueEditForm.get('venueId');
     }

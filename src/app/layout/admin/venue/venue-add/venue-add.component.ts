@@ -1,3 +1,6 @@
+import { ErrorService } from './../../../../shared/services/error.service';
+import { ValidationService } from './../../../../shared/services/validation.service';
+import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -16,8 +19,10 @@ import { Router } from '@angular/router';
     animations: [routerTransition()]
 })
 export class VenueAddComponent implements OnInit {
+    breadcrumbs: MenuItem[];
     venue: VenueInput;
     types = this.venueService.types;
+    campuses = this.venueService.campuses;
 
     venueAddForm: FormGroup;
 
@@ -25,48 +30,66 @@ export class VenueAddComponent implements OnInit {
 
     constructor(
         private alertService: AlertService,
+        private errorService: ErrorService,
+        private validationService: ValidationService,
         private router: Router,
         private fb: FormBuilder,
         private venueService: VenueService
     ) {}
 
     ngOnInit() {
-        // Build form
-        this.venueAddForm = this.fb.group({
-            venueId: ['', Validators.required],
-            capacity: [1, Validators.required],
-            campus: ['', Validators.required]
-        });
-    }
+        this.breadcrumbs = [
+            { label: 'admin' },
+            { label: 'venue', url: 'admin/venue' },
+            { label: 'add', url: 'admin/venue/add' }
+        ];
 
+        this.buildForm();
+    }
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
-    onAdd() {
+
+    buildForm() {
+        this.venueAddForm = this.fb.group({
+            venueId: ['', [Validators.required]],
+            capacity: ['', [Validators.required, Validators.min(10)]],
+            campus: ['', [Validators.required]],
+            type: ['', [Validators.required]]
+        });
+    }
+    onAdd(event) {
         this.venue = this.formVal;
         this.venueService
             .addVenue(this.venue)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.alertService.success('Venue added');
-                setTimeout(() => {
-                    this.router.navigate(
-                        ['admin/venue/view', this.venueId.value],
-                        {
-                            queryParams: this.venueId.value
-                        }
+                try {
+                    const venueId = result.data.addVenue.venueId;
+                    this.alertService.successToast(
+                        `New Venue ${venueId} added`
                     );
-                }, 1000);
+                    this.router.navigate(['admin/venue/view', venueId], {
+                        queryParams: {
+                            venueId: venueId
+                        }
+                    });
+                } catch (error) {
+                    console.log(error);
+
+                    this.alertService.errorToast(error, 'errorToast', 0, true);
+                }
             });
     }
 
-    onCancel() {
+    onBack(event) {
         this.router.navigate(['admin/venue']);
     }
 
-    onReset() {
+    onReset(event) {
         this.venueAddForm.reset();
+        this.alertService.clear();
     }
 
     // Getters

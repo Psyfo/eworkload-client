@@ -1,34 +1,77 @@
-<div class="row" [@routerTransition]>
-    <div class="col-6">
-        <div class="card">
-            <div class="card-header">
-                <h4>Details</h4>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <dl class="row">
-                            <dt class="col-4">Venue Code</dt>
-                            <dd class="col-8">{{ venue?.venueId }}</dd>
-                            <dt class="col-4">Capacity</dt>
-                            <dd class="col-8">{{ venue?.capacity }}</dd>
-                            <dt class="col-4">Campus</dt>
-                            <dd class="col-8">{{ venue?.campus }}</dd>
-                            <dt class="col-4">Type</dt>
-                            <dd class="col-8">{{ venue?.type }}</dd>
-                        </dl>
-                    </div>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+
+<div class="p-grid">
+    <div class="p-col-6">
+        <p-panel header="Venue Details">
+
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>Venue ID</strong>
+                </div>
+                <div class="p-col">
+                    {{venue?.venueId}}
                 </div>
             </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col">
-                        <button class="btn btn-primary mr-3" (click)="onEdit()">Edit</button>
-                        <button class="btn btn-danger" (click)="onCancel()">Back</button>
-                        <button class="btn btn-warning pull-right" (click)="onDelete()">Delete</button>
-                    </div>
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>Capacity</strong>
+                </div>
+                <div class="p-col">
+                    {{venue?.capacity}}
                 </div>
             </div>
-        </div>
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>Campus</strong>
+                </div>
+                <div class="p-col">
+                    {{venue?.campus}}
+                </div>
+            </div>
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>Type</strong>
+                </div>
+                <div class="p-col">
+                    {{venue?.type}}
+                </div>
+            </div>
+
+            <p-footer>
+                <div class="p-grid">
+                    <div class="p-col-1 mr-2">
+                        <button type="button" pButton icon="pi pi-pencil" label="Edit"
+                            (click)="onEdit($event)"></button>
+                    </div>
+                    <div class="p-col-1">
+                        <button type="button" pButton icon="pi pi-arrow-left" label="Back" (click)="onBack($event)"
+                            class="ui-button-danger"></button>
+                    </div>
+                    <div class="p-col"></div>
+                    <div class="p-col-2">
+                        <button type="button" pButton icon="pi pi-trash" label="Delete" (click)="showConfirm()"
+                            class="ui-button-warning"></button>
+                    </div>
+                </div>
+            </p-footer>
+        </p-panel>
     </div>
 </div>
+
+<p-toast position="center" key="venueDelete" (onClose)="onReject()" [modal]="true" [baseZIndex]="9000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onConfirm()" label="Yes" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>

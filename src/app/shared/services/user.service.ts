@@ -1,3 +1,4 @@
+import { SelectItem } from 'primeng/components/common/selectitem';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -19,8 +20,24 @@ import {
 export class UserService {
     user: User;
     users: User[];
-    public nationalities = ['Black', 'Coloured', 'Indian', 'White'];
-    public genders = ['Male', 'Female'];
+    public nationalities: SelectItem[] = [
+        { label: 'Select Race', value: '' },
+        { label: 'Black', value: 'Black' },
+        { label: 'Coloured', value: 'Coloured' },
+        { label: 'Indian', value: 'Indian' },
+        { label: 'White', value: 'White' }
+    ];
+    public genders: SelectItem[] = [
+        { label: 'Select gender', value: '' },
+        { label: 'Male', value: 'Male' },
+        { label: 'Female', value: 'Female' }
+    ];
+    public workFocuses: SelectItem[] = [
+        { label: 'Select work focus', value: '' },
+        { label: 'Teaching', value: 'Teaching' },
+        { label: 'Research', value: 'Research' },
+        { label: 'Balanced', value: 'Balanced' }
+    ];
 
     loading: boolean;
     errors: any;

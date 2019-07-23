@@ -21,7 +21,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared/guard';
 import { CustomRouteReuseStrategy } from './shared/helpers/routing-strategy';
+import { AlertService } from './shared/modules';
 import { AlertModule } from './shared/modules/alert/alert.module';
+import { PrimeNgModulesModule } from './shared/modules/prime-ng-modules.module';
 import {
     ActivityService,
     BlockService,
@@ -41,10 +43,6 @@ import {
 } from './shared/services';
 import { DutyService } from './shared/services/duty.service';
 import { ValidationService } from './shared/services/validation.service';
-import { AlertService } from './shared/modules';
-import { PanelModule } from 'primeng/panel';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
@@ -79,8 +77,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         ApolloModule,
         HttpLinkModule,
         AlertModule,
-        MessagesModule,
-        MessageModule
+        PrimeNgModulesModule
     ],
     declarations: [AppComponent],
     providers: [
@@ -108,25 +105,48 @@ export const createTranslateLoader = (http: HttpClient) => {
     bootstrap: [AppComponent]
 })
 export class AppModule {
-    constructor(private apollo: Apollo, private httpLink: HttpLink) {
+    constructor(
+        private apollo: Apollo,
+        private httpLink: HttpLink,
+        private alertService: AlertService
+    ) {
         // Set client uri
         const webLink = httpLink.create({
             uri: 'http://localhost:5000/graphql'
         });
         // Set error handling
         const errorLink = onError(({ graphQLErrors, networkError }) => {
-            if (graphQLErrors)
-                graphQLErrors.map(({ message, locations, path }) =>
+            if (graphQLErrors) {
+                graphQLErrors.map(({ message, locations, path }) => {
+                    this.alertService.errorToast(
+                        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+                        'errorToast',
+                        0,
+                        true
+                    );
                     console.log(
                         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-                    )
-                );
+                    );
+                });
+                return;
+            }
 
-            if (networkError)
+            if (networkError) {
+                this.alertService.errorToast(
+                    `[Network error]:
+                 Message: ${networkError.message}
+                 Name: ${networkError.name}
+                 Stack: ${networkError.stack}`,
+                    'errorToast',
+                    0,
+                    true
+                );
                 console.log(`[Network error]:
                 Message: ${networkError.message}
                 Name: ${networkError.name}
                 Stack: ${networkError.stack}`);
+                return;
+            }
         });
 
         const link = ApolloLink.from([errorLink, webLink]);

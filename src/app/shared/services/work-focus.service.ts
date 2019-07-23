@@ -29,7 +29,6 @@ export class WorkFocusService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    this.errorService.toConsole(result.errors);
                     return result;
                 })
             );
@@ -46,7 +45,6 @@ export class WorkFocusService {
             .valueChanges.pipe(
                 map(result => {
                     this.loading = result.loading;
-                    this.errorService.toConsole(result.errors);
                     return result;
                 })
             );
