@@ -1,10 +1,9 @@
 import { routerTransition } from 'src/app/router.animations';
 import { Faculty } from 'src/app/shared/generated';
-import { FacultyService } from 'src/app/shared/services';
-
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FacultyService } from '../faculty.service';
 
 @Component({
     selector: 'app-faculty-add',

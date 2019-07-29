@@ -1,29 +1,28 @@
-import { DataTablesModule } from 'angular-datatables';
-import { PageHeaderModule } from 'src/app/shared/modules';
-
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { AddComponent } from './add/add.component';
-import { ListComponent } from './list/list.component';
+import { PrimeNgModulesModule } from '../../../shared/modules/prime-ng-modules.module';
+import { AddSupervisionComponent } from './add-supervision/add-supervision.component';
+import { EditSupervisionComponent } from './edit-supervision/edit-supervision.component';
+import { ListSupervisionComponent } from './list-supervision/list-supervision.component';
 import { SupervisionRoutingModule } from './supervision-routing.module';
 import { SupervisionComponent } from './supervision.component';
-import { ViewComponent } from './view/view.component';
+import { ViewSupervisionComponent } from './view-supervision/view-supervision.component';
 
 @NgModule({
     declarations: [
-        AddComponent,
-        ListComponent,
-        ViewComponent,
-        SupervisionComponent
+        SupervisionComponent,
+        AddSupervisionComponent,
+        ViewSupervisionComponent,
+        EditSupervisionComponent,
+        ListSupervisionComponent
     ],
     imports: [
         CommonModule,
         SupervisionRoutingModule,
-        PageHeaderModule,
         ReactiveFormsModule,
-        DataTablesModule
+        PrimeNgModulesModule
     ]
 })
 export class SupervisionModule {}

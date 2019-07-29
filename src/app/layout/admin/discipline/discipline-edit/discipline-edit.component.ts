@@ -3,11 +3,12 @@ import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 import { Discipline } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-import { DisciplineService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { DisciplineService } from '../discipline.service';
 
 @Component({
     selector: 'app-discipline-edit',

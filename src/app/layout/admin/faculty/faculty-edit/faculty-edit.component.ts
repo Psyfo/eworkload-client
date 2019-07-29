@@ -3,11 +3,12 @@ import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 import { Faculty } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-import { FacultyService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { FacultyService } from '../faculty.service';
 
 @Component({
     selector: 'app-faculty-edit',

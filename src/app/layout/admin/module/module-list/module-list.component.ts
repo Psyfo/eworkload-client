@@ -4,7 +4,6 @@ import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 import { Module, ModuleInput } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-import { ModuleService } from 'src/app/shared/services';
 import * as XLXS from 'xlsx';
 
 import {
@@ -16,6 +15,8 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { ModuleService } from '../module.service';
 
 @Component({
     selector: 'app-module-list',

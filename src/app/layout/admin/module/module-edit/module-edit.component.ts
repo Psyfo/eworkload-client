@@ -10,18 +10,17 @@ import {
     Venue
 } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-import {
-    BlockService,
-    DisciplineService,
-    ModuleService,
-    OfferingTypeService,
-    QualificationService,
-    VenueService
-} from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { BlockService } from '../../block/block.service';
+import { DisciplineService } from '../../discipline/discipline.service';
+import { OfferingTypeService } from '../../offering-type/offering-type.service';
+import { QualificationService } from '../../qualification/qualification.service';
+import { VenueService } from '../../venue/venue.service';
+import { ModuleService } from '../module.service';
 
 @Component({
     selector: 'app-module-edit',

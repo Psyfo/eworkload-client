@@ -7,20 +7,23 @@ const routes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [
-            { path: '', redirectTo: 'profile', pathMatch: 'prefix' },
             {
-                path: 'dashboard',
-                loadChildren: () =>
-                    import('./dashboard/dashboard.module').then(
-                        m => m.DashboardModule
-                    ),
-                pathMatch: 'prefix'
+                path: '',
+                redirectTo: 'profile'
             },
             {
                 path: 'profile',
                 loadChildren: () =>
                     import('./profile/profile.module').then(
                         m => m.ProfileModule
+                    ),
+                pathMatch: 'prefix'
+            },
+            {
+                path: 'dashboard',
+                loadChildren: () =>
+                    import('./dashboard/dashboard.module').then(
+                        m => m.DashboardModule
                     ),
                 pathMatch: 'prefix'
             },

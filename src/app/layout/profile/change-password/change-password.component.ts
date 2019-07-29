@@ -1,18 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-
-import { routerTransition } from 'src/app/router.animations';
-
+import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
-
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
-import { Router } from '@angular/router';
-
+import { takeUntil } from 'rxjs/operators';
+import { routerTransition } from 'src/app/router.animations';
 import { AlertService } from 'src/app/shared/modules';
 
-import { UserService } from 'src/app/shared/services';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import { takeUntil } from 'rxjs/operators';
+import { UserService } from '../../admin/user/user.service';
 
 @Component({
     selector: 'app-change-password',
@@ -21,8 +17,12 @@ import { takeUntil } from 'rxjs/operators';
     animations: [routerTransition()]
 })
 export class ChangePasswordComponent implements OnInit {
+    breadcrumbs: MenuItem[];
+    passwordMatch: boolean = false;
     userId: string;
+
     private unsubscribe = new Subject();
+
     changePasswordForm: FormGroup;
     constructor(
         private router: Router,
@@ -32,7 +32,22 @@ export class ChangePasswordComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.breadcrumbs = [
+            {
+                label: 'profile',
+                url: 'profile/view'
+            },
+            {
+                label: 'change-password',
+                url: 'profile/change-password'
+            }
+        ];
         this.buildForm();
+        this.comparePasswords();
+    }
+    ngOnDestroy(): void {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
     }
 
     buildForm() {
@@ -51,14 +66,49 @@ export class ChangePasswordComponent implements OnInit {
     }
 
     onEdit() {
-        this.userService.changePassword(
-            this.userId,
-            this.oldPassword.value,
-            this.newPassword.value
-        );
+        const userId = this.userService.currentUserIdStatic();
+        console.log(this.oldPassword.value);
+        console.log(this.newPassword.value);
+
+        try {
+            this.userService
+                .changePassword(
+                    userId,
+                    this.oldPassword.value,
+                    this.newPassword.value
+                )
+                .pipe(takeUntil(this.unsubscribe))
+                .subscribe(result => {
+                    try {
+                        this.alertService.successToast('Password changed');
+                        this.router.navigate(['profile/view']);
+                    } catch (error) {
+                        this.alertService.errorToast(error, 'errorToast');
+                    }
+                });
+        } catch (error) {
+            this.alertService.errorToast(error, 'errorToast');
+            return;
+        }
     }
-    onCancel() {
+    onBack(event) {
         this.router.navigate(['../profile']);
+    }
+    onReset(event) {
+        this.changePasswordForm.reset();
+        this.ngOnInit();
+    }
+
+    comparePasswords() {
+        this.confirmPassword.valueChanges
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                if (this.newPassword.value !== this.confirmPassword.value) {
+                    this.passwordMatch = false;
+                } else {
+                    this.passwordMatch = true;
+                }
+            });
     }
 
     get oldPassword() {

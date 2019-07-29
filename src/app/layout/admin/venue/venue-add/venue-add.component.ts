@@ -1,16 +1,16 @@
-import { ErrorService } from './../../../../shared/services/error.service';
-import { ValidationService } from './../../../../shared/services/validation.service';
 import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 import { VenueInput } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-import { VenueService } from 'src/app/shared/services';
+import { ErrorService, ValidationService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { VenueService } from '../venue.service';
 
 @Component({
     selector: 'app-venue-add',

@@ -1,20 +1,21 @@
-import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { ResearchComponent } from "./research.component";
-import { AddComponent } from "./add/add.component";
-import { ViewComponent } from "./view/view.component";
-import { ListComponent } from "./list/list.component";
+import { AddResearchComponent } from './add-research/add-research.component';
+import { EditResearchComponent } from './edit-research/edit-research.component';
+import { ListResearchComponent } from './list-research/list-research.component';
+import { ResearchComponent } from './research.component';
+import { ViewResearchComponent } from './view-research/view-research.component';
 
 const routes: Routes = [
     {
-        path: "",
+        path: '',
         component: ResearchComponent,
         children: [
-            { path: "", component: ListComponent },
-            { path: "view/:id", component: ViewComponent },
-            { path: "add", component: AddComponent }
+            { path: '', component: ListResearchComponent },
+            { path: 'add', component: AddResearchComponent },
+            { path: 'edit/:id', component: EditResearchComponent },
+            { path: 'view/:id', component: ViewResearchComponent }
         ]
     }
 ];

@@ -2,11 +2,11 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 import { Module } from 'src/app/shared/generated';
-import { ModuleService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModuleService } from '../module.service';
 
 @Component({
     selector: 'app-module-view',

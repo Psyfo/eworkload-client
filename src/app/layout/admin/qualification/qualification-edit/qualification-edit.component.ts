@@ -2,14 +2,13 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Department, QualificationInput } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-import {
-    DepartmentService,
-    QualificationService
-} from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { DepartmentService } from '../../department/department.service';
+import { QualificationService } from '../qualification.service';
 
 @Component({
     selector: 'app-qualification-edit',

@@ -3,7 +3,6 @@ import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 
 import { CustomRouteReuseStrategy } from '../../../shared/helpers/routing-strategy';
 import { DepartmentAddComponent } from './department-add/department-add.component';
-import { DepartmentDeleteComponent } from './department-delete/department-delete.component';
 import { DepartmentEditComponent } from './department-edit/department-edit.component';
 import { DepartmentListComponent } from './department-list/department-list.component';
 import { DepartmentViewComponent } from './department-view/department-view.component';
@@ -16,9 +15,8 @@ const routes: Routes = [
         children: [
             { path: '', component: DepartmentListComponent },
             { path: 'add', component: DepartmentAddComponent },
-            { path: 'view/:id', component: DepartmentViewComponent },
             { path: 'edit/:id', component: DepartmentEditComponent },
-            { path: 'delete/:id', component: DepartmentDeleteComponent }
+            { path: 'view/:id', component: DepartmentViewComponent }
         ]
     }
 ];

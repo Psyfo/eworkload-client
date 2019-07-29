@@ -1,4 +1,4 @@
-import { PageHeaderModule } from 'src/app/shared/modules';
+import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -11,13 +11,11 @@ import { VenueListComponent } from './venue-list/venue-list.component';
 import { VenueRoutingModule } from './venue-routing.module';
 import { VenueViewComponent } from './venue-view/venue-view.component';
 import { VenueComponent } from './venue.component';
-import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
 
 @NgModule({
     imports: [
         CommonModule,
         VenueRoutingModule,
-        PageHeaderModule,
         ReactiveFormsModule,
         PrimeNgModulesModule
     ],

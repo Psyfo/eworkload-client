@@ -13,10 +13,12 @@ import {
     User
 } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-import { UserService, WorkloadService } from 'src/app/shared/services';
+import { WorkloadService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { UserService } from '../admin/user/user.service';
 
 @Component({
     selector: 'app-report',

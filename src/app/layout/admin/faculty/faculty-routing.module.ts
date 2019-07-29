@@ -3,7 +3,6 @@ import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 
 import { CustomRouteReuseStrategy } from '../../../shared/helpers/routing-strategy';
 import { FacultyAddComponent } from './faculty-add/faculty-add.component';
-import { FacultyDeleteComponent } from './faculty-delete/faculty-delete.component';
 import { FacultyEditComponent } from './faculty-edit/faculty-edit.component';
 import { FacultyListComponent } from './faculty-list/faculty-list.component';
 import { FacultyViewComponent } from './faculty-view/faculty-view.component';
@@ -17,8 +16,7 @@ const routes: Routes = [
             { path: '', component: FacultyListComponent },
             { path: 'add', component: FacultyAddComponent },
             { path: 'view/:id', component: FacultyViewComponent },
-            { path: 'edit/:id', component: FacultyEditComponent },
-            { path: 'delete/:id', component: FacultyDeleteComponent }
+            { path: 'edit/:id', component: FacultyEditComponent }
         ]
     }
 ];

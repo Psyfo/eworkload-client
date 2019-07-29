@@ -4,10 +4,11 @@ import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 import { Qualification } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-import { QualificationService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { QualificationService } from '../qualification.service';
 
 @Component({
     selector: 'app-qualification-list',

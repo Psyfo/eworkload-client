@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AddEnrollmentComponent } from './add-enrollment/add-enrollment.component';
+import { EditEnrollmentComponent } from './edit-enrollment/edit-enrollment.component';
 import { EnrollmentComponent } from './enrollment.component';
-import { ListComponent } from './list/list.component';
-import { AddComponent } from './add/add.component';
-import { ViewComponent } from './view/view.component';
-import { EditComponent } from './edit/edit.component';
+import { ListEnrollmentComponent } from './list-enrollment/list-enrollment.component';
+import { ViewEnrollmentComponent } from './view-enrollment/view-enrollment.component';
 
 const routes: Routes = [
     {
         path: '',
         component: EnrollmentComponent,
         children: [
-            { path: '', component: ListComponent },
-            { path: 'add', component: AddComponent },
-            { path: 'view/:id', component: ViewComponent },
-            { path: 'edit/:id', component: EditComponent }
+            { path: '', component: ListEnrollmentComponent },
+            { path: 'add', component: AddEnrollmentComponent },
+            { path: 'view/:id', component: ViewEnrollmentComponent },
+            { path: 'edit/:id', component: EditEnrollmentComponent }
         ]
     }
 ];

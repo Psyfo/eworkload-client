@@ -1,6 +1,8 @@
-import { CustomRouteReuseStrategy } from './../../shared/helpers/routing-strategy';
+import { CustomRouteReuseStrategy } from 'src/app/shared/helpers';
+
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, RouteReuseStrategy } from '@angular/router';
+import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
+
 import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
@@ -9,10 +11,34 @@ const routes: Routes = [
         component: AdminComponent,
         children: [
             {
+                path: 'block',
+                loadChildren: () =>
+                    import('./block/block.module').then(m => m.BlockModule)
+            },
+            {
                 path: 'department',
                 loadChildren: () =>
                     import('./department/department.module').then(
                         m => m.DepartmentModule
+                    )
+            },
+            {
+                path: 'discipline',
+                loadChildren: () =>
+                    import('./discipline/discipline.module').then(
+                        m => m.DisciplineModule
+                    )
+            },
+            {
+                path: 'duty',
+                loadChildren: () =>
+                    import('./duty/duty.module').then(m => m.DutyModule)
+            },
+            {
+                path: 'enrollment',
+                loadChildren: () =>
+                    import('./enrollment/enrollment.module').then(
+                        m => m.EnrollmentModule
                     )
             },
             {
@@ -23,14 +49,42 @@ const routes: Routes = [
                     )
             },
             {
-                path: 'role',
+                path: 'module',
                 loadChildren: () =>
-                    import('./role/role.module').then(m => m.RoleModule)
+                    import('./module/module.module').then(m => m.ModuleModule)
             },
             {
-                path: 'staff',
+                path: 'offering-type',
                 loadChildren: () =>
-                    import('./staff/staff.module').then(m => m.StaffModule)
+                    import('./offering-type/offering-type.module').then(
+                        m => m.OfferingTypeModule
+                    )
+            },
+            {
+                path: 'position',
+                loadChildren: () =>
+                    import('./position/position.module').then(
+                        m => m.PositionModule
+                    )
+            },
+            {
+                path: 'qualification',
+                loadChildren: () =>
+                    import('./qualification/qualification.module').then(
+                        m => m.QualificationModule
+                    )
+            },
+            {
+                path: 'student',
+                loadChildren: () =>
+                    import('./student/student.module').then(
+                        m => m.StudentModule
+                    )
+            },
+            {
+                path: 'user',
+                loadChildren: () =>
+                    import('./user/user.module').then(m => m.UserModule)
             },
             {
                 path: 'venue',
@@ -38,22 +92,10 @@ const routes: Routes = [
                     import('./venue/venue.module').then(m => m.VenueModule)
             },
             {
-                path: 'discipline',
+                path: 'work-focus',
                 loadChildren: () =>
-                    import('./discipline/discipline.module').then(
-                        m => m.DisciplineModule
-                    )
-            },
-            {
-                path: 'module',
-                loadChildren: () =>
-                    import('./module/module.module').then(m => m.ModuleModule)
-            },
-            {
-                path: 'qualification',
-                loadChildren: () =>
-                    import('./qualification/qualification.module').then(
-                        m => m.QualificationModule
+                    import('./work-focus/work-focus.module').then(
+                        m => m.WorkFocusModule
                     )
             }
         ]

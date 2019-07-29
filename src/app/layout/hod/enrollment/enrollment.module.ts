@@ -1,31 +1,31 @@
 import { DataTablesModule } from 'angular-datatables';
-import { PageHeaderModule } from 'src/app/shared/modules';
+import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { AddComponent } from './add/add.component';
-import { ListComponent } from './list/list.component';
-import { ViewComponent } from './view/view.component';
-import { EditComponent } from './edit/edit.component';
+import { AddEnrollmentComponent } from './add-enrollment/add-enrollment.component';
+import { EditEnrollmentComponent } from './edit-enrollment/edit-enrollment.component';
 import { EnrollmentRoutingModule } from './enrollment-routing.module';
 import { EnrollmentComponent } from './enrollment.component';
+import { ListEnrollmentComponent } from './list-enrollment/list-enrollment.component';
+import { ViewEnrollmentComponent } from './view-enrollment/view-enrollment.component';
 
 @NgModule({
     declarations: [
-        ListComponent,
-        AddComponent,
+        ListEnrollmentComponent,
+        AddEnrollmentComponent,
         EnrollmentComponent,
-        EditComponent,
-        ViewComponent
+        EditEnrollmentComponent,
+        ViewEnrollmentComponent
     ],
     imports: [
         CommonModule,
         EnrollmentRoutingModule,
         DataTablesModule,
         ReactiveFormsModule,
-        PageHeaderModule
+        PrimeNgModulesModule
     ]
 })
 export class EnrollmentModule {}

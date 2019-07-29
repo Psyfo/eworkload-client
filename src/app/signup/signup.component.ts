@@ -1,12 +1,7 @@
-import { OnInit, Component } from '@angular/core';
-import { routerTransition } from '../router.animations';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-    FormGroup,
-    FormControl,
-    Validators,
-    FormsModule
-} from '@angular/forms';
+
+import { routerTransition } from '../router.animations';
 
 @Component({
     selector: 'app-signup',

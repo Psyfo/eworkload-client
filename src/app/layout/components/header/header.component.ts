@@ -6,7 +6,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { User } from '../../../shared/generated/output';
-import { UserService } from '../../../shared/services/user.service';
+import { UserService } from '../../admin/user/user.service';
 
 @Component({
     selector: 'app-header',

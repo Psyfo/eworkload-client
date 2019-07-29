@@ -1,14 +1,12 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { DisciplineService } from 'src/app/layout/admin/discipline/discipline.service';
+import { ModuleService } from 'src/app/layout/admin/module/module.service';
+import { UserService } from 'src/app/layout/admin/user/user.service';
+import { VenueService } from 'src/app/layout/admin/venue/venue.service';
 import { routerTransition } from 'src/app/router.animations';
 import { Discipline, Module, User, Venue } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-import {
-    DisciplineService,
-    ModuleService,
-    UserService,
-    VenueService
-} from 'src/app/shared/services';
 
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';

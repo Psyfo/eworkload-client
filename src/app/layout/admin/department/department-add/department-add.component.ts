@@ -1,14 +1,15 @@
 import { Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
-import { DepartmentInput, Faculty } from 'src/app/shared/generated/output';
+import { takeUntil } from 'rxjs/operators';
+import { routerTransition } from 'src/app/router.animations';
+import { DepartmentInput, Faculty } from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { routerTransition } from '../../../../router.animations';
-import { AlertService } from 'src/app/shared/modules';
-import { FacultyService, DepartmentService } from 'src/app/shared/services';
+import { FacultyService } from '../../faculty/faculty.service';
+import { DepartmentService } from '../department.service';
 
 @Component({
     selector: 'app-department-add',

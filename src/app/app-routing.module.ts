@@ -12,9 +12,13 @@ const routes: Routes = [
                 path: '',
                 loadChildren: () =>
                     import('./layout/layout.module').then(m => m.LayoutModule),
-                canActivate: [AuthGuard]
+                pathMatch: 'prefix'
             },
-            { path: 'login', loadChildren: './login/login.module#LoginModule' },
+            {
+                path: 'login',
+                loadChildren: () =>
+                    import('./login/login.module').then(m => m.LoginModule)
+            },
             {
                 path: 'signup',
                 loadChildren: () =>
@@ -47,7 +51,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
+    imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
 export class AppRoutingModule {}

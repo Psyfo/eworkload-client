@@ -1,146 +1,84 @@
-<div class="d-flex flex-column">
-    <div class="row__profile" [@routerTransition]>
-        <div class="card row__profile--item">
-            <div class="card-header">
-                <h5 class="mt-0">
-                    User Profile
-                </h5>
-            </div>
-            <div class="card-body">
-                <div class="d-flex flex-row justify-content-around align-content-end">
-                    <div class="img__profile mr-3">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1024px-Circle-icons-profile.svg.png"
-                            alt="Profile picture" class="img-fluid" />
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <p-panel header="User Profile">
+            <div class="p-grid">
+                <div class="p-col-5">
+                    <img src="{{user?.photoUrl || 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1024px-Circle-icons-profile.svg.png'}}"
+                        alt="profile pic" class="img__profile">
+                </div>
+                <div class="p-col-7">
+                    <div class="p-grid">
+                        <div class="p-col">
+                            <strong>UserId</strong>
+                        </div>
+                        <div class="p-col text-muted">
+                            {{user?.userId}}
+                        </div>
                     </div>
-                    <div class="d-flex flex-column">
-                        <div class="d-flex flex-row justify-content-between">
-                            <div class="font-weight-bold mr-3">
-                                Name:
-                            </div>
-                            <div class="text-muted">
-                                {{user?.firstName || 'Not yet added'}}
-                            </div>
+                    <div class="p-grid">
+                        <div class="p-col">
+                            <strong>Name</strong>
                         </div>
-                        <div class="d-flex flex-row justify-content-between">
-                            <div class="font-weight-bold mr-3">
-                                Surname:
-                            </div>
-                            <div class="text-muted">
-                                {{user?.lastName || 'Not yet added'}}
-                            </div>
+                        <div class="p-col text-muted">
+                            {{user?.firstName}} {{user?.lastName}}
                         </div>
-                        <div class="d-flex flex-row justify-content-between">
-                            <div class="font-weight-bold mr-3">
-                                Discipline:
-                            </div>
-                            <div class="text-muted">
-                                {{user?.discipline?.name || 'Not yet added'}}
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row justify-content-between">
-                            <div class="font-weight-bold mr-3">
-                                Position:
-                            </div>
-                            <div class="text-muted">
-                                {{user?.position?.name || 'Not yet added'}}
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row justify-content-between">
-                            <div class="font-weight-bold mr-3">
-                                Work Focus:
-                            </div>
-                            <div class="text-muted">
-                                {{user?.workFocus?.name|| 'Not yet added' | titlecase}}
-                            </div>
-                        </div>
-                        <!-- <div class="d-flex flex-row justify-content-between">
-                                <div class="font-weight-bold mr-3">
-                                    Gender:
-                                </div>
-                                <div class="text-muted">
-                                    {{user?.gender || 'Not yet added' | titlecase}}
-                                </div>
-                            </div>
-                            <div class="d-flex flex-row justify-content-between">
-                                <div class="font-weight-bold mr-3">
-                                    Nationality:
-                                </div>
-                                <div class="text-muted">
-                                    {{user?.nationality || 'Not yet added' | titlecase}}
-                                </div>
-                            </div> -->
                     </div>
+                    <div class="p-grid">
+                        <div class="p-col">
+                            <strong>Discipline</strong>
+                        </div>
+                        <div class="p-col text-muted">
+                            {{user?.discipline?.name}}
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col">
+                            <strong>Position</strong>
+                        </div>
+                        <div class="p-col text-muted">
+                            {{user?.position?.name}}
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col">
+                            <strong>Work Focus</strong>
+                        </div>
+                        <div class="p-col text-muted">
+                            {{user?.workFocus?.name}}
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col">
-                        <button class="btn btn-primary" (click)="onEdit()">Edit Profile</button>
-                    </div>
-                    <div class="col">
-                        <button class="btn btn-primary" (click)="onChangePassword()">Change Password</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card row__profile--item">
-            <div class="card-header">
-                <h5 class="mt-0">Total Workload</h5>
-            </div>
-            <div class="card-body">
-                <div class="d-flex justify-content-center align-items-center align-content-stretch">
-                    <div class="w-100 h-100">
-                        <canvas baseChart [data]="workloadChartData" [labels]="workloadChartLabels"
-                            [chartType]="workloadChartType" (chartHover)="chartHovered($event)"
-                            (chartClick)="chartClicked($event)">
-                        </canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <p-footer>
+                <button type="button" pButton icon="pi pi-pencil" (click)="onEdit($event)" label="Edit Profile"
+                    class="mr-2"></button>
+                <button type="button" pButton icon="pi pi-pencil" (click)="onChangePassword($event)"
+                    label="Change Password" class="mr-2"></button>
+            </p-footer>
+        </p-panel>
     </div>
-
-    <div class="row__workload" [@routerTransition]>
-        <div class="card row__workload--item">
-            <div class=" card-header">
-                <h6>Research</h6>
-            </div>
-            <div class="card-body">
-                <canvas baseChart [data]="researchChartData" [labels]="researchChartLabels"
-                    [chartType]="researchChartType" (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)">
-                </canvas>
-            </div>
-            <div class="card-footer">
-            </div>
-        </div>
-
-        <div class="card row__workload--item">
-            <div class="card-header">
-                <h6>Formal Instruction</h6>
-            </div>
-            <div class="card-body">
-                <canvas baseChart [data]="formalInstructionChartData" [labels]="formalInstructionChartLabels"
-                    [chartType]="formalInstructionChartType" (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)">
-                </canvas>
-            </div>
-            <div class="card-footer">
-            </div>
-        </div>
-
-        <div class="card row__workload--item">
-            <div class="card-header">
-                <h6>Service</h6>
-            </div>
-            <div class="card-body">
-                <canvas baseChart [data]="supervisionChartData" [labels]="supervisionChartLabels"
-                    [chartType]="supervisionChartType" (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)">
-                </canvas>
-            </div>
-            <div class="card-footer">
-            </div>
-        </div>
+    <div class="p-col">
+        <p-panel header="Total Workload">
+            Chart goes here
+        </p-panel>
+    </div>
+</div>
+<div class="p-grid">
+    <div class="p-col">
+        <p-panel header="Teaching Workload">
+            Teaching goes here
+        </p-panel>
+    </div>
+    <div class="p-col">
+        <p-panel header="Research Workload">
+            Research goes here
+        </p-panel>
+    </div>
+    <div class="p-col">
+        <p-panel header="Service Workload">
+            Service goes here
+        </p-panel>
     </div>
 </div>

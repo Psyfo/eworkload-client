@@ -1,20 +1,14 @@
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { routerTransition } from 'src/app/router.animations';
+import { Faculty } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
-import {
-    AfterViewInit,
-    Component,
-    OnDestroy,
-    OnInit,
-    Renderer
-} from '@angular/core';
+import { Component, OnInit, Renderer } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { routerTransition } from '../../../../router.animations';
-import { Faculty } from '../../../../shared/generated/output';
-import { FacultyService } from '../../../../shared/services';
+import { FacultyService } from '../faculty.service';
 
 @Component({
     selector: 'app-faculty-list',

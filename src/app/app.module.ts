@@ -1,11 +1,10 @@
+import { UserService } from './layout/admin/user/user.service';
 import { DataTablesModule } from 'angular-datatables';
 import { Apollo, ApolloModule } from 'apollo-angular';
 import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-link';
 import { onError } from 'apollo-link-error';
-import { MessageModule } from 'primeng/message';
-import { MessagesModule } from 'primeng/messages';
 
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -19,30 +18,28 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ActivityService } from './layout/activity/activity.service';
+import { BlockService } from './layout/admin/block/block.service';
+import { DepartmentService } from './layout/admin/department/department.service';
+import { DutyService } from './layout/admin/duty/duty.service';
+import { EnrollmentService } from './layout/admin/enrollment/enrollment.service';
+import { FacultyService } from './layout/admin/faculty/faculty.service';
+import { ModuleService } from './layout/admin/module/module.service';
+import { OfferingTypeService } from './layout/admin/offering-type/offering-type.service';
+import { PositionService } from './layout/admin/position/position.service';
+import { QualificationService } from './layout/admin/qualification/qualification.service';
+import { StudentService } from './layout/admin/student/student.service';
+import { VenueService } from './layout/admin/venue/venue.service';
+import { WorkFocusService } from './layout/admin/work-focus/work-focus.service';
 import { AuthGuard } from './shared/guard';
-import { CustomRouteReuseStrategy } from './shared/helpers/routing-strategy';
-import { AlertService } from './shared/modules';
-import { AlertModule } from './shared/modules/alert/alert.module';
+import { CustomRouteReuseStrategy } from './shared/helpers';
+import { AlertModule, AlertService } from './shared/modules';
 import { PrimeNgModulesModule } from './shared/modules/prime-ng-modules.module';
 import {
-    ActivityService,
-    BlockService,
-    DepartmentService,
-    EnrollmentService,
-    FacultyService,
-    ModuleService,
-    OfferingTypeService,
-    PositionService,
-    QualificationService,
-    StudentService,
     UploadService,
-    UserService,
-    VenueService,
-    WorkFocusService,
+    ValidationService,
     WorkloadService
 } from './shared/services';
-import { DutyService } from './shared/services/duty.service';
-import { ValidationService } from './shared/services/validation.service';
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {

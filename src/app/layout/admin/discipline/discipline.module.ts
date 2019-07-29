@@ -6,7 +6,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { DisciplineAddComponent } from './discipline-add/discipline-add.component';
-import { DisciplineDeleteComponent } from './discipline-delete/discipline-delete.component';
 import { DisciplineEditComponent } from './discipline-edit/discipline-edit.component';
 import { DisciplineListComponent } from './discipline-list/discipline-list.component';
 import { DisciplineRoutingModule } from './discipline-routing.module';
@@ -26,8 +25,7 @@ import { DisciplineComponent } from './discipline.component';
         DisciplineAddComponent,
         DisciplineEditComponent,
         DisciplineListComponent,
-        DisciplineViewComponent,
-        DisciplineDeleteComponent
+        DisciplineViewComponent
     ]
 })
 export class DisciplineModule {}

@@ -1,3 +1,4 @@
+import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
 import { ChartsModule as Ng2Charts } from 'ng2-charts';
 import { PageHeaderModule } from 'src/app/shared/modules';
 
@@ -17,7 +18,8 @@ import { ProfileComponent } from './profile.component';
         ProfileRoutingModule,
         PageHeaderModule,
         Ng2Charts,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        PrimeNgModulesModule
     ],
     declarations: [
         ProfileComponent,

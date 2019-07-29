@@ -1,13 +1,14 @@
+import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
-import { takeUntil, filter } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 import { Venue } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-import { VenueService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/components/common/menuitem';
+
+import { VenueService } from '../venue.service';
 
 @Component({
     selector: 'app-venue-list',
@@ -81,12 +82,10 @@ export class VenueListComponent implements OnInit {
         this.venueService
             .getVenues()
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(
-                result => {
-                    this.venues = result.data.venues;
-                    this.loading = result.loading;
-                }
-            );
+            .subscribe(result => {
+                this.venues = result.data.venues;
+                this.loading = result.loading;
+            });
     }
 
     onAdd() {

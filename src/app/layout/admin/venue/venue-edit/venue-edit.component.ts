@@ -4,11 +4,12 @@ import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 import { VenueInput } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-import { VenueService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { VenueService } from '../venue.service';
 
 @Component({
     selector: 'app-venue-edit',

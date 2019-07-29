@@ -1,14 +1,29 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { ResearchComponent } from "./research.component";
-import { ResearchRoutingModule } from "./research-routing.module";
-import { AddComponent } from "./add/add.component";
-import { ListComponent } from "./list/list.component";
-import { ViewComponent } from "./view/view.component";
-import { ReactiveFormsModule } from "@angular/forms";
+import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
+
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { AddResearchComponent } from './add-research/add-research.component';
+import { EditResearchComponent } from './edit-research/edit-research.component';
+import { ListResearchComponent } from './list-research/list-research.component';
+import { ResearchRoutingModule } from './research-routing.module';
+import { ResearchComponent } from './research.component';
+import { ViewResearchComponent } from './view-research/view-research.component';
 
 @NgModule({
-    imports: [CommonModule, ResearchRoutingModule, ReactiveFormsModule],
-    declarations: [ResearchComponent, AddComponent, ListComponent, ViewComponent]
+    imports: [
+        CommonModule,
+        ResearchRoutingModule,
+        ReactiveFormsModule,
+        PrimeNgModulesModule
+    ],
+    declarations: [
+        ResearchComponent,
+        ViewResearchComponent,
+        AddResearchComponent,
+        ListResearchComponent,
+        EditResearchComponent
+    ]
 })
 export class ResearchModule {}

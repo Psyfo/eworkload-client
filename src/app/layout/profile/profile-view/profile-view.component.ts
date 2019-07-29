@@ -1,12 +1,14 @@
+import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 import { User } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-import { UserService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { UserService } from '../../admin/user/user.service';
 
 @Component({
     selector: 'app-profile-view',
@@ -16,6 +18,7 @@ import { Router } from '@angular/router';
     animations: [routerTransition()]
 })
 export class ProfileViewComponent implements OnInit {
+    breadcrumbs: MenuItem[];
     loading: boolean;
     errors: any;
     userId: string;
@@ -70,6 +73,13 @@ export class ProfileViewComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.breadcrumbs = [
+            { label: 'profile' },
+            {
+                label: this.userService.currentUserIdStatic(),
+                url: 'profile/view'
+            }
+        ];
         this.getData();
     }
     ngOnDestroy(): void {
@@ -77,10 +87,10 @@ export class ProfileViewComponent implements OnInit {
         this.unsubscribe.complete();
     }
 
-    onEdit(): void {
+    onEdit(event): void {
         this.router.navigate(['profile/edit']);
     }
-    onChangePassword(): void {
+    onChangePassword(event): void {
         this.router.navigate(['profile/change-password']);
     }
 

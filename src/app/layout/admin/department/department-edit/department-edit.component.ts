@@ -3,11 +3,13 @@ import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 import { Department, DepartmentInput, Faculty } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-import { DepartmentService, FacultyService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { FacultyService } from '../../faculty/faculty.service';
+import { DepartmentService } from '../department.service';
 
 @Component({
     selector: 'app-department-edit',

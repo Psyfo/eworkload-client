@@ -1,18 +1,13 @@
-import { Component, OnInit, ViewChild, Renderer } from '@angular/core';
-
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
-
 import { Discipline } from 'src/app/shared/generated';
 
-import { Subject } from 'rxjs';
-
-import { DataTableDirective } from 'angular-datatables';
-
+import { Component, OnInit, Renderer, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { DisciplineService } from 'src/app/shared/services';
-
-import { takeUntil } from 'rxjs/operators';
+import { DisciplineService } from '../discipline.service';
 
 @Component({
     selector: 'app-discipline-list',

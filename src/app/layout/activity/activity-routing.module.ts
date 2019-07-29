@@ -9,23 +9,44 @@ const routes: Routes = [
         component: ActivityComponent,
         children: [
             {
-                path: 'community-instruction',
+                path: 'academic-administration',
                 loadChildren: () =>
-                    import('./commInstruction/commInstruction.module').then(
-                        m => m.CommInstructionModule
-                    )
+                    import(
+                        './academic-administration/academic-administration.module'
+                    ).then(m => m.AcademicAdministrationModule)
             },
             {
-                path: 'lecturing',
+                path: 'community-instruction',
                 loadChildren: () =>
-                    import('./lecturing/lecturing.module').then(
-                        m => m.LecturingModule
-                    )
+                    import(
+                        './community-instruction/community-instruction.module'
+                    ).then(m => m.CommunityInstructionModule)
+            },
+            {
+                path: 'executive-management',
+                loadChildren: () =>
+                    import(
+                        './executive-management/executive-management.module'
+                    ).then(m => m.ExecutiveManagementModule)
+            },
+            {
+                path: 'formal-instruction',
+                loadChildren: () =>
+                    import(
+                        './formal-instruction/formal-instruction.module'
+                    ).then(m => m.FormalInstructionModule)
+            },
+            {
+                path: 'personnel-development',
+                loadChildren: () =>
+                    import(
+                        './personnel-development/personnel-development.module'
+                    ).then(m => m.PersonnelDevelopmentModule)
             },
             {
                 path: 'public-service',
                 loadChildren: () =>
-                    import('./publicService/publicService.module').then(
+                    import('./public-service/public-service.module').then(
                         m => m.PublicServiceModule
                     )
             },

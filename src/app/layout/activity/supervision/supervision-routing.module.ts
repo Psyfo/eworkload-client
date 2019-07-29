@@ -1,25 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AddComponent } from './add/add.component';
-import { ListComponent } from './list/list.component';
+import { AddSupervisionComponent } from './add-supervision/add-supervision.component';
+import { EditSupervisionComponent } from './edit-supervision/edit-supervision.component';
+import { ListSupervisionComponent } from './list-supervision/list-supervision.component';
 import { SupervisionComponent } from './supervision.component';
-import { ViewComponent } from './view/view.component';
+import { ViewSupervisionComponent } from './view-supervision/view-supervision.component';
 
 const routes: Routes = [
     {
-        path: "",
+        path: '',
         component: SupervisionComponent,
         children: [
-            { path: "", component: ListComponent },
-            { path: "view/:id", component: ViewComponent },
-            { path: "add", component: AddComponent }
+            { path: '', component: ListSupervisionComponent },
+            { path: 'add', component: AddSupervisionComponent },
+            { path: 'edit/:id', component: EditSupervisionComponent },
+            { path: 'view/:id', component: ViewSupervisionComponent }
         ]
     }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
-export class SupervisionRoutingModule { }
+export class SupervisionRoutingModule {}

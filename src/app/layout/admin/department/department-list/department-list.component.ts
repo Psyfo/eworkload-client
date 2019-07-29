@@ -4,10 +4,11 @@ import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 import { Department } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-import { DepartmentService } from 'src/app/shared/services';
 
 import { Component, OnInit, Renderer, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { DepartmentService } from '../department.service';
 
 @Component({
     selector: 'app-department-list',

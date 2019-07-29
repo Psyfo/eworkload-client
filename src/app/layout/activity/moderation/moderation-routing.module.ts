@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+
+import { AddModerationComponent } from './add-moderation/add-moderation.component';
+import { EditModerationComponent } from './edit-moderation/edit-moderation.component';
+import { ListModerationComponent } from './list-moderation/list-moderation.component';
 import { ModerationComponent } from './moderation.component';
-import { ListComponent } from './list/list.component';
-import { AddComponent } from './add/add.component';
-import { ViewComponent } from './view/view.component';
+import { ViewModerationComponent } from './view-moderation/view-moderation.component';
 
 const routes: Routes = [
     {
         path: '',
         component: ModerationComponent,
         children: [
-            { path: '', component: ListComponent },
-            { path: 'add', component: AddComponent },
-            { path: 'view/:id', component: ViewComponent }
+            { path: '', component: ListModerationComponent },
+            { path: 'add', component: AddModerationComponent },
+            { path: 'view/:id', component: ViewModerationComponent },
+            { path: 'edit/:id', component: EditModerationComponent }
         ]
     }
 ];

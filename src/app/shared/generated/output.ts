@@ -1333,7 +1333,7 @@ export type SupervisionWorkloadPerUser = {
 
 export type User = {
     __typename?: "User";
-    userId: Scalars["String"];
+    userId?: Maybe<Scalars["String"]>;
     email?: Maybe<Scalars["String"]>;
     firstName?: Maybe<Scalars["String"]>;
     lastName?: Maybe<Scalars["String"]>;
@@ -1349,7 +1349,7 @@ export type User = {
 };
 
 export type UserInput = {
-    userId: Scalars["String"];
+    userId?: Maybe<Scalars["String"]>;
     password?: Maybe<Scalars["String"]>;
     email?: Maybe<Scalars["String"]>;
     firstName?: Maybe<Scalars["String"]>;

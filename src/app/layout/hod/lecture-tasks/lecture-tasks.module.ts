@@ -1,4 +1,4 @@
-import { PageHeaderModule } from 'src/app/shared/modules';
+import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -13,7 +13,7 @@ import { TasksComponent } from './tasks/tasks.component';
     imports: [
         CommonModule,
         LectureTasksRoutingModule,
-        PageHeaderModule,
+        PrimeNgModulesModule,
         ReactiveFormsModule
     ]
 })

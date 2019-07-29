@@ -10,16 +10,27 @@ const routes: Routes = [
         path: '',
         component: ProfileComponent,
         children: [
-            { path: '', redirectTo: 'view' },
-            { path: 'view', component: ProfileViewComponent },
-            { path: 'edit', component: ProfileEditComponent },
-            { path: 'change-password', component: ChangePasswordComponent },
-        ],
-    },
+            {
+                path: '',
+                component: ProfileViewComponent,
+                pathMatch: 'prefix'
+            },
+            {
+                path: 'edit',
+                component: ProfileEditComponent,
+                pathMatch: 'prefix'
+            },
+            {
+                path: 'change-password',
+                component: ChangePasswordComponent,
+                pathMatch: 'prefix'
+            }
+        ]
+    }
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
+    exports: [RouterModule]
 })
 export class ProfileRoutingModule {}
