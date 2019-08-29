@@ -1,1 +1,82 @@
-<p>list-approvals works!</p>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <p-panel header="Research Activities">
+            <p-table #researchActivityTable [columns]="cols" [value]="researchActivities" [paginator]="true" [rows]="10"
+                selectionMode="single" [(selection)]="selectedResearchActivity" datakey="activityId"
+                (onRowSelect)="onRowSelect($event)" [reorderableColumns]="true" [responsive]="true" [loading]="loading"
+                [contextMenu]="cm" contextMenuSelectionMode="joint">
+                <ng-template pTemplate="caption">
+                    <div style="text-align: right;">
+                        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Global Filter"
+                            (input)="researchActivityTable.filterGlobal($event.target.value, 'contains')"
+                            style="width:auto">
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let column of columns" [pSortableColumn]="column.field" pReorderableColumn>
+                            {{column.header}}
+                            <p-sortIcon [field]="column.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                    <tr>
+                        <!-- <th *ngFor="let column of columns" [ngSwitch]="column.field">
+                            <input type="text" pInputText *ngSwitchCase="'activityId'"
+                                (input)="researchActivityTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                                style="width: 100%;">
+                            <input type="text" pInputText *ngSwitchCase="'name'"
+                                (input)="researchActivityTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                                style="width: 100%;">
+                            <input type="text" pInputText *ngSwitchCase="'department.name'"
+                                (input)="researchActivityTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                                style="width: 100%;">
+                            <p-dropdown *ngSwitchCase="'type'" [options]="types" [style]="{'width':'100%'}"
+                                (onChange)="researchActivityTable.filter($event.value, column.field, 'equals')">
+                            </p-dropdown>
+                        </th> -->
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-activity let-columns="columns">
+                    <tr [pSelectableRow]="activity" [pContextMenuRow]="activity">
+                        <td>
+                            {{activity?.duty?.name}} ({{activity.duty?.dutyId}})
+                        </td>
+                        <td>
+                            {{activity?.user?.firstName}} {{activity?.user?.lastName}} ({{activity?.user?.userId}})
+                        </td>
+                        <td>
+                            {{activity?.approvalStatus}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer" let-columns>
+                    <tr>
+                        <td *ngFor="let column of columns">
+                            {{column.header}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="columns.length">
+                            No records found
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+            <p-contextMenu #cm [model]="menuItems"></p-contextMenu>
+            <p-footer>
+                <button pButton type="button" label="New Qualification" icon="pi pi-plus" iconPos="left"
+                    (click)="onAdd()"></button>
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export CSV"
+                    (click)="researchActivityTable.exportCSV()" style="float:right"></button>
+            </p-footer>
+        </p-panel>
+    </div>
+</div>

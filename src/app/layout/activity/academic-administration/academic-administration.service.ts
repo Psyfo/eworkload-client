@@ -19,6 +19,28 @@ export class AcademicAdministrationService {
     errors: any;
     networkStatus: any;
 
+    public titles = [
+        { label: 'Programme coordinator', value: 'Programme coordinator' },
+        {
+            label: 'Servicing subject coordinator',
+            value: 'Servicing subject coordinator'
+        },
+        { label: 'Timetabling', value: 'Timetabling' },
+        { label: 'Selection', value: 'Selection' },
+        { label: 'Test and Exams schedule', value: 'Test and Exams schedule' },
+        { label: 'Registration set up', value: 'Registration set up' },
+        { label: 'TLA Chairperson', value: 'TLA Chairperson' },
+        { label: 'Quality rep', value: 'Quality rep' },
+        {
+            label: 'Marketing/schools outreach',
+            value: 'Marketing/schools outreach'
+        },
+        {
+            label: 'Documentation/rules/handbook',
+            value: 'Documentation/rules/handbook'
+        }
+    ];
+
     constructor(
         private academicAdministrationActivityGql: AcademicAdministrationActivityGQL,
         private academicAdministrationActivitiesGql: AcademicAdministrationActivitiesGQL,
@@ -80,11 +102,11 @@ export class AcademicAdministrationService {
             );
     }
     addAcademicAdministrationActivity(
-        academicAdministrationActivity: AcademicAdministrationActivityInput
+        activity: AcademicAdministrationActivityInput
     ) {
         return this.addacademicAdministrationActivityGql
             .mutate({
-                academicAdministrationActivity: academicAdministrationActivity
+                activity: activity
             })
             .pipe(
                 map(result => {
@@ -96,11 +118,11 @@ export class AcademicAdministrationService {
             );
     }
     editAcademicAdministrationActivity(
-        academicAdministrationActivity: AcademicAdministrationActivityInput
+        activity: AcademicAdministrationActivityInput
     ) {
         return this.editacademicAdministrationActivityGql
             .mutate({
-                academicAdministrationActivity: academicAdministrationActivity
+                activity: activity
             })
             .pipe(
                 map(result => {
@@ -112,11 +134,11 @@ export class AcademicAdministrationService {
             );
     }
     deleteAcademicAdministrationActivity(
-        academicAdministrationActivity: AcademicAdministrationActivityInput
+        activity: AcademicAdministrationActivityInput
     ) {
         return this.deleteacademicAdministrationActivityGql
             .mutate({
-                academicAdministrationActivity: academicAdministrationActivity
+                activity: activity
             })
             .pipe(
                 map(result => {

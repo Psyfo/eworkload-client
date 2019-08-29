@@ -1,9 +1,7 @@
 mutation addAcademicAdministrationActivity(
-    $academicAdministrationActivity: AcademicAdministrationActivityInput
+    $activity: AcademicAdministrationActivityInput
 ) {
-    addAcademicAdministrationActivity(
-        academicAdministrationActivity: $academicAdministrationActivity
-    ) {
+    addAcademicAdministrationActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -11,6 +9,28 @@ mutation addAcademicAdministrationActivity(
             email
             firstName
             lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -23,20 +43,13 @@ mutation addAcademicAdministrationActivity(
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }
 mutation editAcademicAdministrationActivity(
-    $academicAdministrationActivity: AcademicAdministrationActivityInput
+    $activity: AcademicAdministrationActivityInput
 ) {
-    editAcademicAdministrationActivity(
-        academicAdministrationActivity: $academicAdministrationActivity
-    ) {
+    editAcademicAdministrationActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -44,6 +57,28 @@ mutation editAcademicAdministrationActivity(
             email
             firstName
             lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -56,20 +91,13 @@ mutation editAcademicAdministrationActivity(
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }
 mutation deleteAcademicAdministrationActivity(
-    $academicAdministrationActivity: AcademicAdministrationActivityInput
+    $activity: AcademicAdministrationActivityInput
 ) {
-    deleteAcademicAdministrationActivity(
-        academicAdministrationActivity: $academicAdministrationActivity
-    ) {
+    deleteAcademicAdministrationActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -77,6 +105,28 @@ mutation deleteAcademicAdministrationActivity(
             email
             firstName
             lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -89,11 +139,6 @@ mutation deleteAcademicAdministrationActivity(
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }

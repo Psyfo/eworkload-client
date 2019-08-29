@@ -68,10 +68,10 @@ export class DisciplineEditComponent implements OnInit {
             description: ['', [Validators.required]]
         });
         this.disciplineService
-            .getDiscipline(disciplineId)
+            .discipline(disciplineId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.discipline = <Discipline>(<unknown>result.data.discipline);
+                this.discipline = result.data.discipline;
 
                 this.disciplineEditForm.patchValue(this.discipline);
             });

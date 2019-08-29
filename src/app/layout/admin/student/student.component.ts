@@ -1,3 +1,4 @@
+import { MenuItem } from 'primeng/components/common/menuitem';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./student.component.scss']
 })
 export class StudentComponent implements OnInit {
+    breadcrumbs: MenuItem[]
 
   constructor() { }
 

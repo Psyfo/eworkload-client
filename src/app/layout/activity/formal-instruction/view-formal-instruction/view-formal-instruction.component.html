@@ -1,50 +1,74 @@
-<div class="row" [@routerTransition]>
-    <div class="col-6">
-        <div class="card">
-            <div class="card-header">
-                Formal Instruction Activity
-            </div>
-            <div class="card-body">
-                <div class="d-flex flex-column">
-                    <div class="d-flex flex-row justify-content-between">
-                        <p><strong>Activity Type(Duty)</strong></p>
-                        {{activity?.duty?.name}}
-                    </div>
-                    <div class="d-flex flex-row justify-content-between">
-                        <p><strong>Module</strong></p>
-                        {{activity?.module?.name}} ({{activity?.module?.moduleId}})
-                    </div>
-                    <div class="d-flex flex-row justify-content-between">
-                        <p><strong>Staff ID</strong></p>
-                        {{activity?.user?.userId}}
-                    </div>
-                    <div class="d-flex flex-row justify-content-between">
-                        <p><strong>Name</strong></p>
-                        {{activity?.user?.firstName}} {{activity?.user?.lastName}}
-                    </div>
-                    <div class="d-flex flex-row justify-content-between">
-                        <p><strong>Approval Status</strong></p>
-                        <span *ngIf="activity?.approvalStatus; else notApproved">Approved</span>
-                        <ng-template #notApproved>Not Approved</ng-template>
-                    </div>
-                    <div class="d-flex flex-row justify-content-between">
-                        <p><strong>Base Contact Hours</strong></p>
-                        {{''}}
-                    </div>
-                    <div class="d-flex flex-row justify-content-between">
-                        <p><strong>Other Hours</strong></p>
-                        {{''}}
-                    </div>
-                    <div class="d-flex flex-row justify-content-between">
-                        <p><strong>Total Hours</strong></p>
-                        {{''}}
-                    </div>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col-6">
+        <p-panel header="Formal Instruction Activity">
+
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>Activity Type(Duty)</strong>
+                </div>
+                <div class="p-col">
+                    {{ activity?.duty?.name }}({{ activity?.duty?.dutyId}})
                 </div>
             </div>
-            <div class="card-footer">
-                <button type="button" class="btn btn-primary mr-3" disabled>Edit</button>
-                <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>Module</strong>
+                </div>
+                <div class="p-col">
+                    {{ activity?.module?.name }}
+                </div>
             </div>
-        </div>
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>Block</strong>
+                </div>
+                <div class="p-col">
+                    {{ activity?.module?.block?.name }}
+                </div>
+            </div>
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>Offering Type</strong>
+                </div>
+                <div class="p-col">
+                    {{ activity?.module?.offeringType?.description }}
+                </div>
+            </div>
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>User ID</strong>
+                </div>
+                <div class="p-col">
+                    {{ activity?.userId }}
+                </div>
+            </div>
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>User</strong>
+                </div>
+                <div class="p-col">
+                    {{ activity?.user?.firstName }} {{ activity?.user?.lastName }}
+                </div>
+            </div>
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>Approval Status</strong>
+                </div>
+                <div class="p-col">
+                    {{ activity?.approvalStatus }}
+                </div>
+            </div>
+            <p-footer>
+                <div class="p-grid">
+                    <div class="p-col p-col-justify-start">
+                        <button type="button" pButton icon="pi pi-pencil" (click)="onEdit($event)" label="Edit"
+                            class="mr-2"></button>
+                        <button type="button" pButton icon="pi pi-arrow-left" (click)="onBack($event)" label="Back"
+                            class="ui-button-danger"></button>
+                    </div>
+                </div>
+            </p-footer>
+        </p-panel>
     </div>
 </div>

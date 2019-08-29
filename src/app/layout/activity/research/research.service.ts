@@ -29,6 +29,15 @@ export class ResearchService {
         { label: 'Patent', value: 'Patent' }
     ];
 
+    public conferenceDetails: SelectItem[] = [
+        { label: 'Presented Paper', value: 'Presented Paper' },
+        { label: 'Presented Poster', value: 'Presented Poster' },
+        { label: 'Attended', value: 'Attended' },
+        { label: 'Keynote address', value: 'Keynote address' },
+        { label: 'Chaired a session', value: 'Chair a session' },
+        { label: 'Served on a panel', value: 'Served on a panel' }
+    ];
+
     constructor(
         private researchActivityGql: ResearchActivityGQL,
         private researchActivitiesGql: ResearchActivitiesGQL,
@@ -89,33 +98,34 @@ export class ResearchService {
                 })
             );
     }
-    addResearchActivity(researchActivity: ResearchActivityInput) {
-        return this.addresearchActivityGql
-            .mutate({ researchActivity: researchActivity })
-            .pipe(
-                map(result => {
+    addResearchActivity(activity: ResearchActivityInput) {
+        return this.addresearchActivityGql.mutate({ activity: activity }).pipe(
+            map(
+                result => {
                     this.loading = result.loading;
                     this.errors = result.errors;
                     this.networkStatus = result.networkStatus;
                     return result;
-                })
-            );
+                },
+                err => {
+                    console.warn(err);
+                }
+            )
+        );
     }
-    editResearchActivity(researchActivity: ResearchActivityInput) {
-        return this.editresearchActivityGql
-            .mutate({ researchActivity: researchActivity })
-            .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+    editResearchActivity(activity: ResearchActivityInput) {
+        return this.editresearchActivityGql.mutate({ activity: activity }).pipe(
+            map(result => {
+                this.loading = result.loading;
+                this.errors = result.errors;
+                this.networkStatus = result.networkStatus;
+                return result;
+            })
+        );
     }
-    deleteResearchActivity(researchActivity: ResearchActivityInput) {
+    deleteResearchActivity(activity: ResearchActivityInput) {
         return this.deleteresearchActivityGql
-            .mutate({ researchActivity: researchActivity })
+            .mutate({ activity: activity })
             .pipe(
                 map(result => {
                     this.loading = result.loading;

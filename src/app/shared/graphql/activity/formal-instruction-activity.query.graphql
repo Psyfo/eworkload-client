@@ -1,26 +1,44 @@
 query formalInstructionActivity($activityId: String!) {
     formalInstructionActivity(activityId: $activityId) {
         activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
+        }
         dutyId
         duty {
             dutyId
             name
             description
         }
-        userId
-        user {
-            userId
-            firstName
-            lastName
-            discipline {
-                disciplineId
-                name
-            }
-            position {
-                positionId
-                name
-            }
-        }
+        approvalStatus
+        createdAt
+        updatedAt
         moduleId
         module {
             moduleId
@@ -33,6 +51,17 @@ query formalInstructionActivity($activityId: String!) {
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
             offeringTypeId
             offeringType {
@@ -43,46 +72,109 @@ query formalInstructionActivity($activityId: String!) {
             discipline {
                 disciplineId
                 name
+                description
             }
             venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
             blockId
             block {
                 blockId
                 name
+                description
+            }
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
                 discipline {
                     disciplineId
                     name
+                    description
                 }
+                positionId
                 position {
                     positionId
                     name
+                    description
                 }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
                 discipline {
                     disciplineId
                     name
+                    description
                 }
+                positionId
                 position {
                     positionId
                     name
+                    description
                 }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
+            stackId
             studyPeriod
             groupSize
             lecturedBy
@@ -92,6 +184,7 @@ query formalInstructionActivity($activityId: String!) {
         block {
             blockId
             name
+            description
         }
         offeringTypeId
         offeringType {
@@ -102,6 +195,17 @@ query formalInstructionActivity($activityId: String!) {
         qualification {
             qualificationId
             name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
         createdAt
         updatedAt
@@ -110,26 +214,44 @@ query formalInstructionActivity($activityId: String!) {
 query formalInstructionActivities {
     formalInstructionActivities {
         activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
+        }
         dutyId
         duty {
             dutyId
             name
             description
         }
-        userId
-        user {
-            userId
-            firstName
-            lastName
-            discipline {
-                disciplineId
-                name
-            }
-            position {
-                positionId
-                name
-            }
-        }
+        approvalStatus
+        createdAt
+        updatedAt
         moduleId
         module {
             moduleId
@@ -142,6 +264,17 @@ query formalInstructionActivities {
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
             offeringTypeId
             offeringType {
@@ -152,46 +285,109 @@ query formalInstructionActivities {
             discipline {
                 disciplineId
                 name
+                description
             }
             venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
             blockId
             block {
                 blockId
                 name
+                description
+            }
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
                 discipline {
                     disciplineId
                     name
+                    description
                 }
+                positionId
                 position {
                     positionId
                     name
+                    description
                 }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
                 discipline {
                     disciplineId
                     name
+                    description
                 }
+                positionId
                 position {
                     positionId
                     name
+                    description
                 }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
+            stackId
             studyPeriod
             groupSize
             lecturedBy
@@ -201,6 +397,7 @@ query formalInstructionActivities {
         block {
             blockId
             name
+            description
         }
         offeringTypeId
         offeringType {
@@ -211,6 +408,17 @@ query formalInstructionActivities {
         qualification {
             qualificationId
             name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
         createdAt
         updatedAt
@@ -219,26 +427,44 @@ query formalInstructionActivities {
 query formalInstructionActivitiesByUser($userId: String!) {
     formalInstructionActivitiesByUser(userId: $userId) {
         activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
+        }
         dutyId
         duty {
             dutyId
             name
             description
         }
-        userId
-        user {
-            userId
-            firstName
-            lastName
-            discipline {
-                disciplineId
-                name
-            }
-            position {
-                positionId
-                name
-            }
-        }
+        approvalStatus
+        createdAt
+        updatedAt
         moduleId
         module {
             moduleId
@@ -251,6 +477,17 @@ query formalInstructionActivitiesByUser($userId: String!) {
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
             offeringTypeId
             offeringType {
@@ -261,46 +498,109 @@ query formalInstructionActivitiesByUser($userId: String!) {
             discipline {
                 disciplineId
                 name
+                description
             }
             venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
             blockId
             block {
                 blockId
                 name
+                description
+            }
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
                 discipline {
                     disciplineId
                     name
+                    description
                 }
+                positionId
                 position {
                     positionId
                     name
+                    description
                 }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
                 discipline {
                     disciplineId
                     name
+                    description
                 }
+                positionId
                 position {
                     positionId
                     name
+                    description
                 }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
+            stackId
             studyPeriod
             groupSize
             lecturedBy
@@ -310,6 +610,7 @@ query formalInstructionActivitiesByUser($userId: String!) {
         block {
             blockId
             name
+            description
         }
         offeringTypeId
         offeringType {
@@ -320,6 +621,17 @@ query formalInstructionActivitiesByUser($userId: String!) {
         qualification {
             qualificationId
             name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
         createdAt
         updatedAt

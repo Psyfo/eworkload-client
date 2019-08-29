@@ -11,7 +11,7 @@ import {
     WorkFocus
 } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-import { WorkloadService } from 'src/app/shared/services';
+import { WorkloadService, UploadService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -42,6 +42,7 @@ export class ProfileEditComponent implements OnInit {
     positions: Position[];
     selectedWorkFocus: WorkFocus;
     workFocuses: WorkFocus[];
+    selectedFile: File[];
 
     formalInstructionWorkload: FormalInstructionWorkloadPerUser;
     fiChartData: any;
@@ -60,10 +61,24 @@ export class ProfileEditComponent implements OnInit {
         private positionService: PositionService,
         private workFocusService: WorkFocusService,
         private formalInstructionActivityService: FormalInstructionService,
-        private workloadService: WorkloadService
+        private workloadService: WorkloadService,
+        private uploadService: UploadService
     ) {}
 
     ngOnInit() {
+        this.getDisciplines();
+        this.getPositions();
+        this.getWorkFocuses();
+        this.buildForm();
+    }
+
+    ngOnDestroy(): void {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
+    }
+
+    // Methods
+    public buildForm() {
         // Build form
         this.profileEditForm = this.fb.group({
             userId: [{ value: '', disabled: true }, Validators.required],
@@ -78,16 +93,6 @@ export class ProfileEditComponent implements OnInit {
             photoUrl: ['']
         });
 
-        this.buildForm();
-    }
-
-    ngOnDestroy(): void {
-        this.unsubscribe.next();
-        this.unsubscribe.complete();
-    }
-
-    // Methods
-    public buildForm() {
         this.userService
             .currentUser()
             .pipe(takeUntil(this.unsubscribe))
@@ -98,9 +103,6 @@ export class ProfileEditComponent implements OnInit {
                     { label: 'edit' },
                     { label: this.user.userId }
                 ];
-                this.getDisciplines();
-                this.getPositions();
-                this.getWorkFocuses();
 
                 this.profileEditForm.patchValue({
                     userId: this.user.userId,
@@ -118,7 +120,7 @@ export class ProfileEditComponent implements OnInit {
     }
     public getDisciplines(): void {
         this.disciplineService
-            .getDisciplines()
+            .disciplines()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.disciplines = result.data.disciplines;
@@ -126,7 +128,7 @@ export class ProfileEditComponent implements OnInit {
     }
     public getWorkFocuses() {
         this.workFocusService
-            .getWorkFocuses()
+            .workFocuses()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.workFocuses = result.data.workFocuses;
@@ -134,7 +136,7 @@ export class ProfileEditComponent implements OnInit {
     }
     public getPositions(): void {
         this.positionService
-            .getPositions()
+            .positions()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.positions = result.data.positions;
@@ -156,18 +158,40 @@ export class ProfileEditComponent implements OnInit {
         this.userService
             .editUser(this.userInput)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.alertService.successToast('User edited');
-
-                this.router.navigate(['profile/view']);
-            });
+            .subscribe(result => {});
+        this.alertService.successToast('User edited');
+        this.router.navigate(['profile']);
     }
     public onBack(event): void {
-        this.router.navigate(['profile/view']);
+        this.router.navigate(['profile']);
     }
-    public onReset(evnet) {
+    public onReset(event) {
         this.profileEditForm.reset();
         this.ngOnInit();
+    }
+    onFileSelected(event) {
+        this.selectedFile = event.files[0];
+        console.log(this.selectedFile);
+
+        this.onFileUpload(
+            this.selectedFile,
+            this.userService.currentUserIdStatic()
+        );
+    }
+    async onFileUpload(file, userId) {
+        await this.uploadService
+            .uploadProfilePicture(file, userId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    console.log(result.data.uploadProfilePicture);
+                },
+                err => {
+                    this.alertService.errorToast(err, 'errorToast');
+                }
+            );
+        this.alertService.successToast('Image upload success');
+        this.photoUrl.reset();
     }
     public getFormalInstructionWorkload() {
         const userId = this.userService.currentUserIdStatic();

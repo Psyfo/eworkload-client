@@ -20,32 +20,48 @@
                             <p-sortIcon [field]="column.field"></p-sortIcon>
                         </th>
                     </tr>
-                    <!-- <tr>
+                    <tr>
                         <th *ngFor="let column of columns" [ngSwitch]="column.field">
-                            <input type="text" pInputText *ngSwitchCase="'userId'"
-                                (input)="userTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                            <input type="text" pInputText *ngSwitchCase="'module.moduleId'"
+                                (input)="fiTable.filter($event.target.value, column.field, column.filterMatchMode)"
                                 style="width: 100%;">
-                            <input type="text" pInputText *ngSwitchCase="'lastName'"
-                                (input)="userTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                            <input type="text" pInputText *ngSwitchCase="'module.name'"
+                                (input)="fiTable.filter($event.target.value, column.field, column.filterMatchMode)"
                                 style="width: 100%;">
-                            <input type="text" pInputText *ngSwitchCase="'firstName'"
-                                (input)="userTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                            <input type="text" pInputText *ngSwitchCase="'offeringType.name'"
+                                (input)="fiTable.filter($event.target.value, column.field, column.filterMatchMode)"
                                 style="width: 100%;">
-                            <input type="text" pInputText *ngSwitchCase="'email'"
-                                (input)="userTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                            <input type="text" pInputText *ngSwitchCase="'block.name'"
+                                (input)="fiTable.filter($event.target.value, column.field, column.filterMatchMode)"
                                 style="width: 100%;">
-                            <p-dropdown *ngSwitchCase="'workFocusName'" [options]="workFocuses"
-                                [style]="{'width':'100%'}"
-                                (onChange)="userTable.filter($event.value, column.field, 'equals')"></p-dropdown>
-                            <p-dropdown *ngSwitchCase="'gender'" [options]="genders" [style]="{'width':'100%'}"
-                                (onChange)="userTable.filter($event.value, column.field, 'equals')"></p-dropdown>
+                            <input type="text" pInputText *ngSwitchCase="'qualification.name'"
+                                (input)="fiTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                                style="width: 100%;">
+                            <input type="text" pInputText *ngSwitchCase="'approvalStatus'"
+                                (input)="fiTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                                style="width: 100%;">
                         </th>
-                    </tr> -->
+                    </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-activity let-columns="columns">
                     <tr [pSelectableRow]="activity" [pContextMenuRow]="activity">
-                        <td *ngFor="let column of columns">
-                            {{activity[column.field]}}
+                        <td>
+                            {{activity?.module?.moduleId}}
+                        </td>
+                        <td>
+                            {{activity?.module?.name}}
+                        </td>
+                        <td>
+                            {{activity?.block?.name}}
+                        </td>
+                        <td>
+                            {{activity?.offeringType?.description}}
+                        </td>
+                        <td>
+                            {{activity?.qualification?.name}}
+                        </td>
+                        <td>
+                            {{activity?.approvalStatus | titlecase}}
                         </td>
                     </tr>
                 </ng-template>
@@ -70,11 +86,30 @@
 
             <p-contextMenu #cm [model]="menuItems"></p-contextMenu>
             <p-footer>
-                <button pButton type="button" label="New Activity" icon="pi pi-plus" iconPos="left"
-                    (click)="onAdd()"></button>
+                <button pButton type="button" label="New Activity" icon="pi pi-plus" iconPos="left" (click)="onAdd()"
+                    class="mr-2"></button>
                 <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export CSV"
                     (click)="fiTable.exportCSV()" style="float:right"></button>
             </p-footer>
         </p-panel>
     </div>
 </div>
+
+<p-toast position="center" key="formalInstructionActivityDelete" (onClose)="onReject()" [modal]="true"
+    [baseZIndex]="9000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onConfirm()" label="Yes" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>

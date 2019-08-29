@@ -1,1 +1,60 @@
-<p>add-academic-administration works!</p>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <form [formGroup]="addAcademicAdministrationForm" (ngSubmit)="onAdd()">
+            <p-panel header="Add Academic Administration Activity">
+
+                <div class="p-grid">
+                    <div class="p-col-2">User ID</div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText formControlName="userId">
+                    </div>
+                    <div class="p-col-4"></div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">Duty ID</div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText formControlName="dutyId">
+                    </div>
+                    <div class="p-col-4"></div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">Title</div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="titles" optionLabel="label" placeholder="Select Title"
+                            formControlName="title" appendTo="body" showClear="true" [filter]="true" filterBy="label">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Title is required"
+                            *ngIf="(title.touched || title.dirty) && title.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">Details(optional)</div>
+                    <div class="p-col-6">
+                        <textarea type="text" pInputTextarea [rows]="5" [cols]=[110] formControlName="description"
+                            placeholder="Option details about the admin duty"></textarea>
+                    </div>
+                    <div class="p-col-4">
+                    </div>
+                </div>
+                <p-footer>
+                    <div class="p-grid">
+                        <div class="p-col-10 p-col-align-left">
+                            <button pButton icon="pi pi-plus" label="Add Activity" class="mr-2"
+                                [disabled]="addAcademicAdministrationForm.invalid"></button>
+                            <button type="button" pButton icon="pi pi-arrow-left" label="Back" (click)="onBack($event)"
+                                class="ui-button-danger"></button>
+                        </div>
+                        <div class="p-col">
+                            <button type="button" pButton icon="pi pi-refresh" label="Reset" (click)="onReset($event)"
+                                class="ui-button-secondary"></button>
+                        </div>
+                    </div>
+                </p-footer>
+            </p-panel>
+        </form>
+    </div>
+</div>

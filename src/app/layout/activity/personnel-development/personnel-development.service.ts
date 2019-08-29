@@ -80,11 +80,11 @@ export class PersonnelDevelopmentService {
             );
     }
     addPersonnelDevelopmentActivity(
-        personnelDevelopmentActivity: PersonnelDevelopmentActivityInput
+        activity: PersonnelDevelopmentActivityInput
     ) {
         return this.addpersonnelDevelopmentActivityGql
             .mutate({
-                personnelDevelopmentActivity: personnelDevelopmentActivity
+                activity: activity
             })
             .pipe(
                 map(result => {
@@ -96,11 +96,11 @@ export class PersonnelDevelopmentService {
             );
     }
     editPersonnelDevelopmentActivity(
-        personnelDevelopmentActivity: PersonnelDevelopmentActivityInput
+        activity: PersonnelDevelopmentActivityInput
     ) {
         return this.editpersonnelDevelopmentActivityGql
             .mutate({
-                personnelDevelopmentActivity: personnelDevelopmentActivity
+                activity: activity
             })
             .pipe(
                 map(result => {
@@ -112,11 +112,11 @@ export class PersonnelDevelopmentService {
             );
     }
     deletePersonnelDevelopmentActivity(
-        personnelDevelopmentActivity: PersonnelDevelopmentActivityInput
+        activity: PersonnelDevelopmentActivityInput
     ) {
         return this.deletepersonnelDevelopmentActivityGql
             .mutate({
-                personnelDevelopmentActivity: personnelDevelopmentActivity
+                activity: activity
             })
             .pipe(
                 map(result => {

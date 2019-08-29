@@ -1,3 +1,4 @@
+import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
 import { DataTablesModule } from 'angular-datatables';
 import { AlertService, PageHeaderModule } from 'src/app/shared/modules';
 
@@ -25,10 +26,9 @@ import { ModuleComponent } from './module.component';
     imports: [
         CommonModule,
         ModuleRoutingModule,
-        DataTablesModule,
         PageHeaderModule,
-        ReactiveFormsModule,
-        NgbModule
+        PrimeNgModulesModule,
+        ReactiveFormsModule
     ]
 })
 export class ModuleModule {

@@ -1,55 +1,89 @@
-<div class="row" [@routerTransition]>
-    <div class="col-6">
-        <form [formGroup]="enrollmentAddForm" (ngSubmit)="onAdd()" class="form">
-            <div class="card">
-                <div class="card-header">Add Enrollment</div>
-                <div class="card-body">
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="enrollmentYear">Enrollment Year</label>
-                            <input type="text" formControlName="enrollmentYear" class="form-control">
-                        </div>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <p-panel header="Add Enrollment">
+            <form [formGroup]="enrollmentAddForm" (ngSubmit)="onAdd()">
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        Enrollment Year
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="qualificationId">Qualification</label>
-                            <select formControlName="qualificationId" class="custom-select">
-                                <option *ngFor="let qualification of qualifications"
-                                    [value]="qualification?.qualificationId">{{qualification?.name}}</option>
-                            </select>
-                        </div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText formControlName="enrollmentYear">
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="firstYearEstimated">First Enrollment Estimated</label>
-                            <input type="number" class="form-control" formControlName="firstYearEstimated">
-                        </div>
+                    <div class="p-col-4">
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="secondYearEstimated">First Enrollment Estimated</label>
-                            <input type="number" class="form-control" formControlName="secondYearEstimated">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="thirdYearEstimated">First Enrollment Estimated</label>
-                            <input type="number" class="form-control" formControlName="thirdYearEstimated">
-                        </div>
-                    </div>
-
-
                 </div>
-                <div class="card-footer">
-                    <button class="btn btn-primary mr-3" [disabled]="enrollmentAddForm.invalid">Done</button>
-                    <button type="button" class="btn btn-danger">Cancel</button>
-                    <button class="btn btn-dark pull-right">Reset</button>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        Qualification
+                    </div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="qualifications" formControlName="selectedQualification"
+                            placeholder="Select a qualification" optionLabel="name" [showClear]="true" appendTo="body"
+                            [filter]="true" filterBy="label">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Qualification is required"
+                            *ngIf="(selectedQualification.touched||selectedQualification.dirty)&&selectedQualification.hasError('required')">
+                        </p-message>
+                    </div>
                 </div>
-            </div>
-        </form>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        First Year Estimated
+                    </div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText formControlName="firstYearEstimated">
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Qualification is required"
+                            *ngIf="(firstYearEstimated.touched||firstYearEstimated.dirty)&&firstYearEstimated.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        Second Year Estimated
+                    </div>
+                    <div class="p-col-6">
+                        <input type="number" pInputText formControlName="secondYearEstimated">
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Qualification is required"
+                            *ngIf="(secondYearEstimated.touched||secondYearEstimated.dirty)&&secondYearEstimated.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        First Year Estimated
+                    </div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText formControlName="thirdYearEstimated">
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Qualification is required"
+                            *ngIf="(thirdYearEstimated.touched||thirdYearEstimated.dirty)&&thirdYearEstimated.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+            </form>
+
+            <p-footer>
+                <div class="p-grid">
+                    <div class="p-col p-justify-start">
+                        <button pButton label="Add Activity" icon="pi pi-plus" [disabled]="enrollmentAddForm.invalid"
+                            class="mr-2"></button>
+                        <button pButton type="button" label="Back" icon="pi pi-arrow-left" (click)="onBack($event)"
+                            class="ui-button-danger"></button>
+                    </div>
+                    <div class="p-col p-justify-end">
+                        <button pButton type="button" label="Reset" icon="pi pi-refresh" (click)="onReset($event)"
+                            class="ui-button-secondary"></button>
+                    </div>
+                </div>
+            </p-footer>
+        </p-panel>
     </div>
 </div>

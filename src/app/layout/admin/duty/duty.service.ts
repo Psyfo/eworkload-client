@@ -26,7 +26,7 @@ export class DutyService {
         private deleteDutyGql: DeleteDutyGQL
     ) {}
 
-    getDuty(dutyId: string) {
+    duty(dutyId: string) {
         return this.dutyGql
             .watch(
                 { dutyId: dutyId },
@@ -44,7 +44,7 @@ export class DutyService {
             );
     }
 
-    getDuties() {
+    duties() {
         return this.dutiesGql
             .watch(
                 {},

@@ -1,3 +1,4 @@
+import { File } from './../../../shared/generated/output';
 import { SelectItem } from 'primeng/components/common/selectitem';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -13,6 +14,7 @@ import {
 } from 'src/app/shared/generated';
 
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -44,6 +46,7 @@ export class UserService {
     networkStatus: any;
 
     constructor(
+        private http: HttpClient,
         private userGql: UserGQL,
         private usersGql: UsersGQL,
         private addUserGql: AddUserGQL,
@@ -173,5 +176,9 @@ export class UserService {
                     return result;
                 })
             );
+    }
+
+    getProfilePicture(imageUrl: string): Observable<Blob> {
+        return this.http.get(imageUrl, { responseType: 'blob' });
     }
 }

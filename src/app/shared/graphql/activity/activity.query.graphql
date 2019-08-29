@@ -20,52 +20,27 @@ query activity($activityId: String!) {
         ... on AcademicAdministrationActivity {
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
         ... on ExecutiveManagementActivity {
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
         ... on PersonnelDevelopmentActivity {
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
         ... on CommunityInstructionActivity {
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
         ... on PublicServiceActivity {
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
         ... on FormalInstructionActivity {
             moduleId
@@ -155,12 +130,7 @@ query activity($activityId: String!) {
             output
             title
             details
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
         ... on SupervisionActivity {
             supervisionRole
@@ -198,22 +168,12 @@ query activitiesByUnapproved {
         ... on CommunityInstructionActivity {
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
         ... on PublicServiceActivity {
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
         ... on FormalInstructionActivity {
             activityId
@@ -324,12 +284,7 @@ query activitiesByUnapproved {
             output
             title
             details
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
         ... on SupervisionActivity {
             supervisionRole

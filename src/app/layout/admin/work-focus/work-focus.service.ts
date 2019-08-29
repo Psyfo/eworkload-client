@@ -17,7 +17,7 @@ export class WorkFocusService {
         private workFocusesGql: WorkFocusesGQL
     ) {}
 
-    getWorkFocuses() {
+    workFocuses() {
         return this.workFocusesGql
             .watch(
                 {},
@@ -33,7 +33,7 @@ export class WorkFocusService {
             );
     }
 
-    getWorkFocus(name: string) {
+    workFocus(name: string) {
         return this.workFocusGql
             .watch(
                 { name: name },

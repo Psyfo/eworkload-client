@@ -7,13 +7,14 @@ import {
     Block,
     FormalInstructionActivity,
     FormalInstructionWorkloadPerUser,
-    Module
+    Module,
+    FormalInstructionActivityInput
 } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 import { WorkloadService } from 'src/app/shared/services';
 
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { FormalInstructionService } from '../formal-instruction.service';
 
@@ -29,17 +30,20 @@ export class ListFormalInstructionComponent implements OnInit {
     cols: any[];
     loading: boolean;
 
+    activities: FormalInstructionActivity[];
+    activity: FormalInstructionActivity;
+    blocks: Block[];
+    fiWorkloadData: any;
+    formalInstructionWorkload: FormalInstructionWorkloadPerUser;
+    modules: Module[];
     selectedActivity: FormalInstructionActivity;
     selectedWorkload: any;
-    blocks: Block[];
-    modules: Module[];
-
-    activity: FormalInstructionActivity;
-    activities: FormalInstructionActivity[];
-    formalInstructionWorkload: FormalInstructionWorkloadPerUser;
-    fiWorkloadData: any;
-
     userId: string;
+    statuses = [
+        { label: 'Awaiting' },
+        { label: 'Approved' },
+        { label: 'Review' }
+    ];
 
     private unsubscribe = new Subject();
 
@@ -52,7 +56,10 @@ export class ListFormalInstructionComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.breadcrumbs = [{ label: 'activity' }, { label: 'lecturing' }];
+        this.breadcrumbs = [
+            { label: 'activity' },
+            { label: 'formal-instruction' }
+        ];
         this.menuItems = [
             {
                 label: 'View',
@@ -71,55 +78,50 @@ export class ListFormalInstructionComponent implements OnInit {
             }
         ];
         this.cols = [
-            { field: 'userId', header: 'User ID' },
-            { field: 'dutyId', header: 'Duty type' },
-            { field: 'moduleId', header: 'Module Id' },
-            { field: 'blockId', header: 'Block' },
-            { field: 'offeringTypeId', header: 'Offering Type' },
-            { field: 'qualificationId', header: 'Qualification' }
+            { field: 'module.moduleId', header: 'Module ID' },
+            { field: 'module.name', header: 'Module' },
+            { field: 'block.name', header: 'Block' },
+            { field: 'offeringType.name', header: 'Offering Type' },
+            { field: 'qualification.name', header: 'Qualification' },
+            { field: 'approvalStatus', header: 'Approval Status' }
         ];
 
         this.getActivities();
-        this.getWorkload();
     }
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
     onAdd() {
-        this.router.navigate(['activity/lecturing/add']);
+        this.router.navigate(['activity/formal-instruction/add']);
     }
 
     getActivities() {
         this.formalInstructionService
             .formalInstructionActivitiesByUser(this.currentUser())
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.loading = result.loading;
-                this.activities = result.data.formalInstructionActivitiesByUser;
-                console.log(this.activities);
-            });
+            .subscribe(
+                result => {
+                    this.loading = result.loading;
+                    this.activities =
+                        result.data.formalInstructionActivitiesByUser;
+                },
+                err => {
+                    this.alertService.errorToast(err, 'errorToast');
+                }
+            );
     }
-    getWorkload() {
-        this.workloadService
-            .formalInstructionWorkloadPerUser(
-                this.userService.currentUserIdStatic()
-            )
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.formalInstructionWorkload =
-                    result.data.formalInstructionWorkloadPerUser;
-                this.fiWorkloadData = this.formalInstructionWorkload.formalInstructionWorkloadData;
-                console.log(this.fiWorkloadData);
-            });
-    }
+
     onContextView(event) {
         this.alertService.infoToast(
             `Activity: ${this.selectedActivity.activityId} selected`
         );
 
         this.router.navigate(
-            ['activity/lecturing/view', this.selectedActivity.activityId],
+            [
+                'activity/formal-instruction/view',
+                this.selectedActivity.activityId
+            ],
             {
                 queryParams: {
                     activityId: this.selectedActivity.activityId
@@ -133,7 +135,10 @@ export class ListFormalInstructionComponent implements OnInit {
         );
 
         this.router.navigate(
-            ['activity/lecturing/edit', this.selectedActivity.activityId],
+            [
+                'activity/formal-instruction/edit',
+                this.selectedActivity.activityId
+            ],
             {
                 queryParams: {
                     activityId: this.selectedActivity.activityId
@@ -142,17 +147,39 @@ export class ListFormalInstructionComponent implements OnInit {
         );
     }
     onContextDelete(event) {
-        this.alertService.infoToast('Delete service coming soon');
+        this.alertService.confirm('formalInstructionActivityDelete');
+    }
+    onReject() {
+        this.alertService.clear();
+    }
+    onConfirm() {
+        this.alertService.clear();
+        const activityInput: FormalInstructionActivityInput = {
+            moduleId: this.selectedActivity.moduleId,
+            blockId: this.selectedActivity.blockId,
+            offeringTypeId: this.selectedActivity.offeringTypeId,
+            qualificationId: this.selectedActivity.qualificationId
+        };
+        this.formalInstructionService
+            .deleteFormalInstructionActivity(activityInput)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {},
+                err => {
+                    this.alertService.errorToast(err, 'errorToast');
+                }
+            );
+        this.alertService.successToast('Activity Deleted');
     }
     onRowSelect(event) {
-        const activityData: FormalInstructionActivity = event.data;
-        console.log(activityData);
-
         this.alertService.infoToast(
             `Activity: ${this.selectedActivity.activityId} selected`
         );
         this.router.navigate(
-            ['activity/lecturing/view', this.selectedActivity.activityId],
+            [
+                'activity/formal-instruction/view',
+                this.selectedActivity.activityId
+            ],
             {
                 queryParams: {
                     activityId: this.selectedActivity.activityId

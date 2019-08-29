@@ -79,12 +79,10 @@ export class ExecutiveManagementService {
                 })
             );
     }
-    addExecutiveManagementActivity(
-        executiveManagementActivity: ExecutiveManagementActivityInput
-    ) {
+    addExecutiveManagementActivity(activity: ExecutiveManagementActivityInput) {
         return this.addexecutiveManagementActivityGql
             .mutate({
-                executiveManagementActivity: executiveManagementActivity
+                activity: activity
             })
             .pipe(
                 map(result => {
@@ -96,11 +94,11 @@ export class ExecutiveManagementService {
             );
     }
     editExecutiveManagementActivity(
-        executiveManagementActivity: ExecutiveManagementActivityInput
+        activity: ExecutiveManagementActivityInput
     ) {
         return this.editexecutiveManagementActivityGql
             .mutate({
-                executiveManagementActivity: executiveManagementActivity
+                activity: activity
             })
             .pipe(
                 map(result => {
@@ -112,11 +110,11 @@ export class ExecutiveManagementService {
             );
     }
     deleteExecutiveManagementActivity(
-        executiveManagementActivity: ExecutiveManagementActivityInput
+        activity: ExecutiveManagementActivityInput
     ) {
         return this.deleteexecutiveManagementActivityGql
             .mutate({
-                executiveManagementActivity: executiveManagementActivity
+                activity: activity
             })
             .pipe(
                 map(result => {

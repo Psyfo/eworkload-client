@@ -1,5 +1,5 @@
-mutation addResearchActivity($researchActivity: ResearchActivityInput) {
-    addResearchActivity(researchActivity: $researchActivity) {
+mutation addResearchActivity($activity: ResearchActivityInput) {
+    addResearchActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -7,6 +7,28 @@ mutation addResearchActivity($researchActivity: ResearchActivityInput) {
             email
             firstName
             lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -20,16 +42,13 @@ mutation addResearchActivity($researchActivity: ResearchActivityInput) {
         output
         title
         details
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        dates
+        url
+        evidence
     }
 }
-mutation editResearchActivity($researchActivity: ResearchActivityInput) {
-    editResearchActivity(researchActivity: $researchActivity) {
+mutation editResearchActivity($activity: ResearchActivityInput) {
+    editResearchActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -37,6 +56,28 @@ mutation editResearchActivity($researchActivity: ResearchActivityInput) {
             email
             firstName
             lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -50,16 +91,13 @@ mutation editResearchActivity($researchActivity: ResearchActivityInput) {
         output
         title
         details
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        dates
+        url
+        evidence
     }
 }
-mutation deleteResearchActivity($researchActivity: ResearchActivityInput) {
-    deleteResearchActivity(researchActivity: $researchActivity) {
+mutation deleteResearchActivity($activity: ResearchActivityInput) {
+    deleteResearchActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -67,6 +105,28 @@ mutation deleteResearchActivity($researchActivity: ResearchActivityInput) {
             email
             firstName
             lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -80,11 +140,8 @@ mutation deleteResearchActivity($researchActivity: ResearchActivityInput) {
         output
         title
         details
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        dates
+        url
+        evidence
     }
 }

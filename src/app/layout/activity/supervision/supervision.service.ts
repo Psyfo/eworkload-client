@@ -19,6 +19,17 @@ export class SupervisionService {
     errors: any;
     networkStatus: any;
 
+    public supervisionRoles = [
+        { label: 'Supervisor', value: 'Supervisor' },
+        { label: 'Co-Supervisor', value: 'Co-Supervisor' }
+    ];
+    public splits = [
+        { label: '25%', value: 25 },
+        { label: '50%', value: 50 },
+        { label: '75%', value: 75 },
+        { label: '100%', value: 100 }
+    ];
+
     constructor(
         private supervisionActivityGql: SupervisionActivityGQL,
         private supervisionActivitiesGql: SupervisionActivitiesGQL,
@@ -79,9 +90,9 @@ export class SupervisionService {
                 })
             );
     }
-    addSupervisionActivity(supervisionActivity: SupervisionActivityInput) {
+    addSupervisionActivity(activity: SupervisionActivityInput) {
         return this.addsupervisionActivityGql
-            .mutate({ supervisionActivity: supervisionActivity })
+            .mutate({ activity: activity })
             .pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -91,9 +102,9 @@ export class SupervisionService {
                 })
             );
     }
-    editSupervisionActivity(supervisionActivity: SupervisionActivityInput) {
+    editSupervisionActivity(activity: SupervisionActivityInput) {
         return this.editsupervisionActivityGql
-            .mutate({ supervisionActivity: supervisionActivity })
+            .mutate({ activity: activity })
             .pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -103,9 +114,9 @@ export class SupervisionService {
                 })
             );
     }
-    deleteSupervisionActivity(supervisionActivity: SupervisionActivityInput) {
+    deleteSupervisionActivity(activity: SupervisionActivityInput) {
         return this.deletesupervisionActivityGql
-            .mutate({ supervisionActivity: supervisionActivity })
+            .mutate({ activity: activity })
             .pipe(
                 map(result => {
                     this.loading = result.loading;

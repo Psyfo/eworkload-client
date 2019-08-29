@@ -15,11 +15,22 @@ query module(
         type
         assessmentMethod
         nqfLevel
-        stackId
+        credits
         qualificationId
         qualification {
             qualificationId
             name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
         offeringTypeId
         offeringType {
@@ -30,40 +41,110 @@ query module(
         discipline {
             disciplineId
             name
+            description
         }
         venueId
         venue {
             venueId
             campus
             capacity
+            type
         }
         blockId
         block {
             blockId
             name
+            description
         }
         userId
         user {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         coordinatorId
         coordinator {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         moderatorId
         moderator {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
-        credits
+        stackId
+        studyPeriod
         groupSize
         lecturedBy
         moderation
@@ -76,50 +157,136 @@ query modules {
         type
         assessmentMethod
         nqfLevel
-        stackId
+        credits
+        qualificationId
         qualification {
             qualificationId
             name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
+        offeringTypeId
         offeringType {
             offeringTypeId
             description
         }
+        disciplineId
         discipline {
             disciplineId
             name
+            description
         }
+        venueId
         venue {
             venueId
             campus
             capacity
+            type
         }
+        blockId
         block {
             blockId
             name
+            description
         }
         userId
         user {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         coordinatorId
         coordinator {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         moderatorId
         moderator {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
-        credits
+        stackId
+        studyPeriod
         groupSize
         lecturedBy
         moderation
@@ -132,50 +299,136 @@ query modulesByDiscipline($disciplineId: String!) {
         type
         assessmentMethod
         nqfLevel
-        stackId
+        credits
+        qualificationId
         qualification {
             qualificationId
             name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
+        offeringTypeId
         offeringType {
             offeringTypeId
             description
         }
+        disciplineId
         discipline {
             disciplineId
             name
+            description
         }
+        venueId
         venue {
             venueId
             campus
             capacity
+            type
         }
+        blockId
         block {
             blockId
             name
+            description
         }
         userId
         user {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         coordinatorId
         coordinator {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         moderatorId
         moderator {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
-        credits
+        stackId
+        studyPeriod
         groupSize
         lecturedBy
         moderation
@@ -188,50 +441,278 @@ query modulesByUnassigned {
         type
         assessmentMethod
         nqfLevel
-        stackId
+        credits
+        qualificationId
         qualification {
             qualificationId
             name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
+        offeringTypeId
         offeringType {
             offeringTypeId
             description
         }
+        disciplineId
         discipline {
             disciplineId
             name
+            description
         }
+        venueId
         venue {
             venueId
             campus
             capacity
+            type
         }
+        blockId
         block {
             blockId
             name
+            description
         }
         userId
         user {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         coordinatorId
         coordinator {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         moderatorId
         moderator {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
+        stackId
+        studyPeriod
+        groupSize
+        lecturedBy
+        moderation
+    }
+}
+query modulesByUnassignedAndDiscipline($disciplineId: String) {
+    modulesByUnassignedAndDiscipline(disciplineId: $disciplineId) {
+        moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
         credits
+        qualificationId
+        qualification {
+            qualificationId
+            name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
+        }
+        offeringTypeId
+        offeringType {
+            offeringTypeId
+            description
+        }
+        disciplineId
+        discipline {
+            disciplineId
+            name
+            description
+        }
+        venueId
+        venue {
+            venueId
+            campus
+            capacity
+            type
+        }
+        blockId
+        block {
+            blockId
+            name
+            description
+        }
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
+        }
+        coordinatorId
+        coordinator {
+            userId
+            email
+            firstName
+            lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
+        }
+        moderatorId
+        moderator {
+            userId
+            email
+            firstName
+            lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
+        }
+        stackId
+        studyPeriod
         groupSize
         lecturedBy
         moderation
@@ -244,50 +725,136 @@ query modulesByUser($userId: String!) {
         type
         assessmentMethod
         nqfLevel
-        stackId
+        credits
+        qualificationId
         qualification {
             qualificationId
             name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
+        offeringTypeId
         offeringType {
             offeringTypeId
             description
         }
+        disciplineId
         discipline {
             disciplineId
             name
+            description
         }
+        venueId
         venue {
             venueId
             campus
             capacity
+            type
         }
+        blockId
         block {
             blockId
             name
+            description
         }
         userId
         user {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         coordinatorId
         coordinator {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         moderatorId
         moderator {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
-        credits
+        stackId
+        studyPeriod
         groupSize
         lecturedBy
         moderation
@@ -300,50 +867,136 @@ query modulesByModerator($moderatorId: String!) {
         type
         assessmentMethod
         nqfLevel
-        stackId
+        credits
+        qualificationId
         qualification {
             qualificationId
             name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
+        offeringTypeId
         offeringType {
             offeringTypeId
             description
         }
+        disciplineId
         discipline {
             disciplineId
             name
+            description
         }
+        venueId
         venue {
             venueId
             campus
             capacity
+            type
         }
+        blockId
         block {
             blockId
             name
+            description
         }
         userId
         user {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         coordinatorId
         coordinator {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         moderatorId
         moderator {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
-        credits
+        stackId
+        studyPeriod
         groupSize
         lecturedBy
         moderation
@@ -356,50 +1009,136 @@ query modulesByCoordinator($coordinatorId: String!) {
         type
         assessmentMethod
         nqfLevel
-        stackId
+        credits
+        qualificationId
         qualification {
             qualificationId
             name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
+        offeringTypeId
         offeringType {
             offeringTypeId
             description
         }
+        disciplineId
         discipline {
             disciplineId
             name
+            description
         }
+        venueId
         venue {
             venueId
             campus
             capacity
+            type
         }
+        blockId
         block {
             blockId
             name
+            description
         }
         userId
         user {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         coordinatorId
         coordinator {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         moderatorId
         moderator {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
-        credits
+        stackId
+        studyPeriod
         groupSize
         lecturedBy
         moderation
@@ -413,50 +1152,136 @@ query modulesByStack($stackId: String!) {
         type
         assessmentMethod
         nqfLevel
-        stackId
+        credits
+        qualificationId
         qualification {
             qualificationId
             name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
+        offeringTypeId
         offeringType {
             offeringTypeId
             description
         }
+        disciplineId
         discipline {
             disciplineId
             name
+            description
         }
+        venueId
         venue {
             venueId
             campus
             capacity
+            type
         }
+        blockId
         block {
             blockId
             name
+            description
         }
         userId
         user {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         coordinatorId
         coordinator {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         moderatorId
         moderator {
             userId
+            email
             firstName
             lastName
-            email
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
-        credits
+        stackId
+        studyPeriod
         groupSize
         lecturedBy
         moderation

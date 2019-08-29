@@ -1,9 +1,7 @@
 mutation addFormalInstructionActivity(
-    $formalInstructionActivity: FormalInstructionActivityInput
+    $activity: FormalInstructionActivityInput
 ) {
-    addFormalInstructionActivity(
-        formalInstructionActivity: $formalInstructionActivity
-    ) {
+    addFormalInstructionActivity(activity: $activity) {
         activityId
         dutyId
         duty {
@@ -112,11 +110,9 @@ mutation addFormalInstructionActivity(
     }
 }
 mutation editFormalInstructionActivity(
-    $formalInstructionActivity: FormalInstructionActivityInput
+    $activity: FormalInstructionActivityInput
 ) {
-    editFormalInstructionActivity(
-        formalInstructionActivity: $formalInstructionActivity
-    ) {
+    editFormalInstructionActivity(activity: $activity) {
         activityId
         dutyId
         duty {
@@ -225,11 +221,9 @@ mutation editFormalInstructionActivity(
     }
 }
 mutation deleteFormalInstructionActivity(
-    $formalInstructionActivity: FormalInstructionActivityInput
+    $activity: FormalInstructionActivityInput
 ) {
-    deleteFormalInstructionActivity(
-        formalInstructionActivity: $formalInstructionActivity
-    ) {
+    deleteFormalInstructionActivity(activity: $activity) {
         activityId
         dutyId
         duty {
@@ -339,9 +333,9 @@ mutation deleteFormalInstructionActivity(
 }
 
 mutation addSupervisionActivity(
-    $supervisionActivity: SupervisionActivityInput
+    $activity: SupervisionActivityInput
 ) {
-    addSupervisionActivity(supervisionActivity: $supervisionActivity) {
+    addSupervisionActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -373,9 +367,9 @@ mutation addSupervisionActivity(
     }
 }
 mutation editSupervisionActivity(
-    $supervisionActivity: SupervisionActivityInput
+    $activity: SupervisionActivityInput
 ) {
-    addSupervisionActivity(supervisionActivity: $supervisionActivity) {
+    addSupervisionActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -408,9 +402,9 @@ mutation editSupervisionActivity(
     }
 }
 mutation deleteSupervisionActivity(
-    $supervisionActivity: SupervisionActivityInput
+    $activity: SupervisionActivityInput
 ) {
-    addSupervisionActivity(supervisionActivity: $supervisionActivity) {
+    addSupervisionActivity(activity: $activity) {
         activityId
         userId
         user {

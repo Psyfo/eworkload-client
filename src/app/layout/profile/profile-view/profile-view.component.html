@@ -4,10 +4,9 @@
         <p-panel header="User Profile">
             <div class="p-grid">
                 <div class="p-col-5">
-                    <img src="{{user?.photoUrl || 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1024px-Circle-icons-profile.svg.png'}}"
-                        alt="profile pic" class="img__profile">
+                    <img [src]="profilePicture" alt="profile pic" class="img__profile">
                 </div>
-                <div class="p-col-7">
+                <div class=" p-col-7">
                     <div class="p-grid">
                         <div class="p-col">
                             <strong>UserId</strong>
@@ -60,25 +59,125 @@
         </p-panel>
     </div>
     <div class="p-col">
-        <p-panel header="Total Workload">
-            Chart goes here
+        <p-panel header="Annual Work Distribution">
+            <div class="p-grid">
+                <div class="p-col-4">
+                    <div class="p-grid p-dir-col">
+                        <div class="p-col">
+                            <h3>Teaching</h3>
+                        </div>
+                        <div class="p-col">
+                            <h4>{{user?.workFocus?.teachingRatio}}%</h4>
+                        </div>
+                        <div class="p-col">
+                            <h4>{{teachingHours}} hours</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-col-4">
+                    <div class="p-grid p-dir-col">
+                        <div class="p-col">
+                            <h3>Research</h3>
+                        </div>
+                        <div class="p-col">
+                            <h4>{{user?.workFocus?.researchRatio}}%</h4>
+                        </div>
+                        <div class="p-col">
+                            <h4>{{researchHours}} hours</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-col-4">
+                    <div class="p-grid p-dir-col">
+                        <div class="p-col">
+                            <h3>Service</h3>
+                        </div>
+                        <div class="p-col">
+                            <h4>{{user?.workFocus?.serviceRatio}}%</h4>
+                        </div>
+                        <div class="p-col">
+                            <h4>{{serviceHours}} hours</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </p-panel>
     </div>
 </div>
-<div class="p-grid">
+
+<div class="p-grid" [@routerTransition]>
     <div class="p-col">
-        <p-panel header="Teaching Workload">
-            Teaching goes here
-        </p-panel>
-    </div>
-    <div class="p-col">
-        <p-panel header="Research Workload">
-            Research goes here
-        </p-panel>
-    </div>
-    <div class="p-col">
-        <p-panel header="Service Workload">
-            Service goes here
-        </p-panel>
+        <p-tabView>
+            <p-tabPanel header="Academic Administration">
+                <div class="p-col p-sm-12 p-lg-4">
+                    <p-panel>
+                        <p-header>
+                            <strong>
+                                <a [routerLink]="[ '/activity/academic-administration']">Academic Administration
+                                    Workload:
+                                    {{academicAdministrationWorkloadPerUser?.academicAdministrationTotalHoursPerUser}}
+                                    of
+                                    {{serviceHours}}</a>
+                            </strong>
+                        </p-header>
+                        <p-chart type="doughnut" [data]="academicAdministrationData"></p-chart>
+                    </p-panel>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Executive Management">
+                content here
+            </p-tabPanel>
+            <p-tabPanel header="Community Instruction">
+                content here
+            </p-tabPanel>
+            <p-tabPanel header="Formal Instruction" [selected]="true">
+                <div class="p-col p-sm-12 p-lg-4">
+                    <p-panel>
+                        <p-header>
+                            <strong>
+                                <a [routerLink]="[ '/activity/formal-instruction']">Formal Instruction
+                                    Workload: ({{formalInstructionTotalHoursPerUser}} of {{teachingHours}} hours)</a>
+                            </strong>
+                        </p-header>
+                        <p-chart type="doughnut" [data]="formalInstructionPieData"></p-chart>
+                    </p-panel>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Personnel Development">
+                content here
+            </p-tabPanel>
+            <p-tabPanel header="Publice Service">
+                content here
+            </p-tabPanel>
+            <p-tabPanel header="Research">
+                <div class="p-col p-sm-12 p-lg-4">
+                    <p-panel>
+                        <p-header>
+                            <strong>
+                                <a [routerLink]="[ '/activity/research']">Research Workload:
+                                    ({{researchWorkloadPerUser?.researchTotalHoursPerUser}} of {{researchHours}}
+                                    hours)</a>
+                            </strong>
+                        </p-header>
+                        <p-chart type="doughnut" [data]="researchData"></p-chart>
+                    </p-panel>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Supervision">
+                <div class="p-col p-sm-12 p-lg-4">
+                    <p-panel>
+                        <p-header>
+                            <strong>
+                                <a [routerLink]="[ '/activity/supervision']">Supervision Workload: (
+                                    0 of
+                                    {{researchHours}} hours)</a>
+                            </strong>
+                        </p-header>
+                        Supervision workload chart
+
+                    </p-panel>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
     </div>
 </div>

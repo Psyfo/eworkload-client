@@ -1,0 +1,16 @@
+mutation uploadlProfilePicture($file: Upload!, $userId: String!) {
+    uploadProfilePicture(file: $file, userId: $userId) {
+        id
+        path
+        filename
+        mimetype
+    }
+}
+mutation uploadEvidence($file: Upload!, $activityId: String!) {
+    uploadEvidence(file: $file, activityId: $activityId) {
+        id
+        path
+        filename
+        mimetype
+    }
+}

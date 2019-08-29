@@ -2,7 +2,13 @@ import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
-import { Discipline, Position, User, UserInput, WorkFocus } from 'src/app/shared/generated';
+import {
+    Discipline,
+    Position,
+    User,
+    UserInput,
+    WorkFocus
+} from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
 import { Component, OnInit } from '@angular/core';
@@ -111,7 +117,7 @@ export class EditUserComponent implements OnInit {
 
     public getDisciplines(): void {
         this.disciplineService
-            .getDisciplines()
+            .disciplines()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.disciplines = result.data.disciplines;
@@ -120,7 +126,7 @@ export class EditUserComponent implements OnInit {
 
     public getPositions(): void {
         this.positionService
-            .getPositions()
+            .positions()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.positions = result.data.positions;
@@ -129,7 +135,7 @@ export class EditUserComponent implements OnInit {
 
     public getWorkFocuses(): void {
         this.workFocusService
-            .getWorkFocuses()
+            .workFocuses()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.workFocuses = result.data.workFocuses;
@@ -149,9 +155,6 @@ export class EditUserComponent implements OnInit {
         this.userInput.workFocusName = this.selectedWorkFocus.name;
         this.userInput.gender = this.gender.value;
         this.userInput.nationality = this.nationality.value;
-
-        console.log(this.userInput);
-        return;
 
         this.userService
             .editUser(this.userInput)

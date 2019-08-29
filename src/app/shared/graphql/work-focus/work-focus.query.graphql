@@ -14,3 +14,17 @@ query workFocuses {
         serviceRatio
     }
 }
+
+# Workfocus data
+query teachingHours($userId: String!) {
+    teachingHours(userId: $userId)
+}
+query researchHours($userId: String!) {
+    researchHours(userId: $userId)
+}
+query serviceHours($userId: String!) {
+    serviceHours(userId: $userId)
+}
+query annualHours {
+    annualHours
+}

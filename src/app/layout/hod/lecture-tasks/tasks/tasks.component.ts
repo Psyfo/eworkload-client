@@ -95,7 +95,7 @@ export class TasksComponent implements OnInit {
 
     getDiscipline(disciplineId: string) {
         this.disciplineService
-            .getDiscipline(disciplineId)
+            .discipline(disciplineId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.discipline = result.data.discipline;
@@ -104,7 +104,7 @@ export class TasksComponent implements OnInit {
 
     getDisciplines() {
         this.disciplineService
-            .getDisciplines()
+            .disciplines()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.disciplines = result.data.disciplines;

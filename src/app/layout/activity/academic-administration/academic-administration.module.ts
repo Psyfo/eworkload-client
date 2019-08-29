@@ -1,3 +1,5 @@
+import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
+
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
@@ -16,6 +18,10 @@ import { ViewAcademicAdministrationComponent } from './view-academic-administrat
         EditAcademicAdministrationComponent,
         AcademicAdministrationComponent
     ],
-    imports: [CommonModule, AcademicAdministrationRoutingModule]
+    imports: [
+        CommonModule,
+        AcademicAdministrationRoutingModule,
+        PrimeNgModulesModule
+    ]
 })
 export class AcademicAdministrationModule {}

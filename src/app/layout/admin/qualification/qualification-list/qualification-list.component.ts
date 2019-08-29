@@ -1,3 +1,4 @@
+import { MenuItem } from 'primeng/components/common/menuitem';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -17,16 +18,16 @@ import { QualificationService } from '../qualification.service';
     animations: [routerTransition()]
 })
 export class QualificationListComponent implements OnInit {
-    qualification: Qualification;
+    breadcrumbs: MenuItem[];
+    menuItems: MenuItem[];
+    cols: any[];
+    loading: boolean;
+
+    selectedQualification: Qualification;
     qualifications: Qualification[];
+    types = this.qualificationService.types;
 
     private unsubscribe = new Subject();
-
-    // Datatable config
-    dtOptions: DataTables.Settings = {};
-    dtTrigger: Subject<Qualification> = new Subject();
-    dtElement: DataTableDirective;
-    dtRouteParam: string;
 
     constructor(
         private alertService: AlertService,
@@ -35,31 +36,38 @@ export class QualificationListComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.getQualifications();
-
-        // Initialize DT
-        this.dtOptions = {
-            pagingType: 'full_numbers',
-            pageLength: 10,
-            processing: true,
-            responsive: true,
-            autoWidth: true,
-            rowCallback: (row: Node, data: any[] | Object, index: number) => {
-                const self = this;
-                // Unbind first in order to avoid any duplicate handler
-                // (see https://github.com/l-lin/angular-datatables/issues/87)
-                $('td', row).unbind('click');
-                $('td', row).bind('click', () => {
-                    self.rowClickHandler(data);
-                });
-                return row;
+        this.breadcrumbs = [
+            { label: 'admin' },
+            { label: 'qualification', url: 'admin/qualification' }
+        ];
+        this.menuItems = [
+            {
+                label: 'View',
+                icon: 'pi pi-search',
+                command: event => this.onContextView(event)
+            },
+            {
+                label: 'Edit',
+                icon: 'pi pi-pencil',
+                command: event => this.onContextEdit(event)
+            },
+            {
+                label: 'Delete',
+                icon: 'pi pi-trash',
+                command: event => this.onContextDelete(event)
             }
-        };
+        ];
+        this.cols = [
+            { field: 'qualificationId', header: 'Qualification ID' },
+            { field: 'name', header: 'Name' },
+            { field: 'type', header: 'Type' },
+            { field: 'department.name', header: 'Department' }
+        ];
+        this.getQualifications();
     }
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
-        this.dtTrigger.unsubscribe();
     }
 
     // Methods
@@ -69,18 +77,88 @@ export class QualificationListComponent implements OnInit {
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.qualifications = result.data.qualifications;
-                this.dtTrigger.next();
             });
     }
     onAdd() {
         this.router.navigate(['admin/qualification/add']);
     }
-    rowClickHandler(info: any) {
-        // get all column values as array
-        this.dtRouteParam = info[0];
+    onContextEdit(event) {
+        this.alertService.infoToast(
+            `Qualification: ${
+                this.selectedQualification.qualificationId
+            } selected`
+        );
 
-        this.router.navigate(['admin/qualification/view', this.dtRouteParam], {
-            queryParams: { qualificationId: info[0] }
-        });
+        this.router.navigate(
+            [
+                'admin/qualification/edit',
+                this.selectedQualification.qualificationId
+            ],
+            {
+                queryParams: {
+                    qualificationId: this.selectedQualification.qualificationId
+                }
+            }
+        );
     }
+    onContextView(event) {
+        this.alertService.infoToast(
+            `Activity: ${this.selectedQualification.qualificationId} selected`
+        );
+
+        this.router.navigate(
+            [
+                'admin/qualification/edit',
+                this.selectedQualification.qualificationId
+            ],
+            {
+                queryParams: {
+                    qualificationId: this.selectedQualification.qualificationId
+                }
+            }
+        );
+    }
+    onContextDelete(event) {
+        this.alertService.confirm('qualificationDelete');
+    }
+    onConfirm() {
+        this.alertService.clear();
+        const qualificationInput = {
+            qualificationId: this.selectedQualification.qualificationId
+        };
+        this.qualificationService
+            .deleteQualification(qualificationInput)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    this.loading = result.loading;
+                },
+                err => {
+                    this.alertService.errorToast(err, 'errorToast');
+                }
+            );
+        this.alertService.successToast('Qualification Deleted');
+    }
+    onReject() {
+        this.alertService.clear();
+    }
+    onRowSelect(event) {
+        this.alertService.infoToast(
+            `Qualification: ${
+                this.selectedQualification.qualificationId
+            } selected`
+        );
+        this.router.navigate(
+            [
+                'admin/qualification/view',
+                this.selectedQualification.qualificationId
+            ],
+            {
+                queryParams: {
+                    qualificationId: this.selectedQualification.qualificationId
+                }
+            }
+        );
+    }
+    onDelete() {}
 }

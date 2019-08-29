@@ -1,4 +1,5 @@
-import { DataTableDirective } from 'angular-datatables';
+import { UserService } from './../../user/user.service';
+import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -6,15 +7,8 @@ import { Module, ModuleInput } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 import * as XLXS from 'xlsx';
 
-import {
-    ChangeDetectorRef,
-    Component,
-    OnInit,
-    Renderer,
-    ViewChild
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ModuleService } from '../module.service';
 
@@ -25,8 +19,14 @@ import { ModuleService } from '../module.service';
     animations: [routerTransition()]
 })
 export class ModuleListComponent implements OnInit {
+    breadcrumbs: MenuItem[];
+    menuItems: MenuItem[];
+    cols: any[];
+    loading: boolean = false;
+
     module: Module;
     modules: Module[];
+    selectedModule: Module;
 
     csv: any;
     fileData = [];
@@ -38,94 +38,58 @@ export class ModuleListComponent implements OnInit {
 
     private unsubscribe = new Subject();
 
-    // Datatable config
-    @ViewChild(DataTableDirective, { static: false })
-    dtElement: DataTableDirective;
-    dtOptions: DataTables.Settings = {};
-    dtTrigger: Subject<Module> = new Subject();
-    dtRouteParam: string;
-
     constructor(
         private alertService: AlertService,
         private router: Router,
-        private renderer: Renderer,
-        private changeDetector: ChangeDetectorRef,
-        private modalService: NgbModal,
-        private moduleService: ModuleService
+        private moduleService: ModuleService,
+        private userService: UserService
     ) {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
 
     ngOnInit() {
-        this.getModules();
-
-        // Initialize DT
-        this.dtOptions = {
-            pagingType: 'full_numbers',
-            pageLength: 10,
-            processing: true,
-            responsive: true,
-            autoWidth: true,
-            rowCallback: (row: Node, data: any[] | Object, index: number) => {
-                const self = this;
-                // Unbind first in order to avoid any duplicate handler
-                // (see https://github.com/l-lin/angular-datatables/issues/87)
-                $('td', row).unbind('click');
-                $('td', row).bind('click', () => {
-                    self.rowClickHandler(data);
-                });
-                return row;
+        this.breadcrumbs = [{ label: 'admin' }, { label: 'module' }];
+        this.menuItems = [
+            {
+                label: 'View',
+                icon: 'pi pi-search',
+                command: event => this.onContextView(event)
+            },
+            {
+                label: 'Edit',
+                icon: 'pi pi-pencil',
+                command: event => this.onContextEdit(event)
+            },
+            {
+                label: 'Delete',
+                icon: 'pi pi-trash',
+                command: event => this.onContextDelete(event)
             }
-        };
+        ];
+        this.cols = [
+            { field: 'moduleId', header: 'Module ID' },
+            { field: 'name', header: 'Module' },
+            { field: 'blockId', header: 'Block' },
+            { field: 'offeringTypeId', header: 'Offering Type' },
+            { field: 'qualificationId', header: 'Qualification' },
+            { field: 'nqfLevel', header: 'NQF Level' },
+            { field: 'credits', header: 'Credits' }
+        ];
+        this.getModules();
     }
     ngOnDestroy(): void {
-        this.dtTrigger.unsubscribe();
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
-    ngAfterViewInit(): void {
-        this.renderer.listenGlobal('document', 'click', event => {
-            // console.log(event.target);
-
-            if (event.target.hasAttribute('moduleId')) {
-                //this.router.navigate(["admin/module/edit/:" + event.target.getAttribute("moduleId")]);
-                //this.router.navigate(['admin/module/edit'], { queryParams: { lecturerId: this.dtRouteParam } });
-            }
-        });
-    }
 
     // Methods
-    rowClickHandler(info: any) {
-        // get all column values as array
-        this.dtRouteParam = info[0];
-
-        this.router.navigate(['admin/module/view', this.dtRouteParam], {
-            queryParams: {
-                moduleId: info[0],
-                blockId: info[1],
-                offeringTypeId: info[2],
-                qualificationId: info[3]
-            }
-        });
-    }
-    rerender(): void {
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            // Destroy the table first
-            dtInstance.destroy();
-
-            // Call the dtTrigger to rerender again
-            this.dtTrigger.next();
-        });
-    }
     getModules() {
         this.moduleService
             .getModules()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.modules = result.data.modules.map(
-                    module => <Module>(<unknown>module)
-                );
-                this.dtTrigger.next();
+                this.loading = result.loading;
+                this.modules = result.data.modules;
             });
     }
     onFileSelectedExcel(input: HTMLInputElement) {
@@ -177,7 +141,7 @@ export class ModuleListComponent implements OnInit {
             });
 
             // Open modal and present excel html then return focus to modal
-            this.open(document.getElementById('content'));
+            // this.open(document.getElementById('content'));
             document.getElementById('excel').innerHTML = htmlstr;
             document.getElementById('excel').focus();
         };
@@ -188,52 +152,70 @@ export class ModuleListComponent implements OnInit {
     onAdd() {
         this.router.navigate(['admin/module/add']);
     }
-    onAddBulk() {
-        setTimeout(() => {
-            this.moduleService
-                .addModules(this.uploadedModules.slice(1))
-                .pipe(takeUntil(this.unsubscribe))
-                .subscribe(result => {
-                    console.log(result.addModules);
-                    this.alertService.success('Bulk upload complete');
+    async onAddBulk() {
+        await this.moduleService
+            .addModules(this.uploadedModules.slice(1))
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                console.log(result.addModules);
+                this.alertService.successToast('Bulk upload complete');
+            });
+    }
 
-                    this.modalService.dismissAll('Operations complete');
-                });
-            this.rerender();
-        });
+    userId() {
+        return this.userService.currentUserIdStatic();
     }
-    enabled: boolean;
-    reloadTree() {
-        this.enabled = false;
-        // now notify angular to check for updates
-        this.changeDetector.detectChanges();
-        // change detection should remove the component now
-        // then we can enable it again to create a new instance
-        this.enabled = true;
-    }
-    closeResult: string;
-    open(content) {
-        this.modalService
-            .open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' })
-            .result.then(
-                result => {
-                    this.closeResult = `Closed with: ${result}`;
-                },
-                reason => {
-                    this.closeResult = `Dismissed ${this.getDismissReason(
-                        reason
-                    )}`;
+    onContextView(event) {
+        this.alertService.infoToast(
+            `Module: ${this.selectedModule.moduleId} selected`
+        );
+
+        this.router.navigate(
+            ['admin/module/view', this.selectedModule.moduleId],
+            {
+                queryParams: {
+                    moduleId: this.selectedModule.moduleId,
+                    blockId: this.selectedModule.blockId,
+                    offeringTypeId: this.selectedModule.offeringTypeId,
+                    qualificationId: this.selectedModule.qualificationId
                 }
-            );
+            }
+        );
     }
+    onContextEdit(event) {
+        this.alertService.infoToast(
+            `Module: ${this.selectedModule.moduleId} selected`
+        );
 
-    private getDismissReason(reason: any): string {
-        if (reason === ModalDismissReasons.ESC) {
-            return 'by pressing ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-            return 'by clicking on a backdrop';
-        } else {
-            return `with: ${reason}`;
-        }
+        this.router.navigate(
+            ['admin/module/edit', this.selectedModule.moduleId],
+            {
+                queryParams: {
+                    moduleId: this.selectedModule.moduleId,
+                    blockId: this.selectedModule.blockId,
+                    offeringTypeId: this.selectedModule.offeringTypeId,
+                    qualificationId: this.selectedModule.qualificationId
+                }
+            }
+        );
+    }
+    onContextDelete(event) {
+        this.alertService.infoToast('Delete service coming soon');
+    }
+    onRowSelect(event) {
+        this.alertService.infoToast(
+            `Module: ${this.selectedModule.moduleId} selected`
+        );
+        this.router.navigate(
+            ['admin/module/view', this.selectedModule.moduleId],
+            {
+                queryParams: {
+                    moduleId: this.selectedModule.moduleId,
+                    blockId: this.selectedModule.blockId,
+                    offeringTypeId: this.selectedModule.offeringTypeId,
+                    qualificationId: this.selectedModule.qualificationId
+                }
+            }
+        );
     }
 }

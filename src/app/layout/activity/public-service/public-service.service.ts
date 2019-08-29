@@ -79,11 +79,9 @@ export class PublicServiceService {
                 })
             );
     }
-    addPublicServiceActivity(
-        publicServiceActivity: PublicServiceActivityInput
-    ) {
+    addPublicServiceActivity(activity: PublicServiceActivityInput) {
         return this.addpublicServiceActivityGql
-            .mutate({ publicServiceActivity: publicServiceActivity })
+            .mutate({ activity: activity })
             .pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -93,11 +91,9 @@ export class PublicServiceService {
                 })
             );
     }
-    editPublicServiceActivity(
-        publicServiceActivity: PublicServiceActivityInput
-    ) {
+    editPublicServiceActivity(activity: PublicServiceActivityInput) {
         return this.editpublicServiceActivityGql
-            .mutate({ publicServiceActivity: publicServiceActivity })
+            .mutate({ activity: activity })
             .pipe(
                 map(result => {
                     this.loading = result.loading;
@@ -107,11 +103,9 @@ export class PublicServiceService {
                 })
             );
     }
-    deletePublicServiceActivity(
-        publicServiceActivity: PublicServiceActivityInput
-    ) {
+    deletePublicServiceActivity(activity: PublicServiceActivityInput) {
         return this.deletepublicServiceActivityGql
-            .mutate({ publicServiceActivity: publicServiceActivity })
+            .mutate({ activity: activity })
             .pipe(
                 map(result => {
                     this.loading = result.loading;

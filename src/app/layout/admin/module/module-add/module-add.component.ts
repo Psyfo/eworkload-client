@@ -21,6 +21,7 @@ import { OfferingTypeService } from '../../offering-type/offering-type.service';
 import { QualificationService } from '../../qualification/qualification.service';
 import { VenueService } from '../../venue/venue.service';
 import { ModuleService } from '../module.service';
+import { MenuItem } from 'primeng/components/common/menuitem';
 
 @Component({
     selector: 'app-module-add',
@@ -29,6 +30,8 @@ import { ModuleService } from '../module.service';
     animations: [routerTransition()]
 })
 export class ModuleAddComponent implements OnInit {
+    breadcrumbs: MenuItem[];
+
     module: Module;
     qualifications: Qualification[];
     offeringTypes: OfferingType[];
@@ -38,7 +41,14 @@ export class ModuleAddComponent implements OnInit {
 
     types = this.moduleService.types;
     assessmentMethods = this.moduleService.assessmentMethods;
-    studyPeriods = this.moduleService.studyPeriods;
+
+    selectedType;
+    selectedAssessmentMethod;
+    selectedQualification: Qualification;
+    selectedOfferingType: OfferingType;
+    selectedBlock: Block;
+    selectedDiscipline: Discipline;
+    selectedVenue: Venue;
 
     private unsubscribe = new Subject();
 
@@ -57,7 +67,16 @@ export class ModuleAddComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        console.log(this.module);
+        this.breadcrumbs = [
+            { label: 'admin' },
+            { label: 'module', url: 'admin/module' },
+            { label: 'add', url: 'admin/module/add' }
+        ];
+        this.getQualifications();
+        this.getBlocks();
+        this.getDisciplines();
+        this.getOfferingTypes();
+        this.getVenues();
 
         this.buildForm();
     }
@@ -67,23 +86,17 @@ export class ModuleAddComponent implements OnInit {
     }
 
     buildForm() {
-        this.getQualifications();
-        this.getBlocks();
-        this.getDisciplines();
-        this.getOfferingTypes();
-        this.getVenues();
-
         this.moduleAddForm = this.fb.group({
             moduleId: ['', [Validators.required]],
             name: ['', [Validators.required]],
             type: ['', [Validators.required]],
             assessmentMethod: ['', [Validators.required]],
             nqfLevel: ['', [Validators.required]],
-            qualificationId: ['', [Validators.required]],
-            offeringTypeId: ['', [Validators.required]],
-            disciplineId: ['', [Validators.required]],
-            venueId: ['', [Validators.required]],
-            blockId: ['', [Validators.required]],
+            qualification: ['', [Validators.required]],
+            offeringType: ['', [Validators.required]],
+            discipline: ['', [Validators.required]],
+            venue: ['', [Validators.required]],
+            block: ['', [Validators.required]],
             credits: ['', [Validators.required]]
         });
     }
@@ -102,19 +115,15 @@ export class ModuleAddComponent implements OnInit {
             .getOfferingTypes()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.offeringTypes = result.data.offeringTypes.map(
-                    offeringType => <OfferingType>(<unknown>offeringType)
-                );
+                this.offeringTypes = result.data.offeringTypes;
             });
     }
     getDisciplines() {
         this.disciplineService
-            .getDisciplines()
+            .disciplines()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.disciplines = result.data.disciplines.map(
-                    discipline => <Discipline>(<unknown>discipline)
-                );
+                this.disciplines = result.data.disciplines;
             });
     }
     getBlocks() {
@@ -122,9 +131,7 @@ export class ModuleAddComponent implements OnInit {
             .getBlocks()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.blocks = result.data.blocks.map(
-                    block => <Block>(<unknown>block)
-                );
+                this.blocks = result.data.blocks;
             });
     }
     getVenues() {
@@ -132,9 +139,7 @@ export class ModuleAddComponent implements OnInit {
             .getVenues()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.venues = result.data.venues.map(
-                    venue => <Venue>(<unknown>venue)
-                );
+                this.venues = result.data.venues;
             });
     }
     onAdd() {
@@ -143,11 +148,11 @@ export class ModuleAddComponent implements OnInit {
         this.module.type = this.type.value;
         this.module.assessmentMethod = this.assessmentMethod.value;
         this.module.nqfLevel = this.nqfLevel.value;
-        this.module.qualificationId = this.qualificationId.value;
-        this.module.offeringTypeId = this.offeringTypeId.value;
-        this.module.disciplineId = this.disciplineId.value;
-        this.module.venueId = this.venueId.value;
-        this.module.blockId = this.blockId.value;
+        this.module.qualificationId = this.selectedQualification.qualificationId;
+        this.module.offeringTypeId = this.selectedOfferingType.offeringTypeId;
+        this.module.disciplineId = this.selectedDiscipline.disciplineId;
+        this.module.venueId = this.selectedVenue.venueId;
+        this.module.blockId = this.selectedBlock.blockId;
         this.module.credits = this.credits.value;
 
         this.moduleService
@@ -166,8 +171,8 @@ export class ModuleAddComponent implements OnInit {
                 );
             });
     }
-    onCancel() {
-        this.router.navigate(['../admin']);
+    onBack() {
+        this.router.navigate(['admin/module']);
     }
     onReset() {
         this.moduleAddForm.reset();
@@ -189,17 +194,17 @@ export class ModuleAddComponent implements OnInit {
     get nqfLevel() {
         return this.moduleAddForm.get('nqfLevel');
     }
-    get qualificationId() {
-        return this.moduleAddForm.get('qualificationId');
+    get qualification() {
+        return this.moduleAddForm.get('qualification');
     }
-    get offeringTypeId() {
-        return this.moduleAddForm.get('offeringTypeId');
+    get offeringType() {
+        return this.moduleAddForm.get('offeringType');
     }
-    get disciplineId() {
-        return this.moduleAddForm.get('disciplineId');
+    get discipline() {
+        return this.moduleAddForm.get('discipline');
     }
-    get blockId() {
-        return this.moduleAddForm.get('blockId');
+    get block() {
+        return this.moduleAddForm.get('block');
     }
     get credits() {
         return this.moduleAddForm.get('credits');
@@ -207,7 +212,7 @@ export class ModuleAddComponent implements OnInit {
     get formVal() {
         return this.moduleAddForm.getRawValue();
     }
-    get venueId() {
-        return this.moduleAddForm.get('venueId');
+    get venue() {
+        return this.moduleAddForm.get('venue');
     }
 }

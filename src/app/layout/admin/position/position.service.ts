@@ -26,7 +26,7 @@ export class PositionService {
         private deletePositionGql: DeletePositionGQL
     ) {}
 
-    getPosition(positionId: string) {
+    position(positionId: string) {
         return this.positionGql
             .watch(
                 { positionId: positionId },
@@ -44,7 +44,7 @@ export class PositionService {
             );
     }
 
-    getPositions() {
+    positions() {
         return this.positionsGql
             .watch(
                 {},

@@ -1,3 +1,4 @@
+import { AlertService } from './../../../shared/modules/alert/alert.service';
 import { map } from 'rxjs/operators';
 import {
     AddDisciplineGQL,
@@ -19,6 +20,7 @@ export class DisciplineService {
     networkStatus: any;
 
     constructor(
+        private alertService: AlertService,
         private disciplineGql: DisciplineGQL,
         private disciplinesGql: DisciplinesGQL,
         private addDisciplineGql: AddDisciplineGQL,
@@ -26,7 +28,7 @@ export class DisciplineService {
         private deleteDisciplineGql: DeleteDisciplineGQL
     ) {}
 
-    getDisciplines() {
+    disciplines() {
         return this.disciplinesGql
             .watch(
                 {},
@@ -44,7 +46,7 @@ export class DisciplineService {
             );
     }
 
-    getDiscipline(disciplineId: string) {
+    discipline(disciplineId: string) {
         return this.disciplineGql
             .watch(
                 { disciplineId: disciplineId },

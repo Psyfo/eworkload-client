@@ -1,3 +1,5 @@
+import { AlertService } from './../../../../shared/modules/alert/alert.service';
+import { MenuItem } from 'primeng/components/common/menuitem';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -15,70 +17,130 @@ import { Router } from '@angular/router';
     animations: [routerTransition()]
 })
 export class ListEnrollmentComponent implements OnInit {
+    breadcrumbs: MenuItem[];
+    menuItems: MenuItem[];
+    cols: any[];
+    loading: boolean;
+
+    enrollments: Enrollment[];
+    selectedEnrollment: Enrollment;
+
     private unsubscribe = new Subject();
 
-    // DT Options
-    dtOptions: DataTables.Settings = {};
-    enrollments: Enrollment[];
-    dtTrigger: Subject<Enrollment> = new Subject<Enrollment>();
-    dtRouteParam: string;
-    dtElement: DataTableDirective;
-
     constructor(
+        private alertService: AlertService,
         private router: Router,
-        private renderer: Renderer,
         private enrollmentService: EnrollmentService
     ) {}
 
     ngOnInit() {
-        this.dtOptions = {
-            pagingType: 'full_numbers',
-            pageLength: 10,
-            processing: true,
-            responsive: true,
-            autoWidth: true,
-            rowCallback: (row: Node, data: any[] | Object, index: number) => {
-                const self = this;
-                // Unbind first in order to avoid any duplicate handler
-                // (see https://github.com/l-lin/angular-datatables/issues/87)
-                $('td', row).unbind('click');
-                $('td', row).bind('click', () => {
-                    self.rowClickHandler(data);
-                });
-                return row;
+        this.breadcrumbs = [
+            {
+                label: 'admin'
+            },
+            {
+                label: 'enrollment',
+                url: 'hod/enrollment'
             }
-        };
-
+        ];
+        this.menuItems = [
+            {
+                label: 'View',
+                icon: 'pi pi-search',
+                command: event => this.onContextView(event)
+            },
+            {
+                label: 'Edit',
+                icon: 'pi pi-pencil',
+                command: event => this.onContextEdit(event)
+            },
+            {
+                label: 'Delete',
+                icon: 'pi pi-trash',
+                command: event => this.onContextDelete(event)
+            }
+        ];
+        this.cols = [
+            { field: 'enrollmentYear', header: 'Enrollment Year' },
+            {
+                field: 'qualification.qualificationId ',
+                header: 'Qualification ID'
+            },
+            {
+                field: 'qualification.name',
+                header: 'Qualification'
+            },
+            { field: 'firstYearEstimated', header: 'First Year' },
+            { field: 'secondYearEstimated', header: 'Second Year' },
+            { field: 'thirdYearEstimated', header: 'Third Year' }
+        ];
         this.getEnrollments();
     }
 
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
-        this.dtTrigger.unsubscribe();
     }
 
     getEnrollments() {
         this.enrollmentService
             .getEnrollments()
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.enrollments = result.data.enrollments;
-
-                this.dtTrigger.next();
-            });
+            .subscribe(
+                result => {
+                    this.loading = result.loading;
+                    this.enrollments = result.data.enrollments;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                }
+            );
     }
 
     onAdd() {
         this.router.navigate(['hod/enrollment/add']);
     }
 
-    rowClickHandler(info: any) {
-        // get all column values as array
-        this.dtRouteParam = info[1];
-
-        this.router.navigate(['hod/enrollment/view', this.dtRouteParam], {
-            queryParams: { enrollmentYear: info[0], qualificationId: info[1] }
-        });
+    onRowSelect(event) {
+        this.alertService.infoToast(
+            `Enrollment for: ${this.selectedEnrollment.qualificationId}(${this.selectedEnrollment.enrollmentYear}) selected`
+        );
+        this.router.navigate(
+            ['hod/enrollment/view', this.selectedEnrollment.qualificationId],
+            {
+                queryParams: {
+                    qualificationId: this.selectedEnrollment.qualificationId
+                }
+            }
+        );
     }
+    onContextView(event) {
+        this.alertService.infoToast(
+            `Enrollment for: ${this.selectedEnrollment.qualificationId}(${this.selectedEnrollment.enrollmentYear}) selected`
+        );
+        this.router.navigate(
+            ['hod/enrollment/view', this.selectedEnrollment.qualificationId],
+            {
+                queryParams: {
+                    qualificationId: this.selectedEnrollment.qualificationId
+                }
+            }
+        );
+    }
+    onContextEdit(event) {
+        this.alertService.infoToast(
+            `Enrollment for: ${this.selectedEnrollment.qualificationId}(${this.selectedEnrollment.enrollmentYear}) selected`
+        );
+        this.router.navigate(
+            ['hod/enrollment/edit', this.selectedEnrollment.qualificationId],
+            {
+                queryParams: {
+                    qualificationId: this.selectedEnrollment.qualificationId
+                }
+            }
+        );
+    }
+    onContextDelete(event) {}
+    onConfirm(event) {}
+    onReject(event) {}
 }

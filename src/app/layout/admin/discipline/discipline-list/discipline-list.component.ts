@@ -73,7 +73,7 @@ export class DisciplineListComponent implements OnInit {
     // Methods
     getDisciplines() {
         this.disciplineService
-            .getDisciplines()
+            .disciplines()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.disciplines = result.data.disciplines.map(

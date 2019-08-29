@@ -74,13 +74,13 @@
                             <span>{{ 'Supervision' | translate }}</span>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a [routerLink]="['/activity/moderation']" routerLinkActive="router-link-active"
                             class="list-group-item">
                             <i class="fa fa-fw fa-building"></i>&nbsp;
                             <span>{{ 'Moderation' | translate }}</span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
         </div>
@@ -128,6 +128,13 @@
                             class="list-group-item">
                             <i class="fa fa-fw fa-building"></i>&nbsp;
                             <span>{{ 'Executive Management' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/activity/personnel-development']" routerLinkActive="router-link-active"
+                            class="list-group-item">
+                            <i class="fa fa-fw fa-building"></i>&nbsp;
+                            <span>{{ 'Personnel Development' | translate }}</span>
                         </a>
                     </li>
                     <li>
@@ -179,9 +186,16 @@
             <li class="nested" [class.expand]="showReportMenu === 'pages'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="'/report'" routerLinkActive="router-link-active" class="list-group-item">
+                        <a [routerLink]="'/report/hemis-balanced'" routerLinkActive="router-link-active"
+                            class="list-group-item">
                             <i class="fa fa-fw fa-clipboard"></i>&nbsp;
-                            <span>{{ 'HEMIS' | translate}}</span> </a>
+                            <span>{{ 'HEMIS - BALANCED' | translate}}</span> </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="'/report/hemis-historical'" routerLinkActive="router-link-active"
+                            class="list-group-item">
+                            <i class="fa fa-fw fa-clipboard"></i>&nbsp;
+                            <span>{{ 'HEMIS - HISTORICAL' | translate}}</span> </a>
                     </li>
                 </ul>
             </li>

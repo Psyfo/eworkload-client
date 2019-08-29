@@ -1,9 +1,7 @@
 mutation addCommunityInstructionActivity(
-    $communityInstructionActivity: CommunityInstructionActivityInput
+    $activity: CommunityInstructionActivityInput
 ) {
-    addCommunityInstructionActivity(
-        communityInstructionActivity: $communityInstructionActivity
-    ) {
+    addCommunityInstructionActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -23,20 +21,13 @@ mutation addCommunityInstructionActivity(
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }
 mutation editCommunityInstructionActivity(
-    $communityInstructionActivity: CommunityInstructionActivityInput
+    $activity: CommunityInstructionActivityInput
 ) {
-    editCommunityInstructionActivity(
-        communityInstructionActivity: $communityInstructionActivity
-    ) {
+    editCommunityInstructionActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -56,20 +47,13 @@ mutation editCommunityInstructionActivity(
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }
 mutation deleteCommunityInstructionActivity(
-    $communityInstructionActivity: CommunityInstructionActivityInput
+    $activity: CommunityInstructionActivityInput
 ) {
-    deleteCommunityInstructionActivity(
-        communityInstructionActivity: $communityInstructionActivity
-    ) {
+    deleteCommunityInstructionActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -89,11 +73,6 @@ mutation deleteCommunityInstructionActivity(
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }

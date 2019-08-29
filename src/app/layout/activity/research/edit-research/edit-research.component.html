@@ -1,1 +1,111 @@
-<p>edit-research works!</p>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <form [formGroup]="editResearchForm" (ngSubmit)="onEdit()">
+            <p-panel header="Edit Research Activity">
+                <div class="p-grid">
+                    <div class="p-col-2">Research output:</div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="outputs" formControlName="output" placeholder="Select an output type"
+                            optionLabel="value" [showClear]="true" filter="true" filterBy="value" appendTo="body">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Output field is required"
+                            *ngIf="(output.dirty || output.touched) && (output.hasError('required') || output === undefined)">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">Title:</div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText formControlName="title" placeholder="Article or Event Title">
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Title field is required"
+                            *ngIf="(title.dirty || title.touched)&&(title.hasError('required')||title === undefined)">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid" *ngIf="output.value.value === 'Conference Proceedings'">
+                    <div class="p-col-2">Activities:</div>
+                    <div class="p-col-6">
+                        <p-listbox [options]="conferenceDetails" multiple="multiple" checkbox="checkbox" filter="filter"
+                            formControlName="selectedConferenceDetails" optionLabel="value">
+                            <p-header>
+                                Activities
+                            </p-header>
+                        </p-listbox>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Details field is required"
+                            *ngIf="(details.dirty || details.touched)&&(details.hasError('required')||details === undefined)">
+                        </p-message>
+                    </div>
+                </div>
+                <div *ngFor="let selectedConferenceDetail of selectedConferenceDetails">
+                    {{selectedConferenceDetail?.value}}
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">Details:</div>
+                    <div class="p-col-6">
+                        <textarea type="text" pInputTextarea [rows]="5" [cols]=[110] formControlName="details"
+                            placeholder="Short abstract or description of event"></textarea>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Details field is required"
+                            *ngIf="(details.dirty || details.touched)&&(details.hasError('required')||details === undefined)">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">Event Start-End Date:</div>
+                    <div class="p-col-6">
+                        <p-calendar formControlName="dates" appendTo="body" selectionMode="range" showButtonBar="true"
+                            [readonlyInput]='true'>
+                        </p-calendar>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Date field is required"
+                            *ngIf="(dates.dirty || dates.touched)&&(dates.hasError('required')||dates === undefined)">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">URL (optional:)</div>
+                    <div class="p-col-6"><input type="text" pInputText formControlName="title"
+                            placeholder="http://researchurl.com"></div>
+                    <div class="p-col-4">
+                        <!-- <p-message severity="error" text="U field is required"
+                            *ngIf="(url.dirty || url.touched)&&(url.hasError('required')||url === undefined)">
+                        </p-message> -->
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">Evidence (if available):</div>
+                    <div class="p-col-6">
+                        <p-fileUpload name="myFile[]" customUpload="true" maxFileSize="50000000"
+                            (uploadHandler)="onFileSelected($event)" formControlName="evidence">
+                        </p-fileUpload>
+                    </div>
+                    <div class="p-col-4"></div>
+                </div>
+
+                <p-footer>
+                    <div class="p-grid">
+                        <div class="p-col p-col-justify-left">
+                            <button pButton label="Add" icon="pi pi-plus" class="mr-2"
+                                [disabled]="editResearchForm.invalid"></button>
+                            <button type="button" pButton label="Back" icon="pi pi-arrow-left" (click)="onBack($event)"
+                                class="ui-button-danger"></button>
+                        </div>
+                        <div class="p-col p-col-justify-right">
+                            <button type="button" pButton label="Reset" icon="pi pi-refresh" (click)="onReset($event)"
+                                class="ui-button-secondary"></button>
+                        </div>
+                    </div>
+                </p-footer>
+            </p-panel>
+        </form>
+    </div>
+</div>

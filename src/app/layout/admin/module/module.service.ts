@@ -1,3 +1,4 @@
+import { ModulesByUnassignedAndDisciplineGQL } from './../../../shared/generated/output';
 import { map } from 'rxjs/operators';
 import {
     AddModuleGQL,
@@ -22,12 +23,14 @@ export class ModuleService {
     errors: any;
     networkStatus;
 
-    public types: string[] = ['Core', 'Fundamental', '(GE) Institutional'];
-    public assessmentMethods: string[] = ['Exam', 'Continuous Assessment'];
-    public studyPeriods: string[] = [
-        'First Enrollment',
-        'Other (Second year)',
-        'Other (Third year)'
+    public types = [
+        { label: 'Core', value: 'Core' },
+        { label: 'Fundamental', value: 'Fundamental' },
+        { label: '(GE) Institutional', value: '(GE) Institutional' }
+    ];
+    public assessmentMethods = [
+        { label: 'Exam', value: 'Exam' },
+        { label: 'Continuous Assessment', value: 'Continuous Assessment' }
     ];
 
     constructor(
@@ -39,7 +42,8 @@ export class ModuleService {
         private editModuleGql: EditModuleGQL,
         private deleteModuleGql: DeleteModuleGQL,
         private modulesByStackGql: ModulesByStackGQL,
-        private modulesByUnassignedGql: ModulesByUnassignedGQL
+        private modulesByUnassignedGql: ModulesByUnassignedGQL,
+        private modulesByUnassignedAndDisciplineGql: ModulesByUnassignedAndDisciplineGQL
     ) {}
 
     getModules() {
@@ -128,6 +132,23 @@ export class ModuleService {
         return this.modulesByUnassignedGql
             .watch(
                 {},
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
+    }
+    modulesByUnassignedAndDiscipline(disciplineId: string) {
+        return this.modulesByUnassignedAndDisciplineGql
+            .watch(
+                { disciplineId: disciplineId },
                 {
                     pollInterval: 2000
                 }

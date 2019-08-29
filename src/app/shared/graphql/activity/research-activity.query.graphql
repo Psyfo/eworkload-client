@@ -7,6 +7,28 @@ query researchActivity($activityId: String!) {
             email
             firstName
             lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -20,12 +42,9 @@ query researchActivity($activityId: String!) {
         output
         title
         details
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        dates
+        url
+        evidence
     }
 }
 query researchActivities {
@@ -37,6 +56,28 @@ query researchActivities {
             email
             firstName
             lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -50,12 +91,9 @@ query researchActivities {
         output
         title
         details
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        dates
+        url
+        evidence
     }
 }
 query researchActivitiesByUser($userId: String!) {
@@ -67,6 +105,28 @@ query researchActivitiesByUser($userId: String!) {
             email
             firstName
             lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -80,11 +140,8 @@ query researchActivitiesByUser($userId: String!) {
         output
         title
         details
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        dates
+        url
+        evidence
     }
 }

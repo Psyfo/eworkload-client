@@ -1,52 +1,77 @@
-<div class="row" [@routerTransition]>
-    <div class="col">
-        <div class="card">
-            <div class="card-header">
-                <h5>
-                    Enrollments
-                </h5>
-            </div>
-            <div class="card-body">
-                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover"
-                    id="enrollmentListDT">
-                    <thead>
-                        <tr>
-                            <th>Enrollment Year</th>
-                            <th>Qualification ID</th>
-                            <th>Qualification</th>
-                            <th>First Year</th>
-                            <th>Second Year</th>
-                            <th>Third Year</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let enrollment of enrollments">
-                            <td>
-                                {{enrollment?.enrollmentYear}}
-                            </td>
-                            <td>
-                                {{enrollment?.qualification.qualificationId}}
-                            </td>
-                            <td>
-                                {{enrollment?.qualification?.name}}
-                            </td>
-                            <td>
-                                {{enrollment?.firstYearEstimated}}
-                            </td>
-                            <td>
-                                {{enrollment?.secondYearEstimated}}
-                            </td>
-                            <td>
-                                {{enrollment?.thirdYearEstimated}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <p-panel header="Enrollments">
+            <p-table #enrollmentTable [columns]="cols" [value]="enrollments" [paginator]="true" [rows]="10"
+                selectionMode="single" [(selection)]="selectedEnrollment" datakey="qualificationId"
+                (onRowSelect)="onRowSelect($event)" [reorderableColumns]="true" [resizableColumns]="true"
+                [responsive]="true" [loading]="loading" [contextMenu]="cm" contextMenuSelectionMode="joint">
+                <ng-template pTemplate="caption">
+                    <div style="text-align: right;">
+                        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Global Filter"
+                            (input)="enrollmentTable.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let column of columns" [pSortableColumn]="column.field" pReorderableColumn>
+                            {{column.header}}
+                            <p-sortIcon [field]="column.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                    <tr>
 
-            </div>
-            <div class="card-footer">
-                <button type="button" class="btn btn-primary" (click)="onAdd()">Add Enrollment</button>
-            </div>
-        </div>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-enrollment let-columns="columns">
+                    <tr [pSelectableRow]="enrollment" [pContextMenuRow]="enrollment">
+                        <td>
+                            {{enrollment.enrollmentYear}}
+                        </td>
+                        <td>
+                            {{enrollment.qualification?.qualificationId}}
+                        </td>
+                        <td>
+                            {{enrollment.qualification?.name}}
+                        </td>
+                        <td>
+                            {{enrollment.firstYearEstimated}}
+                        </td>
+                        <td>
+                            {{enrollment.secondYearEstimated}}
+                        </td>
+                        <td>
+                            {{enrollment.thirdYearEstimated}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer" let-columns>
+                    <tr>
+                        <td *ngFor="let column of columns">
+                            {{column.header}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    Estimated student enrollment numbers for the year 2019
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="columns.length">
+                            No records found
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+            <p-contextMenu #cm [model]="menuItems"></p-contextMenu>
+            <p-footer>
+                <button pButton type="button" label="Add Enrollment" icon="pi pi-plus" iconPos="left" (click)="onAdd()"
+                    class="mr-2"></button>
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export CSV"
+                    (click)="enrollmentTable.exportCSV()" style="float:right"></button>
+            </p-footer>
+        </p-panel>
     </div>
 </div>

@@ -17,11 +17,11 @@ import { LayoutComponent } from './layout.component';
         AdminModule,
         CommonModule,
         FormsModule,
-        LayoutRoutingModule,
         NgbDropdownModule,
         PrimeNgModulesModule,
         ReactiveFormsModule,
-        TranslateModule
+        TranslateModule,
+        LayoutRoutingModule
     ],
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent]
 })

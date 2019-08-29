@@ -26,7 +26,7 @@ export class StudentService {
         private deleteStudentGql: DeleteStudentGQL
     ) {}
 
-    getStudent(studentId: string) {
+    student(studentId: string) {
         return this.studentGql
             .watch(
                 { studentId: studentId },
@@ -36,27 +36,16 @@ export class StudentService {
             )
             .valueChanges.pipe(
                 map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
     }
 
-    getStudents() {
+    students() {
         return this.studentsGql
-            .watch(
-                {},
-                {
-                    pollInterval: 2000
-                }
-            )
+            .watch({}, { pollInterval: 2000 })
             .valueChanges.pipe(
                 map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
                     return result;
                 })
             );
@@ -65,9 +54,6 @@ export class StudentService {
     addStudent(student: StudentInput) {
         return this.addStudentGql.mutate({ student: student }).pipe(
             map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
@@ -76,9 +62,6 @@ export class StudentService {
     editStudent(student: StudentInput) {
         return this.editStudentGql.mutate({ student: student }).pipe(
             map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
                 return result;
             })
         );
@@ -87,9 +70,6 @@ export class StudentService {
     deleteStudent(student: StudentInput) {
         return this.deleteStudentGql.mutate({ student: student }).pipe(
             map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
                 return result;
             })
         );

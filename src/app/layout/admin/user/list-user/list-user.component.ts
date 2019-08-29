@@ -1,8 +1,9 @@
+import { DisciplineService } from 'src/app/layout/admin/discipline/discipline.service';
 import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
-import { User } from 'src/app/shared/generated';
+import { User, Discipline } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
 import { Component, OnInit } from '@angular/core';
@@ -24,6 +25,7 @@ export class ListUserComponent implements OnInit {
 
     selectedUser: User;
     users: User[];
+    disciplines: Discipline[];
     nationalities = this.userService.nationalities;
     genders = this.userService.genders;
     workFocuses = this.userService.workFocuses;
@@ -33,17 +35,20 @@ export class ListUserComponent implements OnInit {
     constructor(
         private alertService: AlertService,
         private router: Router,
-        private userService: UserService
+        private userService: UserService,
+        private disciplineService: DisciplineService
     ) {}
 
     ngOnInit() {
         this.getUsers();
+        this.getDisciplines();
         this.cols = [
             { field: 'userId', header: 'User ID' },
             { field: 'lastName', header: 'Last Name' },
             { field: 'firstName', header: 'First Name' },
             { field: 'email', header: 'Email' },
             { field: 'workFocusName', header: 'Work Focus' },
+            { field: 'disciplineId', header: 'Discipline' },
             { field: 'gender', header: 'Gender' }
         ];
     }
@@ -83,6 +88,19 @@ export class ListUserComponent implements OnInit {
                     }
                 ];
             });
+    }
+    getDisciplines() {
+        this.disciplineService
+            .disciplines()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    this.disciplines = result.data.disciplines;
+                },
+                error => {
+                    this.alertService.errorToast(error, 'errorToast');
+                }
+            );
     }
 
     onAdd() {

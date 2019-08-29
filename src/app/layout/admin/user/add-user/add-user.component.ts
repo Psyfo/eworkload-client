@@ -85,7 +85,7 @@ export class AddUserComponent implements OnInit {
 
     getPositions() {
         this.positionService
-            .getPositions()
+            .positions()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.positions = result.data.positions;

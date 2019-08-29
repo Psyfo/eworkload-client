@@ -7,6 +7,28 @@ query academicAdministrationActivity($activityId: String!) {
             email
             firstName
             lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -19,12 +41,7 @@ query academicAdministrationActivity($activityId: String!) {
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }
 
@@ -37,6 +54,28 @@ query academicAdministrationActivities {
             email
             firstName
             lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -49,12 +88,7 @@ query academicAdministrationActivities {
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }
 
@@ -67,6 +101,28 @@ query academicAdministrationActivitiesByUser($userId: String) {
             email
             firstName
             lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -79,11 +135,6 @@ query academicAdministrationActivitiesByUser($userId: String) {
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }

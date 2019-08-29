@@ -5,6 +5,7 @@ import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-link';
 import { onError } from 'apollo-link-error';
+import { createUploadLink } from 'apollo-upload-client';
 
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -145,8 +146,11 @@ export class AppModule {
                 return;
             }
         });
+        const uploadLink = createUploadLink({
+            uri: 'http://localhost:5000/graphql'
+        });
 
-        const link = ApolloLink.from([errorLink, webLink]);
+        const link = ApolloLink.from([errorLink, uploadLink]);
 
         const cache = new InMemoryCache({
             addTypename: true

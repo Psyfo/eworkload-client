@@ -1,9 +1,7 @@
 mutation addPersonnelDevelopmentActivity(
-    $personnelDevelopmentActivity: PersonnelDevelopmentActivityInput
+    $activity: PersonnelDevelopmentActivityInput
 ) {
-    addPersonnelDevelopmentActivity(
-        personnelDevelopmentActivity: $personnelDevelopmentActivity
-    ) {
+    addPersonnelDevelopmentActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -23,20 +21,13 @@ mutation addPersonnelDevelopmentActivity(
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }
 mutation editPersonnelDevelopmentActivity(
-    $personnelDevelopmentActivity: PersonnelDevelopmentActivityInput
+    $activity: PersonnelDevelopmentActivityInput
 ) {
-    editPersonnelDevelopmentActivity(
-        personnelDevelopmentActivity: $personnelDevelopmentActivity
-    ) {
+    editPersonnelDevelopmentActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -56,20 +47,13 @@ mutation editPersonnelDevelopmentActivity(
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }
 mutation deletePersonnelDevelopmentActivity(
-    $personnelDevelopmentActivity: PersonnelDevelopmentActivityInput
+    $activity: PersonnelDevelopmentActivityInput
 ) {
-    deletePersonnelDevelopmentActivity(
-        personnelDevelopmentActivity: $personnelDevelopmentActivity
-    ) {
+    deletePersonnelDevelopmentActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -89,11 +73,6 @@ mutation deletePersonnelDevelopmentActivity(
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }

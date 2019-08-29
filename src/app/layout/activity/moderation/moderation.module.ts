@@ -1,3 +1,4 @@
+import { PrimeNgModulesModule } from './../../../shared/modules/prime-ng-modules.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
@@ -16,6 +17,6 @@ import { ViewModerationComponent } from './view-moderation/view-moderation.compo
         ViewModerationComponent,
         ListModerationComponent
     ],
-    imports: [CommonModule, ModerationRoutingModule]
+    imports: [CommonModule, ModerationRoutingModule, PrimeNgModulesModule]
 })
 export class ModerationModule {}

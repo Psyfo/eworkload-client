@@ -35,6 +35,6 @@ export class LoginComponent implements OnInit {
         // dummy login
         localStorage.setItem('authData', JSON.stringify(authData));
         this.alertService.success('Redirecting to Profile');
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['profile']);
     }
 }

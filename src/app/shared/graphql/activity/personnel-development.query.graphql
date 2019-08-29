@@ -19,12 +19,7 @@ query personnelDevelopmentActivity($activityId: String!) {
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }
 
@@ -49,12 +44,7 @@ query personnelDevelopmentActivities {
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }
 
@@ -79,11 +69,6 @@ query personnelDevelopmentActivitiesByUser($userId: String) {
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }

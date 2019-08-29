@@ -1,1 +1,67 @@
-<p>edit-formal-instruction works!</p>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <form [formGroup]="formalInstructionEditForm" (ngSubmit)="onEdit()">
+            <p-panel header="Add Formal Instruction Activity">
+
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="userId">User Id:</label>
+                    </div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText placeholder="User Id" formControlName="userId" pKeyFilter="num">
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="User ID is required"
+                            *ngIf="(userId.touched || userId.dirty) && userId.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="moduleId"></label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="modules" placeholder="Select a module" optionLabel="name"
+                            formControlName="module" appendTo="body" showClear="true" [filter]="true" filterBy="label">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Module is required"
+                            *ngIf="(module.touched||module.dirty) && (module.value==='' || module.hasError('required'))">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="moduleId"></label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-checkbox binary="true" label="Coordinator?" formControlName="isCoordinator"></p-checkbox>
+                    </div>
+                    <div class="p-col-4">
+
+                    </div>
+                </div>
+
+                <p-footer>
+                    <div class="p-grid">
+                        <div class="p-col-1"><button pButton label="Add Activity" icon="pi pi-plus" (click)="onEdit()"
+                                [disabled]="formalInstructionEditForm.invalid"></button>
+                        </div>
+                        <div class="p-col-1">
+                            <button pButton type="button" label="Back" icon="pi pi-arrow-left" (click)="onBack($event)"
+                                class="ui-button-danger"></button>
+                        </div>
+                        <div class="p-col"></div>
+                        <div class="p-col-2 p-col-align-end">
+                            <button pButton type="button" label="Reset" icon="pi pi-refresh" (click)="onReset($event)"
+                                class="ui-button-secondary"></button>
+                        </div>
+                    </div>
+                </p-footer>
+            </p-panel>
+        </form>
+    </div>
+
+</div>

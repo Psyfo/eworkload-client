@@ -1,3 +1,4 @@
+import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EnrollmentService } from 'src/app/layout/admin/enrollment/enrollment.service';
@@ -17,9 +18,11 @@ import { Router } from '@angular/router';
     animations: [routerTransition()]
 })
 export class AddEnrollmentComponent implements OnInit {
+    breadcrumbs: MenuItem[];
     enrollment: EnrollmentInput;
     qualifications: Qualification[];
     currentYear = new Date().getFullYear().toString();
+
     private unsubscribe = new Subject();
 
     enrollmentAddForm: FormGroup;
@@ -33,6 +36,11 @@ export class AddEnrollmentComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.breadcrumbs = [
+            { label: 'hod' },
+            { label: 'enrollment', url: 'hod/enrollment' },
+            { label: 'add', url: 'hod/enrollment/add' }
+        ];
         this.getQualifications();
         this.buildForm();
     }
@@ -43,60 +51,18 @@ export class AddEnrollmentComponent implements OnInit {
                 { value: '', disabled: true },
                 Validators.required
             ],
-            qualificationId: ['', Validators.required],
-            firstYearEstimated: ['', Validators.required],
-            secondYearEstimated: ['', Validators.required],
-            thirdYearEstimated: ['', Validators.required]
+            selectedQualification: ['', Validators.required],
+            firstYearEstimated: [0, Validators.required],
+            secondYearEstimated: [0, Validators.required],
+            thirdYearEstimated: [0, Validators.required]
         });
 
         this.enrollmentAddForm.patchValue({
             enrollmentYear: this.currentYear
         });
     }
-
-    getQualifications() {
-        this.qualificationService
-            .getQualificationsNoEnrollment()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.qualifications = result.data.qualificationsNoEnrollment;
-            });
-    }
-
-    onAdd() {
-        this.enrollment = this.formVal;
-        console.log(this.enrollment);
-
-        this.enrollmentService
-            .addEnrollment(this.enrollment)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.alertService.success('Enrollment Added');
-                setTimeout(() => {
-                    this.router.navigate(
-                        ['hod/enrollment/view', this.qualificationId.value],
-                        {
-                            queryParams: {
-                                enrollmentYear: this.currentYear,
-                                qualificationId: this.qualificationId.value
-                            }
-                        }
-                    );
-                }, 1000);
-            });
-    }
-
-    onReset() {
-        this.enrollmentAddForm.reset();
-    }
-    onCancel() {
-        this.router.navigate(['admin/enrollment']);
-    }
-
-    // Getters
-
-    get qualificationId() {
-        return this.enrollmentAddForm.get('qualificationId');
+    get selectedQualification() {
+        return this.enrollmentAddForm.get('selectedQualification');
     }
     get enrollmentYear() {
         return this.enrollmentAddForm.get('enrollmentYear');
@@ -112,5 +78,55 @@ export class AddEnrollmentComponent implements OnInit {
     }
     get formVal() {
         return this.enrollmentAddForm.getRawValue();
+    }
+
+    getQualifications() {
+        this.qualificationService
+            .getQualificationsNoEnrollment()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.qualifications = result.data.qualificationsNoEnrollment;
+            });
+    }
+
+    onAdd() {
+        const qualification = this.selectedQualification.value;
+        this.enrollment.enrollmentYear = this.currentYear;
+        this.enrollment.qualificationId = qualification.qualificationId;
+        this.enrollment.firstYearEstimated = this.firstYearEstimated.value;
+        this.enrollment.secondYearEstimated = this.secondYearEstimated.value;
+        this.enrollment.thirdYearEstimated = this.thirdYearEstimated.value;
+
+        this.enrollmentService
+            .addEnrollment(this.enrollment)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    this.alertService.success('Enrollment Added');
+                    this.router.navigate(
+                        [
+                            'hod/enrollment/view',
+                            this.enrollment.qualificationId
+                        ],
+                        {
+                            queryParams: {
+                                enrollmentYear: this.enrollment.enrollmentYear,
+                                qualificationId: this.enrollment.qualificationId
+                            }
+                        }
+                    );
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                }
+            );
+    }
+
+    onReset(event) {
+        this.enrollmentAddForm.reset();
+        this.ngOnInit();
+    }
+    onBack(event) {
+        this.router.navigate(['hod/enrollment']);
     }
 }

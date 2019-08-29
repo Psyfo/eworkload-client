@@ -1,3 +1,4 @@
+import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -16,6 +17,7 @@ import { FormalInstructionService } from '../formal-instruction.service';
     animations: [routerTransition()]
 })
 export class ViewFormalInstructionComponent implements OnInit {
+    breadcrumbs: MenuItem[] = [];
     activityId: string;
     activity: FormalInstructionActivity;
 
@@ -29,26 +31,41 @@ export class ViewFormalInstructionComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.activatedRoute.queryParams
+        this.breadcrumbs = [
+            {
+                label: 'activity'
+            },
+            { label: 'formal-instruction' },
+            { label: 'view' }
+        ];
+        this.activatedRoute.queryParamMap
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.activityId = result.activityId;
-                this.getActivity();
+            .subscribe(params => {
+                this.activityId = params.get('activityId');
+                this.getActivity(this.activityId);
             });
     }
 
-    getActivity() {
+    getActivity(activityId: string) {
         this.formalInstructionService
-            .formalInstructionActivity(this.activityId)
+            .formalInstructionActivity(activityId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.activity = result.data.formalInstructionActivity;
+                console.log(this.activity);
             });
     }
 
-    onCancel() {
-        this.router.navigate(['activity/lecturing']);
+    onBack(event) {
+        this.router.navigate(['activity/formal-instruction']);
     }
 
-    onEdit() {}
+    onEdit(event) {
+        this.router.navigate(
+            ['activity/formal-instruction/edit', this.activity.activityId],
+            {
+                queryParams: { activityId: this.activity.activityId }
+            }
+        );
+    }
 }

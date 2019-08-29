@@ -80,11 +80,11 @@ export class CommunityInstructionService {
             );
     }
     addCommunityInstructionActivity(
-        communityInstructionActivity: CommunityInstructionActivityInput
+        activity: CommunityInstructionActivityInput
     ) {
         return this.addcommunityInstructionActivityGql
             .mutate({
-                communityInstructionActivity: communityInstructionActivity
+                activity: activity
             })
             .pipe(
                 map(result => {
@@ -96,11 +96,11 @@ export class CommunityInstructionService {
             );
     }
     editCommunityInstructionActivity(
-        communityInstructionActivity: CommunityInstructionActivityInput
+        activity: CommunityInstructionActivityInput
     ) {
         return this.editcommunityInstructionActivityGql
             .mutate({
-                communityInstructionActivity: communityInstructionActivity
+                activity: activity
             })
             .pipe(
                 map(result => {
@@ -112,11 +112,11 @@ export class CommunityInstructionService {
             );
     }
     deleteCommunityInstructionActivity(
-        communityInstructionActivity: CommunityInstructionActivityInput
+        activity: CommunityInstructionActivityInput
     ) {
         return this.deletecommunityInstructionActivityGql
             .mutate({
-                communityInstructionActivity: communityInstructionActivity
+                activity: activity
             })
             .pipe(
                 map(result => {

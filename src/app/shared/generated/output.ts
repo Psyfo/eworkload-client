@@ -15,26 +15,25 @@ export type Scalars = {
 
 export type AcademicAdministrationActivity = Activity & {
     __typename?: "AcademicAdministrationActivity";
-    activityId: Scalars["String"];
-    userId: Scalars["String"];
+    activityId?: Maybe<Scalars["String"]>;
+    userId?: Maybe<Scalars["String"]>;
     user?: Maybe<User>;
-    dutyId: Scalars["String"];
+    dutyId?: Maybe<Scalars["String"]>;
     duty?: Maybe<Duty>;
     approvalStatus?: Maybe<Scalars["String"]>;
     createdAt?: Maybe<Scalars["String"]>;
     updatedAt?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
     description?: Maybe<Scalars["String"]>;
-    evidenceId?: Maybe<Scalars["String"]>;
-    evidence?: Maybe<Evidence>;
+    evidence?: Maybe<Scalars["String"]>;
 };
 
 export type AcademicAdministrationActivityInput = {
+    activityId?: Maybe<Scalars["String"]>;
     userId?: Maybe<Scalars["String"]>;
     dutyId?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
     description?: Maybe<Scalars["String"]>;
-    evidenceId?: Maybe<Scalars["String"]>;
 };
 
 export type AcademicAdministrationWorkloadPerActivity = {
@@ -62,10 +61,10 @@ export type AcademicAdministrationWorkloadPerUser = {
 };
 
 export type Activity = {
-    activityId: Scalars["String"];
-    userId: Scalars["String"];
+    activityId?: Maybe<Scalars["String"]>;
+    userId?: Maybe<Scalars["String"]>;
     user?: Maybe<User>;
-    dutyId: Scalars["String"];
+    dutyId?: Maybe<Scalars["String"]>;
     duty?: Maybe<Duty>;
     approvalStatus?: Maybe<Scalars["String"]>;
     createdAt?: Maybe<Scalars["String"]>;
@@ -99,26 +98,25 @@ export enum CacheControlScope {
 
 export type CommunityInstructionActivity = Activity & {
     __typename?: "CommunityInstructionActivity";
-    activityId: Scalars["String"];
-    userId: Scalars["String"];
+    activityId?: Maybe<Scalars["String"]>;
+    userId?: Maybe<Scalars["String"]>;
     user?: Maybe<User>;
-    dutyId: Scalars["String"];
+    dutyId?: Maybe<Scalars["String"]>;
     duty?: Maybe<Duty>;
     approvalStatus?: Maybe<Scalars["String"]>;
     createdAt?: Maybe<Scalars["String"]>;
     updatedAt?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
     description?: Maybe<Scalars["String"]>;
-    evidenceId?: Maybe<Scalars["String"]>;
-    evidence?: Maybe<Evidence>;
+    evidence?: Maybe<Scalars["String"]>;
 };
 
 export type CommunityInstructionActivityInput = {
+    activityId?: Maybe<Scalars["String"]>;
     userId?: Maybe<Scalars["String"]>;
     dutyId?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
     description?: Maybe<Scalars["String"]>;
-    evidenceId?: Maybe<Scalars["String"]>;
 };
 
 export type CommunityInstructionWorkloadPerActivity = {
@@ -210,32 +208,37 @@ export type Event = {
 export type Evidence = {
     __typename?: "Evidence";
     evidenceId: Scalars["String"];
-    name: Scalars["String"];
-    item?: Maybe<Scalars["String"]>;
+    name?: Maybe<Scalars["String"]>;
+    url?: Maybe<Scalars["String"]>;
+};
+
+export type EvidenceInput = {
+    evidenceId?: Maybe<Scalars["String"]>;
+    name?: Maybe<Scalars["String"]>;
+    url?: Maybe<Scalars["String"]>;
 };
 
 export type ExecutiveManagementActivity = Activity & {
     __typename?: "ExecutiveManagementActivity";
-    activityId: Scalars["String"];
-    userId: Scalars["String"];
+    activityId?: Maybe<Scalars["String"]>;
+    userId?: Maybe<Scalars["String"]>;
     user?: Maybe<User>;
-    dutyId: Scalars["String"];
+    dutyId?: Maybe<Scalars["String"]>;
     duty?: Maybe<Duty>;
     approvalStatus?: Maybe<Scalars["String"]>;
     createdAt?: Maybe<Scalars["String"]>;
     updatedAt?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
     description?: Maybe<Scalars["String"]>;
-    evidenceId?: Maybe<Scalars["String"]>;
-    evidence?: Maybe<Evidence>;
+    evidence?: Maybe<Scalars["String"]>;
 };
 
 export type ExecutiveManagementActivityInput = {
+    activityId?: Maybe<Scalars["String"]>;
     userId?: Maybe<Scalars["String"]>;
     dutyId?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
     description?: Maybe<Scalars["String"]>;
-    evidenceId?: Maybe<Scalars["String"]>;
 };
 
 export type ExecutiveManagementWorkloadPerActivity = {
@@ -274,12 +277,20 @@ export type FacultyInput = {
     name?: Maybe<Scalars["String"]>;
 };
 
+export type File = {
+    __typename?: "File";
+    id: Scalars["ID"];
+    path: Scalars["String"];
+    filename: Scalars["String"];
+    mimetype: Scalars["String"];
+};
+
 export type FormalInstructionActivity = Activity & {
     __typename?: "FormalInstructionActivity";
-    activityId: Scalars["String"];
-    userId: Scalars["String"];
+    activityId?: Maybe<Scalars["String"]>;
+    userId?: Maybe<Scalars["String"]>;
     user?: Maybe<User>;
-    dutyId: Scalars["String"];
+    dutyId?: Maybe<Scalars["String"]>;
     duty?: Maybe<Duty>;
     approvalStatus?: Maybe<Scalars["String"]>;
     createdAt?: Maybe<Scalars["String"]>;
@@ -295,6 +306,7 @@ export type FormalInstructionActivity = Activity & {
 };
 
 export type FormalInstructionActivityInput = {
+    activityId?: Maybe<Scalars["String"]>;
     userId?: Maybe<Scalars["String"]>;
     dutyId?: Maybe<Scalars["String"]>;
     moduleId?: Maybe<Scalars["String"]>;
@@ -335,7 +347,7 @@ export type FormalInstructionWorkloadPerUser = {
 
 export type Module = {
     __typename?: "Module";
-    moduleId: Scalars["String"];
+    moduleId?: Maybe<Scalars["String"]>;
     name?: Maybe<Scalars["String"]>;
     type?: Maybe<Scalars["String"]>;
     assessmentMethod?: Maybe<Scalars["String"]>;
@@ -416,6 +428,13 @@ export type Mutation = {
     addModules?: Maybe<Array<Maybe<Module>>>;
     editModule?: Maybe<Module>;
     deleteModule?: Maybe<Module>;
+    assignUserToModule?: Maybe<Module>;
+    unassignUserFromModule?: Maybe<Module>;
+    assignCoordinatorToModule?: Maybe<Module>;
+    unassignCoordinatorFromModule?: Maybe<Module>;
+    assignModeratorToModule?: Maybe<Module>;
+    unassignModeratorFromModule?: Maybe<Module>;
+    unassignAllModules?: Maybe<Scalars["String"]>;
     addOfferingType?: Maybe<OfferingType>;
     editOfferingType?: Maybe<OfferingType>;
     deleteOfferingType?: Maybe<OfferingType>;
@@ -432,6 +451,7 @@ export type Mutation = {
     editUser?: Maybe<User>;
     deleteUser?: Maybe<User>;
     changePassword?: Maybe<User>;
+    assignProfilePicture?: Maybe<User>;
     addVenue?: Maybe<Venue>;
     editVenue?: Maybe<Venue>;
     deleteVenue?: Maybe<Venue>;
@@ -464,6 +484,12 @@ export type Mutation = {
     addResearchActivity?: Maybe<ResearchActivity>;
     editResearchActivity?: Maybe<ResearchActivity>;
     deleteResearchActivity?: Maybe<ResearchActivity>;
+    singleUpload: File;
+    multipleUpload: Array<File>;
+    uploadProfilePicture: File;
+    uploadEvidence: File;
+    uploadAcademicAdministrationEvidence: File;
+    uploadResearchEvidence: File;
 };
 
 export type MutationAddBlockArgs = {
@@ -542,20 +568,15 @@ export type MutationDeleteEventArgs = {
 };
 
 export type MutationAddEvidenceArgs = {
-    name: Scalars["String"];
-    item?: Maybe<Scalars["String"]>;
+    evidence?: Maybe<EvidenceInput>;
 };
 
 export type MutationEditEvidenceArgs = {
-    evidenceId?: Maybe<Scalars["String"]>;
-    name?: Maybe<Scalars["String"]>;
-    item?: Maybe<Scalars["String"]>;
+    evidence?: Maybe<EvidenceInput>;
 };
 
 export type MutationDeleteEvidenceArgs = {
-    evidenceId?: Maybe<Scalars["String"]>;
-    name?: Maybe<Scalars["String"]>;
-    item?: Maybe<Scalars["String"]>;
+    evidence?: Maybe<EvidenceInput>;
 };
 
 export type MutationAddFacultyArgs = {
@@ -584,6 +605,51 @@ export type MutationEditModuleArgs = {
 
 export type MutationDeleteModuleArgs = {
     module?: Maybe<ModuleInput>;
+};
+
+export type MutationAssignUserToModuleArgs = {
+    moduleId?: Maybe<Scalars["String"]>;
+    blockId?: Maybe<Scalars["String"]>;
+    offeringTypeId?: Maybe<Scalars["String"]>;
+    qualificationId?: Maybe<Scalars["String"]>;
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type MutationUnassignUserFromModuleArgs = {
+    moduleId?: Maybe<Scalars["String"]>;
+    blockId?: Maybe<Scalars["String"]>;
+    offeringTypeId?: Maybe<Scalars["String"]>;
+    qualificationId?: Maybe<Scalars["String"]>;
+};
+
+export type MutationAssignCoordinatorToModuleArgs = {
+    moduleId?: Maybe<Scalars["String"]>;
+    blockId?: Maybe<Scalars["String"]>;
+    offeringTypeId?: Maybe<Scalars["String"]>;
+    qualificationId?: Maybe<Scalars["String"]>;
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type MutationUnassignCoordinatorFromModuleArgs = {
+    moduleId?: Maybe<Scalars["String"]>;
+    blockId?: Maybe<Scalars["String"]>;
+    offeringTypeId?: Maybe<Scalars["String"]>;
+    qualificationId?: Maybe<Scalars["String"]>;
+};
+
+export type MutationAssignModeratorToModuleArgs = {
+    moduleId?: Maybe<Scalars["String"]>;
+    blockId?: Maybe<Scalars["String"]>;
+    offeringTypeId?: Maybe<Scalars["String"]>;
+    qualificationId?: Maybe<Scalars["String"]>;
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type MutationUnassignModeratorFromModuleArgs = {
+    moduleId?: Maybe<Scalars["String"]>;
+    blockId?: Maybe<Scalars["String"]>;
+    offeringTypeId?: Maybe<Scalars["String"]>;
+    qualificationId?: Maybe<Scalars["String"]>;
 };
 
 export type MutationAddOfferingTypeArgs = {
@@ -652,6 +718,11 @@ export type MutationChangePasswordArgs = {
     newPassword?: Maybe<Scalars["String"]>;
 };
 
+export type MutationAssignProfilePictureArgs = {
+    userId?: Maybe<Scalars["String"]>;
+    photoUrl?: Maybe<Scalars["String"]>;
+};
+
 export type MutationAddVenueArgs = {
     venue?: Maybe<VenueInput>;
 };
@@ -677,99 +748,127 @@ export type MutationDeleteWorkFocusArgs = {
 };
 
 export type MutationAddAcademicAdministrationActivityArgs = {
-    academicAdministrationActivity?: Maybe<AcademicAdministrationActivityInput>;
+    activity?: Maybe<AcademicAdministrationActivityInput>;
 };
 
 export type MutationEditAcademicAdministrationActivityArgs = {
-    academicAdministrationActivity?: Maybe<AcademicAdministrationActivityInput>;
+    activity?: Maybe<AcademicAdministrationActivityInput>;
 };
 
 export type MutationDeleteAcademicAdministrationActivityArgs = {
-    academicAdministrationActivity?: Maybe<AcademicAdministrationActivityInput>;
+    activity?: Maybe<AcademicAdministrationActivityInput>;
 };
 
 export type MutationAddCommunityInstructionActivityArgs = {
-    communityInstructionActivity?: Maybe<CommunityInstructionActivityInput>;
+    activity?: Maybe<CommunityInstructionActivityInput>;
 };
 
 export type MutationEditCommunityInstructionActivityArgs = {
-    communityInstructionActivity?: Maybe<CommunityInstructionActivityInput>;
+    activity?: Maybe<CommunityInstructionActivityInput>;
 };
 
 export type MutationDeleteCommunityInstructionActivityArgs = {
-    communityInstructionActivity?: Maybe<CommunityInstructionActivityInput>;
+    activity?: Maybe<CommunityInstructionActivityInput>;
 };
 
 export type MutationAddExecutiveManagementActivityArgs = {
-    executiveManagementActivity?: Maybe<ExecutiveManagementActivityInput>;
+    activity?: Maybe<ExecutiveManagementActivityInput>;
 };
 
 export type MutationEditExecutiveManagementActivityArgs = {
-    executiveManagementActivity?: Maybe<ExecutiveManagementActivityInput>;
+    activity?: Maybe<ExecutiveManagementActivityInput>;
 };
 
 export type MutationDeleteExecutiveManagementActivityArgs = {
-    executiveManagementActivity?: Maybe<ExecutiveManagementActivityInput>;
+    activity?: Maybe<ExecutiveManagementActivityInput>;
 };
 
 export type MutationAddFormalInstructionActivityArgs = {
-    formalInstructionActivity?: Maybe<FormalInstructionActivityInput>;
+    activity?: Maybe<FormalInstructionActivityInput>;
 };
 
 export type MutationEditFormalInstructionActivityArgs = {
-    formalInstructionActivity?: Maybe<FormalInstructionActivityInput>;
+    activity?: Maybe<FormalInstructionActivityInput>;
 };
 
 export type MutationDeleteFormalInstructionActivityArgs = {
-    formalInstructionActivity?: Maybe<FormalInstructionActivityInput>;
+    activity?: Maybe<FormalInstructionActivityInput>;
 };
 
 export type MutationAddSupervisionActivityArgs = {
-    supervisionActivity?: Maybe<SupervisionActivityInput>;
+    activity?: Maybe<SupervisionActivityInput>;
 };
 
 export type MutationEditSupervisionActivityArgs = {
-    supervisionActivity?: Maybe<SupervisionActivityInput>;
+    activity?: Maybe<SupervisionActivityInput>;
 };
 
 export type MutationDeleteSupervisionActivityArgs = {
-    supervisionActivity?: Maybe<SupervisionActivityInput>;
+    activity?: Maybe<SupervisionActivityInput>;
 };
 
 export type MutationAddPersonnelDevelopmentActivityArgs = {
-    personnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivityInput>;
+    activity?: Maybe<PersonnelDevelopmentActivityInput>;
 };
 
 export type MutationEditPersonnelDevelopmentActivityArgs = {
-    personnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivityInput>;
+    activity?: Maybe<PersonnelDevelopmentActivityInput>;
 };
 
 export type MutationDeletePersonnelDevelopmentActivityArgs = {
-    personnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivityInput>;
+    activity?: Maybe<PersonnelDevelopmentActivityInput>;
 };
 
 export type MutationAddPublicServiceActivityArgs = {
-    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
+    activity?: Maybe<PublicServiceActivityInput>;
 };
 
 export type MutationEditPublicServiceActivityArgs = {
-    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
+    activity?: Maybe<PublicServiceActivityInput>;
 };
 
 export type MutationDeletePublicServiceActivityArgs = {
-    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
+    activity?: Maybe<PublicServiceActivityInput>;
 };
 
 export type MutationAddResearchActivityArgs = {
-    researchActivity?: Maybe<ResearchActivityInput>;
+    activity?: Maybe<ResearchActivityInput>;
 };
 
 export type MutationEditResearchActivityArgs = {
-    researchActivity?: Maybe<ResearchActivityInput>;
+    activity?: Maybe<ResearchActivityInput>;
 };
 
 export type MutationDeleteResearchActivityArgs = {
-    researchActivity?: Maybe<ResearchActivityInput>;
+    activity?: Maybe<ResearchActivityInput>;
+};
+
+export type MutationSingleUploadArgs = {
+    file: Scalars["Upload"];
+};
+
+export type MutationMultipleUploadArgs = {
+    files: Array<Scalars["Upload"]>;
+};
+
+export type MutationUploadProfilePictureArgs = {
+    file: Scalars["Upload"];
+    userId: Scalars["String"];
+};
+
+export type MutationUploadEvidenceArgs = {
+    file: Scalars["Upload"];
+    activityId: Scalars["String"];
+};
+
+export type MutationUploadAcademicAdministrationEvidenceArgs = {
+    file: Scalars["Upload"];
+    activityId: Scalars["String"];
+};
+
+export type MutationUploadResearchEvidenceArgs = {
+    file: Scalars["Upload"];
+    activityId: Scalars["String"];
 };
 
 export type OfferingType = {
@@ -784,26 +883,25 @@ export type OfferingTypeInput = {
 
 export type PersonnelDevelopmentActivity = Activity & {
     __typename?: "PersonnelDevelopmentActivity";
-    activityId: Scalars["String"];
-    userId: Scalars["String"];
+    activityId?: Maybe<Scalars["String"]>;
+    userId?: Maybe<Scalars["String"]>;
     user?: Maybe<User>;
-    dutyId: Scalars["String"];
+    dutyId?: Maybe<Scalars["String"]>;
     duty?: Maybe<Duty>;
     approvalStatus?: Maybe<Scalars["String"]>;
     createdAt?: Maybe<Scalars["String"]>;
     updatedAt?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
     description?: Maybe<Scalars["String"]>;
-    evidenceId?: Maybe<Scalars["String"]>;
-    evidence?: Maybe<Evidence>;
+    evidence?: Maybe<Scalars["String"]>;
 };
 
 export type PersonnelDevelopmentActivityInput = {
+    activityId?: Maybe<Scalars["String"]>;
     userId?: Maybe<Scalars["String"]>;
     dutyId?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
     description?: Maybe<Scalars["String"]>;
-    evidenceId?: Maybe<Scalars["String"]>;
 };
 
 export type PersonnelDevelopmentWorkloadPerActivity = {
@@ -843,26 +941,25 @@ export type PositionInput = {
 
 export type PublicServiceActivity = Activity & {
     __typename?: "PublicServiceActivity";
-    activityId: Scalars["String"];
-    userId: Scalars["String"];
+    activityId?: Maybe<Scalars["String"]>;
+    userId?: Maybe<Scalars["String"]>;
     user?: Maybe<User>;
-    dutyId: Scalars["String"];
+    dutyId?: Maybe<Scalars["String"]>;
     duty?: Maybe<Duty>;
     approvalStatus?: Maybe<Scalars["String"]>;
     createdAt?: Maybe<Scalars["String"]>;
     updatedAt?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
     description?: Maybe<Scalars["String"]>;
-    evidenceId?: Maybe<Scalars["String"]>;
-    evidence?: Maybe<Evidence>;
+    evidence?: Maybe<Scalars["String"]>;
 };
 
 export type PublicServiceActivityInput = {
+    activityId?: Maybe<Scalars["String"]>;
     userId?: Maybe<Scalars["String"]>;
     dutyId?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
     description?: Maybe<Scalars["String"]>;
-    evidenceId?: Maybe<Scalars["String"]>;
 };
 
 export type PublicServiceWorkloadPerActivity = {
@@ -929,6 +1026,8 @@ export type Query = {
     modules?: Maybe<Array<Maybe<Module>>>;
     modulesByDiscipline?: Maybe<Array<Maybe<Module>>>;
     modulesByUnassigned?: Maybe<Array<Maybe<Module>>>;
+    modulesByAssigned?: Maybe<Array<Maybe<Module>>>;
+    modulesByUnassignedAndDiscipline?: Maybe<Array<Maybe<Module>>>;
     modulesByUser?: Maybe<Array<Maybe<Module>>>;
     modulesByModerator?: Maybe<Array<Maybe<Module>>>;
     modulesByCoordinator?: Maybe<Array<Maybe<Module>>>;
@@ -950,6 +1049,10 @@ export type Query = {
     venues?: Maybe<Array<Maybe<Venue>>>;
     workFocus?: Maybe<WorkFocus>;
     workFocuses?: Maybe<Array<Maybe<WorkFocus>>>;
+    teachingHours?: Maybe<Scalars["Int"]>;
+    researchHours?: Maybe<Scalars["Int"]>;
+    serviceHours?: Maybe<Scalars["Int"]>;
+    annualHours?: Maybe<Scalars["Int"]>;
     academicAdministrationWorkloadPerUser?: Maybe<
         AcademicAdministrationWorkloadPerUser
     >;
@@ -966,6 +1069,108 @@ export type Query = {
     publicServiceWorkloadPerUser?: Maybe<PublicServiceWorkloadPerUser>;
     researchWorkloadPerUser?: Maybe<ResearchWorkloadPerUser>;
     supervisionWorkloadPerUser?: Maybe<SupervisionWorkloadPerUser>;
+    academicAdministrationWorkloadPerActivity?: Maybe<
+        AcademicAdministrationWorkloadPerActivity
+    >;
+    communityInstructionWorkloadPerActivity?: Maybe<
+        CommunityInstructionWorkloadPerActivity
+    >;
+    executiveManagementWorkloadPerActivity?: Maybe<
+        ExecutiveManagementWorkloadPerActivity
+    >;
+    formalInstructionWorkloadPerActivity?: Maybe<
+        FormalInstructionWorkloadPerActivity
+    >;
+    personnelDevelopmentWorkloadPerActivity?: Maybe<
+        PersonnelDevelopmentWorkloadPerActivity
+    >;
+    publicServiceWorkloadPerActivity?: Maybe<PublicServiceWorkloadPerActivity>;
+    researchWorkloadPerActivity?: Maybe<ResearchWorkloadPerActivity>;
+    supervisionWorkloadPerActivity?: Maybe<SupervisionWorkloadPerActivity>;
+    academicAdministrationGlobalTarrif?: Maybe<Scalars["Int"]>;
+    academicAdministrationTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    academicAdministrationTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    academicAdministrationPercentageOfWorkFocusPerActivity?: Maybe<
+        Scalars["Int"]
+    >;
+    academicAdministrationPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    academicAdministrationPercentageOfAnnualHoursPerActivity?: Maybe<
+        Scalars["Int"]
+    >;
+    academicAdministrationPercentageOfAnnualHoursPerUser?: Maybe<
+        Scalars["Int"]
+    >;
+    communityInstructionGlobalTarrif?: Maybe<Scalars["Int"]>;
+    communityInstructionTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    communityInstructionTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    communityInstructionPercentageOfWorkFocusPerActivity?: Maybe<
+        Scalars["Int"]
+    >;
+    communityInstructionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    communityInstructionPercentageOfAnnualHoursPerActivity?: Maybe<
+        Scalars["Int"]
+    >;
+    communityInstructionPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+    executiveManagementGlobalTarrif?: Maybe<Scalars["Int"]>;
+    executiveManagementTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    executiveManagementTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    executiveManagementPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
+    executiveManagementPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    executiveManagementPercentageOfAnnualHoursPerActivity?: Maybe<
+        Scalars["Int"]
+    >;
+    executiveManagementPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+    formalInstructionLectureWeeks?: Maybe<Scalars["Int"]>;
+    formalInstructionStudentsEnrolled?: Maybe<Scalars["Int"]>;
+    formalInstructionBaseContactHours?: Maybe<Scalars["Int"]>;
+    formalInstructionCoordinationHours?: Maybe<Scalars["Int"]>;
+    formalInstructionStudentSupportHours?: Maybe<Scalars["Int"]>;
+    formalInstructionPreparationTimeHours?: Maybe<Scalars["Int"]>;
+    formalInstructionAssessmentSettingHours?: Maybe<Scalars["Int"]>;
+    formalInstructionExamMarkingHours?: Maybe<Scalars["Int"]>;
+    formalInstructionCourseworkMarkingHours?: Maybe<Scalars["Int"]>;
+    formalInstructionFeedbackHours?: Maybe<Scalars["Int"]>;
+    formalInstructionFormativeAssessmentHours?: Maybe<Scalars["Int"]>;
+    formalInstructionModerationHours?: Maybe<Scalars["Int"]>;
+    formalInstructionTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    formalInstructionOtherHoursPerActivity?: Maybe<Scalars["Int"]>;
+    formalInstructionTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    formalInstructionPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
+    formalInstructionPercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Int"]>;
+    formalInstructionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    formalInstructionPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+    personnelDevelopmentGlobalTarrif?: Maybe<Scalars["Int"]>;
+    personnelDevelopmentTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    personnelDevelopmentTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    personnelDevelopmentPercentageOfWorkFocusPerActivity?: Maybe<
+        Scalars["Int"]
+    >;
+    personnelDevelopmentPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    personnelDevelopmentPercentageOfAnnualHoursPerActivity?: Maybe<
+        Scalars["Int"]
+    >;
+    personnelDevelopmentPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+    publicServiceGlobalTarrif?: Maybe<Scalars["Int"]>;
+    publicServiceTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    publicServiceTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    publicServicePercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
+    publicServicePercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    publicServicePercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Int"]>;
+    publicServicePercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+    researchGlobalTarrif?: Maybe<Scalars["Int"]>;
+    researchTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    researchTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    researchPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
+    researchPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    researchPercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Int"]>;
+    researchPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+    supervisionGlobalTarrif?: Maybe<Scalars["Int"]>;
+    supervisionTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    supervisionTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    supervisionPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
+    supervisionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    supervisionPercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Int"]>;
+    supervisionPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
     academicAdministrationActivity?: Maybe<AcademicAdministrationActivity>;
     academicAdministrationActivities?: Maybe<
         Array<Maybe<AcademicAdministrationActivity>>
@@ -1010,6 +1215,7 @@ export type Query = {
     researchActivity?: Maybe<ResearchActivity>;
     researchActivities?: Maybe<Array<Maybe<ResearchActivity>>>;
     researchActivitiesByUser?: Maybe<Array<Maybe<ResearchActivity>>>;
+    files?: Maybe<Array<Maybe<File>>>;
 };
 
 export type QueryActivityArgs = {
@@ -1076,6 +1282,10 @@ export type QueryModulesByDisciplineArgs = {
     disciplineId: Scalars["String"];
 };
 
+export type QueryModulesByUnassignedAndDisciplineArgs = {
+    disciplineId?: Maybe<Scalars["String"]>;
+};
+
 export type QueryModulesByUserArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
@@ -1129,6 +1339,18 @@ export type QueryWorkFocusArgs = {
     name: Scalars["String"];
 };
 
+export type QueryTeachingHoursArgs = {
+    userId: Scalars["String"];
+};
+
+export type QueryResearchHoursArgs = {
+    userId: Scalars["String"];
+};
+
+export type QueryServiceHoursArgs = {
+    userId: Scalars["String"];
+};
+
 export type QueryAcademicAdministrationWorkloadPerUserArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
@@ -1158,6 +1380,282 @@ export type QueryResearchWorkloadPerUserArgs = {
 };
 
 export type QuerySupervisionWorkloadPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryAcademicAdministrationWorkloadPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryCommunityInstructionWorkloadPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryExecutiveManagementWorkloadPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionWorkloadPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPersonnelDevelopmentWorkloadPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPublicServiceWorkloadPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryResearchWorkloadPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QuerySupervisionWorkloadPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryAcademicAdministrationTotalHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryAcademicAdministrationTotalHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryAcademicAdministrationPercentageOfWorkFocusPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryAcademicAdministrationPercentageOfWorkFocusPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryAcademicAdministrationPercentageOfAnnualHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryAcademicAdministrationPercentageOfAnnualHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryCommunityInstructionTotalHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryCommunityInstructionTotalHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryCommunityInstructionPercentageOfWorkFocusPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryCommunityInstructionPercentageOfWorkFocusPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryCommunityInstructionPercentageOfAnnualHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryCommunityInstructionPercentageOfAnnualHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryExecutiveManagementTotalHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryExecutiveManagementTotalHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryExecutiveManagementPercentageOfWorkFocusPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryExecutiveManagementPercentageOfWorkFocusPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryExecutiveManagementPercentageOfAnnualHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryExecutiveManagementPercentageOfAnnualHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionLectureWeeksArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionStudentsEnrolledArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionBaseContactHoursArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionCoordinationHoursArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionStudentSupportHoursArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionPreparationTimeHoursArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionAssessmentSettingHoursArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionExamMarkingHoursArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionCourseworkMarkingHoursArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionFeedbackHoursArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionFormativeAssessmentHoursArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionModerationHoursArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionTotalHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionOtherHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionTotalHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionPercentageOfWorkFocusPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionPercentageOfAnnualHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionPercentageOfWorkFocusPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionPercentageOfAnnualHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPersonnelDevelopmentTotalHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPersonnelDevelopmentTotalHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPersonnelDevelopmentPercentageOfWorkFocusPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPersonnelDevelopmentPercentageOfWorkFocusPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPersonnelDevelopmentPercentageOfAnnualHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPersonnelDevelopmentPercentageOfAnnualHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPublicServiceTotalHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPublicServiceTotalHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPublicServicePercentageOfWorkFocusPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPublicServicePercentageOfWorkFocusPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPublicServicePercentageOfAnnualHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPublicServicePercentageOfAnnualHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryResearchTotalHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryResearchTotalHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryResearchPercentageOfWorkFocusPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryResearchPercentageOfWorkFocusPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryResearchPercentageOfAnnualHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryResearchPercentageOfAnnualHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QuerySupervisionTotalHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QuerySupervisionTotalHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QuerySupervisionPercentageOfWorkFocusPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QuerySupervisionPercentageOfWorkFocusPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QuerySupervisionPercentageOfAnnualHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QuerySupervisionPercentageOfAnnualHoursPerUserArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
 
@@ -1227,10 +1725,10 @@ export type QueryResearchActivitiesByUserArgs = {
 
 export type ResearchActivity = Activity & {
     __typename?: "ResearchActivity";
-    activityId: Scalars["String"];
-    userId: Scalars["String"];
+    activityId?: Maybe<Scalars["String"]>;
+    userId?: Maybe<Scalars["String"]>;
     user?: Maybe<User>;
-    dutyId: Scalars["String"];
+    dutyId?: Maybe<Scalars["String"]>;
     duty?: Maybe<Duty>;
     approvalStatus?: Maybe<Scalars["String"]>;
     createdAt?: Maybe<Scalars["String"]>;
@@ -1238,16 +1736,20 @@ export type ResearchActivity = Activity & {
     output?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
     details?: Maybe<Scalars["String"]>;
-    evidenceId?: Maybe<Scalars["String"]>;
-    evidence?: Maybe<Evidence>;
+    dates?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    url?: Maybe<Scalars["String"]>;
+    evidence?: Maybe<Scalars["String"]>;
 };
 
 export type ResearchActivityInput = {
+    activityId?: Maybe<Scalars["String"]>;
     userId?: Maybe<Scalars["String"]>;
     dutyId?: Maybe<Scalars["String"]>;
     output?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
     details?: Maybe<Scalars["String"]>;
+    dates?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    url?: Maybe<Scalars["String"]>;
     evidenceId?: Maybe<Scalars["String"]>;
 };
 
@@ -1269,24 +1771,24 @@ export type ResearchWorkloadPerUser = {
 
 export type Student = {
     __typename?: "Student";
-    studentId: Scalars["String"];
-    firstName: Scalars["String"];
-    lastName: Scalars["String"];
-    email: Scalars["String"];
-    type: Scalars["String"];
-    title: Scalars["String"];
-    year: Scalars["String"];
+    studentId?: Maybe<Scalars["String"]>;
+    firstName?: Maybe<Scalars["String"]>;
+    lastName?: Maybe<Scalars["String"]>;
+    email?: Maybe<Scalars["String"]>;
+    type?: Maybe<Scalars["String"]>;
+    title?: Maybe<Scalars["String"]>;
+    year?: Maybe<Scalars["String"]>;
     graduationDate?: Maybe<Scalars["String"]>;
 };
 
 export type StudentInput = {
-    studentId: Scalars["String"];
-    firstName: Scalars["String"];
-    lastName: Scalars["String"];
-    email: Scalars["String"];
-    type: Scalars["String"];
-    title: Scalars["String"];
-    year: Scalars["String"];
+    studentId?: Maybe<Scalars["String"]>;
+    firstName?: Maybe<Scalars["String"]>;
+    lastName?: Maybe<Scalars["String"]>;
+    email?: Maybe<Scalars["String"]>;
+    type?: Maybe<Scalars["String"]>;
+    title?: Maybe<Scalars["String"]>;
+    year?: Maybe<Scalars["String"]>;
 };
 
 export type SupervisionActivity = Activity & {
@@ -1306,6 +1808,7 @@ export type SupervisionActivity = Activity & {
 };
 
 export type SupervisionActivityInput = {
+    activityId?: Maybe<Scalars["String"]>;
     userId?: Maybe<Scalars["String"]>;
     dutyId?: Maybe<Scalars["String"]>;
     supervisionRole?: Maybe<Scalars["String"]>;
@@ -1392,7 +1895,7 @@ export type WorkFocusInput = {
     serviceRatio?: Maybe<Scalars["Int"]>;
 };
 export type AddAcademicAdministrationActivityMutationVariables = {
-    academicAdministrationActivity?: Maybe<AcademicAdministrationActivityInput>;
+    activity?: Maybe<AcademicAdministrationActivityInput>;
 };
 
 export type AddAcademicAdministrationActivityMutation = {
@@ -1409,13 +1912,44 @@ export type AddAcademicAdministrationActivityMutation = {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "email" | "firstName" | "lastName"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 duty: Maybe<
                     { __typename?: "Duty" } & Pick<
@@ -1423,18 +1957,12 @@ export type AddAcademicAdministrationActivityMutation = {
                         "dutyId" | "name" | "description"
                     >
                 >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
-                    >
-                >;
             }
     >;
 };
 
 export type EditAcademicAdministrationActivityMutationVariables = {
-    academicAdministrationActivity?: Maybe<AcademicAdministrationActivityInput>;
+    activity?: Maybe<AcademicAdministrationActivityInput>;
 };
 
 export type EditAcademicAdministrationActivityMutation = {
@@ -1451,13 +1979,44 @@ export type EditAcademicAdministrationActivityMutation = {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "email" | "firstName" | "lastName"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 duty: Maybe<
                     { __typename?: "Duty" } & Pick<
@@ -1465,18 +2024,12 @@ export type EditAcademicAdministrationActivityMutation = {
                         "dutyId" | "name" | "description"
                     >
                 >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
-                    >
-                >;
             }
     >;
 };
 
 export type DeleteAcademicAdministrationActivityMutationVariables = {
-    academicAdministrationActivity?: Maybe<AcademicAdministrationActivityInput>;
+    activity?: Maybe<AcademicAdministrationActivityInput>;
 };
 
 export type DeleteAcademicAdministrationActivityMutation = {
@@ -1493,24 +2046,49 @@ export type DeleteAcademicAdministrationActivityMutation = {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "email" | "firstName" | "lastName"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 duty: Maybe<
                     { __typename?: "Duty" } & Pick<
                         Duty,
                         "dutyId" | "name" | "description"
-                    >
-                >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
                     >
                 >;
             }
@@ -1533,24 +2111,49 @@ export type AcademicAdministrationActivityQuery = { __typename?: "Query" } & {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "email" | "firstName" | "lastName"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 duty: Maybe<
                     { __typename?: "Duty" } & Pick<
                         Duty,
                         "dutyId" | "name" | "description"
-                    >
-                >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
                     >
                 >;
             }
@@ -1573,24 +2176,53 @@ export type AcademicAdministrationActivitiesQuery = { __typename?: "Query" } & {
                     | "updatedAt"
                     | "title"
                     | "description"
-                    | "evidenceId"
+                    | "evidence"
                 > & {
                         user: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "email" | "firstName" | "lastName"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         duty: Maybe<
                             { __typename?: "Duty" } & Pick<
                                 Duty,
                                 "dutyId" | "name" | "description"
-                            >
-                        >;
-                        evidence: Maybe<
-                            { __typename?: "Evidence" } & Pick<
-                                Evidence,
-                                "evidenceId" | "name" | "item"
                             >
                         >;
                     }
@@ -1619,24 +2251,53 @@ export type AcademicAdministrationActivitiesByUserQuery = {
                     | "updatedAt"
                     | "title"
                     | "description"
-                    | "evidenceId"
+                    | "evidence"
                 > & {
                         user: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "email" | "firstName" | "lastName"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         duty: Maybe<
                             { __typename?: "Duty" } & Pick<
                                 Duty,
                                 "dutyId" | "name" | "description"
-                            >
-                        >;
-                        evidence: Maybe<
-                            { __typename?: "Evidence" } & Pick<
-                                Evidence,
-                                "evidenceId" | "name" | "item"
                             >
                         >;
                     }
@@ -1685,59 +2346,24 @@ export type ActivityQuery = { __typename?: "Query" } & {
             } & (
                 | ({ __typename?: "AcademicAdministrationActivity" } & Pick<
                       AcademicAdministrationActivity,
-                      "title" | "description" | "evidenceId"
-                  > & {
-                          evidence: Maybe<
-                              { __typename?: "Evidence" } & Pick<
-                                  Evidence,
-                                  "evidenceId" | "name" | "item"
-                              >
-                          >;
-                      })
+                      "title" | "description" | "evidence"
+                  >)
                 | ({ __typename?: "ExecutiveManagementActivity" } & Pick<
                       ExecutiveManagementActivity,
-                      "title" | "description" | "evidenceId"
-                  > & {
-                          evidence: Maybe<
-                              { __typename?: "Evidence" } & Pick<
-                                  Evidence,
-                                  "evidenceId" | "name" | "item"
-                              >
-                          >;
-                      })
+                      "title" | "description" | "evidence"
+                  >)
                 | ({ __typename?: "PersonnelDevelopmentActivity" } & Pick<
                       PersonnelDevelopmentActivity,
-                      "title" | "description" | "evidenceId"
-                  > & {
-                          evidence: Maybe<
-                              { __typename?: "Evidence" } & Pick<
-                                  Evidence,
-                                  "evidenceId" | "name" | "item"
-                              >
-                          >;
-                      })
+                      "title" | "description" | "evidence"
+                  >)
                 | ({ __typename?: "CommunityInstructionActivity" } & Pick<
                       CommunityInstructionActivity,
-                      "title" | "description" | "evidenceId"
-                  > & {
-                          evidence: Maybe<
-                              { __typename?: "Evidence" } & Pick<
-                                  Evidence,
-                                  "evidenceId" | "name" | "item"
-                              >
-                          >;
-                      })
+                      "title" | "description" | "evidence"
+                  >)
                 | ({ __typename?: "PublicServiceActivity" } & Pick<
                       PublicServiceActivity,
-                      "title" | "description" | "evidenceId"
-                  > & {
-                          evidence: Maybe<
-                              { __typename?: "Evidence" } & Pick<
-                                  Evidence,
-                                  "evidenceId" | "name" | "item"
-                              >
-                          >;
-                      })
+                      "title" | "description" | "evidence"
+                  >)
                 | ({ __typename?: "FormalInstructionActivity" } & Pick<
                       FormalInstructionActivity,
                       | "moduleId"
@@ -1875,15 +2501,8 @@ export type ActivityQuery = { __typename?: "Query" } & {
                       })
                 | ({ __typename?: "ResearchActivity" } & Pick<
                       ResearchActivity,
-                      "output" | "title" | "details" | "evidenceId"
-                  > & {
-                          evidence: Maybe<
-                              { __typename?: "Evidence" } & Pick<
-                                  Evidence,
-                                  "evidenceId" | "name" | "item"
-                              >
-                          >;
-                      })
+                      "output" | "title" | "details" | "evidence"
+                  >)
                 | ({ __typename?: "SupervisionActivity" } & Pick<
                       SupervisionActivity,
                       "supervisionRole" | "split" | "studentId"
@@ -1939,26 +2558,12 @@ export type ActivitiesByUnapprovedQuery = { __typename?: "Query" } & {
                               __typename?: "CommunityInstructionActivity";
                           } & Pick<
                               CommunityInstructionActivity,
-                              "title" | "description" | "evidenceId"
-                          > & {
-                                  evidence: Maybe<
-                                      { __typename?: "Evidence" } & Pick<
-                                          Evidence,
-                                          "evidenceId" | "name" | "item"
-                                      >
-                                  >;
-                              })
+                              "title" | "description" | "evidence"
+                          >)
                         | ({ __typename?: "PublicServiceActivity" } & Pick<
                               PublicServiceActivity,
-                              "title" | "description" | "evidenceId"
-                          > & {
-                                  evidence: Maybe<
-                                      { __typename?: "Evidence" } & Pick<
-                                          Evidence,
-                                          "evidenceId" | "name" | "item"
-                                      >
-                                  >;
-                              })
+                              "title" | "description" | "evidence"
+                          >)
                         | ({ __typename?: "FormalInstructionActivity" } & Pick<
                               FormalInstructionActivity,
                               | "activityId"
@@ -2143,15 +2748,8 @@ export type ActivitiesByUnapprovedQuery = { __typename?: "Query" } & {
                               })
                         | ({ __typename?: "ResearchActivity" } & Pick<
                               ResearchActivity,
-                              "output" | "title" | "details" | "evidenceId"
-                          > & {
-                                  evidence: Maybe<
-                                      { __typename?: "Evidence" } & Pick<
-                                          Evidence,
-                                          "evidenceId" | "name" | "item"
-                                      >
-                                  >;
-                              })
+                              "output" | "title" | "details" | "evidence"
+                          >)
                         | ({ __typename?: "SupervisionActivity" } & Pick<
                               SupervisionActivity,
                               "supervisionRole" | "studentId"
@@ -2173,7 +2771,7 @@ export type ActivitiesByUnapprovedQuery = { __typename?: "Query" } & {
 };
 
 export type AddCommunityInstructionActivityMutationVariables = {
-    communityInstructionActivity?: Maybe<CommunityInstructionActivityInput>;
+    activity?: Maybe<CommunityInstructionActivityInput>;
 };
 
 export type AddCommunityInstructionActivityMutation = {
@@ -2190,7 +2788,7 @@ export type AddCommunityInstructionActivityMutation = {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
@@ -2204,18 +2802,12 @@ export type AddCommunityInstructionActivityMutation = {
                         "dutyId" | "name" | "description"
                     >
                 >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
-                    >
-                >;
             }
     >;
 };
 
 export type EditCommunityInstructionActivityMutationVariables = {
-    communityInstructionActivity?: Maybe<CommunityInstructionActivityInput>;
+    activity?: Maybe<CommunityInstructionActivityInput>;
 };
 
 export type EditCommunityInstructionActivityMutation = {
@@ -2232,7 +2824,7 @@ export type EditCommunityInstructionActivityMutation = {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
@@ -2246,18 +2838,12 @@ export type EditCommunityInstructionActivityMutation = {
                         "dutyId" | "name" | "description"
                     >
                 >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
-                    >
-                >;
             }
     >;
 };
 
 export type DeleteCommunityInstructionActivityMutationVariables = {
-    communityInstructionActivity?: Maybe<CommunityInstructionActivityInput>;
+    activity?: Maybe<CommunityInstructionActivityInput>;
 };
 
 export type DeleteCommunityInstructionActivityMutation = {
@@ -2274,7 +2860,7 @@ export type DeleteCommunityInstructionActivityMutation = {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
@@ -2286,12 +2872,6 @@ export type DeleteCommunityInstructionActivityMutation = {
                     { __typename?: "Duty" } & Pick<
                         Duty,
                         "dutyId" | "name" | "description"
-                    >
-                >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
                     >
                 >;
             }
@@ -2314,7 +2894,7 @@ export type CommunityInstructionActivityQuery = { __typename?: "Query" } & {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
@@ -2326,12 +2906,6 @@ export type CommunityInstructionActivityQuery = { __typename?: "Query" } & {
                     { __typename?: "Duty" } & Pick<
                         Duty,
                         "dutyId" | "name" | "description"
-                    >
-                >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
                     >
                 >;
             }
@@ -2354,7 +2928,7 @@ export type CommunityInstructionActivitiesQuery = { __typename?: "Query" } & {
                     | "updatedAt"
                     | "title"
                     | "description"
-                    | "evidenceId"
+                    | "evidence"
                 > & {
                         user: Maybe<
                             { __typename?: "User" } & Pick<
@@ -2366,12 +2940,6 @@ export type CommunityInstructionActivitiesQuery = { __typename?: "Query" } & {
                             { __typename?: "Duty" } & Pick<
                                 Duty,
                                 "dutyId" | "name" | "description"
-                            >
-                        >;
-                        evidence: Maybe<
-                            { __typename?: "Evidence" } & Pick<
-                                Evidence,
-                                "evidenceId" | "name" | "item"
                             >
                         >;
                     }
@@ -2400,7 +2968,7 @@ export type CommunityInstructionActivitiesByUserQuery = {
                     | "updatedAt"
                     | "title"
                     | "description"
-                    | "evidenceId"
+                    | "evidence"
                 > & {
                         user: Maybe<
                             { __typename?: "User" } & Pick<
@@ -2414,12 +2982,6 @@ export type CommunityInstructionActivitiesByUserQuery = {
                                 "dutyId" | "name" | "description"
                             >
                         >;
-                        evidence: Maybe<
-                            { __typename?: "Evidence" } & Pick<
-                                Evidence,
-                                "evidenceId" | "name" | "item"
-                            >
-                        >;
                     }
             >
         >
@@ -2427,7 +2989,7 @@ export type CommunityInstructionActivitiesByUserQuery = {
 };
 
 export type AddExecutiveManagementActivityMutationVariables = {
-    executiveManagementActivity?: Maybe<ExecutiveManagementActivityInput>;
+    activity?: Maybe<ExecutiveManagementActivityInput>;
 };
 
 export type AddExecutiveManagementActivityMutation = {
@@ -2444,7 +3006,7 @@ export type AddExecutiveManagementActivityMutation = {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
@@ -2458,18 +3020,12 @@ export type AddExecutiveManagementActivityMutation = {
                         "dutyId" | "name" | "description"
                     >
                 >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
-                    >
-                >;
             }
     >;
 };
 
 export type EditExecutiveManagementActivityMutationVariables = {
-    executiveManagementActivity?: Maybe<ExecutiveManagementActivityInput>;
+    activity?: Maybe<ExecutiveManagementActivityInput>;
 };
 
 export type EditExecutiveManagementActivityMutation = {
@@ -2486,7 +3042,7 @@ export type EditExecutiveManagementActivityMutation = {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
@@ -2500,18 +3056,12 @@ export type EditExecutiveManagementActivityMutation = {
                         "dutyId" | "name" | "description"
                     >
                 >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
-                    >
-                >;
             }
     >;
 };
 
 export type DeleteExecutiveManagementActivityMutationVariables = {
-    executiveManagementActivity?: Maybe<ExecutiveManagementActivityInput>;
+    activity?: Maybe<ExecutiveManagementActivityInput>;
 };
 
 export type DeleteExecutiveManagementActivityMutation = {
@@ -2528,7 +3078,7 @@ export type DeleteExecutiveManagementActivityMutation = {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
@@ -2540,12 +3090,6 @@ export type DeleteExecutiveManagementActivityMutation = {
                     { __typename?: "Duty" } & Pick<
                         Duty,
                         "dutyId" | "name" | "description"
-                    >
-                >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
                     >
                 >;
             }
@@ -2568,7 +3112,7 @@ export type ExecutiveManagementActivityQuery = { __typename?: "Query" } & {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
@@ -2580,12 +3124,6 @@ export type ExecutiveManagementActivityQuery = { __typename?: "Query" } & {
                     { __typename?: "Duty" } & Pick<
                         Duty,
                         "dutyId" | "name" | "description"
-                    >
-                >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
                     >
                 >;
             }
@@ -2608,7 +3146,7 @@ export type ExecutiveManagementActivitiesQuery = { __typename?: "Query" } & {
                     | "updatedAt"
                     | "title"
                     | "description"
-                    | "evidenceId"
+                    | "evidence"
                 > & {
                         user: Maybe<
                             { __typename?: "User" } & Pick<
@@ -2620,12 +3158,6 @@ export type ExecutiveManagementActivitiesQuery = { __typename?: "Query" } & {
                             { __typename?: "Duty" } & Pick<
                                 Duty,
                                 "dutyId" | "name" | "description"
-                            >
-                        >;
-                        evidence: Maybe<
-                            { __typename?: "Evidence" } & Pick<
-                                Evidence,
-                                "evidenceId" | "name" | "item"
                             >
                         >;
                     }
@@ -2654,7 +3186,7 @@ export type ExecutiveManagementActivitiesByUserQuery = {
                     | "updatedAt"
                     | "title"
                     | "description"
-                    | "evidenceId"
+                    | "evidence"
                 > & {
                         user: Maybe<
                             { __typename?: "User" } & Pick<
@@ -2668,12 +3200,6 @@ export type ExecutiveManagementActivitiesByUserQuery = {
                                 "dutyId" | "name" | "description"
                             >
                         >;
-                        evidence: Maybe<
-                            { __typename?: "Evidence" } & Pick<
-                                Evidence,
-                                "evidenceId" | "name" | "item"
-                            >
-                        >;
                     }
             >
         >
@@ -2681,7 +3207,7 @@ export type ExecutiveManagementActivitiesByUserQuery = {
 };
 
 export type AddFormalInstructionActivityMutationVariables = {
-    formalInstructionActivity?: Maybe<FormalInstructionActivityInput>;
+    activity?: Maybe<FormalInstructionActivityInput>;
 };
 
 export type AddFormalInstructionActivityMutation = {
@@ -2840,7 +3366,7 @@ export type AddFormalInstructionActivityMutation = {
 };
 
 export type EditFormalInstructionActivityMutationVariables = {
-    formalInstructionActivity?: Maybe<FormalInstructionActivityInput>;
+    activity?: Maybe<FormalInstructionActivityInput>;
 };
 
 export type EditFormalInstructionActivityMutation = {
@@ -2999,7 +3525,7 @@ export type EditFormalInstructionActivityMutation = {
 };
 
 export type DeleteFormalInstructionActivityMutationVariables = {
-    formalInstructionActivity?: Maybe<FormalInstructionActivityInput>;
+    activity?: Maybe<FormalInstructionActivityInput>;
 };
 
 export type DeleteFormalInstructionActivityMutation = {
@@ -3158,7 +3684,7 @@ export type DeleteFormalInstructionActivityMutation = {
 };
 
 export type AddSupervisionActivityMutationVariables = {
-    supervisionActivity?: Maybe<SupervisionActivityInput>;
+    activity?: Maybe<SupervisionActivityInput>;
 };
 
 export type AddSupervisionActivityMutation = { __typename?: "Mutation" } & {
@@ -3203,7 +3729,7 @@ export type AddSupervisionActivityMutation = { __typename?: "Mutation" } & {
 };
 
 export type EditSupervisionActivityMutationVariables = {
-    supervisionActivity?: Maybe<SupervisionActivityInput>;
+    activity?: Maybe<SupervisionActivityInput>;
 };
 
 export type EditSupervisionActivityMutation = { __typename?: "Mutation" } & {
@@ -3249,7 +3775,7 @@ export type EditSupervisionActivityMutation = { __typename?: "Mutation" } & {
 };
 
 export type DeleteSupervisionActivityMutationVariables = {
-    supervisionActivity?: Maybe<SupervisionActivityInput>;
+    activity?: Maybe<SupervisionActivityInput>;
 };
 
 export type DeleteSupervisionActivityMutation = { __typename?: "Mutation" } & {
@@ -3302,8 +3828,11 @@ export type FormalInstructionActivityQuery = { __typename?: "Query" } & {
         { __typename?: "FormalInstructionActivity" } & Pick<
             FormalInstructionActivity,
             | "activityId"
-            | "dutyId"
             | "userId"
+            | "dutyId"
+            | "approvalStatus"
+            | "createdAt"
+            | "updatedAt"
             | "moduleId"
             | "blockId"
             | "offeringTypeId"
@@ -3311,30 +3840,48 @@ export type FormalInstructionActivityQuery = { __typename?: "Query" } & {
             | "createdAt"
             | "updatedAt"
         > & {
-                duty: Maybe<
-                    { __typename?: "Duty" } & Pick<
-                        Duty,
-                        "dutyId" | "name" | "description"
-                    >
-                >;
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "firstName" | "lastName"
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
                     > & {
                             discipline: Maybe<
                                 { __typename?: "Discipline" } & Pick<
                                     Discipline,
-                                    "disciplineId" | "name"
+                                    "disciplineId" | "name" | "description"
                                 >
                             >;
                             position: Maybe<
                                 { __typename?: "Position" } & Pick<
                                     Position,
-                                    "positionId" | "name"
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
                                 >
                             >;
                         }
+                >;
+                duty: Maybe<
+                    { __typename?: "Duty" } & Pick<
+                        Duty,
+                        "dutyId" | "name" | "description"
+                    >
                 >;
                 module: Maybe<
                     { __typename?: "Module" } & Pick<
@@ -3350,8 +3897,10 @@ export type FormalInstructionActivityQuery = { __typename?: "Query" } & {
                         | "disciplineId"
                         | "venueId"
                         | "blockId"
+                        | "userId"
                         | "coordinatorId"
                         | "moderatorId"
+                        | "stackId"
                         | "studyPeriod"
                         | "groupSize"
                         | "lecturedBy"
@@ -3360,8 +3909,31 @@ export type FormalInstructionActivityQuery = { __typename?: "Query" } & {
                             qualification: Maybe<
                                 { __typename?: "Qualification" } & Pick<
                                     Qualification,
-                                    "qualificationId" | "name"
-                                >
+                                    | "qualificationId"
+                                    | "name"
+                                    | "type"
+                                    | "departmentId"
+                                > & {
+                                        department: Maybe<
+                                            {
+                                                __typename?: "Department";
+                                            } & Pick<
+                                                Department,
+                                                | "departmentId"
+                                                | "name"
+                                                | "facultyId"
+                                            > & {
+                                                    faculty: Maybe<
+                                                        {
+                                                            __typename?: "Faculty";
+                                                        } & Pick<
+                                                            Faculty,
+                                                            "facultyId" | "name"
+                                                        >
+                                                    >;
+                                                }
+                                        >;
+                                    }
                             >;
                             offeringType: Maybe<
                                 { __typename?: "OfferingType" } & Pick<
@@ -3372,38 +3944,103 @@ export type FormalInstructionActivityQuery = { __typename?: "Query" } & {
                             discipline: Maybe<
                                 { __typename?: "Discipline" } & Pick<
                                     Discipline,
-                                    "disciplineId" | "name"
+                                    "disciplineId" | "name" | "description"
                                 >
                             >;
                             venue: Maybe<
                                 { __typename?: "Venue" } & Pick<
                                     Venue,
-                                    "venueId" | "campus" | "capacity"
+                                    "venueId" | "campus" | "capacity" | "type"
                                 >
                             >;
                             block: Maybe<
                                 { __typename?: "Block" } & Pick<
                                     Block,
-                                    "blockId" | "name"
+                                    "blockId" | "name" | "description"
                                 >
                             >;
-                            coordinator: Maybe<
+                            user: Maybe<
                                 { __typename?: "User" } & Pick<
                                     User,
-                                    "userId" | "firstName" | "lastName"
+                                    | "userId"
+                                    | "email"
+                                    | "firstName"
+                                    | "lastName"
+                                    | "photoUrl"
+                                    | "disciplineId"
+                                    | "positionId"
+                                    | "workFocusName"
+                                    | "gender"
+                                    | "nationality"
                                 > & {
                                         discipline: Maybe<
                                             {
                                                 __typename?: "Discipline";
                                             } & Pick<
                                                 Discipline,
-                                                "disciplineId" | "name"
+                                                | "disciplineId"
+                                                | "name"
+                                                | "description"
                                             >
                                         >;
                                         position: Maybe<
                                             { __typename?: "Position" } & Pick<
                                                 Position,
-                                                "positionId" | "name"
+                                                | "positionId"
+                                                | "name"
+                                                | "description"
+                                            >
+                                        >;
+                                        workFocus: Maybe<
+                                            { __typename?: "WorkFocus" } & Pick<
+                                                WorkFocus,
+                                                | "name"
+                                                | "teachingRatio"
+                                                | "researchRatio"
+                                                | "serviceRatio"
+                                            >
+                                        >;
+                                    }
+                            >;
+                            coordinator: Maybe<
+                                { __typename?: "User" } & Pick<
+                                    User,
+                                    | "userId"
+                                    | "email"
+                                    | "firstName"
+                                    | "lastName"
+                                    | "photoUrl"
+                                    | "disciplineId"
+                                    | "positionId"
+                                    | "workFocusName"
+                                    | "gender"
+                                    | "nationality"
+                                > & {
+                                        discipline: Maybe<
+                                            {
+                                                __typename?: "Discipline";
+                                            } & Pick<
+                                                Discipline,
+                                                | "disciplineId"
+                                                | "name"
+                                                | "description"
+                                            >
+                                        >;
+                                        position: Maybe<
+                                            { __typename?: "Position" } & Pick<
+                                                Position,
+                                                | "positionId"
+                                                | "name"
+                                                | "description"
+                                            >
+                                        >;
+                                        workFocus: Maybe<
+                                            { __typename?: "WorkFocus" } & Pick<
+                                                WorkFocus,
+                                                | "name"
+                                                | "teachingRatio"
+                                                | "researchRatio"
+                                                | "serviceRatio"
                                             >
                                         >;
                                     }
@@ -3411,20 +4048,42 @@ export type FormalInstructionActivityQuery = { __typename?: "Query" } & {
                             moderator: Maybe<
                                 { __typename?: "User" } & Pick<
                                     User,
-                                    "userId" | "firstName" | "lastName"
+                                    | "userId"
+                                    | "email"
+                                    | "firstName"
+                                    | "lastName"
+                                    | "photoUrl"
+                                    | "disciplineId"
+                                    | "positionId"
+                                    | "workFocusName"
+                                    | "gender"
+                                    | "nationality"
                                 > & {
                                         discipline: Maybe<
                                             {
                                                 __typename?: "Discipline";
                                             } & Pick<
                                                 Discipline,
-                                                "disciplineId" | "name"
+                                                | "disciplineId"
+                                                | "name"
+                                                | "description"
                                             >
                                         >;
                                         position: Maybe<
                                             { __typename?: "Position" } & Pick<
                                                 Position,
-                                                "positionId" | "name"
+                                                | "positionId"
+                                                | "name"
+                                                | "description"
+                                            >
+                                        >;
+                                        workFocus: Maybe<
+                                            { __typename?: "WorkFocus" } & Pick<
+                                                WorkFocus,
+                                                | "name"
+                                                | "teachingRatio"
+                                                | "researchRatio"
+                                                | "serviceRatio"
                                             >
                                         >;
                                     }
@@ -3432,7 +4091,10 @@ export type FormalInstructionActivityQuery = { __typename?: "Query" } & {
                         }
                 >;
                 block: Maybe<
-                    { __typename?: "Block" } & Pick<Block, "blockId" | "name">
+                    { __typename?: "Block" } & Pick<
+                        Block,
+                        "blockId" | "name" | "description"
+                    >
                 >;
                 offeringType: Maybe<
                     { __typename?: "OfferingType" } & Pick<
@@ -3443,8 +4105,22 @@ export type FormalInstructionActivityQuery = { __typename?: "Query" } & {
                 qualification: Maybe<
                     { __typename?: "Qualification" } & Pick<
                         Qualification,
-                        "qualificationId" | "name"
-                    >
+                        "qualificationId" | "name" | "type" | "departmentId"
+                    > & {
+                            department: Maybe<
+                                { __typename?: "Department" } & Pick<
+                                    Department,
+                                    "departmentId" | "name" | "facultyId"
+                                > & {
+                                        faculty: Maybe<
+                                            { __typename?: "Faculty" } & Pick<
+                                                Faculty,
+                                                "facultyId" | "name"
+                                            >
+                                        >;
+                                    }
+                            >;
+                        }
                 >;
             }
     >;
@@ -3459,8 +4135,11 @@ export type FormalInstructionActivitiesQuery = { __typename?: "Query" } & {
                 { __typename?: "FormalInstructionActivity" } & Pick<
                     FormalInstructionActivity,
                     | "activityId"
-                    | "dutyId"
                     | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "createdAt"
+                    | "updatedAt"
                     | "moduleId"
                     | "blockId"
                     | "offeringTypeId"
@@ -3468,30 +4147,52 @@ export type FormalInstructionActivitiesQuery = { __typename?: "Query" } & {
                     | "createdAt"
                     | "updatedAt"
                 > & {
-                        duty: Maybe<
-                            { __typename?: "Duty" } & Pick<
-                                Duty,
-                                "dutyId" | "name" | "description"
-                            >
-                        >;
                         user: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName"
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
                             > & {
                                     discipline: Maybe<
                                         { __typename?: "Discipline" } & Pick<
                                             Discipline,
-                                            "disciplineId" | "name"
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
                                         >
                                     >;
                                     position: Maybe<
                                         { __typename?: "Position" } & Pick<
                                             Position,
-                                            "positionId" | "name"
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
                                         >
                                     >;
                                 }
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
                         >;
                         module: Maybe<
                             { __typename?: "Module" } & Pick<
@@ -3507,8 +4208,10 @@ export type FormalInstructionActivitiesQuery = { __typename?: "Query" } & {
                                 | "disciplineId"
                                 | "venueId"
                                 | "blockId"
+                                | "userId"
                                 | "coordinatorId"
                                 | "moderatorId"
+                                | "stackId"
                                 | "studyPeriod"
                                 | "groupSize"
                                 | "lecturedBy"
@@ -3517,8 +4220,32 @@ export type FormalInstructionActivitiesQuery = { __typename?: "Query" } & {
                                     qualification: Maybe<
                                         { __typename?: "Qualification" } & Pick<
                                             Qualification,
-                                            "qualificationId" | "name"
-                                        >
+                                            | "qualificationId"
+                                            | "name"
+                                            | "type"
+                                            | "departmentId"
+                                        > & {
+                                                department: Maybe<
+                                                    {
+                                                        __typename?: "Department";
+                                                    } & Pick<
+                                                        Department,
+                                                        | "departmentId"
+                                                        | "name"
+                                                        | "facultyId"
+                                                    > & {
+                                                            faculty: Maybe<
+                                                                {
+                                                                    __typename?: "Faculty";
+                                                                } & Pick<
+                                                                    Faculty,
+                                                                    | "facultyId"
+                                                                    | "name"
+                                                                >
+                                                            >;
+                                                        }
+                                                >;
+                                            }
                                     >;
                                     offeringType: Maybe<
                                         { __typename?: "OfferingType" } & Pick<
@@ -3529,32 +4256,48 @@ export type FormalInstructionActivitiesQuery = { __typename?: "Query" } & {
                                     discipline: Maybe<
                                         { __typename?: "Discipline" } & Pick<
                                             Discipline,
-                                            "disciplineId" | "name"
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
                                         >
                                     >;
                                     venue: Maybe<
                                         { __typename?: "Venue" } & Pick<
                                             Venue,
-                                            "venueId" | "campus" | "capacity"
+                                            | "venueId"
+                                            | "campus"
+                                            | "capacity"
+                                            | "type"
                                         >
                                     >;
                                     block: Maybe<
                                         { __typename?: "Block" } & Pick<
                                             Block,
-                                            "blockId" | "name"
+                                            "blockId" | "name" | "description"
                                         >
                                     >;
-                                    coordinator: Maybe<
+                                    user: Maybe<
                                         { __typename?: "User" } & Pick<
                                             User,
-                                            "userId" | "firstName" | "lastName"
+                                            | "userId"
+                                            | "email"
+                                            | "firstName"
+                                            | "lastName"
+                                            | "photoUrl"
+                                            | "disciplineId"
+                                            | "positionId"
+                                            | "workFocusName"
+                                            | "gender"
+                                            | "nationality"
                                         > & {
                                                 discipline: Maybe<
                                                     {
                                                         __typename?: "Discipline";
                                                     } & Pick<
                                                         Discipline,
-                                                        "disciplineId" | "name"
+                                                        | "disciplineId"
+                                                        | "name"
+                                                        | "description"
                                                     >
                                                 >;
                                                 position: Maybe<
@@ -3562,7 +4305,67 @@ export type FormalInstructionActivitiesQuery = { __typename?: "Query" } & {
                                                         __typename?: "Position";
                                                     } & Pick<
                                                         Position,
-                                                        "positionId" | "name"
+                                                        | "positionId"
+                                                        | "name"
+                                                        | "description"
+                                                    >
+                                                >;
+                                                workFocus: Maybe<
+                                                    {
+                                                        __typename?: "WorkFocus";
+                                                    } & Pick<
+                                                        WorkFocus,
+                                                        | "name"
+                                                        | "teachingRatio"
+                                                        | "researchRatio"
+                                                        | "serviceRatio"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                    coordinator: Maybe<
+                                        { __typename?: "User" } & Pick<
+                                            User,
+                                            | "userId"
+                                            | "email"
+                                            | "firstName"
+                                            | "lastName"
+                                            | "photoUrl"
+                                            | "disciplineId"
+                                            | "positionId"
+                                            | "workFocusName"
+                                            | "gender"
+                                            | "nationality"
+                                        > & {
+                                                discipline: Maybe<
+                                                    {
+                                                        __typename?: "Discipline";
+                                                    } & Pick<
+                                                        Discipline,
+                                                        | "disciplineId"
+                                                        | "name"
+                                                        | "description"
+                                                    >
+                                                >;
+                                                position: Maybe<
+                                                    {
+                                                        __typename?: "Position";
+                                                    } & Pick<
+                                                        Position,
+                                                        | "positionId"
+                                                        | "name"
+                                                        | "description"
+                                                    >
+                                                >;
+                                                workFocus: Maybe<
+                                                    {
+                                                        __typename?: "WorkFocus";
+                                                    } & Pick<
+                                                        WorkFocus,
+                                                        | "name"
+                                                        | "teachingRatio"
+                                                        | "researchRatio"
+                                                        | "serviceRatio"
                                                     >
                                                 >;
                                             }
@@ -3570,14 +4373,25 @@ export type FormalInstructionActivitiesQuery = { __typename?: "Query" } & {
                                     moderator: Maybe<
                                         { __typename?: "User" } & Pick<
                                             User,
-                                            "userId" | "firstName" | "lastName"
+                                            | "userId"
+                                            | "email"
+                                            | "firstName"
+                                            | "lastName"
+                                            | "photoUrl"
+                                            | "disciplineId"
+                                            | "positionId"
+                                            | "workFocusName"
+                                            | "gender"
+                                            | "nationality"
                                         > & {
                                                 discipline: Maybe<
                                                     {
                                                         __typename?: "Discipline";
                                                     } & Pick<
                                                         Discipline,
-                                                        "disciplineId" | "name"
+                                                        | "disciplineId"
+                                                        | "name"
+                                                        | "description"
                                                     >
                                                 >;
                                                 position: Maybe<
@@ -3585,7 +4399,20 @@ export type FormalInstructionActivitiesQuery = { __typename?: "Query" } & {
                                                         __typename?: "Position";
                                                     } & Pick<
                                                         Position,
-                                                        "positionId" | "name"
+                                                        | "positionId"
+                                                        | "name"
+                                                        | "description"
+                                                    >
+                                                >;
+                                                workFocus: Maybe<
+                                                    {
+                                                        __typename?: "WorkFocus";
+                                                    } & Pick<
+                                                        WorkFocus,
+                                                        | "name"
+                                                        | "teachingRatio"
+                                                        | "researchRatio"
+                                                        | "serviceRatio"
                                                     >
                                                 >;
                                             }
@@ -3595,7 +4422,7 @@ export type FormalInstructionActivitiesQuery = { __typename?: "Query" } & {
                         block: Maybe<
                             { __typename?: "Block" } & Pick<
                                 Block,
-                                "blockId" | "name"
+                                "blockId" | "name" | "description"
                             >
                         >;
                         offeringType: Maybe<
@@ -3607,8 +4434,29 @@ export type FormalInstructionActivitiesQuery = { __typename?: "Query" } & {
                         qualification: Maybe<
                             { __typename?: "Qualification" } & Pick<
                                 Qualification,
-                                "qualificationId" | "name"
-                            >
+                                | "qualificationId"
+                                | "name"
+                                | "type"
+                                | "departmentId"
+                            > & {
+                                    department: Maybe<
+                                        { __typename?: "Department" } & Pick<
+                                            Department,
+                                            | "departmentId"
+                                            | "name"
+                                            | "facultyId"
+                                        > & {
+                                                faculty: Maybe<
+                                                    {
+                                                        __typename?: "Faculty";
+                                                    } & Pick<
+                                                        Faculty,
+                                                        "facultyId" | "name"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                }
                         >;
                     }
             >
@@ -3629,8 +4477,11 @@ export type FormalInstructionActivitiesByUserQuery = {
                 { __typename?: "FormalInstructionActivity" } & Pick<
                     FormalInstructionActivity,
                     | "activityId"
-                    | "dutyId"
                     | "userId"
+                    | "dutyId"
+                    | "approvalStatus"
+                    | "createdAt"
+                    | "updatedAt"
                     | "moduleId"
                     | "blockId"
                     | "offeringTypeId"
@@ -3638,30 +4489,52 @@ export type FormalInstructionActivitiesByUserQuery = {
                     | "createdAt"
                     | "updatedAt"
                 > & {
-                        duty: Maybe<
-                            { __typename?: "Duty" } & Pick<
-                                Duty,
-                                "dutyId" | "name" | "description"
-                            >
-                        >;
                         user: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName"
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
                             > & {
                                     discipline: Maybe<
                                         { __typename?: "Discipline" } & Pick<
                                             Discipline,
-                                            "disciplineId" | "name"
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
                                         >
                                     >;
                                     position: Maybe<
                                         { __typename?: "Position" } & Pick<
                                             Position,
-                                            "positionId" | "name"
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
                                         >
                                     >;
                                 }
+                        >;
+                        duty: Maybe<
+                            { __typename?: "Duty" } & Pick<
+                                Duty,
+                                "dutyId" | "name" | "description"
+                            >
                         >;
                         module: Maybe<
                             { __typename?: "Module" } & Pick<
@@ -3677,8 +4550,10 @@ export type FormalInstructionActivitiesByUserQuery = {
                                 | "disciplineId"
                                 | "venueId"
                                 | "blockId"
+                                | "userId"
                                 | "coordinatorId"
                                 | "moderatorId"
+                                | "stackId"
                                 | "studyPeriod"
                                 | "groupSize"
                                 | "lecturedBy"
@@ -3687,8 +4562,32 @@ export type FormalInstructionActivitiesByUserQuery = {
                                     qualification: Maybe<
                                         { __typename?: "Qualification" } & Pick<
                                             Qualification,
-                                            "qualificationId" | "name"
-                                        >
+                                            | "qualificationId"
+                                            | "name"
+                                            | "type"
+                                            | "departmentId"
+                                        > & {
+                                                department: Maybe<
+                                                    {
+                                                        __typename?: "Department";
+                                                    } & Pick<
+                                                        Department,
+                                                        | "departmentId"
+                                                        | "name"
+                                                        | "facultyId"
+                                                    > & {
+                                                            faculty: Maybe<
+                                                                {
+                                                                    __typename?: "Faculty";
+                                                                } & Pick<
+                                                                    Faculty,
+                                                                    | "facultyId"
+                                                                    | "name"
+                                                                >
+                                                            >;
+                                                        }
+                                                >;
+                                            }
                                     >;
                                     offeringType: Maybe<
                                         { __typename?: "OfferingType" } & Pick<
@@ -3699,32 +4598,48 @@ export type FormalInstructionActivitiesByUserQuery = {
                                     discipline: Maybe<
                                         { __typename?: "Discipline" } & Pick<
                                             Discipline,
-                                            "disciplineId" | "name"
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
                                         >
                                     >;
                                     venue: Maybe<
                                         { __typename?: "Venue" } & Pick<
                                             Venue,
-                                            "venueId" | "campus" | "capacity"
+                                            | "venueId"
+                                            | "campus"
+                                            | "capacity"
+                                            | "type"
                                         >
                                     >;
                                     block: Maybe<
                                         { __typename?: "Block" } & Pick<
                                             Block,
-                                            "blockId" | "name"
+                                            "blockId" | "name" | "description"
                                         >
                                     >;
-                                    coordinator: Maybe<
+                                    user: Maybe<
                                         { __typename?: "User" } & Pick<
                                             User,
-                                            "userId" | "firstName" | "lastName"
+                                            | "userId"
+                                            | "email"
+                                            | "firstName"
+                                            | "lastName"
+                                            | "photoUrl"
+                                            | "disciplineId"
+                                            | "positionId"
+                                            | "workFocusName"
+                                            | "gender"
+                                            | "nationality"
                                         > & {
                                                 discipline: Maybe<
                                                     {
                                                         __typename?: "Discipline";
                                                     } & Pick<
                                                         Discipline,
-                                                        "disciplineId" | "name"
+                                                        | "disciplineId"
+                                                        | "name"
+                                                        | "description"
                                                     >
                                                 >;
                                                 position: Maybe<
@@ -3732,7 +4647,67 @@ export type FormalInstructionActivitiesByUserQuery = {
                                                         __typename?: "Position";
                                                     } & Pick<
                                                         Position,
-                                                        "positionId" | "name"
+                                                        | "positionId"
+                                                        | "name"
+                                                        | "description"
+                                                    >
+                                                >;
+                                                workFocus: Maybe<
+                                                    {
+                                                        __typename?: "WorkFocus";
+                                                    } & Pick<
+                                                        WorkFocus,
+                                                        | "name"
+                                                        | "teachingRatio"
+                                                        | "researchRatio"
+                                                        | "serviceRatio"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                    coordinator: Maybe<
+                                        { __typename?: "User" } & Pick<
+                                            User,
+                                            | "userId"
+                                            | "email"
+                                            | "firstName"
+                                            | "lastName"
+                                            | "photoUrl"
+                                            | "disciplineId"
+                                            | "positionId"
+                                            | "workFocusName"
+                                            | "gender"
+                                            | "nationality"
+                                        > & {
+                                                discipline: Maybe<
+                                                    {
+                                                        __typename?: "Discipline";
+                                                    } & Pick<
+                                                        Discipline,
+                                                        | "disciplineId"
+                                                        | "name"
+                                                        | "description"
+                                                    >
+                                                >;
+                                                position: Maybe<
+                                                    {
+                                                        __typename?: "Position";
+                                                    } & Pick<
+                                                        Position,
+                                                        | "positionId"
+                                                        | "name"
+                                                        | "description"
+                                                    >
+                                                >;
+                                                workFocus: Maybe<
+                                                    {
+                                                        __typename?: "WorkFocus";
+                                                    } & Pick<
+                                                        WorkFocus,
+                                                        | "name"
+                                                        | "teachingRatio"
+                                                        | "researchRatio"
+                                                        | "serviceRatio"
                                                     >
                                                 >;
                                             }
@@ -3740,14 +4715,25 @@ export type FormalInstructionActivitiesByUserQuery = {
                                     moderator: Maybe<
                                         { __typename?: "User" } & Pick<
                                             User,
-                                            "userId" | "firstName" | "lastName"
+                                            | "userId"
+                                            | "email"
+                                            | "firstName"
+                                            | "lastName"
+                                            | "photoUrl"
+                                            | "disciplineId"
+                                            | "positionId"
+                                            | "workFocusName"
+                                            | "gender"
+                                            | "nationality"
                                         > & {
                                                 discipline: Maybe<
                                                     {
                                                         __typename?: "Discipline";
                                                     } & Pick<
                                                         Discipline,
-                                                        "disciplineId" | "name"
+                                                        | "disciplineId"
+                                                        | "name"
+                                                        | "description"
                                                     >
                                                 >;
                                                 position: Maybe<
@@ -3755,7 +4741,20 @@ export type FormalInstructionActivitiesByUserQuery = {
                                                         __typename?: "Position";
                                                     } & Pick<
                                                         Position,
-                                                        "positionId" | "name"
+                                                        | "positionId"
+                                                        | "name"
+                                                        | "description"
+                                                    >
+                                                >;
+                                                workFocus: Maybe<
+                                                    {
+                                                        __typename?: "WorkFocus";
+                                                    } & Pick<
+                                                        WorkFocus,
+                                                        | "name"
+                                                        | "teachingRatio"
+                                                        | "researchRatio"
+                                                        | "serviceRatio"
                                                     >
                                                 >;
                                             }
@@ -3765,7 +4764,7 @@ export type FormalInstructionActivitiesByUserQuery = {
                         block: Maybe<
                             { __typename?: "Block" } & Pick<
                                 Block,
-                                "blockId" | "name"
+                                "blockId" | "name" | "description"
                             >
                         >;
                         offeringType: Maybe<
@@ -3777,8 +4776,29 @@ export type FormalInstructionActivitiesByUserQuery = {
                         qualification: Maybe<
                             { __typename?: "Qualification" } & Pick<
                                 Qualification,
-                                "qualificationId" | "name"
-                            >
+                                | "qualificationId"
+                                | "name"
+                                | "type"
+                                | "departmentId"
+                            > & {
+                                    department: Maybe<
+                                        { __typename?: "Department" } & Pick<
+                                            Department,
+                                            | "departmentId"
+                                            | "name"
+                                            | "facultyId"
+                                        > & {
+                                                faculty: Maybe<
+                                                    {
+                                                        __typename?: "Faculty";
+                                                    } & Pick<
+                                                        Faculty,
+                                                        "facultyId" | "name"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                }
                         >;
                     }
             >
@@ -3922,7 +4942,7 @@ export type SupervisionActivitiesByUserQuery = { __typename?: "Query" } & {
 };
 
 export type AddPersonnelDevelopmentActivityMutationVariables = {
-    personnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivityInput>;
+    activity?: Maybe<PersonnelDevelopmentActivityInput>;
 };
 
 export type AddPersonnelDevelopmentActivityMutation = {
@@ -3939,7 +4959,7 @@ export type AddPersonnelDevelopmentActivityMutation = {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
@@ -3953,18 +4973,12 @@ export type AddPersonnelDevelopmentActivityMutation = {
                         "dutyId" | "name" | "description"
                     >
                 >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
-                    >
-                >;
             }
     >;
 };
 
 export type EditPersonnelDevelopmentActivityMutationVariables = {
-    personnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivityInput>;
+    activity?: Maybe<PersonnelDevelopmentActivityInput>;
 };
 
 export type EditPersonnelDevelopmentActivityMutation = {
@@ -3981,7 +4995,7 @@ export type EditPersonnelDevelopmentActivityMutation = {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
@@ -3995,18 +5009,12 @@ export type EditPersonnelDevelopmentActivityMutation = {
                         "dutyId" | "name" | "description"
                     >
                 >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
-                    >
-                >;
             }
     >;
 };
 
 export type DeletePersonnelDevelopmentActivityMutationVariables = {
-    personnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivityInput>;
+    activity?: Maybe<PersonnelDevelopmentActivityInput>;
 };
 
 export type DeletePersonnelDevelopmentActivityMutation = {
@@ -4023,7 +5031,7 @@ export type DeletePersonnelDevelopmentActivityMutation = {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
@@ -4035,12 +5043,6 @@ export type DeletePersonnelDevelopmentActivityMutation = {
                     { __typename?: "Duty" } & Pick<
                         Duty,
                         "dutyId" | "name" | "description"
-                    >
-                >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
                     >
                 >;
             }
@@ -4063,7 +5065,7 @@ export type PersonnelDevelopmentActivityQuery = { __typename?: "Query" } & {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
@@ -4075,12 +5077,6 @@ export type PersonnelDevelopmentActivityQuery = { __typename?: "Query" } & {
                     { __typename?: "Duty" } & Pick<
                         Duty,
                         "dutyId" | "name" | "description"
-                    >
-                >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
                     >
                 >;
             }
@@ -4103,7 +5099,7 @@ export type PersonnelDevelopmentActivitiesQuery = { __typename?: "Query" } & {
                     | "updatedAt"
                     | "title"
                     | "description"
-                    | "evidenceId"
+                    | "evidence"
                 > & {
                         user: Maybe<
                             { __typename?: "User" } & Pick<
@@ -4115,12 +5111,6 @@ export type PersonnelDevelopmentActivitiesQuery = { __typename?: "Query" } & {
                             { __typename?: "Duty" } & Pick<
                                 Duty,
                                 "dutyId" | "name" | "description"
-                            >
-                        >;
-                        evidence: Maybe<
-                            { __typename?: "Evidence" } & Pick<
-                                Evidence,
-                                "evidenceId" | "name" | "item"
                             >
                         >;
                     }
@@ -4149,7 +5139,7 @@ export type PersonnelDevelopmentActivitiesByUserQuery = {
                     | "updatedAt"
                     | "title"
                     | "description"
-                    | "evidenceId"
+                    | "evidence"
                 > & {
                         user: Maybe<
                             { __typename?: "User" } & Pick<
@@ -4163,12 +5153,6 @@ export type PersonnelDevelopmentActivitiesByUserQuery = {
                                 "dutyId" | "name" | "description"
                             >
                         >;
-                        evidence: Maybe<
-                            { __typename?: "Evidence" } & Pick<
-                                Evidence,
-                                "evidenceId" | "name" | "item"
-                            >
-                        >;
                     }
             >
         >
@@ -4176,7 +5160,7 @@ export type PersonnelDevelopmentActivitiesByUserQuery = {
 };
 
 export type AddPublicServiceActivityMutationVariables = {
-    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
+    activity?: Maybe<PublicServiceActivityInput>;
 };
 
 export type AddPublicServiceActivityMutation = { __typename?: "Mutation" } & {
@@ -4191,7 +5175,7 @@ export type AddPublicServiceActivityMutation = { __typename?: "Mutation" } & {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
@@ -4205,18 +5189,12 @@ export type AddPublicServiceActivityMutation = { __typename?: "Mutation" } & {
                         "dutyId" | "name" | "description"
                     >
                 >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
-                    >
-                >;
             }
     >;
 };
 
 export type EditPublicServiceActivityMutationVariables = {
-    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
+    activity?: Maybe<PublicServiceActivityInput>;
 };
 
 export type EditPublicServiceActivityMutation = { __typename?: "Mutation" } & {
@@ -4231,7 +5209,7 @@ export type EditPublicServiceActivityMutation = { __typename?: "Mutation" } & {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
@@ -4245,18 +5223,12 @@ export type EditPublicServiceActivityMutation = { __typename?: "Mutation" } & {
                         "dutyId" | "name" | "description"
                     >
                 >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
-                    >
-                >;
             }
     >;
 };
 
 export type DeletePublicServiceActivityMutationVariables = {
-    publicServiceActivity?: Maybe<PublicServiceActivityInput>;
+    activity?: Maybe<PublicServiceActivityInput>;
 };
 
 export type DeletePublicServiceActivityMutation = {
@@ -4273,7 +5245,7 @@ export type DeletePublicServiceActivityMutation = {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
@@ -4285,12 +5257,6 @@ export type DeletePublicServiceActivityMutation = {
                     { __typename?: "Duty" } & Pick<
                         Duty,
                         "dutyId" | "name" | "description"
-                    >
-                >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
                     >
                 >;
             }
@@ -4313,7 +5279,7 @@ export type PublicServiceActivityQuery = { __typename?: "Query" } & {
             | "updatedAt"
             | "title"
             | "description"
-            | "evidenceId"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
@@ -4325,12 +5291,6 @@ export type PublicServiceActivityQuery = { __typename?: "Query" } & {
                     { __typename?: "Duty" } & Pick<
                         Duty,
                         "dutyId" | "name" | "description"
-                    >
-                >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
                     >
                 >;
             }
@@ -4353,7 +5313,7 @@ export type PublicServiceActivitiesQuery = { __typename?: "Query" } & {
                     | "updatedAt"
                     | "title"
                     | "description"
-                    | "evidenceId"
+                    | "evidence"
                 > & {
                         user: Maybe<
                             { __typename?: "User" } & Pick<
@@ -4365,12 +5325,6 @@ export type PublicServiceActivitiesQuery = { __typename?: "Query" } & {
                             { __typename?: "Duty" } & Pick<
                                 Duty,
                                 "dutyId" | "name" | "description"
-                            >
-                        >;
-                        evidence: Maybe<
-                            { __typename?: "Evidence" } & Pick<
-                                Evidence,
-                                "evidenceId" | "name" | "item"
                             >
                         >;
                     }
@@ -4397,7 +5351,7 @@ export type PublicServiceActivitiesByUserQuery = { __typename?: "Query" } & {
                     | "updatedAt"
                     | "title"
                     | "description"
-                    | "evidenceId"
+                    | "evidence"
                 > & {
                         user: Maybe<
                             { __typename?: "User" } & Pick<
@@ -4411,12 +5365,6 @@ export type PublicServiceActivitiesByUserQuery = { __typename?: "Query" } & {
                                 "dutyId" | "name" | "description"
                             >
                         >;
-                        evidence: Maybe<
-                            { __typename?: "Evidence" } & Pick<
-                                Evidence,
-                                "evidenceId" | "name" | "item"
-                            >
-                        >;
                     }
             >
         >
@@ -4424,7 +5372,7 @@ export type PublicServiceActivitiesByUserQuery = { __typename?: "Query" } & {
 };
 
 export type AddResearchActivityMutationVariables = {
-    researchActivity?: Maybe<ResearchActivityInput>;
+    activity?: Maybe<ResearchActivityInput>;
 };
 
 export type AddResearchActivityMutation = { __typename?: "Mutation" } & {
@@ -4440,13 +5388,46 @@ export type AddResearchActivityMutation = { __typename?: "Mutation" } & {
             | "output"
             | "title"
             | "details"
-            | "evidenceId"
+            | "dates"
+            | "url"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "email" | "firstName" | "lastName"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 duty: Maybe<
                     { __typename?: "Duty" } & Pick<
@@ -4454,18 +5435,12 @@ export type AddResearchActivityMutation = { __typename?: "Mutation" } & {
                         "dutyId" | "name" | "description"
                     >
                 >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
-                    >
-                >;
             }
     >;
 };
 
 export type EditResearchActivityMutationVariables = {
-    researchActivity?: Maybe<ResearchActivityInput>;
+    activity?: Maybe<ResearchActivityInput>;
 };
 
 export type EditResearchActivityMutation = { __typename?: "Mutation" } & {
@@ -4481,13 +5456,46 @@ export type EditResearchActivityMutation = { __typename?: "Mutation" } & {
             | "output"
             | "title"
             | "details"
-            | "evidenceId"
+            | "dates"
+            | "url"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "email" | "firstName" | "lastName"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 duty: Maybe<
                     { __typename?: "Duty" } & Pick<
@@ -4495,18 +5503,12 @@ export type EditResearchActivityMutation = { __typename?: "Mutation" } & {
                         "dutyId" | "name" | "description"
                     >
                 >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
-                    >
-                >;
             }
     >;
 };
 
 export type DeleteResearchActivityMutationVariables = {
-    researchActivity?: Maybe<ResearchActivityInput>;
+    activity?: Maybe<ResearchActivityInput>;
 };
 
 export type DeleteResearchActivityMutation = { __typename?: "Mutation" } & {
@@ -4522,24 +5524,51 @@ export type DeleteResearchActivityMutation = { __typename?: "Mutation" } & {
             | "output"
             | "title"
             | "details"
-            | "evidenceId"
+            | "dates"
+            | "url"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "email" | "firstName" | "lastName"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 duty: Maybe<
                     { __typename?: "Duty" } & Pick<
                         Duty,
                         "dutyId" | "name" | "description"
-                    >
-                >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
                     >
                 >;
             }
@@ -4563,24 +5592,51 @@ export type ResearchActivityQuery = { __typename?: "Query" } & {
             | "output"
             | "title"
             | "details"
-            | "evidenceId"
+            | "dates"
+            | "url"
+            | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "email" | "firstName" | "lastName"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 duty: Maybe<
                     { __typename?: "Duty" } & Pick<
                         Duty,
                         "dutyId" | "name" | "description"
-                    >
-                >;
-                evidence: Maybe<
-                    { __typename?: "Evidence" } & Pick<
-                        Evidence,
-                        "evidenceId" | "name" | "item"
                     >
                 >;
             }
@@ -4604,24 +5660,55 @@ export type ResearchActivitiesQuery = { __typename?: "Query" } & {
                     | "output"
                     | "title"
                     | "details"
-                    | "evidenceId"
+                    | "dates"
+                    | "url"
+                    | "evidence"
                 > & {
                         user: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "email" | "firstName" | "lastName"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         duty: Maybe<
                             { __typename?: "Duty" } & Pick<
                                 Duty,
                                 "dutyId" | "name" | "description"
-                            >
-                        >;
-                        evidence: Maybe<
-                            { __typename?: "Evidence" } & Pick<
-                                Evidence,
-                                "evidenceId" | "name" | "item"
                             >
                         >;
                     }
@@ -4649,24 +5736,55 @@ export type ResearchActivitiesByUserQuery = { __typename?: "Query" } & {
                     | "output"
                     | "title"
                     | "details"
-                    | "evidenceId"
+                    | "dates"
+                    | "url"
+                    | "evidence"
                 > & {
                         user: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "email" | "firstName" | "lastName"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         duty: Maybe<
                             { __typename?: "Duty" } & Pick<
                                 Duty,
                                 "dutyId" | "name" | "description"
-                            >
-                        >;
-                        evidence: Maybe<
-                            { __typename?: "Evidence" } & Pick<
-                                Evidence,
-                                "evidenceId" | "name" | "item"
                             >
                         >;
                     }
@@ -5234,19 +6352,40 @@ export type AddModuleMutation = { __typename?: "Mutation" } & {
             | "type"
             | "assessmentMethod"
             | "nqfLevel"
-            | "stackId"
+            | "credits"
+            | "qualificationId"
+            | "offeringTypeId"
+            | "disciplineId"
+            | "venueId"
+            | "blockId"
             | "userId"
             | "coordinatorId"
             | "moderatorId"
-            | "credits"
+            | "stackId"
+            | "studyPeriod"
+            | "groupSize"
             | "lecturedBy"
             | "moderation"
         > & {
                 qualification: Maybe<
                     { __typename?: "Qualification" } & Pick<
                         Qualification,
-                        "qualificationId" | "name"
-                    >
+                        "qualificationId" | "name" | "type" | "departmentId"
+                    > & {
+                            department: Maybe<
+                                { __typename?: "Department" } & Pick<
+                                    Department,
+                                    "departmentId" | "name" | "facultyId"
+                                > & {
+                                        faculty: Maybe<
+                                            { __typename?: "Faculty" } & Pick<
+                                                Faculty,
+                                                "facultyId" | "name"
+                                            >
+                                        >;
+                                    }
+                            >;
+                        }
                 >;
                 offeringType: Maybe<
                     { __typename?: "OfferingType" } & Pick<
@@ -5257,35 +6396,131 @@ export type AddModuleMutation = { __typename?: "Mutation" } & {
                 discipline: Maybe<
                     { __typename?: "Discipline" } & Pick<
                         Discipline,
-                        "disciplineId" | "name"
+                        "disciplineId" | "name" | "description"
                     >
                 >;
                 venue: Maybe<
                     { __typename?: "Venue" } & Pick<
                         Venue,
-                        "venueId" | "campus" | "capacity"
+                        "venueId" | "campus" | "capacity" | "type"
                     >
                 >;
                 block: Maybe<
-                    { __typename?: "Block" } & Pick<Block, "blockId" | "name">
+                    { __typename?: "Block" } & Pick<
+                        Block,
+                        "blockId" | "name" | "description"
+                    >
                 >;
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "firstName" | "lastName" | "email"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 coordinator: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "firstName" | "lastName" | "email"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 moderator: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "firstName" | "lastName" | "email"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
             }
     >;
@@ -5306,19 +6541,47 @@ export type AddModulesMutation = { __typename?: "Mutation" } & {
                     | "type"
                     | "assessmentMethod"
                     | "nqfLevel"
-                    | "stackId"
+                    | "credits"
+                    | "qualificationId"
+                    | "offeringTypeId"
+                    | "disciplineId"
+                    | "venueId"
+                    | "blockId"
                     | "userId"
                     | "coordinatorId"
                     | "moderatorId"
-                    | "credits"
+                    | "stackId"
+                    | "studyPeriod"
+                    | "groupSize"
                     | "lecturedBy"
                     | "moderation"
                 > & {
                         qualification: Maybe<
                             { __typename?: "Qualification" } & Pick<
                                 Qualification,
-                                "qualificationId" | "name"
-                            >
+                                | "qualificationId"
+                                | "name"
+                                | "type"
+                                | "departmentId"
+                            > & {
+                                    department: Maybe<
+                                        { __typename?: "Department" } & Pick<
+                                            Department,
+                                            | "departmentId"
+                                            | "name"
+                                            | "facultyId"
+                                        > & {
+                                                faculty: Maybe<
+                                                    {
+                                                        __typename?: "Faculty";
+                                                    } & Pick<
+                                                        Faculty,
+                                                        "facultyId" | "name"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                }
                         >;
                         offeringType: Maybe<
                             { __typename?: "OfferingType" } & Pick<
@@ -5329,38 +6592,143 @@ export type AddModulesMutation = { __typename?: "Mutation" } & {
                         discipline: Maybe<
                             { __typename?: "Discipline" } & Pick<
                                 Discipline,
-                                "disciplineId" | "name"
+                                "disciplineId" | "name" | "description"
                             >
                         >;
                         venue: Maybe<
                             { __typename?: "Venue" } & Pick<
                                 Venue,
-                                "venueId" | "campus" | "capacity"
+                                "venueId" | "campus" | "capacity" | "type"
                             >
                         >;
                         block: Maybe<
                             { __typename?: "Block" } & Pick<
                                 Block,
-                                "blockId" | "name"
+                                "blockId" | "name" | "description"
                             >
                         >;
                         user: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         coordinator: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         moderator: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                     }
             >
@@ -5381,11 +6749,17 @@ export type EditModuleMutation = { __typename?: "Mutation" } & {
             | "type"
             | "assessmentMethod"
             | "nqfLevel"
-            | "stackId"
+            | "credits"
+            | "qualificationId"
+            | "offeringTypeId"
+            | "disciplineId"
+            | "venueId"
+            | "blockId"
             | "userId"
             | "coordinatorId"
             | "moderatorId"
-            | "credits"
+            | "stackId"
+            | "studyPeriod"
             | "groupSize"
             | "lecturedBy"
             | "moderation"
@@ -5393,8 +6767,22 @@ export type EditModuleMutation = { __typename?: "Mutation" } & {
                 qualification: Maybe<
                     { __typename?: "Qualification" } & Pick<
                         Qualification,
-                        "qualificationId" | "name"
-                    >
+                        "qualificationId" | "name" | "type" | "departmentId"
+                    > & {
+                            department: Maybe<
+                                { __typename?: "Department" } & Pick<
+                                    Department,
+                                    "departmentId" | "name" | "facultyId"
+                                > & {
+                                        faculty: Maybe<
+                                            { __typename?: "Faculty" } & Pick<
+                                                Faculty,
+                                                "facultyId" | "name"
+                                            >
+                                        >;
+                                    }
+                            >;
+                        }
                 >;
                 offeringType: Maybe<
                     { __typename?: "OfferingType" } & Pick<
@@ -5405,35 +6793,131 @@ export type EditModuleMutation = { __typename?: "Mutation" } & {
                 discipline: Maybe<
                     { __typename?: "Discipline" } & Pick<
                         Discipline,
-                        "disciplineId" | "name"
+                        "disciplineId" | "name" | "description"
                     >
                 >;
                 venue: Maybe<
                     { __typename?: "Venue" } & Pick<
                         Venue,
-                        "venueId" | "campus" | "capacity"
+                        "venueId" | "campus" | "capacity" | "type"
                     >
                 >;
                 block: Maybe<
-                    { __typename?: "Block" } & Pick<Block, "blockId" | "name">
+                    { __typename?: "Block" } & Pick<
+                        Block,
+                        "blockId" | "name" | "description"
+                    >
                 >;
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "firstName" | "lastName" | "email"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 coordinator: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "firstName" | "lastName" | "email"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 moderator: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "firstName" | "lastName" | "email"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
             }
     >;
@@ -5452,10 +6936,17 @@ export type DeleteModuleMutation = { __typename?: "Mutation" } & {
             | "type"
             | "assessmentMethod"
             | "nqfLevel"
-            | "stackId"
+            | "credits"
+            | "qualificationId"
+            | "offeringTypeId"
+            | "disciplineId"
+            | "venueId"
+            | "blockId"
             | "userId"
             | "coordinatorId"
             | "moderatorId"
+            | "stackId"
+            | "studyPeriod"
             | "groupSize"
             | "lecturedBy"
             | "moderation"
@@ -5463,8 +6954,22 @@ export type DeleteModuleMutation = { __typename?: "Mutation" } & {
                 qualification: Maybe<
                     { __typename?: "Qualification" } & Pick<
                         Qualification,
-                        "qualificationId" | "name"
-                    >
+                        "qualificationId" | "name" | "type" | "departmentId"
+                    > & {
+                            department: Maybe<
+                                { __typename?: "Department" } & Pick<
+                                    Department,
+                                    "departmentId" | "name" | "facultyId"
+                                > & {
+                                        faculty: Maybe<
+                                            { __typename?: "Faculty" } & Pick<
+                                                Faculty,
+                                                "facultyId" | "name"
+                                            >
+                                        >;
+                                    }
+                            >;
+                        }
                 >;
                 offeringType: Maybe<
                     { __typename?: "OfferingType" } & Pick<
@@ -5475,35 +6980,131 @@ export type DeleteModuleMutation = { __typename?: "Mutation" } & {
                 discipline: Maybe<
                     { __typename?: "Discipline" } & Pick<
                         Discipline,
-                        "disciplineId" | "name"
+                        "disciplineId" | "name" | "description"
                     >
                 >;
                 venue: Maybe<
                     { __typename?: "Venue" } & Pick<
                         Venue,
-                        "venueId" | "campus" | "capacity"
+                        "venueId" | "campus" | "capacity" | "type"
                     >
                 >;
                 block: Maybe<
-                    { __typename?: "Block" } & Pick<Block, "blockId" | "name">
+                    { __typename?: "Block" } & Pick<
+                        Block,
+                        "blockId" | "name" | "description"
+                    >
                 >;
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "firstName" | "lastName" | "email"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 coordinator: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "firstName" | "lastName" | "email"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 moderator: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "firstName" | "lastName" | "email"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
             }
     >;
@@ -5525,7 +7126,7 @@ export type ModuleQuery = { __typename?: "Query" } & {
             | "type"
             | "assessmentMethod"
             | "nqfLevel"
-            | "stackId"
+            | "credits"
             | "qualificationId"
             | "offeringTypeId"
             | "disciplineId"
@@ -5534,7 +7135,8 @@ export type ModuleQuery = { __typename?: "Query" } & {
             | "userId"
             | "coordinatorId"
             | "moderatorId"
-            | "credits"
+            | "stackId"
+            | "studyPeriod"
             | "groupSize"
             | "lecturedBy"
             | "moderation"
@@ -5542,8 +7144,22 @@ export type ModuleQuery = { __typename?: "Query" } & {
                 qualification: Maybe<
                     { __typename?: "Qualification" } & Pick<
                         Qualification,
-                        "qualificationId" | "name"
-                    >
+                        "qualificationId" | "name" | "type" | "departmentId"
+                    > & {
+                            department: Maybe<
+                                { __typename?: "Department" } & Pick<
+                                    Department,
+                                    "departmentId" | "name" | "facultyId"
+                                > & {
+                                        faculty: Maybe<
+                                            { __typename?: "Faculty" } & Pick<
+                                                Faculty,
+                                                "facultyId" | "name"
+                                            >
+                                        >;
+                                    }
+                            >;
+                        }
                 >;
                 offeringType: Maybe<
                     { __typename?: "OfferingType" } & Pick<
@@ -5554,35 +7170,131 @@ export type ModuleQuery = { __typename?: "Query" } & {
                 discipline: Maybe<
                     { __typename?: "Discipline" } & Pick<
                         Discipline,
-                        "disciplineId" | "name"
+                        "disciplineId" | "name" | "description"
                     >
                 >;
                 venue: Maybe<
                     { __typename?: "Venue" } & Pick<
                         Venue,
-                        "venueId" | "campus" | "capacity"
+                        "venueId" | "campus" | "capacity" | "type"
                     >
                 >;
                 block: Maybe<
-                    { __typename?: "Block" } & Pick<Block, "blockId" | "name">
+                    { __typename?: "Block" } & Pick<
+                        Block,
+                        "blockId" | "name" | "description"
+                    >
                 >;
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "firstName" | "lastName" | "email"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 coordinator: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "firstName" | "lastName" | "email"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 moderator: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "firstName" | "lastName" | "email"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
             }
     >;
@@ -5601,11 +7313,17 @@ export type ModulesQuery = { __typename?: "Query" } & {
                     | "type"
                     | "assessmentMethod"
                     | "nqfLevel"
-                    | "stackId"
+                    | "credits"
+                    | "qualificationId"
+                    | "offeringTypeId"
+                    | "disciplineId"
+                    | "venueId"
+                    | "blockId"
                     | "userId"
                     | "coordinatorId"
                     | "moderatorId"
-                    | "credits"
+                    | "stackId"
+                    | "studyPeriod"
                     | "groupSize"
                     | "lecturedBy"
                     | "moderation"
@@ -5613,8 +7331,29 @@ export type ModulesQuery = { __typename?: "Query" } & {
                         qualification: Maybe<
                             { __typename?: "Qualification" } & Pick<
                                 Qualification,
-                                "qualificationId" | "name"
-                            >
+                                | "qualificationId"
+                                | "name"
+                                | "type"
+                                | "departmentId"
+                            > & {
+                                    department: Maybe<
+                                        { __typename?: "Department" } & Pick<
+                                            Department,
+                                            | "departmentId"
+                                            | "name"
+                                            | "facultyId"
+                                        > & {
+                                                faculty: Maybe<
+                                                    {
+                                                        __typename?: "Faculty";
+                                                    } & Pick<
+                                                        Faculty,
+                                                        "facultyId" | "name"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                }
                         >;
                         offeringType: Maybe<
                             { __typename?: "OfferingType" } & Pick<
@@ -5625,38 +7364,143 @@ export type ModulesQuery = { __typename?: "Query" } & {
                         discipline: Maybe<
                             { __typename?: "Discipline" } & Pick<
                                 Discipline,
-                                "disciplineId" | "name"
+                                "disciplineId" | "name" | "description"
                             >
                         >;
                         venue: Maybe<
                             { __typename?: "Venue" } & Pick<
                                 Venue,
-                                "venueId" | "campus" | "capacity"
+                                "venueId" | "campus" | "capacity" | "type"
                             >
                         >;
                         block: Maybe<
                             { __typename?: "Block" } & Pick<
                                 Block,
-                                "blockId" | "name"
+                                "blockId" | "name" | "description"
                             >
                         >;
                         user: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         coordinator: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         moderator: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                     }
             >
@@ -5679,11 +7523,17 @@ export type ModulesByDisciplineQuery = { __typename?: "Query" } & {
                     | "type"
                     | "assessmentMethod"
                     | "nqfLevel"
-                    | "stackId"
+                    | "credits"
+                    | "qualificationId"
+                    | "offeringTypeId"
+                    | "disciplineId"
+                    | "venueId"
+                    | "blockId"
                     | "userId"
                     | "coordinatorId"
                     | "moderatorId"
-                    | "credits"
+                    | "stackId"
+                    | "studyPeriod"
                     | "groupSize"
                     | "lecturedBy"
                     | "moderation"
@@ -5691,8 +7541,29 @@ export type ModulesByDisciplineQuery = { __typename?: "Query" } & {
                         qualification: Maybe<
                             { __typename?: "Qualification" } & Pick<
                                 Qualification,
-                                "qualificationId" | "name"
-                            >
+                                | "qualificationId"
+                                | "name"
+                                | "type"
+                                | "departmentId"
+                            > & {
+                                    department: Maybe<
+                                        { __typename?: "Department" } & Pick<
+                                            Department,
+                                            | "departmentId"
+                                            | "name"
+                                            | "facultyId"
+                                        > & {
+                                                faculty: Maybe<
+                                                    {
+                                                        __typename?: "Faculty";
+                                                    } & Pick<
+                                                        Faculty,
+                                                        "facultyId" | "name"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                }
                         >;
                         offeringType: Maybe<
                             { __typename?: "OfferingType" } & Pick<
@@ -5703,38 +7574,143 @@ export type ModulesByDisciplineQuery = { __typename?: "Query" } & {
                         discipline: Maybe<
                             { __typename?: "Discipline" } & Pick<
                                 Discipline,
-                                "disciplineId" | "name"
+                                "disciplineId" | "name" | "description"
                             >
                         >;
                         venue: Maybe<
                             { __typename?: "Venue" } & Pick<
                                 Venue,
-                                "venueId" | "campus" | "capacity"
+                                "venueId" | "campus" | "capacity" | "type"
                             >
                         >;
                         block: Maybe<
                             { __typename?: "Block" } & Pick<
                                 Block,
-                                "blockId" | "name"
+                                "blockId" | "name" | "description"
                             >
                         >;
                         user: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         coordinator: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         moderator: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                     }
             >
@@ -5755,11 +7731,17 @@ export type ModulesByUnassignedQuery = { __typename?: "Query" } & {
                     | "type"
                     | "assessmentMethod"
                     | "nqfLevel"
-                    | "stackId"
+                    | "credits"
+                    | "qualificationId"
+                    | "offeringTypeId"
+                    | "disciplineId"
+                    | "venueId"
+                    | "blockId"
                     | "userId"
                     | "coordinatorId"
                     | "moderatorId"
-                    | "credits"
+                    | "stackId"
+                    | "studyPeriod"
                     | "groupSize"
                     | "lecturedBy"
                     | "moderation"
@@ -5767,8 +7749,29 @@ export type ModulesByUnassignedQuery = { __typename?: "Query" } & {
                         qualification: Maybe<
                             { __typename?: "Qualification" } & Pick<
                                 Qualification,
-                                "qualificationId" | "name"
-                            >
+                                | "qualificationId"
+                                | "name"
+                                | "type"
+                                | "departmentId"
+                            > & {
+                                    department: Maybe<
+                                        { __typename?: "Department" } & Pick<
+                                            Department,
+                                            | "departmentId"
+                                            | "name"
+                                            | "facultyId"
+                                        > & {
+                                                faculty: Maybe<
+                                                    {
+                                                        __typename?: "Faculty";
+                                                    } & Pick<
+                                                        Faculty,
+                                                        "facultyId" | "name"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                }
                         >;
                         offeringType: Maybe<
                             { __typename?: "OfferingType" } & Pick<
@@ -5779,38 +7782,353 @@ export type ModulesByUnassignedQuery = { __typename?: "Query" } & {
                         discipline: Maybe<
                             { __typename?: "Discipline" } & Pick<
                                 Discipline,
-                                "disciplineId" | "name"
+                                "disciplineId" | "name" | "description"
                             >
                         >;
                         venue: Maybe<
                             { __typename?: "Venue" } & Pick<
                                 Venue,
-                                "venueId" | "campus" | "capacity"
+                                "venueId" | "campus" | "capacity" | "type"
                             >
                         >;
                         block: Maybe<
                             { __typename?: "Block" } & Pick<
                                 Block,
-                                "blockId" | "name"
+                                "blockId" | "name" | "description"
                             >
                         >;
                         user: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         coordinator: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         moderator: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
+                        >;
+                    }
+            >
+        >
+    >;
+};
+
+export type ModulesByUnassignedAndDisciplineQueryVariables = {
+    disciplineId?: Maybe<Scalars["String"]>;
+};
+
+export type ModulesByUnassignedAndDisciplineQuery = { __typename?: "Query" } & {
+    modulesByUnassignedAndDiscipline: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "Module" } & Pick<
+                    Module,
+                    | "moduleId"
+                    | "name"
+                    | "type"
+                    | "assessmentMethod"
+                    | "nqfLevel"
+                    | "credits"
+                    | "qualificationId"
+                    | "offeringTypeId"
+                    | "disciplineId"
+                    | "venueId"
+                    | "blockId"
+                    | "userId"
+                    | "coordinatorId"
+                    | "moderatorId"
+                    | "stackId"
+                    | "studyPeriod"
+                    | "groupSize"
+                    | "lecturedBy"
+                    | "moderation"
+                > & {
+                        qualification: Maybe<
+                            { __typename?: "Qualification" } & Pick<
+                                Qualification,
+                                | "qualificationId"
+                                | "name"
+                                | "type"
+                                | "departmentId"
+                            > & {
+                                    department: Maybe<
+                                        { __typename?: "Department" } & Pick<
+                                            Department,
+                                            | "departmentId"
+                                            | "name"
+                                            | "facultyId"
+                                        > & {
+                                                faculty: Maybe<
+                                                    {
+                                                        __typename?: "Faculty";
+                                                    } & Pick<
+                                                        Faculty,
+                                                        "facultyId" | "name"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                }
+                        >;
+                        offeringType: Maybe<
+                            { __typename?: "OfferingType" } & Pick<
+                                OfferingType,
+                                "offeringTypeId" | "description"
                             >
+                        >;
+                        discipline: Maybe<
+                            { __typename?: "Discipline" } & Pick<
+                                Discipline,
+                                "disciplineId" | "name" | "description"
+                            >
+                        >;
+                        venue: Maybe<
+                            { __typename?: "Venue" } & Pick<
+                                Venue,
+                                "venueId" | "campus" | "capacity" | "type"
+                            >
+                        >;
+                        block: Maybe<
+                            { __typename?: "Block" } & Pick<
+                                Block,
+                                "blockId" | "name" | "description"
+                            >
+                        >;
+                        user: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
+                        >;
+                        coordinator: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
+                        >;
+                        moderator: Maybe<
+                            { __typename?: "User" } & Pick<
+                                User,
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                     }
             >
@@ -5833,11 +8151,17 @@ export type ModulesByUserQuery = { __typename?: "Query" } & {
                     | "type"
                     | "assessmentMethod"
                     | "nqfLevel"
-                    | "stackId"
+                    | "credits"
+                    | "qualificationId"
+                    | "offeringTypeId"
+                    | "disciplineId"
+                    | "venueId"
+                    | "blockId"
                     | "userId"
                     | "coordinatorId"
                     | "moderatorId"
-                    | "credits"
+                    | "stackId"
+                    | "studyPeriod"
                     | "groupSize"
                     | "lecturedBy"
                     | "moderation"
@@ -5845,8 +8169,29 @@ export type ModulesByUserQuery = { __typename?: "Query" } & {
                         qualification: Maybe<
                             { __typename?: "Qualification" } & Pick<
                                 Qualification,
-                                "qualificationId" | "name"
-                            >
+                                | "qualificationId"
+                                | "name"
+                                | "type"
+                                | "departmentId"
+                            > & {
+                                    department: Maybe<
+                                        { __typename?: "Department" } & Pick<
+                                            Department,
+                                            | "departmentId"
+                                            | "name"
+                                            | "facultyId"
+                                        > & {
+                                                faculty: Maybe<
+                                                    {
+                                                        __typename?: "Faculty";
+                                                    } & Pick<
+                                                        Faculty,
+                                                        "facultyId" | "name"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                }
                         >;
                         offeringType: Maybe<
                             { __typename?: "OfferingType" } & Pick<
@@ -5857,38 +8202,143 @@ export type ModulesByUserQuery = { __typename?: "Query" } & {
                         discipline: Maybe<
                             { __typename?: "Discipline" } & Pick<
                                 Discipline,
-                                "disciplineId" | "name"
+                                "disciplineId" | "name" | "description"
                             >
                         >;
                         venue: Maybe<
                             { __typename?: "Venue" } & Pick<
                                 Venue,
-                                "venueId" | "campus" | "capacity"
+                                "venueId" | "campus" | "capacity" | "type"
                             >
                         >;
                         block: Maybe<
                             { __typename?: "Block" } & Pick<
                                 Block,
-                                "blockId" | "name"
+                                "blockId" | "name" | "description"
                             >
                         >;
                         user: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         coordinator: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         moderator: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                     }
             >
@@ -5911,11 +8361,17 @@ export type ModulesByModeratorQuery = { __typename?: "Query" } & {
                     | "type"
                     | "assessmentMethod"
                     | "nqfLevel"
-                    | "stackId"
+                    | "credits"
+                    | "qualificationId"
+                    | "offeringTypeId"
+                    | "disciplineId"
+                    | "venueId"
+                    | "blockId"
                     | "userId"
                     | "coordinatorId"
                     | "moderatorId"
-                    | "credits"
+                    | "stackId"
+                    | "studyPeriod"
                     | "groupSize"
                     | "lecturedBy"
                     | "moderation"
@@ -5923,8 +8379,29 @@ export type ModulesByModeratorQuery = { __typename?: "Query" } & {
                         qualification: Maybe<
                             { __typename?: "Qualification" } & Pick<
                                 Qualification,
-                                "qualificationId" | "name"
-                            >
+                                | "qualificationId"
+                                | "name"
+                                | "type"
+                                | "departmentId"
+                            > & {
+                                    department: Maybe<
+                                        { __typename?: "Department" } & Pick<
+                                            Department,
+                                            | "departmentId"
+                                            | "name"
+                                            | "facultyId"
+                                        > & {
+                                                faculty: Maybe<
+                                                    {
+                                                        __typename?: "Faculty";
+                                                    } & Pick<
+                                                        Faculty,
+                                                        "facultyId" | "name"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                }
                         >;
                         offeringType: Maybe<
                             { __typename?: "OfferingType" } & Pick<
@@ -5935,38 +8412,143 @@ export type ModulesByModeratorQuery = { __typename?: "Query" } & {
                         discipline: Maybe<
                             { __typename?: "Discipline" } & Pick<
                                 Discipline,
-                                "disciplineId" | "name"
+                                "disciplineId" | "name" | "description"
                             >
                         >;
                         venue: Maybe<
                             { __typename?: "Venue" } & Pick<
                                 Venue,
-                                "venueId" | "campus" | "capacity"
+                                "venueId" | "campus" | "capacity" | "type"
                             >
                         >;
                         block: Maybe<
                             { __typename?: "Block" } & Pick<
                                 Block,
-                                "blockId" | "name"
+                                "blockId" | "name" | "description"
                             >
                         >;
                         user: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         coordinator: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         moderator: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                     }
             >
@@ -5989,11 +8571,17 @@ export type ModulesByCoordinatorQuery = { __typename?: "Query" } & {
                     | "type"
                     | "assessmentMethod"
                     | "nqfLevel"
-                    | "stackId"
+                    | "credits"
+                    | "qualificationId"
+                    | "offeringTypeId"
+                    | "disciplineId"
+                    | "venueId"
+                    | "blockId"
                     | "userId"
                     | "coordinatorId"
                     | "moderatorId"
-                    | "credits"
+                    | "stackId"
+                    | "studyPeriod"
                     | "groupSize"
                     | "lecturedBy"
                     | "moderation"
@@ -6001,8 +8589,29 @@ export type ModulesByCoordinatorQuery = { __typename?: "Query" } & {
                         qualification: Maybe<
                             { __typename?: "Qualification" } & Pick<
                                 Qualification,
-                                "qualificationId" | "name"
-                            >
+                                | "qualificationId"
+                                | "name"
+                                | "type"
+                                | "departmentId"
+                            > & {
+                                    department: Maybe<
+                                        { __typename?: "Department" } & Pick<
+                                            Department,
+                                            | "departmentId"
+                                            | "name"
+                                            | "facultyId"
+                                        > & {
+                                                faculty: Maybe<
+                                                    {
+                                                        __typename?: "Faculty";
+                                                    } & Pick<
+                                                        Faculty,
+                                                        "facultyId" | "name"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                }
                         >;
                         offeringType: Maybe<
                             { __typename?: "OfferingType" } & Pick<
@@ -6013,38 +8622,143 @@ export type ModulesByCoordinatorQuery = { __typename?: "Query" } & {
                         discipline: Maybe<
                             { __typename?: "Discipline" } & Pick<
                                 Discipline,
-                                "disciplineId" | "name"
+                                "disciplineId" | "name" | "description"
                             >
                         >;
                         venue: Maybe<
                             { __typename?: "Venue" } & Pick<
                                 Venue,
-                                "venueId" | "campus" | "capacity"
+                                "venueId" | "campus" | "capacity" | "type"
                             >
                         >;
                         block: Maybe<
                             { __typename?: "Block" } & Pick<
                                 Block,
-                                "blockId" | "name"
+                                "blockId" | "name" | "description"
                             >
                         >;
                         user: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         coordinator: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         moderator: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                     }
             >
@@ -6067,11 +8781,17 @@ export type ModulesByStackQuery = { __typename?: "Query" } & {
                     | "type"
                     | "assessmentMethod"
                     | "nqfLevel"
-                    | "stackId"
+                    | "credits"
+                    | "qualificationId"
+                    | "offeringTypeId"
+                    | "disciplineId"
+                    | "venueId"
+                    | "blockId"
                     | "userId"
                     | "coordinatorId"
                     | "moderatorId"
-                    | "credits"
+                    | "stackId"
+                    | "studyPeriod"
                     | "groupSize"
                     | "lecturedBy"
                     | "moderation"
@@ -6079,8 +8799,29 @@ export type ModulesByStackQuery = { __typename?: "Query" } & {
                         qualification: Maybe<
                             { __typename?: "Qualification" } & Pick<
                                 Qualification,
-                                "qualificationId" | "name"
-                            >
+                                | "qualificationId"
+                                | "name"
+                                | "type"
+                                | "departmentId"
+                            > & {
+                                    department: Maybe<
+                                        { __typename?: "Department" } & Pick<
+                                            Department,
+                                            | "departmentId"
+                                            | "name"
+                                            | "facultyId"
+                                        > & {
+                                                faculty: Maybe<
+                                                    {
+                                                        __typename?: "Faculty";
+                                                    } & Pick<
+                                                        Faculty,
+                                                        "facultyId" | "name"
+                                                    >
+                                                >;
+                                            }
+                                    >;
+                                }
                         >;
                         offeringType: Maybe<
                             { __typename?: "OfferingType" } & Pick<
@@ -6091,38 +8832,143 @@ export type ModulesByStackQuery = { __typename?: "Query" } & {
                         discipline: Maybe<
                             { __typename?: "Discipline" } & Pick<
                                 Discipline,
-                                "disciplineId" | "name"
+                                "disciplineId" | "name" | "description"
                             >
                         >;
                         venue: Maybe<
                             { __typename?: "Venue" } & Pick<
                                 Venue,
-                                "venueId" | "campus" | "capacity"
+                                "venueId" | "campus" | "capacity" | "type"
                             >
                         >;
                         block: Maybe<
                             { __typename?: "Block" } & Pick<
                                 Block,
-                                "blockId" | "name"
+                                "blockId" | "name" | "description"
                             >
                         >;
                         user: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         coordinator: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         moderator: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "firstName" | "lastName" | "email"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                     }
             >
@@ -6527,6 +9373,30 @@ export type StudentsQuery = { __typename?: "Query" } & {
     >;
 };
 
+export type UploadlProfilePictureMutationVariables = {
+    file: Scalars["Upload"];
+    userId: Scalars["String"];
+};
+
+export type UploadlProfilePictureMutation = { __typename?: "Mutation" } & {
+    uploadProfilePicture: { __typename?: "File" } & Pick<
+        File,
+        "id" | "path" | "filename" | "mimetype"
+    >;
+};
+
+export type UploadEvidenceMutationVariables = {
+    file: Scalars["Upload"];
+    activityId: Scalars["String"];
+};
+
+export type UploadEvidenceMutation = { __typename?: "Mutation" } & {
+    uploadEvidence: { __typename?: "File" } & Pick<
+        File,
+        "id" | "path" | "filename" | "mimetype"
+    >;
+};
+
 export type AddUserMutationVariables = {
     user?: Maybe<UserInput>;
 };
@@ -6824,6 +9694,40 @@ export type WorkFocusesQuery = { __typename?: "Query" } & {
         >
     >;
 };
+
+export type TeachingHoursQueryVariables = {
+    userId: Scalars["String"];
+};
+
+export type TeachingHoursQuery = { __typename?: "Query" } & Pick<
+    Query,
+    "teachingHours"
+>;
+
+export type ResearchHoursQueryVariables = {
+    userId: Scalars["String"];
+};
+
+export type ResearchHoursQuery = { __typename?: "Query" } & Pick<
+    Query,
+    "researchHours"
+>;
+
+export type ServiceHoursQueryVariables = {
+    userId: Scalars["String"];
+};
+
+export type ServiceHoursQuery = { __typename?: "Query" } & Pick<
+    Query,
+    "serviceHours"
+>;
+
+export type AnnualHoursQueryVariables = {};
+
+export type AnnualHoursQuery = { __typename?: "Query" } & Pick<
+    Query,
+    "annualHours"
+>;
 
 export type AcademicAdministrationWorkloadPerUserQueryVariables = {
     userId?: Maybe<Scalars["String"]>;
@@ -7166,6 +10070,158 @@ export type FormalInstructionWorkloadPerUserQuery = { __typename?: "Query" } & {
     >;
 };
 
+export type FormalInstructionLectureWeeksQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionLectureWeeksQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionLectureWeeks">;
+
+export type FormalInstructionStudentsEnrolledQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionStudentsEnrolledQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionStudentsEnrolled">;
+
+export type FormalInstructionBaseContactHoursQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionBaseContactHoursQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionBaseContactHours">;
+
+export type FormalInstructionCoordinationHoursQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionCoordinationHoursQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionCoordinationHours">;
+
+export type FormalInstructionStudentSupportHoursQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionStudentSupportHoursQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionStudentSupportHours">;
+
+export type FormalInstructionPreparationTimeHoursQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionPreparationTimeHoursQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionPreparationTimeHours">;
+
+export type FormalInstructionAssessmentSettingHoursQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionAssessmentSettingHoursQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionAssessmentSettingHours">;
+
+export type FormalInstructionExamMarkingHoursQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionExamMarkingHoursQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionExamMarkingHours">;
+
+export type FormalInstructionCourseworkMarkingHoursQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionCourseworkMarkingHoursQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionCourseworkMarkingHours">;
+
+export type FormalInstructionFeedbackHoursQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionFeedbackHoursQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionFeedbackHours">;
+
+export type FormalInstructionFormativeAssessmentHoursQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionFormativeAssessmentHoursQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionFormativeAssessmentHours">;
+
+export type FormalInstructionModerationHoursQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionModerationHoursQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionModerationHours">;
+
+export type FormalInstructionTotalHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionTotalHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionTotalHoursPerActivity">;
+
+export type FormalInstructionOtherHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionOtherHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionOtherHoursPerActivity">;
+
+export type FormalInstructionTotalHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionTotalHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionTotalHoursPerUser">;
+
+export type FormalInstructionPercentageOfWorkFocusPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionPercentageOfWorkFocusPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionPercentageOfWorkFocusPerActivity">;
+
+export type FormalInstructionPercentageOfWorkFocusPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionPercentageOfWorkFocusPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionPercentageOfWorkFocusPerUser">;
+
+export type FormalInstructionPercentageOfAnnualHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionPercentageOfAnnualHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionPercentageOfAnnualHoursPerActivity">;
+
+export type FormalInstructionPercentageOfAnnualHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionPercentageOfAnnualHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionPercentageOfAnnualHoursPerUser">;
+
 export type PersonnelDevelopmentWorkloadPerUserQueryVariables = {
     userId?: Maybe<Scalars["String"]>;
 };
@@ -7294,11 +10350,9 @@ export type SupervisionWorkloadPerUserQuery = { __typename?: "Query" } & {
 
 export const AddAcademicAdministrationActivityDocument = gql`
     mutation addAcademicAdministrationActivity(
-        $academicAdministrationActivity: AcademicAdministrationActivityInput
+        $activity: AcademicAdministrationActivityInput
     ) {
-        addAcademicAdministrationActivity(
-            academicAdministrationActivity: $academicAdministrationActivity
-        ) {
+        addAcademicAdministrationActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -7306,6 +10360,28 @@ export const AddAcademicAdministrationActivityDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -7318,12 +10394,7 @@ export const AddAcademicAdministrationActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -7339,11 +10410,9 @@ export class AddAcademicAdministrationActivityGQL extends Apollo.Mutation<
 }
 export const EditAcademicAdministrationActivityDocument = gql`
     mutation editAcademicAdministrationActivity(
-        $academicAdministrationActivity: AcademicAdministrationActivityInput
+        $activity: AcademicAdministrationActivityInput
     ) {
-        editAcademicAdministrationActivity(
-            academicAdministrationActivity: $academicAdministrationActivity
-        ) {
+        editAcademicAdministrationActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -7351,6 +10420,28 @@ export const EditAcademicAdministrationActivityDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -7363,12 +10454,7 @@ export const EditAcademicAdministrationActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -7384,11 +10470,9 @@ export class EditAcademicAdministrationActivityGQL extends Apollo.Mutation<
 }
 export const DeleteAcademicAdministrationActivityDocument = gql`
     mutation deleteAcademicAdministrationActivity(
-        $academicAdministrationActivity: AcademicAdministrationActivityInput
+        $activity: AcademicAdministrationActivityInput
     ) {
-        deleteAcademicAdministrationActivity(
-            academicAdministrationActivity: $academicAdministrationActivity
-        ) {
+        deleteAcademicAdministrationActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -7396,6 +10480,28 @@ export const DeleteAcademicAdministrationActivityDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -7408,12 +10514,7 @@ export const DeleteAcademicAdministrationActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -7437,6 +10538,28 @@ export const AcademicAdministrationActivityDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -7449,12 +10572,7 @@ export const AcademicAdministrationActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -7478,6 +10596,28 @@ export const AcademicAdministrationActivitiesDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -7490,12 +10630,7 @@ export const AcademicAdministrationActivitiesDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -7519,6 +10654,28 @@ export const AcademicAdministrationActivitiesByUserDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -7531,12 +10688,7 @@ export const AcademicAdministrationActivitiesByUserDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -7573,52 +10725,27 @@ export const ActivityDocument = gql`
             ... on AcademicAdministrationActivity {
                 title
                 description
-                evidenceId
-                evidence {
-                    evidenceId
-                    name
-                    item
-                }
+                evidence
             }
             ... on ExecutiveManagementActivity {
                 title
                 description
-                evidenceId
-                evidence {
-                    evidenceId
-                    name
-                    item
-                }
+                evidence
             }
             ... on PersonnelDevelopmentActivity {
                 title
                 description
-                evidenceId
-                evidence {
-                    evidenceId
-                    name
-                    item
-                }
+                evidence
             }
             ... on CommunityInstructionActivity {
                 title
                 description
-                evidenceId
-                evidence {
-                    evidenceId
-                    name
-                    item
-                }
+                evidence
             }
             ... on PublicServiceActivity {
                 title
                 description
-                evidenceId
-                evidence {
-                    evidenceId
-                    name
-                    item
-                }
+                evidence
             }
             ... on FormalInstructionActivity {
                 moduleId
@@ -7708,12 +10835,7 @@ export const ActivityDocument = gql`
                 output
                 title
                 details
-                evidenceId
-                evidence {
-                    evidenceId
-                    name
-                    item
-                }
+                evidence
             }
             ... on SupervisionActivity {
                 supervisionRole
@@ -7761,22 +10883,12 @@ export const ActivitiesByUnapprovedDocument = gql`
             ... on CommunityInstructionActivity {
                 title
                 description
-                evidenceId
-                evidence {
-                    evidenceId
-                    name
-                    item
-                }
+                evidence
             }
             ... on PublicServiceActivity {
                 title
                 description
-                evidenceId
-                evidence {
-                    evidenceId
-                    name
-                    item
-                }
+                evidence
             }
             ... on FormalInstructionActivity {
                 activityId
@@ -7887,12 +10999,7 @@ export const ActivitiesByUnapprovedDocument = gql`
                 output
                 title
                 details
-                evidenceId
-                evidence {
-                    evidenceId
-                    name
-                    item
-                }
+                evidence
             }
             ... on SupervisionActivity {
                 supervisionRole
@@ -7920,11 +11027,9 @@ export class ActivitiesByUnapprovedGQL extends Apollo.Query<
 }
 export const AddCommunityInstructionActivityDocument = gql`
     mutation addCommunityInstructionActivity(
-        $communityInstructionActivity: CommunityInstructionActivityInput
+        $activity: CommunityInstructionActivityInput
     ) {
-        addCommunityInstructionActivity(
-            communityInstructionActivity: $communityInstructionActivity
-        ) {
+        addCommunityInstructionActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -7944,12 +11049,7 @@ export const AddCommunityInstructionActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -7965,11 +11065,9 @@ export class AddCommunityInstructionActivityGQL extends Apollo.Mutation<
 }
 export const EditCommunityInstructionActivityDocument = gql`
     mutation editCommunityInstructionActivity(
-        $communityInstructionActivity: CommunityInstructionActivityInput
+        $activity: CommunityInstructionActivityInput
     ) {
-        editCommunityInstructionActivity(
-            communityInstructionActivity: $communityInstructionActivity
-        ) {
+        editCommunityInstructionActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -7989,12 +11087,7 @@ export const EditCommunityInstructionActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -8010,11 +11103,9 @@ export class EditCommunityInstructionActivityGQL extends Apollo.Mutation<
 }
 export const DeleteCommunityInstructionActivityDocument = gql`
     mutation deleteCommunityInstructionActivity(
-        $communityInstructionActivity: CommunityInstructionActivityInput
+        $activity: CommunityInstructionActivityInput
     ) {
-        deleteCommunityInstructionActivity(
-            communityInstructionActivity: $communityInstructionActivity
-        ) {
+        deleteCommunityInstructionActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -8034,12 +11125,7 @@ export const DeleteCommunityInstructionActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -8075,12 +11161,7 @@ export const CommunityInstructionActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -8116,12 +11197,7 @@ export const CommunityInstructionActivitiesDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -8157,12 +11233,7 @@ export const CommunityInstructionActivitiesByUserDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -8178,11 +11249,9 @@ export class CommunityInstructionActivitiesByUserGQL extends Apollo.Query<
 }
 export const AddExecutiveManagementActivityDocument = gql`
     mutation addExecutiveManagementActivity(
-        $executiveManagementActivity: ExecutiveManagementActivityInput
+        $activity: ExecutiveManagementActivityInput
     ) {
-        addExecutiveManagementActivity(
-            executiveManagementActivity: $executiveManagementActivity
-        ) {
+        addExecutiveManagementActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -8202,12 +11271,7 @@ export const AddExecutiveManagementActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -8223,11 +11287,9 @@ export class AddExecutiveManagementActivityGQL extends Apollo.Mutation<
 }
 export const EditExecutiveManagementActivityDocument = gql`
     mutation editExecutiveManagementActivity(
-        $executiveManagementActivity: ExecutiveManagementActivityInput
+        $activity: ExecutiveManagementActivityInput
     ) {
-        editExecutiveManagementActivity(
-            executiveManagementActivity: $executiveManagementActivity
-        ) {
+        editExecutiveManagementActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -8247,12 +11309,7 @@ export const EditExecutiveManagementActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -8268,11 +11325,9 @@ export class EditExecutiveManagementActivityGQL extends Apollo.Mutation<
 }
 export const DeleteExecutiveManagementActivityDocument = gql`
     mutation deleteExecutiveManagementActivity(
-        $executiveManagementActivity: ExecutiveManagementActivityInput
+        $activity: ExecutiveManagementActivityInput
     ) {
-        deleteExecutiveManagementActivity(
-            executiveManagementActivity: $executiveManagementActivity
-        ) {
+        deleteExecutiveManagementActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -8292,12 +11347,7 @@ export const DeleteExecutiveManagementActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -8333,12 +11383,7 @@ export const ExecutiveManagementActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -8374,12 +11419,7 @@ export const ExecutiveManagementActivitiesDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -8415,12 +11455,7 @@ export const ExecutiveManagementActivitiesByUserDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -8436,11 +11471,9 @@ export class ExecutiveManagementActivitiesByUserGQL extends Apollo.Query<
 }
 export const AddFormalInstructionActivityDocument = gql`
     mutation addFormalInstructionActivity(
-        $formalInstructionActivity: FormalInstructionActivityInput
+        $activity: FormalInstructionActivityInput
     ) {
-        addFormalInstructionActivity(
-            formalInstructionActivity: $formalInstructionActivity
-        ) {
+        addFormalInstructionActivity(activity: $activity) {
             activityId
             dutyId
             duty {
@@ -8561,11 +11594,9 @@ export class AddFormalInstructionActivityGQL extends Apollo.Mutation<
 }
 export const EditFormalInstructionActivityDocument = gql`
     mutation editFormalInstructionActivity(
-        $formalInstructionActivity: FormalInstructionActivityInput
+        $activity: FormalInstructionActivityInput
     ) {
-        editFormalInstructionActivity(
-            formalInstructionActivity: $formalInstructionActivity
-        ) {
+        editFormalInstructionActivity(activity: $activity) {
             activityId
             dutyId
             duty {
@@ -8686,11 +11717,9 @@ export class EditFormalInstructionActivityGQL extends Apollo.Mutation<
 }
 export const DeleteFormalInstructionActivityDocument = gql`
     mutation deleteFormalInstructionActivity(
-        $formalInstructionActivity: FormalInstructionActivityInput
+        $activity: FormalInstructionActivityInput
     ) {
-        deleteFormalInstructionActivity(
-            formalInstructionActivity: $formalInstructionActivity
-        ) {
+        deleteFormalInstructionActivity(activity: $activity) {
             activityId
             dutyId
             duty {
@@ -8810,10 +11839,8 @@ export class DeleteFormalInstructionActivityGQL extends Apollo.Mutation<
     document = DeleteFormalInstructionActivityDocument;
 }
 export const AddSupervisionActivityDocument = gql`
-    mutation addSupervisionActivity(
-        $supervisionActivity: SupervisionActivityInput
-    ) {
-        addSupervisionActivity(supervisionActivity: $supervisionActivity) {
+    mutation addSupervisionActivity($activity: SupervisionActivityInput) {
+        addSupervisionActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -8856,10 +11883,8 @@ export class AddSupervisionActivityGQL extends Apollo.Mutation<
     document = AddSupervisionActivityDocument;
 }
 export const EditSupervisionActivityDocument = gql`
-    mutation editSupervisionActivity(
-        $supervisionActivity: SupervisionActivityInput
-    ) {
-        addSupervisionActivity(supervisionActivity: $supervisionActivity) {
+    mutation editSupervisionActivity($activity: SupervisionActivityInput) {
+        addSupervisionActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -8903,10 +11928,8 @@ export class EditSupervisionActivityGQL extends Apollo.Mutation<
     document = EditSupervisionActivityDocument;
 }
 export const DeleteSupervisionActivityDocument = gql`
-    mutation deleteSupervisionActivity(
-        $supervisionActivity: SupervisionActivityInput
-    ) {
-        addSupervisionActivity(supervisionActivity: $supervisionActivity) {
+    mutation deleteSupervisionActivity($activity: SupervisionActivityInput) {
+        addSupervisionActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -8952,26 +11975,44 @@ export const FormalInstructionActivityDocument = gql`
     query formalInstructionActivity($activityId: String!) {
         formalInstructionActivity(activityId: $activityId) {
             activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
+            }
             dutyId
             duty {
                 dutyId
                 name
                 description
             }
-            userId
-            user {
-                userId
-                firstName
-                lastName
-                discipline {
-                    disciplineId
-                    name
-                }
-                position {
-                    positionId
-                    name
-                }
-            }
+            approvalStatus
+            createdAt
+            updatedAt
             moduleId
             module {
                 moduleId
@@ -8984,6 +12025,17 @@ export const FormalInstructionActivityDocument = gql`
                 qualification {
                     qualificationId
                     name
+                    type
+                    departmentId
+                    department {
+                        departmentId
+                        name
+                        facultyId
+                        faculty {
+                            facultyId
+                            name
+                        }
+                    }
                 }
                 offeringTypeId
                 offeringType {
@@ -8994,46 +12046,109 @@ export const FormalInstructionActivityDocument = gql`
                 discipline {
                     disciplineId
                     name
+                    description
                 }
                 venueId
                 venue {
                     venueId
                     campus
                     capacity
+                    type
                 }
                 blockId
                 block {
                     blockId
                     name
+                    description
+                }
+                userId
+                user {
+                    userId
+                    email
+                    firstName
+                    lastName
+                    photoUrl
+                    disciplineId
+                    discipline {
+                        disciplineId
+                        name
+                        description
+                    }
+                    positionId
+                    position {
+                        positionId
+                        name
+                        description
+                    }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
                 }
                 coordinatorId
                 coordinator {
                     userId
+                    email
                     firstName
                     lastName
+                    photoUrl
+                    disciplineId
                     discipline {
                         disciplineId
                         name
+                        description
                     }
+                    positionId
                     position {
                         positionId
                         name
+                        description
                     }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
                 }
                 moderatorId
                 moderator {
                     userId
+                    email
                     firstName
                     lastName
+                    photoUrl
+                    disciplineId
                     discipline {
                         disciplineId
                         name
+                        description
                     }
+                    positionId
                     position {
                         positionId
                         name
+                        description
                     }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
                 }
+                stackId
                 studyPeriod
                 groupSize
                 lecturedBy
@@ -9043,6 +12158,7 @@ export const FormalInstructionActivityDocument = gql`
             block {
                 blockId
                 name
+                description
             }
             offeringTypeId
             offeringType {
@@ -9053,6 +12169,17 @@ export const FormalInstructionActivityDocument = gql`
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
             createdAt
             updatedAt
@@ -9073,26 +12200,44 @@ export const FormalInstructionActivitiesDocument = gql`
     query formalInstructionActivities {
         formalInstructionActivities {
             activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
+            }
             dutyId
             duty {
                 dutyId
                 name
                 description
             }
-            userId
-            user {
-                userId
-                firstName
-                lastName
-                discipline {
-                    disciplineId
-                    name
-                }
-                position {
-                    positionId
-                    name
-                }
-            }
+            approvalStatus
+            createdAt
+            updatedAt
             moduleId
             module {
                 moduleId
@@ -9105,6 +12250,17 @@ export const FormalInstructionActivitiesDocument = gql`
                 qualification {
                     qualificationId
                     name
+                    type
+                    departmentId
+                    department {
+                        departmentId
+                        name
+                        facultyId
+                        faculty {
+                            facultyId
+                            name
+                        }
+                    }
                 }
                 offeringTypeId
                 offeringType {
@@ -9115,46 +12271,109 @@ export const FormalInstructionActivitiesDocument = gql`
                 discipline {
                     disciplineId
                     name
+                    description
                 }
                 venueId
                 venue {
                     venueId
                     campus
                     capacity
+                    type
                 }
                 blockId
                 block {
                     blockId
                     name
+                    description
+                }
+                userId
+                user {
+                    userId
+                    email
+                    firstName
+                    lastName
+                    photoUrl
+                    disciplineId
+                    discipline {
+                        disciplineId
+                        name
+                        description
+                    }
+                    positionId
+                    position {
+                        positionId
+                        name
+                        description
+                    }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
                 }
                 coordinatorId
                 coordinator {
                     userId
+                    email
                     firstName
                     lastName
+                    photoUrl
+                    disciplineId
                     discipline {
                         disciplineId
                         name
+                        description
                     }
+                    positionId
                     position {
                         positionId
                         name
+                        description
                     }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
                 }
                 moderatorId
                 moderator {
                     userId
+                    email
                     firstName
                     lastName
+                    photoUrl
+                    disciplineId
                     discipline {
                         disciplineId
                         name
+                        description
                     }
+                    positionId
                     position {
                         positionId
                         name
+                        description
                     }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
                 }
+                stackId
                 studyPeriod
                 groupSize
                 lecturedBy
@@ -9164,6 +12383,7 @@ export const FormalInstructionActivitiesDocument = gql`
             block {
                 blockId
                 name
+                description
             }
             offeringTypeId
             offeringType {
@@ -9174,6 +12394,17 @@ export const FormalInstructionActivitiesDocument = gql`
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
             createdAt
             updatedAt
@@ -9194,26 +12425,44 @@ export const FormalInstructionActivitiesByUserDocument = gql`
     query formalInstructionActivitiesByUser($userId: String!) {
         formalInstructionActivitiesByUser(userId: $userId) {
             activityId
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
+            }
             dutyId
             duty {
                 dutyId
                 name
                 description
             }
-            userId
-            user {
-                userId
-                firstName
-                lastName
-                discipline {
-                    disciplineId
-                    name
-                }
-                position {
-                    positionId
-                    name
-                }
-            }
+            approvalStatus
+            createdAt
+            updatedAt
             moduleId
             module {
                 moduleId
@@ -9226,6 +12475,17 @@ export const FormalInstructionActivitiesByUserDocument = gql`
                 qualification {
                     qualificationId
                     name
+                    type
+                    departmentId
+                    department {
+                        departmentId
+                        name
+                        facultyId
+                        faculty {
+                            facultyId
+                            name
+                        }
+                    }
                 }
                 offeringTypeId
                 offeringType {
@@ -9236,46 +12496,109 @@ export const FormalInstructionActivitiesByUserDocument = gql`
                 discipline {
                     disciplineId
                     name
+                    description
                 }
                 venueId
                 venue {
                     venueId
                     campus
                     capacity
+                    type
                 }
                 blockId
                 block {
                     blockId
                     name
+                    description
+                }
+                userId
+                user {
+                    userId
+                    email
+                    firstName
+                    lastName
+                    photoUrl
+                    disciplineId
+                    discipline {
+                        disciplineId
+                        name
+                        description
+                    }
+                    positionId
+                    position {
+                        positionId
+                        name
+                        description
+                    }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
                 }
                 coordinatorId
                 coordinator {
                     userId
+                    email
                     firstName
                     lastName
+                    photoUrl
+                    disciplineId
                     discipline {
                         disciplineId
                         name
+                        description
                     }
+                    positionId
                     position {
                         positionId
                         name
+                        description
                     }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
                 }
                 moderatorId
                 moderator {
                     userId
+                    email
                     firstName
                     lastName
+                    photoUrl
+                    disciplineId
                     discipline {
                         disciplineId
                         name
+                        description
                     }
+                    positionId
                     position {
                         positionId
                         name
+                        description
                     }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
                 }
+                stackId
                 studyPeriod
                 groupSize
                 lecturedBy
@@ -9285,6 +12608,7 @@ export const FormalInstructionActivitiesByUserDocument = gql`
             block {
                 blockId
                 name
+                description
             }
             offeringTypeId
             offeringType {
@@ -9295,6 +12619,17 @@ export const FormalInstructionActivitiesByUserDocument = gql`
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
             createdAt
             updatedAt
@@ -9439,11 +12774,9 @@ export class SupervisionActivitiesByUserGQL extends Apollo.Query<
 }
 export const AddPersonnelDevelopmentActivityDocument = gql`
     mutation addPersonnelDevelopmentActivity(
-        $personnelDevelopmentActivity: PersonnelDevelopmentActivityInput
+        $activity: PersonnelDevelopmentActivityInput
     ) {
-        addPersonnelDevelopmentActivity(
-            personnelDevelopmentActivity: $personnelDevelopmentActivity
-        ) {
+        addPersonnelDevelopmentActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -9463,12 +12796,7 @@ export const AddPersonnelDevelopmentActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -9484,11 +12812,9 @@ export class AddPersonnelDevelopmentActivityGQL extends Apollo.Mutation<
 }
 export const EditPersonnelDevelopmentActivityDocument = gql`
     mutation editPersonnelDevelopmentActivity(
-        $personnelDevelopmentActivity: PersonnelDevelopmentActivityInput
+        $activity: PersonnelDevelopmentActivityInput
     ) {
-        editPersonnelDevelopmentActivity(
-            personnelDevelopmentActivity: $personnelDevelopmentActivity
-        ) {
+        editPersonnelDevelopmentActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -9508,12 +12834,7 @@ export const EditPersonnelDevelopmentActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -9529,11 +12850,9 @@ export class EditPersonnelDevelopmentActivityGQL extends Apollo.Mutation<
 }
 export const DeletePersonnelDevelopmentActivityDocument = gql`
     mutation deletePersonnelDevelopmentActivity(
-        $personnelDevelopmentActivity: PersonnelDevelopmentActivityInput
+        $activity: PersonnelDevelopmentActivityInput
     ) {
-        deletePersonnelDevelopmentActivity(
-            personnelDevelopmentActivity: $personnelDevelopmentActivity
-        ) {
+        deletePersonnelDevelopmentActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -9553,12 +12872,7 @@ export const DeletePersonnelDevelopmentActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -9594,12 +12908,7 @@ export const PersonnelDevelopmentActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -9635,12 +12944,7 @@ export const PersonnelDevelopmentActivitiesDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -9676,12 +12980,7 @@ export const PersonnelDevelopmentActivitiesByUserDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -9696,12 +12995,8 @@ export class PersonnelDevelopmentActivitiesByUserGQL extends Apollo.Query<
     document = PersonnelDevelopmentActivitiesByUserDocument;
 }
 export const AddPublicServiceActivityDocument = gql`
-    mutation addPublicServiceActivity(
-        $publicServiceActivity: PublicServiceActivityInput
-    ) {
-        addPublicServiceActivity(
-            publicServiceActivity: $publicServiceActivity
-        ) {
+    mutation addPublicServiceActivity($activity: PublicServiceActivityInput) {
+        addPublicServiceActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -9721,12 +13016,7 @@ export const AddPublicServiceActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -9741,12 +13031,8 @@ export class AddPublicServiceActivityGQL extends Apollo.Mutation<
     document = AddPublicServiceActivityDocument;
 }
 export const EditPublicServiceActivityDocument = gql`
-    mutation editPublicServiceActivity(
-        $publicServiceActivity: PublicServiceActivityInput
-    ) {
-        editPublicServiceActivity(
-            publicServiceActivity: $publicServiceActivity
-        ) {
+    mutation editPublicServiceActivity($activity: PublicServiceActivityInput) {
+        editPublicServiceActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -9766,12 +13052,7 @@ export const EditPublicServiceActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -9787,11 +13068,9 @@ export class EditPublicServiceActivityGQL extends Apollo.Mutation<
 }
 export const DeletePublicServiceActivityDocument = gql`
     mutation deletePublicServiceActivity(
-        $publicServiceActivity: PublicServiceActivityInput
+        $activity: PublicServiceActivityInput
     ) {
-        deletePublicServiceActivity(
-            publicServiceActivity: $publicServiceActivity
-        ) {
+        deletePublicServiceActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -9811,12 +13090,7 @@ export const DeletePublicServiceActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -9852,12 +13126,7 @@ export const PublicServiceActivityDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -9893,12 +13162,7 @@ export const PublicServiceActivitiesDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -9934,12 +13198,7 @@ export const PublicServiceActivitiesByUserDocument = gql`
             updatedAt
             title
             description
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            evidence
         }
     }
 `;
@@ -9954,8 +13213,8 @@ export class PublicServiceActivitiesByUserGQL extends Apollo.Query<
     document = PublicServiceActivitiesByUserDocument;
 }
 export const AddResearchActivityDocument = gql`
-    mutation addResearchActivity($researchActivity: ResearchActivityInput) {
-        addResearchActivity(researchActivity: $researchActivity) {
+    mutation addResearchActivity($activity: ResearchActivityInput) {
+        addResearchActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -9963,6 +13222,28 @@ export const AddResearchActivityDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -9976,12 +13257,9 @@ export const AddResearchActivityDocument = gql`
             output
             title
             details
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            dates
+            url
+            evidence
         }
     }
 `;
@@ -9996,8 +13274,8 @@ export class AddResearchActivityGQL extends Apollo.Mutation<
     document = AddResearchActivityDocument;
 }
 export const EditResearchActivityDocument = gql`
-    mutation editResearchActivity($researchActivity: ResearchActivityInput) {
-        editResearchActivity(researchActivity: $researchActivity) {
+    mutation editResearchActivity($activity: ResearchActivityInput) {
+        editResearchActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -10005,6 +13283,28 @@ export const EditResearchActivityDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -10018,12 +13318,9 @@ export const EditResearchActivityDocument = gql`
             output
             title
             details
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            dates
+            url
+            evidence
         }
     }
 `;
@@ -10038,8 +13335,8 @@ export class EditResearchActivityGQL extends Apollo.Mutation<
     document = EditResearchActivityDocument;
 }
 export const DeleteResearchActivityDocument = gql`
-    mutation deleteResearchActivity($researchActivity: ResearchActivityInput) {
-        deleteResearchActivity(researchActivity: $researchActivity) {
+    mutation deleteResearchActivity($activity: ResearchActivityInput) {
+        deleteResearchActivity(activity: $activity) {
             activityId
             userId
             user {
@@ -10047,6 +13344,28 @@ export const DeleteResearchActivityDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -10060,12 +13379,9 @@ export const DeleteResearchActivityDocument = gql`
             output
             title
             details
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            dates
+            url
+            evidence
         }
     }
 `;
@@ -10089,6 +13405,28 @@ export const ResearchActivityDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -10102,12 +13440,9 @@ export const ResearchActivityDocument = gql`
             output
             title
             details
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            dates
+            url
+            evidence
         }
     }
 `;
@@ -10131,6 +13466,28 @@ export const ResearchActivitiesDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -10144,12 +13501,9 @@ export const ResearchActivitiesDocument = gql`
             output
             title
             details
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            dates
+            url
+            evidence
         }
     }
 `;
@@ -10173,6 +13527,28 @@ export const ResearchActivitiesByUserDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -10186,12 +13562,9 @@ export const ResearchActivitiesByUserDocument = gql`
             output
             title
             details
-            evidenceId
-            evidence {
-                evidenceId
-                name
-                item
-            }
+            dates
+            url
+            evidence
         }
     }
 `;
@@ -10896,50 +14269,137 @@ export const AddModuleDocument = gql`
             type
             assessmentMethod
             nqfLevel
-            stackId
+            credits
+            qualificationId
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
+            offeringTypeId
             offeringType {
                 offeringTypeId
                 description
             }
+            disciplineId
             discipline {
                 disciplineId
                 name
+                description
             }
+            venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
+            blockId
             block {
                 blockId
                 name
+                description
             }
             userId
             user {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
-            credits
+            stackId
+            studyPeriod
+            groupSize
             lecturedBy
             moderation
         }
@@ -10963,50 +14423,137 @@ export const AddModulesDocument = gql`
             type
             assessmentMethod
             nqfLevel
-            stackId
+            credits
+            qualificationId
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
+            offeringTypeId
             offeringType {
                 offeringTypeId
                 description
             }
+            disciplineId
             discipline {
                 disciplineId
                 name
+                description
             }
+            venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
+            blockId
             block {
                 blockId
                 name
+                description
             }
             userId
             user {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
-            credits
+            stackId
+            studyPeriod
+            groupSize
             lecturedBy
             moderation
         }
@@ -11030,50 +14577,136 @@ export const EditModuleDocument = gql`
             type
             assessmentMethod
             nqfLevel
-            stackId
+            credits
+            qualificationId
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
+            offeringTypeId
             offeringType {
                 offeringTypeId
                 description
             }
+            disciplineId
             discipline {
                 disciplineId
                 name
+                description
             }
+            venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
+            blockId
             block {
                 blockId
                 name
+                description
             }
             userId
             user {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
-            credits
+            stackId
+            studyPeriod
             groupSize
             lecturedBy
             moderation
@@ -11098,49 +14731,136 @@ export const DeleteModuleDocument = gql`
             type
             assessmentMethod
             nqfLevel
-            stackId
+            credits
+            qualificationId
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
+            offeringTypeId
             offeringType {
                 offeringTypeId
                 description
             }
+            disciplineId
             discipline {
                 disciplineId
                 name
+                description
             }
+            venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
+            blockId
             block {
                 blockId
                 name
+                description
             }
             userId
             user {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
+            stackId
+            studyPeriod
             groupSize
             lecturedBy
             moderation
@@ -11175,11 +14895,22 @@ export const ModuleDocument = gql`
             type
             assessmentMethod
             nqfLevel
-            stackId
+            credits
             qualificationId
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
             offeringTypeId
             offeringType {
@@ -11190,40 +14921,110 @@ export const ModuleDocument = gql`
             discipline {
                 disciplineId
                 name
+                description
             }
             venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
             blockId
             block {
                 blockId
                 name
+                description
             }
             userId
             user {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
-            credits
+            stackId
+            studyPeriod
             groupSize
             lecturedBy
             moderation
@@ -11245,50 +15046,136 @@ export const ModulesDocument = gql`
             type
             assessmentMethod
             nqfLevel
-            stackId
+            credits
+            qualificationId
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
+            offeringTypeId
             offeringType {
                 offeringTypeId
                 description
             }
+            disciplineId
             discipline {
                 disciplineId
                 name
+                description
             }
+            venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
+            blockId
             block {
                 blockId
                 name
+                description
             }
             userId
             user {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
-            credits
+            stackId
+            studyPeriod
             groupSize
             lecturedBy
             moderation
@@ -11313,50 +15200,136 @@ export const ModulesByDisciplineDocument = gql`
             type
             assessmentMethod
             nqfLevel
-            stackId
+            credits
+            qualificationId
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
+            offeringTypeId
             offeringType {
                 offeringTypeId
                 description
             }
+            disciplineId
             discipline {
                 disciplineId
                 name
+                description
             }
+            venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
+            blockId
             block {
                 blockId
                 name
+                description
             }
             userId
             user {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
-            credits
+            stackId
+            studyPeriod
             groupSize
             lecturedBy
             moderation
@@ -11381,50 +15354,136 @@ export const ModulesByUnassignedDocument = gql`
             type
             assessmentMethod
             nqfLevel
-            stackId
+            credits
+            qualificationId
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
+            offeringTypeId
             offeringType {
                 offeringTypeId
                 description
             }
+            disciplineId
             discipline {
                 disciplineId
                 name
+                description
             }
+            venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
+            blockId
             block {
                 blockId
                 name
+                description
             }
             userId
             user {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
-            credits
+            stackId
+            studyPeriod
             groupSize
             lecturedBy
             moderation
@@ -11441,6 +15500,160 @@ export class ModulesByUnassignedGQL extends Apollo.Query<
 > {
     document = ModulesByUnassignedDocument;
 }
+export const ModulesByUnassignedAndDisciplineDocument = gql`
+    query modulesByUnassignedAndDiscipline($disciplineId: String) {
+        modulesByUnassignedAndDiscipline(disciplineId: $disciplineId) {
+            moduleId
+            name
+            type
+            assessmentMethod
+            nqfLevel
+            credits
+            qualificationId
+            qualification {
+                qualificationId
+                name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
+            }
+            offeringTypeId
+            offeringType {
+                offeringTypeId
+                description
+            }
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            venueId
+            venue {
+                venueId
+                campus
+                capacity
+                type
+            }
+            blockId
+            block {
+                blockId
+                name
+                description
+            }
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
+            }
+            coordinatorId
+            coordinator {
+                userId
+                email
+                firstName
+                lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
+            }
+            moderatorId
+            moderator {
+                userId
+                email
+                firstName
+                lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
+            }
+            stackId
+            studyPeriod
+            groupSize
+            lecturedBy
+            moderation
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ModulesByUnassignedAndDisciplineGQL extends Apollo.Query<
+    ModulesByUnassignedAndDisciplineQuery,
+    ModulesByUnassignedAndDisciplineQueryVariables
+> {
+    document = ModulesByUnassignedAndDisciplineDocument;
+}
 export const ModulesByUserDocument = gql`
     query modulesByUser($userId: String!) {
         modulesByUser(userId: $userId) {
@@ -11449,50 +15662,136 @@ export const ModulesByUserDocument = gql`
             type
             assessmentMethod
             nqfLevel
-            stackId
+            credits
+            qualificationId
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
+            offeringTypeId
             offeringType {
                 offeringTypeId
                 description
             }
+            disciplineId
             discipline {
                 disciplineId
                 name
+                description
             }
+            venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
+            blockId
             block {
                 blockId
                 name
+                description
             }
             userId
             user {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
-            credits
+            stackId
+            studyPeriod
             groupSize
             lecturedBy
             moderation
@@ -11517,50 +15816,136 @@ export const ModulesByModeratorDocument = gql`
             type
             assessmentMethod
             nqfLevel
-            stackId
+            credits
+            qualificationId
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
+            offeringTypeId
             offeringType {
                 offeringTypeId
                 description
             }
+            disciplineId
             discipline {
                 disciplineId
                 name
+                description
             }
+            venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
+            blockId
             block {
                 blockId
                 name
+                description
             }
             userId
             user {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
-            credits
+            stackId
+            studyPeriod
             groupSize
             lecturedBy
             moderation
@@ -11585,50 +15970,136 @@ export const ModulesByCoordinatorDocument = gql`
             type
             assessmentMethod
             nqfLevel
-            stackId
+            credits
+            qualificationId
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
+            offeringTypeId
             offeringType {
                 offeringTypeId
                 description
             }
+            disciplineId
             discipline {
                 disciplineId
                 name
+                description
             }
+            venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
+            blockId
             block {
                 blockId
                 name
+                description
             }
             userId
             user {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
-            credits
+            stackId
+            studyPeriod
             groupSize
             lecturedBy
             moderation
@@ -11653,50 +16124,136 @@ export const ModulesByStackDocument = gql`
             type
             assessmentMethod
             nqfLevel
-            stackId
+            credits
+            qualificationId
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
+            offeringTypeId
             offeringType {
                 offeringTypeId
                 description
             }
+            disciplineId
             discipline {
                 disciplineId
                 name
+                description
             }
+            venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
+            blockId
             block {
                 blockId
                 name
+                description
             }
             userId
             user {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
-                email
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
-            credits
+            stackId
+            studyPeriod
             groupSize
             lecturedBy
             moderation
@@ -12181,6 +16738,46 @@ export class StudentsGQL extends Apollo.Query<
 > {
     document = StudentsDocument;
 }
+export const UploadlProfilePictureDocument = gql`
+    mutation uploadlProfilePicture($file: Upload!, $userId: String!) {
+        uploadProfilePicture(file: $file, userId: $userId) {
+            id
+            path
+            filename
+            mimetype
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class UploadlProfilePictureGQL extends Apollo.Mutation<
+    UploadlProfilePictureMutation,
+    UploadlProfilePictureMutationVariables
+> {
+    document = UploadlProfilePictureDocument;
+}
+export const UploadEvidenceDocument = gql`
+    mutation uploadEvidence($file: Upload!, $activityId: String!) {
+        uploadEvidence(file: $file, activityId: $activityId) {
+            id
+            path
+            filename
+            mimetype
+        }
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class UploadEvidenceGQL extends Apollo.Mutation<
+    UploadEvidenceMutation,
+    UploadEvidenceMutationVariables
+> {
+    document = UploadEvidenceDocument;
+}
 export const AddUserDocument = gql`
     mutation addUser($user: UserInput) {
         addUser(user: $user) {
@@ -12554,6 +17151,66 @@ export class WorkFocusesGQL extends Apollo.Query<
 > {
     document = WorkFocusesDocument;
 }
+export const TeachingHoursDocument = gql`
+    query teachingHours($userId: String!) {
+        teachingHours(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class TeachingHoursGQL extends Apollo.Query<
+    TeachingHoursQuery,
+    TeachingHoursQueryVariables
+> {
+    document = TeachingHoursDocument;
+}
+export const ResearchHoursDocument = gql`
+    query researchHours($userId: String!) {
+        researchHours(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ResearchHoursGQL extends Apollo.Query<
+    ResearchHoursQuery,
+    ResearchHoursQueryVariables
+> {
+    document = ResearchHoursDocument;
+}
+export const ServiceHoursDocument = gql`
+    query serviceHours($userId: String!) {
+        serviceHours(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ServiceHoursGQL extends Apollo.Query<
+    ServiceHoursQuery,
+    ServiceHoursQueryVariables
+> {
+    document = ServiceHoursDocument;
+}
+export const AnnualHoursDocument = gql`
+    query annualHours {
+        annualHours
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AnnualHoursGQL extends Apollo.Query<
+    AnnualHoursQuery,
+    AnnualHoursQueryVariables
+> {
+    document = AnnualHoursDocument;
+}
 export const AcademicAdministrationWorkloadPerUserDocument = gql`
     query academicAdministrationWorkloadPerUser($userId: String) {
         academicAdministrationWorkloadPerUser(userId: $userId) {
@@ -12771,6 +17428,299 @@ export class FormalInstructionWorkloadPerUserGQL extends Apollo.Query<
     FormalInstructionWorkloadPerUserQueryVariables
 > {
     document = FormalInstructionWorkloadPerUserDocument;
+}
+export const FormalInstructionLectureWeeksDocument = gql`
+    query formalInstructionLectureWeeks($activityId: String) {
+        formalInstructionLectureWeeks(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionLectureWeeksGQL extends Apollo.Query<
+    FormalInstructionLectureWeeksQuery,
+    FormalInstructionLectureWeeksQueryVariables
+> {
+    document = FormalInstructionLectureWeeksDocument;
+}
+export const FormalInstructionStudentsEnrolledDocument = gql`
+    query formalInstructionStudentsEnrolled($activityId: String) {
+        formalInstructionStudentsEnrolled(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionStudentsEnrolledGQL extends Apollo.Query<
+    FormalInstructionStudentsEnrolledQuery,
+    FormalInstructionStudentsEnrolledQueryVariables
+> {
+    document = FormalInstructionStudentsEnrolledDocument;
+}
+export const FormalInstructionBaseContactHoursDocument = gql`
+    query formalInstructionBaseContactHours($activityId: String) {
+        formalInstructionBaseContactHours(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionBaseContactHoursGQL extends Apollo.Query<
+    FormalInstructionBaseContactHoursQuery,
+    FormalInstructionBaseContactHoursQueryVariables
+> {
+    document = FormalInstructionBaseContactHoursDocument;
+}
+export const FormalInstructionCoordinationHoursDocument = gql`
+    query formalInstructionCoordinationHours($activityId: String) {
+        formalInstructionCoordinationHours(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionCoordinationHoursGQL extends Apollo.Query<
+    FormalInstructionCoordinationHoursQuery,
+    FormalInstructionCoordinationHoursQueryVariables
+> {
+    document = FormalInstructionCoordinationHoursDocument;
+}
+export const FormalInstructionStudentSupportHoursDocument = gql`
+    query formalInstructionStudentSupportHours($activityId: String) {
+        formalInstructionStudentSupportHours(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionStudentSupportHoursGQL extends Apollo.Query<
+    FormalInstructionStudentSupportHoursQuery,
+    FormalInstructionStudentSupportHoursQueryVariables
+> {
+    document = FormalInstructionStudentSupportHoursDocument;
+}
+export const FormalInstructionPreparationTimeHoursDocument = gql`
+    query formalInstructionPreparationTimeHours($activityId: String) {
+        formalInstructionPreparationTimeHours(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionPreparationTimeHoursGQL extends Apollo.Query<
+    FormalInstructionPreparationTimeHoursQuery,
+    FormalInstructionPreparationTimeHoursQueryVariables
+> {
+    document = FormalInstructionPreparationTimeHoursDocument;
+}
+export const FormalInstructionAssessmentSettingHoursDocument = gql`
+    query formalInstructionAssessmentSettingHours($activityId: String) {
+        formalInstructionAssessmentSettingHours(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionAssessmentSettingHoursGQL extends Apollo.Query<
+    FormalInstructionAssessmentSettingHoursQuery,
+    FormalInstructionAssessmentSettingHoursQueryVariables
+> {
+    document = FormalInstructionAssessmentSettingHoursDocument;
+}
+export const FormalInstructionExamMarkingHoursDocument = gql`
+    query formalInstructionExamMarkingHours($activityId: String) {
+        formalInstructionExamMarkingHours(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionExamMarkingHoursGQL extends Apollo.Query<
+    FormalInstructionExamMarkingHoursQuery,
+    FormalInstructionExamMarkingHoursQueryVariables
+> {
+    document = FormalInstructionExamMarkingHoursDocument;
+}
+export const FormalInstructionCourseworkMarkingHoursDocument = gql`
+    query formalInstructionCourseworkMarkingHours($activityId: String) {
+        formalInstructionCourseworkMarkingHours(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionCourseworkMarkingHoursGQL extends Apollo.Query<
+    FormalInstructionCourseworkMarkingHoursQuery,
+    FormalInstructionCourseworkMarkingHoursQueryVariables
+> {
+    document = FormalInstructionCourseworkMarkingHoursDocument;
+}
+export const FormalInstructionFeedbackHoursDocument = gql`
+    query formalInstructionFeedbackHours($activityId: String) {
+        formalInstructionFeedbackHours(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionFeedbackHoursGQL extends Apollo.Query<
+    FormalInstructionFeedbackHoursQuery,
+    FormalInstructionFeedbackHoursQueryVariables
+> {
+    document = FormalInstructionFeedbackHoursDocument;
+}
+export const FormalInstructionFormativeAssessmentHoursDocument = gql`
+    query formalInstructionFormativeAssessmentHours($activityId: String) {
+        formalInstructionFormativeAssessmentHours(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionFormativeAssessmentHoursGQL extends Apollo.Query<
+    FormalInstructionFormativeAssessmentHoursQuery,
+    FormalInstructionFormativeAssessmentHoursQueryVariables
+> {
+    document = FormalInstructionFormativeAssessmentHoursDocument;
+}
+export const FormalInstructionModerationHoursDocument = gql`
+    query formalInstructionModerationHours($activityId: String) {
+        formalInstructionModerationHours(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionModerationHoursGQL extends Apollo.Query<
+    FormalInstructionModerationHoursQuery,
+    FormalInstructionModerationHoursQueryVariables
+> {
+    document = FormalInstructionModerationHoursDocument;
+}
+export const FormalInstructionTotalHoursPerActivityDocument = gql`
+    query formalInstructionTotalHoursPerActivity($activityId: String) {
+        formalInstructionTotalHoursPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionTotalHoursPerActivityGQL extends Apollo.Query<
+    FormalInstructionTotalHoursPerActivityQuery,
+    FormalInstructionTotalHoursPerActivityQueryVariables
+> {
+    document = FormalInstructionTotalHoursPerActivityDocument;
+}
+export const FormalInstructionOtherHoursPerActivityDocument = gql`
+    query formalInstructionOtherHoursPerActivity($activityId: String) {
+        formalInstructionOtherHoursPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionOtherHoursPerActivityGQL extends Apollo.Query<
+    FormalInstructionOtherHoursPerActivityQuery,
+    FormalInstructionOtherHoursPerActivityQueryVariables
+> {
+    document = FormalInstructionOtherHoursPerActivityDocument;
+}
+export const FormalInstructionTotalHoursPerUserDocument = gql`
+    query formalInstructionTotalHoursPerUser($userId: String) {
+        formalInstructionTotalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionTotalHoursPerUserGQL extends Apollo.Query<
+    FormalInstructionTotalHoursPerUserQuery,
+    FormalInstructionTotalHoursPerUserQueryVariables
+> {
+    document = FormalInstructionTotalHoursPerUserDocument;
+}
+export const FormalInstructionPercentageOfWorkFocusPerActivityDocument = gql`
+    query formalInstructionPercentageOfWorkFocusPerActivity(
+        $activityId: String
+    ) {
+        formalInstructionPercentageOfWorkFocusPerActivity(
+            activityId: $activityId
+        )
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionPercentageOfWorkFocusPerActivityGQL extends Apollo.Query<
+    FormalInstructionPercentageOfWorkFocusPerActivityQuery,
+    FormalInstructionPercentageOfWorkFocusPerActivityQueryVariables
+> {
+    document = FormalInstructionPercentageOfWorkFocusPerActivityDocument;
+}
+export const FormalInstructionPercentageOfWorkFocusPerUserDocument = gql`
+    query formalInstructionPercentageOfWorkFocusPerUser($userId: String) {
+        formalInstructionPercentageOfWorkFocusPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionPercentageOfWorkFocusPerUserGQL extends Apollo.Query<
+    FormalInstructionPercentageOfWorkFocusPerUserQuery,
+    FormalInstructionPercentageOfWorkFocusPerUserQueryVariables
+> {
+    document = FormalInstructionPercentageOfWorkFocusPerUserDocument;
+}
+export const FormalInstructionPercentageOfAnnualHoursPerActivityDocument = gql`
+    query formalInstructionPercentageOfAnnualHoursPerActivity(
+        $activityId: String
+    ) {
+        formalInstructionPercentageOfAnnualHoursPerActivity(
+            activityId: $activityId
+        )
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionPercentageOfAnnualHoursPerActivityGQL extends Apollo.Query<
+    FormalInstructionPercentageOfAnnualHoursPerActivityQuery,
+    FormalInstructionPercentageOfAnnualHoursPerActivityQueryVariables
+> {
+    document = FormalInstructionPercentageOfAnnualHoursPerActivityDocument;
+}
+export const FormalInstructionPercentageOfAnnualHoursPerUserDocument = gql`
+    query formalInstructionPercentageOfAnnualHoursPerUser($userId: String) {
+        formalInstructionPercentageOfAnnualHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionPercentageOfAnnualHoursPerUserGQL extends Apollo.Query<
+    FormalInstructionPercentageOfAnnualHoursPerUserQuery,
+    FormalInstructionPercentageOfAnnualHoursPerUserQueryVariables
+> {
+    document = FormalInstructionPercentageOfAnnualHoursPerUserDocument;
 }
 export const PersonnelDevelopmentWorkloadPerUserDocument = gql`
     query personnelDevelopmentWorkloadPerUser($userId: String) {

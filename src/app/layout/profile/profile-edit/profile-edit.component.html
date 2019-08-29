@@ -146,10 +146,19 @@
                         </p-message>
                     </div>
                 </div>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        Profile Picture
+                    </div>
+                    <div class="p-col-6">
+                        <p-fileUpload name="myFile[]" customUpload="true" (uploadHandler)="onFileSelected($event)">
+                        </p-fileUpload>
+                    </div>
+                </div>
 
                 <p-footer>
                     <div class="p-grid">
-                        <div class="p-col-1"><button pButton label="Edit Venue" icon="pi pi-plus" (click)="onEdit()"
+                        <div class="p-col-1"><button pButton label="Edit Profile" icon="pi pi-plus" (click)="onEdit()"
                                 [disabled]="profileEditForm.invalid"></button>
                         </div>
                         <div class="p-col-1">

@@ -81,7 +81,7 @@ export class ChangePasswordComponent implements OnInit {
                 .subscribe(result => {
                     try {
                         this.alertService.successToast('Password changed');
-                        this.router.navigate(['profile/view']);
+                        this.router.navigate(['profile']);
                     } catch (error) {
                         this.alertService.errorToast(error, 'errorToast');
                     }
@@ -92,7 +92,7 @@ export class ChangePasswordComponent implements OnInit {
         }
     }
     onBack(event) {
-        this.router.navigate(['../profile']);
+        this.router.navigate(['profile']);
     }
     onReset(event) {
         this.changePasswordForm.reset();

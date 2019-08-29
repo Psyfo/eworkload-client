@@ -1,9 +1,7 @@
 mutation addExecutiveManagementActivity(
-    $executiveManagementActivity: ExecutiveManagementActivityInput
+    $activity: ExecutiveManagementActivityInput
 ) {
-    addExecutiveManagementActivity(
-        executiveManagementActivity: $executiveManagementActivity
-    ) {
+    addExecutiveManagementActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -23,20 +21,13 @@ mutation addExecutiveManagementActivity(
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }
 mutation editExecutiveManagementActivity(
-    $executiveManagementActivity: ExecutiveManagementActivityInput
+    $activity: ExecutiveManagementActivityInput
 ) {
-    editExecutiveManagementActivity(
-        executiveManagementActivity: $executiveManagementActivity
-    ) {
+    editExecutiveManagementActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -56,20 +47,13 @@ mutation editExecutiveManagementActivity(
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }
 mutation deleteExecutiveManagementActivity(
-    $executiveManagementActivity: ExecutiveManagementActivityInput
+    $activity: ExecutiveManagementActivityInput
 ) {
-    deleteExecutiveManagementActivity(
-        executiveManagementActivity: $executiveManagementActivity
-    ) {
+    deleteExecutiveManagementActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -89,11 +73,6 @@ mutation deleteExecutiveManagementActivity(
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }

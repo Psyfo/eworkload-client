@@ -41,6 +41,9 @@
                                 (onChange)="userTable.filter($event.value, column.field, 'equals')"></p-dropdown>
                             <p-dropdown *ngSwitchCase="'gender'" [options]="genders" [style]="{'width':'100%'}"
                                 (onChange)="userTable.filter($event.value, column.field, 'equals')"></p-dropdown>
+                            <p-dropdown *ngSwitchCase="'disciplineId'" [options]="disciplines"
+                                [style]="{'width':'100%'}"
+                                (onChange)="userTable.filter($event.value, column.field, 'equals')"></p-dropdown>
                         </th>
                     </tr>
                 </ng-template>

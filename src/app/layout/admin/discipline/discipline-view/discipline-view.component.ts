@@ -41,7 +41,7 @@ export class DisciplineViewComponent implements OnInit {
 
     public getDiscipline(disciplineId: string) {
         this.disciplineService
-            .getDiscipline(disciplineId)
+            .discipline(disciplineId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.discipline = <Discipline>(<unknown>result.data.discipline);

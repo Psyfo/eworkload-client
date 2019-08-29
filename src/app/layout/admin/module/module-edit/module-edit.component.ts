@@ -42,7 +42,6 @@ export class ModuleEditComponent implements OnInit {
 
     assessmentMethods = this.moduleService.assessmentMethods;
     types = this.moduleService.types;
-    studyPeriods = this.moduleService.studyPeriods;
 
     moduleEditForm: FormGroup;
 
@@ -127,7 +126,7 @@ export class ModuleEditComponent implements OnInit {
     }
     getDisciplines() {
         this.disciplineService
-            .getDisciplines()
+            .disciplines()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.disciplines = result.data.disciplines.map(

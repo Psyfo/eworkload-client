@@ -129,3 +129,62 @@ query formalInstructionWorkloadPerUser($userId: String) {
         formalInstructionPercentageOfAnnualHoursPerUser
     }
 }
+
+# Formal Instruction Workload
+query formalInstructionLectureWeeks($activityId: String) {
+    formalInstructionLectureWeeks(activityId: $activityId)
+}
+query formalInstructionStudentsEnrolled($activityId: String) {
+    formalInstructionStudentsEnrolled(activityId: $activityId)
+}
+query formalInstructionBaseContactHours($activityId: String) {
+    formalInstructionBaseContactHours(activityId: $activityId)
+}
+query formalInstructionCoordinationHours($activityId: String) {
+    formalInstructionCoordinationHours(activityId: $activityId)
+}
+query formalInstructionStudentSupportHours($activityId: String) {
+    formalInstructionStudentSupportHours(activityId: $activityId)
+}
+query formalInstructionPreparationTimeHours($activityId: String) {
+    formalInstructionPreparationTimeHours(activityId: $activityId)
+}
+query formalInstructionAssessmentSettingHours($activityId: String) {
+    formalInstructionAssessmentSettingHours(activityId: $activityId)
+}
+query formalInstructionExamMarkingHours($activityId: String) {
+    formalInstructionExamMarkingHours(activityId: $activityId)
+}
+query formalInstructionCourseworkMarkingHours($activityId: String) {
+    formalInstructionCourseworkMarkingHours(activityId: $activityId)
+}
+query formalInstructionFeedbackHours($activityId: String) {
+    formalInstructionFeedbackHours(activityId: $activityId)
+}
+query formalInstructionFormativeAssessmentHours($activityId: String) {
+    formalInstructionFormativeAssessmentHours(activityId: $activityId)
+}
+query formalInstructionModerationHours($activityId: String) {
+    formalInstructionModerationHours(activityId: $activityId)
+}
+query formalInstructionTotalHoursPerActivity($activityId: String) {
+    formalInstructionTotalHoursPerActivity(activityId: $activityId)
+}
+query formalInstructionOtherHoursPerActivity($activityId: String) {
+    formalInstructionOtherHoursPerActivity(activityId: $activityId)
+}
+query formalInstructionTotalHoursPerUser($userId: String) {
+    formalInstructionTotalHoursPerUser(userId: $userId)
+}
+query formalInstructionPercentageOfWorkFocusPerActivity($activityId: String) {
+    formalInstructionPercentageOfWorkFocusPerActivity(activityId: $activityId)
+}
+query formalInstructionPercentageOfWorkFocusPerUser($userId: String) {
+    formalInstructionPercentageOfWorkFocusPerUser(userId: $userId)
+}
+query formalInstructionPercentageOfAnnualHoursPerActivity($activityId: String) {
+    formalInstructionPercentageOfAnnualHoursPerActivity(activityId: $activityId)
+}
+query formalInstructionPercentageOfAnnualHoursPerUser($userId: String) {
+    formalInstructionPercentageOfAnnualHoursPerUser(userId: $userId)
+}

@@ -56,7 +56,7 @@ export class AddFormalInstructionComponent implements OnInit {
     ngOnInit() {
         this.breadcrumbs = [
             { label: 'activity' },
-            { label: 'lecturing' },
+            { label: 'formal-instruction' },
             { label: 'add' }
         ];
         this.buildForm();
@@ -81,7 +81,7 @@ export class AddFormalInstructionComponent implements OnInit {
             .subscribe(result => {
                 this.user = <User>(<unknown>result.data.user);
 
-                this.getModulesByDiscipline(
+                this.getModulesByUnassignedAndDiscipline(
                     this.user.discipline.disciplineId.toString()
                 );
 
@@ -100,12 +100,12 @@ export class AddFormalInstructionComponent implements OnInit {
                 );
             });
     }
-    getModulesByDiscipline(disciplineId: string) {
+    getModulesByUnassignedAndDiscipline(disciplineId: string) {
         this.moduleService
-            .getModulesByDiscipline(disciplineId)
+            .modulesByUnassignedAndDiscipline(disciplineId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.modules = result.data.modulesByDiscipline;
+                this.modules = result.data.modulesByUnassignedAndDiscipline;
             });
     }
 
@@ -118,7 +118,7 @@ export class AddFormalInstructionComponent implements OnInit {
             });
     }
 
-    async onAdd() {
+    onAdd() {
         this.formalInstructionActivity.userId = this.userService.currentUserIdStatic();
         this.formalInstructionActivity.dutyId = '11';
         this.selectedModule = this.module.value;
@@ -127,21 +127,25 @@ export class AddFormalInstructionComponent implements OnInit {
         this.formalInstructionActivity.offeringTypeId = this.selectedModule.offeringTypeId;
         this.formalInstructionActivity.qualificationId = this.selectedModule.qualificationId;
         console.log(this.formalInstructionActivity);
-        if (this.isCoordinator.value === true) {
-            await this.addCoordinator(this.user.userId, this.selectedModule);
-        }
+        // if (this.isCoordinator.value === true) {
+        //     this.addCoordinator(this.user.userId, this.selectedModule);
+        // }
 
         this.formalInstructionService
             .addFormalInstructionActivity(this.formalInstructionActivity)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.alertService.successToast('Activity added');
+            .subscribe(
+                result => {},
+                err => {
+                    this.alertService.errorToast(err, 'errorToast');
+                }
+            );
 
-                this.router.navigate(['activity/lecturing']);
-            });
+        this.alertService.successToast('Activity added');
+        this.router.navigate(['activity/formal-instruction']);
     }
     onBack(event) {
-        this.router.navigate(['activity/lecturing']);
+        this.router.navigate(['activity/formal-instruction']);
     }
     onReset(event) {
         this.formalInstructionAddForm.reset();

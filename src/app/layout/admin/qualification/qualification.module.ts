@@ -1,8 +1,10 @@
+import { DataTablesModule } from 'angular-datatables';
+import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
+
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DataTablesModule } from 'angular-datatables';
 
 import { QualificationAddComponent } from './qualification-add/qualification-add.component';
 import { QualificationEditComponent } from './qualification-edit/qualification-edit.component';
@@ -17,7 +19,7 @@ import { QualificationComponent } from './qualification.component';
         QualificationListComponent,
         QualificationAddComponent,
         QualificationEditComponent,
-        QualificationViewComponent,
+        QualificationViewComponent
     ],
     imports: [
         CommonModule,
@@ -25,6 +27,7 @@ import { QualificationComponent } from './qualification.component';
         DataTablesModule,
         NgbModule,
         ReactiveFormsModule,
-    ],
+        PrimeNgModulesModule
+    ]
 })
 export class QualificationModule {}

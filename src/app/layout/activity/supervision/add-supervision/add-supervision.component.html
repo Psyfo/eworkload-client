@@ -1,1 +1,65 @@
-<p>add-supervision works!</p>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <form [formGroup]="addSupervisionForm" (ngSubmit)="onAdd()">
+            <p-panel header="Add Supervision Activity">
+
+                <div class="p-grid">
+                    <div class="p-col-2">Supervision Role</div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="supervisionRoles" optionLabel="label" placeholder="Supervision Role"
+                            formControlName="supervisionRole" appendTo="body" showClear="true" [filter]="true"
+                            filterBy="value"></p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Supervision Role is required"
+                            *ngIf="(supervisionRole.touched || supervisionRole.dirty) && supervisionRole.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">Split</div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="splits" optionLabel="label" placeholder="Split" formControlName="split"
+                            appendTo="body" showClear="true" [filter]="true" filterBy="value">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Split field is required"
+                            *ngIf="(split.touched || split.dirty) && split.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">Student</div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="students" optionLabel="studentId" placeholder="Select Student"
+                            formControlName="student" appendTo="body" showClear="true" [filter]="true"
+                            filterBy="studentId">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Student is required"
+                            *ngIf="(student.touched || student.dirty) && student.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+
+                <p-footer>
+                    <div class="p-grid">
+                        <div class="p-col-10 p-col-align-left">
+                            <button pButton icon="pi pi-plus" label="Add Activity" class="mr-2"
+                                [disabled]="addSupervisionForm.invalid"></button>
+                            <button type="button" pButton icon="pi pi-arrow-left" label="Back" (click)="onBack($event)"
+                                class="ui-button-danger"></button>
+                        </div>
+                        <div class="p-col">
+                            <button type="button" pButton icon="pi pi-refresh" label="Reset" (click)="onReset($event)"
+                                class="ui-button-secondary"></button>
+                        </div>
+                    </div>
+                </p-footer>
+            </p-panel>
+        </form>
+    </div>
+</div>

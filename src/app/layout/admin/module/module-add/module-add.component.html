@@ -1,147 +1,188 @@
-<div class="row" [@routerTransition]>
-    <div class="col-6">
-        <form [formGroup]="moduleAddForm" (ngSubmit)="onAdd()" class="form">
-            .<div class="card">
-                <div class="card-header">
-                    <h5>Add Module</h5>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid">
+    <div class="p-col">
+        <p-panel header="Add Module">
+
+            <form [formGroup]="moduleAddForm" (ngSubmit)="onAdd()">
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="moduleId">Module ID:</label>
+                    </div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText placeholder="Module ID" formControlName="moduleId">
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Module ID is required"
+                            *ngIf="(moduleId.touched || moduleId.dirty) && moduleId.hasError('required')">
+                        </p-message>
+                    </div>
                 </div>
-                <div class="card-body">
-
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="moduleId"><strong>Module ID</strong></label>
-                            <input formControlName="moduleId" type="text" class="form-control" placeholder="Module ID">
-                            <div *ngIf="moduleId.errors" class="">
-                                <small *ngIf="moduleId.touched && moduleId.hasError('required')"
-                                    class="text-danger">Module id is
-                                    required</small>
-                            </div>
-                        </div>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="name">Name:</label>
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="name"><strong>Name</strong></label>
-                            <input formControlName="name" type="text" class="form-control" placeholder="Module name">
-                            <div *ngIf="name.errors">
-                                <small *ngIf="name.touched && name.hasError('required')" class="text-danger">Module name
-                                    is required</small>
-                            </div>
-                        </div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText placeholder="Name" formControlName="name">
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="type"><strong>Module Type</strong></label>
-                            <select formControlName="type" class="custom-select">
-                                <option *ngFor="let type of types" [value]="type">{{type}}</option>
-                            </select>
-                            <div *ngIf="type.errors">
-                                <small *ngIf="type.touched && type.hasError('required')" class="text-danger">Select a
-                                    module type</small>
-                            </div>
-                        </div>
-                        <div class="form-goup col">
-                            <label for="assessmentMethod"><strong>Assessment Method</strong></label>
-                            <select formControlName="assessmentMethod" class="custom-select">
-                                <option *ngFor="let assessmentMethod of assessmentMethods" [value]="assessmentMethod">
-                                    {{assessmentMethod}}</option>
-                            </select>
-                            <div *ngIf="assessmentMethod.errors">
-                                <small *ngIf="assessmentMethod.touched && assessmentMethod.hasError('required')"
-                                    class="text-danger">Select an assessment method</small>
-                            </div>
-                        </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Name is required"
+                            *ngIf="(name.touched || name.dirty) && name.hasError('required')">
+                        </p-message>
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="nqfLevel"><strong>NQF Level</strong></label>
-                            <input formControlName="nqfLevel" type="text" class="form-control">
-                        </div>
-                        <div class="form-goup col">
-                            <label for="qualificationId"><strong>Qualification</strong></label>
-                            <select formControlName="qualificationId" class="custom-select">
-                                <option *ngFor="let qualification of qualifications"
-                                    [value]="qualification.qualificationId">({{qualification.qualificationId}}) -
-                                    {{qualification.name}}</option>
-                            </select>
-                            <div *ngIf="qualificationId.errors">
-                                <small *ngIf="qualificationId.touched && qualificationId.hasError('required')"
-                                    class="text-danger">Select a qualification</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="offeringTypeId"><strong>Offering Type</strong></label>
-                            <select formControlName="offeringTypeId" class="custom-select">
-                                <option *ngFor="let offeringType of offeringTypes"
-                                    [value]="offeringType.offeringTypeId">({{offeringType.offeringTypeId}}) -
-                                    {{offeringType.description}}</option>
-                            </select>
-                            <div *ngIf="offeringTypeId.errors">
-                                <small *ngIf="offeringTypeId.touched && offeringTypeId.hasError('required')"
-                                    class="text-danger">Select an offering type</small>
-                            </div>
-                        </div>
-                        <div class="form-group col">
-                            <div class="form-group">
-                                <label for="disciplineId"><strong>Discipline</strong></label>
-                                <select formControlName="disciplineId" class="custom-select">
-                                    <option *ngFor="let discipline of disciplines" [value]="discipline.disciplineId">
-                                        ({{discipline.disciplineId}}) -
-                                        {{discipline.name | titlecase}}</option>
-                                </select>
-                                <div *ngIf="disciplineId.errors">
-                                    <small *ngIf="disciplineId.touched && disciplineId.hasError('required')"
-                                        class="text-danger">Select a discipline</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="blockId"><strong>Block</strong></label>
-                            <select formControlName="blockId" class="custom-select">
-                                <option *ngFor="let block of blocks" [value]="block.blockId">({{block.blockId}}) -
-                                    {{block.name}}</option>
-                            </select>
-                            <div *ngIf="blockId.errors">
-                                <small *ngIf="blockId.touched && blockId.hasError('required')"
-                                    class="text-danger">Select a block</small>
-                            </div>
-                        </div>
-                        <div class="form-group col">
-                            <label for="credits"><strong>Credits</strong></label>
-                            <input formControlName="credits" type="number" class="form-control" placeholder="Credits">
-                            <div *ngIf="credits.errors">
-                                <small *ngIf="credits.touched && credits.hasError('required')"
-                                    class="text-danger">Module credits are required</small>
-                            </div>
-                        </div>
-                        <div class="form-group col">
-                            <label for="venueId"><strong>Venue</strong></label>
-                            <select formControlName="venueId" class="custom-select">
-                                <option *ngFor="let venue of venues" [value]="venue.venueId">{{venue.venueId}}
-                                    ({{venue.campus}}) - {{venue.capacity}}</option>
-                            </select>
-                            <div *ngIf="venueId.errors">
-                                <small *ngIf="venueId.touched && venueId.hasError('required')" class="text-danger">Venue
-                                    is required</small>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-                <div class="card-footer">
-                    <button class="btn btn-primary mr-3" [disabled]="moduleAddForm.invalid">Add</button>
-                    <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
-                    <button type="button" class="btn btn-dark float-right" (click)="onReset()">Reset</button>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="type">Type:</label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="types" formControlName="type" placeholder="Select module type"
+                            [showClear]="true" appendTo="body" [filter]="true" filterBy="label">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text=" is required"
+                            *ngIf="(type.touched || type.dirty) && type.hasError('required')">
+                        </p-message>
+                    </div>
                 </div>
-            </div>
-        </form>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="assessmentMethod">Assessment Method:</label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="assessmentMethods" placeholder="Select assessment method"
+                            formControlName="assessmentMethod" [showClear]="true" appendTo="body" [filter]="true"
+                            filterBy="label"></p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text=" is required"
+                            *ngIf="(assessmentMethod.touched || assessmentMethod.dirty) && assessmentMethod.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="nqfLevel">NQF Level:</label>
+                    </div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText placeholder="NQF Level" formControlName="nqfLevel"
+                            pkeyFilter="num">
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="NQF Level is required"
+                            *ngIf="(nqfLevel.touched || nqfLevel.dirty) && nqfLevel.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="credits">Credits:</label>
+                    </div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText placeholder="NQF Level" formControlName="credits"
+                            pkeyFilter="num">
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Credits is required"
+                            *ngIf="(credits.touched || credits.dirty) && credits.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="block">Block</label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="blocks" optionLabel="name" formControlName="block"
+                            placeholder="Select block" [showClear]="true" appendTo="body" [filter]="true"
+                            filterBy="label"></p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Block is required"
+                            *ngIf="(block.touched || block.dirty) && block.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="qualification">Qualification</label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="qualifications" optionLabel="name" formControlName="qualification"
+                            placeholder="Select qualification" [showClear]="true" appendTo="body" [filter]="true"
+                            filterBy="label">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Qualification is required"
+                            *ngIf="(qualification.touched || qualification.dirty) && qualification.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="offeringType">Offering Type</label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="offeringTypes" optionLabel="description" formControlName="offeringType"
+                            placeholder="Select offering type" [showClear]="true" appendTo="body" [filter]="true"
+                            filterBy="label">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Offering Type is required"
+                            *ngIf="(offeringType.touched || offeringType.dirty) && offeringType.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="discipline">Discipline</label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="disciplines" optionLabel="name" formControlName="discipline"
+                            placeholder="Select discipline" [showClear]="true" appendTo="body" [filter]="true"
+                            filterBy="label">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Discipline is required"
+                            *ngIf="(discipline.touched || discipline.dirty) && discipline.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="venue">Venue</label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="venues" optionLabel="venueId" formControlName="venue"
+                            placeholder="Select venue" [showClear]="true" appendTo="body" [filter]="true"
+                            filterBy="label">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Venue is required"
+                            *ngIf="(venue.touched || venue.dirty) && venue.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+            </form>
+
+            <p-footer>
+                <div class="p-grid">
+                    <div class="p-col p-justify-start">
+                        <button pButton label="Add Module" icon="pi pi-plus" [disabled]="moduleAddForm.invalid"
+                            class="mr-2"></button>
+                        <button pButton type="button" label="Back" icon="pi pi-arrow-left" (click)="onBack()"
+                            class="ui-button-danger"></button>
+                    </div>
+                    <div class="p-col p-justify-end">
+                        <button pButton type="button" label="Reset" icon="pi pi-refresh" (click)="onReset()"
+                            class="ui-button-secondary"></button>
+                    </div>
+                </div>
+            </p-footer>
+        </p-panel>
     </div>
 </div>

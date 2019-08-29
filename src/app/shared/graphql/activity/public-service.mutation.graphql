@@ -1,7 +1,5 @@
-mutation addPublicServiceActivity(
-    $publicServiceActivity: PublicServiceActivityInput
-) {
-    addPublicServiceActivity(publicServiceActivity: $publicServiceActivity) {
+mutation addPublicServiceActivity($activity: PublicServiceActivityInput) {
+    addPublicServiceActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -21,18 +19,11 @@ mutation addPublicServiceActivity(
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }
-mutation editPublicServiceActivity(
-    $publicServiceActivity: PublicServiceActivityInput
-) {
-    editPublicServiceActivity(publicServiceActivity: $publicServiceActivity) {
+mutation editPublicServiceActivity($activity: PublicServiceActivityInput) {
+    editPublicServiceActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -52,18 +43,11 @@ mutation editPublicServiceActivity(
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }
-mutation deletePublicServiceActivity(
-    $publicServiceActivity: PublicServiceActivityInput
-) {
-    deletePublicServiceActivity(publicServiceActivity: $publicServiceActivity) {
+mutation deletePublicServiceActivity($activity: PublicServiceActivityInput) {
+    deletePublicServiceActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -83,11 +67,6 @@ mutation deletePublicServiceActivity(
         updatedAt
         title
         description
-        evidenceId
-        evidence {
-            evidenceId
-            name
-            item
-        }
+        evidence
     }
 }
