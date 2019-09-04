@@ -2,77 +2,146 @@ mutation addPersonnelDevelopmentActivity(
     $activity: PersonnelDevelopmentActivityInput
 ) {
     addPersonnelDevelopmentActivity(activity: $activity) {
-        activityId
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-        }
-        dutyId
-        duty {
-            dutyId
-            name
-            description
-        }
-        approvalStatus
-        createdAt
-        updatedAt
-        title
+             activityId
+    userId
+    user {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineId
+      discipline {
+        disciplineId
+        name
         description
-        evidence
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    dutyId
+    duty {
+      dutyId
+      name
+      description
+    }
+    approvalStatus
+    createdAt
+    updatedAt
+    title
+    date
+    duration
+    evidence
     }
 }
 mutation editPersonnelDevelopmentActivity(
     $activity: PersonnelDevelopmentActivityInput
 ) {
     editPersonnelDevelopmentActivity(activity: $activity) {
-        activityId
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-        }
-        dutyId
-        duty {
-            dutyId
-            name
-            description
-        }
-        approvalStatus
-        createdAt
-        updatedAt
-        title
+             activityId
+    userId
+    user {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineId
+      discipline {
+        disciplineId
+        name
         description
-        evidence
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    dutyId
+    duty {
+      dutyId
+      name
+      description
+    }
+    approvalStatus
+    createdAt
+    updatedAt
+    title
+    date
+    duration
+    evidence
     }
 }
 mutation deletePersonnelDevelopmentActivity(
     $activity: PersonnelDevelopmentActivityInput
 ) {
     deletePersonnelDevelopmentActivity(activity: $activity) {
-        activityId
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-        }
-        dutyId
-        duty {
-            dutyId
-            name
-            description
-        }
-        approvalStatus
-        createdAt
-        updatedAt
-        title
+             activityId
+    userId
+    user {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineId
+      discipline {
+        disciplineId
+        name
         description
-        evidence
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    dutyId
+    duty {
+      dutyId
+      name
+      description
+    }
+    approvalStatus
+    createdAt
+    updatedAt
+    title
+    date
+    duration
+    evidence
     }
 }

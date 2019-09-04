@@ -7,6 +7,28 @@ query personnelDevelopmentActivity($activityId: String!) {
             email
             firstName
             lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -18,7 +40,8 @@ query personnelDevelopmentActivity($activityId: String!) {
         createdAt
         updatedAt
         title
-        description
+        date
+        duration
         evidence
     }
 }
@@ -32,6 +55,28 @@ query personnelDevelopmentActivities {
             email
             firstName
             lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -43,7 +88,8 @@ query personnelDevelopmentActivities {
         createdAt
         updatedAt
         title
-        description
+        date
+        duration
         evidence
     }
 }
@@ -57,6 +103,28 @@ query personnelDevelopmentActivitiesByUser($userId: String) {
             email
             firstName
             lastName
+            photoUrl
+            disciplineId
+            discipline {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -68,7 +136,8 @@ query personnelDevelopmentActivitiesByUser($userId: String) {
         createdAt
         updatedAt
         title
-        description
+        date
+        duration
         evidence
     }
 }

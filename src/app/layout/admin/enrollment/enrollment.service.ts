@@ -30,7 +30,7 @@ export class EnrollmentService {
         private deleteEnrollmentGql: DeleteEnrollmentGQL
     ) {}
 
-    getEnrollment(enrollmentYear: string, qualificationId: string) {
+    enrollment(enrollmentYear: string, qualificationId: string) {
         return this.enrollmentGql
             .watch(
                 {
@@ -50,17 +50,8 @@ export class EnrollmentService {
                 })
             );
     }
-    getEnrollmentStatic(enrollmentYear: string, qualificationId: string) {
-        return this.enrollmentGql.fetch(
-            {
-                enrollmentYear: enrollmentYear,
-                qualificationId: qualificationId
-            },
-            {}
-        );
-    }
 
-    getEnrollments() {
+    enrollments() {
         return this.enrollmentsGql
             .watch(
                 {},
@@ -78,7 +69,7 @@ export class EnrollmentService {
             );
     }
 
-    getEnrollmentsByYear(enrollmentYear: string) {
+    enrollmentsByYear(enrollmentYear: string) {
         return this.enrollmentsByYearGql
             .watch(
                 { enrollmentYear: enrollmentYear },
@@ -96,7 +87,7 @@ export class EnrollmentService {
             );
     }
 
-    getEnrollmentsByQualification(qualificationId: string) {
+    enrollmentsByQualification(qualificationId: string) {
         return this.enrollmentsByQualificationGql
             .watch(
                 { qualificationId: qualificationId },

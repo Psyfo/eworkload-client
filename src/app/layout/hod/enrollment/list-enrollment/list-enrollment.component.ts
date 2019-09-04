@@ -84,7 +84,7 @@ export class ListEnrollmentComponent implements OnInit {
 
     getEnrollments() {
         this.enrollmentService
-            .getEnrollments()
+            .enrollments()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
                 result => {
@@ -109,7 +109,8 @@ export class ListEnrollmentComponent implements OnInit {
             ['hod/enrollment/view', this.selectedEnrollment.qualificationId],
             {
                 queryParams: {
-                    qualificationId: this.selectedEnrollment.qualificationId
+                    qualificationId: this.selectedEnrollment.qualificationId,
+                    enrollmentYear: this.selectedEnrollment.enrollmentYear
                 }
             }
         );
@@ -122,7 +123,8 @@ export class ListEnrollmentComponent implements OnInit {
             ['hod/enrollment/view', this.selectedEnrollment.qualificationId],
             {
                 queryParams: {
-                    qualificationId: this.selectedEnrollment.qualificationId
+                    qualificationId: this.selectedEnrollment.qualificationId,
+                    enrollmentYear: this.selectedEnrollment.enrollmentYear
                 }
             }
         );
@@ -135,7 +137,8 @@ export class ListEnrollmentComponent implements OnInit {
             ['hod/enrollment/edit', this.selectedEnrollment.qualificationId],
             {
                 queryParams: {
-                    qualificationId: this.selectedEnrollment.qualificationId
+                    qualificationId: this.selectedEnrollment.qualificationId,
+                    enrollmentYear: this.selectedEnrollment.enrollmentYear
                 }
             }
         );

@@ -29,7 +29,8 @@ query activity($activityId: String!) {
         }
         ... on PersonnelDevelopmentActivity {
             title
-            description
+            date
+            duration
             evidence
         }
         ... on CommunityInstructionActivity {

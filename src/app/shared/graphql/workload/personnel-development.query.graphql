@@ -4,10 +4,52 @@ query personnelDevelopmentWorkloadPerUser($userId: String) {
             personnelDevelopmentTotalHoursPerActivity
             personnelDevelopmentPercentageOfWorkFocusPerActivity
             personnelDevelopmentPercentageOfAnnualHoursPerActivity
+            personnelDevelopmentPercentageOfTotalHoursPerActivity
         }
         personnelDevelopmentGlobalTarrif
         personnelDevelopmentTotalHoursPerUser
         personnelDevelopmentPercentageOfWorkFocusPerUser
         personnelDevelopmentPercentageOfAnnualHoursPerUser
+        personnelDevelopmentPercentageOfTotalHoursPerUser
     }
+}
+
+query personnelDevelopmentGlobalTarrif {
+    personnelDevelopmentGlobalTarrif
+}
+query personnelDevelopmentTotalHoursPerActivity($activityId: String) {
+    personnelDevelopmentTotalHoursPerActivity(activityId: $activityId)
+}
+query personnelDevelopmentTotalHoursPerUser($userId: String) {
+    personnelDevelopmentTotalHoursPerUser(userId: $userId)
+}
+query personnelDevelopmentPercentageOfWorkFocusPerActivity(
+    $activityId: String
+) {
+    personnelDevelopmentPercentageOfWorkFocusPerActivity(
+        activityId: $activityId
+    )
+}
+query personnelDevelopmentPercentageOfWorkFocusPerUser($userId: String) {
+    personnelDevelopmentPercentageOfWorkFocusPerUser(userId: $userId)
+}
+query personnelDevelopmentPercentageOfAnnualHoursPerActivity(
+    $activityId: String
+) {
+    personnelDevelopmentPercentageOfAnnualHoursPerActivity(
+        activityId: $activityId
+    )
+}
+query personnelDevelopmentPercentageOfAnnualHoursPerUser($userId: String) {
+    personnelDevelopmentPercentageOfAnnualHoursPerUser(userId: $userId)
+}
+query personnelDevelopmentPercentageOfTotalHoursPerActivity(
+    $activityId: String
+) {
+    personnelDevelopmentPercentageOfTotalHoursPerActivity(
+        activityId: $activityId
+    )
+}
+query personnelDevelopmentPercentageOfTotalHoursPerUser($userId: String) {
+    personnelDevelopmentPercentageOfTotalHoursPerUser(userId: $userId)
 }

@@ -5,7 +5,7 @@ import { routerTransition } from 'src/app/router.animations';
 import { VenueInput } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -19,81 +19,80 @@ import { VenueService } from '../venue.service';
 })
 export class VenueEditComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    venue: VenueInput;
+    @ViewChild('f', { static: false }) form: any;
+
+    venueInput: VenueInput = {};
     types = this.venueService.types;
     campuses = this.venueService.campuses;
 
     private unsubscribe = new Subject();
 
-    venueEditForm: FormGroup;
-
     constructor(
         private alertService: AlertService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private fb: FormBuilder,
         private venueService: VenueService
     ) {}
 
     ngOnInit() {
-        this.activatedRoute.queryParams
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                console.log(result.venueId);
-                this.buildForm(result.venueId);
-            });
+        this.getVenue();
     }
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
 
-    buildForm(venueId: string) {
-        this.venueEditForm = this.fb.group({
-            venueId: ['', Validators.required],
-            capacity: [0, Validators.required],
-            campus: ['', Validators.required],
-            type: ['', [Validators.required]]
-        });
-
-        this.getVenue(venueId);
+    getVenue() {
+        this.activatedRoute.queryParamMap
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    const venueId = result.get('venueId');
+                    this.venueService
+                        .getVenue(venueId)
+                        .pipe(takeUntil(this.unsubscribe))
+                        .subscribe(result => {
+                            const venue = result.data.venue;
+                            this.venueInput = {
+                                venueId: venue.venueId,
+                                campus: venue.campus,
+                                capacity: venue.capacity,
+                                type: venue.type
+                            };
+                            this.breadcrumbs = [
+                                { label: 'admin' },
+                                { label: 'venue', url: 'admin/venue' },
+                                { label: 'view' },
+                                { label: this.venueInput.venueId }
+                            ];
+                        });
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                }
+            );
     }
 
-    getVenue(venueId: string) {
+    onSubmit() {
         this.venueService
-            .getVenue(venueId)
+            .editVenue(this.venueInput)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.venue = result.data.venue;
-                this.breadcrumbs = [
-                    { label: 'admin' },
-                    { label: 'venue', url: 'admin/venue' },
-                    { label: 'view' },
-                    { label: this.venue.venueId }
-                ];
-                this.venueEditForm.patchValue({
-                    venueId: this.venue.venueId,
-                    campus: this.venue.campus,
-                    capacity: this.venue.capacity,
-                    type: this.venue.type
-                });
-            });
-    }
-
-    onEdit() {
-        this.venue = this.formVal;
-        console.log('Venue: ', this.venue);
-
-        this.venueService
-            .editVenue(this.venue)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {});
-        this.alertService.successToast('Venue edited');
-        this.router.navigate(['admin/venue/view', this.venueId.value], {
-            queryParams: {
-                venueId: this.venueId.value
-            }
-        });
+            .subscribe(
+                result => {
+                    this.alertService.successToast('Venue edited');
+                    this.router.navigate(
+                        ['admin/venue/view', this.venueInput.venueId],
+                        {
+                            queryParams: {
+                                venueId: this.venueInput.venueId
+                            }
+                        }
+                    );
+                },
+                err => {
+                    this.alertService.errorToast(err), console.warn(err);
+                }
+            );
     }
 
     onBack(event) {
@@ -101,25 +100,8 @@ export class VenueEditComponent implements OnInit {
     }
 
     onReset(event) {
-        this.venueEditForm.reset();
+        this.form.reset();
         this.alertService.clear();
         this.ngOnInit();
-    }
-
-    // Getters
-    get venueId() {
-        return this.venueEditForm.get('venueId');
-    }
-    get campus() {
-        return this.venueEditForm.get('campus');
-    }
-    get capacity() {
-        return this.venueEditForm.get('capacity');
-    }
-    get type() {
-        return this.venueEditForm.get('type');
-    }
-    get formVal() {
-        return this.venueEditForm.getRawValue();
     }
 }

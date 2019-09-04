@@ -30,6 +30,8 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 
 import { CommonModule } from '@angular/common';
+import { ChipsModule } from 'primeng/chips';
+
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -46,6 +48,7 @@ import { PageHeaderModule } from './page-header';
         CardModule,
         ChartModule,
         CheckboxModule,
+        ChipsModule,
         CommonModule,
         ContextMenuModule,
         DropdownModule,
@@ -82,6 +85,7 @@ import { PageHeaderModule } from './page-header';
         CardModule,
         ChartModule,
         CheckboxModule,
+        ChipsModule,
         CommonModule,
         ContextMenuModule,
         DropdownModule,

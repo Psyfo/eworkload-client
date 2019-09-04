@@ -123,10 +123,12 @@ query formalInstructionWorkloadPerUser($userId: String) {
             formalInstructionTotalHoursPerActivity
             formalInstructionPercentageOfWorkFocusPerActivity
             formalInstructionPercentageOfAnnualHoursPerActivity
+            formalInstructionPercentageOfTotalHoursPerActivity
         }
         formalInstructionTotalHoursPerUser
         formalInstructionPercentageOfWorkFocusPerUser
         formalInstructionPercentageOfAnnualHoursPerUser
+        formalInstructionPercentageOfTotalHoursPerUser
     }
 }
 
@@ -187,4 +189,10 @@ query formalInstructionPercentageOfAnnualHoursPerActivity($activityId: String) {
 }
 query formalInstructionPercentageOfAnnualHoursPerUser($userId: String) {
     formalInstructionPercentageOfAnnualHoursPerUser(userId: $userId)
+}
+query formalInstructionPercentageOfTotalHoursPerActivity($activityId: String) {
+    formalInstructionPercentageOfTotalHoursPerActivity(activityId: $activityId)
+}
+query formalInstructionPercentageOfTotalHoursPerUser($userId: String) {
+    formalInstructionPercentageOfTotalHoursPerUser(userId: $userId)
 }

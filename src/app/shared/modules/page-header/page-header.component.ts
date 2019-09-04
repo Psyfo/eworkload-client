@@ -1,8 +1,10 @@
 import { MenuItem } from 'primeng/components/common/menuitem';
+import { routerTransition } from 'src/app/router.animations';
 
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { routerTransition } from 'src/app/router.animations';
+import { Router } from '@angular/router';
+
+import { AlertService } from '../alert/alert.service';
 
 @Component({
     selector: 'app-page-header',
@@ -16,7 +18,7 @@ export class PageHeaderComponent implements OnInit {
     @Input() breadcrumbs: MenuItem[];
     home: MenuItem;
 
-    constructor() {}
+    constructor(private alertService: AlertService, private router: Router) {}
 
     ngOnInit() {
         this.home = { icon: 'pi pi-home', url: '/' };

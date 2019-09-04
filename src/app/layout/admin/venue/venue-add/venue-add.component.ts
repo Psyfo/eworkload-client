@@ -6,7 +6,7 @@ import { VenueInput } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 import { ErrorService, ValidationService } from 'src/app/shared/services';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -20,11 +20,11 @@ import { VenueService } from '../venue.service';
 })
 export class VenueAddComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    venue: VenueInput;
+    @ViewChild('f', { static: false }) form: any;
     types = this.venueService.types;
     campuses = this.venueService.campuses;
 
-    venueAddForm: FormGroup;
+    venueInput: VenueInput = {};
 
     private unsubscribe = new Subject();
 
@@ -43,69 +43,30 @@ export class VenueAddComponent implements OnInit {
             { label: 'venue', url: 'admin/venue' },
             { label: 'add', url: 'admin/venue/add' }
         ];
-
-        this.buildForm();
     }
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
 
-    buildForm() {
-        this.venueAddForm = this.fb.group({
-            venueId: ['', [Validators.required]],
-            capacity: ['', [Validators.required, Validators.min(10)]],
-            campus: ['', [Validators.required]],
-            type: ['', [Validators.required]]
-        });
-    }
-    onAdd(event) {
-        this.venue = this.formVal;
+    onSubmit() {
         this.venueService
-            .addVenue(this.venue)
+            .addVenue(this.venueInput)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                try {
-                    const venueId = result.data.addVenue.venueId;
-                    this.alertService.successToast(
-                        `New Venue ${venueId} added`
-                    );
-                    this.router.navigate(['admin/venue/view', venueId], {
-                        queryParams: {
-                            venueId: venueId
-                        }
-                    });
-                } catch (error) {
-                    console.log(error);
-
-                    this.alertService.errorToast(error, 'errorToast', 0, true);
+            .subscribe(
+                result => {},
+                err => {
+                    this.alertService.errorToast(err);
                 }
-            });
+            );
     }
 
     onBack(event) {
         this.router.navigate(['admin/venue']);
     }
-
     onReset(event) {
-        this.venueAddForm.reset();
+        this.form.reset();
         this.alertService.clear();
-    }
-
-    // Getters
-    get venueId() {
-        return this.venueAddForm.get('venueId');
-    }
-    get campus() {
-        return this.venueAddForm.get('campus');
-    }
-    get capacity() {
-        return this.venueAddForm.get('capacity');
-    }
-    get type() {
-        return this.venueAddForm.get('type');
-    }
-    get formVal() {
-        return this.venueAddForm.getRawValue();
+        this.ngOnInit();
     }
 }

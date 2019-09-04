@@ -4,10 +4,40 @@ query publicServiceWorkloadPerUser($userId: String) {
             publicServiceTotalHoursPerActivity
             publicServicePercentageOfWorkFocusPerActivity
             publicServicePercentageOfAnnualHoursPerActivity
+            publicServicePercentageOfTotalHoursPerActivity
         }
         publicServiceGlobalTarrif
         publicServiceTotalHoursPerUser
         publicServicePercentageOfWorkFocusPerUser
         publicServicePercentageOfAnnualHoursPerUser
+        publicServicePercentageOfTotalHoursPerUser
     }
+}
+
+query publicServiceGlobalTarrif {
+    publicServiceGlobalTarrif
+}
+query publicServiceTotalHoursPerActivity($activityId: String) {
+    publicServiceTotalHoursPerActivity(activityId: $activityId)
+}
+query publicServiceTotalHoursPerUser($userId: String) {
+    publicServiceTotalHoursPerUser(userId: $userId)
+}
+query publicServicePercentageOfWorkFocusPerActivity($activityId: String) {
+    publicServicePercentageOfWorkFocusPerActivity(activityId: $activityId)
+}
+query publicServicePercentageOfWorkFocusPerUser($userId: String) {
+    publicServicePercentageOfWorkFocusPerUser(userId: $userId)
+}
+query publicServicePercentageOfAnnualHoursPerActivity($activityId: String) {
+    publicServicePercentageOfAnnualHoursPerActivity(activityId: $activityId)
+}
+query publicServicePercentageOfAnnualHoursPerUser($userId: String) {
+    publicServicePercentageOfAnnualHoursPerUser(userId: $userId)
+}
+query publicServicePercentageOfTotalHoursPerActivity($activityId: String) {
+    publicServicePercentageOfTotalHoursPerActivity(activityId: $activityId)
+}
+query publicServicePercentageOfTotalHoursPerUser($userId: String) {
+    publicServicePercentageOfTotalHoursPerUser(userId: $userId)
 }

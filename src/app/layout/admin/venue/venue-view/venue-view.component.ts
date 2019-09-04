@@ -17,8 +17,8 @@ import { VenueService } from '../venue.service';
     animations: [routerTransition()]
 })
 export class VenueViewComponent implements OnInit {
-    // Properties
     breadcrumbs: MenuItem[];
+
     venueId: string;
     venue: Venue;
 
@@ -29,9 +29,7 @@ export class VenueViewComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private venueService: VenueService
-    ) {
-        //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    }
+    ) {}
 
     ngOnInit() {
         // Get ID from route
@@ -79,14 +77,16 @@ export class VenueViewComponent implements OnInit {
         this.venueService
             .deleteVenue(this.venue)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                try {
+            .subscribe(
+                result => {
                     this.alertService.infoToast('Venue deleted');
                     this.router.navigate(['admin/venue']);
-                } catch (error) {
-                    this.alertService.errorToast(error, 'errorToast');
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
                 }
-            });
+            );
     }
     onReject() {
         this.alertService.clear();

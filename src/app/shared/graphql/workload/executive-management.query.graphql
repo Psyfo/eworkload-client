@@ -4,10 +4,48 @@ query executiveManagementWorkloadPerUser($userId: String) {
             executiveManagementTotalHoursPerActivity
             executiveManagementPercentageOfWorkFocusPerActivity
             executiveManagementPercentageOfAnnualHoursPerActivity
+            executiveManagementPercentageOfTotalHoursPerActivity
         }
         executiveManagementGlobalTarrif
         executiveManagementTotalHoursPerUser
         executiveManagementPercentageOfWorkFocusPerUser
         executiveManagementPercentageOfAnnualHoursPerUser
+        executiveManagementPercentageOfTotalHoursPerUser
     }
+}
+
+query executiveManagementGlobalTarrif {
+    executiveManagementGlobalTarrif
+}
+query executiveManagementTotalHoursPerActivity($activityId: String) {
+    executiveManagementTotalHoursPerActivity(activityId: $activityId)
+}
+query executiveManagementTotalHoursPerUser($userId: String) {
+    executiveManagementTotalHoursPerUser(userId: $userId)
+}
+query executiveManagementPercentageOfWorkFocusPerActivity($activityId: String) {
+    executiveManagementPercentageOfWorkFocusPerActivity(activityId: $activityId)
+}
+query executiveManagementPercentageOfWorkFocusPerUser($userId: String) {
+    executiveManagementPercentageOfWorkFocusPerUser(userId: $userId)
+}
+query executiveManagementPercentageOfAnnualHoursPerActivity(
+    $activityId: String
+) {
+    executiveManagementPercentageOfAnnualHoursPerActivity(
+        activityId: $activityId
+    )
+}
+query executiveManagementPercentageOfAnnualHoursPerUser($userId: String) {
+    executiveManagementPercentageOfAnnualHoursPerUser(userId: $userId)
+}
+query executiveManagementPercentageOfTotalHoursPerActivity(
+    $activityId: String
+) {
+    executiveManagementPercentageOfTotalHoursPerActivity(
+        activityId: $activityId
+    )
+}
+query executiveManagementPercentageOfTotalHoursPerUser($userId: String) {
+    executiveManagementPercentageOfTotalHoursPerUser(userId: $userId)
 }

@@ -4,10 +4,52 @@ query academicAdministrationWorkloadPerUser($userId: String) {
             academicAdministrationTotalHoursPerActivity
             academicAdministrationPercentageOfWorkFocusPerActivity
             academicAdministrationPercentageOfAnnualHoursPerActivity
+            academicAdministrationPercentageOfTotalHoursPerActivity
         }
         academicAdministrationGlobalTarrif
         academicAdministrationTotalHoursPerUser
         academicAdministrationPercentageOfWorkFocusPerUser
         academicAdministrationPercentageOfAnnualHoursPerUser
+        academicAdministrationPercentageOfTotalHoursPerUser
     }
+}
+
+query academicAdministrationGlobalTarrif {
+    academicAdministrationGlobalTarrif
+}
+query academicAdministrationTotalHoursPerActivity($activityId: String) {
+    academicAdministrationTotalHoursPerActivity(activityId: $activityId)
+}
+query academicAdministrationTotalHoursPerUser($userId: String) {
+    academicAdministrationTotalHoursPerUser(userId: $userId)
+}
+query academicAdministrationPercentageOfWorkFocusPerActivity(
+    $activityId: String
+) {
+    academicAdministrationPercentageOfWorkFocusPerActivity(
+        activityId: $activityId
+    )
+}
+query academicAdministrationPercentageOfWorkFocusPerUser($userId: String) {
+    academicAdministrationPercentageOfWorkFocusPerUser(userId: $userId)
+}
+query academicAdministrationPercentageOfAnnualHoursPerActivity(
+    $activityId: String
+) {
+    academicAdministrationPercentageOfAnnualHoursPerActivity(
+        activityId: $activityId
+    )
+}
+query academicAdministrationPercentageOfAnnualHoursPerUser($userId: String) {
+    academicAdministrationPercentageOfAnnualHoursPerUser(userId: $userId)
+}
+query academicAdministrationPercentageOfTotalHoursPerActivity(
+    $activityId: String
+) {
+    academicAdministrationPercentageOfTotalHoursPerActivity(
+        activityId: $activityId
+    )
+}
+query academicAdministrationPercentageOfTotalHoursPerUser($userId: String) {
+    academicAdministrationPercentageOfTotalHoursPerUser(userId: $userId)
 }

@@ -26,6 +26,14 @@ import { takeUntil } from 'rxjs/operators';
 export class HemisHistoricalComponent implements OnInit {
     userId: string = this.userService.currentUserIdStatic();
     user: User;
+    fiLoading: boolean;
+    ciLoading: boolean;
+    rLoading: boolean;
+    psLoading: boolean;
+    sLoading: boolean;
+    aaLoading: boolean;
+    emLoading: boolean;
+    pdLoading: boolean;
 
     duties: Duty[];
 
@@ -37,6 +45,8 @@ export class HemisHistoricalComponent implements OnInit {
     publicServiceWorkload: PublicServiceWorkloadPerUser;
     researchWorkload: ResearchWorkloadPerUser;
     supervisionWorkload: SupervisionWorkloadPerUser;
+    totalHoursPerUser;
+    totalPercentage;
 
     private unsubscribe = new Subject();
     constructor(
@@ -46,12 +56,14 @@ export class HemisHistoricalComponent implements OnInit {
         private workloadService: WorkloadService
     ) {}
 
-    async ngOnInit() {
+    ngOnInit() {
         this.getUser();
-        await this.getAcademicAdministrationWorkload();
+        this.getTotalHoursPerUser();
+
+        this.getAcademicAdministrationWorkload();
         this.getCommunityInstructionWorkload();
         this.getExecutiveManagementWorkload();
-        await this.getFormalInstructionWorkload();
+        this.getFormalInstructionWorkload();
         this.getPersonnelDevelopmentWorkload();
         this.getPublicServiceWorkload();
         this.getResearchWorkload();
@@ -75,6 +87,8 @@ export class HemisHistoricalComponent implements OnInit {
             .academicAdministrationWorkloadPerUser(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
+                this.aaLoading = false;
+                this.aaLoading = result.loading;
                 this.academicAdministrationWorkload =
                     result.data.academicAdministrationWorkloadPerUser;
             });
@@ -84,6 +98,8 @@ export class HemisHistoricalComponent implements OnInit {
             .communityInstructionWorkloadPerUser(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
+                this.ciLoading = false;
+                this.ciLoading = result.loading;
                 this.communityInstructionWorkload =
                     result.data.communityInstructionWorkloadPerUser;
             });
@@ -93,6 +109,8 @@ export class HemisHistoricalComponent implements OnInit {
             .executiveManagementWorkloadPerUser(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
+                this.emLoading = false;
+                this.emLoading = result.loading;
                 this.executiveManagementWorkload =
                     result.data.executiveManagementWorkloadPerUser;
             });
@@ -102,9 +120,10 @@ export class HemisHistoricalComponent implements OnInit {
             .formalInstructionWorkloadPerUser(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
+                this.fiLoading = false;
+                this.fiLoading = result.loading;
                 this.formalInstructionWorkload =
                     result.data.formalInstructionWorkloadPerUser;
-                console.log(this.formalInstructionWorkload);
             });
     }
     getPersonnelDevelopmentWorkload() {
@@ -112,6 +131,8 @@ export class HemisHistoricalComponent implements OnInit {
             .personnelDevelopmentWorkloadPerUser(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
+                this.pdLoading = false;
+                this.pdLoading = result.loading;
                 this.personnelDevelopmentWorkload =
                     result.data.personnelDevelopmentWorkloadPerUser;
             });
@@ -121,6 +142,8 @@ export class HemisHistoricalComponent implements OnInit {
             .publicServiceWorkloadPerUser(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
+                this.psLoading = false;
+                this.psLoading = result.loading;
                 this.publicServiceWorkload =
                     result.data.publicServiceWorkloadPerUser;
             });
@@ -130,6 +153,8 @@ export class HemisHistoricalComponent implements OnInit {
             .researchWorkloadPerUser(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
+                this.rLoading = false;
+                this.rLoading = result.loading;
                 this.researchWorkload = result.data.researchWorkloadPerUser;
             });
     }
@@ -138,8 +163,45 @@ export class HemisHistoricalComponent implements OnInit {
             .supervisionWorkloadPerUser(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
+                this.sLoading = false;
+                this.sLoading = result.loading;
                 this.supervisionWorkload =
                     result.data.supervisionWorkloadPerUser;
             });
+    }
+
+    getTotalPercentage() {
+        this.totalPercentage =
+            this.formalInstructionWorkload
+                .formalInstructionPercentageOfAnnualHoursPerUser +
+            this.communityInstructionWorkload
+                .communityInstructionPercentageOfAnnualHoursPerUser +
+            this.researchWorkload.researchPercentageOfAnnualHoursPerUser +
+            this.publicServiceWorkload
+                .publicServicePercentageOfAnnualHoursPerUser +
+            this.academicAdministrationWorkload
+                .academicAdministrationPercentageOfAnnualHoursPerUser +
+            this.personnelDevelopmentWorkload
+                .personnelDevelopmentPercentageOfAnnualHoursPerUser +
+            this.executiveManagementWorkload
+                .executiveManagementPercentageOfTotalHoursPerUser;
+    }
+    getTotalHoursPerUser() {
+        this.workloadService
+            .totalHoursPerUser(this.userService.currentUserIdStatic())
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    this.totalHoursPerUser = result.data.totalHoursPerUser;
+                    console.log(
+                        'Total Hours Per User:',
+                        this.totalHoursPerUser
+                    );
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
 }

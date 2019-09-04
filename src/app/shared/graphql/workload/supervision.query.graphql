@@ -4,10 +4,40 @@ query supervisionWorkloadPerUser($userId: String) {
             supervisionTotalHoursPerActivity
             supervisionPercentageOfWorkFocusPerActivity
             supervisionPercentageOfAnnualHoursPerActivity
+            supervisionPercentageOfTotalHoursPerActivity
         }
         supervisionGlobalTarrif
         supervisionTotalHoursPerUser
         supervisionPercentageOfWorkFocusPerUser
         supervisionPercentageOfAnnualHoursPerUser
+        supervisionPercentageOfTotalHoursPerUser
     }
+}
+
+query supervisionGlobalTarrif {
+    supervisionGlobalTarrif
+}
+query supervisionTotalHoursPerActivity($activityId: String) {
+    supervisionTotalHoursPerActivity(activityId: $activityId)
+}
+query supervisionTotalHoursPerUser($userId: String) {
+    supervisionTotalHoursPerUser(userId: $userId)
+}
+query supervisionPercentageOfWorkFocusPerActivity($activityId: String) {
+    supervisionPercentageOfWorkFocusPerActivity(activityId: $activityId)
+}
+query supervisionPercentageOfWorkFocusPerUser($userId: String) {
+    supervisionPercentageOfWorkFocusPerUser(userId: $userId)
+}
+query supervisionPercentageOfAnnualHoursPerActivity($activityId: String) {
+    supervisionPercentageOfAnnualHoursPerActivity(activityId: $activityId)
+}
+query supervisionPercentageOfAnnualHoursPerUser($userId: String) {
+    supervisionPercentageOfAnnualHoursPerUser(userId: $userId)
+}
+query supervisionPercentageOfTotalHoursPerActivity($activityId: String) {
+    supervisionPercentageOfTotalHoursPerActivity(activityId: $activityId)
+}
+query supervisionPercentageOfTotalHoursPerUser($userId: String) {
+    supervisionPercentageOfTotalHoursPerUser(userId: $userId)
 }

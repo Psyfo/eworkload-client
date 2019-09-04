@@ -64,7 +64,7 @@ export class ProfileViewComponent implements OnInit {
     serviceHours;
 
     private unsubscribe = new Subject();
-
+    //TODO: Refresh charts
     constructor(
         private alertService: AlertService,
         private router: Router,

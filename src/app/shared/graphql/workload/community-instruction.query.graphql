@@ -4,10 +4,52 @@ query communityInstructionWorkloadPerUser($userId: String) {
             communityInstructionTotalHoursPerActivity
             communityInstructionPercentageOfWorkFocusPerActivity
             communityInstructionPercentageOfAnnualHoursPerActivity
+            communityInstructionPercentageOfTotalHoursPerActivity
         }
         communityInstructionGlobalTarrif
         communityInstructionTotalHoursPerUser
         communityInstructionPercentageOfWorkFocusPerUser
         communityInstructionPercentageOfAnnualHoursPerUser
+        communityInstructionPercentageOfTotalHoursPerUser
     }
+}
+
+query communityInstructionGlobalTarrif {
+    communityInstructionGlobalTarrif
+}
+query communityInstructionTotalHoursPerActivity($activityId: String) {
+    communityInstructionTotalHoursPerActivity(activityId: $activityId)
+}
+query communityInstructionTotalHoursPerUser($userId: String) {
+    communityInstructionTotalHoursPerUser(userId: $userId)
+}
+query communityInstructionPercentageOfWorkFocusPerActivity(
+    $activityId: String
+) {
+    communityInstructionPercentageOfWorkFocusPerActivity(
+        activityId: $activityId
+    )
+}
+query communityInstructionPercentageOfWorkFocusPerUser($userId: String) {
+    communityInstructionPercentageOfWorkFocusPerUser(userId: $userId)
+}
+query communityInstructionPercentageOfAnnualHoursPerActivity(
+    $activityId: String
+) {
+    communityInstructionPercentageOfAnnualHoursPerActivity(
+        activityId: $activityId
+    )
+}
+query communityInstructionPercentageOfAnnualHoursPerUser($userId: String) {
+    communityInstructionPercentageOfAnnualHoursPerUser(userId: $userId)
+}
+query communityInstructionPercentageOfTotalHoursPerActivity(
+    $activityId: String
+) {
+    communityInstructionPercentageOfTotalHoursPerActivity(
+        activityId: $activityId
+    )
+}
+query communityInstructionPercentageOfTotalHoursPerUser($userId: String) {
+    communityInstructionPercentageOfTotalHoursPerUser(userId: $userId)
 }

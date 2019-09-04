@@ -1,0 +1,3 @@
+query totalHoursPerUser($userId: String!) {
+    totalHoursPerUser(userId: $userId)
+}

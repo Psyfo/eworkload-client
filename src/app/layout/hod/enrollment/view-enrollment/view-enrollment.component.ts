@@ -45,7 +45,7 @@ export class ViewEnrollmentComponent implements OnInit {
 
     getEnrollment(enrollmentYear: string, qualificationId: string) {
         this.enrollmentService
-            .getEnrollment(enrollmentYear, qualificationId)
+            .enrollment(enrollmentYear, qualificationId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.enrollment = <Enrollment>(<unknown>result.data.enrollment);

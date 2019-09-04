@@ -4,10 +4,40 @@ query researchWorkloadPerUser($userId: String) {
             researchTotalHoursPerActivity
             researchPercentageOfWorkFocusPerActivity
             researchPercentageOfAnnualHoursPerActivity
+            researchPercentageOfTotalHoursPerActivity
         }
         researchGlobalTarrif
         researchTotalHoursPerUser
         researchPercentageOfWorkFocusPerUser
         researchPercentageOfAnnualHoursPerUser
+        researchPercentageOfTotalHoursPerUser
     }
+}
+
+query researchGlobalTarrif {
+    researchGlobalTarrif
+}
+query researchTotalHoursPerActivity($activityId: String) {
+    researchTotalHoursPerActivity(activityId: $activityId)
+}
+query researchTotalHoursPerUser($userId: String) {
+    researchTotalHoursPerUser(userId: $userId)
+}
+query researchPercentageOfWorkFocusPerActivity($activityId: String) {
+    researchPercentageOfWorkFocusPerActivity(activityId: $activityId)
+}
+query researchPercentageOfWorkFocusPerUser($userId: String) {
+    researchPercentageOfWorkFocusPerUser(userId: $userId)
+}
+query researchPercentageOfAnnualHoursPerActivity($activityId: String) {
+    researchPercentageOfAnnualHoursPerActivity(activityId: $activityId)
+}
+query researchPercentageOfAnnualHoursPerUser($userId: String) {
+    researchPercentageOfAnnualHoursPerUser(userId: $userId)
+}
+query researchPercentageOfTotalHoursPerActivity($activityId: String) {
+    researchPercentageOfTotalHoursPerActivity(activityId: $activityId)
+}
+query researchPercentageOfTotalHoursPerUser($userId: String) {
+    researchPercentageOfTotalHoursPerUser(userId: $userId)
 }

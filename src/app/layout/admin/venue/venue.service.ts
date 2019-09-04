@@ -52,12 +52,15 @@ export class VenueService {
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        this.networkStatus = result.networkStatus;
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
     getVenue(venueId: string) {
@@ -69,45 +72,50 @@ export class VenueService {
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    console.log('Venue:', result.data.venue);
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
     addVenue(venue: VenueInput) {
-        return this.addVenueGql
-            .mutate({ venue: venue }, { errorPolicy: 'all' })
-            .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
+        return this.addVenueGql.mutate({ venue: venue }).pipe(
+            map(
+                result => {
                     return result;
-                })
-            );
+                },
+                err => {
+                    return err;
+                }
+            )
+        );
     }
     editVenue(venue: VenueInput) {
         return this.editVenueGql.mutate({ venue: venue }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
+            map(
+                result => {
+                    return result;
+                },
+                err => {
+                    return err;
+                }
+            )
         );
     }
     deleteVenue(venue: VenueInput) {
         return this.deleteVenueGql.mutate({ venue: venue }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
+            map(
+                result => {
+                    return result;
+                },
+                err => {
+                    return err;
+                }
+            )
         );
     }
 }

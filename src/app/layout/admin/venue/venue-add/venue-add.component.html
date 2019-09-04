@@ -1,7 +1,7 @@
 <app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
 <div class="p-grid" [@routerTransition]>
     <div class="p-col-12">
-        <form [formGroup]="venueAddForm" (ngsubmit)="onAdd($event)">
+        <form #f="ngForm" (ngsubmit)="onSubmit()">
             <p-panel header="Add Venue">
                 <p-header>
                 </p-header>
@@ -11,8 +11,8 @@
                         <label for="venueId">Venue Id:</label>
                     </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText placeholder="Venue Id" formControlName="venueId"
-                            pKeyFilter="alphanum">
+                        <input type="text" pInputText placeholder="Venue Id" [(ngModel)]="venueInput.venueId"
+                            name="venueId" #venueId="ngModel" pKeyFilter="alphanum" required>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Venue Id is required"
@@ -26,8 +26,8 @@
                         <label for="capacity">Capacity</label>
                     </div>
                     <div class="p-col-6">
-                        <input type="number" pInputText placeholder="Venue Id" formControlName="capacity"
-                            pKeyFilter="pint">
+                        <input type="number" pInputText placeholder="Venue Id" [(ngModel)]="venueInput.capacity"
+                            name="capacity" #capacity="ngModel" pKeyFilter="pint" required>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Capacity is required"
@@ -44,11 +44,12 @@
                         <label for="campus">Campus:</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="campuses" formControlName="campus" placeholder="Campus"></p-dropdown>
+                        <p-dropdown [options]="campuses" name="campus" placeholder="Campus"
+                            [(ngModel)]="venueInput.campus" #campus="ngModel" required></p-dropdown>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Campus is required"
-                            *ngIf="(campus.touched||campus.dirty) && (campus.value==='' || campus.hasError('required'))">
+                            *ngIf="(campus.touched||campus.dirty) && campus.hasError('required')">
                         </p-message>
                     </div>
                 </div>
@@ -58,7 +59,8 @@
                         <label for="type">Type:</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="types" formControlName="type" placeholder="Venue Type"></p-dropdown>
+                        <p-dropdown [options]="types" name="type" placeholder="Venue Type" [(ngModel)]="venueInput.type"
+                            #type="ngModel" required></p-dropdown>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Type is required"
@@ -69,8 +71,8 @@
 
                 <p-footer>
                     <div class="p-grid">
-                        <div class="p-col-1"><button pButton label="Add Venue" icon="pi pi-plus" (click)="onAdd($event)"
-                                [disabled]="venueAddForm.invalid"></button>
+                        <div class="p-col-1">
+                            <button pButton label="Add Venue" icon="pi pi-plus" [disabled]="f.invalid"></button>
                         </div>
                         <div class="p-col-1">
                             <button pButton type="button" label="Back" icon="pi pi-arrow-left" (click)="onBack($event)"

@@ -38,12 +38,15 @@ export type AcademicAdministrationActivityInput = {
 
 export type AcademicAdministrationWorkloadPerActivity = {
     __typename?: "AcademicAdministrationWorkloadPerActivity";
-    academicAdministrationTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    academicAdministrationTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
     academicAdministrationPercentageOfWorkFocusPerActivity?: Maybe<
-        Scalars["Int"]
+        Scalars["Float"]
     >;
     academicAdministrationPercentageOfAnnualHoursPerActivity?: Maybe<
-        Scalars["Int"]
+        Scalars["Float"]
+    >;
+    academicAdministrationPercentageOfTotalHoursPerActivity?: Maybe<
+        Scalars["Float"]
     >;
 };
 
@@ -52,11 +55,16 @@ export type AcademicAdministrationWorkloadPerUser = {
     academicAdministrationWorkloadData?: Maybe<
         Array<Maybe<AcademicAdministrationWorkloadPerActivity>>
     >;
-    academicAdministrationGlobalTarrif?: Maybe<Scalars["Int"]>;
-    academicAdministrationTotalHoursPerUser?: Maybe<Scalars["Int"]>;
-    academicAdministrationPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    academicAdministrationGlobalTarrif?: Maybe<Scalars["Float"]>;
+    academicAdministrationTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    academicAdministrationPercentageOfWorkFocusPerUser?: Maybe<
+        Scalars["Float"]
+    >;
     academicAdministrationPercentageOfAnnualHoursPerUser?: Maybe<
-        Scalars["Int"]
+        Scalars["Float"]
+    >;
+    academicAdministrationPercentageOfTotalHoursPerUser?: Maybe<
+        Scalars["Float"]
     >;
 };
 
@@ -121,12 +129,15 @@ export type CommunityInstructionActivityInput = {
 
 export type CommunityInstructionWorkloadPerActivity = {
     __typename?: "CommunityInstructionWorkloadPerActivity";
-    communityInstructionTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    communityInstructionTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
     communityInstructionPercentageOfWorkFocusPerActivity?: Maybe<
-        Scalars["Int"]
+        Scalars["Float"]
     >;
     communityInstructionPercentageOfAnnualHoursPerActivity?: Maybe<
-        Scalars["Int"]
+        Scalars["Float"]
+    >;
+    communityInstructionPercentageOfTotalHoursPerActivity?: Maybe<
+        Scalars["Float"]
     >;
 };
 
@@ -135,10 +146,13 @@ export type CommunityInstructionWorkloadPerUser = {
     communityInstructionWorkloadData?: Maybe<
         Array<Maybe<CommunityInstructionWorkloadPerActivity>>
     >;
-    communityInstructionGlobalTarrif?: Maybe<Scalars["Int"]>;
-    communityInstructionTotalHoursPerUser?: Maybe<Scalars["Int"]>;
-    communityInstructionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
-    communityInstructionPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+    communityInstructionGlobalTarrif?: Maybe<Scalars["Float"]>;
+    communityInstructionTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    communityInstructionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Float"]>;
+    communityInstructionPercentageOfAnnualHoursPerUser?: Maybe<
+        Scalars["Float"]
+    >;
+    communityInstructionPercentageOfTotalHoursPerUser?: Maybe<Scalars["Float"]>;
 };
 
 export type Department = {
@@ -243,10 +257,15 @@ export type ExecutiveManagementActivityInput = {
 
 export type ExecutiveManagementWorkloadPerActivity = {
     __typename?: "ExecutiveManagementWorkloadPerActivity";
-    executiveManagementTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
-    executiveManagementPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
+    executiveManagementTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
+    executiveManagementPercentageOfWorkFocusPerActivity?: Maybe<
+        Scalars["Float"]
+    >;
     executiveManagementPercentageOfAnnualHoursPerActivity?: Maybe<
-        Scalars["Int"]
+        Scalars["Float"]
+    >;
+    executiveManagementPercentageOfTotalHoursPerActivity?: Maybe<
+        Scalars["Float"]
     >;
 };
 
@@ -255,10 +274,11 @@ export type ExecutiveManagementWorkloadPerUser = {
     executiveManagementWorkloadData?: Maybe<
         Array<Maybe<ExecutiveManagementWorkloadPerActivity>>
     >;
-    executiveManagementGlobalTarrif?: Maybe<Scalars["Int"]>;
-    executiveManagementTotalHoursPerUser?: Maybe<Scalars["Int"]>;
-    executiveManagementPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
-    executiveManagementPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+    executiveManagementGlobalTarrif?: Maybe<Scalars["Float"]>;
+    executiveManagementTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    executiveManagementPercentageOfWorkFocusPerUser?: Maybe<Scalars["Float"]>;
+    executiveManagementPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Float"]>;
+    executiveManagementPercentageOfTotalHoursPerUser?: Maybe<Scalars["Float"]>;
 };
 
 export type ExistData = {
@@ -318,21 +338,26 @@ export type FormalInstructionActivityInput = {
 export type FormalInstructionWorkloadPerActivity = {
     __typename?: "FormalInstructionWorkloadPerActivity";
     formalInstructionActivity?: Maybe<FormalInstructionActivity>;
-    formalInstructionStudentsEnrolled?: Maybe<Scalars["Int"]>;
-    formalInstructionBaseContactHours?: Maybe<Scalars["Int"]>;
-    formalInstructionCoordinationHours?: Maybe<Scalars["Int"]>;
-    formalInstructionStudentSupportHours?: Maybe<Scalars["Int"]>;
-    formalInstructionPreparationTimeHours?: Maybe<Scalars["Int"]>;
-    formalInstructionAssessmentSettingHours?: Maybe<Scalars["Int"]>;
-    formalInstructionExamMarkingHours?: Maybe<Scalars["Int"]>;
-    formalInstructionCourseworkMarkingHours?: Maybe<Scalars["Int"]>;
-    formalInstructionFeedbackHours?: Maybe<Scalars["Int"]>;
-    formalInstructionFormativeAssessmentHours?: Maybe<Scalars["Int"]>;
-    formalInstructionModerationHours?: Maybe<Scalars["Int"]>;
-    formalInstructionOtherHoursPerActivity?: Maybe<Scalars["Int"]>;
-    formalInstructionTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
-    formalInstructionPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
-    formalInstructionPercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Int"]>;
+    formalInstructionStudentsEnrolled?: Maybe<Scalars["Float"]>;
+    formalInstructionBaseContactHours?: Maybe<Scalars["Float"]>;
+    formalInstructionCoordinationHours?: Maybe<Scalars["Float"]>;
+    formalInstructionStudentSupportHours?: Maybe<Scalars["Float"]>;
+    formalInstructionPreparationTimeHours?: Maybe<Scalars["Float"]>;
+    formalInstructionAssessmentSettingHours?: Maybe<Scalars["Float"]>;
+    formalInstructionExamMarkingHours?: Maybe<Scalars["Float"]>;
+    formalInstructionCourseworkMarkingHours?: Maybe<Scalars["Float"]>;
+    formalInstructionFeedbackHours?: Maybe<Scalars["Float"]>;
+    formalInstructionFormativeAssessmentHours?: Maybe<Scalars["Float"]>;
+    formalInstructionModerationHours?: Maybe<Scalars["Float"]>;
+    formalInstructionOtherHoursPerActivity?: Maybe<Scalars["Float"]>;
+    formalInstructionTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
+    formalInstructionPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Float"]>;
+    formalInstructionPercentageOfAnnualHoursPerActivity?: Maybe<
+        Scalars["Float"]
+    >;
+    formalInstructionPercentageOfTotalHoursPerActivity?: Maybe<
+        Scalars["Float"]
+    >;
 };
 
 export type FormalInstructionWorkloadPerUser = {
@@ -340,9 +365,10 @@ export type FormalInstructionWorkloadPerUser = {
     formalInstructionWorkloadData?: Maybe<
         Array<Maybe<FormalInstructionWorkloadPerActivity>>
     >;
-    formalInstructionTotalHoursPerUser?: Maybe<Scalars["Int"]>;
-    formalInstructionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
-    formalInstructionPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+    formalInstructionTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    formalInstructionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Float"]>;
+    formalInstructionPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Float"]>;
+    formalInstructionPercentageOfTotalHoursPerUser?: Maybe<Scalars["Float"]>;
 };
 
 export type Module = {
@@ -892,7 +918,8 @@ export type PersonnelDevelopmentActivity = Activity & {
     createdAt?: Maybe<Scalars["String"]>;
     updatedAt?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    date?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    duration?: Maybe<Scalars["String"]>;
     evidence?: Maybe<Scalars["String"]>;
 };
 
@@ -901,17 +928,21 @@ export type PersonnelDevelopmentActivityInput = {
     userId?: Maybe<Scalars["String"]>;
     dutyId?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
-    description?: Maybe<Scalars["String"]>;
+    date?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    duration?: Maybe<Scalars["String"]>;
 };
 
 export type PersonnelDevelopmentWorkloadPerActivity = {
     __typename?: "PersonnelDevelopmentWorkloadPerActivity";
-    personnelDevelopmentTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
+    personnelDevelopmentTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
     personnelDevelopmentPercentageOfWorkFocusPerActivity?: Maybe<
-        Scalars["Int"]
+        Scalars["Float"]
     >;
     personnelDevelopmentPercentageOfAnnualHoursPerActivity?: Maybe<
-        Scalars["Int"]
+        Scalars["Float"]
+    >;
+    personnelDevelopmentPercentageOfTotalHoursPerActivity?: Maybe<
+        Scalars["Float"]
     >;
 };
 
@@ -920,10 +951,13 @@ export type PersonnelDevelopmentWorkloadPerUser = {
     personnelDevelopmentWorkloadData?: Maybe<
         Array<Maybe<PersonnelDevelopmentWorkloadPerActivity>>
     >;
-    personnelDevelopmentGlobalTarrif?: Maybe<Scalars["Int"]>;
-    personnelDevelopmentTotalHoursPerUser?: Maybe<Scalars["Int"]>;
-    personnelDevelopmentPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
-    personnelDevelopmentPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+    personnelDevelopmentGlobalTarrif?: Maybe<Scalars["Float"]>;
+    personnelDevelopmentTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    personnelDevelopmentPercentageOfWorkFocusPerUser?: Maybe<Scalars["Float"]>;
+    personnelDevelopmentPercentageOfAnnualHoursPerUser?: Maybe<
+        Scalars["Float"]
+    >;
+    personnelDevelopmentPercentageOfTotalHoursPerUser?: Maybe<Scalars["Float"]>;
 };
 
 export type Position = {
@@ -964,9 +998,10 @@ export type PublicServiceActivityInput = {
 
 export type PublicServiceWorkloadPerActivity = {
     __typename?: "PublicServiceWorkloadPerActivity";
-    publicServiceTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
-    publicServicePercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
-    publicServicePercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Int"]>;
+    publicServiceTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
+    publicServicePercentageOfWorkFocusPerActivity?: Maybe<Scalars["Float"]>;
+    publicServicePercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Float"]>;
+    publicServicePercentageOfTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
 };
 
 export type PublicServiceWorkloadPerUser = {
@@ -974,10 +1009,11 @@ export type PublicServiceWorkloadPerUser = {
     publicServiceWorkloadData?: Maybe<
         Array<Maybe<PublicServiceWorkloadPerActivity>>
     >;
-    publicServiceGlobalTarrif?: Maybe<Scalars["Int"]>;
-    publicServiceTotalHoursPerUser?: Maybe<Scalars["Int"]>;
-    publicServicePercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
-    publicServicePercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+    publicServiceGlobalTarrif?: Maybe<Scalars["Float"]>;
+    publicServiceTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    publicServicePercentageOfWorkFocusPerUser?: Maybe<Scalars["Float"]>;
+    publicServicePercentageOfAnnualHoursPerUser?: Maybe<Scalars["Float"]>;
+    publicServicePercentageOfTotalHoursPerUser?: Maybe<Scalars["Float"]>;
 };
 
 export type Qualification = {
@@ -1049,10 +1085,11 @@ export type Query = {
     venues?: Maybe<Array<Maybe<Venue>>>;
     workFocus?: Maybe<WorkFocus>;
     workFocuses?: Maybe<Array<Maybe<WorkFocus>>>;
-    teachingHours?: Maybe<Scalars["Int"]>;
-    researchHours?: Maybe<Scalars["Int"]>;
-    serviceHours?: Maybe<Scalars["Int"]>;
-    annualHours?: Maybe<Scalars["Int"]>;
+    teachingHours?: Maybe<Scalars["Float"]>;
+    researchHours?: Maybe<Scalars["Float"]>;
+    serviceHours?: Maybe<Scalars["Float"]>;
+    annualHours?: Maybe<Scalars["Float"]>;
+    totalHoursPerUser?: Maybe<Scalars["Float"]>;
     academicAdministrationWorkloadPerUser?: Maybe<
         AcademicAdministrationWorkloadPerUser
     >;
@@ -1087,90 +1124,128 @@ export type Query = {
     publicServiceWorkloadPerActivity?: Maybe<PublicServiceWorkloadPerActivity>;
     researchWorkloadPerActivity?: Maybe<ResearchWorkloadPerActivity>;
     supervisionWorkloadPerActivity?: Maybe<SupervisionWorkloadPerActivity>;
-    academicAdministrationGlobalTarrif?: Maybe<Scalars["Int"]>;
-    academicAdministrationTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
-    academicAdministrationTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    academicAdministrationGlobalTarrif?: Maybe<Scalars["Float"]>;
+    academicAdministrationTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
+    academicAdministrationTotalHoursPerUser?: Maybe<Scalars["Float"]>;
     academicAdministrationPercentageOfWorkFocusPerActivity?: Maybe<
-        Scalars["Int"]
+        Scalars["Float"]
     >;
-    academicAdministrationPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    academicAdministrationPercentageOfWorkFocusPerUser?: Maybe<
+        Scalars["Float"]
+    >;
     academicAdministrationPercentageOfAnnualHoursPerActivity?: Maybe<
-        Scalars["Int"]
+        Scalars["Float"]
     >;
     academicAdministrationPercentageOfAnnualHoursPerUser?: Maybe<
-        Scalars["Int"]
+        Scalars["Float"]
     >;
-    communityInstructionGlobalTarrif?: Maybe<Scalars["Int"]>;
-    communityInstructionTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
-    communityInstructionTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    academicAdministrationPercentageOfTotalHoursPerActivity?: Maybe<
+        Scalars["Float"]
+    >;
+    academicAdministrationPercentageOfTotalHoursPerUser?: Maybe<
+        Scalars["Float"]
+    >;
+    communityInstructionGlobalTarrif?: Maybe<Scalars["Float"]>;
+    communityInstructionTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
+    communityInstructionTotalHoursPerUser?: Maybe<Scalars["Float"]>;
     communityInstructionPercentageOfWorkFocusPerActivity?: Maybe<
-        Scalars["Int"]
+        Scalars["Float"]
     >;
-    communityInstructionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    communityInstructionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Float"]>;
     communityInstructionPercentageOfAnnualHoursPerActivity?: Maybe<
-        Scalars["Int"]
+        Scalars["Float"]
     >;
-    communityInstructionPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
-    executiveManagementGlobalTarrif?: Maybe<Scalars["Int"]>;
-    executiveManagementTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
-    executiveManagementTotalHoursPerUser?: Maybe<Scalars["Int"]>;
-    executiveManagementPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
-    executiveManagementPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    communityInstructionPercentageOfAnnualHoursPerUser?: Maybe<
+        Scalars["Float"]
+    >;
+    communityInstructionPercentageOfTotalHoursPerActivity?: Maybe<
+        Scalars["Float"]
+    >;
+    communityInstructionPercentageOfTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    executiveManagementGlobalTarrif?: Maybe<Scalars["Float"]>;
+    executiveManagementTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
+    executiveManagementTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    executiveManagementPercentageOfWorkFocusPerActivity?: Maybe<
+        Scalars["Float"]
+    >;
+    executiveManagementPercentageOfWorkFocusPerUser?: Maybe<Scalars["Float"]>;
     executiveManagementPercentageOfAnnualHoursPerActivity?: Maybe<
-        Scalars["Int"]
+        Scalars["Float"]
     >;
-    executiveManagementPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
-    formalInstructionLectureWeeks?: Maybe<Scalars["Int"]>;
-    formalInstructionStudentsEnrolled?: Maybe<Scalars["Int"]>;
-    formalInstructionBaseContactHours?: Maybe<Scalars["Int"]>;
-    formalInstructionCoordinationHours?: Maybe<Scalars["Int"]>;
-    formalInstructionStudentSupportHours?: Maybe<Scalars["Int"]>;
-    formalInstructionPreparationTimeHours?: Maybe<Scalars["Int"]>;
-    formalInstructionAssessmentSettingHours?: Maybe<Scalars["Int"]>;
-    formalInstructionExamMarkingHours?: Maybe<Scalars["Int"]>;
-    formalInstructionCourseworkMarkingHours?: Maybe<Scalars["Int"]>;
-    formalInstructionFeedbackHours?: Maybe<Scalars["Int"]>;
-    formalInstructionFormativeAssessmentHours?: Maybe<Scalars["Int"]>;
-    formalInstructionModerationHours?: Maybe<Scalars["Int"]>;
-    formalInstructionTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
-    formalInstructionOtherHoursPerActivity?: Maybe<Scalars["Int"]>;
-    formalInstructionTotalHoursPerUser?: Maybe<Scalars["Int"]>;
-    formalInstructionPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
-    formalInstructionPercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Int"]>;
-    formalInstructionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
-    formalInstructionPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
-    personnelDevelopmentGlobalTarrif?: Maybe<Scalars["Int"]>;
-    personnelDevelopmentTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
-    personnelDevelopmentTotalHoursPerUser?: Maybe<Scalars["Int"]>;
+    executiveManagementPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Float"]>;
+    executiveManagementPercentageOfTotalHoursPerActivity?: Maybe<
+        Scalars["Float"]
+    >;
+    executiveManagementPercentageOfTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    formalInstructionLectureWeeks?: Maybe<Scalars["Float"]>;
+    formalInstructionStudentsEnrolled?: Maybe<Scalars["Float"]>;
+    formalInstructionBaseContactHours?: Maybe<Scalars["Float"]>;
+    formalInstructionCoordinationHours?: Maybe<Scalars["Float"]>;
+    formalInstructionStudentSupportHours?: Maybe<Scalars["Float"]>;
+    formalInstructionPreparationTimeHours?: Maybe<Scalars["Float"]>;
+    formalInstructionAssessmentSettingHours?: Maybe<Scalars["Float"]>;
+    formalInstructionExamMarkingHours?: Maybe<Scalars["Float"]>;
+    formalInstructionCourseworkMarkingHours?: Maybe<Scalars["Float"]>;
+    formalInstructionFeedbackHours?: Maybe<Scalars["Float"]>;
+    formalInstructionFormativeAssessmentHours?: Maybe<Scalars["Float"]>;
+    formalInstructionModerationHours?: Maybe<Scalars["Float"]>;
+    formalInstructionTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
+    formalInstructionOtherHoursPerActivity?: Maybe<Scalars["Float"]>;
+    formalInstructionTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    formalInstructionPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Float"]>;
+    formalInstructionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Float"]>;
+    formalInstructionPercentageOfAnnualHoursPerActivity?: Maybe<
+        Scalars["Float"]
+    >;
+    formalInstructionPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Float"]>;
+    formalInstructionPercentageOfTotalHoursPerActivity?: Maybe<
+        Scalars["Float"]
+    >;
+    formalInstructionPercentageOfTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    personnelDevelopmentGlobalTarrif?: Maybe<Scalars["Float"]>;
+    personnelDevelopmentTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
+    personnelDevelopmentTotalHoursPerUser?: Maybe<Scalars["Float"]>;
     personnelDevelopmentPercentageOfWorkFocusPerActivity?: Maybe<
-        Scalars["Int"]
+        Scalars["Float"]
     >;
-    personnelDevelopmentPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
+    personnelDevelopmentPercentageOfWorkFocusPerUser?: Maybe<Scalars["Float"]>;
     personnelDevelopmentPercentageOfAnnualHoursPerActivity?: Maybe<
-        Scalars["Int"]
+        Scalars["Float"]
     >;
-    personnelDevelopmentPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
-    publicServiceGlobalTarrif?: Maybe<Scalars["Int"]>;
-    publicServiceTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
-    publicServiceTotalHoursPerUser?: Maybe<Scalars["Int"]>;
-    publicServicePercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
-    publicServicePercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
-    publicServicePercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Int"]>;
-    publicServicePercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
-    researchGlobalTarrif?: Maybe<Scalars["Int"]>;
-    researchTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
-    researchTotalHoursPerUser?: Maybe<Scalars["Int"]>;
-    researchPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
-    researchPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
-    researchPercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Int"]>;
-    researchPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
-    supervisionGlobalTarrif?: Maybe<Scalars["Int"]>;
-    supervisionTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
-    supervisionTotalHoursPerUser?: Maybe<Scalars["Int"]>;
-    supervisionPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
-    supervisionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
-    supervisionPercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Int"]>;
-    supervisionPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+    personnelDevelopmentPercentageOfAnnualHoursPerUser?: Maybe<
+        Scalars["Float"]
+    >;
+    personnelDevelopmentPercentageOfTotalHoursPerActivity?: Maybe<
+        Scalars["Float"]
+    >;
+    personnelDevelopmentPercentageOfTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    publicServiceGlobalTarrif?: Maybe<Scalars["Float"]>;
+    publicServiceTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
+    publicServiceTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    publicServicePercentageOfWorkFocusPerActivity?: Maybe<Scalars["Float"]>;
+    publicServicePercentageOfWorkFocusPerUser?: Maybe<Scalars["Float"]>;
+    publicServicePercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Float"]>;
+    publicServicePercentageOfAnnualHoursPerUser?: Maybe<Scalars["Float"]>;
+    publicServicePercentageOfTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
+    publicServicePercentageOfTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    researchGlobalTarrif?: Maybe<Scalars["Float"]>;
+    researchTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
+    researchTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    researchPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Float"]>;
+    researchPercentageOfWorkFocusPerUser?: Maybe<Scalars["Float"]>;
+    researchPercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Float"]>;
+    researchPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Float"]>;
+    researchPercentageOfTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
+    researchPercentageOfTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    supervisionGlobalTarrif?: Maybe<Scalars["Float"]>;
+    supervisionTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
+    supervisionTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    supervisionPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Float"]>;
+    supervisionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Float"]>;
+    supervisionPercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Float"]>;
+    supervisionPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Float"]>;
+    supervisionPercentageOfTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
+    supervisionPercentageOfTotalHoursPerUser?: Maybe<Scalars["Float"]>;
     academicAdministrationActivity?: Maybe<AcademicAdministrationActivity>;
     academicAdministrationActivities?: Maybe<
         Array<Maybe<AcademicAdministrationActivity>>
@@ -1340,14 +1415,18 @@ export type QueryWorkFocusArgs = {
 };
 
 export type QueryTeachingHoursArgs = {
-    userId: Scalars["String"];
+    userId?: Maybe<Scalars["String"]>;
 };
 
 export type QueryResearchHoursArgs = {
-    userId: Scalars["String"];
+    userId?: Maybe<Scalars["String"]>;
 };
 
 export type QueryServiceHoursArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryTotalHoursPerUserArgs = {
     userId: Scalars["String"];
 };
 
@@ -1439,6 +1518,14 @@ export type QueryAcademicAdministrationPercentageOfAnnualHoursPerUserArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
 
+export type QueryAcademicAdministrationPercentageOfTotalHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryAcademicAdministrationPercentageOfTotalHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
 export type QueryCommunityInstructionTotalHoursPerActivityArgs = {
     activityId?: Maybe<Scalars["String"]>;
 };
@@ -1463,6 +1550,14 @@ export type QueryCommunityInstructionPercentageOfAnnualHoursPerUserArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
 
+export type QueryCommunityInstructionPercentageOfTotalHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryCommunityInstructionPercentageOfTotalHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
 export type QueryExecutiveManagementTotalHoursPerActivityArgs = {
     activityId?: Maybe<Scalars["String"]>;
 };
@@ -1484,6 +1579,14 @@ export type QueryExecutiveManagementPercentageOfAnnualHoursPerActivityArgs = {
 };
 
 export type QueryExecutiveManagementPercentageOfAnnualHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryExecutiveManagementPercentageOfTotalHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryExecutiveManagementPercentageOfTotalHoursPerUserArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
 
@@ -1551,15 +1654,23 @@ export type QueryFormalInstructionPercentageOfWorkFocusPerActivityArgs = {
     activityId?: Maybe<Scalars["String"]>;
 };
 
-export type QueryFormalInstructionPercentageOfAnnualHoursPerActivityArgs = {
-    activityId?: Maybe<Scalars["String"]>;
-};
-
 export type QueryFormalInstructionPercentageOfWorkFocusPerUserArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
 
+export type QueryFormalInstructionPercentageOfAnnualHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
 export type QueryFormalInstructionPercentageOfAnnualHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionPercentageOfTotalHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryFormalInstructionPercentageOfTotalHoursPerUserArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
 
@@ -1587,6 +1698,14 @@ export type QueryPersonnelDevelopmentPercentageOfAnnualHoursPerUserArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
 
+export type QueryPersonnelDevelopmentPercentageOfTotalHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPersonnelDevelopmentPercentageOfTotalHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
 export type QueryPublicServiceTotalHoursPerActivityArgs = {
     activityId?: Maybe<Scalars["String"]>;
 };
@@ -1608,6 +1727,14 @@ export type QueryPublicServicePercentageOfAnnualHoursPerActivityArgs = {
 };
 
 export type QueryPublicServicePercentageOfAnnualHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPublicServicePercentageOfTotalHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryPublicServicePercentageOfTotalHoursPerUserArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
 
@@ -1635,6 +1762,14 @@ export type QueryResearchPercentageOfAnnualHoursPerUserArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
 
+export type QueryResearchPercentageOfTotalHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryResearchPercentageOfTotalHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
 export type QuerySupervisionTotalHoursPerActivityArgs = {
     activityId?: Maybe<Scalars["String"]>;
 };
@@ -1656,6 +1791,14 @@ export type QuerySupervisionPercentageOfAnnualHoursPerActivityArgs = {
 };
 
 export type QuerySupervisionPercentageOfAnnualHoursPerUserArgs = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type QuerySupervisionPercentageOfTotalHoursPerActivityArgs = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type QuerySupervisionPercentageOfTotalHoursPerUserArgs = {
     userId?: Maybe<Scalars["String"]>;
 };
 
@@ -1755,18 +1898,20 @@ export type ResearchActivityInput = {
 
 export type ResearchWorkloadPerActivity = {
     __typename?: "ResearchWorkloadPerActivity";
-    researchTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
-    researchPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
-    researchPercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Int"]>;
+    researchTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
+    researchPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Float"]>;
+    researchPercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Float"]>;
+    researchPercentageOfTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
 };
 
 export type ResearchWorkloadPerUser = {
     __typename?: "ResearchWorkloadPerUser";
     researchWorkloadData?: Maybe<Array<Maybe<ResearchWorkloadPerActivity>>>;
-    researchGlobalTarrif?: Maybe<Scalars["Int"]>;
-    researchTotalHoursPerUser?: Maybe<Scalars["Int"]>;
-    researchPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
-    researchPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+    researchGlobalTarrif?: Maybe<Scalars["Float"]>;
+    researchTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    researchPercentageOfWorkFocusPerUser?: Maybe<Scalars["Float"]>;
+    researchPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Float"]>;
+    researchPercentageOfTotalHoursPerUser?: Maybe<Scalars["Float"]>;
 };
 
 export type Student = {
@@ -1818,9 +1963,10 @@ export type SupervisionActivityInput = {
 
 export type SupervisionWorkloadPerActivity = {
     __typename?: "SupervisionWorkloadPerActivity";
-    supervisionTotalHoursPerActivity?: Maybe<Scalars["Int"]>;
-    supervisionPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Int"]>;
-    supervisionPercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Int"]>;
+    supervisionTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
+    supervisionPercentageOfWorkFocusPerActivity?: Maybe<Scalars["Float"]>;
+    supervisionPercentageOfAnnualHoursPerActivity?: Maybe<Scalars["Float"]>;
+    supervisionPercentageOfTotalHoursPerActivity?: Maybe<Scalars["Float"]>;
 };
 
 export type SupervisionWorkloadPerUser = {
@@ -1828,10 +1974,11 @@ export type SupervisionWorkloadPerUser = {
     supervisionWorkloadData?: Maybe<
         Array<Maybe<SupervisionWorkloadPerActivity>>
     >;
-    supervisionGlobalTarrif?: Maybe<Scalars["Int"]>;
-    supervisionTotalHoursPerUser?: Maybe<Scalars["Int"]>;
-    supervisionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Int"]>;
-    supervisionPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Int"]>;
+    supervisionGlobalTarrif?: Maybe<Scalars["Float"]>;
+    supervisionTotalHoursPerUser?: Maybe<Scalars["Float"]>;
+    supervisionPercentageOfWorkFocusPerUser?: Maybe<Scalars["Float"]>;
+    supervisionPercentageOfAnnualHoursPerUser?: Maybe<Scalars["Float"]>;
+    supervisionPercentageOfTotalHoursPerUser?: Maybe<Scalars["Float"]>;
 };
 
 export type User = {
@@ -1883,16 +2030,16 @@ export type VenueInput = {
 export type WorkFocus = {
     __typename?: "WorkFocus";
     name: Scalars["String"];
-    teachingRatio?: Maybe<Scalars["Int"]>;
-    researchRatio?: Maybe<Scalars["Int"]>;
-    serviceRatio?: Maybe<Scalars["Int"]>;
+    teachingRatio?: Maybe<Scalars["Float"]>;
+    researchRatio?: Maybe<Scalars["Float"]>;
+    serviceRatio?: Maybe<Scalars["Float"]>;
 };
 
 export type WorkFocusInput = {
     name?: Maybe<Scalars["String"]>;
-    teachingRatio?: Maybe<Scalars["Int"]>;
-    researchRatio?: Maybe<Scalars["Int"]>;
-    serviceRatio?: Maybe<Scalars["Int"]>;
+    teachingRatio?: Maybe<Scalars["Float"]>;
+    researchRatio?: Maybe<Scalars["Float"]>;
+    serviceRatio?: Maybe<Scalars["Float"]>;
 };
 export type AddAcademicAdministrationActivityMutationVariables = {
     activity?: Maybe<AcademicAdministrationActivityInput>;
@@ -2354,7 +2501,7 @@ export type ActivityQuery = { __typename?: "Query" } & {
                   >)
                 | ({ __typename?: "PersonnelDevelopmentActivity" } & Pick<
                       PersonnelDevelopmentActivity,
-                      "title" | "description" | "evidence"
+                      "title" | "date" | "duration" | "evidence"
                   >)
                 | ({ __typename?: "CommunityInstructionActivity" } & Pick<
                       CommunityInstructionActivity,
@@ -4958,14 +5105,46 @@ export type AddPersonnelDevelopmentActivityMutation = {
             | "createdAt"
             | "updatedAt"
             | "title"
-            | "description"
+            | "date"
+            | "duration"
             | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "email" | "firstName" | "lastName"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 duty: Maybe<
                     { __typename?: "Duty" } & Pick<
@@ -4994,14 +5173,46 @@ export type EditPersonnelDevelopmentActivityMutation = {
             | "createdAt"
             | "updatedAt"
             | "title"
-            | "description"
+            | "date"
+            | "duration"
             | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "email" | "firstName" | "lastName"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 duty: Maybe<
                     { __typename?: "Duty" } & Pick<
@@ -5030,14 +5241,46 @@ export type DeletePersonnelDevelopmentActivityMutation = {
             | "createdAt"
             | "updatedAt"
             | "title"
-            | "description"
+            | "date"
+            | "duration"
             | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "email" | "firstName" | "lastName"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 duty: Maybe<
                     { __typename?: "Duty" } & Pick<
@@ -5064,14 +5307,46 @@ export type PersonnelDevelopmentActivityQuery = { __typename?: "Query" } & {
             | "createdAt"
             | "updatedAt"
             | "title"
-            | "description"
+            | "date"
+            | "duration"
             | "evidence"
         > & {
                 user: Maybe<
                     { __typename?: "User" } & Pick<
                         User,
-                        "userId" | "email" | "firstName" | "lastName"
-                    >
+                        | "userId"
+                        | "email"
+                        | "firstName"
+                        | "lastName"
+                        | "photoUrl"
+                        | "disciplineId"
+                        | "positionId"
+                        | "workFocusName"
+                        | "gender"
+                        | "nationality"
+                    > & {
+                            discipline: Maybe<
+                                { __typename?: "Discipline" } & Pick<
+                                    Discipline,
+                                    "disciplineId" | "name" | "description"
+                                >
+                            >;
+                            position: Maybe<
+                                { __typename?: "Position" } & Pick<
+                                    Position,
+                                    "positionId" | "name" | "description"
+                                >
+                            >;
+                            workFocus: Maybe<
+                                { __typename?: "WorkFocus" } & Pick<
+                                    WorkFocus,
+                                    | "name"
+                                    | "teachingRatio"
+                                    | "researchRatio"
+                                    | "serviceRatio"
+                                >
+                            >;
+                        }
                 >;
                 duty: Maybe<
                     { __typename?: "Duty" } & Pick<
@@ -5098,14 +5373,50 @@ export type PersonnelDevelopmentActivitiesQuery = { __typename?: "Query" } & {
                     | "createdAt"
                     | "updatedAt"
                     | "title"
-                    | "description"
+                    | "date"
+                    | "duration"
                     | "evidence"
                 > & {
                         user: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "email" | "firstName" | "lastName"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         duty: Maybe<
                             { __typename?: "Duty" } & Pick<
@@ -5138,14 +5449,50 @@ export type PersonnelDevelopmentActivitiesByUserQuery = {
                     | "createdAt"
                     | "updatedAt"
                     | "title"
-                    | "description"
+                    | "date"
+                    | "duration"
                     | "evidence"
                 > & {
                         user: Maybe<
                             { __typename?: "User" } & Pick<
                                 User,
-                                "userId" | "email" | "firstName" | "lastName"
-                            >
+                                | "userId"
+                                | "email"
+                                | "firstName"
+                                | "lastName"
+                                | "photoUrl"
+                                | "disciplineId"
+                                | "positionId"
+                                | "workFocusName"
+                                | "gender"
+                                | "nationality"
+                            > & {
+                                    discipline: Maybe<
+                                        { __typename?: "Discipline" } & Pick<
+                                            Discipline,
+                                            | "disciplineId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    position: Maybe<
+                                        { __typename?: "Position" } & Pick<
+                                            Position,
+                                            | "positionId"
+                                            | "name"
+                                            | "description"
+                                        >
+                                    >;
+                                    workFocus: Maybe<
+                                        { __typename?: "WorkFocus" } & Pick<
+                                            WorkFocus,
+                                            | "name"
+                                            | "teachingRatio"
+                                            | "researchRatio"
+                                            | "serviceRatio"
+                                        >
+                                    >;
+                                }
                         >;
                         duty: Maybe<
                             { __typename?: "Duty" } & Pick<
@@ -9743,6 +10090,7 @@ export type AcademicAdministrationWorkloadPerUserQuery = {
             | "academicAdministrationTotalHoursPerUser"
             | "academicAdministrationPercentageOfWorkFocusPerUser"
             | "academicAdministrationPercentageOfAnnualHoursPerUser"
+            | "academicAdministrationPercentageOfTotalHoursPerUser"
         > & {
                 academicAdministrationWorkloadData: Maybe<
                     Array<
@@ -9754,6 +10102,7 @@ export type AcademicAdministrationWorkloadPerUserQuery = {
                                 | "academicAdministrationTotalHoursPerActivity"
                                 | "academicAdministrationPercentageOfWorkFocusPerActivity"
                                 | "academicAdministrationPercentageOfAnnualHoursPerActivity"
+                                | "academicAdministrationPercentageOfTotalHoursPerActivity"
                             >
                         >
                     >
@@ -9761,6 +10110,76 @@ export type AcademicAdministrationWorkloadPerUserQuery = {
             }
     >;
 };
+
+export type AcademicAdministrationGlobalTarrifQueryVariables = {};
+
+export type AcademicAdministrationGlobalTarrifQuery = {
+    __typename?: "Query";
+} & Pick<Query, "academicAdministrationGlobalTarrif">;
+
+export type AcademicAdministrationTotalHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type AcademicAdministrationTotalHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "academicAdministrationTotalHoursPerActivity">;
+
+export type AcademicAdministrationTotalHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type AcademicAdministrationTotalHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "academicAdministrationTotalHoursPerUser">;
+
+export type AcademicAdministrationPercentageOfWorkFocusPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type AcademicAdministrationPercentageOfWorkFocusPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "academicAdministrationPercentageOfWorkFocusPerActivity">;
+
+export type AcademicAdministrationPercentageOfWorkFocusPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type AcademicAdministrationPercentageOfWorkFocusPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "academicAdministrationPercentageOfWorkFocusPerUser">;
+
+export type AcademicAdministrationPercentageOfAnnualHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type AcademicAdministrationPercentageOfAnnualHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "academicAdministrationPercentageOfAnnualHoursPerActivity">;
+
+export type AcademicAdministrationPercentageOfAnnualHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type AcademicAdministrationPercentageOfAnnualHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "academicAdministrationPercentageOfAnnualHoursPerUser">;
+
+export type AcademicAdministrationPercentageOfTotalHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type AcademicAdministrationPercentageOfTotalHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "academicAdministrationPercentageOfTotalHoursPerActivity">;
+
+export type AcademicAdministrationPercentageOfTotalHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type AcademicAdministrationPercentageOfTotalHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "academicAdministrationPercentageOfTotalHoursPerUser">;
 
 export type CommunityInstructionWorkloadPerUserQueryVariables = {
     userId?: Maybe<Scalars["String"]>;
@@ -9776,6 +10195,7 @@ export type CommunityInstructionWorkloadPerUserQuery = {
             | "communityInstructionTotalHoursPerUser"
             | "communityInstructionPercentageOfWorkFocusPerUser"
             | "communityInstructionPercentageOfAnnualHoursPerUser"
+            | "communityInstructionPercentageOfTotalHoursPerUser"
         > & {
                 communityInstructionWorkloadData: Maybe<
                     Array<
@@ -9787,6 +10207,7 @@ export type CommunityInstructionWorkloadPerUserQuery = {
                                 | "communityInstructionTotalHoursPerActivity"
                                 | "communityInstructionPercentageOfWorkFocusPerActivity"
                                 | "communityInstructionPercentageOfAnnualHoursPerActivity"
+                                | "communityInstructionPercentageOfTotalHoursPerActivity"
                             >
                         >
                     >
@@ -9794,6 +10215,76 @@ export type CommunityInstructionWorkloadPerUserQuery = {
             }
     >;
 };
+
+export type CommunityInstructionGlobalTarrifQueryVariables = {};
+
+export type CommunityInstructionGlobalTarrifQuery = {
+    __typename?: "Query";
+} & Pick<Query, "communityInstructionGlobalTarrif">;
+
+export type CommunityInstructionTotalHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type CommunityInstructionTotalHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "communityInstructionTotalHoursPerActivity">;
+
+export type CommunityInstructionTotalHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type CommunityInstructionTotalHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "communityInstructionTotalHoursPerUser">;
+
+export type CommunityInstructionPercentageOfWorkFocusPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type CommunityInstructionPercentageOfWorkFocusPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "communityInstructionPercentageOfWorkFocusPerActivity">;
+
+export type CommunityInstructionPercentageOfWorkFocusPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type CommunityInstructionPercentageOfWorkFocusPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "communityInstructionPercentageOfWorkFocusPerUser">;
+
+export type CommunityInstructionPercentageOfAnnualHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type CommunityInstructionPercentageOfAnnualHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "communityInstructionPercentageOfAnnualHoursPerActivity">;
+
+export type CommunityInstructionPercentageOfAnnualHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type CommunityInstructionPercentageOfAnnualHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "communityInstructionPercentageOfAnnualHoursPerUser">;
+
+export type CommunityInstructionPercentageOfTotalHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type CommunityInstructionPercentageOfTotalHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "communityInstructionPercentageOfTotalHoursPerActivity">;
+
+export type CommunityInstructionPercentageOfTotalHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type CommunityInstructionPercentageOfTotalHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "communityInstructionPercentageOfTotalHoursPerUser">;
 
 export type ExecutiveManagementWorkloadPerUserQueryVariables = {
     userId?: Maybe<Scalars["String"]>;
@@ -9809,6 +10300,7 @@ export type ExecutiveManagementWorkloadPerUserQuery = {
             | "executiveManagementTotalHoursPerUser"
             | "executiveManagementPercentageOfWorkFocusPerUser"
             | "executiveManagementPercentageOfAnnualHoursPerUser"
+            | "executiveManagementPercentageOfTotalHoursPerUser"
         > & {
                 executiveManagementWorkloadData: Maybe<
                     Array<
@@ -9820,6 +10312,7 @@ export type ExecutiveManagementWorkloadPerUserQuery = {
                                 | "executiveManagementTotalHoursPerActivity"
                                 | "executiveManagementPercentageOfWorkFocusPerActivity"
                                 | "executiveManagementPercentageOfAnnualHoursPerActivity"
+                                | "executiveManagementPercentageOfTotalHoursPerActivity"
                             >
                         >
                     >
@@ -9827,6 +10320,76 @@ export type ExecutiveManagementWorkloadPerUserQuery = {
             }
     >;
 };
+
+export type ExecutiveManagementGlobalTarrifQueryVariables = {};
+
+export type ExecutiveManagementGlobalTarrifQuery = {
+    __typename?: "Query";
+} & Pick<Query, "executiveManagementGlobalTarrif">;
+
+export type ExecutiveManagementTotalHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type ExecutiveManagementTotalHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "executiveManagementTotalHoursPerActivity">;
+
+export type ExecutiveManagementTotalHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type ExecutiveManagementTotalHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "executiveManagementTotalHoursPerUser">;
+
+export type ExecutiveManagementPercentageOfWorkFocusPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type ExecutiveManagementPercentageOfWorkFocusPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "executiveManagementPercentageOfWorkFocusPerActivity">;
+
+export type ExecutiveManagementPercentageOfWorkFocusPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type ExecutiveManagementPercentageOfWorkFocusPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "executiveManagementPercentageOfWorkFocusPerUser">;
+
+export type ExecutiveManagementPercentageOfAnnualHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type ExecutiveManagementPercentageOfAnnualHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "executiveManagementPercentageOfAnnualHoursPerActivity">;
+
+export type ExecutiveManagementPercentageOfAnnualHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type ExecutiveManagementPercentageOfAnnualHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "executiveManagementPercentageOfAnnualHoursPerUser">;
+
+export type ExecutiveManagementPercentageOfTotalHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type ExecutiveManagementPercentageOfTotalHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "executiveManagementPercentageOfTotalHoursPerActivity">;
+
+export type ExecutiveManagementPercentageOfTotalHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type ExecutiveManagementPercentageOfTotalHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "executiveManagementPercentageOfTotalHoursPerUser">;
 
 export type FormalInstructionWorkloadPerUserQueryVariables = {
     userId?: Maybe<Scalars["String"]>;
@@ -9839,6 +10402,7 @@ export type FormalInstructionWorkloadPerUserQuery = { __typename?: "Query" } & {
             | "formalInstructionTotalHoursPerUser"
             | "formalInstructionPercentageOfWorkFocusPerUser"
             | "formalInstructionPercentageOfAnnualHoursPerUser"
+            | "formalInstructionPercentageOfTotalHoursPerUser"
         > & {
                 formalInstructionWorkloadData: Maybe<
                     Array<
@@ -9862,6 +10426,7 @@ export type FormalInstructionWorkloadPerUserQuery = { __typename?: "Query" } & {
                                 | "formalInstructionTotalHoursPerActivity"
                                 | "formalInstructionPercentageOfWorkFocusPerActivity"
                                 | "formalInstructionPercentageOfAnnualHoursPerActivity"
+                                | "formalInstructionPercentageOfTotalHoursPerActivity"
                             > & {
                                     formalInstructionActivity: Maybe<
                                         {
@@ -10222,6 +10787,22 @@ export type FormalInstructionPercentageOfAnnualHoursPerUserQuery = {
     __typename?: "Query";
 } & Pick<Query, "formalInstructionPercentageOfAnnualHoursPerUser">;
 
+export type FormalInstructionPercentageOfTotalHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionPercentageOfTotalHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionPercentageOfTotalHoursPerActivity">;
+
+export type FormalInstructionPercentageOfTotalHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type FormalInstructionPercentageOfTotalHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "formalInstructionPercentageOfTotalHoursPerUser">;
+
 export type PersonnelDevelopmentWorkloadPerUserQueryVariables = {
     userId?: Maybe<Scalars["String"]>;
 };
@@ -10236,6 +10817,7 @@ export type PersonnelDevelopmentWorkloadPerUserQuery = {
             | "personnelDevelopmentTotalHoursPerUser"
             | "personnelDevelopmentPercentageOfWorkFocusPerUser"
             | "personnelDevelopmentPercentageOfAnnualHoursPerUser"
+            | "personnelDevelopmentPercentageOfTotalHoursPerUser"
         > & {
                 personnelDevelopmentWorkloadData: Maybe<
                     Array<
@@ -10247,6 +10829,7 @@ export type PersonnelDevelopmentWorkloadPerUserQuery = {
                                 | "personnelDevelopmentTotalHoursPerActivity"
                                 | "personnelDevelopmentPercentageOfWorkFocusPerActivity"
                                 | "personnelDevelopmentPercentageOfAnnualHoursPerActivity"
+                                | "personnelDevelopmentPercentageOfTotalHoursPerActivity"
                             >
                         >
                     >
@@ -10254,6 +10837,76 @@ export type PersonnelDevelopmentWorkloadPerUserQuery = {
             }
     >;
 };
+
+export type PersonnelDevelopmentGlobalTarrifQueryVariables = {};
+
+export type PersonnelDevelopmentGlobalTarrifQuery = {
+    __typename?: "Query";
+} & Pick<Query, "personnelDevelopmentGlobalTarrif">;
+
+export type PersonnelDevelopmentTotalHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type PersonnelDevelopmentTotalHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "personnelDevelopmentTotalHoursPerActivity">;
+
+export type PersonnelDevelopmentTotalHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type PersonnelDevelopmentTotalHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "personnelDevelopmentTotalHoursPerUser">;
+
+export type PersonnelDevelopmentPercentageOfWorkFocusPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type PersonnelDevelopmentPercentageOfWorkFocusPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "personnelDevelopmentPercentageOfWorkFocusPerActivity">;
+
+export type PersonnelDevelopmentPercentageOfWorkFocusPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type PersonnelDevelopmentPercentageOfWorkFocusPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "personnelDevelopmentPercentageOfWorkFocusPerUser">;
+
+export type PersonnelDevelopmentPercentageOfAnnualHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type PersonnelDevelopmentPercentageOfAnnualHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "personnelDevelopmentPercentageOfAnnualHoursPerActivity">;
+
+export type PersonnelDevelopmentPercentageOfAnnualHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type PersonnelDevelopmentPercentageOfAnnualHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "personnelDevelopmentPercentageOfAnnualHoursPerUser">;
+
+export type PersonnelDevelopmentPercentageOfTotalHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type PersonnelDevelopmentPercentageOfTotalHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "personnelDevelopmentPercentageOfTotalHoursPerActivity">;
+
+export type PersonnelDevelopmentPercentageOfTotalHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type PersonnelDevelopmentPercentageOfTotalHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "personnelDevelopmentPercentageOfTotalHoursPerUser">;
 
 export type PublicServiceWorkloadPerUserQueryVariables = {
     userId?: Maybe<Scalars["String"]>;
@@ -10267,6 +10920,7 @@ export type PublicServiceWorkloadPerUserQuery = { __typename?: "Query" } & {
             | "publicServiceTotalHoursPerUser"
             | "publicServicePercentageOfWorkFocusPerUser"
             | "publicServicePercentageOfAnnualHoursPerUser"
+            | "publicServicePercentageOfTotalHoursPerUser"
         > & {
                 publicServiceWorkloadData: Maybe<
                     Array<
@@ -10278,6 +10932,7 @@ export type PublicServiceWorkloadPerUserQuery = { __typename?: "Query" } & {
                                 | "publicServiceTotalHoursPerActivity"
                                 | "publicServicePercentageOfWorkFocusPerActivity"
                                 | "publicServicePercentageOfAnnualHoursPerActivity"
+                                | "publicServicePercentageOfTotalHoursPerActivity"
                             >
                         >
                     >
@@ -10285,6 +10940,77 @@ export type PublicServiceWorkloadPerUserQuery = { __typename?: "Query" } & {
             }
     >;
 };
+
+export type PublicServiceGlobalTarrifQueryVariables = {};
+
+export type PublicServiceGlobalTarrifQuery = { __typename?: "Query" } & Pick<
+    Query,
+    "publicServiceGlobalTarrif"
+>;
+
+export type PublicServiceTotalHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type PublicServiceTotalHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "publicServiceTotalHoursPerActivity">;
+
+export type PublicServiceTotalHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type PublicServiceTotalHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "publicServiceTotalHoursPerUser">;
+
+export type PublicServicePercentageOfWorkFocusPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type PublicServicePercentageOfWorkFocusPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "publicServicePercentageOfWorkFocusPerActivity">;
+
+export type PublicServicePercentageOfWorkFocusPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type PublicServicePercentageOfWorkFocusPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "publicServicePercentageOfWorkFocusPerUser">;
+
+export type PublicServicePercentageOfAnnualHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type PublicServicePercentageOfAnnualHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "publicServicePercentageOfAnnualHoursPerActivity">;
+
+export type PublicServicePercentageOfAnnualHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type PublicServicePercentageOfAnnualHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "publicServicePercentageOfAnnualHoursPerUser">;
+
+export type PublicServicePercentageOfTotalHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type PublicServicePercentageOfTotalHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "publicServicePercentageOfTotalHoursPerActivity">;
+
+export type PublicServicePercentageOfTotalHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type PublicServicePercentageOfTotalHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "publicServicePercentageOfTotalHoursPerUser">;
 
 export type ResearchWorkloadPerUserQueryVariables = {
     userId?: Maybe<Scalars["String"]>;
@@ -10298,6 +11024,7 @@ export type ResearchWorkloadPerUserQuery = { __typename?: "Query" } & {
             | "researchTotalHoursPerUser"
             | "researchPercentageOfWorkFocusPerUser"
             | "researchPercentageOfAnnualHoursPerUser"
+            | "researchPercentageOfTotalHoursPerUser"
         > & {
                 researchWorkloadData: Maybe<
                     Array<
@@ -10309,6 +11036,7 @@ export type ResearchWorkloadPerUserQuery = { __typename?: "Query" } & {
                                 | "researchTotalHoursPerActivity"
                                 | "researchPercentageOfWorkFocusPerActivity"
                                 | "researchPercentageOfAnnualHoursPerActivity"
+                                | "researchPercentageOfTotalHoursPerActivity"
                             >
                         >
                     >
@@ -10316,6 +11044,78 @@ export type ResearchWorkloadPerUserQuery = { __typename?: "Query" } & {
             }
     >;
 };
+
+export type ResearchGlobalTarrifQueryVariables = {};
+
+export type ResearchGlobalTarrifQuery = { __typename?: "Query" } & Pick<
+    Query,
+    "researchGlobalTarrif"
+>;
+
+export type ResearchTotalHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type ResearchTotalHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "researchTotalHoursPerActivity">;
+
+export type ResearchTotalHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type ResearchTotalHoursPerUserQuery = { __typename?: "Query" } & Pick<
+    Query,
+    "researchTotalHoursPerUser"
+>;
+
+export type ResearchPercentageOfWorkFocusPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type ResearchPercentageOfWorkFocusPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "researchPercentageOfWorkFocusPerActivity">;
+
+export type ResearchPercentageOfWorkFocusPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type ResearchPercentageOfWorkFocusPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "researchPercentageOfWorkFocusPerUser">;
+
+export type ResearchPercentageOfAnnualHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type ResearchPercentageOfAnnualHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "researchPercentageOfAnnualHoursPerActivity">;
+
+export type ResearchPercentageOfAnnualHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type ResearchPercentageOfAnnualHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "researchPercentageOfAnnualHoursPerUser">;
+
+export type ResearchPercentageOfTotalHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type ResearchPercentageOfTotalHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "researchPercentageOfTotalHoursPerActivity">;
+
+export type ResearchPercentageOfTotalHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type ResearchPercentageOfTotalHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "researchPercentageOfTotalHoursPerUser">;
 
 export type SupervisionWorkloadPerUserQueryVariables = {
     userId?: Maybe<Scalars["String"]>;
@@ -10329,6 +11129,7 @@ export type SupervisionWorkloadPerUserQuery = { __typename?: "Query" } & {
             | "supervisionTotalHoursPerUser"
             | "supervisionPercentageOfWorkFocusPerUser"
             | "supervisionPercentageOfAnnualHoursPerUser"
+            | "supervisionPercentageOfTotalHoursPerUser"
         > & {
                 supervisionWorkloadData: Maybe<
                     Array<
@@ -10340,6 +11141,7 @@ export type SupervisionWorkloadPerUserQuery = { __typename?: "Query" } & {
                                 | "supervisionTotalHoursPerActivity"
                                 | "supervisionPercentageOfWorkFocusPerActivity"
                                 | "supervisionPercentageOfAnnualHoursPerActivity"
+                                | "supervisionPercentageOfTotalHoursPerActivity"
                             >
                         >
                     >
@@ -10347,6 +11149,87 @@ export type SupervisionWorkloadPerUserQuery = { __typename?: "Query" } & {
             }
     >;
 };
+
+export type SupervisionGlobalTarrifQueryVariables = {};
+
+export type SupervisionGlobalTarrifQuery = { __typename?: "Query" } & Pick<
+    Query,
+    "supervisionGlobalTarrif"
+>;
+
+export type SupervisionTotalHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type SupervisionTotalHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "supervisionTotalHoursPerActivity">;
+
+export type SupervisionTotalHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type SupervisionTotalHoursPerUserQuery = { __typename?: "Query" } & Pick<
+    Query,
+    "supervisionTotalHoursPerUser"
+>;
+
+export type SupervisionPercentageOfWorkFocusPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type SupervisionPercentageOfWorkFocusPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "supervisionPercentageOfWorkFocusPerActivity">;
+
+export type SupervisionPercentageOfWorkFocusPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type SupervisionPercentageOfWorkFocusPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "supervisionPercentageOfWorkFocusPerUser">;
+
+export type SupervisionPercentageOfAnnualHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type SupervisionPercentageOfAnnualHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "supervisionPercentageOfAnnualHoursPerActivity">;
+
+export type SupervisionPercentageOfAnnualHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type SupervisionPercentageOfAnnualHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "supervisionPercentageOfAnnualHoursPerUser">;
+
+export type SupervisionPercentageOfTotalHoursPerActivityQueryVariables = {
+    activityId?: Maybe<Scalars["String"]>;
+};
+
+export type SupervisionPercentageOfTotalHoursPerActivityQuery = {
+    __typename?: "Query";
+} & Pick<Query, "supervisionPercentageOfTotalHoursPerActivity">;
+
+export type SupervisionPercentageOfTotalHoursPerUserQueryVariables = {
+    userId?: Maybe<Scalars["String"]>;
+};
+
+export type SupervisionPercentageOfTotalHoursPerUserQuery = {
+    __typename?: "Query";
+} & Pick<Query, "supervisionPercentageOfTotalHoursPerUser">;
+
+export type TotalHoursPerUserQueryVariables = {
+    userId: Scalars["String"];
+};
+
+export type TotalHoursPerUserQuery = { __typename?: "Query" } & Pick<
+    Query,
+    "totalHoursPerUser"
+>;
 
 export const AddAcademicAdministrationActivityDocument = gql`
     mutation addAcademicAdministrationActivity(
@@ -10734,7 +11617,8 @@ export const ActivityDocument = gql`
             }
             ... on PersonnelDevelopmentActivity {
                 title
-                description
+                date
+                duration
                 evidence
             }
             ... on CommunityInstructionActivity {
@@ -12784,6 +13668,28 @@ export const AddPersonnelDevelopmentActivityDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -12795,7 +13701,8 @@ export const AddPersonnelDevelopmentActivityDocument = gql`
             createdAt
             updatedAt
             title
-            description
+            date
+            duration
             evidence
         }
     }
@@ -12822,6 +13729,28 @@ export const EditPersonnelDevelopmentActivityDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -12833,7 +13762,8 @@ export const EditPersonnelDevelopmentActivityDocument = gql`
             createdAt
             updatedAt
             title
-            description
+            date
+            duration
             evidence
         }
     }
@@ -12860,6 +13790,28 @@ export const DeletePersonnelDevelopmentActivityDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -12871,7 +13823,8 @@ export const DeletePersonnelDevelopmentActivityDocument = gql`
             createdAt
             updatedAt
             title
-            description
+            date
+            duration
             evidence
         }
     }
@@ -12896,6 +13849,28 @@ export const PersonnelDevelopmentActivityDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -12907,7 +13882,8 @@ export const PersonnelDevelopmentActivityDocument = gql`
             createdAt
             updatedAt
             title
-            description
+            date
+            duration
             evidence
         }
     }
@@ -12932,6 +13908,28 @@ export const PersonnelDevelopmentActivitiesDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -12943,7 +13941,8 @@ export const PersonnelDevelopmentActivitiesDocument = gql`
             createdAt
             updatedAt
             title
-            description
+            date
+            duration
             evidence
         }
     }
@@ -12968,6 +13967,28 @@ export const PersonnelDevelopmentActivitiesByUserDocument = gql`
                 email
                 firstName
                 lastName
+                photoUrl
+                disciplineId
+                discipline {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             dutyId
             duty {
@@ -12979,7 +14000,8 @@ export const PersonnelDevelopmentActivitiesByUserDocument = gql`
             createdAt
             updatedAt
             title
-            description
+            date
+            duration
             evidence
         }
     }
@@ -17218,11 +18240,13 @@ export const AcademicAdministrationWorkloadPerUserDocument = gql`
                 academicAdministrationTotalHoursPerActivity
                 academicAdministrationPercentageOfWorkFocusPerActivity
                 academicAdministrationPercentageOfAnnualHoursPerActivity
+                academicAdministrationPercentageOfTotalHoursPerActivity
             }
             academicAdministrationGlobalTarrif
             academicAdministrationTotalHoursPerUser
             academicAdministrationPercentageOfWorkFocusPerUser
             academicAdministrationPercentageOfAnnualHoursPerUser
+            academicAdministrationPercentageOfTotalHoursPerUser
         }
     }
 `;
@@ -17236,6 +18260,155 @@ export class AcademicAdministrationWorkloadPerUserGQL extends Apollo.Query<
 > {
     document = AcademicAdministrationWorkloadPerUserDocument;
 }
+export const AcademicAdministrationGlobalTarrifDocument = gql`
+    query academicAdministrationGlobalTarrif {
+        academicAdministrationGlobalTarrif
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AcademicAdministrationGlobalTarrifGQL extends Apollo.Query<
+    AcademicAdministrationGlobalTarrifQuery,
+    AcademicAdministrationGlobalTarrifQueryVariables
+> {
+    document = AcademicAdministrationGlobalTarrifDocument;
+}
+export const AcademicAdministrationTotalHoursPerActivityDocument = gql`
+    query academicAdministrationTotalHoursPerActivity($activityId: String) {
+        academicAdministrationTotalHoursPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AcademicAdministrationTotalHoursPerActivityGQL extends Apollo.Query<
+    AcademicAdministrationTotalHoursPerActivityQuery,
+    AcademicAdministrationTotalHoursPerActivityQueryVariables
+> {
+    document = AcademicAdministrationTotalHoursPerActivityDocument;
+}
+export const AcademicAdministrationTotalHoursPerUserDocument = gql`
+    query academicAdministrationTotalHoursPerUser($userId: String) {
+        academicAdministrationTotalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AcademicAdministrationTotalHoursPerUserGQL extends Apollo.Query<
+    AcademicAdministrationTotalHoursPerUserQuery,
+    AcademicAdministrationTotalHoursPerUserQueryVariables
+> {
+    document = AcademicAdministrationTotalHoursPerUserDocument;
+}
+export const AcademicAdministrationPercentageOfWorkFocusPerActivityDocument = gql`
+    query academicAdministrationPercentageOfWorkFocusPerActivity(
+        $activityId: String
+    ) {
+        academicAdministrationPercentageOfWorkFocusPerActivity(
+            activityId: $activityId
+        )
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AcademicAdministrationPercentageOfWorkFocusPerActivityGQL extends Apollo.Query<
+    AcademicAdministrationPercentageOfWorkFocusPerActivityQuery,
+    AcademicAdministrationPercentageOfWorkFocusPerActivityQueryVariables
+> {
+    document = AcademicAdministrationPercentageOfWorkFocusPerActivityDocument;
+}
+export const AcademicAdministrationPercentageOfWorkFocusPerUserDocument = gql`
+    query academicAdministrationPercentageOfWorkFocusPerUser($userId: String) {
+        academicAdministrationPercentageOfWorkFocusPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AcademicAdministrationPercentageOfWorkFocusPerUserGQL extends Apollo.Query<
+    AcademicAdministrationPercentageOfWorkFocusPerUserQuery,
+    AcademicAdministrationPercentageOfWorkFocusPerUserQueryVariables
+> {
+    document = AcademicAdministrationPercentageOfWorkFocusPerUserDocument;
+}
+export const AcademicAdministrationPercentageOfAnnualHoursPerActivityDocument = gql`
+    query academicAdministrationPercentageOfAnnualHoursPerActivity(
+        $activityId: String
+    ) {
+        academicAdministrationPercentageOfAnnualHoursPerActivity(
+            activityId: $activityId
+        )
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AcademicAdministrationPercentageOfAnnualHoursPerActivityGQL extends Apollo.Query<
+    AcademicAdministrationPercentageOfAnnualHoursPerActivityQuery,
+    AcademicAdministrationPercentageOfAnnualHoursPerActivityQueryVariables
+> {
+    document = AcademicAdministrationPercentageOfAnnualHoursPerActivityDocument;
+}
+export const AcademicAdministrationPercentageOfAnnualHoursPerUserDocument = gql`
+    query academicAdministrationPercentageOfAnnualHoursPerUser(
+        $userId: String
+    ) {
+        academicAdministrationPercentageOfAnnualHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AcademicAdministrationPercentageOfAnnualHoursPerUserGQL extends Apollo.Query<
+    AcademicAdministrationPercentageOfAnnualHoursPerUserQuery,
+    AcademicAdministrationPercentageOfAnnualHoursPerUserQueryVariables
+> {
+    document = AcademicAdministrationPercentageOfAnnualHoursPerUserDocument;
+}
+export const AcademicAdministrationPercentageOfTotalHoursPerActivityDocument = gql`
+    query academicAdministrationPercentageOfTotalHoursPerActivity(
+        $activityId: String
+    ) {
+        academicAdministrationPercentageOfTotalHoursPerActivity(
+            activityId: $activityId
+        )
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AcademicAdministrationPercentageOfTotalHoursPerActivityGQL extends Apollo.Query<
+    AcademicAdministrationPercentageOfTotalHoursPerActivityQuery,
+    AcademicAdministrationPercentageOfTotalHoursPerActivityQueryVariables
+> {
+    document = AcademicAdministrationPercentageOfTotalHoursPerActivityDocument;
+}
+export const AcademicAdministrationPercentageOfTotalHoursPerUserDocument = gql`
+    query academicAdministrationPercentageOfTotalHoursPerUser($userId: String) {
+        academicAdministrationPercentageOfTotalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class AcademicAdministrationPercentageOfTotalHoursPerUserGQL extends Apollo.Query<
+    AcademicAdministrationPercentageOfTotalHoursPerUserQuery,
+    AcademicAdministrationPercentageOfTotalHoursPerUserQueryVariables
+> {
+    document = AcademicAdministrationPercentageOfTotalHoursPerUserDocument;
+}
 export const CommunityInstructionWorkloadPerUserDocument = gql`
     query communityInstructionWorkloadPerUser($userId: String) {
         communityInstructionWorkloadPerUser(userId: $userId) {
@@ -17243,11 +18416,13 @@ export const CommunityInstructionWorkloadPerUserDocument = gql`
                 communityInstructionTotalHoursPerActivity
                 communityInstructionPercentageOfWorkFocusPerActivity
                 communityInstructionPercentageOfAnnualHoursPerActivity
+                communityInstructionPercentageOfTotalHoursPerActivity
             }
             communityInstructionGlobalTarrif
             communityInstructionTotalHoursPerUser
             communityInstructionPercentageOfWorkFocusPerUser
             communityInstructionPercentageOfAnnualHoursPerUser
+            communityInstructionPercentageOfTotalHoursPerUser
         }
     }
 `;
@@ -17261,6 +18436,153 @@ export class CommunityInstructionWorkloadPerUserGQL extends Apollo.Query<
 > {
     document = CommunityInstructionWorkloadPerUserDocument;
 }
+export const CommunityInstructionGlobalTarrifDocument = gql`
+    query communityInstructionGlobalTarrif {
+        communityInstructionGlobalTarrif
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class CommunityInstructionGlobalTarrifGQL extends Apollo.Query<
+    CommunityInstructionGlobalTarrifQuery,
+    CommunityInstructionGlobalTarrifQueryVariables
+> {
+    document = CommunityInstructionGlobalTarrifDocument;
+}
+export const CommunityInstructionTotalHoursPerActivityDocument = gql`
+    query communityInstructionTotalHoursPerActivity($activityId: String) {
+        communityInstructionTotalHoursPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class CommunityInstructionTotalHoursPerActivityGQL extends Apollo.Query<
+    CommunityInstructionTotalHoursPerActivityQuery,
+    CommunityInstructionTotalHoursPerActivityQueryVariables
+> {
+    document = CommunityInstructionTotalHoursPerActivityDocument;
+}
+export const CommunityInstructionTotalHoursPerUserDocument = gql`
+    query communityInstructionTotalHoursPerUser($userId: String) {
+        communityInstructionTotalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class CommunityInstructionTotalHoursPerUserGQL extends Apollo.Query<
+    CommunityInstructionTotalHoursPerUserQuery,
+    CommunityInstructionTotalHoursPerUserQueryVariables
+> {
+    document = CommunityInstructionTotalHoursPerUserDocument;
+}
+export const CommunityInstructionPercentageOfWorkFocusPerActivityDocument = gql`
+    query communityInstructionPercentageOfWorkFocusPerActivity(
+        $activityId: String
+    ) {
+        communityInstructionPercentageOfWorkFocusPerActivity(
+            activityId: $activityId
+        )
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class CommunityInstructionPercentageOfWorkFocusPerActivityGQL extends Apollo.Query<
+    CommunityInstructionPercentageOfWorkFocusPerActivityQuery,
+    CommunityInstructionPercentageOfWorkFocusPerActivityQueryVariables
+> {
+    document = CommunityInstructionPercentageOfWorkFocusPerActivityDocument;
+}
+export const CommunityInstructionPercentageOfWorkFocusPerUserDocument = gql`
+    query communityInstructionPercentageOfWorkFocusPerUser($userId: String) {
+        communityInstructionPercentageOfWorkFocusPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class CommunityInstructionPercentageOfWorkFocusPerUserGQL extends Apollo.Query<
+    CommunityInstructionPercentageOfWorkFocusPerUserQuery,
+    CommunityInstructionPercentageOfWorkFocusPerUserQueryVariables
+> {
+    document = CommunityInstructionPercentageOfWorkFocusPerUserDocument;
+}
+export const CommunityInstructionPercentageOfAnnualHoursPerActivityDocument = gql`
+    query communityInstructionPercentageOfAnnualHoursPerActivity(
+        $activityId: String
+    ) {
+        communityInstructionPercentageOfAnnualHoursPerActivity(
+            activityId: $activityId
+        )
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class CommunityInstructionPercentageOfAnnualHoursPerActivityGQL extends Apollo.Query<
+    CommunityInstructionPercentageOfAnnualHoursPerActivityQuery,
+    CommunityInstructionPercentageOfAnnualHoursPerActivityQueryVariables
+> {
+    document = CommunityInstructionPercentageOfAnnualHoursPerActivityDocument;
+}
+export const CommunityInstructionPercentageOfAnnualHoursPerUserDocument = gql`
+    query communityInstructionPercentageOfAnnualHoursPerUser($userId: String) {
+        communityInstructionPercentageOfAnnualHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class CommunityInstructionPercentageOfAnnualHoursPerUserGQL extends Apollo.Query<
+    CommunityInstructionPercentageOfAnnualHoursPerUserQuery,
+    CommunityInstructionPercentageOfAnnualHoursPerUserQueryVariables
+> {
+    document = CommunityInstructionPercentageOfAnnualHoursPerUserDocument;
+}
+export const CommunityInstructionPercentageOfTotalHoursPerActivityDocument = gql`
+    query communityInstructionPercentageOfTotalHoursPerActivity(
+        $activityId: String
+    ) {
+        communityInstructionPercentageOfTotalHoursPerActivity(
+            activityId: $activityId
+        )
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class CommunityInstructionPercentageOfTotalHoursPerActivityGQL extends Apollo.Query<
+    CommunityInstructionPercentageOfTotalHoursPerActivityQuery,
+    CommunityInstructionPercentageOfTotalHoursPerActivityQueryVariables
+> {
+    document = CommunityInstructionPercentageOfTotalHoursPerActivityDocument;
+}
+export const CommunityInstructionPercentageOfTotalHoursPerUserDocument = gql`
+    query communityInstructionPercentageOfTotalHoursPerUser($userId: String) {
+        communityInstructionPercentageOfTotalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class CommunityInstructionPercentageOfTotalHoursPerUserGQL extends Apollo.Query<
+    CommunityInstructionPercentageOfTotalHoursPerUserQuery,
+    CommunityInstructionPercentageOfTotalHoursPerUserQueryVariables
+> {
+    document = CommunityInstructionPercentageOfTotalHoursPerUserDocument;
+}
 export const ExecutiveManagementWorkloadPerUserDocument = gql`
     query executiveManagementWorkloadPerUser($userId: String) {
         executiveManagementWorkloadPerUser(userId: $userId) {
@@ -17268,11 +18590,13 @@ export const ExecutiveManagementWorkloadPerUserDocument = gql`
                 executiveManagementTotalHoursPerActivity
                 executiveManagementPercentageOfWorkFocusPerActivity
                 executiveManagementPercentageOfAnnualHoursPerActivity
+                executiveManagementPercentageOfTotalHoursPerActivity
             }
             executiveManagementGlobalTarrif
             executiveManagementTotalHoursPerUser
             executiveManagementPercentageOfWorkFocusPerUser
             executiveManagementPercentageOfAnnualHoursPerUser
+            executiveManagementPercentageOfTotalHoursPerUser
         }
     }
 `;
@@ -17285,6 +18609,153 @@ export class ExecutiveManagementWorkloadPerUserGQL extends Apollo.Query<
     ExecutiveManagementWorkloadPerUserQueryVariables
 > {
     document = ExecutiveManagementWorkloadPerUserDocument;
+}
+export const ExecutiveManagementGlobalTarrifDocument = gql`
+    query executiveManagementGlobalTarrif {
+        executiveManagementGlobalTarrif
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ExecutiveManagementGlobalTarrifGQL extends Apollo.Query<
+    ExecutiveManagementGlobalTarrifQuery,
+    ExecutiveManagementGlobalTarrifQueryVariables
+> {
+    document = ExecutiveManagementGlobalTarrifDocument;
+}
+export const ExecutiveManagementTotalHoursPerActivityDocument = gql`
+    query executiveManagementTotalHoursPerActivity($activityId: String) {
+        executiveManagementTotalHoursPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ExecutiveManagementTotalHoursPerActivityGQL extends Apollo.Query<
+    ExecutiveManagementTotalHoursPerActivityQuery,
+    ExecutiveManagementTotalHoursPerActivityQueryVariables
+> {
+    document = ExecutiveManagementTotalHoursPerActivityDocument;
+}
+export const ExecutiveManagementTotalHoursPerUserDocument = gql`
+    query executiveManagementTotalHoursPerUser($userId: String) {
+        executiveManagementTotalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ExecutiveManagementTotalHoursPerUserGQL extends Apollo.Query<
+    ExecutiveManagementTotalHoursPerUserQuery,
+    ExecutiveManagementTotalHoursPerUserQueryVariables
+> {
+    document = ExecutiveManagementTotalHoursPerUserDocument;
+}
+export const ExecutiveManagementPercentageOfWorkFocusPerActivityDocument = gql`
+    query executiveManagementPercentageOfWorkFocusPerActivity(
+        $activityId: String
+    ) {
+        executiveManagementPercentageOfWorkFocusPerActivity(
+            activityId: $activityId
+        )
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ExecutiveManagementPercentageOfWorkFocusPerActivityGQL extends Apollo.Query<
+    ExecutiveManagementPercentageOfWorkFocusPerActivityQuery,
+    ExecutiveManagementPercentageOfWorkFocusPerActivityQueryVariables
+> {
+    document = ExecutiveManagementPercentageOfWorkFocusPerActivityDocument;
+}
+export const ExecutiveManagementPercentageOfWorkFocusPerUserDocument = gql`
+    query executiveManagementPercentageOfWorkFocusPerUser($userId: String) {
+        executiveManagementPercentageOfWorkFocusPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ExecutiveManagementPercentageOfWorkFocusPerUserGQL extends Apollo.Query<
+    ExecutiveManagementPercentageOfWorkFocusPerUserQuery,
+    ExecutiveManagementPercentageOfWorkFocusPerUserQueryVariables
+> {
+    document = ExecutiveManagementPercentageOfWorkFocusPerUserDocument;
+}
+export const ExecutiveManagementPercentageOfAnnualHoursPerActivityDocument = gql`
+    query executiveManagementPercentageOfAnnualHoursPerActivity(
+        $activityId: String
+    ) {
+        executiveManagementPercentageOfAnnualHoursPerActivity(
+            activityId: $activityId
+        )
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ExecutiveManagementPercentageOfAnnualHoursPerActivityGQL extends Apollo.Query<
+    ExecutiveManagementPercentageOfAnnualHoursPerActivityQuery,
+    ExecutiveManagementPercentageOfAnnualHoursPerActivityQueryVariables
+> {
+    document = ExecutiveManagementPercentageOfAnnualHoursPerActivityDocument;
+}
+export const ExecutiveManagementPercentageOfAnnualHoursPerUserDocument = gql`
+    query executiveManagementPercentageOfAnnualHoursPerUser($userId: String) {
+        executiveManagementPercentageOfAnnualHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ExecutiveManagementPercentageOfAnnualHoursPerUserGQL extends Apollo.Query<
+    ExecutiveManagementPercentageOfAnnualHoursPerUserQuery,
+    ExecutiveManagementPercentageOfAnnualHoursPerUserQueryVariables
+> {
+    document = ExecutiveManagementPercentageOfAnnualHoursPerUserDocument;
+}
+export const ExecutiveManagementPercentageOfTotalHoursPerActivityDocument = gql`
+    query executiveManagementPercentageOfTotalHoursPerActivity(
+        $activityId: String
+    ) {
+        executiveManagementPercentageOfTotalHoursPerActivity(
+            activityId: $activityId
+        )
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ExecutiveManagementPercentageOfTotalHoursPerActivityGQL extends Apollo.Query<
+    ExecutiveManagementPercentageOfTotalHoursPerActivityQuery,
+    ExecutiveManagementPercentageOfTotalHoursPerActivityQueryVariables
+> {
+    document = ExecutiveManagementPercentageOfTotalHoursPerActivityDocument;
+}
+export const ExecutiveManagementPercentageOfTotalHoursPerUserDocument = gql`
+    query executiveManagementPercentageOfTotalHoursPerUser($userId: String) {
+        executiveManagementPercentageOfTotalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ExecutiveManagementPercentageOfTotalHoursPerUserGQL extends Apollo.Query<
+    ExecutiveManagementPercentageOfTotalHoursPerUserQuery,
+    ExecutiveManagementPercentageOfTotalHoursPerUserQueryVariables
+> {
+    document = ExecutiveManagementPercentageOfTotalHoursPerUserDocument;
 }
 export const FormalInstructionWorkloadPerUserDocument = gql`
     query formalInstructionWorkloadPerUser($userId: String) {
@@ -17412,10 +18883,12 @@ export const FormalInstructionWorkloadPerUserDocument = gql`
                 formalInstructionTotalHoursPerActivity
                 formalInstructionPercentageOfWorkFocusPerActivity
                 formalInstructionPercentageOfAnnualHoursPerActivity
+                formalInstructionPercentageOfTotalHoursPerActivity
             }
             formalInstructionTotalHoursPerUser
             formalInstructionPercentageOfWorkFocusPerUser
             formalInstructionPercentageOfAnnualHoursPerUser
+            formalInstructionPercentageOfTotalHoursPerUser
         }
     }
 `;
@@ -17722,6 +19195,40 @@ export class FormalInstructionPercentageOfAnnualHoursPerUserGQL extends Apollo.Q
 > {
     document = FormalInstructionPercentageOfAnnualHoursPerUserDocument;
 }
+export const FormalInstructionPercentageOfTotalHoursPerActivityDocument = gql`
+    query formalInstructionPercentageOfTotalHoursPerActivity(
+        $activityId: String
+    ) {
+        formalInstructionPercentageOfTotalHoursPerActivity(
+            activityId: $activityId
+        )
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionPercentageOfTotalHoursPerActivityGQL extends Apollo.Query<
+    FormalInstructionPercentageOfTotalHoursPerActivityQuery,
+    FormalInstructionPercentageOfTotalHoursPerActivityQueryVariables
+> {
+    document = FormalInstructionPercentageOfTotalHoursPerActivityDocument;
+}
+export const FormalInstructionPercentageOfTotalHoursPerUserDocument = gql`
+    query formalInstructionPercentageOfTotalHoursPerUser($userId: String) {
+        formalInstructionPercentageOfTotalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class FormalInstructionPercentageOfTotalHoursPerUserGQL extends Apollo.Query<
+    FormalInstructionPercentageOfTotalHoursPerUserQuery,
+    FormalInstructionPercentageOfTotalHoursPerUserQueryVariables
+> {
+    document = FormalInstructionPercentageOfTotalHoursPerUserDocument;
+}
 export const PersonnelDevelopmentWorkloadPerUserDocument = gql`
     query personnelDevelopmentWorkloadPerUser($userId: String) {
         personnelDevelopmentWorkloadPerUser(userId: $userId) {
@@ -17729,11 +19236,13 @@ export const PersonnelDevelopmentWorkloadPerUserDocument = gql`
                 personnelDevelopmentTotalHoursPerActivity
                 personnelDevelopmentPercentageOfWorkFocusPerActivity
                 personnelDevelopmentPercentageOfAnnualHoursPerActivity
+                personnelDevelopmentPercentageOfTotalHoursPerActivity
             }
             personnelDevelopmentGlobalTarrif
             personnelDevelopmentTotalHoursPerUser
             personnelDevelopmentPercentageOfWorkFocusPerUser
             personnelDevelopmentPercentageOfAnnualHoursPerUser
+            personnelDevelopmentPercentageOfTotalHoursPerUser
         }
     }
 `;
@@ -17747,6 +19256,153 @@ export class PersonnelDevelopmentWorkloadPerUserGQL extends Apollo.Query<
 > {
     document = PersonnelDevelopmentWorkloadPerUserDocument;
 }
+export const PersonnelDevelopmentGlobalTarrifDocument = gql`
+    query personnelDevelopmentGlobalTarrif {
+        personnelDevelopmentGlobalTarrif
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PersonnelDevelopmentGlobalTarrifGQL extends Apollo.Query<
+    PersonnelDevelopmentGlobalTarrifQuery,
+    PersonnelDevelopmentGlobalTarrifQueryVariables
+> {
+    document = PersonnelDevelopmentGlobalTarrifDocument;
+}
+export const PersonnelDevelopmentTotalHoursPerActivityDocument = gql`
+    query personnelDevelopmentTotalHoursPerActivity($activityId: String) {
+        personnelDevelopmentTotalHoursPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PersonnelDevelopmentTotalHoursPerActivityGQL extends Apollo.Query<
+    PersonnelDevelopmentTotalHoursPerActivityQuery,
+    PersonnelDevelopmentTotalHoursPerActivityQueryVariables
+> {
+    document = PersonnelDevelopmentTotalHoursPerActivityDocument;
+}
+export const PersonnelDevelopmentTotalHoursPerUserDocument = gql`
+    query personnelDevelopmentTotalHoursPerUser($userId: String) {
+        personnelDevelopmentTotalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PersonnelDevelopmentTotalHoursPerUserGQL extends Apollo.Query<
+    PersonnelDevelopmentTotalHoursPerUserQuery,
+    PersonnelDevelopmentTotalHoursPerUserQueryVariables
+> {
+    document = PersonnelDevelopmentTotalHoursPerUserDocument;
+}
+export const PersonnelDevelopmentPercentageOfWorkFocusPerActivityDocument = gql`
+    query personnelDevelopmentPercentageOfWorkFocusPerActivity(
+        $activityId: String
+    ) {
+        personnelDevelopmentPercentageOfWorkFocusPerActivity(
+            activityId: $activityId
+        )
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PersonnelDevelopmentPercentageOfWorkFocusPerActivityGQL extends Apollo.Query<
+    PersonnelDevelopmentPercentageOfWorkFocusPerActivityQuery,
+    PersonnelDevelopmentPercentageOfWorkFocusPerActivityQueryVariables
+> {
+    document = PersonnelDevelopmentPercentageOfWorkFocusPerActivityDocument;
+}
+export const PersonnelDevelopmentPercentageOfWorkFocusPerUserDocument = gql`
+    query personnelDevelopmentPercentageOfWorkFocusPerUser($userId: String) {
+        personnelDevelopmentPercentageOfWorkFocusPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PersonnelDevelopmentPercentageOfWorkFocusPerUserGQL extends Apollo.Query<
+    PersonnelDevelopmentPercentageOfWorkFocusPerUserQuery,
+    PersonnelDevelopmentPercentageOfWorkFocusPerUserQueryVariables
+> {
+    document = PersonnelDevelopmentPercentageOfWorkFocusPerUserDocument;
+}
+export const PersonnelDevelopmentPercentageOfAnnualHoursPerActivityDocument = gql`
+    query personnelDevelopmentPercentageOfAnnualHoursPerActivity(
+        $activityId: String
+    ) {
+        personnelDevelopmentPercentageOfAnnualHoursPerActivity(
+            activityId: $activityId
+        )
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PersonnelDevelopmentPercentageOfAnnualHoursPerActivityGQL extends Apollo.Query<
+    PersonnelDevelopmentPercentageOfAnnualHoursPerActivityQuery,
+    PersonnelDevelopmentPercentageOfAnnualHoursPerActivityQueryVariables
+> {
+    document = PersonnelDevelopmentPercentageOfAnnualHoursPerActivityDocument;
+}
+export const PersonnelDevelopmentPercentageOfAnnualHoursPerUserDocument = gql`
+    query personnelDevelopmentPercentageOfAnnualHoursPerUser($userId: String) {
+        personnelDevelopmentPercentageOfAnnualHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PersonnelDevelopmentPercentageOfAnnualHoursPerUserGQL extends Apollo.Query<
+    PersonnelDevelopmentPercentageOfAnnualHoursPerUserQuery,
+    PersonnelDevelopmentPercentageOfAnnualHoursPerUserQueryVariables
+> {
+    document = PersonnelDevelopmentPercentageOfAnnualHoursPerUserDocument;
+}
+export const PersonnelDevelopmentPercentageOfTotalHoursPerActivityDocument = gql`
+    query personnelDevelopmentPercentageOfTotalHoursPerActivity(
+        $activityId: String
+    ) {
+        personnelDevelopmentPercentageOfTotalHoursPerActivity(
+            activityId: $activityId
+        )
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PersonnelDevelopmentPercentageOfTotalHoursPerActivityGQL extends Apollo.Query<
+    PersonnelDevelopmentPercentageOfTotalHoursPerActivityQuery,
+    PersonnelDevelopmentPercentageOfTotalHoursPerActivityQueryVariables
+> {
+    document = PersonnelDevelopmentPercentageOfTotalHoursPerActivityDocument;
+}
+export const PersonnelDevelopmentPercentageOfTotalHoursPerUserDocument = gql`
+    query personnelDevelopmentPercentageOfTotalHoursPerUser($userId: String) {
+        personnelDevelopmentPercentageOfTotalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PersonnelDevelopmentPercentageOfTotalHoursPerUserGQL extends Apollo.Query<
+    PersonnelDevelopmentPercentageOfTotalHoursPerUserQuery,
+    PersonnelDevelopmentPercentageOfTotalHoursPerUserQueryVariables
+> {
+    document = PersonnelDevelopmentPercentageOfTotalHoursPerUserDocument;
+}
 export const PublicServiceWorkloadPerUserDocument = gql`
     query publicServiceWorkloadPerUser($userId: String) {
         publicServiceWorkloadPerUser(userId: $userId) {
@@ -17754,11 +19410,13 @@ export const PublicServiceWorkloadPerUserDocument = gql`
                 publicServiceTotalHoursPerActivity
                 publicServicePercentageOfWorkFocusPerActivity
                 publicServicePercentageOfAnnualHoursPerActivity
+                publicServicePercentageOfTotalHoursPerActivity
             }
             publicServiceGlobalTarrif
             publicServiceTotalHoursPerUser
             publicServicePercentageOfWorkFocusPerUser
             publicServicePercentageOfAnnualHoursPerUser
+            publicServicePercentageOfTotalHoursPerUser
         }
     }
 `;
@@ -17772,6 +19430,141 @@ export class PublicServiceWorkloadPerUserGQL extends Apollo.Query<
 > {
     document = PublicServiceWorkloadPerUserDocument;
 }
+export const PublicServiceGlobalTarrifDocument = gql`
+    query publicServiceGlobalTarrif {
+        publicServiceGlobalTarrif
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PublicServiceGlobalTarrifGQL extends Apollo.Query<
+    PublicServiceGlobalTarrifQuery,
+    PublicServiceGlobalTarrifQueryVariables
+> {
+    document = PublicServiceGlobalTarrifDocument;
+}
+export const PublicServiceTotalHoursPerActivityDocument = gql`
+    query publicServiceTotalHoursPerActivity($activityId: String) {
+        publicServiceTotalHoursPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PublicServiceTotalHoursPerActivityGQL extends Apollo.Query<
+    PublicServiceTotalHoursPerActivityQuery,
+    PublicServiceTotalHoursPerActivityQueryVariables
+> {
+    document = PublicServiceTotalHoursPerActivityDocument;
+}
+export const PublicServiceTotalHoursPerUserDocument = gql`
+    query publicServiceTotalHoursPerUser($userId: String) {
+        publicServiceTotalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PublicServiceTotalHoursPerUserGQL extends Apollo.Query<
+    PublicServiceTotalHoursPerUserQuery,
+    PublicServiceTotalHoursPerUserQueryVariables
+> {
+    document = PublicServiceTotalHoursPerUserDocument;
+}
+export const PublicServicePercentageOfWorkFocusPerActivityDocument = gql`
+    query publicServicePercentageOfWorkFocusPerActivity($activityId: String) {
+        publicServicePercentageOfWorkFocusPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PublicServicePercentageOfWorkFocusPerActivityGQL extends Apollo.Query<
+    PublicServicePercentageOfWorkFocusPerActivityQuery,
+    PublicServicePercentageOfWorkFocusPerActivityQueryVariables
+> {
+    document = PublicServicePercentageOfWorkFocusPerActivityDocument;
+}
+export const PublicServicePercentageOfWorkFocusPerUserDocument = gql`
+    query publicServicePercentageOfWorkFocusPerUser($userId: String) {
+        publicServicePercentageOfWorkFocusPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PublicServicePercentageOfWorkFocusPerUserGQL extends Apollo.Query<
+    PublicServicePercentageOfWorkFocusPerUserQuery,
+    PublicServicePercentageOfWorkFocusPerUserQueryVariables
+> {
+    document = PublicServicePercentageOfWorkFocusPerUserDocument;
+}
+export const PublicServicePercentageOfAnnualHoursPerActivityDocument = gql`
+    query publicServicePercentageOfAnnualHoursPerActivity($activityId: String) {
+        publicServicePercentageOfAnnualHoursPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PublicServicePercentageOfAnnualHoursPerActivityGQL extends Apollo.Query<
+    PublicServicePercentageOfAnnualHoursPerActivityQuery,
+    PublicServicePercentageOfAnnualHoursPerActivityQueryVariables
+> {
+    document = PublicServicePercentageOfAnnualHoursPerActivityDocument;
+}
+export const PublicServicePercentageOfAnnualHoursPerUserDocument = gql`
+    query publicServicePercentageOfAnnualHoursPerUser($userId: String) {
+        publicServicePercentageOfAnnualHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PublicServicePercentageOfAnnualHoursPerUserGQL extends Apollo.Query<
+    PublicServicePercentageOfAnnualHoursPerUserQuery,
+    PublicServicePercentageOfAnnualHoursPerUserQueryVariables
+> {
+    document = PublicServicePercentageOfAnnualHoursPerUserDocument;
+}
+export const PublicServicePercentageOfTotalHoursPerActivityDocument = gql`
+    query publicServicePercentageOfTotalHoursPerActivity($activityId: String) {
+        publicServicePercentageOfTotalHoursPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PublicServicePercentageOfTotalHoursPerActivityGQL extends Apollo.Query<
+    PublicServicePercentageOfTotalHoursPerActivityQuery,
+    PublicServicePercentageOfTotalHoursPerActivityQueryVariables
+> {
+    document = PublicServicePercentageOfTotalHoursPerActivityDocument;
+}
+export const PublicServicePercentageOfTotalHoursPerUserDocument = gql`
+    query publicServicePercentageOfTotalHoursPerUser($userId: String) {
+        publicServicePercentageOfTotalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class PublicServicePercentageOfTotalHoursPerUserGQL extends Apollo.Query<
+    PublicServicePercentageOfTotalHoursPerUserQuery,
+    PublicServicePercentageOfTotalHoursPerUserQueryVariables
+> {
+    document = PublicServicePercentageOfTotalHoursPerUserDocument;
+}
 export const ResearchWorkloadPerUserDocument = gql`
     query researchWorkloadPerUser($userId: String) {
         researchWorkloadPerUser(userId: $userId) {
@@ -17779,11 +19572,13 @@ export const ResearchWorkloadPerUserDocument = gql`
                 researchTotalHoursPerActivity
                 researchPercentageOfWorkFocusPerActivity
                 researchPercentageOfAnnualHoursPerActivity
+                researchPercentageOfTotalHoursPerActivity
             }
             researchGlobalTarrif
             researchTotalHoursPerUser
             researchPercentageOfWorkFocusPerUser
             researchPercentageOfAnnualHoursPerUser
+            researchPercentageOfTotalHoursPerUser
         }
     }
 `;
@@ -17797,6 +19592,141 @@ export class ResearchWorkloadPerUserGQL extends Apollo.Query<
 > {
     document = ResearchWorkloadPerUserDocument;
 }
+export const ResearchGlobalTarrifDocument = gql`
+    query researchGlobalTarrif {
+        researchGlobalTarrif
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ResearchGlobalTarrifGQL extends Apollo.Query<
+    ResearchGlobalTarrifQuery,
+    ResearchGlobalTarrifQueryVariables
+> {
+    document = ResearchGlobalTarrifDocument;
+}
+export const ResearchTotalHoursPerActivityDocument = gql`
+    query researchTotalHoursPerActivity($activityId: String) {
+        researchTotalHoursPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ResearchTotalHoursPerActivityGQL extends Apollo.Query<
+    ResearchTotalHoursPerActivityQuery,
+    ResearchTotalHoursPerActivityQueryVariables
+> {
+    document = ResearchTotalHoursPerActivityDocument;
+}
+export const ResearchTotalHoursPerUserDocument = gql`
+    query researchTotalHoursPerUser($userId: String) {
+        researchTotalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ResearchTotalHoursPerUserGQL extends Apollo.Query<
+    ResearchTotalHoursPerUserQuery,
+    ResearchTotalHoursPerUserQueryVariables
+> {
+    document = ResearchTotalHoursPerUserDocument;
+}
+export const ResearchPercentageOfWorkFocusPerActivityDocument = gql`
+    query researchPercentageOfWorkFocusPerActivity($activityId: String) {
+        researchPercentageOfWorkFocusPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ResearchPercentageOfWorkFocusPerActivityGQL extends Apollo.Query<
+    ResearchPercentageOfWorkFocusPerActivityQuery,
+    ResearchPercentageOfWorkFocusPerActivityQueryVariables
+> {
+    document = ResearchPercentageOfWorkFocusPerActivityDocument;
+}
+export const ResearchPercentageOfWorkFocusPerUserDocument = gql`
+    query researchPercentageOfWorkFocusPerUser($userId: String) {
+        researchPercentageOfWorkFocusPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ResearchPercentageOfWorkFocusPerUserGQL extends Apollo.Query<
+    ResearchPercentageOfWorkFocusPerUserQuery,
+    ResearchPercentageOfWorkFocusPerUserQueryVariables
+> {
+    document = ResearchPercentageOfWorkFocusPerUserDocument;
+}
+export const ResearchPercentageOfAnnualHoursPerActivityDocument = gql`
+    query researchPercentageOfAnnualHoursPerActivity($activityId: String) {
+        researchPercentageOfAnnualHoursPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ResearchPercentageOfAnnualHoursPerActivityGQL extends Apollo.Query<
+    ResearchPercentageOfAnnualHoursPerActivityQuery,
+    ResearchPercentageOfAnnualHoursPerActivityQueryVariables
+> {
+    document = ResearchPercentageOfAnnualHoursPerActivityDocument;
+}
+export const ResearchPercentageOfAnnualHoursPerUserDocument = gql`
+    query researchPercentageOfAnnualHoursPerUser($userId: String) {
+        researchPercentageOfAnnualHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ResearchPercentageOfAnnualHoursPerUserGQL extends Apollo.Query<
+    ResearchPercentageOfAnnualHoursPerUserQuery,
+    ResearchPercentageOfAnnualHoursPerUserQueryVariables
+> {
+    document = ResearchPercentageOfAnnualHoursPerUserDocument;
+}
+export const ResearchPercentageOfTotalHoursPerActivityDocument = gql`
+    query researchPercentageOfTotalHoursPerActivity($activityId: String) {
+        researchPercentageOfTotalHoursPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ResearchPercentageOfTotalHoursPerActivityGQL extends Apollo.Query<
+    ResearchPercentageOfTotalHoursPerActivityQuery,
+    ResearchPercentageOfTotalHoursPerActivityQueryVariables
+> {
+    document = ResearchPercentageOfTotalHoursPerActivityDocument;
+}
+export const ResearchPercentageOfTotalHoursPerUserDocument = gql`
+    query researchPercentageOfTotalHoursPerUser($userId: String) {
+        researchPercentageOfTotalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class ResearchPercentageOfTotalHoursPerUserGQL extends Apollo.Query<
+    ResearchPercentageOfTotalHoursPerUserQuery,
+    ResearchPercentageOfTotalHoursPerUserQueryVariables
+> {
+    document = ResearchPercentageOfTotalHoursPerUserDocument;
+}
 export const SupervisionWorkloadPerUserDocument = gql`
     query supervisionWorkloadPerUser($userId: String) {
         supervisionWorkloadPerUser(userId: $userId) {
@@ -17804,11 +19734,13 @@ export const SupervisionWorkloadPerUserDocument = gql`
                 supervisionTotalHoursPerActivity
                 supervisionPercentageOfWorkFocusPerActivity
                 supervisionPercentageOfAnnualHoursPerActivity
+                supervisionPercentageOfTotalHoursPerActivity
             }
             supervisionGlobalTarrif
             supervisionTotalHoursPerUser
             supervisionPercentageOfWorkFocusPerUser
             supervisionPercentageOfAnnualHoursPerUser
+            supervisionPercentageOfTotalHoursPerUser
         }
     }
 `;
@@ -17821,4 +19753,154 @@ export class SupervisionWorkloadPerUserGQL extends Apollo.Query<
     SupervisionWorkloadPerUserQueryVariables
 > {
     document = SupervisionWorkloadPerUserDocument;
+}
+export const SupervisionGlobalTarrifDocument = gql`
+    query supervisionGlobalTarrif {
+        supervisionGlobalTarrif
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class SupervisionGlobalTarrifGQL extends Apollo.Query<
+    SupervisionGlobalTarrifQuery,
+    SupervisionGlobalTarrifQueryVariables
+> {
+    document = SupervisionGlobalTarrifDocument;
+}
+export const SupervisionTotalHoursPerActivityDocument = gql`
+    query supervisionTotalHoursPerActivity($activityId: String) {
+        supervisionTotalHoursPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class SupervisionTotalHoursPerActivityGQL extends Apollo.Query<
+    SupervisionTotalHoursPerActivityQuery,
+    SupervisionTotalHoursPerActivityQueryVariables
+> {
+    document = SupervisionTotalHoursPerActivityDocument;
+}
+export const SupervisionTotalHoursPerUserDocument = gql`
+    query supervisionTotalHoursPerUser($userId: String) {
+        supervisionTotalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class SupervisionTotalHoursPerUserGQL extends Apollo.Query<
+    SupervisionTotalHoursPerUserQuery,
+    SupervisionTotalHoursPerUserQueryVariables
+> {
+    document = SupervisionTotalHoursPerUserDocument;
+}
+export const SupervisionPercentageOfWorkFocusPerActivityDocument = gql`
+    query supervisionPercentageOfWorkFocusPerActivity($activityId: String) {
+        supervisionPercentageOfWorkFocusPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class SupervisionPercentageOfWorkFocusPerActivityGQL extends Apollo.Query<
+    SupervisionPercentageOfWorkFocusPerActivityQuery,
+    SupervisionPercentageOfWorkFocusPerActivityQueryVariables
+> {
+    document = SupervisionPercentageOfWorkFocusPerActivityDocument;
+}
+export const SupervisionPercentageOfWorkFocusPerUserDocument = gql`
+    query supervisionPercentageOfWorkFocusPerUser($userId: String) {
+        supervisionPercentageOfWorkFocusPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class SupervisionPercentageOfWorkFocusPerUserGQL extends Apollo.Query<
+    SupervisionPercentageOfWorkFocusPerUserQuery,
+    SupervisionPercentageOfWorkFocusPerUserQueryVariables
+> {
+    document = SupervisionPercentageOfWorkFocusPerUserDocument;
+}
+export const SupervisionPercentageOfAnnualHoursPerActivityDocument = gql`
+    query supervisionPercentageOfAnnualHoursPerActivity($activityId: String) {
+        supervisionPercentageOfAnnualHoursPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class SupervisionPercentageOfAnnualHoursPerActivityGQL extends Apollo.Query<
+    SupervisionPercentageOfAnnualHoursPerActivityQuery,
+    SupervisionPercentageOfAnnualHoursPerActivityQueryVariables
+> {
+    document = SupervisionPercentageOfAnnualHoursPerActivityDocument;
+}
+export const SupervisionPercentageOfAnnualHoursPerUserDocument = gql`
+    query supervisionPercentageOfAnnualHoursPerUser($userId: String) {
+        supervisionPercentageOfAnnualHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class SupervisionPercentageOfAnnualHoursPerUserGQL extends Apollo.Query<
+    SupervisionPercentageOfAnnualHoursPerUserQuery,
+    SupervisionPercentageOfAnnualHoursPerUserQueryVariables
+> {
+    document = SupervisionPercentageOfAnnualHoursPerUserDocument;
+}
+export const SupervisionPercentageOfTotalHoursPerActivityDocument = gql`
+    query supervisionPercentageOfTotalHoursPerActivity($activityId: String) {
+        supervisionPercentageOfTotalHoursPerActivity(activityId: $activityId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class SupervisionPercentageOfTotalHoursPerActivityGQL extends Apollo.Query<
+    SupervisionPercentageOfTotalHoursPerActivityQuery,
+    SupervisionPercentageOfTotalHoursPerActivityQueryVariables
+> {
+    document = SupervisionPercentageOfTotalHoursPerActivityDocument;
+}
+export const SupervisionPercentageOfTotalHoursPerUserDocument = gql`
+    query supervisionPercentageOfTotalHoursPerUser($userId: String) {
+        supervisionPercentageOfTotalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class SupervisionPercentageOfTotalHoursPerUserGQL extends Apollo.Query<
+    SupervisionPercentageOfTotalHoursPerUserQuery,
+    SupervisionPercentageOfTotalHoursPerUserQueryVariables
+> {
+    document = SupervisionPercentageOfTotalHoursPerUserDocument;
+}
+export const TotalHoursPerUserDocument = gql`
+    query totalHoursPerUser($userId: String!) {
+        totalHoursPerUser(userId: $userId)
+    }
+`;
+
+@Injectable({
+    providedIn: "root"
+})
+export class TotalHoursPerUserGQL extends Apollo.Query<
+    TotalHoursPerUserQuery,
+    TotalHoursPerUserQueryVariables
+> {
+    document = TotalHoursPerUserDocument;
 }
