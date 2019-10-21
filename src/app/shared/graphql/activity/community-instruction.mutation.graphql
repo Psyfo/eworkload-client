@@ -9,6 +9,38 @@ mutation addCommunityInstructionActivity(
             email
             firstName
             lastName
+            photoUrl
+            disciplineIds
+            disciplines {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -35,6 +67,38 @@ mutation editCommunityInstructionActivity(
             email
             firstName
             lastName
+            photoUrl
+            disciplineIds
+            disciplines {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -61,6 +125,38 @@ mutation deleteCommunityInstructionActivity(
             email
             firstName
             lastName
+            photoUrl
+            disciplineIds
+            disciplines {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {

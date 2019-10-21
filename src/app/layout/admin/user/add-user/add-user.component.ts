@@ -2,15 +2,16 @@ import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
-import { Position, UserInput } from 'src/app/shared/generated';
+import { Position, UserInput, Department } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { PositionService } from '../../position/position.service';
 import { UserService } from '../user.service';
+import { DepartmentService } from '../../department/department.service';
 
 @Component({
     selector: 'app-add-user',
@@ -20,67 +21,36 @@ import { UserService } from '../user.service';
 })
 export class AddUserComponent implements OnInit {
     breadcrumbs: MenuItem[];
+    @ViewChild('f', { static: false }) form: any;
 
-    user: UserInput = {};
+    userInput: UserInput = {};
     positions: Position[];
     selectedPosition: Position;
+    departments: Department[];
+    selectedDepartment: Department;
 
     private unsubscribe = new Subject();
 
-    userAddForm: FormGroup;
-
     constructor(
+        private alertService: AlertService,
         private router: Router,
-        private fb: FormBuilder,
+        private departmentService: DepartmentService,
         private userService: UserService,
-        private positionService: PositionService,
-        private alertService: AlertService
+        private positionService: PositionService
     ) {}
 
     ngOnInit() {
-        this.buildForm();
+        this.breadcrumbs = [
+            { label: 'admin' },
+            { label: 'user', url: 'admin/user' },
+            { label: 'add', url: 'admin/user/add' }
+        ];
+        this.getPositions();
+        this.getDepartments();
     }
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
-    }
-
-    buildForm() {
-        this.userAddForm = this.fb.group({
-            userId: ['', Validators.required],
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            position: ['', Validators.required],
-            email: [
-                '',
-                Validators.compose([Validators.required, Validators.email])
-            ]
-        });
-
-        this.getPositions();
-    }
-
-    // Getters
-    get userId() {
-        return this.userAddForm.get('userId');
-    }
-    get password() {
-        return this.userAddForm.get('password');
-    }
-    get firstName() {
-        return this.userAddForm.get('firstName');
-    }
-    get lastName() {
-        return this.userAddForm.get('lastName');
-    }
-    get email() {
-        return this.userAddForm.get('email');
-    }
-    get position() {
-        return this.userAddForm.get('position');
-    }
-    get formVal() {
-        return this.userAddForm.getRawValue();
     }
 
     getPositions() {
@@ -91,34 +61,32 @@ export class AddUserComponent implements OnInit {
                 this.positions = result.data.positions;
             });
     }
-
-    onAdd() {
-        this.user.userId = this.userId.value;
-        this.user.firstName = this.firstName.value;
-        this.user.lastName = this.lastName.value;
-        this.user.email = this.email.value;
-        this.selectedPosition = this.position.value;
-        this.user.positionId = this.selectedPosition.positionId;
-
-        this.userService
-            .addUser(this.user)
+    getDepartments() {
+        this.departmentService
+            .departments()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                try {
-                    const userId = result.data.addUser.userId;
-                    this.alertService.successToast(`New User ${userId} added`);
-                    this.router.navigate(['admin/user/view', userId], {
-                        queryParams: {
-                            userId: userId
-                        }
-                    });
-                } catch (error) {
-                    console.log(error);
-
-                    this.alertService.errorToast(error, 'errorToast', 0, true);
-                }
+                this.departments = result.data.departments;
             });
-        this.router.navigate(['admin/user']);
+    }
+
+    onSubmit() {
+        this.userInput.departmentId = this.selectedDepartment.departmentId;
+        this.userInput.positionId = this.selectedPosition.positionId;
+
+        this.userService
+            .addUser(this.userInput)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    console.log('User added:', result.data.addUser);
+                    this.alertService.successToast('User added');
+                    this.router.navigate(['admin/user']);
+                },
+                err => {
+                    console.warn(err);
+                }
+            );
     }
 
     onBack(event) {
@@ -126,6 +94,6 @@ export class AddUserComponent implements OnInit {
     }
 
     onReset(event) {
-        this.userAddForm.reset();
+        this.form.reset();
     }
 }

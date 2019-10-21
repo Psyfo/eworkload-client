@@ -13,78 +13,126 @@
                             (input)="fiTable.filterGlobal($event.target.value, 'contains')" style="width:auto">
                     </div>
                 </ng-template>
-                <ng-template pTemplate="header" let-columns>
+                <ng-template pTemplate="header">
                     <tr>
-                        <th *ngFor="let column of columns" [pSortableColumn]="column.field" pReorderableColumn>
-                            {{column.header}}
-                            <p-sortIcon [field]="column.field"></p-sortIcon>
+                        <th colspan="1" [pSortableColumn]="activity?.module?.moduleId">
+                            Module ID
+                            <p-sortIcon [field]="activity?.module?.moduleId"></p-sortIcon>
+                        </th>
+                        <th colspan="3" [pSortableColumn]="activity?.module?.name">
+                            Module
+                            <p-sortIcon [field]="activity?.module?.name"></p-sortIcon>
+                        </th>
+                        <th colspan="1" [pSortableColumn]="activity?.block?.name">
+                            Block
+                            <p-sortIcon [field]="activity?.block?.name"></p-sortIcon>
+                        </th>
+                        <th colspan="1" [pSortableColumn]="activity?.offeringType?.description">
+                            Offering Type
+                            <p-sortIcon [field]="activity?.offeringType?.description"></p-sortIcon>
+                        </th>
+                        <th colspan="5" [pSortableColumn]="activity?.qualification?.name">
+                            Qualification
+                            <p-sortIcon [field]="activity?.qualification?.name"></p-sortIcon>
+                        </th>
+                        <th colspan="1" [pSortableColumn]="activity?.approvalStatus">
+                            Approval Status
+                            <p-sortIcon [field]="activity?.approvalStatus"></p-sortIcon>
                         </th>
                     </tr>
                     <tr>
-                        <th *ngFor="let column of columns" [ngSwitch]="column.field">
-                            <input type="text" pInputText *ngSwitchCase="'module.moduleId'"
-                                (input)="fiTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                        <th colspan="1">
+                            <input type="text" pInputText
+                                (input)="fiTable.filter($event.target.value, 'moduleId', 'contains')"
                                 style="width: 100%;">
-                            <input type="text" pInputText *ngSwitchCase="'module.name'"
-                                (input)="fiTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                        </th>
+                        <th colspan="3">
+                            <input type="text" pInputText
+                                (input)="fiTable.filter($event.target.value, 'module.name', 'contains')"
                                 style="width: 100%;">
-                            <input type="text" pInputText *ngSwitchCase="'offeringType.name'"
-                                (input)="fiTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                        </th>
+                        <th colspan="1">
+                            <input type="text" pInputText
+                                (input)="fiTable.filter($event.target.value, 'block.name', 'contains')"
                                 style="width: 100%;">
-                            <input type="text" pInputText *ngSwitchCase="'block.name'"
-                                (input)="fiTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                        </th>
+                        <th colspan="1">
+                            <input type="text" pInputText
+                                (input)="fiTable.filter($event.target.value, 'offeringType.description', 'contains')"
                                 style="width: 100%;">
-                            <input type="text" pInputText *ngSwitchCase="'qualification.name'"
-                                (input)="fiTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                        </th>
+                        <th colspan="5">
+                            <input type="text" pInputText
+                                (input)="fiTable.filter($event.target.value,'qualification.name', 'contains')"
                                 style="width: 100%;">
-                            <input type="text" pInputText *ngSwitchCase="'approvalStatus'"
-                                (input)="fiTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                        </th>
+                        <th colspan="1">
+                            <input type="text" pInputText
+                                (input)="fiTable.filter($event.target.value,'approvalStatus', 'contains')"
                                 style="width: 100%;">
                         </th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-activity let-columns="columns">
+                <ng-template pTemplate="body" let-activity>
                     <tr [pSelectableRow]="activity" [pContextMenuRow]="activity">
-                        <td>
+                        <td colspan="1">
                             {{activity?.module?.moduleId}}
                         </td>
-                        <td>
+                        <td colspan="3">
                             {{activity?.module?.name}}
                         </td>
-                        <td>
+                        <td colspan="1">
                             {{activity?.block?.name}}
                         </td>
-                        <td>
+                        <td colspan="1">
                             {{activity?.offeringType?.description}}
                         </td>
-                        <td>
+                        <td colspan="5">
                             {{activity?.qualification?.name}}
                         </td>
-                        <td>
+                        <td colspan="1">
                             {{activity?.approvalStatus | titlecase}}
                         </td>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="footer" let-columns>
+                <ng-template pTemplate="footer">
                     <tr>
-                        <td *ngFor="let column of columns">
-                            {{column.header}}
+                        <td colspan="1">
+                            Module ID
+                        </td>
+                        <td colspan="3">
+                            Module
+                        </td>
+                        <td colspan="1">
+                            Block
+                        </td>
+                        <td colspan="1">
+                            Offering Type
+                        </td>
+                        <td colspan="5">
+                            Qualification
+                        </td>
+                        <td colspan="1">
+                            Approval Status
+                        </td>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <tr>
+                        <td colspan="12">
                         </td>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="summary">
-
-                </ng-template>
-                <ng-template pTemplate="emptymessage" let-columns>
+                <ng-template pTemplate="emptymessage">
                     <tr>
-                        <td [attr.colspan]="columns.length">
+                        <td colspan="12">
                             No records found
                         </td>
                     </tr>
                 </ng-template>
             </p-table>
 
-            <p-contextMenu #cm [model]="menuItems"></p-contextMenu>
+            <!-- CONTEXT mENU -->
+            <p-contextMenu #cm [model]="menuItems" appendTo="body"></p-contextMenu>
             <p-footer>
                 <button pButton type="button" label="New Activity" icon="pi pi-plus" iconPos="left" (click)="onAdd()"
                     class="mr-2"></button>

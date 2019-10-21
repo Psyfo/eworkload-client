@@ -1,16 +1,22 @@
+import { SelectItem } from 'primeng/components/common/selectitem';
 import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AcademicAdministrationActivityInput } from '../../../../shared/generated/output';
+import {
+    AcademicAdministrationActivity,
+    AcademicAdministrationActivityInput,
+    Qualification
+} from '../../../../shared/generated/output';
 import { AlertService } from '../../../../shared/modules/alert/alert.service';
+import { QualificationService } from '../../../admin/qualification/qualification.service';
 import { UserService } from '../../../admin/user/user.service';
 import { AcademicAdministrationService } from '../academic-administration.service';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-add-academic-administration',
@@ -20,18 +26,25 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class AddAcademicAdministrationComponent implements OnInit {
     breadcrumbs: MenuItem[];
+    @ViewChild('f', { static: false }) form: any;
 
-    activity: AcademicAdministrationActivityInput = {};
+    activityModel: AcademicAdministrationActivity = {};
+    userId = this.userService.currentUserIdStatic();
+    dutyId = '46';
+    activityInput: AcademicAdministrationActivityInput;
     titles = this.academicAdministrationService.titles;
+    selectedTitle;
+    qualifications: Qualification[] = [];
+    selectedQualification: Qualification;
 
-    addAcademicAdministrationForm: FormGroup;
     private unsubscribe = new Subject();
+
     constructor(
         private alertService: AlertService,
         private router: Router,
         private academicAdministrationService: AcademicAdministrationService,
-        private fb: FormBuilder,
-        private userService: UserService
+        private userService: UserService,
+        private qualificationService: QualificationService
     ) {}
 
     ngOnInit() {
@@ -40,7 +53,8 @@ export class AddAcademicAdministrationComponent implements OnInit {
             { label: 'academic-administration' },
             { label: 'add' }
         ];
-        this.buildForm();
+
+        this.getQualifications();
     }
     ngOnDestroy(): void {
         //Called once, before the instance is destroyed.
@@ -48,50 +62,32 @@ export class AddAcademicAdministrationComponent implements OnInit {
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
-    buildForm() {
-        this.addAcademicAdministrationForm = this.fb.group({
-            userId: [{ value: '', disabled: true }, [Validators.required]],
-            dutyId: [{ value: '', disabled: true }, [Validators.required]],
-            title: ['', [Validators.required]],
-            description: ['']
-        });
-        this.addAcademicAdministrationForm.patchValue({
-            userId: this.userService.currentUserIdStatic(),
-            dutyId: '46'
-        });
-    }
-    get userId() {
-        return this.addAcademicAdministrationForm.get('userId');
-    }
-    get dutyId() {
-        return this.addAcademicAdministrationForm.get('dutyId');
-    }
-    get title() {
-        return this.addAcademicAdministrationForm.get('title');
-    }
-    get description() {
-        return this.addAcademicAdministrationForm.get('description');
-    }
 
-    onAdd() {
-        this.activity.userId = this.userId.value;
-        this.activity.dutyId = this.dutyId.value;
-        const selectedTitle = this.title.value;
-        this.activity.title = selectedTitle.value;
-        this.activity.description = this.description.value;
-
-        this.academicAdministrationService
-            .addAcademicAdministrationActivity(this.activity)
+    getQualifications() {
+        this.qualificationService
+            .qualifications()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
-                result => {},
+                ({ data }) => {
+                    this.qualifications = data.qualifications;
+                },
                 err => {
-                    this.alertService.errorToast(err, 'errorToast');
+                    this.alertService.errorToast(err);
+                    console.warn(err);
                 }
             );
-        this.alertService.successToast('Activity added');
+    }
+
+    onSubmit() {
+        this.activityInput = {
+            userId: this.userId,
+            dutyId: this.dutyId,
+            title: this.activityModel.title,
+            description: this.activityModel.description
+        };
+    }
+    onBack(event) {
         this.router.navigate(['activity/academic-administration']);
     }
-    onBack(event) {}
     onReset(event) {}
 }

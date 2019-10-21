@@ -1,3 +1,4 @@
+import { SupervisionActivityInput } from './../../../../shared/generated/output';
 import { SupervisionService } from './../supervision.service';
 import { MenuItem } from 'primeng/components/common/menuitem';
 import { Component, OnInit } from '@angular/core';
@@ -22,9 +23,7 @@ export class ListSupervisionComponent implements OnInit {
     cols: any[];
     loading: any;
     activities: any;
-    supervisionWorkload: any;
-    supervisionWorkloadData: any;
-    selectedActivity: any;
+    selectedActivity: SupervisionActivity;
 
     private unsubscribe = new Subject();
 
@@ -115,7 +114,7 @@ export class ListSupervisionComponent implements OnInit {
         );
     }
     onContextDelete(event) {
-        this.alertService.infoToast('Delete service coming soon');
+        this.alertService.confirm('supervisionActivityDelete');
     }
     onRowSelect(event) {
         const activityData: SupervisionActivity = event.data;
@@ -132,5 +131,30 @@ export class ListSupervisionComponent implements OnInit {
                 }
             }
         );
+    }
+    onReject() {
+        this.alertService.clear();
+    }
+    onConfirm() {
+        this.alertService.clear();
+        const activityInput: SupervisionActivityInput = {
+            activityId: this.selectedActivity.activityId,
+            supervisionRole: this.selectedActivity.supervisionRole,
+            split: this.selectedActivity.split,
+            studentId: this.selectedActivity.studentId
+        };
+        this.supervisionService
+            .deleteSupervisionActivity(activityInput)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    console.log('Supervision activity deleted:', result.data);
+                    this.alertService.successToast('Activity Deleted');
+                },
+                err => {
+                    this.alertService.errorToast(err, 'errorToast');
+                    console.warn(err);
+                }
+            );
     }
 }

@@ -1,8 +1,8 @@
-import { DataTableDirective } from 'angular-datatables';
+import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
-import { Department } from 'src/app/shared/generated';
+import { Department, DepartmentInput } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
 import { Component, OnInit, Renderer, SimpleChanges } from '@angular/core';
@@ -17,91 +17,142 @@ import { DepartmentService } from '../department.service';
     animations: [routerTransition()]
 })
 export class DepartmentListComponent implements OnInit {
-    departments: Department[];
-    loading: boolean = false;
-    errors: any;
+    breadcrumbs: MenuItem[];
+    menuItems: MenuItem[];
+    cols: any[];
 
-    private unsubscribe = new Subject();
+    departments: Department[] = [];
+    selectedDepartment: Department;
+    loading: boolean;
 
-    // Datatable config
-    dtOptions: DataTables.Settings = {};
-    dtTrigger: Subject<Department> = new Subject();
-    dtElement: DataTableDirective;
-    dtRouteParam: string;
+    unsubscribe = new Subject();
 
     constructor(
         private alertService: AlertService,
         private router: Router,
-        private renderer: Renderer,
-        private departmentsService: DepartmentService
+        private departmentService: DepartmentService
     ) {}
 
-    // Lifecycle hooks
-    ngOnChanges(changes: SimpleChanges): void {}
     ngOnInit() {
-        // Initialize DT
-        this.dtOptions = {
-            pagingType: 'full_numbers',
-            pageLength: 10,
-            processing: true,
-            responsive: true,
-            autoWidth: true,
-            rowCallback: (row: Node, data: any[] | Object, index: number) => {
-                const self = this;
-                // Unbind first in order to avoid any duplicate handler
-                // (see https://github.com/l-lin/angular-datatables/issues/87)
-                $('td', row).unbind('click');
-                $('td', row).bind('click', () => {
-                    self.rowClickHandler(data);
-                });
-                return row;
+        this.breadcrumbs = [
+            {
+                label: 'admin'
+            },
+            {
+                label: 'department',
+                url: 'admin/department'
             }
-        };
+        ];
+        this.menuItems = [
+            {
+                label: 'View',
+                icon: 'pi pi-search',
+                command: event => this.onContextView(event)
+            },
+            {
+                label: 'Edit',
+                icon: 'pi pi-pencil',
+                command: event => this.onContextEdit(event)
+            },
+            {
+                label: 'Delete',
+                icon: 'pi pi-trash',
+                command: event => this.onContextDelete(event)
+            }
+        ];
 
         this.getDepartments();
     }
-    ngAfterViewInit(): void {
-        this.renderer.listenGlobal('document', 'click', event => {
-            // console.log(event.target);
-
-            if (event.target.hasAttribute('departmentId')) {
-                //this.router.navigate(["edit/:" + event.target.getAttribute("lecturerId")]);
-                // this.router.navigate(['lecturer-manage/edit'], { queryParams: { lecturerId: this.dtRouteParam } });
-            }
-        });
-    }
     ngOnDestroy(): void {
-        // Do not forget to unsubscribe the event
-        this.dtTrigger.unsubscribe();
+        //Called once, before the instance is destroyed.
+        //Add 'implements OnDestroy' to the class.
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
 
-    // Methods
-    rowClickHandler(info: any) {
-        // get all column values as array
-        this.dtRouteParam = info[0];
-
-        this.router.navigate(['admin/department/view', this.dtRouteParam], {
-            queryParams: { departmentId: info[0] }
-        });
-    }
-
-    getFaculty(dId: string) {}
-
     getDepartments() {
-        this.departmentsService
-            .getDepartments()
+        this.departmentService
+            .departments()
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.departments = result.data.departments.map(
-                    department => <Department>(<unknown>department)
-                );
-                this.dtTrigger.next();
-            });
+            .subscribe(
+                result => {
+                    this.loading = result.loading;
+                    this.departments = result.data.departments;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
-
     onAdd() {
         this.router.navigate(['admin/department/add']);
+    }
+
+    onRowSelect(event) {
+        this.alertService.infoToast(
+            `Department: ${this.selectedDepartment.departmentId} selected`
+        );
+        this.router.navigate(
+            ['admin/department/view', this.selectedDepartment.departmentId],
+            {
+                queryParams: {
+                    departmentId: this.selectedDepartment.departmentId
+                }
+            }
+        );
+    }
+    onContextView(event) {
+        this.alertService.infoToast(
+            `Department: ${this.selectedDepartment.departmentId} selected`
+        );
+        this.router.navigate(
+            ['admin/department/view', this.selectedDepartment.departmentId],
+            {
+                queryParams: {
+                    departmentId: this.selectedDepartment.departmentId
+                }
+            }
+        );
+    }
+    onContextEdit(event) {
+        this.alertService.infoToast(
+            `Department: ${this.selectedDepartment.departmentId} selected`
+        );
+        this.router.navigate(
+            ['admin/department/edit', this.selectedDepartment.departmentId],
+            {
+                queryParams: {
+                    departmentId: this.selectedDepartment.departmentId
+                }
+            }
+        );
+    }
+    onContextDelete(event) {
+        this.alertService.confirm('departmentDelete');
+    }
+    onReject() {
+        this.alertService.clear();
+    }
+    onConfirm() {
+        this.alertService.clear();
+        const departmentInput: DepartmentInput = {
+            departmentId: this.selectedDepartment.departmentId,
+            name: this.selectedDepartment.name,
+            facultyId: this.selectedDepartment.facultyId
+        };
+        this.departmentService
+            .deleteDepartment(departmentInput)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    console.log(result.data.deleteBlock);
+
+                    this.alertService.successToast('Department Deleted');
+                },
+                err => {
+                    this.alertService.errorToast(err, 'errorToast');
+                }
+            );
     }
 }

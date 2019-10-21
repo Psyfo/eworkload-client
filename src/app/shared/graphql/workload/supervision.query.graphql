@@ -1,43 +1,74 @@
-query supervisionWorkloadPerUser($userId: String) {
-    supervisionWorkloadPerUser(userId: $userId) {
-        supervisionWorkloadData {
-            supervisionTotalHoursPerActivity
-            supervisionPercentageOfWorkFocusPerActivity
-            supervisionPercentageOfAnnualHoursPerActivity
-            supervisionPercentageOfTotalHoursPerActivity
+query supervisionWorkload($userId: String) {
+    supervisionWorkload(userId: $userId) {
+        supervisionWorkloads {
+            activity {
+                activityId
+                userId
+                user {
+                    userId
+                    email
+                    firstName
+                    lastName
+                    photoUrl
+                    disciplineIds
+                    disciplines {
+                        disciplineId
+                        name
+                        description
+                    }
+                    positionId
+                    position {
+                        positionId
+                        name
+                        description
+                    }
+                    departmentId
+                    department {
+                        departmentId
+                        name
+                        facultyId
+                    }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
+                }
+                dutyId
+                duty {
+                    dutyId
+                    name
+                    description
+                }
+                approvalStatus
+                createdAt
+                updatedAt
+                supervisionRole
+                split
+                studentId
+                student {
+                    studentId
+                    firstName
+                    lastName
+                    email
+                    type
+                    title
+                    year
+                    graduationDate
+                }
+            }
+            totalHoursPerActivity
+            percentageOfWorkFocusPerActivity
+            percentageOfAnnualHoursPerActivity
+            percentageOfTotalHoursPerActivity
         }
-        supervisionGlobalTarrif
-        supervisionTotalHoursPerUser
-        supervisionPercentageOfWorkFocusPerUser
-        supervisionPercentageOfAnnualHoursPerUser
-        supervisionPercentageOfTotalHoursPerUser
+        totalHoursPerUser
+        percentageOfWorkFocusPerUser
+        percentageOfAnnualHoursPerUser
+        percentageOfTotalHoursPerUser
     }
-}
-
-query supervisionGlobalTarrif {
-    supervisionGlobalTarrif
-}
-query supervisionTotalHoursPerActivity($activityId: String) {
-    supervisionTotalHoursPerActivity(activityId: $activityId)
-}
-query supervisionTotalHoursPerUser($userId: String) {
-    supervisionTotalHoursPerUser(userId: $userId)
-}
-query supervisionPercentageOfWorkFocusPerActivity($activityId: String) {
-    supervisionPercentageOfWorkFocusPerActivity(activityId: $activityId)
-}
-query supervisionPercentageOfWorkFocusPerUser($userId: String) {
-    supervisionPercentageOfWorkFocusPerUser(userId: $userId)
-}
-query supervisionPercentageOfAnnualHoursPerActivity($activityId: String) {
-    supervisionPercentageOfAnnualHoursPerActivity(activityId: $activityId)
-}
-query supervisionPercentageOfAnnualHoursPerUser($userId: String) {
-    supervisionPercentageOfAnnualHoursPerUser(userId: $userId)
-}
-query supervisionPercentageOfTotalHoursPerActivity($activityId: String) {
-    supervisionPercentageOfTotalHoursPerActivity(activityId: $activityId)
-}
-query supervisionPercentageOfTotalHoursPerUser($userId: String) {
-    supervisionPercentageOfTotalHoursPerUser(userId: $userId)
 }

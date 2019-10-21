@@ -1,15 +1,18 @@
 <app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
 <div class="p-grid" [@routerTransition]>
     <div class="p-col">
-        <form [formGroup]="addSupervisionForm" (ngSubmit)="onAdd()">
+        <form #f="ngForm" (ngSubmit)="onSubmit()">
             <p-panel header="Add Supervision Activity">
 
+                <!-- ROLE -->
                 <div class="p-grid">
                     <div class="p-col-2">Supervision Role</div>
                     <div class="p-col-6">
                         <p-dropdown [options]="supervisionRoles" optionLabel="label" placeholder="Supervision Role"
-                            formControlName="supervisionRole" appendTo="body" showClear="true" [filter]="true"
-                            filterBy="value"></p-dropdown>
+                            appendTo="body" showClear="true" [filter]="true" filterBy="value"
+                            [(ngModel)]="selectedSupervisionRole" name="supervisionRole" #supervisionRole="ngModel"
+                            required>
+                        </p-dropdown>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Supervision Role is required"
@@ -17,11 +20,14 @@
                         </p-message>
                     </div>
                 </div>
-                <div class="p-grid">
+
+                <!-- SPLIT -->
+                <div class="p-grid" *ngIf="selectedSupervisionRole.value === 'Co-Supervisor'">
                     <div class="p-col-2">Split</div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="splits" optionLabel="label" placeholder="Split" formControlName="split"
-                            appendTo="body" showClear="true" [filter]="true" filterBy="value">
+                        <p-dropdown [options]="splits" optionLabel="label" placeholder="Split" appendTo="body"
+                            showClear="true" [filter]="true" filterBy="value" [(ngModel)]="selectedSplit" name="split"
+                            #split="ngModel" required>
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
@@ -30,12 +36,14 @@
                         </p-message>
                     </div>
                 </div>
+
+                <!-- STUDENT -->
                 <div class="p-grid">
                     <div class="p-col-2">Student</div>
                     <div class="p-col-6">
                         <p-dropdown [options]="students" optionLabel="studentId" placeholder="Select Student"
-                            formControlName="student" appendTo="body" showClear="true" [filter]="true"
-                            filterBy="studentId">
+                            appendTo="body" showClear="true" [filter]="true" filterBy="studentId"
+                            [(ngModel)]="selectedStudent" name="student" #student="ngModel" required>
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
@@ -48,12 +56,13 @@
                 <p-footer>
                     <div class="p-grid">
                         <div class="p-col-10 p-col-align-left">
-                            <button pButton icon="pi pi-plus" label="Add Activity" class="mr-2"
-                                [disabled]="addSupervisionForm.invalid"></button>
                             <button type="button" pButton icon="pi pi-arrow-left" label="Back" (click)="onBack($event)"
-                                class="ui-button-danger"></button>
+                                class="ui-button-danger mr-2"></button>
+                            <button pButton icon="pi pi-plus" label="Save" class="" [disabled]="f.invalid"></button>
                         </div>
-                        <div class="p-col">
+                        <div class="p-col-2 p-col-align-right">
+                            <button type="button" pButton icon="pi pi-plus" label="Add Student"
+                                (click)="onAddStudent($event)" class="ui-button-primary mr-2"></button>
                             <button type="button" pButton icon="pi pi-refresh" label="Reset" (click)="onReset($event)"
                                 class="ui-button-secondary"></button>
                         </div>

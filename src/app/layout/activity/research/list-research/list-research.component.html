@@ -68,7 +68,7 @@
                 </ng-template>
             </p-table>
 
-            <p-contextMenu #cm [model]="menuItems"></p-contextMenu>
+            <p-contextMenu #cm [model]="menuItems" appendTo="body"></p-contextMenu>
             <p-footer>
                 <button pButton type="button" label="New Activity" icon="pi pi-plus" iconPos="left"
                     (click)="onAdd()"></button>
@@ -79,6 +79,7 @@
     </div>
 </div>
 
+<!-- Delete Dialog -->
 <p-toast position="center" key="researchActivityDelete" (onClose)="onReject()" [modal]="true" [baseZIndex]="9000">
     <ng-template let-message pTemplate="message">
         <div style="text-align: center">

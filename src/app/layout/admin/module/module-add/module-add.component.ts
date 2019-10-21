@@ -1,17 +1,18 @@
+import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 import {
     Block,
     Discipline,
-    Module,
+    ModuleInput,
     OfferingType,
     Qualification,
     Venue
 } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -21,7 +22,6 @@ import { OfferingTypeService } from '../../offering-type/offering-type.service';
 import { QualificationService } from '../../qualification/qualification.service';
 import { VenueService } from '../../venue/venue.service';
 import { ModuleService } from '../module.service';
-import { MenuItem } from 'primeng/components/common/menuitem';
 
 @Component({
     selector: 'app-module-add',
@@ -31,8 +31,9 @@ import { MenuItem } from 'primeng/components/common/menuitem';
 })
 export class ModuleAddComponent implements OnInit {
     breadcrumbs: MenuItem[];
+    @ViewChild('f', { static: false }) form: any;
 
-    module: Module;
+    moduleInput: ModuleInput = {};
     qualifications: Qualification[];
     offeringTypes: OfferingType[];
     disciplines: Discipline[];
@@ -42,8 +43,6 @@ export class ModuleAddComponent implements OnInit {
     types = this.moduleService.types;
     assessmentMethods = this.moduleService.assessmentMethods;
 
-    selectedType;
-    selectedAssessmentMethod;
     selectedQualification: Qualification;
     selectedOfferingType: OfferingType;
     selectedBlock: Block;
@@ -51,8 +50,6 @@ export class ModuleAddComponent implements OnInit {
     selectedVenue: Venue;
 
     private unsubscribe = new Subject();
-
-    moduleAddForm: FormGroup;
 
     constructor(
         private router: Router,
@@ -77,37 +74,18 @@ export class ModuleAddComponent implements OnInit {
         this.getDisciplines();
         this.getOfferingTypes();
         this.getVenues();
-
-        this.buildForm();
     }
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
 
-    buildForm() {
-        this.moduleAddForm = this.fb.group({
-            moduleId: ['', [Validators.required]],
-            name: ['', [Validators.required]],
-            type: ['', [Validators.required]],
-            assessmentMethod: ['', [Validators.required]],
-            nqfLevel: ['', [Validators.required]],
-            qualification: ['', [Validators.required]],
-            offeringType: ['', [Validators.required]],
-            discipline: ['', [Validators.required]],
-            venue: ['', [Validators.required]],
-            block: ['', [Validators.required]],
-            credits: ['', [Validators.required]]
-        });
-    }
     getQualifications() {
         this.qualificationService
-            .getQualifications()
+            .qualifications()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.qualifications = result.data.qualifications.map(
-                    qualification => <Qualification>(<unknown>qualification)
-                );
+                this.qualifications = result.data.qualifications;
             });
     }
     getOfferingTypes() {
@@ -128,7 +106,7 @@ export class ModuleAddComponent implements OnInit {
     }
     getBlocks() {
         this.blockService
-            .getBlocks()
+            .blocks()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.blocks = result.data.blocks;
@@ -142,77 +120,30 @@ export class ModuleAddComponent implements OnInit {
                 this.venues = result.data.venues;
             });
     }
-    onAdd() {
-        this.module.moduleId = this.moduleId.value;
-        this.module.name = this.name.value;
-        this.module.type = this.type.value;
-        this.module.assessmentMethod = this.assessmentMethod.value;
-        this.module.nqfLevel = this.nqfLevel.value;
-        this.module.qualificationId = this.selectedQualification.qualificationId;
-        this.module.offeringTypeId = this.selectedOfferingType.offeringTypeId;
-        this.module.disciplineId = this.selectedDiscipline.disciplineId;
-        this.module.venueId = this.selectedVenue.venueId;
-        this.module.blockId = this.selectedBlock.blockId;
-        this.module.credits = this.credits.value;
-
+    onSubmit() {
         this.moduleService
-            .addModule(this.module)
+            .addModule(this.moduleInput)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.alertService.success('Module added');
 
                 this.router.navigate(
-                    ['admin/module/view', this.moduleId.value],
+                    ['admin/module/view', this.moduleInput.moduleId],
                     {
                         queryParams: {
-                            moduleId: this.moduleId.value
+                            moduleId: this.moduleInput.moduleId,
+                            blockId: this.moduleInput.blockId,
+                            offeringTypeId: this.moduleInput.offeringTypeId,
+                            qualificationId: this.moduleInput.qualificationId
                         }
                     }
                 );
             });
     }
-    onBack() {
+    onBack(event) {
         this.router.navigate(['admin/module']);
     }
-    onReset() {
-        this.moduleAddForm.reset();
-    }
-
-    // Getters
-    get moduleId() {
-        return this.moduleAddForm.get('moduleId');
-    }
-    get name() {
-        return this.moduleAddForm.get('name');
-    }
-    get type() {
-        return this.moduleAddForm.get('type');
-    }
-    get assessmentMethod() {
-        return this.moduleAddForm.get('assessmentMethod');
-    }
-    get nqfLevel() {
-        return this.moduleAddForm.get('nqfLevel');
-    }
-    get qualification() {
-        return this.moduleAddForm.get('qualification');
-    }
-    get offeringType() {
-        return this.moduleAddForm.get('offeringType');
-    }
-    get discipline() {
-        return this.moduleAddForm.get('discipline');
-    }
-    get block() {
-        return this.moduleAddForm.get('block');
-    }
-    get credits() {
-        return this.moduleAddForm.get('credits');
-    }
-    get formVal() {
-        return this.moduleAddForm.getRawValue();
-    }
-    get venue() {
-        return this.moduleAddForm.get('venue');
+    onReset(event) {
+        this.form.reset();
     }
 }

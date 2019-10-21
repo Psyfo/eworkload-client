@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { AcademicAdministrationActivity } from '../../../../shared/generated/output';
 import { AlertService } from '../../../../shared/modules/alert/alert.service';
 import { AcademicAdministrationService } from '../academic-administration.service';
+import { UserService } from 'src/app/layout/admin/user/user.service';
 
 @Component({
     selector: 'app-list-academic-administration',
@@ -22,6 +23,8 @@ export class ListAcademicAdministrationComponent implements OnInit {
     cols: any[];
     loading: boolean;
 
+    userId = this.userService.currentUserIdStatic();
+
     activities: AcademicAdministrationActivity[];
     selectedActivity: AcademicAdministrationActivity;
     titles = this.academicAdministrationService.titles;
@@ -31,7 +34,8 @@ export class ListAcademicAdministrationComponent implements OnInit {
     constructor(
         private alertService: AlertService,
         private router: Router,
-        private academicAdministrationService: AcademicAdministrationService
+        private academicAdministrationService: AcademicAdministrationService,
+        private userService: UserService
     ) {}
 
     ngOnInit() {
@@ -83,13 +87,13 @@ export class ListAcademicAdministrationComponent implements OnInit {
     }
     getActivities() {
         this.academicAdministrationService
-            .academicAdministrationActivities()
+            .academicAdministrationActivitiesByUser(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
                 result => {
                     this.loading = result.loading;
                     this.activities =
-                        result.data.academicAdministrationActivities;
+                        result.data.academicAdministrationActivitiesByUser;
                 },
                 err => {
                     this.alertService.errorToast(err, 'errorToast');

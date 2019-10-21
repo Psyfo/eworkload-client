@@ -1,16 +1,31 @@
 mutation uploadlProfilePicture($file: Upload!, $userId: String!) {
     uploadProfilePicture(file: $file, userId: $userId) {
-        id
-        path
-        filename
-        mimetype
+        location
     }
 }
-mutation uploadEvidence($file: Upload!, $activityId: String!) {
-    uploadEvidence(file: $file, activityId: $activityId) {
-        id
-        path
-        filename
-        mimetype
+mutation uploadAcademicAdministrationEvidenceAWS(
+    $file: Upload!
+    $userId: String!
+    $activityId: String!
+) {
+    uploadAcademicAdministrationEvidenceAWS(
+        file: $file
+        userId: $userId
+        activityId: $activityId
+    ) {
+        location
+    }
+}
+mutation uploadResearchEvidenceAWS(
+    $file: Upload!
+    $userId: String!
+    $activityId: String!
+) {
+    uploadResearchEvidenceAWS(
+        file: $file
+        userId: $userId
+        activityId: $activityId
+    ) {
+        location
     }
 }

@@ -1,16 +1,19 @@
+import { SelectItem } from 'primeng/components/common/selectitem';
 import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { QualificationService } from 'src/app/layout/admin/qualification/qualification.service';
 import { StudentService } from 'src/app/layout/admin/student/student.service';
 import { UserService } from 'src/app/layout/admin/user/user.service';
 import { routerTransition } from 'src/app/router.animations';
 import { AlertService } from 'src/app/shared/modules';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import {
+    Qualification,
     Student,
     SupervisionActivityInput
 } from '../../../../shared/generated/output';
@@ -24,23 +27,26 @@ import { SupervisionService } from '../supervision.service';
 })
 export class AddSupervisionComponent implements OnInit {
     breadcrumbs: MenuItem[];
+    @ViewChild('f', { static: false }) form: any;
 
-    supervisionActivity: SupervisionActivityInput = {};
+    userId = this.userService.currentUserIdStatic();
+    dutyId = '11';
+    activityInput: SupervisionActivityInput = {};
     supervisionRoles = this.supervisionService.supervisionRoles;
+    selectedSupervisionRole: any = {};
     splits = this.supervisionService.splits;
-    students: Student[];
-
-    addSupervisionForm: FormGroup;
+    selectedSplit: any = {};
+    students: Student[] = [];
+    selectedStudent: Student = {};
 
     private unsubscribe = new Subject();
 
     constructor(
         private alertService: AlertService,
         private router: Router,
-        private fb: FormBuilder,
         private supervisionService: SupervisionService,
-        private userService: UserService,
-        private studentService: StudentService
+        private studentService: StudentService,
+        private userService: UserService
     ) {}
 
     ngOnInit() {
@@ -50,33 +56,12 @@ export class AddSupervisionComponent implements OnInit {
             { label: 'add' }
         ];
         this.getStudents();
-        this.buildForm();
     }
     ngOnDestroy(): void {
-        //Called once, before the instance is destroyed.
-        //Add 'implements OnDestroy' to the class.
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
-    buildForm() {
-        this.addSupervisionForm = this.fb.group({
-            supervisionRole: ['', [Validators.required]],
-            split: ['', [Validators.required]],
-            student: ['', [Validators.required]]
-        });
-    }
-    get supervisionRole() {
-        return this.addSupervisionForm.get('supervisionRole');
-    }
-    get split() {
-        return this.addSupervisionForm.get('split');
-    }
-    get student() {
-        return this.addSupervisionForm.get('student');
-    }
-    get formVal() {
-        return this.addSupervisionForm.getRawValue();
-    }
+
     getStudents() {
         this.studentService
             .students()
@@ -91,34 +76,40 @@ export class AddSupervisionComponent implements OnInit {
             );
     }
 
-    onAdd() {
-        this.supervisionActivity.userId = this.userService.currentUserIdStatic();
-        this.supervisionActivity.dutyId = '20';
-        const supervisionRole = this.supervisionRole.value;
-        this.supervisionActivity.supervisionRole = supervisionRole.value;
-        const split = this.split.value;
-        this.supervisionActivity.split = split.value;
-        const student = this.student.value;
-        this.supervisionActivity.studentId = student.studentId;
-        console.log(this.supervisionActivity);
+    onSubmit() {
+        this.activityInput.userId = this.userId;
+        this.activityInput.dutyId = this.dutyId;
+        this.activityInput.supervisionRole = this.selectedSupervisionRole.value;
+        if (this.selectedSupervisionRole.value === 'Supervisor') {
+            this.activityInput.split = 100;
+        } else {
+            this.activityInput.split = this.selectedSplit.value;
+        }
+        this.activityInput.studentId = this.selectedStudent.studentId;
 
         this.supervisionService
-            .addSupervisionActivity(this.supervisionActivity)
+            .addSupervisionActivity(this.activityInput)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
-                result => {},
+                result => {
+                    this.alertService.successToast(
+                        'Supervision activity added'
+                    );
+                    this.router.navigate(['activity/supervision']);
+                },
                 err => {
                     this.alertService.errorToast(err, 'errorToast');
+                    console.warn(err);
                 }
             );
-        this.alertService.successToast('Activity added');
-        this.router.navigate(['activity/supervision']);
     }
     onBack(event) {
         this.router.navigate(['activity/supervision']);
     }
     onReset(event) {
-        this.addSupervisionForm.reset();
-        this.ngOnInit();
+        this.form.reset();
+    }
+    onAddStudent(event) {
+        this.router.navigate(['activity/supervision/add-student']);
     }
 }

@@ -8,8 +8,8 @@ query academicAdministrationActivity($activityId: String!) {
             firstName
             lastName
             photoUrl
-            disciplineId
-            discipline {
+            disciplineIds
+            disciplines {
                 disciplineId
                 name
                 description
@@ -19,6 +19,16 @@ query academicAdministrationActivity($activityId: String!) {
                 positionId
                 name
                 description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
             }
             workFocusName
             workFocus {
@@ -36,6 +46,22 @@ query academicAdministrationActivity($activityId: String!) {
             name
             description
         }
+        qualificationId
+        qualification {
+            qualificationId
+            name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
+        }
         approvalStatus
         createdAt
         updatedAt
@@ -44,7 +70,6 @@ query academicAdministrationActivity($activityId: String!) {
         evidence
     }
 }
-
 query academicAdministrationActivities {
     academicAdministrationActivities {
         activityId
@@ -55,8 +80,8 @@ query academicAdministrationActivities {
             firstName
             lastName
             photoUrl
-            disciplineId
-            discipline {
+            disciplineIds
+            disciplines {
                 disciplineId
                 name
                 description
@@ -66,6 +91,16 @@ query academicAdministrationActivities {
                 positionId
                 name
                 description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
             }
             workFocusName
             workFocus {
@@ -82,6 +117,22 @@ query academicAdministrationActivities {
             dutyId
             name
             description
+        }
+        qualificationId
+        qualification {
+            qualificationId
+            name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
         approvalStatus
         createdAt
@@ -91,8 +142,7 @@ query academicAdministrationActivities {
         evidence
     }
 }
-
-query academicAdministrationActivitiesByUser($userId: String) {
+query academicAdministrationActivitiesByUser($userId: String!) {
     academicAdministrationActivitiesByUser(userId: $userId) {
         activityId
         userId
@@ -102,8 +152,8 @@ query academicAdministrationActivitiesByUser($userId: String) {
             firstName
             lastName
             photoUrl
-            disciplineId
-            discipline {
+            disciplineIds
+            disciplines {
                 disciplineId
                 name
                 description
@@ -113,6 +163,16 @@ query academicAdministrationActivitiesByUser($userId: String) {
                 positionId
                 name
                 description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
             }
             workFocusName
             workFocus {
@@ -129,6 +189,22 @@ query academicAdministrationActivitiesByUser($userId: String) {
             dutyId
             name
             description
+        }
+        qualificationId
+        qualification {
+            qualificationId
+            name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
         approvalStatus
         createdAt

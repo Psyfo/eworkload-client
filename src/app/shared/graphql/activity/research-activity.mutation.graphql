@@ -8,8 +8,8 @@ mutation addResearchActivity($activity: ResearchActivityInput) {
             firstName
             lastName
             photoUrl
-            disciplineId
-            discipline {
+            disciplineIds
+            disciplines {
                 disciplineId
                 name
                 description
@@ -19,6 +19,16 @@ mutation addResearchActivity($activity: ResearchActivityInput) {
                 positionId
                 name
                 description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
             }
             workFocusName
             workFocus {
@@ -57,8 +67,8 @@ mutation editResearchActivity($activity: ResearchActivityInput) {
             firstName
             lastName
             photoUrl
-            disciplineId
-            discipline {
+            disciplineIds
+            disciplines {
                 disciplineId
                 name
                 description
@@ -68,6 +78,16 @@ mutation editResearchActivity($activity: ResearchActivityInput) {
                 positionId
                 name
                 description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
             }
             workFocusName
             workFocus {
@@ -106,8 +126,8 @@ mutation deleteResearchActivity($activity: ResearchActivityInput) {
             firstName
             lastName
             photoUrl
-            disciplineId
-            discipline {
+            disciplineIds
+            disciplines {
                 disciplineId
                 name
                 description
@@ -117,6 +137,16 @@ mutation deleteResearchActivity($activity: ResearchActivityInput) {
                 positionId
                 name
                 description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
             }
             workFocusName
             workFocus {

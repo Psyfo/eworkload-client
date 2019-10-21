@@ -4,24 +4,23 @@ import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 import {
     Discipline,
-    FormalInstructionWorkloadPerUser,
     Position,
     User,
     UserInput,
-    WorkFocus
+    WorkFocus,
+    Department
 } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-import { WorkloadService, UploadService } from 'src/app/shared/services';
 
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { FormalInstructionService } from '../../activity/formal-instruction/formal-instruction.service';
 import { DisciplineService } from '../../admin/discipline/discipline.service';
 import { PositionService } from '../../admin/position/position.service';
 import { UserService } from '../../admin/user/user.service';
 import { WorkFocusService } from '../../admin/work-focus/work-focus.service';
+import { DepartmentService } from '../../admin/department/department.service';
+import { UploadService } from 'src/app/shared/services';
 
 @Component({
     selector: 'app-profile-edit',
@@ -31,12 +30,18 @@ import { WorkFocusService } from '../../admin/work-focus/work-focus.service';
 })
 export class ProfileEditComponent implements OnInit {
     breadcrumbs: MenuItem[];
+    @ViewChild('f', { static: false }) form: any;
+
     genders = this.userService.genders;
     nationalities = this.userService.nationalities;
+    userId = this.userService.currentUserIdStatic();
+    progress: boolean = false;
 
     userInput: UserInput = {};
-    user: User;
-    selectedDiscipline: Discipline;
+    userModel: User = {};
+    selectedDepartment: any;
+    departments: Department[];
+    selectedDisciplines: Discipline[];
     disciplines: Discipline[];
     selectedPosition: Position;
     positions: Position[];
@@ -44,32 +49,32 @@ export class ProfileEditComponent implements OnInit {
     workFocuses: WorkFocus[];
     selectedFile: File[];
 
-    formalInstructionWorkload: FormalInstructionWorkloadPerUser;
-    fiChartData: any;
-
     private unsubscribe = new Subject();
-
-    profileEditForm: FormGroup;
 
     constructor(
         private alertService: AlertService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private fb: FormBuilder,
         private userService: UserService,
         private disciplineService: DisciplineService,
         private positionService: PositionService,
         private workFocusService: WorkFocusService,
-        private formalInstructionActivityService: FormalInstructionService,
-        private workloadService: WorkloadService,
-        private uploadService: UploadService
+        private uploadService: UploadService,
+        private departmentService: DepartmentService
     ) {}
 
     ngOnInit() {
+        this.breadcrumbs = [
+            { label: 'profile', url: 'profile/view' },
+            { label: 'edit' },
+            { label: this.userModel.userId }
+        ];
+
         this.getDisciplines();
         this.getPositions();
         this.getWorkFocuses();
-        this.buildForm();
+        this.getDepartments();
+        this.getUser();
     }
 
     ngOnDestroy(): void {
@@ -78,96 +83,136 @@ export class ProfileEditComponent implements OnInit {
     }
 
     // Methods
-    public buildForm() {
-        // Build form
-        this.profileEditForm = this.fb.group({
-            userId: [{ value: '', disabled: true }, Validators.required],
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            email: ['', [Validators.required, Validators.email]],
-            discipline: ['', Validators.required],
-            position: ['', Validators.required],
-            workFocus: ['', Validators.required],
-            gender: ['', Validators.required],
-            nationality: ['', Validators.required],
-            photoUrl: ['']
-        });
 
+    public getUser() {
         this.userService
-            .currentUser()
+            .getUser(this.userId)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.user = result.data.user;
-                this.breadcrumbs = [
-                    { label: 'profile', url: 'profile/view' },
-                    { label: 'edit' },
-                    { label: this.user.userId }
-                ];
-
-                this.profileEditForm.patchValue({
-                    userId: this.user.userId,
-                    firstName: this.user.firstName,
-                    lastName: this.user.lastName,
-                    email: this.user.email,
-                    discipline: this.user.discipline,
-                    position: this.user.position,
-                    workFocus: this.user.workFocus,
-                    gender: this.user.gender,
-                    nationality: this.user.nationality,
-                    photoUrl: this.user.photoUrl
-                });
-            });
+            .subscribe(
+                result => {
+                    this.userModel = result.data.user;
+                    this.selectedDisciplines = this.userModel.disciplines;
+                    this.selectedDepartment = this.userModel.department;
+                    this.selectedPosition = this.userModel.position;
+                    this.selectedWorkFocus = this.userModel.workFocus;
+                    console.log(this.userModel.department);
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
+    }
+    public getDepartments(): void {
+        this.departmentService
+            .departments()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    this.departments = result.data.departments.map(
+                        department => {
+                            const label = `${department.departmentId} - ${department.name}`;
+                            let dep: any = department;
+                            dep.label = label;
+                            return dep;
+                        }
+                    );
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
     public getDisciplines(): void {
         this.disciplineService
             .disciplines()
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.disciplines = result.data.disciplines;
-            });
+            .subscribe(
+                result => {
+                    this.disciplines = result.data.disciplines;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
     public getWorkFocuses() {
         this.workFocusService
             .workFocuses()
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.workFocuses = result.data.workFocuses;
-            });
+            .subscribe(
+                result => {
+                    this.workFocuses = result.data.workFocuses;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
     public getPositions(): void {
         this.positionService
             .positions()
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.positions = result.data.positions;
-            });
+            .subscribe(
+                result => {
+                    this.positions = result.data.positions;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
-    public onEdit(): void {
-        this.userInput.userId = this.userId.value;
-        this.userInput.firstName = this.firstName.value;
-        this.userInput.lastName = this.lastName.value;
-        this.userInput.email = this.email.value;
-        this.selectedDiscipline = this.discipline.value;
-        this.userInput.disciplineId = this.selectedDiscipline.disciplineId;
-        this.selectedPosition = this.position.value;
-        this.userInput.positionId = this.selectedPosition.positionId;
-        this.selectedWorkFocus = this.workFocus.value;
-        this.userInput.workFocusName = this.selectedWorkFocus.name;
-        this.userInput.gender = this.gender.value;
-        this.userInput.nationality = this.nationality.value;
+    public onSubmit(): void {
+        this.progress = true;
+
+        // User input
+        this.userInput = {
+            userId: this.userModel.userId,
+            email: this.userModel.email,
+            firstName: this.userModel.firstName,
+            lastName: this.userModel.lastName,
+            disciplineIds: this.selectedDisciplines.map(discipline => {
+                return discipline.disciplineId;
+            }),
+            positionId: this.selectedPosition.positionId,
+            workFocusName: this.selectedWorkFocus.name,
+            departmentId: this.selectedDepartment.departmentId,
+            nationality: this.userModel.departmentId,
+            gender: this.userModel.gender
+        };
+
+        // Save user
         this.userService
             .editUser(this.userInput)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {});
-        this.alertService.successToast('User edited');
-        this.router.navigate(['profile']);
+            .subscribe(
+                result => {
+                    this.progress = false;
+                    this.alertService.successToast('User edited');
+                    this.router.navigate(['profile']);
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
     public onBack(event): void {
         this.router.navigate(['profile']);
     }
     public onReset(event) {
-        this.profileEditForm.reset();
-        this.ngOnInit();
+        this.form.reset();
+        this.selectedDisciplines = [];
+        this.selectedPosition = null;
+        this.selectedWorkFocus = null;
+        this.selectedDepartment = null;
+        this.userModel = null;
+        this.userInput = {};
+        this.getUser();
     }
     onFileSelected(event) {
         this.selectedFile = event.files[0];
@@ -187,55 +232,11 @@ export class ProfileEditComponent implements OnInit {
                     console.log(result.data.uploadProfilePicture);
                 },
                 err => {
-                    this.alertService.errorToast(err, 'errorToast');
+                    this.alertService.errorToast(err);
+                    console.warn(err);
                 }
             );
         this.alertService.successToast('Image upload success');
-        this.photoUrl.reset();
-    }
-    public getFormalInstructionWorkload() {
-        const userId = this.userService.currentUserIdStatic();
-        this.workloadService
-            .formalInstructionWorkloadPerUser(userId)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.formalInstructionWorkload =
-                    result.data.formalInstructionWorkloadPerUser;
-            });
-    }
-
-    // Getters
-    get userId() {
-        return this.profileEditForm.get('userId');
-    }
-    get firstName() {
-        return this.profileEditForm.get('firstName');
-    }
-    get lastName() {
-        return this.profileEditForm.get('lastName');
-    }
-    get email() {
-        return this.profileEditForm.get('email');
-    }
-    get discipline() {
-        return this.profileEditForm.get('discipline');
-    }
-    get position() {
-        return this.profileEditForm.get('position');
-    }
-    get workFocus() {
-        return this.profileEditForm.get('workFocus');
-    }
-    get nationality() {
-        return this.profileEditForm.get('nationality');
-    }
-    get gender() {
-        return this.profileEditForm.get('gender');
-    }
-    get photoUrl() {
-        return this.profileEditForm.get('photoUrl');
-    }
-    get formValue() {
-        return this.profileEditForm.getRawValue();
+        //this.photoUrl.reset();
     }
 }

@@ -74,7 +74,7 @@ export class DepartmentEditComponent implements OnInit {
         });
 
         this.departmentService
-            .getDepartment(departmentId)
+            .department(departmentId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.department = <Department>(<unknown>result.data.department);

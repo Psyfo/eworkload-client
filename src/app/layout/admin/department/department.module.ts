@@ -1,5 +1,3 @@
-import { DataTablesModule } from 'angular-datatables';
-
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -11,6 +9,7 @@ import { DepartmentListComponent } from './department-list/department-list.compo
 import { DepartmentRoutingModule } from './department-routing.module';
 import { DepartmentViewComponent } from './department-view/department-view.component';
 import { DepartmentComponent } from './department.component';
+import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
 
 @NgModule({
     imports: [
@@ -18,7 +17,7 @@ import { DepartmentComponent } from './department.component';
         DepartmentRoutingModule,
         PageHeaderModule,
         ReactiveFormsModule,
-        DataTablesModule
+        PrimeNgModulesModule
     ],
     declarations: [
         DepartmentComponent,

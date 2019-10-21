@@ -92,10 +92,10 @@ export class EditEnrollmentComponent implements OnInit {
 
     getQualifications() {
         this.qualificationService
-            .getQualifications()
+            .qualificationsNoEnrollment()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.qualifications = result.data.qualifications;
+                this.qualifications = result.data.qualificationsNoEnrollment;
             });
     }
 

@@ -13,7 +13,7 @@ export class SidebarComponent {
     collapsed: boolean = false;
     showAdminMenu: string = '';
     showHodMenu: string = '';
-    showActivityMenu: string = '';
+    showEvidenceMenu: string = '';
     showTeachingMenu: string = '';
     showResearchMenu: string = '';
     showServiceMenu: string = '';
@@ -147,11 +147,11 @@ export class SidebarComponent {
         }
     }
 
-    addExpandActivity(element: any) {
-        if (element === this.showActivityMenu) {
-            this.showActivityMenu = '0';
+    addExpandEvidence(element: any) {
+        if (element === this.showEvidenceMenu) {
+            this.showEvidenceMenu = '0';
         } else {
-            this.showActivityMenu = element;
+            this.showEvidenceMenu = element;
         }
     }
 

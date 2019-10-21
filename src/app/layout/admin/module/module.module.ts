@@ -1,5 +1,4 @@
 import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
-import { DataTablesModule } from 'angular-datatables';
 import { AlertService, PageHeaderModule } from 'src/app/shared/modules';
 
 import { CommonModule } from '@angular/common';

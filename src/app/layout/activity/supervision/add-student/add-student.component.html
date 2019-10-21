@@ -1,0 +1,68 @@
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <form #f="ngForm" (ngSubmit)="onSubmit()">
+            <p-panel header="Add Student">
+
+                <!-- STUDENT ID -->
+                <div class="p-grid">
+                    <div class="p-col-2">Student ID</div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText [(ngModel)]="student.studentId" name="studentId"
+                            #studentId="ngModel" required>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Supervision Role is required"
+                            *ngIf="(studentId.touched || studentId.dirty) && studentId.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+
+                <!-- TOPIC -->
+                <div class="p-grid">
+                    <div class="p-col-2">Topic</div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText [(ngModel)]="student.topic" name="topic" #topic="ngModel"
+                            required>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Supervision Role is required"
+                            *ngIf="(topic.touched || topic.dirty) && topic.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+
+
+                <!-- QUALIFICATIONS -->
+                <div class="p-grid">
+                    <div class="p-col-2">Qualification</div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="qualifications" optionLabel="name" placeholder="Select Student"
+                            appendTo="body" showClear="true" [filter]="true" filterBy="qualificationId"
+                            [(ngModel)]="selectedQualification" name="qualification" #qualification="ngModel" required>
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Qualification is required"
+                            *ngIf="(qualification.touched || qualification.dirty) && qualification.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+
+                <p-footer>
+                    <div class="p-grid">
+                        <div class="p-col-10 p-col-align-left">
+                            <button type="button" pButton icon="pi pi-arrow-left" label="Back" (click)="onBack($event)"
+                                class="ui-button-danger mr-2"></button>
+                            <button pButton icon="pi pi-plus" label="Save" class="" [disabled]="f.invalid"></button>
+                        </div>
+                        <div class="p-col-2 p-col-align-right">
+                            <button type="button" pButton icon="pi pi-refresh" label="Reset" (click)="onReset($event)"
+                                class="ui-button-secondary"></button>
+                        </div>
+                    </div>
+                </p-footer>
+            </p-panel>
+        </form>
+    </div>
+</div>

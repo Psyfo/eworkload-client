@@ -3,7 +3,7 @@
     <div class="p-col">
         <p-panel header="Formal Instruction Activities">
             <p-table #dutyTable [columns]="cols" [value]="duties" [paginator]="true" [rows]="10" selectionMode="single"
-                [(selection)]="selectedDuty" datakey="activityId" (onRowSelect)="onRowSelect($event)"
+                [(selection)]="selectedDuty" datakey="dutyId" (onRowSelect)="onRowSelect($event)"
                 [reorderableColumns]="true" [responsive]="true" [loading]="loading" [contextMenu]="cm"
                 contextMenuSelectionMode="joint">
                 <ng-template pTemplate="caption">
@@ -50,7 +50,7 @@
                 </ng-template>
             </p-table>
 
-            <p-contextMenu #cm [model]="menuItems"></p-contextMenu>
+            <p-contextMenu #cm [model]="menuItems" appendTo="body"></p-contextMenu>
             <p-footer>
                 <button pButton type="button" label="New Duty" icon="pi pi-plus" iconPos="left" (click)="onAdd()"
                     class="mr-2"></button>

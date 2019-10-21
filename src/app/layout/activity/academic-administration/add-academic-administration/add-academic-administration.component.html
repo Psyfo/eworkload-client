@@ -1,28 +1,44 @@
 <app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
 <div class="p-grid" [@routerTransition]>
     <div class="p-col">
-        <form [formGroup]="addAcademicAdministrationForm" (ngSubmit)="onAdd()">
+        <form #f="ngForm" (ngSubmit)="onSubmit()">
             <p-panel header="Add Academic Administration Activity">
 
+                <!-- USER -->
                 <div class="p-grid">
-                    <div class="p-col-2">User ID</div>
+                    <div class="p-col-2">
+                        <label for="userId">User ID</label>
+                    </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText formControlName="userId">
+                        <input type="text" pInputText [(ngModel)]="userId" [ngModelOptions]="{standalone: true}"
+                            [disabled]="true">
                     </div>
                     <div class="p-col-4"></div>
                 </div>
+
+                <!-- DUTY -->
                 <div class="p-grid">
-                    <div class="p-col-2">Duty ID</div>
+                    <div class="p-col-2">
+                        <label for="dutyId">
+                            Duty ID
+                        </label>
+                    </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText formControlName="dutyId">
+                        <input type="text" pInputText [(ngModel)]="dutyId" [ngModelOptions]="{standalone: true}"
+                            [disabled]="true">
                     </div>
                     <div class="p-col-4"></div>
                 </div>
+
+                <!-- TITLE -->
                 <div class="p-grid">
-                    <div class="p-col-2">Title</div>
+                    <div class="p-col-2">
+                        <label for="title">Title</label>
+                    </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="titles" optionLabel="label" placeholder="Select Title"
-                            formControlName="title" appendTo="body" showClear="true" [filter]="true" filterBy="label">
+                        <p-dropdown [options]="titles" optionLabel="label" placeholder="Select Title" name="title"
+                            [(ngModel)]="selectedTitle" #title="ngModel" appendTo="body" showClear="true"
+                            [filter]="true" filterBy="label, value.value" required>
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
@@ -31,29 +47,51 @@
                         </p-message>
                     </div>
                 </div>
-                <div class="p-grid">
-                    <div class="p-col-2">Details(optional)</div>
+
+                <!-- QUALIFICATIONS -->
+                <div class="p-grid" *ngIf="selectedTitle?.value === '1'">
+                    <div class="p-col-2">
+                        <label for="qualification">Qualification</label>
+                    </div>
                     <div class="p-col-6">
-                        <textarea type="text" pInputTextarea [rows]="5" [cols]=[110] formControlName="description"
+                        <p-dropdown [options]="qualifications" optionLabel="name" [(ngModel)]="selectedQualification"
+                            name="qualification" #qualification="ngModel" placeholder="Select a qualification"
+                            [showClear]="true" [filter]="true" filerBy="label, value.qualificationId"></p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Title is required"
+                            *ngIf="(qualification.touched || qualification.dirty) && qualification.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+
+                <!-- DETAILS -->
+                <div class="p-grid">
+                    <div class="p-col-2">Additional Details(optional)</div>
+                    <div class="p-col-6">
+                        <textarea type="text" pInputTextarea [rows]="5" [cols]=[110] name="description"
+                            [(ngModel)]="activityModel.description" #description="ngModel"
                             placeholder="Option details about the admin duty"></textarea>
                     </div>
                     <div class="p-col-4">
                     </div>
                 </div>
+
                 <p-footer>
                     <div class="p-grid">
                         <div class="p-col-10 p-col-align-left">
-                            <button pButton icon="pi pi-plus" label="Add Activity" class="mr-2"
-                                [disabled]="addAcademicAdministrationForm.invalid"></button>
                             <button type="button" pButton icon="pi pi-arrow-left" label="Back" (click)="onBack($event)"
-                                class="ui-button-danger"></button>
+                                class="ui-button-danger mr-2"></button>
+                            <button pButton icon="pi pi-plus" label="Add Activity" class=""
+                                [disabled]="f.invalid"></button>
                         </div>
-                        <div class="p-col">
+                        <div class="p-col-2">
                             <button type="button" pButton icon="pi pi-refresh" label="Reset" (click)="onReset($event)"
                                 class="ui-button-secondary"></button>
                         </div>
                     </div>
                 </p-footer>
+
             </p-panel>
         </form>
     </div>

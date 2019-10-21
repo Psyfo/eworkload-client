@@ -32,7 +32,7 @@ export class QualificationService {
         private qualificationsNoEnrollmentGql: QualificationsNoEnrollmentGQL
     ) {}
 
-    getQualifications() {
+    qualifications() {
         return this.qualificationsGql
             .watch(
                 {},
@@ -50,7 +50,7 @@ export class QualificationService {
             );
     }
 
-    getQualification(qualificationId: string) {
+    qualification(qualificationId: string) {
         return this.qualificationGql
             .watch(
                 { qualificationId: qualificationId },
@@ -68,7 +68,7 @@ export class QualificationService {
             );
     }
 
-    getQualificationsNoEnrollment() {
+    qualificationsNoEnrollment() {
         return this.qualificationsNoEnrollmentGql
             .watch(
                 {},

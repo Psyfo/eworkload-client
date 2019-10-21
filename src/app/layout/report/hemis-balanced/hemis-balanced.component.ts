@@ -1,15 +1,14 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import {
-    AcademicAdministrationWorkloadPerUser,
-    CommunityInstructionWorkloadPerUser,
-    Duty,
-    ExecutiveManagementWorkloadPerUser,
-    FormalInstructionWorkloadPerUser,
-    PersonnelDevelopmentWorkloadPerUser,
-    PublicServiceWorkloadPerUser,
-    ResearchWorkloadPerUser,
-    SupervisionWorkloadPerUser,
+    AcademicAdministrationWorkload,
+    CommunityInstructionWorkload,
+    ExecutiveManagementWorkload,
+    FormalInstructionWorkload,
+    PersonnelDevelopmentWorkload,
+    PublicServiceWorkload,
+    ResearchWorkload,
+    SupervisionWorkload,
     User
 } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
@@ -18,6 +17,15 @@ import { WorkloadService } from 'src/app/shared/services';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Duty } from '../../../shared/generated/output';
+import { AcademicAdministrationService } from '../../activity/academic-administration/academic-administration.service';
+import { CommunityInstructionService } from '../../activity/community-instruction/community-instruction.service';
+import { ExecutiveManagementService } from '../../activity/executive-management/executive-management.service';
+import { FormalInstructionService } from '../../activity/formal-instruction/formal-instruction.service';
+import { PersonnelDevelopmentService } from '../../activity/personnel-development/personnel-development.service';
+import { PublicServiceService } from '../../activity/public-service/public-service.service';
+import { ResearchService } from '../../activity/research/research.service';
+import { SupervisionService } from '../../activity/supervision/supervision.service';
 import { UserService } from '../../admin/user/user.service';
 
 @Component({
@@ -28,17 +36,33 @@ import { UserService } from '../../admin/user/user.service';
 export class HemisBalancedComponent implements OnInit {
     userId: string = this.userService.currentUserIdStatic();
     user: User;
+    fiLoading: boolean = false;
+    ciLoading: boolean = false;
+    rLoading: boolean = false;
+    psLoading: boolean = false;
+    sLoading: boolean = false;
+    aaLoading: boolean = false;
+    emLoading: boolean = false;
+    pdLoading: boolean = false;
 
     duties: Duty[];
 
-    academicAdministrationWorkload: AcademicAdministrationWorkloadPerUser;
-    communityInstructionWorkload: CommunityInstructionWorkloadPerUser;
-    executiveManagementWorkload: ExecutiveManagementWorkloadPerUser;
-    formalInstructionWorkload: FormalInstructionWorkloadPerUser;
-    personnelDevelopmentWorkload: PersonnelDevelopmentWorkloadPerUser;
-    publicServiceWorkload: PublicServiceWorkloadPerUser;
-    researchWorkload: ResearchWorkloadPerUser;
-    supervisionWorkload: SupervisionWorkloadPerUser;
+    academicAdministrationWorkload: AcademicAdministrationWorkload = {};
+    communityInstructionWorkload: CommunityInstructionWorkload = {};
+    executiveManagementWorkload: ExecutiveManagementWorkload = {};
+    formalInstructionWorkload: FormalInstructionWorkload = {};
+    personnelDevelopmentWorkload: PersonnelDevelopmentWorkload = {};
+    publicServiceWorkload: PublicServiceWorkload = {};
+    researchWorkload: ResearchWorkload = {};
+    supervisionWorkload: SupervisionWorkload = {};
+
+    totalHoursPerUser;
+    totalPercentage;
+
+    teachingHours;
+    researchHours;
+    serviceHours;
+    annualHours;
 
     private unsubscribe = new Subject();
     constructor(
@@ -48,12 +72,14 @@ export class HemisBalancedComponent implements OnInit {
         private workloadService: WorkloadService
     ) {}
 
-    async ngOnInit() {
+    ngOnInit() {
         this.getUser();
-        await this.getAcademicAdministrationWorkload();
+        this.getAnnualHours();
+
+        this.getAcademicAdministrationWorkload();
         this.getCommunityInstructionWorkload();
         this.getExecutiveManagementWorkload();
-        await this.getFormalInstructionWorkload();
+        this.getFormalInstructionWorkload();
         this.getPersonnelDevelopmentWorkload();
         this.getPublicServiceWorkload();
         this.getResearchWorkload();
@@ -72,76 +98,195 @@ export class HemisBalancedComponent implements OnInit {
                 this.user = result.data.user;
             });
     }
+
+    getTeachingHours(userId: string) {
+        this.workloadService
+            .teachingHours(userId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    this.teachingHours = result.data.teachingHours;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
+    }
+    getResearchHours(userId: string) {
+        this.workloadService
+            .researchHours(userId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    this.researchHours = result.data.researchHours;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
+    }
+    getServiceHours(userId: string) {
+        this.workloadService
+            .serviceHours(userId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    this.serviceHours = result.data.serviceHours;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
+    }
+    getAnnualHours() {
+        this.workloadService
+            .annualHours()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    this.annualHours = result.data.annualHours;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
+    }
+    getTotalHoursPerUser() {
+        this.workloadService
+            .totalHoursPerUser(this.userId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    this.totalHoursPerUser = result.data.totalHoursPerUser;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
+    }
+
+    // Workloads
     getAcademicAdministrationWorkload() {
         this.workloadService
-            .academicAdministrationWorkloadPerUser(this.userId)
+            .academicAdministrationWorkload(this.userId)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.academicAdministrationWorkload =
-                    result.data.academicAdministrationWorkloadPerUser;
-            });
+            .subscribe(
+                result => {
+                    this.academicAdministrationWorkload =
+                        result.data.academicAdministrationWorkload;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
     getCommunityInstructionWorkload() {
         this.workloadService
-            .communityInstructionWorkloadPerUser(this.userId)
+            .communityInstructionWorkload(this.userId)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.communityInstructionWorkload =
-                    result.data.communityInstructionWorkloadPerUser;
-            });
+            .subscribe(
+                result => {
+                    this.communityInstructionWorkload =
+                        result.data.communityInstructionWorkload;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
     getExecutiveManagementWorkload() {
         this.workloadService
-            .executiveManagementWorkloadPerUser(this.userId)
+            .executiveManagementWorkload(this.userId)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.executiveManagementWorkload =
-                    result.data.executiveManagementWorkloadPerUser;
-            });
+            .subscribe(
+                result => {
+                    this.executiveManagementWorkload =
+                        result.data.executiveManagementWorkload;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
     getFormalInstructionWorkload() {
         this.workloadService
-            .formalInstructionWorkloadPerUser(this.userId)
+            .formalInstructionWorkload(this.userId)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.formalInstructionWorkload =
-                    result.data.formalInstructionWorkloadPerUser;
-                console.log(this.formalInstructionWorkload);
-            });
+            .subscribe(
+                result => {
+                    this.formalInstructionWorkload =
+                        result.data.formalInstructionWorkload;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
     getPersonnelDevelopmentWorkload() {
         this.workloadService
-            .personnelDevelopmentWorkloadPerUser(this.userId)
+            .personnelDevelopmentWorkload(this.userId)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.personnelDevelopmentWorkload =
-                    result.data.personnelDevelopmentWorkloadPerUser;
-            });
+            .subscribe(
+                result => {
+                    this.personnelDevelopmentWorkload =
+                        result.data.personnelDevelopmentWorkload;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
     getPublicServiceWorkload() {
         this.workloadService
-            .publicServiceWorkloadPerUser(this.userId)
+            .publicServiceWorkload(this.userId)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.publicServiceWorkload =
-                    result.data.publicServiceWorkloadPerUser;
-            });
+            .subscribe(
+                result => {
+                    this.publicServiceWorkload =
+                        result.data.publicServiceWorkload;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
     getResearchWorkload() {
         this.workloadService
-            .researchWorkloadPerUser(this.userId)
+            .researchWorkload(this.userId)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.researchWorkload = result.data.researchWorkloadPerUser;
-            });
+            .subscribe(
+                result => {
+                    this.researchWorkload = result.data.researchWorkload;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
     getSupervisionWorkload() {
         this.workloadService
-            .supervisionWorkloadPerUser(this.userId)
+            .supervisionWorkload(this.userId)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.supervisionWorkload =
-                    result.data.supervisionWorkloadPerUser;
-            });
+            .subscribe(
+                result => {
+                    this.supervisionWorkload = result.data.supervisionWorkload;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
 }

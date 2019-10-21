@@ -1,4 +1,3 @@
-import { DataTablesModule } from 'angular-datatables';
 import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
 
 import { CommonModule } from '@angular/common';
@@ -22,7 +21,6 @@ import { SupervisionModule } from './supervision/supervision.module';
         ActivityRoutingModule,
         CommonModule,
         CommunityInstructionModule,
-        DataTablesModule,
         ExecutiveManagementModule,
         FormalInstructionModule,
         PersonnelDevelopmentModule,

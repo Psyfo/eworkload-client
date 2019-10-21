@@ -5,10 +5,36 @@ mutation addUser($user: UserInput) {
         firstName
         lastName
         photoUrl
-        disciplineId
+        disciplineIds
+        disciplines {
+            disciplineId
+            name
+            description
+        }
         positionId
-        gender
+        position {
+            positionId
+            name
+            description
+        }
+        departmentId
+        department {
+            departmentId
+            name
+            facultyId
+            faculty {
+                facultyId
+                name
+            }
+        }
         workFocusName
+        workFocus {
+            name
+            teachingRatio
+            researchRatio
+            serviceRatio
+        }
+        gender
         nationality
     }
 }
@@ -19,9 +45,35 @@ mutation editUser($user: UserInput) {
         firstName
         lastName
         photoUrl
-        disciplineId
+        disciplineIds
+        disciplines {
+            disciplineId
+            name
+            description
+        }
         positionId
+        position {
+            positionId
+            name
+            description
+        }
+        departmentId
+        department {
+            departmentId
+            name
+            facultyId
+            faculty {
+                facultyId
+                name
+            }
+        }
         workFocusName
+        workFocus {
+            name
+            teachingRatio
+            researchRatio
+            serviceRatio
+        }
         gender
         nationality
     }
@@ -33,10 +85,36 @@ mutation deleteUser($user: UserInput) {
         firstName
         lastName
         photoUrl
-        disciplineId
+        disciplineIds
+        disciplines {
+            disciplineId
+            name
+            description
+        }
         positionId
-        gender
+        position {
+            positionId
+            name
+            description
+        }
+        departmentId
+        department {
+            departmentId
+            name
+            facultyId
+            faculty {
+                facultyId
+                name
+            }
+        }
         workFocusName
+        workFocus {
+            name
+            teachingRatio
+            researchRatio
+            serviceRatio
+        }
+        gender
         nationality
     }
 }

@@ -18,7 +18,7 @@ import { takeUntil } from 'rxjs/operators';
 export class EditResearchComponent implements OnInit {
     breadcrumbs: MenuItem[];
     outputs = this.researchService.outputTypes;
-    conferenceDetails = this.researchService.conferenceDetails;
+    conferenceActivities = this.researchService.conferenceActivities;
     researchActivity: ResearchActivityInput = {};
     editResearchForm: FormGroup;
     fullWidth = '100%';

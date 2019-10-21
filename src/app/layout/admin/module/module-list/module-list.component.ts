@@ -85,7 +85,7 @@ export class ModuleListComponent implements OnInit {
     // Methods
     getModules() {
         this.moduleService
-            .getModules()
+            .modules()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.loading = result.loading;

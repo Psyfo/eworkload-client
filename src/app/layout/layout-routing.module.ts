@@ -20,6 +20,13 @@ const routes: Routes = [
                     )
             },
             {
+                path: 'evidence',
+                loadChildren: () =>
+                    import('./evidence/evidence.module').then(
+                        m => m.EvidenceModule
+                    )
+            },
+            {
                 path: 'dashboard',
                 loadChildren: () =>
                     import('./dashboard/dashboard.module').then(

@@ -1,3 +1,4 @@
+import { ModuleInput } from './../../../../shared/generated/output';
 import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -79,10 +80,10 @@ export class EditFormalInstructionComponent implements OnInit {
             .currentUser()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.user = <User>(<unknown>result.data.user);
+                this.user = result.data.user
 
                 this.getModulesByUnassignedAndDiscipline(
-                    this.user.discipline.disciplineId.toString()
+                    this.user.disciplineIds
                 );
 
                 this.formalInstructionEditForm.patchValue({
@@ -95,54 +96,24 @@ export class EditFormalInstructionComponent implements OnInit {
             .getUsers()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.users = result.data.users.map(
-                    user => <User>(<unknown>user)
-                );
+                this.users = result.data.users;
             });
     }
-    getModulesByUnassignedAndDiscipline(disciplineId: string) {
+    getModulesByUnassignedAndDiscipline(disciplineIds: string[]) {
         this.moduleService
-            .modulesByUnassignedAndDiscipline(disciplineId)
+            .modulesByUnassignedAndDiscipline(disciplineIds)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.modules = result.data.modulesByUnassignedAndDiscipline;
             });
     }
 
-    editModule(module: Module) {
-        this.moduleService
-            .editModule(module)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                console.log(result.data.editModule);
-            });
+    editModule(module: ModuleInput) {
+        
     }
 
     onEdit() {
-        this.formalInstructionActivity.userId = this.userService.currentUserIdStatic();
-        this.formalInstructionActivity.dutyId = '11';
-        this.selectedModule = this.module.value;
-        this.formalInstructionActivity.moduleId = this.selectedModule.moduleId;
-        this.formalInstructionActivity.blockId = this.selectedModule.blockId;
-        this.formalInstructionActivity.offeringTypeId = this.selectedModule.offeringTypeId;
-        this.formalInstructionActivity.qualificationId = this.selectedModule.qualificationId;
-        console.log(this.formalInstructionActivity);
-        // if (this.isCoordinator.value === true) {
-        //     this.editCoordinator(this.user.userId, this.selectedModule);
-        // }
-
-        this.formalInstructionService
-            .editFormalInstructionActivity(this.formalInstructionActivity)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(
-                result => {},
-                err => {
-                    this.alertService.errorToast(err, 'errorToast');
-                }
-            );
-
-        this.alertService.successToast('Activity edited');
-        this.router.navigate(['activity/formal-instruction']);
+        
     }
     onBack(event) {
         this.router.navigate(['activity/formal-instruction']);

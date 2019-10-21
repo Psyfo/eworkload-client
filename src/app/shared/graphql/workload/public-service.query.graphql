@@ -1,43 +1,69 @@
-query publicServiceWorkloadPerUser($userId: String) {
-    publicServiceWorkloadPerUser(userId: $userId) {
-        publicServiceWorkloadData {
-            publicServiceTotalHoursPerActivity
-            publicServicePercentageOfWorkFocusPerActivity
-            publicServicePercentageOfAnnualHoursPerActivity
-            publicServicePercentageOfTotalHoursPerActivity
+query publicServiceWorkload($userId: String) {
+    publicServiceWorkload(userId: $userId) {
+        publicServiceWorkloads {
+            activity {
+                activityId
+                userId
+                user {
+                    userId
+                    email
+                    firstName
+                    lastName
+                    photoUrl
+                    disciplineIds
+                    disciplines {
+                        disciplineId
+                        name
+                        description
+                    }
+                    positionId
+                    position {
+                        positionId
+                        name
+                        description
+                    }
+                    departmentId
+                    department {
+                        departmentId
+                        name
+                        facultyId
+                        faculty {
+                            facultyId
+                            name
+                        }
+                    }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
+                }
+                dutyId
+                duty {
+                    dutyId
+                    name
+                    description
+                }
+                approvalStatus
+                createdAt
+                updatedAt
+                title
+                description
+                evidence
+            }
+            totalHoursPerActivity
+            percentageOfWorkFocusPerActivity
+            percentageOfAnnualHoursPerActivity
+            percentageOfTotalHoursPerActivity
         }
-        publicServiceGlobalTarrif
-        publicServiceTotalHoursPerUser
-        publicServicePercentageOfWorkFocusPerUser
-        publicServicePercentageOfAnnualHoursPerUser
-        publicServicePercentageOfTotalHoursPerUser
+        globalTarrif
+        totalHoursPerUser
+        percentageOfWorkFocusPerUser
+        percentageOfAnnualHoursPerUser
+        percentageOfTotalHoursPerUser
     }
-}
-
-query publicServiceGlobalTarrif {
-    publicServiceGlobalTarrif
-}
-query publicServiceTotalHoursPerActivity($activityId: String) {
-    publicServiceTotalHoursPerActivity(activityId: $activityId)
-}
-query publicServiceTotalHoursPerUser($userId: String) {
-    publicServiceTotalHoursPerUser(userId: $userId)
-}
-query publicServicePercentageOfWorkFocusPerActivity($activityId: String) {
-    publicServicePercentageOfWorkFocusPerActivity(activityId: $activityId)
-}
-query publicServicePercentageOfWorkFocusPerUser($userId: String) {
-    publicServicePercentageOfWorkFocusPerUser(userId: $userId)
-}
-query publicServicePercentageOfAnnualHoursPerActivity($activityId: String) {
-    publicServicePercentageOfAnnualHoursPerActivity(activityId: $activityId)
-}
-query publicServicePercentageOfAnnualHoursPerUser($userId: String) {
-    publicServicePercentageOfAnnualHoursPerUser(userId: $userId)
-}
-query publicServicePercentageOfTotalHoursPerActivity($activityId: String) {
-    publicServicePercentageOfTotalHoursPerActivity(activityId: $activityId)
-}
-query publicServicePercentageOfTotalHoursPerUser($userId: String) {
-    publicServicePercentageOfTotalHoursPerUser(userId: $userId)
 }

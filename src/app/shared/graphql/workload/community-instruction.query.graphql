@@ -1,55 +1,69 @@
-query communityInstructionWorkloadPerUser($userId: String) {
-    communityInstructionWorkloadPerUser(userId: $userId) {
-        communityInstructionWorkloadData {
-            communityInstructionTotalHoursPerActivity
-            communityInstructionPercentageOfWorkFocusPerActivity
-            communityInstructionPercentageOfAnnualHoursPerActivity
-            communityInstructionPercentageOfTotalHoursPerActivity
+query communityInstructionWorkload($userId: String) {
+    communityInstructionWorkload(userId: $userId) {
+        communityInstructionWorkloads {
+            activity {
+                activityId
+                userId
+                user {
+                    userId
+                    email
+                    firstName
+                    lastName
+                    photoUrl
+                    disciplineIds
+                    disciplines {
+                        disciplineId
+                        name
+                        description
+                    }
+                    positionId
+                    position {
+                        positionId
+                        name
+                        description
+                    }
+                    departmentId
+                    department {
+                        departmentId
+                        name
+                        facultyId
+                        faculty {
+                            facultyId
+                            name
+                        }
+                    }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
+                }
+                dutyId
+                duty {
+                    dutyId
+                    name
+                    description
+                }
+                approvalStatus
+                createdAt
+                updatedAt
+                title
+                description
+                evidence
+            }
+            totalHoursPerActivity
+            percentageOfWorkFocusPerActivity
+            percentageOfAnnualHoursPerActivity
+            percentageOfTotalHoursPerActivity
         }
-        communityInstructionGlobalTarrif
-        communityInstructionTotalHoursPerUser
-        communityInstructionPercentageOfWorkFocusPerUser
-        communityInstructionPercentageOfAnnualHoursPerUser
-        communityInstructionPercentageOfTotalHoursPerUser
+        globalTarrif
+        totalHoursPerUser
+        percentageOfWorkFocusPerUser
+        percentageOfAnnualHoursPerUser
+        percentageOfTotalHoursPerUser
     }
-}
-
-query communityInstructionGlobalTarrif {
-    communityInstructionGlobalTarrif
-}
-query communityInstructionTotalHoursPerActivity($activityId: String) {
-    communityInstructionTotalHoursPerActivity(activityId: $activityId)
-}
-query communityInstructionTotalHoursPerUser($userId: String) {
-    communityInstructionTotalHoursPerUser(userId: $userId)
-}
-query communityInstructionPercentageOfWorkFocusPerActivity(
-    $activityId: String
-) {
-    communityInstructionPercentageOfWorkFocusPerActivity(
-        activityId: $activityId
-    )
-}
-query communityInstructionPercentageOfWorkFocusPerUser($userId: String) {
-    communityInstructionPercentageOfWorkFocusPerUser(userId: $userId)
-}
-query communityInstructionPercentageOfAnnualHoursPerActivity(
-    $activityId: String
-) {
-    communityInstructionPercentageOfAnnualHoursPerActivity(
-        activityId: $activityId
-    )
-}
-query communityInstructionPercentageOfAnnualHoursPerUser($userId: String) {
-    communityInstructionPercentageOfAnnualHoursPerUser(userId: $userId)
-}
-query communityInstructionPercentageOfTotalHoursPerActivity(
-    $activityId: String
-) {
-    communityInstructionPercentageOfTotalHoursPerActivity(
-        activityId: $activityId
-    )
-}
-query communityInstructionPercentageOfTotalHoursPerUser($userId: String) {
-    communityInstructionPercentageOfTotalHoursPerUser(userId: $userId)
 }

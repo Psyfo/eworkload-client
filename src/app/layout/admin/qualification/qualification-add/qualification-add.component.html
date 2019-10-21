@@ -1,48 +1,76 @@
-<div class="row" [@routerTransition]>
-    <div class="col-6">
-        <form [formGroup]="qualificationAddForm" (ngSubmit)="onAdd()" class="form">
-            .<div class="card">
-                <div class="card-header">
-                    <h5>Add Qualification</h5>
-                </div>
-                <div class="card-body">
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="qualificationId">Qualification ID</label>
-                            <input formControlName="qualificationId" type="text" class="form-control"
-                                placeholder="Qualification ID">
-                        </div>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <p-panel header="Add Qualification">
+            <form #f="ngForm" (ngSubmit)="onSubmit()">
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="qualificationId">
+                            Qualification ID
+                        </label>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="name">Name</label>
-                            <input formControlName="name" type="text" class="form-control" placeholder="Name">
-                        </div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText [(ngModel)]="qualificationInput.qualificationId"
+                            name="qualificationId" placeholder="Qualification ID" #qualificationId="ngModel" required>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="type">Type</label>
-                            <select formControlName="type" class="custom-select">
-                                <option *ngFor="let type of types">{{type}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="departmentId">Department</label>
-                            <select formControlName="departmentId" class="custom-select">
-                                <option *ngFor="let department of departments" [value]="departmentId">
-                                    {{department?.name}} ({{department?.departmentId}})</option>
-                            </select>
-                        </div>
+                    <div class="p-col-4"
+                        *ngIf="(qualificationId.dirty||qualificationId.touched)&&qualificationId.hasError('required')">
+                        <p-message severity="error" text="This field is required"></p-message>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <button class="btn btn-primary mr-3" [disabled]="qualificationAddForm.invalid">Add</button>
-                    <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
-                    <button type="button" class="btn btn-dark float-right" (click)="onReset()">Reset</button>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="name">
+                            Name
+                        </label>
+                    </div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText [(ngModel)]="qualificationInput.name" name="name" #name="ngModel"
+                            placeholder="Qualification name" required>
+                    </div>
+                    <div class="p-col-4" *ngIf="(name.dirty||name.touched)&&name.hasError('required')">
+                        <p-message severity="error" text="This field is required"></p-message>
+                    </div>
                 </div>
-            </div>
-        </form>
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="departmentId">
+                            Department
+                        </label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="departments" [(ngModel)]="selectedDepartment" name="department"
+                            #department="ngModel" #department placeholder="Select Department" optionLabel="name"
+                            [showClear]="true" appendTo="body" required></p-dropdown>
+                    </div>
+                    <div class="p-col-4"
+                        *ngIf="(department.dirty||department.touched)&&department.hasError('required')">
+                        <p-message severity="error" text="Department is required"></p-message>
+                    </div>
+                </div>
+
+            </form>
+
+            <p-footer>
+                <div class="p-grid">
+                    <div class="p-col p-col-align-left">
+                        <button pButton label="Add Qualification" icon="pi pi-plus" class="mr-2"></button>
+                        <button type="button" pButton label="Back" icon="pi pi-arrow-left" class="ui-button-danger"
+                            (click)="onBack($event)"></button>
+                    </div>
+                    <div class="p-col-2 p-col-align-right">
+                        <button type="button" pButton label="Reset" icon="pi pi-refresh" class="ui-button-secondary"
+                            (click)="onReset($event)"></button>
+                    </div>
+                </div>
+            </p-footer>
+        </p-panel>
     </div>
+</div>
+
+<div>
+    {{qualificationInput | json}}
+</div>
+<div>
+    {{selectedDepartment | json}}
 </div>

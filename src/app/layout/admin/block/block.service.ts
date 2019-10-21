@@ -26,7 +26,7 @@ export class BlockService {
         private deleteBlockGql: DeleteBlockGQL
     ) {}
 
-    getBlocks() {
+    blocks() {
         return this.blocksGql
             .watch(
                 {},
@@ -44,7 +44,7 @@ export class BlockService {
             );
     }
 
-    getBlock(blockId: string) {
+    block(blockId: string) {
         return this.blockGql
             .watch(
                 { blockId: blockId },

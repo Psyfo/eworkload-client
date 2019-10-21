@@ -82,7 +82,7 @@ export class AddEnrollmentComponent implements OnInit {
 
     getQualifications() {
         this.qualificationService
-            .getQualificationsNoEnrollment()
+            .qualificationsNoEnrollment()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.qualifications = result.data.qualificationsNoEnrollment;

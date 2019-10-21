@@ -6,15 +6,15 @@ import { UserService } from 'src/app/layout/admin/user/user.service';
 import { routerTransition } from 'src/app/router.animations';
 import {
     FormalInstructionActivityInput,
-    Module,
-    User
+    Module
 } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { User } from '../../../../shared/generated/output';
 import { FormalInstructionService } from '../formal-instruction.service';
 
 @Component({
@@ -25,29 +25,22 @@ import { FormalInstructionService } from '../formal-instruction.service';
 })
 export class AddFormalInstructionComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    user: User;
-    users: User[];
-    selectedModule: Module;
+    @ViewChild('f', { static: false }) form: any;
+
+    userId = this.userService.currentUserIdStatic();
+    dutyId = '11';
+
+    selectedModule: Module = {};
     modules: Module[];
-    coordinator: boolean;
+    isCoordinator: boolean = false;
 
-    blockId: string;
-    oId;
-    qId;
-
-    baseContact: number;
-    coordinationWorkload: number;
-
-    formalInstructionActivity: FormalInstructionActivityInput = {};
+    activityInput: FormalInstructionActivityInput = {};
 
     private unsubscribe = new Subject();
-
-    formalInstructionAddForm: FormGroup;
 
     constructor(
         private alertService: AlertService,
         private router: Router,
-        private fb: FormBuilder,
         private userService: UserService,
         private moduleService: ModuleService,
         private formalInstructionService: FormalInstructionService
@@ -59,116 +52,61 @@ export class AddFormalInstructionComponent implements OnInit {
             { label: 'formal-instruction' },
             { label: 'add' }
         ];
-        this.buildForm();
+        this.getModulesByUnassignedAndDiscipline();
     }
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
-    getVals(event) {
-        console.log(event);
-    }
-    buildForm() {
-        this.formalInstructionAddForm = this.fb.group({
-            userId: [{ value: '', disabled: true }, [Validators.required]],
-            module: ['', [Validators.required]],
-            isCoordinator: ['']
-        });
 
+    getModulesByUnassignedAndDiscipline() {
         this.userService
             .currentUser()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.user = <User>(<unknown>result.data.user);
-
-                this.getModulesByUnassignedAndDiscipline(
-                    this.user.discipline.disciplineId.toString()
-                );
-
-                this.formalInstructionAddForm.patchValue({
-                    userId: this.user.userId
-                });
-            });
-    }
-    getUsers() {
-        this.userService
-            .getUsers()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.users = result.data.users.map(
-                    user => <User>(<unknown>user)
-                );
-            });
-    }
-    getModulesByUnassignedAndDiscipline(disciplineId: string) {
-        this.moduleService
-            .modulesByUnassignedAndDiscipline(disciplineId)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.modules = result.data.modulesByUnassignedAndDiscipline;
+                const user = result.data.user;
+                this.moduleService
+                    .modulesByUnassignedAndDiscipline(user.disciplineIds)
+                    .pipe(takeUntil(this.unsubscribe))
+                    .subscribe(result => {
+                        this.modules = result.data.modulesByUnassignedAndDiscipline.map(
+                            module => {
+                                const label = `${module.moduleId} - ${module.name} (${module.block.name}) (${module.offeringType.description})`;
+                                let mod: any = module;
+                                mod.label = label;
+                                return mod;
+                            }
+                        );
+                    });
             });
     }
 
-    editModule(module: Module) {
-        this.moduleService
-            .editModule(module)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                console.log(result.data.editModule);
-            });
-    }
+    onSubmit() {
+        // Standard activity data
+        this.activityInput.userId = this.userId;
+        this.activityInput.dutyId = this.dutyId;
 
-    onAdd() {
-        this.formalInstructionActivity.userId = this.userService.currentUserIdStatic();
-        this.formalInstructionActivity.dutyId = '11';
-        this.selectedModule = this.module.value;
-        this.formalInstructionActivity.moduleId = this.selectedModule.moduleId;
-        this.formalInstructionActivity.blockId = this.selectedModule.blockId;
-        this.formalInstructionActivity.offeringTypeId = this.selectedModule.offeringTypeId;
-        this.formalInstructionActivity.qualificationId = this.selectedModule.qualificationId;
-        console.log(this.formalInstructionActivity);
-        // if (this.isCoordinator.value === true) {
-        //     this.addCoordinator(this.user.userId, this.selectedModule);
-        // }
+        // Add modules to input
+        this.activityInput.moduleId = this.selectedModule.moduleId;
+        this.activityInput.blockId = this.selectedModule.blockId;
+        this.activityInput.offeringTypeId = this.selectedModule.offeringTypeId;
+        this.activityInput.qualificationId = this.selectedModule.qualificationId;
 
         this.formalInstructionService
-            .addFormalInstructionActivity(this.formalInstructionActivity)
+            .addFormalInstructionActivity(this.activityInput)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(
-                result => {},
-                err => {
-                    this.alertService.errorToast(err, 'errorToast');
-                }
-            );
+            .subscribe(result => {
+                console.log('FI Activity added:', result);
 
-        this.alertService.successToast('Activity added');
-        this.router.navigate(['activity/formal-instruction']);
+                this.alertService.successToast('Activity added');
+                this.router.navigate(['activity/formal-instruction']);
+            });
     }
     onBack(event) {
         this.router.navigate(['activity/formal-instruction']);
     }
     onReset(event) {
-        this.formalInstructionAddForm.reset();
+        this.form.reset();
         this.ngOnInit();
-    }
-    addCoordinator(coordinatorId: string, module: Module) {
-        module.coordinatorId = coordinatorId;
-        this.moduleService
-            .editModule(module)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.alertService.successToast('Coordinator added');
-            });
-    }
-
-    // Getters
-    get userId() {
-        return this.formalInstructionAddForm.get('userId');
-    }
-    get module() {
-        return this.formalInstructionAddForm.get('module');
-    }
-    get isCoordinator() {
-        return this.formalInstructionAddForm.get('isCoordinator');
     }
 }

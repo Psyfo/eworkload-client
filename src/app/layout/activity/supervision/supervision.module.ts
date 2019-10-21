@@ -9,6 +9,7 @@ import { ListSupervisionComponent } from './list-supervision/list-supervision.co
 import { SupervisionRoutingModule } from './supervision-routing.module';
 import { SupervisionComponent } from './supervision.component';
 import { ViewSupervisionComponent } from './view-supervision/view-supervision.component';
+import { AddStudentComponent } from './add-student/add-student.component';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { ViewSupervisionComponent } from './view-supervision/view-supervision.co
         AddSupervisionComponent,
         ViewSupervisionComponent,
         EditSupervisionComponent,
-        ListSupervisionComponent
+        ListSupervisionComponent,
+        AddStudentComponent
     ],
     imports: [
         CommonModule,

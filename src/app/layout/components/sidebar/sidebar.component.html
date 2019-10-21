@@ -8,51 +8,38 @@
             <i class="fa fa-fw fa-user"></i>&nbsp;
             <span>{{ 'Profile' | translate }}</span>
         </a>
-        <!-- <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandActivity('pages')">
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandEvidence('pages')">
                 <i class="fa fa-plus"></i>&nbsp;
-                <span>{{ 'Activities' | translate }}</span>
+                <span>{{ 'Evidence' | translate }}</span>
             </a>
-            <li class="nested" [class.expand]="showActivityMenu === 'pages'">
+            <li class="nested" [class.expand]="showEvidenceMenu === 'pages'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/activity/lecturing']" routerLinkActive="router-link-active"
+                        <a [routerLink]="['/evidence/academic-administration']" routerLinkActive="router-link-active"
                             class="list-group-item">
-                            <i class="fa fa-fw fa-building"></i>&nbsp;
-                            <span>{{ 'Formal Instruction' | translate }}</span>
+                            <i class="fa fa-fw fa-upload"></i>&nbsp;
+                            <span>{{ 'Academic Administration' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/activity/research']" routerLinkActive="router-link-active"
+                        <a [routerLink]="['/evidence/personnel-development']" routerLinkActive="router-link-active"
                             class="list-group-item">
-                            <i class="fa fa-fw fa-building"></i>&nbsp;
+                            <i class="fa fa-fw fa-upload"></i>&nbsp;
+                            <span>{{ 'Personnel Development' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/evidence/research']" routerLinkActive="router-link-active"
+                            class="list-group-item">
+                            <i class="fa fa-fw fa-upload"></i>&nbsp;
                             <span>{{ 'Research' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/activity/supervision']" routerLinkActive="router-link-active"
-                            class="list-group-item">
-                            <i class="fa fa-fw fa-building"></i>&nbsp;
-                            <span>{{ 'Supervision' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/activity/community-instruction']" routerLinkActive="router-link-active"
-                            class="list-group-item">
-                            <i class="fa fa-fw fa-building"></i>&nbsp;
-                            <span>{{ 'Community Instruction' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/activity/public-service']" routerLinkActive="router-link-active"
-                            class="list-group-item">
-                            <i class="fa fa-fw fa-building"></i>&nbsp;
-                            <span>{{ 'Public Service' | translate }}</span>
                         </a>
                     </li>
                 </ul>
             </li>
-        </div> -->
+        </div>
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandTeaching('pages')">
                 <i class="fa fa-plus"></i>&nbsp;
@@ -162,6 +149,13 @@
                         </a>
                     </li>
                     <li>
+                        <a [routerLink]="['/hod/staff-summary']" routerLinkActive="router-link-active"
+                            class="list-group-item">
+                            <i class="fa fa-fw fa-building"></i>&nbsp;
+                            <span>{{ 'Staff Summary' | translate }}</span>
+                        </a>
+                    </li>
+                    <!-- <li>
                         <a [routerLink]="['/hod/lecture-tasks']" routerLinkActive="router-link-active"
                             class="list-group-item">
                             <i class="fa fa-fw fa-building"></i>&nbsp;
@@ -174,7 +168,7 @@
                             <i class="fa fa-fw fa-building"></i>&nbsp;
                             <span>{{ 'Activity Approvals' | translate }}</span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
         </div>

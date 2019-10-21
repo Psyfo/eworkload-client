@@ -32,6 +32,14 @@ const routes: Routes = [
                         m => m.EnrollmentModule
                     ),
                 pathMatch: 'prefix'
+            },
+            {
+                path: 'staff-summary',
+                loadChildren: () =>
+                    import('./staff-summary/staff-summary.module').then(
+                        m => m.StaffSummaryModule
+                    ),
+                pathMatch: 'prefix'
             }
         ]
     }

@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 
 import { HodRoutingModule } from './hod-routing.module';
 import { HodComponent } from './hod.component';
+import { StaffSummaryComponent } from './staff-summary/staff-summary.component';
 
 @NgModule({
     declarations: [HodComponent],

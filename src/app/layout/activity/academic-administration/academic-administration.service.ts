@@ -20,24 +20,24 @@ export class AcademicAdministrationService {
     networkStatus: any;
 
     public titles = [
-        { label: 'Programme coordinator', value: 'Programme coordinator' },
+        { label: 'Programme coordinator', value: '0' },
         {
-            label: 'Servicing subject coordinator',
-            value: 'Servicing subject coordinator'
+            label: 'Year coordinator',
+            value: '1'
         },
-        { label: 'Timetabling', value: 'Timetabling' },
-        { label: 'Selection', value: 'Selection' },
-        { label: 'Test and Exams schedule', value: 'Test and Exams schedule' },
-        { label: 'Registration set up', value: 'Registration set up' },
-        { label: 'TLA Chairperson', value: 'TLA Chairperson' },
-        { label: 'Quality rep', value: 'Quality rep' },
+        { label: 'Timetabling', value: '2' },
+        { label: 'Selection', value: '3' },
+        { label: 'Test and Exams schedule', value: '4' },
+        { label: 'Registration set up', value: '5' },
+        { label: 'TLA Chairperson', value: '6' },
+        { label: 'Quality rep', value: '7' },
         {
             label: 'Marketing/schools outreach',
-            value: 'Marketing/schools outreach'
+            value: '8'
         },
         {
             label: 'Documentation/rules/handbook',
-            value: 'Documentation/rules/handbook'
+            value: '9'
         }
     ];
 
@@ -59,12 +59,14 @@ export class AcademicAdministrationService {
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
     academicAdministrationActivities() {
@@ -76,12 +78,14 @@ export class AcademicAdministrationService {
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
     academicAdministrationActivitiesByUser(userId: string) {
@@ -93,12 +97,14 @@ export class AcademicAdministrationService {
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
     addAcademicAdministrationActivity(
@@ -109,12 +115,14 @@ export class AcademicAdministrationService {
                 activity: activity
             })
             .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
     editAcademicAdministrationActivity(
@@ -125,12 +133,14 @@ export class AcademicAdministrationService {
                 activity: activity
             })
             .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
     deleteAcademicAdministrationActivity(
@@ -141,12 +151,14 @@ export class AcademicAdministrationService {
                 activity: activity
             })
             .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
 }

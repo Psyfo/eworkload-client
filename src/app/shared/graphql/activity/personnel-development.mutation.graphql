@@ -2,7 +2,7 @@ mutation addPersonnelDevelopmentActivity(
     $activity: PersonnelDevelopmentActivityInput
 ) {
     addPersonnelDevelopmentActivity(activity: $activity) {
-             activityId
+            activityId
     userId
     user {
       userId
@@ -10,8 +10,8 @@ mutation addPersonnelDevelopmentActivity(
       firstName
       lastName
       photoUrl
-      disciplineId
-      discipline {
+      disciplineIds
+      disciplines {
         disciplineId
         name
         description
@@ -21,6 +21,16 @@ mutation addPersonnelDevelopmentActivity(
         positionId
         name
         description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
+        }
       }
       workFocusName
       workFocus {
@@ -51,7 +61,7 @@ mutation editPersonnelDevelopmentActivity(
     $activity: PersonnelDevelopmentActivityInput
 ) {
     editPersonnelDevelopmentActivity(activity: $activity) {
-             activityId
+            activityId
     userId
     user {
       userId
@@ -59,8 +69,8 @@ mutation editPersonnelDevelopmentActivity(
       firstName
       lastName
       photoUrl
-      disciplineId
-      discipline {
+      disciplineIds
+      disciplines {
         disciplineId
         name
         description
@@ -70,6 +80,16 @@ mutation editPersonnelDevelopmentActivity(
         positionId
         name
         description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
+        }
       }
       workFocusName
       workFocus {
@@ -100,7 +120,7 @@ mutation deletePersonnelDevelopmentActivity(
     $activity: PersonnelDevelopmentActivityInput
 ) {
     deletePersonnelDevelopmentActivity(activity: $activity) {
-             activityId
+            activityId
     userId
     user {
       userId
@@ -108,8 +128,8 @@ mutation deletePersonnelDevelopmentActivity(
       firstName
       lastName
       photoUrl
-      disciplineId
-      discipline {
+      disciplineIds
+      disciplines {
         disciplineId
         name
         description
@@ -119,6 +139,16 @@ mutation deletePersonnelDevelopmentActivity(
         positionId
         name
         description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
+        }
       }
       workFocusName
       workFocus {

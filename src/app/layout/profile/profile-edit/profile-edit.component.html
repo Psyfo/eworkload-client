@@ -1,17 +1,17 @@
 <app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
 <div class="p-grid" [@routerTransition]>
     <div class="p-col-12">
-        <form [formGroup]="profileEditForm" (ngsubmit)="onEdit()">
+        <form #f="ngForm" (ngSubmit)="onSubmit()">
             <p-panel header="Edit Venue">
-                <p-header>
-                </p-header>
 
+                <!-- USER ID -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="userId">User ID:</label>
                     </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText placeholder="User ID" formControlName="userId" pKeyFilter="num">
+                        <input type="text" pInputText placeholder="User ID" name="userId" [(ngModel)]="userModel.userId"
+                            #userId="ngModel" pKeyFilter="num" [disabled]="true">
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="User ID is required"
@@ -20,12 +20,14 @@
                     </div>
                 </div>
 
+                <!-- EMAIL -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="email">Email:</label>
                     </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText placeholder="Email" formControlName="email" pKeyFilter="email">
+                        <input type="text" pInputText placeholder="Email" name="email" [(ngModel)]="userModel.email"
+                            #email="ngModel" pKeyFilter="email" email required>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Email is required"
@@ -37,28 +39,30 @@
                     </div>
                 </div>
 
+                <!-- FIRST NAME -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="firstName">First Name:</label>
                     </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText placeholder="First Name" formControlName="firstName"
-                            pKeyFilter="alpha">
+                        <input type="text" pInputText placeholder="First Name" name="firstName"
+                            [(ngModel)]="userModel.firstName" #firstName="ngModel" pKeyFilter="alpha" required>
                     </div>
                     <div class="p-col-4">
-                        <p-message severity="error" text="User ID is required"
+                        <p-message severity="error" text="First name is required"
                             *ngIf="(firstName.touched||firstName.dirty)&&firstName.hasError('required')">
                         </p-message>
                     </div>
                 </div>
 
+                <!-- LAST NAME -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="lastName">Last Name:</label>
                     </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText placeholder="Last Name" formControlName="lastName"
-                            pKeyFilter="alpha">
+                        <input type="text" pInputText placeholder="Last Name" name="lastName"
+                            [(ngModel)]="userModel.lastName" #lastName="ngModel" pKeyFilter="alpha" required>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Last name is required"
@@ -67,44 +71,75 @@
                     </div>
                 </div>
 
+                <!-- DISCIPLINE -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="discipline">Discipline:</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="disciplines" optionLabel="name" formControlName="discipline"
-                            placeholder="Select discipline" appendTo="body" showClear="true" [filter]="true"
-                            filterBy="label">
-                        </p-dropdown>
+                        <p-listbox [options]="disciplines" optionLabel="name" datakey="disciplineId"
+                            [(ngModel)]="selectedDisciplines" name="discipline" #discipline="ngModel"
+                            multiple="multiple" checkbox="checkbox" [filter]="true" filterBy="label,value.disciplineId"
+                            [listStyle]="{'max-height':'200px', 'width':'100%'}" [style]="{'width':'100%'}" required>
+                            <p-header>
+                                <i class="pi pi-book"></i>
+                                Disciplines
+                            </p-header>
+                        </p-listbox>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Discipline is required"
-                            *ngIf="(discipline.touched||discipline.dirty) && (discipline.value==='' || discipline.hasError('required'))">
+                            *ngIf="(discipline.touched||discipline.dirty)&&(discipline.value===''||discipline.hasError('required'))">
                         </p-message>
                     </div>
                 </div>
-                <div class="p-grid">
+
+                <!-- DEPARTMENT -->
+                <div class="p-grid" *ngIf="selectedDepartment">
+                    <div class="p-col-2">
+                        <label for="department">Department:</label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="departments" optionLabel="name" name="department"
+                            [(ngModel)]="selectedDepartment" #department="ngModel" placeholder="Select department"
+                            appendTo="body" showClear="true" [filter]="true" filterBy="label" [resetFilterOnHide]="true"
+                            [style]="{'width':'100%'}" required>
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Department is required"
+                            *ngIf="(department.touched || department.dirty) && (department.value==='' || department.hasError('required'))">
+                        </p-message>
+                    </div>
+                </div>
+
+                <!-- POSITION -->
+                <div class="p-grid" *ngIf="selectedPosition">
                     <div class="p-col-2">
                         <label for="position">Position:</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="positions" optionLabel="name" formControlName="position"
-                            placeholder="Select position" appendTo="body" showClear="true" [filter]="true"
-                            filterBy="label">
+                        <p-dropdown [options]="positions" optionLabel="name" name="position"
+                            [(ngModel)]="selectedPosition" #position="ngModel" placeholder="Select position"
+                            appendTo="body" showClear="true" [filter]="true" filterBy="label" [resetFilterOnHide]="true"
+                            required>
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Position is required"
-                            *ngIf="(position.touched || position.dirty) && (position.value==='' || position.hasError('required'))">
+                            *ngIf="(position.touched||position.dirty) && (position.value===''||position.hasError('required'))">
                         </p-message>
                     </div>
                 </div>
+
+                <!-- WORK FOCUS -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="workFocus">Work Focus:</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="workFocuses" optionLabel="name" formControlName="workFocus"
+                        <p-dropdown [options]="workFocuses" optionLabel="name" name="workFocus"
+                            [(ngModel)]="selectedWorkFocus" #workFocus="ngModel" required
                             placeholder="Select Work Focus" appendTo="body" showClear="true" [filter]="true"
                             filterBy="label">
                         </p-dropdown>
@@ -115,13 +150,15 @@
                         </p-message>
                     </div>
                 </div>
+
+                <!-- GENDER -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="gender">Gender:</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="genders" formControlName="gender" placeholder="Select gender"
-                            appendTo="body" showClear="true" [filter]="true" filterBy="label">
+                        <p-dropdown [options]="genders" name="gender" [(ngModel)]="userModel.gender" #gender="ngModel"
+                            required placeholder="Select gender" appendTo="body" showClear="true">
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
@@ -130,14 +167,16 @@
                         </p-message>
                     </div>
                 </div>
+
+                <!-- NATIONALITY -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="nationality">Race/Nationality:</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="nationalities" formControlName="nationality"
-                            placeholder="Select nationality" appendTo="body" showClear="true" [filter]="true"
-                            filterBy="label">
+                        <p-dropdown [options]="nationalities" name="nationality" [(ngModel)]="userModel.nationality"
+                            #nationality="ngModel" required placeholder="Select nationality" appendTo="body"
+                            showClear="true">
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
@@ -146,27 +185,29 @@
                         </p-message>
                     </div>
                 </div>
+
+                <!-- PROFILE PICTURE -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         Profile Picture
                     </div>
                     <div class="p-col-6">
-                        <p-fileUpload name="myFile[]" customUpload="true" (uploadHandler)="onFileSelected($event)">
+                        <p-fileUpload #imageUpload name="myFile[]" customUpload="true"
+                            (uploadHandler)="onFileSelected($event)" accept="image/*" maxFileSize="1000000">
                         </p-fileUpload>
                     </div>
                 </div>
 
                 <p-footer>
                     <div class="p-grid">
-                        <div class="p-col-1"><button pButton label="Edit Profile" icon="pi pi-plus" (click)="onEdit()"
-                                [disabled]="profileEditForm.invalid"></button>
-                        </div>
-                        <div class="p-col-1">
+                        <div class="p-col-10 p-col-align-left">
                             <button pButton type="button" label="Back" icon="pi pi-arrow-left" (click)="onBack($event)"
-                                class="ui-button-danger"></button>
+                                class="ui-button-danger mr-2"></button>
+                            <button pButton label="Save" icon="pi pi-plus"
+                                [disabled]="(f.untouched || (f.touched && f.invalid))" class=""></button>
+                            <p-progressSpinner *ngIf="progress"></p-progressSpinner>>
                         </div>
-                        <div class="p-col"></div>
-                        <div class="p-col-1 p-col-align-end">
+                        <div class="p-col-2 p-col-align-right">
                             <button pButton type="button" label="Reset" icon="pi pi-refresh" (click)="onReset($event)"
                                 class="ui-button-secondary"></button>
                         </div>

@@ -83,7 +83,7 @@ query activity($activityId: String!) {
                     userId
                     firstName
                     lastName
-                    discipline {
+                    disciplines {
                         disciplineId
                         name
                     }
@@ -97,7 +97,7 @@ query activity($activityId: String!) {
                     userId
                     firstName
                     lastName
-                    discipline {
+                    disciplines {
                         disciplineId
                         name
                     }
@@ -189,7 +189,7 @@ query activitiesByUnapproved {
                 userId
                 firstName
                 lastName
-                discipline {
+                disciplines {
                     disciplineId
                     name
                 }
@@ -237,7 +237,7 @@ query activitiesByUnapproved {
                     userId
                     firstName
                     lastName
-                    discipline {
+                    disciplines {
                         disciplineId
                         name
                     }
@@ -251,7 +251,7 @@ query activitiesByUnapproved {
                     userId
                     firstName
                     lastName
-                    discipline {
+                    disciplines {
                         disciplineId
                         name
                     }

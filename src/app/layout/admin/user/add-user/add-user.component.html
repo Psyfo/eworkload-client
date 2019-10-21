@@ -1,17 +1,19 @@
 <app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
 <div class="p-grid" [@routerTransition]>
     <div class="p-col-12">
-        <form [formGroup]="userAddForm" (ngsubmit)="onAdd()">
+        <form #f="ngForm" (ngSubmit)="onSubmit()">
             <p-panel header="Add User">
                 <p-header>
                 </p-header>
 
+                <!-- User ID -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="userId">User Id:</label>
                     </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText placeholder="User Id" formControlName="userId" pKeyFilter="num">
+                        <input type="text" pInputText placeholder="User Id" [(ngModel)]="userInput.userId" name="userId"
+                            #userId="ngModel" pKeyFilter="num" required>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="User ID is required"
@@ -20,13 +22,14 @@
                     </div>
                 </div>
 
+                <!-- First Name -->
                 <div class="p-grid">
                     <div class="p-col-2">
-                        <label for="userId">First Name:</label>
+                        <label for="firstName">First Name:</label>
                     </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText placeholder="First Name" formControlName="firstName"
-                            pKeyFilter="alpha">
+                        <input type="text" pInputText placeholder="First Name" [(ngModel)]="userInput.firstName"
+                            name="firstName" #firstName="ngModel" required>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="First Name is required"
@@ -35,13 +38,14 @@
                     </div>
                 </div>
 
+                <!-- Last Name -->
                 <div class="p-grid">
                     <div class="p-col-2">
-                        <label for="userId">Last Name:</label>
+                        <label for="lastName">Last Name:</label>
                     </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText placeholder="Last Name" formControlName="lastName"
-                            pKeyFilter="alpha">
+                        <input type="text" pInputText placeholder="Last Name" [(ngModel)]="userInput.lastName"
+                            name="lastName" #lastName="ngModel" required>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Last Name is required"
@@ -50,12 +54,14 @@
                     </div>
                 </div>
 
+                <!-- Email -->
                 <div class="p-grid">
                     <div class="p-col-2">
-                        <label for="userId">Email:</label>
+                        <label for="email">Email:</label>
                     </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText placeholder="Email" formControlName="email" pKeyFilter="email">
+                        <input type="text" pInputText placeholder="Email" [(ngModel)]="userInput.email" name="email"
+                            #email="ngModel" required email>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Email is required"
@@ -67,15 +73,15 @@
                     </div>
                 </div>
 
-
+                <!-- Position -->
                 <div class="p-grid">
                     <div class="p-col-2">
-                        <label for="type">Position:</label>
+                        <label for="department">Position:</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="positions" optionLabel="name" formControlName="position"
-                            placeholder="Select position" appendTo="body" showClear="true" [filter]="true"
-                            filterBy="label">
+                        <p-dropdown [options]="positions" optionLabel="name" [(ngModel)]="selectedPosition"
+                            name="position" #position="ngModel" required placeholder="Select position" appendTo="body"
+                            showClear="true" [filter]="true" filterBy="label">
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
@@ -85,16 +91,32 @@
                     </div>
                 </div>
 
+                <!-- Department -->
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="department">Department:</label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="departments" optionLabel="name" [(ngModel)]="selectedDepartment"
+                            name="department" #department="ngModel" required placeholder="Select department"
+                            appendTo="body" showClear="true" [filter]="true" filterBy="label">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Department is required"
+                            *ngIf="(department.touched||department.dirty) && (department.value==='' || department.hasError('required'))">
+                        </p-message>
+                    </div>
+                </div>
+
                 <p-footer>
                     <div class="p-grid">
-                        <div class="p-col-1"><button pButton label="Add User" icon="pi pi-plus" (click)="onAdd()"
-                                [disabled]="userAddForm.invalid"></button>
-                        </div>
-                        <div class="p-col-1">
+                        <div class="p-col-10 p-col-align-left">
                             <button pButton type="button" label="Back" icon="pi pi-arrow-left" (click)="onBack($event)"
-                                class="ui-button-danger"></button>
+                                class="ui-button-danger mr-2"></button><button pButton label="Save" icon="pi pi-plus"
+                                [disabled]="f.invalid"></button>
                         </div>
-                        <div class="p-col"></div>
+
                         <div class="p-col-1 p-col-align-end">
                             <button pButton type="button" label="Reset" icon="pi pi-refresh" (click)="onReset($event)"
                                 class="ui-button-secondary"></button>

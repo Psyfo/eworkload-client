@@ -3,13 +3,14 @@
     <div class="p-col">
         <p-panel header="Add Module">
 
-            <form [formGroup]="moduleAddForm" (ngSubmit)="onAdd()">
+            <form #f="ngForm" (ngSubmit)="onSubmit()">
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="moduleId">Module ID:</label>
                     </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText placeholder="Module ID" formControlName="moduleId">
+                        <input type="text" pInputText placeholder="Module ID" name="moduleId"
+                            [(ngModel)]="moduleInput.moduleId" #moduleId="ngModel" required>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Module ID is required"
@@ -22,7 +23,8 @@
                         <label for="name">Name:</label>
                     </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText placeholder="Name" formControlName="name">
+                        <input type="text" pInputText placeholder="Name" name="name" [(ngModel)]="moduleInput.name"
+                            #name="ngModel" required>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Name is required"
@@ -35,8 +37,9 @@
                         <label for="type">Type:</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="types" formControlName="type" placeholder="Select module type"
-                            [showClear]="true" appendTo="body" [filter]="true" filterBy="label">
+                        <p-dropdown [options]="types" name="type" [(ngModel)]="moduleInput.type" #type="ngModel"
+                            required placeholder="Select module type" [showClear]="true" appendTo="body"
+                            [filter]="true">
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
@@ -51,8 +54,9 @@
                     </div>
                     <div class="p-col-6">
                         <p-dropdown [options]="assessmentMethods" placeholder="Select assessment method"
-                            formControlName="assessmentMethod" [showClear]="true" appendTo="body" [filter]="true"
-                            filterBy="label"></p-dropdown>
+                            name="assessmentMethod" [(ngModel)]="moduleInput.assessmentMethod"
+                            #assessmentMethod="ngModel" required [showClear]="true" appendTo="body" [filter]="true">
+                        </p-dropdown>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text=" is required"
@@ -65,8 +69,8 @@
                         <label for="nqfLevel">NQF Level:</label>
                     </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText placeholder="NQF Level" formControlName="nqfLevel"
-                            pkeyFilter="num">
+                        <input type="number" pInputText placeholder="NQF Level" name="nqfLevel"
+                            [(ngModel)]="moduleInput.nqfLevel" #nqfLevel="ngModel" required pkeyFilter="num">
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="NQF Level is required"
@@ -79,8 +83,8 @@
                         <label for="credits">Credits:</label>
                     </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText placeholder="NQF Level" formControlName="credits"
-                            pkeyFilter="num">
+                        <input type="number" pInputText placeholder="NQF Level" name="credits"
+                            [(ngModel)]="moduleInput.credits" #credits="ngModel" required pkeyFilter="num">
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Credits is required"
@@ -93,9 +97,9 @@
                         <label for="block">Block</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="blocks" optionLabel="name" formControlName="block"
-                            placeholder="Select block" [showClear]="true" appendTo="body" [filter]="true"
-                            filterBy="label"></p-dropdown>
+                        <p-dropdown [options]="blocks" optionLabel="name" name="block" [(ngModel)]="selectedBlock"
+                            #block="ngModel" required placeholder="Select block" [showClear]="true" appendTo="body"
+                            [filter]="true"></p-dropdown>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Block is required"
@@ -108,7 +112,8 @@
                         <label for="qualification">Qualification</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="qualifications" optionLabel="name" formControlName="qualification"
+                        <p-dropdown [options]="qualifications" optionLabel="name" name="qualification"
+                            [(ngModel)]="selectedQualification" #qualification="ngModel" required
                             placeholder="Select qualification" [showClear]="true" appendTo="body" [filter]="true"
                             filterBy="label">
                         </p-dropdown>
@@ -124,9 +129,9 @@
                         <label for="offeringType">Offering Type</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="offeringTypes" optionLabel="description" formControlName="offeringType"
-                            placeholder="Select offering type" [showClear]="true" appendTo="body" [filter]="true"
-                            filterBy="label">
+                        <p-dropdown [options]="offeringTypes" optionLabel="description" name="offeringType"
+                            [(ngModel)]="selectedOfferingType" #offeringType="ngModel" required
+                            placeholder="Select offering type" [showClear]="true" appendTo="body" [filter]="true">
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
@@ -140,9 +145,9 @@
                         <label for="discipline">Discipline</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="disciplines" optionLabel="name" formControlName="discipline"
-                            placeholder="Select discipline" [showClear]="true" appendTo="body" [filter]="true"
-                            filterBy="label">
+                        <p-dropdown [options]="disciplines" optionLabel="name" name="discipline"
+                            [(ngModel)]="selectedDiscipline" #discipline="ngModel" required
+                            placeholder="Select discipline" [showClear]="true" appendTo="body" [filter]="true">
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
@@ -156,9 +161,9 @@
                         <label for="venue">Venue</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="venues" optionLabel="venueId" formControlName="venue"
-                            placeholder="Select venue" [showClear]="true" appendTo="body" [filter]="true"
-                            filterBy="label">
+                        <p-dropdown [options]="venues" optionLabel="venueId" name="venue" [(ngModel)]="selectedVenue"
+                            #venue="ngModel" required placeholder="Select venue" [showClear]="true" appendTo="body"
+                            [filter]="true">
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
@@ -172,17 +177,35 @@
             <p-footer>
                 <div class="p-grid">
                     <div class="p-col p-justify-start">
-                        <button pButton label="Add Module" icon="pi pi-plus" [disabled]="moduleAddForm.invalid"
+                        <button pButton label="Add Module" icon="pi pi-plus" [disabled]="f.invalid"
                             class="mr-2"></button>
-                        <button pButton type="button" label="Back" icon="pi pi-arrow-left" (click)="onBack()"
+                        <button pButton type="button" label="Back" icon="pi pi-arrow-left" (click)="onBack($event)"
                             class="ui-button-danger"></button>
                     </div>
                     <div class="p-col p-justify-end">
-                        <button pButton type="button" label="Reset" icon="pi pi-refresh" (click)="onReset()"
+                        <button pButton type="button" label="Reset" icon="pi pi-refresh" (click)="onReset($event)"
                             class="ui-button-secondary"></button>
                     </div>
                 </div>
             </p-footer>
         </p-panel>
     </div>
+</div>
+<div>
+    {{moduleInput|json}}
+</div>
+<div>
+    {{selectedBlock|json}}
+</div>
+<div>
+    {{selectedOfferingType|json}}
+</div>
+<div>
+    {{selectedQualification|json}}
+</div>
+<div>
+    {{selectedDiscipline|json}}
+</div>
+<div>
+    {{selectedVenue|json}}
 </div>

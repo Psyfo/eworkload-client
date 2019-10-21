@@ -1,0 +1,61 @@
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <form #f="ngForm">
+            <p-panel header="Add Student">
+
+                <!-- STUDENT ID -->
+                <div class="p-grid">
+                    <div class="p-col-2">Student ID</div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText [(ngModel)]="currentUserId" name="userId" #userId="ngModel"
+                            required disabled="true">
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="User ID is required"
+                            *ngIf="(userId.touched || userId.dirty) && userId.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+
+
+                <!-- ACTIVITIES -->
+                <div class="p-grid">
+                    <div class="p-col-2">Activities</div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="activities" optionLabel="title" placeholder="Select Activity"
+                            appendTo="body" showClear="true" [filter]="true" filterBy="label, value.activityId"
+                            [(ngModel)]="selectedActivity" name="activity" #activity="ngModel" required>
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Qualification is required"
+                            *ngIf="(activity.touched || activity.dirty) && activity.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        Upload Evidence
+                    </div>
+                    <div class="p-col-6">
+                        <p-fileUpload name="myFile[]" customUpload="true" (uploadHandler)="onFileSelected($event)">
+                        </p-fileUpload>
+                        <div class="p-grid">
+                            <div class="p-col" *ngIf="progress === true">
+                                <p-progressBar mode="indeterminate"></p-progressBar>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <p-footer>
+                </p-footer>
+            </p-panel>
+        </form>
+    </div>
+</div>

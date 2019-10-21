@@ -1,4 +1,3 @@
-import { DataTablesModule } from 'angular-datatables';
 import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
 
 import { CommonModule } from '@angular/common';
@@ -23,7 +22,6 @@ import { ViewEnrollmentComponent } from './view-enrollment/view-enrollment.compo
     imports: [
         CommonModule,
         EnrollmentRoutingModule,
-        DataTablesModule,
         ReactiveFormsModule,
         PrimeNgModulesModule
     ]

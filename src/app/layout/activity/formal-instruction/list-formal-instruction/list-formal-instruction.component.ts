@@ -6,7 +6,6 @@ import { routerTransition } from 'src/app/router.animations';
 import {
     Block,
     FormalInstructionActivity,
-    FormalInstructionWorkloadPerUser,
     Module,
     FormalInstructionActivityInput
 } from 'src/app/shared/generated';
@@ -17,6 +16,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { FormalInstructionService } from '../formal-instruction.service';
+import { throwServerError } from 'apollo-link-http-common';
 
 @Component({
     selector: 'app-list-formal-instruction',
@@ -34,11 +34,10 @@ export class ListFormalInstructionComponent implements OnInit {
     activity: FormalInstructionActivity;
     blocks: Block[];
     fiWorkloadData: any;
-    formalInstructionWorkload: FormalInstructionWorkloadPerUser;
     modules: Module[];
     selectedActivity: FormalInstructionActivity;
     selectedWorkload: any;
-    userId: string;
+    userId: string = this.userService.currentUserIdStatic();
     statuses = [
         { label: 'Awaiting' },
         { label: 'Approved' },

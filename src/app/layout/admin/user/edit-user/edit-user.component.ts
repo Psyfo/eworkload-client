@@ -106,7 +106,7 @@ export class EditUserComponent implements OnInit {
                     firstName: this.user.firstName,
                     lastName: this.user.lastName,
                     email: this.user.email,
-                    disciplineId: this.user.disciplineId,
+                    disciplineIds: this.user.disciplineIds,
                     positionId: this.user.positionId,
                     workFocusName: this.user.workFocusName,
                     gender: this.user.gender,
@@ -148,7 +148,7 @@ export class EditUserComponent implements OnInit {
         this.userInput.lastName = this.lastName.value;
         this.userInput.email = this.email.value;
         this.selectedDiscipline = this.discipline.value;
-        this.userInput.disciplineId = this.selectedDiscipline.disciplineId;
+        this.userInput.disciplineIds.push(this.selectedDiscipline.disciplineId);
         this.selectedPosition = this.position.value;
         this.userInput.positionId = this.selectedPosition.positionId;
         this.selectedWorkFocus = this.workFocus.value;

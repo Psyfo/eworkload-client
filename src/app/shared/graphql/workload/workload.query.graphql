@@ -1,3 +1,63 @@
 query totalHoursPerUser($userId: String!) {
     totalHoursPerUser(userId: $userId)
 }
+query teachingHoursPerUser($userId: String!) {
+    teachingHoursPerUser(userId: $userId)
+}
+query researchHoursPerUser($userId: String!) {
+    researchHoursPerUser(userId: $userId)
+}
+query serviceHoursPerUser($userId: String!) {
+    serviceHoursPerUser(userId: $userId)
+}
+query workloadSummaries {
+    workloadSummaries {
+        user {
+            userId
+            email
+            firstName
+            lastName
+            photoUrl
+            disciplineIds
+            disciplines {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
+        }
+        teachingHours
+        teachingHoursPerUser
+        teachingDifference
+        researchHours
+        researchHoursPerUser
+        researchDifference
+        serviceHours
+        serviceHoursPerUser
+        serviceDifference
+    }
+}

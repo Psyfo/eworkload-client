@@ -1,51 +1,69 @@
-query executiveManagementWorkloadPerUser($userId: String) {
-    executiveManagementWorkloadPerUser(userId: $userId) {
-        executiveManagementWorkloadData {
-            executiveManagementTotalHoursPerActivity
-            executiveManagementPercentageOfWorkFocusPerActivity
-            executiveManagementPercentageOfAnnualHoursPerActivity
-            executiveManagementPercentageOfTotalHoursPerActivity
+query executiveManagementWorkload($userId: String) {
+    executiveManagementWorkload(userId: $userId) {
+        executiveManagementWorkloads {
+            activity {
+                activityId
+                userId
+                user {
+                    userId
+                    email
+                    firstName
+                    lastName
+                    photoUrl
+                    disciplineIds
+                    disciplines {
+                        disciplineId
+                        name
+                        description
+                    }
+                    positionId
+                    position {
+                        positionId
+                        name
+                        description
+                    }
+                    departmentId
+                    department {
+                        departmentId
+                        name
+                        facultyId
+                        faculty {
+                            facultyId
+                            name
+                        }
+                    }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
+                }
+                dutyId
+                duty {
+                    dutyId
+                    name
+                    description
+                }
+                approvalStatus
+                createdAt
+                updatedAt
+                title
+                description
+                evidence
+            }
+            totalHoursPerActivity
+            percentageOfWorkFocusPerActivity
+            percentageOfAnnualHoursPerActivity
+            percentageOfTotalHoursPerActivity
         }
-        executiveManagementGlobalTarrif
-        executiveManagementTotalHoursPerUser
-        executiveManagementPercentageOfWorkFocusPerUser
-        executiveManagementPercentageOfAnnualHoursPerUser
-        executiveManagementPercentageOfTotalHoursPerUser
+        globalTarrif
+        totalHoursPerUser
+        percentageOfWorkFocusPerUser
+        percentageOfAnnualHoursPerUser
+        percentageOfTotalHoursPerUser
     }
-}
-
-query executiveManagementGlobalTarrif {
-    executiveManagementGlobalTarrif
-}
-query executiveManagementTotalHoursPerActivity($activityId: String) {
-    executiveManagementTotalHoursPerActivity(activityId: $activityId)
-}
-query executiveManagementTotalHoursPerUser($userId: String) {
-    executiveManagementTotalHoursPerUser(userId: $userId)
-}
-query executiveManagementPercentageOfWorkFocusPerActivity($activityId: String) {
-    executiveManagementPercentageOfWorkFocusPerActivity(activityId: $activityId)
-}
-query executiveManagementPercentageOfWorkFocusPerUser($userId: String) {
-    executiveManagementPercentageOfWorkFocusPerUser(userId: $userId)
-}
-query executiveManagementPercentageOfAnnualHoursPerActivity(
-    $activityId: String
-) {
-    executiveManagementPercentageOfAnnualHoursPerActivity(
-        activityId: $activityId
-    )
-}
-query executiveManagementPercentageOfAnnualHoursPerUser($userId: String) {
-    executiveManagementPercentageOfAnnualHoursPerUser(userId: $userId)
-}
-query executiveManagementPercentageOfTotalHoursPerActivity(
-    $activityId: String
-) {
-    executiveManagementPercentageOfTotalHoursPerActivity(
-        activityId: $activityId
-    )
-}
-query executiveManagementPercentageOfTotalHoursPerUser($userId: String) {
-    executiveManagementPercentageOfTotalHoursPerUser(userId: $userId)
 }

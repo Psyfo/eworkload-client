@@ -1,91 +1,163 @@
 <app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
 <div class="p-grid" [@routerTransition]>
     <div class="p-col">
-        <form [formGroup]="addResearchForm" (ngSubmit)="onAdd()">
+        <form #f="ngForm" (ngSubmit)="onSubmit()">
             <p-panel header="Add Research Activity">
+
+                <!-- User -->
                 <div class="p-grid">
-                    <div class="p-col-2">Research output:</div>
+                    <div class="p-col-2">
+                        <label for="user">User ID</label>
+                    </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="outputs" formControlName="output" placeholder="Select an output type"
-                            optionLabel="value" [showClear]="true" filter="true" filterBy="value" appendTo="body">
+                        <input type="text" pInputText [(ngModel)]="userId" name="user" #user="ngModel" pKeyFilter="num"
+                            required [disabled]="true">
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="User ID is required"
+                            *ngIf="(user.touched || user.dirty) && user.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+
+                <!-- Duty -->
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="duty">Duty ID</label>
+                    </div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText [(ngModel)]="dutyId" name="duty" #duty="ngModel" pKeyFilter="num"
+                            required [disabled]="true">
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="User ID is required"
+                            *ngIf="(duty.touched || duty.dirty) && duty.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+
+                <!-- Output -->
+                <div class="p-grid">
+                    <div class="p-col-2">Research output</div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="outputs" optionLabel="label" name="output" [(ngModel)]="selectedOutput"
+                            #output="ngModel" placeholder="Select an output type" [showClear]="true" filter="true"
+                            appendTo="body" required>
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Output field is required"
-                            *ngIf="(output.dirty || output.touched) && (output.hasError('required') || output === undefined)">
+                            *ngIf="(output.dirty || output.touched) && (output.hasError('required'))">
                         </p-message>
                     </div>
                 </div>
+
+                <!-- Title -->
                 <div class="p-grid">
-                    <div class="p-col-2">Title:</div>
+                    <div class="p-col-2">
+                        <label for="title">
+                            Title
+                        </label>
+                    </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText formControlName="title" placeholder="Article or Event Title">
+                        <input type="text" pInputText name="title" [(ngModel)]="selectedTitle" #title="ngModel"
+                            placeholder="Title" required>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Title field is required"
-                            *ngIf="(title.dirty || title.touched)&&(title.hasError('required')||title === undefined)">
+                            *ngIf="(title.dirty || title.touched)&&(title.hasError('required'))">
                         </p-message>
                     </div>
                 </div>
-                <div class="p-grid" *ngIf="output.value.value === 'Conference Proceedings'">
-                    <div class="p-col-2">Activities:</div>
+
+                <!-- Output Options Start -->
+                <!-- Conference Options -->
+                <div class="p-grid" *ngIf="selectedOutput !== null && selectedOutput.value === 1">
+                    <div class="p-col-2">Conference activities</div>
                     <div class="p-col-6">
-                        <p-listbox [options]="conferenceDetails" multiple="multiple" checkbox="checkbox" filter="filter"
-                            formControlName="selectedConferenceDetails" optionLabel="value">
+                        <p-listbox [options]="conferenceActivities" multiple="multiple" checkbox="checkbox"
+                            filter="filter" name="confActivities" [(ngModel)]="selectedConferenceActivities"
+                            #confActivities="ngModel" optionLabel="value"
+                            [listStyle]="{'max-height':'200px', 'width':'100%'}" [style]="{'width':'100%'}" required>
                             <p-header>
-                                Activities
+                                Conference Activities
                             </p-header>
                         </p-listbox>
                     </div>
                     <div class="p-col-4">
-                        <p-message severity="error" text="Details field is required"
-                            *ngIf="(details.dirty || details.touched)&&(details.hasError('required')||details === undefined)">
+                        <p-message severity="error" text="One or more conference activities required"
+                            *ngIf="selectedOutput.value === 1 && (confActivities.dirty || confActivities.touched)&&(confActivities.hasError('required'))">
                         </p-message>
                     </div>
                 </div>
-                <div *ngFor="let selectedConferenceDetail of selectedConferenceDetails">
-                    {{selectedConferenceDetail?.value}}
-                </div>
-                <div class="p-grid">
-                    <div class="p-col-2">Details:</div>
+
+                <!-- Book & Chapter Options -->
+                <div class="p-grid"
+                    *ngIf="selectedOutput !== null && (selectedOutput.value === 3 || selectedOutput.value === 4)">
+                    <div class="p-col-2">
+                        <label for="authors">
+                            Authors
+                        </label>
+                    </div>
                     <div class="p-col-6">
-                        <textarea type="text" pInputTextarea [rows]="5" [cols]=[110] formControlName="details"
-                            placeholder="Short abstract or description of event"></textarea>
+                        <p-chips name="authors" [(ngModel)]="selectedAuthors" #authors="ngModel"
+                            placeholder="Hit Enter after each name"></p-chips>
                     </div>
                     <div class="p-col-4">
-                        <p-message severity="error" text="Details field is required"
-                            *ngIf="(details.dirty || details.touched)&&(details.hasError('required')||details === undefined)">
+                        <p-message severity="error" text="Authors are required"
+                            *ngIf="(selectedOutput.value === 3 && selectedOutput.value === 4) && (authors.dirty || authors.touched)&&(authors.hasError('required'))">
                         </p-message>
                     </div>
                 </div>
+
+                <!-- Journal Options -->
+                <div class="p-grid" *ngIf="selectedOutput !== null && selectedOutput.value === 2">
+                    <div class="p-col-2">Journal url</div>
+                    <div class="p-col-6"><input type="text" pInputText name="url" [(ngModel)]="selectedUrl"
+                            #url="ngModel" placeholder="Journal address (e.g. http://researchurl.com)">
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="URL field is required"
+                            *ngIf="selectedOutput.value === 2 && (url.dirty || url.touched)&&(url.hasError('required'))">
+                        </p-message>
+                    </div>
+                </div>
+                <!-- Output Options End -->
+
                 <div class="p-grid">
-                    <div class="p-col-2">Event Start-End Date:</div>
+                    <div class="p-col-2">Date(s)</div>
                     <div class="p-col-6">
-                        <p-calendar formControlName="dates" appendTo="body" selectionMode="range" showButtonBar="true"
-                            [readonlyInput]='true'>
+                        <p-calendar name="dates" [(ngModel)]="selectedDates" #dates="ngModel" appendTo="body"
+                            selectionMode="range" showButtonBar="true" [readonlyInput]='true' required>
                         </p-calendar>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Date field is required"
-                            *ngIf="(dates.dirty || dates.touched)&&(dates.hasError('required')||dates === undefined)">
+                            *ngIf="(dates.dirty || dates.touched)&&(dates.hasError('required'))">
                         </p-message>
                     </div>
                 </div>
+
                 <div class="p-grid">
-                    <div class="p-col-2">URL (optional:)</div>
-                    <div class="p-col-6"><input type="text" pInputText formControlName="title"
-                            placeholder="http://researchurl.com"></div>
+                    <div class="p-col-2">Additional details (optional)</div>
+                    <div class="p-col-6">
+                        <textarea type="text" pInputTextarea [rows]="5" [cols]=[110] name="details"
+                            [(ngModel)]="selectedDetails" #details="ngModel"
+                            placeholder="Short abstract or description of event"></textarea>
+                    </div>
                     <div class="p-col-4">
-                        <!-- <p-message severity="error" text="U field is required"
-                            *ngIf="(url.dirty || url.touched)&&(url.hasError('required')||url === undefined)">
-                        </p-message> -->
+                        <p-message severity="error" text="Details field is required"
+                            *ngIf="(details.dirty || details.touched)&&(details.hasError('required'))">
+                        </p-message>
                     </div>
                 </div>
+
+
                 <!-- <div class="p-grid">
                     <div class="p-col-2">Evidence (if available):</div>
                     <div class="p-col-6">
                         <p-fileUpload name="myFile[]" customUpload="true" maxFileSize="50000000"
-                            (uploadHandler)="onFileSelected($event)" formControlName="evidence">
+                            (uploadHandler)="onFileSelected($event)" name="evidence">
                         </p-fileUpload>
                     </div>
                     <div class="p-col-4"></div>
@@ -93,14 +165,14 @@
 
                 <p-footer>
                     <div class="p-grid">
-                        <div class="p-col p-col-justify-left">
-                            <button pButton label="Add" icon="pi pi-plus" class="mr-2"
-                                [disabled]="addResearchForm.invalid"></button>
-                            <button type="button" pButton label="Back" icon="pi pi-arrow-left" (click)="onBack($event)"
-                                class="ui-button-danger"></button>
+                        <div class="p-col-10 p-col-align-left">
+                            <button pButton type="button" label="Back" icon="pi pi-arrow-left" (click)="onBack($event)"
+                                class="ui-button-danger mr-2"></button>
+                            <button pButton label="Save" icon="pi pi-plus"
+                                [disabled]="(f.untouched || (f.touched && f.invalid))" class=""></button>
                         </div>
-                        <div class="p-col p-col-justify-right">
-                            <button type="button" pButton label="Reset" icon="pi pi-refresh" (click)="onReset($event)"
+                        <div class="p-col-2 p-col-align-right">
+                            <button pButton type="button" label="Reset" icon="pi pi-refresh" (click)="onReset($event)"
                                 class="ui-button-secondary"></button>
                         </div>
                     </div>
@@ -108,4 +180,7 @@
             </p-panel>
         </form>
     </div>
+</div>
+<div>
+    {{activityInput|json}}
 </div>

@@ -1,5 +1,4 @@
 import { UserService } from './layout/admin/user/user.service';
-import { DataTablesModule } from 'angular-datatables';
 import { Apollo, ApolloModule } from 'apollo-angular';
 import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -41,6 +40,7 @@ import {
     ValidationService,
     WorkloadService
 } from './shared/services';
+import { StaffSummaryModule } from './layout/hod/staff-summary/staff-summary.module';
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
@@ -70,12 +70,12 @@ export const createTranslateLoader = (http: HttpClient) => {
             }
         }),
         AppRoutingModule,
-        DataTablesModule.forRoot(),
         //GraphQLModule,
         ApolloModule,
         HttpLinkModule,
         AlertModule,
-        PrimeNgModulesModule
+        PrimeNgModulesModule,
+        StaffSummaryModule
     ],
     declarations: [AppComponent],
     providers: [

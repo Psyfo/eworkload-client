@@ -1,29 +1,53 @@
 <app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
 <div class="p-grid" [@routerTransition]>
     <div class="p-col">
-        <form [formGroup]="formalInstructionAddForm" (ngSubmit)="onAdd()">
+        <form #f="ngForm" (ngSubmit)="onSubmit()">
             <p-panel header="Add Formal Instruction Activity">
 
+                <!-- User -->
                 <div class="p-grid">
                     <div class="p-col-2">
-                        <label for="userId">User Id:</label>
+                        <label for="user">User ID</label>
                     </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText placeholder="User Id" formControlName="userId" pKeyFilter="num">
+                        <input type="text" pInputText [(ngModel)]="userId" name="user" #user="ngModel" pKeyFilter="num"
+                            required [disabled]="true">
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="User ID is required"
-                            *ngIf="(userId.touched || userId.dirty) && userId.hasError('required')">
+                            *ngIf="(user.touched || user.dirty) && user.hasError('required')">
                         </p-message>
                     </div>
                 </div>
+
+                <!-- Duty -->
                 <div class="p-grid">
                     <div class="p-col-2">
-                        <label for="moduleId"></label>
+                        <label for="duty">Duty ID</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="modules" placeholder="Select a module" optionLabel="name"
-                            formControlName="module" appendTo="body" showClear="true" [filter]="true" filterBy="label">
+                        <input type="text" pInputText [(ngModel)]="dutyId" name="duty" #duty="ngModel" pKeyFilter="num"
+                            required [disabled]="true">
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="User ID is required"
+                            *ngIf="(duty.touched || duty.dirty) && duty.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+
+                <!-- Modules -->
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="module">
+                            Module
+                        </label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="modules" optionLabel="label" placeholder="Select a module"
+                            [(ngModel)]="selectedModule" name="module" #module="ngModel" appendTo="body"
+                            showClear="true" [filter]="true" filterBy="value.name" [virtualScroll]="true" itemSize="50"
+                            required [style]="{'width':'100%'}">
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
@@ -32,12 +56,17 @@
                         </p-message>
                     </div>
                 </div>
+
+                <!-- Is Coordinating? -->
                 <div class="p-grid">
                     <div class="p-col-2">
-                        <label for="moduleId"></label>
+                        <label for="coordinator">
+                            Coordinating
+                        </label>
                     </div>
                     <div class="p-col-6">
-                        <p-checkbox binary="true" label="Coordinator?" formControlName="isCoordinator"></p-checkbox>
+                        <p-checkbox binary="true" label="Is Coordinator?" [(ngModel)]="isCoordinator" name="coordinator"
+                            #coordinator="ngModel"></p-checkbox>
                     </div>
                     <div class="p-col-4">
 
@@ -46,13 +75,13 @@
 
                 <p-footer>
                     <div class="p-grid">
-                        <div class="p-col p-justify-start">
-                            <button pButton label="Add Activity" icon="pi pi-plus"
-                                [disabled]="formalInstructionAddForm.invalid" class="mr-2"></button>
+                        <div class="p-col-10 p-col-align-left">
                             <button pButton type="button" label="Back" icon="pi pi-arrow-left" (click)="onBack($event)"
-                                class="ui-button-danger"></button>
+                                class="ui-button-danger mr-2"></button>
+                            <button pButton label="Save" icon="pi pi-plus"
+                                [disabled]="(f.untouched || !f.dirty) || (f.dirty && f.invalid)" class=""></button>
                         </div>
-                        <div class="p-col p-justify-end">
+                        <div class="p-col-2 p-col-align-right">
                             <button pButton type="button" label="Reset" icon="pi pi-refresh" (click)="onReset($event)"
                                 class="ui-button-secondary"></button>
                         </div>
@@ -61,5 +90,4 @@
             </p-panel>
         </form>
     </div>
-
 </div>

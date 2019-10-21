@@ -1,6 +1,5 @@
 import { AlertService } from './../../../../shared/modules/alert/alert.service';
 import { MenuItem } from 'primeng/components/common/menuitem';
-import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EnrollmentService } from 'src/app/layout/admin/enrollment/enrollment.service';

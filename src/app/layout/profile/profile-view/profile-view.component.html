@@ -1,10 +1,12 @@
 <app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
 <div class="p-grid" [@routerTransition]>
+
+    <!-- PROFILE -->
     <div class="p-col">
         <p-panel header="User Profile">
             <div class="p-grid">
                 <div class="p-col-5">
-                    <img [src]="profilePicture" alt="profile pic" class="img__profile">
+                    <img src="{{user?.photoUrl}}" alt="profile pic" class="img__profile">
                 </div>
                 <div class=" p-col-7">
                     <div class="p-grid">
@@ -28,7 +30,17 @@
                             <strong>Discipline</strong>
                         </div>
                         <div class="p-col text-muted">
-                            {{user?.discipline?.name}}
+                            <div *ngFor="let discipline of user?.disciplines">
+                                {{discipline?.name}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col">
+                            <strong>Department</strong>
+                        </div>
+                        <div class="p-col text-muted">
+                            {{user?.department?.name}}
                         </div>
                     </div>
                     <div class="p-grid">
@@ -58,6 +70,8 @@
             </p-footer>
         </p-panel>
     </div>
+
+    <!-- WORK FOCUS -->
     <div class="p-col">
         <p-panel header="Annual Work Distribution">
             <div class="p-grid">
@@ -70,7 +84,7 @@
                             <h4>{{user?.workFocus?.teachingRatio}}%</h4>
                         </div>
                         <div class="p-col">
-                            <h4>{{teachingHours}} hours</h4>
+                            <h4>{{teachingHours || 0}} hours</h4>
                         </div>
                     </div>
                 </div>
@@ -83,7 +97,7 @@
                             <h4>{{user?.workFocus?.researchRatio}}%</h4>
                         </div>
                         <div class="p-col">
-                            <h4>{{researchHours}} hours</h4>
+                            <h4>{{researchHours || 0}} hours</h4>
                         </div>
                     </div>
                 </div>
@@ -96,88 +110,136 @@
                             <h4>{{user?.workFocus?.serviceRatio}}%</h4>
                         </div>
                         <div class="p-col">
-                            <h4>{{serviceHours}} hours</h4>
+                            <h4>{{serviceHours || 0}} hours</h4>
                         </div>
                     </div>
                 </div>
             </div>
         </p-panel>
+
     </div>
 </div>
 
+<!-- WORKLOADS -->
 <div class="p-grid" [@routerTransition]>
-    <div class="p-col">
-        <p-tabView>
-            <p-tabPanel header="Academic Administration">
-                <div class="p-col p-sm-12 p-lg-4">
-                    <p-panel>
-                        <p-header>
-                            <strong>
-                                <a [routerLink]="[ '/activity/academic-administration']">Academic Administration
-                                    Workload:
-                                    {{academicAdministrationWorkloadPerUser?.academicAdministrationTotalHoursPerUser}}
-                                    of
-                                    {{serviceHours}}</a>
-                            </strong>
-                        </p-header>
-                        <p-chart type="doughnut" [data]="academicAdministrationData"></p-chart>
-                    </p-panel>
-                </div>
-            </p-tabPanel>
-            <p-tabPanel header="Executive Management">
-                content here
-            </p-tabPanel>
-            <p-tabPanel header="Community Instruction">
-                content here
-            </p-tabPanel>
-            <p-tabPanel header="Formal Instruction" [selected]="true">
-                <div class="p-col p-sm-12 p-lg-4">
-                    <p-panel>
-                        <p-header>
-                            <strong>
-                                <a [routerLink]="[ '/activity/formal-instruction']">Formal Instruction
-                                    Workload: ({{formalInstructionTotalHoursPerUser}} of {{teachingHours}} hours)</a>
-                            </strong>
-                        </p-header>
-                        <p-chart type="doughnut" [data]="formalInstructionPieData"></p-chart>
-                    </p-panel>
-                </div>
-            </p-tabPanel>
-            <p-tabPanel header="Personnel Development">
-                content here
-            </p-tabPanel>
-            <p-tabPanel header="Publice Service">
-                content here
-            </p-tabPanel>
-            <p-tabPanel header="Research">
-                <div class="p-col p-sm-12 p-lg-4">
-                    <p-panel>
-                        <p-header>
-                            <strong>
-                                <a [routerLink]="[ '/activity/research']">Research Workload:
-                                    ({{researchWorkloadPerUser?.researchTotalHoursPerUser}} of {{researchHours}}
-                                    hours)</a>
-                            </strong>
-                        </p-header>
-                        <p-chart type="doughnut" [data]="researchData"></p-chart>
-                    </p-panel>
-                </div>
-            </p-tabPanel>
-            <p-tabPanel header="Supervision">
-                <div class="p-col p-sm-12 p-lg-4">
-                    <p-panel>
-                        <p-header>
-                            <strong>
-                                <a [routerLink]="[ '/activity/supervision']">Supervision Workload: (
-                                    0 of
-                                    {{researchHours}} hours)</a>
-                            </strong>
-                        </p-header>
-                        Supervision workload chart
 
-                    </p-panel>
+    <!-- TEACHING -->
+    <div class="p-sm-12 p-col-4 p-md-4 p-lg-4">
+        <p-panel>
+            <p-header>
+                <strong>
+                    <a [routerLink]="[ '/activity/formal-instruction']">Teaching
+                        Workload:
+                        ({{teachingWorkload?.formalInstructionWorkload?.totalHoursPerUser + teachingWorkload?.supervisionWorkload?.totalHoursPerUser || 0 | number : '1.2-2'}}
+                        of {{teachingHours}} hours)</a>
+                </strong>
+            </p-header>
+            <!-- Chart -->
+            <p-chart type="doughnut" [data]="teachingPieData"></p-chart>
+        </p-panel>
+        <p-panel [showHeader]="false">
+            <div class="p-grid">
+                <div class="p-col-6">
+                    <strong>
+                        Module
+                    </strong>
                 </div>
-            </p-tabPanel>
-        </p-tabView>
+                <div class="p-col-3">
+                    <strong>
+                        # Students
+                    </strong>
+                </div>
+                <div class="p-col-3">
+                    <strong>
+                        Hours
+                    </strong>
+                </div>
+            </div>
+            <div class="p-grid"
+                *ngFor="let workload of teachingWorkload?.formalInstructionWorkload?.formalInstructionWorkloads">
+                <div class="p-col-6">
+                    {{workload?.module?.moduleId}} ({{workload?.block?.blockId}})
+                    ({{workload?.offeringType?.offeringTypeId}})
+                </div>
+                <div class="p-col-3">
+                    {{workload?.studentsEnrolled}}
+                </div>
+                <div class="p-col-3">
+                    {{workload?.totalHoursPerActivity}}
+                </div>
+            </div>
+            <div class="p-grid">
+                <div class="p-col-9">
+                    <strong>
+                        Supervision
+                    </strong>
+                </div>
+                <div class="p-col-3">
+                    <strong>
+                        Hours
+                    </strong>
+                </div>
+            </div>
+            <div class="p-grid" *ngFor="let workload of teachingWorkload?.supervisionWorkload?.supervisionWorkloads">
+                <div class="p-col-9">
+                    {{workload?.activity?.studentId}}
+                </div>
+                <div class="p-col-3">
+                    {{workload?.totalHoursPerActivity}}
+                </div>
+            </div>
+        </p-panel>
+    </div>
+
+    <!-- RESEARCH -->
+    <div class="p-sm-12 p-col-4 p-md-4 p-lg-4">
+        <p-panel>
+            <p-header>
+                <strong>
+                    <a [routerLink]="[ '/activity/research']">Research
+                        Workload: ({{researchWorkload?.totalHoursPerUser || 0}} of {{researchHours}} hours)</a>
+                </strong>
+            </p-header>
+            <p-chart type="doughnut" [data]="researchPieData" [options]=""></p-chart>
+        </p-panel>
+        <p-panel [showHeader]="false">
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>
+
+                    </strong>
+                </div>
+                <div class="p-col">
+
+                </div>
+            </div>
+        </p-panel>
+    </div>
+
+    <!-- SERVICES -->
+    <div class="p-sm-12 p-col-4 p-md-4 p-lg-4">
+        <p-panel>
+            <p-header>
+                <strong>
+                    <a [routerLink]="[ '/activity/academic-administration']">Service
+                        Workload:
+                        ({{serviceWorkload?.academicAdministrationWorkload?.totalHoursPerUser + serviceWorkload?.communityInstructionWorkload?.totalHoursPerUser + serviceWorkload?.executiveManagementWorkload?.totalHoursPerUser + serviceWorkload?.personnelDevelopmentWorkload?.totalHoursPerUser + serviceWorkload?.publicServiceWorkload?.totalHoursPerUser || 0 | number : '1.2-2'}}
+                        of {{serviceHours}} hours)</a>
+                </strong>
+            </p-header>
+            <p-chart type="doughnut" [data]="servicePieData" [options]="servicePieOptions"></p-chart>
+        </p-panel>
+        <p-panel [showHeader]="false">
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>
+
+                    </strong>
+                </div>
+                <div class="p-col">
+
+                </div>
+            </div>
+        </p-panel>
     </div>
 </div>

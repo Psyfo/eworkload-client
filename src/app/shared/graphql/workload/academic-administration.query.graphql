@@ -1,55 +1,69 @@
-query academicAdministrationWorkloadPerUser($userId: String) {
-    academicAdministrationWorkloadPerUser(userId: $userId) {
-        academicAdministrationWorkloadData {
-            academicAdministrationTotalHoursPerActivity
-            academicAdministrationPercentageOfWorkFocusPerActivity
-            academicAdministrationPercentageOfAnnualHoursPerActivity
-            academicAdministrationPercentageOfTotalHoursPerActivity
+query academicAdministrationWorkload($userId: String) {
+    academicAdministrationWorkload(userId: $userId) {
+        academicAdministrationWorkloads {
+            activity {
+                activityId
+                userId
+                user {
+                    userId
+                    email
+                    firstName
+                    lastName
+                    photoUrl
+                    disciplineIds
+                    disciplines {
+                        disciplineId
+                        name
+                        description
+                    }
+                    positionId
+                    position {
+                        positionId
+                        name
+                        description
+                    }
+                    departmentId
+                    department {
+                        departmentId
+                        name
+                        facultyId
+                        faculty {
+                            facultyId
+                            name
+                        }
+                    }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
+                }
+                dutyId
+                duty {
+                    dutyId
+                    name
+                    description
+                }
+                approvalStatus
+                createdAt
+                updatedAt
+                title
+                description
+                evidence
+            }
+            totalHoursPerActivity
+            percentageOfWorkFocusPerActivity
+            percentageOfAnnualHoursPerActivity
+            percentageOfTotalHoursPerActivity
         }
-        academicAdministrationGlobalTarrif
-        academicAdministrationTotalHoursPerUser
-        academicAdministrationPercentageOfWorkFocusPerUser
-        academicAdministrationPercentageOfAnnualHoursPerUser
-        academicAdministrationPercentageOfTotalHoursPerUser
+        globalTarrif
+        totalHoursPerUser
+        percentageOfWorkFocusPerUser
+        percentageOfAnnualHoursPerUser
+        percentageOfTotalHoursPerUser
     }
-}
-
-query academicAdministrationGlobalTarrif {
-    academicAdministrationGlobalTarrif
-}
-query academicAdministrationTotalHoursPerActivity($activityId: String) {
-    academicAdministrationTotalHoursPerActivity(activityId: $activityId)
-}
-query academicAdministrationTotalHoursPerUser($userId: String) {
-    academicAdministrationTotalHoursPerUser(userId: $userId)
-}
-query academicAdministrationPercentageOfWorkFocusPerActivity(
-    $activityId: String
-) {
-    academicAdministrationPercentageOfWorkFocusPerActivity(
-        activityId: $activityId
-    )
-}
-query academicAdministrationPercentageOfWorkFocusPerUser($userId: String) {
-    academicAdministrationPercentageOfWorkFocusPerUser(userId: $userId)
-}
-query academicAdministrationPercentageOfAnnualHoursPerActivity(
-    $activityId: String
-) {
-    academicAdministrationPercentageOfAnnualHoursPerActivity(
-        activityId: $activityId
-    )
-}
-query academicAdministrationPercentageOfAnnualHoursPerUser($userId: String) {
-    academicAdministrationPercentageOfAnnualHoursPerUser(userId: $userId)
-}
-query academicAdministrationPercentageOfTotalHoursPerActivity(
-    $activityId: String
-) {
-    academicAdministrationPercentageOfTotalHoursPerActivity(
-        activityId: $activityId
-    )
-}
-query academicAdministrationPercentageOfTotalHoursPerUser($userId: String) {
-    academicAdministrationPercentageOfTotalHoursPerUser(userId: $userId)
 }

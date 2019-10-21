@@ -6,6 +6,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ChipsModule } from 'primeng/chips';
 import { InputTextModule } from 'primeng/components/inputtext/inputtext';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DropdownModule } from 'primeng/dropdown';
@@ -20,18 +21,18 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { PanelModule } from 'primeng/panel';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { PasswordModule } from 'primeng/password';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SidebarModule } from 'primeng/sidebar';
 import { SliderModule } from 'primeng/slider';
+import { SpinnerModule } from 'primeng/spinner';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 
 import { CommonModule } from '@angular/common';
-import { ChipsModule } from 'primeng/chips';
-
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -66,11 +67,13 @@ import { PageHeaderModule } from './page-header';
         PanelModule,
         PanelMenuModule,
         PasswordModule,
+        ProgressBarModule,
         ProgressSpinnerModule,
         ReactiveFormsModule,
         ScrollPanelModule,
         SidebarModule,
         SliderModule,
+        SpinnerModule,
         TableModule,
         TabViewModule,
         ToastModule,
@@ -102,12 +105,14 @@ import { PageHeaderModule } from './page-header';
         PageHeaderModule,
         PanelModule,
         PanelMenuModule,
+        ProgressBarModule,
         ProgressSpinnerModule,
         PasswordModule,
         ReactiveFormsModule,
         ScrollPanelModule,
         SidebarModule,
         SliderModule,
+        SpinnerModule,
         TableModule,
         TabViewModule,
         ToastModule,

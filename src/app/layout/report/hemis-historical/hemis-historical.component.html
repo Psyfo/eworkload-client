@@ -1,3 +1,9 @@
+<div class="p-grid">
+    <div class="p-col p-align-center">
+        <h3>HEMIS (Historical)</h3>
+    </div>
+</div>
+
 <div class="p-grid mb-5">
     <div class="p-col-6">
         <h5 class="mb-5">Part One: General Information</h5>
@@ -45,6 +51,7 @@
     </div>
 </div>
 
+<!-- DUTIES -->
 <div class="p-grid mb-5">
     <div class="p-col">
         <h5>Part Two: Allocation of Time</h5>
@@ -61,14 +68,14 @@
             </ng-template>
             <ng-template pTemplate="body">
                 <tr>
-                    <td colspan="1">
+                    <td colspan="1" rowspan="1">
                         11
                     </td>
-                    <td colspan="8">
+                    <td colspan="8" rowspan="1">
                         FORMAL INSTRUCTION
                     </td>
-                    <td colspan="1">
-                        {{formalInstructionWorkload?.formalInstructionPercentageOfTotalHoursPerUser }}%
+                    <td colspan="1" rowspan="1">
+                        {{formalInstructionWorkload?.percentageOfTotalHoursPerUser + supervisionWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%
                     </td>
                 </tr>
                 <tr>
@@ -79,7 +86,7 @@
                         COMMUNITY INSTRUCTION
                     </td>
                     <td colspan="1">
-                        {{communityInstructionWorkload?.communityInstructionPercentageOfTotalHoursPerUser}}%
+                        {{communityInstructionWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%
                     </td>
                 </tr>
                 <tr>
@@ -90,7 +97,7 @@
                         RESEARCH
                     </td>
                     <td colspan="1">
-                        {{researchWorkload?.researchPercentageOfTotalHoursPerUser}}%
+                        {{researchWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%
                     </td>
                 </tr>
                 <tr>
@@ -101,7 +108,7 @@
                         PUBLIC SERVICE
                     </td>
                     <td colspan="1">
-                        {{publicServiceWorkload?.publicServicePercentageOfTotalHoursPerUser}}%
+                        {{publicServiceWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%
                     </td>
                 </tr>
                 <tr>
@@ -112,7 +119,7 @@
                         ACADEMIC ADMINISTRATION
                     </td>
                     <td colspan="1">
-                        {{academicAdministrationWorkload?.academicAdministrationPercentageOfTotalHoursPerUser}}%
+                        {{academicAdministrationWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%
                     </td>
                 </tr>
                 <tr>
@@ -120,10 +127,10 @@
                         48
                     </td>
                     <td colspan="8">
-                        ACADEMIC PERSONNEL DEVELOPMENT
+                        PERSONNEL DEVELOPMENT
                     </td>
                     <td colspan="1">
-                        {{personnelDevelopmentWorkload?.personnelDevelopmentPercentageOfTotalHoursPerUser}}%
+                        {{personnelDevelopmentWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%
                     </td>
                 </tr>
                 <tr>
@@ -133,7 +140,7 @@
                         EXECUTIVE MANAGEMENT
                     </td>
                     <td colspan="1">
-                        {{executiveManagementWorkload?.executiveManagementPercentageOfTotalHoursPerUser}}%
+                        {{executiveManagementWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%
                     </td>
                 </tr>
             </ng-template>
@@ -143,23 +150,22 @@
                         <strong>TOTAL</strong>
                     </td>
                     <td colspan="1">
-                        {{formalInstructionWorkload?.formalInstructionPercentageOfTotalHoursPerUser +
-                        communityInstructionWorkload?.communityInstructionPercentageOfTotalHoursPerUser+
-                        researchWorkload?.researchPercentageOfTotalHoursPerUser+
-                        publicServiceWorkload?.publicServicePercentageOfTotalHoursPerUser+
-                        academicAdministrationWorkload?.academicAdministrationPercentageOfTotalHoursPerUser+
-                        personnelDevelopmentWorkload?.personnelDevelopmentPercentageOfTotalHoursPerUser+
-                        executiveManagementWorkload?.executiveManagementPercentageOfTotalHoursPerUser + 
-                        supervisionWorkload?.supervisionPercentageOfTotalHoursPerUser}}%
+                        {{formalInstructionWorkload?.percentageOfTotalHoursPerUser +
+                        communityInstructionWorkload?.percentageOfTotalHoursPerUser +
+                        researchWorkload?.percentageOfTotalHoursPerUser +
+                        publicServiceWorkload?.percentageOfTotalHoursPerUser +
+                        academicAdministrationWorkload?.percentageOfTotalHoursPerUser +
+                        personnelDevelopmentWorkload?.percentageOfTotalHoursPerUser +
+                        executiveManagementWorkload?.percentageOfTotalHoursPerUser + 
+                        supervisionWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%
                     </td>
                 </tr>
             </ng-template>
-
-
         </p-table>
     </div>
 </div>
 
+<!-- FORMAL INSTRUCTION -->
 <div class="p-grid mb-5">
     <div class="p-col">
         <strong>BREAKDOWN OF 11: FORMAL INSTRUCTION</strong>
@@ -172,7 +178,7 @@
                     <th colspan="4" rowspan="2">
                         <strong>DESCRIPTION</strong>
                     </th>
-                    <th colspan="2" rowspan="1">
+                    <th colspan="3" rowspan="1" style="text-align: center;">
                         <strong>ANNUAL HOURS</strong>
                     </th>
                     <th colspan="1" rowspan="2">
@@ -196,43 +202,76 @@
                     <th colspan="1">
                         <strong>OTHER</strong>
                     </th>
+                    <th colspan="1">
+                        <strong>TOTAL</strong>
+                    </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body">
-                <tr *ngFor="let item of formalInstructionWorkload?.formalInstructionWorkloadData">
+                <tr *ngFor="let item of formalInstructionWorkload?.formalInstructionWorkloads; let i = index;">
                     <td colspan="1">
-                        {{item?.formalInstructionActivity?.module?.moduleId}}
+                        {{item?.module?.moduleId}}
                     </td>
                     <td colspan="4">
-                        {{item?.formalInstructionActivity?.module?.name}}
-                        ({{item?.formalInstructionActivity?.block?.name}})
-                        ({{item?.formalInstructionActivity?.offeringType?.description}})
+                        {{item?.module?.name}}
+                        ({{item?.block?.name}})
+                        ({{item?.offeringType?.description}})
                     </td>
                     <td colspan="1">
-                        {{item?.formalInstructionBaseContactHours}}
+                        {{item?.baseContactHours | number :'1.2-2'}}
                     </td>
                     <td colspan="1">
-                        {{item?.formalInstructionOtherHoursPerActivity}}
+                        {{item?.otherHoursPerActivity | number :'1.2-2'}}
                     </td>
                     <td colspan="1">
-                        {{item?.formalInstructionPercentageOfTotalHoursPerActivity}}%
+                        {{item?.totalHoursPerActivity | number :'1.2-2'}}
                     </td>
                     <td colspan="1">
-                        {{item?.formalInstructionStudentsEnrolled}}
+                        {{item?.percentageOfTotalHoursPerActivity | number :'1.2-2'}}%
                     </td>
                     <td colspan="1">
-                        {{item?.formalInstructionActivity?.module?.venue?.venueId}}
+                        {{item?.studentsEnrolled}}
                     </td>
                     <td colspan="1">
-                        {{item?.formalInstructionActivity?.module?.venue?.type}}
+                        {{item?.activity?.module?.venue?.venueId}}
+                    </td>
+                    <td colspan="1">
+                        {{item?.activity?.module?.venue?.type}}
+                    </td>
+                </tr>
+
+                <tr *ngFor="let item of supervisionWorkload?.supervisionWorkloads; let i = index;">
+                    <td colspan="5">
+                        SUPERVISION ACTIVITY ({{item?.activity?.studentId}})
+                    </td>
+                    <td colspan="2">
+
+                    </td>
+                    <td colspan="1">
+                        {{item?.totalHoursPerActivity | number :'1.2-2'}}
+                    </td>
+                    <td colspan="1">
+                        {{item?.percentageOfAnnualHoursPerActivity | number :'1.2-2'}}%
+                    </td>
+                    <td colspan="3">
+
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="7">
+                    <td colspan="5">
                         <strong>TOTAL</strong>
                     </td>
+                    <td colspan="2">
+
+                    </td>
                     <td colspan="1">
-                        <strong>{{formalInstructionWorkload?.formalInstructionPercentageOfTotalHoursPerUser}}%</strong>
+                        <strong>{{supervisionWorkload?.totalHoursPerUser + formalInstructionWorkload?.totalHoursPerUser | number:'1.2-2'}}</strong>
+                    </td>
+                    <td colspan="1">
+                        <strong>{{formalInstructionWorkload?.percentageOfTotalHoursPerUser + supervisionWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%</strong>
+                    </td>
+                    <td colspan="3">
+
                     </td>
                 </tr>
             </ng-template>
@@ -245,7 +284,7 @@
                 Formal Instruction Workload </ng-template>
             <ng-template pTemplate="emptymessage">
                 <tr>
-                    <td colspan="10">
+                    <td colspan="12">
                         No records found
                     </td>
                 </tr>
@@ -254,20 +293,21 @@
     </div>
 </div>
 
+<!-- COMMUNITY INSTRUCTION -->
 <div class="p-grid mb-5">
     <div class="p-col">
         <strong>BREAKDOWN OF 12: COMMUNITY INSTRUCTION</strong>
         <p-table [value]="[{}]" [loading]="ciLoading">
             <ng-template pTemplate="header">
                 <tr>
-                    <th colspan="4" rowspan="2">
+                    <th colspan="4">
                         <strong>DESCRIPTION</strong>
                     </th>
 
-                    <th colspan="1" rowspan="2">
+                    <th colspan="1">
                         <strong>HOURS</strong>
                     </th>
-                    <th colspan="1" rowspan="2">
+                    <th colspan="1">
                         <strong>% TIME</strong>
                     </th>
                 </tr>
@@ -278,10 +318,21 @@
                         Community Instruction Global Tarrif
                     </td>
                     <td colspan="1">
-                        {{communityInstructionWorkload?.communityInstructionGlobalTarrif}}
+                        {{communityInstructionWorkload?.globalTarrif}}
                     </td>
                     <td colspan="1">
-                        {{communityInstructionWorkload.communityInstructionGlobalTarrif / totalHoursPerUser * 100 | number : '1.0-0'}}%
+                        {{((communityInstructionWorkload?.globalTarrif / totalHoursPerUser) * 100) | number : '1.2-2'}}%
+                    </td>
+                </tr>
+                <tr *ngFor="let item of communityInstructionWorkload?.communityInstructionWorkloads">
+                    <td>
+                        {{item?.activity?.title}}
+                    </td>
+                    <td>
+                        {{item?.totalHoursPerActivity}}
+                    </td>
+                    <td>
+                        {{item?.percentageOfAnnualHoursPerActivity | number : '1.2-2'}}
                     </td>
                 </tr>
                 <tr>
@@ -289,10 +340,10 @@
                         <strong>TOTAL</strong>
                     </td>
                     <td colspan="1">
-                        <strong>{{communityInstructionWorkload?.communityInstructionTotalHoursPerUser}}</strong>
+                        <strong>{{communityInstructionWorkload?.totalHoursPerUser}}</strong>
                     </td>
                     <td colspan="1">
-                        <strong>{{communityInstructionWorkload?.communityInstructionPercentageOfTotalHoursPerUser}}%</strong>
+                        <strong>{{communityInstructionWorkload?.percentageOfTotalHoursPerUser | number : '1.2-2'}}%</strong>
                     </td>
                 </tr>
             </ng-template>
@@ -308,7 +359,7 @@
             </ng-template>
             <ng-template pTemplate="emptymessage" let-columns>
                 <tr>
-                    <td colspan="10">
+                    <td colspan="6">
                         No records found
                     </td>
                 </tr>
@@ -317,19 +368,20 @@
     </div>
 </div>
 
+<!-- RESEARCH -->
 <div class="p-grid mb-5">
     <div class="p-col">
         <strong>BREAKDOWN OF 20: RESEARCH</strong>
         <p-table [value]="[{}]" [loading]="rLoading">
             <ng-template pTemplate="header">
                 <tr>
-                    <th colspan="4" rowspan="2">
+                    <th colspan="4">
                         <strong>DESCRIPTION</strong>
                     </th>
-                    <th colspan="1" rowspan="2">
+                    <th colspan="1">
                         <strong>HOURS</strong>
                     </th>
-                    <th colspan="1" rowspan="2">
+                    <th colspan="1">
                         <strong>% TIME</strong>
                     </th>
                 </tr>
@@ -340,21 +392,21 @@
                         Research Global Tarrif
                     </td>
                     <td colspan="1">
-                        {{researchWorkload?.researchGlobalTarrif}}
+                        {{researchWorkload?.globalTarrif}}
                     </td>
                     <td colspan="1">
-                        {{(researchWorkload?.researchGlobalTarrif / totalHoursPerUser) * 100 | number : '1.2-2'}}%
+                        {{((researchWorkload?.globalTarrif / totalHoursPerUser) * 100) | number : '1.2-2'}}%
                     </td>
                 </tr>
-                <tr *ngFor="let item of researchWorkload.researchWorkloadData">
+                <tr *ngFor="let item of researchWorkload?.researchWorkloads">
                     <td colspan="4">
-                        Research activity
+                        {{item?.activity?.title}}
                     </td>
                     <td colspan="1">
-                        {{item?.researchTotalHoursPerActivity}}
+                        {{item?.totalHoursPerActivity | number: '1.2-2'}}
                     </td>
                     <td colspan="1">
-                        {{item?.researchPercentageOfTotalHoursPerActivity}}%
+                        {{item?.percentageOfTotalHoursPerActivity | number :'1.2-2'}}%
                     </td>
                 </tr>
                 <tr>
@@ -362,10 +414,10 @@
                         <strong>TOTAL</strong>
                     </td>
                     <td colspan="1">
-                        <strong>{{researchWorkload?.researchTotalHoursPerUser}}</strong>
+                        <strong>{{researchWorkload?.totalHoursPerUser | number:'1.2-2'}}</strong>
                     </td>
                     <td colspan="1">
-                        <strong>{{researchWorkload?.researchPercentageOfTotalHoursPerUser}}%</strong>
+                        <strong>{{researchWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%</strong>
                     </td>
                 </tr>
             </ng-template>
@@ -384,7 +436,7 @@
             </ng-template>
             <ng-template pTemplate="emptymessage" let-columns>
                 <tr>
-                    <td colspan="10">
+                    <td colspan="6">
                         No records found
                     </td>
                 </tr>
@@ -393,6 +445,7 @@
     </div>
 </div>
 
+<!-- PUBLIC SERVICE -->
 <div class="p-grid mb-5">
     <div class="p-col">
         <strong>BREAKDOWN OF 30: PUBLIC SERVICE</strong>
@@ -416,10 +469,21 @@
                         Public Service Global Tarrif
                     </td>
                     <td colspan="1">
-                        {{publicServiceWorkload?.publicServiceGlobalTarrif}}
+                        {{publicServiceWorkload?.globalTarrif | number:'1.2-2'}}
                     </td>
                     <td colspan="1">
-                        {{publicServiceWorkload?.publicServiceGlobalTarrif / totalHoursPerUser * 100 | number : '1.0-0'}}%
+                        {{((publicServiceWorkload?.globalTarrif / totalHoursPerUser) * 100) | number : '1.2-2'}}%
+                    </td>
+                </tr>
+                <tr *ngFor="let item of publicServiceWorkload?.publicServiceWorkloads">
+                    <td colspan="4">
+                        {{item?.activity?.title}}
+                    </td>
+                    <td colspan="1">
+                        {{item?.percentageOfTotalHoursPerActivity}}
+                    </td>
+                    <td colspan="1">
+                        {{item?.percentageOfAnnualHoursPerActivity | number :'1.2-2'}}%
                     </td>
                 </tr>
                 <tr>
@@ -427,10 +491,10 @@
                         <strong>TOTAL</strong>
                     </td>
                     <td colspan="1">
-                        <strong>{{publicServiceWorkload?.publicServiceTotalHoursPerUser}}</strong>
+                        <strong>{{publicServiceWorkload?.totalHoursPerUser | number : '1.2-2'}}</strong>
                     </td>
                     <td colspan="1">
-                        <strong>{{publicServiceWorkload?.publicServicePercentageOfTotalHoursPerUser}}%</strong>
+                        <strong>{{publicServiceWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%</strong>
                     </td>
                 </tr>
             </ng-template>
@@ -446,7 +510,7 @@
             </ng-template>
             <ng-template pTemplate="emptymessage" let-columns>
                 <tr>
-                    <td colspan="10">
+                    <td colspan="6">
                         No records found
                     </td>
                 </tr>
@@ -454,6 +518,8 @@
         </p-table>
     </div>
 </div>
+
+<!-- ACADEMIC ADMINISTRATION -->
 <div class="p-grid p-dir-col mb-5">
     <div class="p-col">
         <strong>BREAKDOWN OF 46: ACADEMIC ADMINISTRATION</strong>
@@ -462,39 +528,39 @@
         <p-table [value]="[{}]" [loading]="aaLoading">
             <ng-template pTemplate="header">
                 <tr>
-                    <th colspan="4" rowspan="2">
+                    <th colspan="4">
                         <strong>DESCRIPTION</strong>
                     </th>
 
-                    <th colspan="1" rowspan="2">
+                    <th colspan="1">
                         <strong>HOURS</strong>
                     </th>
-                    <th colspan="1" rowspan="2">
+                    <th colspan="1">
                         <strong>% TIME</strong>
                     </th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body">
+            <ng-template pTemplate="body" let-rowData>
                 <tr>
                     <td colspan="4">
                         Academic Administration Global Tarrif
                     </td>
                     <td colspan="1">
-                        {{academicAdministrationWorkload?.academicAdministrationGlobalTarrif}}
+                        {{academicAdministrationWorkload?.globalTarrif | number : '1.2-2'}}
                     </td>
                     <td colspan="1">
-                        {{academicAdministrationWorkload?.academicAdministrationGlobalTarrif / totalHoursPerUser * 100 | number : '1.0-0'}}%
+                        {{((academicAdministrationWorkload?.globalTarrif / totalHoursPerUser) * 100) | number : '1.2-2'}}%
                     </td>
                 </tr>
-                <tr *ngFor="let item of academicAdministrationWorkload?.academicAdministrationWorkloadData">
+                <tr *ngFor="let item of academicAdministrationWorkload.academicAdministrationWorkloads">
                     <td colspan="4">
-                        Academic Administration Activity
+                        {{item?.activity?.title}}
                     </td>
                     <td colspan="1">
-                        {{item?.academicAdministrationTotalHoursPerActivity}}
+                        {{item?.totalHoursPerActivity}}
                     </td>
                     <td colspan="1">
-                        {{item?.academicAdministrationPercentageOfTotalHoursPerActivity}}%
+                        {{item?.percentageOfTotalHoursPerActivity | number : '1.2-2'}}%
                     </td>
                 </tr>
                 <tr>
@@ -502,10 +568,10 @@
                         <strong>TOTAL</strong>
                     </td>
                     <td colspan="1">
-                        <strong>{{academicAdministrationWorkload?.academicAdministrationTotalHoursPerUser}}</strong>
+                        <strong>{{academicAdministrationWorkload?.totalHoursPerUser | number : '1.2-2'}}</strong>
                     </td>
                     <td colspan="1">
-                        <strong>{{academicAdministrationWorkload?.academicAdministrationPercentageOfTotalHoursPerUser}}%</strong>
+                        <strong>{{academicAdministrationWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%</strong>
                     </td>
                 </tr>
             </ng-template>
@@ -519,9 +585,9 @@
             <ng-template pTemplate="summary">
                 Academic Administration Workload
             </ng-template>
-            <ng-template pTemplate="emptymessage" let-columns>
+            <ng-template pTemplate="emptymessage">
                 <tr>
-                    <td colspan="10">
+                    <td colspan="6">
                         No records found
                     </td>
                 </tr>
@@ -530,23 +596,24 @@
     </div>
 </div>
 
+<!-- PERSONNEL DEVELOPMENT -->
 <div class="p-grid p-dir-col mb-5">
     <div class="p-col">
-        <strong>BREAKDOWN OF 48: ACADEMIC PERSONNEL DEVELOPMENT</strong>
+        <strong>BREAKDOWN OF 48: PERSONNEL DEVELOPMENT</strong>
     </div>
     <div class="p-col">
 
         <p-table [value]="[{}]" [loading]="pdLoading">
             <ng-template pTemplate="header">
                 <tr>
-                    <th colspan="4" rowspan="2">
+                    <th colspan="4">
                         <strong>DESCRIPTION</strong>
                     </th>
 
-                    <th colspan="1" rowspan="2">
+                    <th colspan="1">
                         <strong>HOURS</strong>
                     </th>
-                    <th colspan="1" rowspan="2">
+                    <th colspan="1">
                         <strong>% TIME</strong>
                     </th>
                 </tr>
@@ -557,21 +624,21 @@
                         Personnel Development Global Tarrif
                     </td>
                     <td colspan="1">
-                        {{personnelDevelopmentWorkload?.personnelDevelopmentGlobalTarrif}}
+                        {{personnelDevelopmentWorkload?.globalTarrif | number:'1.2-2'}}
                     </td>
                     <td colspan="1">
-                        {{personnelDevelopmentWorkload?.personnelDevelopmentGlobalTarrif / totalHoursPerUser * 100 | number : '1.0-0'}}%
+                        {{((personnelDevelopmentWorkload?.globalTarrif / totalHoursPerUser) * 100) | number : '1.2-2'}}%
                     </td>
                 </tr>
-                <tr *ngFor="let item of personnelDevelopmentWorkload?.personnelDevelopmentWorkloadData">
+                <tr *ngFor="let item of personnelDevelopmentWorkload?.personnelDevelopmentWorkloads">
                     <td colspan="4">
-                        Personnel Development Activity
+                        {{item?.activity?.title}}
                     </td>
                     <td colspan="1">
-                        {{item?.personnelDevelopmentTotalHoursPerActivity}}
+                        {{item?.totalHoursPerActivity | number :'1.2-2'}}
                     </td>
                     <td colspan="1">
-                        {{item?.personnelDevelopmentPercentageOfTotalHoursPerActivity}}%
+                        {{item?.percentageOfTotalHoursPerActivity | number :'1.2-2'}}%
                     </td>
                 </tr>
                 <tr>
@@ -579,10 +646,10 @@
                         <strong>TOTAL</strong>
                     </td>
                     <td colspan="1">
-                        <strong>{{personnelDevelopmentWorkload?.personnelDevelopmentTotalHoursPerUser}}</strong>
+                        <strong>{{personnelDevelopmentWorkload?.totalHoursPerUser | number:'1.2-2'}}</strong>
                     </td>
                     <td colspan="1">
-                        <strong>{{personnelDevelopmentWorkload?.personnelDevelopmentPercentageOfTotalHoursPerUser}}%</strong>
+                        <strong>{{personnelDevelopmentWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%</strong>
                     </td>
                 </tr>
             </ng-template>
@@ -598,7 +665,7 @@
             </ng-template>
             <ng-template pTemplate="emptymessage">
                 <tr>
-                    <td colspan="10">
+                    <td colspan="6">
                         No records found
                     </td>
                 </tr>
@@ -607,20 +674,21 @@
     </div>
 </div>
 
+<!-- EXECUTIVE MANAGEMENT -->
 <div class="p-grid mb-5">
     <div class="p-col">
         <strong>BREAKDOWN OF 61: EXECUTIVE MANAGEMENT</strong>
         <p-table [value]="[{}]" [loading]="emLoading">
             <ng-template pTemplate="header">
                 <tr>
-                    <th colspan="4" rowspan="2">
+                    <th colspan="4">
                         <strong>DESCRIPTION</strong>
                     </th>
 
-                    <th colspan="1" rowspan="2">
+                    <th colspan="1">
                         <strong>HOURS</strong>
                     </th>
-                    <th colspan="1" rowspan="2">
+                    <th colspan="1">
                         <strong>% TIME</strong>
                     </th>
                 </tr>
@@ -631,10 +699,21 @@
                         Executive Management Global Tarrif
                     </td>
                     <td colspan="1">
-                        {{executiveManagementWorkload?.executiveManagementGlobalTarrif}}
+                        {{executiveManagementWorkload?.globalTarrif | number:'1.2-2'}}
                     </td>
                     <td colspan="1">
-                        {{executiveManagementWorkload?.executiveManagementGlobalTarrif / totalHoursPerUser * 100 | number : '1.0-0'}}%
+                        {{((executiveManagementWorkload?.globalTarrif / totalHoursPerUser) * 100) | number : '1.2-2'}}%
+                    </td>
+                </tr>
+                <tr *ngFor="let item of executiveManagementWorkload?.executiveManagementWorkloads">
+                    <td colspan="4">
+                        {{item?.activity?.title}}
+                    </td>
+                    <td colspan="1">
+                        {{item?.totalHoursPerActivity | number :'1.2-2'}}
+                    </td>
+                    <td colspan="1">
+                        {{item?.percentageOfAnnualHoursPerActivity | number :'1.2-2'}}%
                     </td>
                 </tr>
                 <tr>
@@ -642,10 +721,10 @@
                         <strong>TOTAL</strong>
                     </td>
                     <td colspan="1">
-                        <strong>{{executiveManagementWorkload?.executiveManagementTotalHoursPerUser}}</strong>
+                        <strong>{{executiveManagementWorkload?.totalHoursPerUser | number:'1.2-2'}}</strong>
                     </td>
                     <td colspan="1">
-                        <strong>{{executiveManagementWorkload?.executiveManagementPercentageOfTotalHoursPerUser}}%</strong>
+                        <strong>{{executiveManagementWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%</strong>
                     </td>
                 </tr>
             </ng-template>
@@ -661,7 +740,7 @@
             </ng-template>
             <ng-template pTemplate="emptymessage" let-columns>
                 <tr>
-                    <td colspan="10">
+                    <td colspan="6">
                         No records found
                     </td>
                 </tr>

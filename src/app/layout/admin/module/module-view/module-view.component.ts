@@ -51,7 +51,7 @@ export class ModuleViewComponent implements OnInit {
         qualificationId: string
     ) {
         this.moduleService
-            .getModule(moduleId, blockId, offeringTypeId, qualificationId)
+            .module(moduleId, blockId, offeringTypeId, qualificationId)
             .subscribe(result => {
                 this.module = <Module>(<unknown>result.data.module);
             });

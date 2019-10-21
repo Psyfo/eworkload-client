@@ -1,55 +1,70 @@
-query personnelDevelopmentWorkloadPerUser($userId: String) {
-    personnelDevelopmentWorkloadPerUser(userId: $userId) {
-        personnelDevelopmentWorkloadData {
-            personnelDevelopmentTotalHoursPerActivity
-            personnelDevelopmentPercentageOfWorkFocusPerActivity
-            personnelDevelopmentPercentageOfAnnualHoursPerActivity
-            personnelDevelopmentPercentageOfTotalHoursPerActivity
+query personnelDevelopmentWorkload($userId: String) {
+    personnelDevelopmentWorkload(userId: $userId) {
+        personnelDevelopmentWorkloads {
+            activity {
+                activityId
+                userId
+                user {
+                    userId
+                    email
+                    firstName
+                    lastName
+                    photoUrl
+                    disciplineIds
+                    disciplines {
+                        disciplineId
+                        name
+                        description
+                    }
+                    positionId
+                    position {
+                        positionId
+                        name
+                        description
+                    }
+                    departmentId
+                    department {
+                        departmentId
+                        name
+                        facultyId
+                        faculty {
+                            facultyId
+                            name
+                        }
+                    }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
+                }
+                dutyId
+                duty {
+                    dutyId
+                    name
+                    description
+                }
+                approvalStatus
+                createdAt
+                updatedAt
+                title
+                date
+                duration
+                evidence
+            }
+            totalHoursPerActivity
+            percentageOfWorkFocusPerActivity
+            percentageOfAnnualHoursPerActivity
+            percentageOfTotalHoursPerActivity
         }
-        personnelDevelopmentGlobalTarrif
-        personnelDevelopmentTotalHoursPerUser
-        personnelDevelopmentPercentageOfWorkFocusPerUser
-        personnelDevelopmentPercentageOfAnnualHoursPerUser
-        personnelDevelopmentPercentageOfTotalHoursPerUser
+        globalTarrif
+        totalHoursPerUser
+        percentageOfWorkFocusPerUser
+        percentageOfAnnualHoursPerUser
+        percentageOfTotalHoursPerUser
     }
-}
-
-query personnelDevelopmentGlobalTarrif {
-    personnelDevelopmentGlobalTarrif
-}
-query personnelDevelopmentTotalHoursPerActivity($activityId: String) {
-    personnelDevelopmentTotalHoursPerActivity(activityId: $activityId)
-}
-query personnelDevelopmentTotalHoursPerUser($userId: String) {
-    personnelDevelopmentTotalHoursPerUser(userId: $userId)
-}
-query personnelDevelopmentPercentageOfWorkFocusPerActivity(
-    $activityId: String
-) {
-    personnelDevelopmentPercentageOfWorkFocusPerActivity(
-        activityId: $activityId
-    )
-}
-query personnelDevelopmentPercentageOfWorkFocusPerUser($userId: String) {
-    personnelDevelopmentPercentageOfWorkFocusPerUser(userId: $userId)
-}
-query personnelDevelopmentPercentageOfAnnualHoursPerActivity(
-    $activityId: String
-) {
-    personnelDevelopmentPercentageOfAnnualHoursPerActivity(
-        activityId: $activityId
-    )
-}
-query personnelDevelopmentPercentageOfAnnualHoursPerUser($userId: String) {
-    personnelDevelopmentPercentageOfAnnualHoursPerUser(userId: $userId)
-}
-query personnelDevelopmentPercentageOfTotalHoursPerActivity(
-    $activityId: String
-) {
-    personnelDevelopmentPercentageOfTotalHoursPerActivity(
-        activityId: $activityId
-    )
-}
-query personnelDevelopmentPercentageOfTotalHoursPerUser($userId: String) {
-    personnelDevelopmentPercentageOfTotalHoursPerUser(userId: $userId)
 }

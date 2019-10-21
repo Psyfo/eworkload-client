@@ -41,7 +41,9 @@
                     <strong>Discipline</strong>
                 </div>
                 <div class="p-col">
-                    {{user?.discipline?.name}}
+                    <div *ngFor="let discipline of user?.disciplines">
+                        {{discipline?.name}}
+                    </div>
                 </div>
             </div>
             <div class="p-grid">

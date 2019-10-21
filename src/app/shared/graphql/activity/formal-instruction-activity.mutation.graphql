@@ -3,26 +3,54 @@ mutation addFormalInstructionActivity(
 ) {
     addFormalInstructionActivity(activity: $activity) {
         activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+            photoUrl
+            disciplineIds
+            disciplines {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
+        }
         dutyId
         duty {
             dutyId
             name
             description
         }
-        userId
-        user {
-            userId
-            firstName
-            lastName
-            discipline {
-                disciplineId
-                name
-            }
-            position {
-                positionId
-                name
-            }
-        }
+        approvalStatus
+        createdAt
+        updatedAt
         moduleId
         module {
             moduleId
@@ -35,6 +63,17 @@ mutation addFormalInstructionActivity(
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
             offeringTypeId
             offeringType {
@@ -45,46 +84,139 @@ mutation addFormalInstructionActivity(
             discipline {
                 disciplineId
                 name
+                description
             }
             venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
             blockId
             block {
                 blockId
                 name
+                description
+            }
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+                photoUrl
+                disciplineIds
+                disciplines {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
-                discipline {
+                photoUrl
+                disciplineIds
+                disciplines {
                     disciplineId
                     name
+                    description
                 }
+                positionId
                 position {
                     positionId
                     name
+                    description
                 }
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
-                discipline {
+                photoUrl
+                disciplineIds
+                disciplines {
                     disciplineId
                     name
+                    description
                 }
+                positionId
                 position {
                     positionId
                     name
+                    description
                 }
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
+            stackId
             studyPeriod
             groupSize
             lecturedBy
@@ -94,6 +226,7 @@ mutation addFormalInstructionActivity(
         block {
             blockId
             name
+            description
         }
         offeringTypeId
         offeringType {
@@ -104,9 +237,18 @@ mutation addFormalInstructionActivity(
         qualification {
             qualificationId
             name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
-        createdAt
-        updatedAt
     }
 }
 mutation editFormalInstructionActivity(
@@ -114,26 +256,54 @@ mutation editFormalInstructionActivity(
 ) {
     editFormalInstructionActivity(activity: $activity) {
         activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+            photoUrl
+            disciplineIds
+            disciplines {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
+        }
         dutyId
         duty {
             dutyId
             name
             description
         }
-        userId
-        user {
-            userId
-            firstName
-            lastName
-            discipline {
-                disciplineId
-                name
-            }
-            position {
-                positionId
-                name
-            }
-        }
+        approvalStatus
+        createdAt
+        updatedAt
         moduleId
         module {
             moduleId
@@ -146,6 +316,17 @@ mutation editFormalInstructionActivity(
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
             offeringTypeId
             offeringType {
@@ -156,46 +337,139 @@ mutation editFormalInstructionActivity(
             discipline {
                 disciplineId
                 name
+                description
             }
             venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
             blockId
             block {
                 blockId
                 name
+                description
+            }
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+                photoUrl
+                disciplineIds
+                disciplines {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
-                discipline {
+                photoUrl
+                disciplineIds
+                disciplines {
                     disciplineId
                     name
+                    description
                 }
+                positionId
                 position {
                     positionId
                     name
+                    description
                 }
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
-                discipline {
+                photoUrl
+                disciplineIds
+                disciplines {
                     disciplineId
                     name
+                    description
                 }
+                positionId
                 position {
                     positionId
                     name
+                    description
                 }
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
+            stackId
             studyPeriod
             groupSize
             lecturedBy
@@ -205,6 +479,7 @@ mutation editFormalInstructionActivity(
         block {
             blockId
             name
+            description
         }
         offeringTypeId
         offeringType {
@@ -215,9 +490,18 @@ mutation editFormalInstructionActivity(
         qualification {
             qualificationId
             name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
-        createdAt
-        updatedAt
     }
 }
 mutation deleteFormalInstructionActivity(
@@ -225,26 +509,54 @@ mutation deleteFormalInstructionActivity(
 ) {
     deleteFormalInstructionActivity(activity: $activity) {
         activityId
+        userId
+        user {
+            userId
+            email
+            firstName
+            lastName
+            photoUrl
+            disciplineIds
+            disciplines {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
+        }
         dutyId
         duty {
             dutyId
             name
             description
         }
-        userId
-        user {
-            userId
-            firstName
-            lastName
-            discipline {
-                disciplineId
-                name
-            }
-            position {
-                positionId
-                name
-            }
-        }
+        approvalStatus
+        createdAt
+        updatedAt
         moduleId
         module {
             moduleId
@@ -257,6 +569,17 @@ mutation deleteFormalInstructionActivity(
             qualification {
                 qualificationId
                 name
+                type
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
             }
             offeringTypeId
             offeringType {
@@ -267,46 +590,139 @@ mutation deleteFormalInstructionActivity(
             discipline {
                 disciplineId
                 name
+                description
             }
             venueId
             venue {
                 venueId
                 campus
                 capacity
+                type
             }
             blockId
             block {
                 blockId
                 name
+                description
+            }
+            userId
+            user {
+                userId
+                email
+                firstName
+                lastName
+                photoUrl
+                disciplineIds
+                disciplines {
+                    disciplineId
+                    name
+                    description
+                }
+                positionId
+                position {
+                    positionId
+                    name
+                    description
+                }
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             coordinatorId
             coordinator {
                 userId
+                email
                 firstName
                 lastName
-                discipline {
+                photoUrl
+                disciplineIds
+                disciplines {
                     disciplineId
                     name
+                    description
                 }
+                positionId
                 position {
                     positionId
                     name
+                    description
                 }
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
             moderatorId
             moderator {
                 userId
+                email
                 firstName
                 lastName
-                discipline {
+                photoUrl
+                disciplineIds
+                disciplines {
                     disciplineId
                     name
+                    description
                 }
+                positionId
                 position {
                     positionId
                     name
+                    description
                 }
+                departmentId
+                department {
+                    departmentId
+                    name
+                    facultyId
+                    faculty {
+                        facultyId
+                        name
+                    }
+                }
+                workFocusName
+                workFocus {
+                    name
+                    teachingRatio
+                    researchRatio
+                    serviceRatio
+                }
+                gender
+                nationality
             }
+            stackId
             studyPeriod
             groupSize
             lecturedBy
@@ -316,6 +732,7 @@ mutation deleteFormalInstructionActivity(
         block {
             blockId
             name
+            description
         }
         offeringTypeId
         offeringType {
@@ -326,15 +743,22 @@ mutation deleteFormalInstructionActivity(
         qualification {
             qualificationId
             name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
-        createdAt
-        updatedAt
     }
 }
 
-mutation addSupervisionActivity(
-    $activity: SupervisionActivityInput
-) {
+mutation addSupervisionActivity($activity: SupervisionActivityInput) {
     addSupervisionActivity(activity: $activity) {
         activityId
         userId
@@ -343,6 +767,38 @@ mutation addSupervisionActivity(
             email
             firstName
             lastName
+            photoUrl
+            disciplineIds
+            disciplines {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -361,15 +817,15 @@ mutation addSupervisionActivity(
             firstName
             lastName
             email
+            type
             title
             year
+            graduationDate
         }
     }
 }
-mutation editSupervisionActivity(
-    $activity: SupervisionActivityInput
-) {
-    addSupervisionActivity(activity: $activity) {
+mutation editSupervisionActivity($activity: SupervisionActivityInput) {
+    editSupervisionActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -377,6 +833,38 @@ mutation editSupervisionActivity(
             email
             firstName
             lastName
+            photoUrl
+            disciplineIds
+            disciplines {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -385,7 +873,6 @@ mutation editSupervisionActivity(
             description
         }
         approvalStatus
-        supervisionRole
         createdAt
         updatedAt
         supervisionRole
@@ -396,15 +883,15 @@ mutation editSupervisionActivity(
             firstName
             lastName
             email
+            type
             title
             year
+            graduationDate
         }
     }
 }
-mutation deleteSupervisionActivity(
-    $activity: SupervisionActivityInput
-) {
-    addSupervisionActivity(activity: $activity) {
+mutation deleteSupervisionActivity($activity: SupervisionActivityInput) {
+    deleteSupervisionActivity(activity: $activity) {
         activityId
         userId
         user {
@@ -412,6 +899,38 @@ mutation deleteSupervisionActivity(
             email
             firstName
             lastName
+            photoUrl
+            disciplineIds
+            disciplines {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
         dutyId
         duty {
@@ -430,8 +949,10 @@ mutation deleteSupervisionActivity(
             firstName
             lastName
             email
+            type
             title
             year
+            graduationDate
         }
     }
 }

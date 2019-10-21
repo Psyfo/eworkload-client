@@ -1,0 +1,126 @@
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <p-panel header="Workload Summary">
+            <p-table [value]="[{}]">
+                <ng-template pTemplate="caption">
+
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th colspan="1" rowspan="2">
+                            Staff ID
+                        </th>
+                        <th colspan="1" rowspan="2">
+                            Name
+                        </th>
+                        <th colspan="1" rowspan="2">
+                            Discipline(s)
+                        </th>
+                        <th colspan="1" rowspan="2">
+                            Focus (T/R/S)
+                        </th>
+                        <th colspan="3" style="text-align: center;">
+                            Teaching (Hours)
+                        </th>
+                        <th colspan="3" style="text-align: center;">
+                            Research (Hours)
+                        </th>
+                        <th colspan="3" style="text-align: center;">
+                            Services (Hours)
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="1" rowspan="1">
+                            Expected
+                        </th>
+                        <th colspan="1" rowspan="1">
+                            Actual
+                        </th>
+                        <th colspan="1" rowspan="1">
+                            Difference
+                        </th>
+                        <th colspan="1" rowspan="1">
+                            Expected
+                        </th>
+                        <th colspan="1" rowspan="1">
+                            Actual
+                        </th>
+                        <th colspan="1" rowspan="1">
+                            Difference
+                        </th>
+                        <th colspan="1" rowspan="1">
+                            Expected
+                        </th>
+                        <th colspan="1" rowspan="1">
+                            Actual
+                        </th>
+                        <th colspan="1" rowspan="1">
+                            Difference
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body">
+                    <tr *ngFor="let workloadSummary of workloadSummaries">
+                        <td colspan="1">
+                            {{workloadSummary?.user?.userId}}
+                        </td>
+                        <td colspan="1">
+                            {{workloadSummary?.user?.firstName}} {{workloadSummary?.user?.lastName}}
+                        </td>
+                        <td colspan="1">
+                            <div *ngFor="let discipline of workloadSummary.user.disciplines">
+                                {{discipline?.name}}
+                            </div>
+                        </td>
+                        <td colspan="1">
+                            {{workloadSummary?.user?.workFocus?.name}}
+                            ({{workloadSummary?.user?.workFocus?.teachingRatio}}/{{workloadSummary?.user?.workFocus?.researchRatio}}/{{workloadSummary?.user?.workFocus?.serviceRatio}})
+                        </td>
+                        <td colspan="1">
+                            {{workloadSummary?.teachingHours | number:'1.2-2'}}
+                        </td>
+                        <td colspan="1">
+                            {{workloadSummary?.teachingHoursPerUser | number:'1.2-2'}}
+                        </td>
+                        <td colspan="1"
+                            [ngClass]="{'excess': (workloadSummary?.teachingHoursPerUser > workloadSummary?.teachingHours)}">
+                            {{workloadSummary?.teachingDifference | number:'1.2-2'}}
+                        </td>
+                        <td colspan="1">
+                            {{workloadSummary?.researchHours | number:'1.2-2'}}
+                        </td>
+                        <td colspan="1">
+                            {{workloadSummary?.researchHoursPerUser | number:'1.2-2'}}
+                        </td>
+                        <td colspan="1"
+                            [ngClass]="{'excess': (workloadSummary?.researchHoursPerUser > workloadSummary?.researchHours)}">
+                            {{workloadSummary?.researchDifference | number:'1.2-2'}}
+                        </td>
+                        <td colspan="1">
+                            {{workloadSummary?.serviceHours | number:'1.2-2'}}
+                        </td>
+                        <td colspan="1">
+                            {{workloadSummary?.serviceHoursPerUser | number:'1.2-2'}}
+                        </td>
+                        <td colspan="1"
+                            [ngClass]="{'excess': (workloadSummary?.serviceHoursPerUser > workloadSummary?.serviceHours)}">
+                            {{workloadSummary?.serviceDifference | number:'1.2-2'}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td colspan="13">
+
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    Workload Summary
+                </ng-template>
+            </p-table>
+
+        </p-panel>
+    </div>
+</div>

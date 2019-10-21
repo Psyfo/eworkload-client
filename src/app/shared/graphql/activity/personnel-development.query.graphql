@@ -8,8 +8,8 @@ query personnelDevelopmentActivity($activityId: String!) {
             firstName
             lastName
             photoUrl
-            disciplineId
-            discipline {
+            disciplineIds
+            disciplines {
                 disciplineId
                 name
                 description
@@ -19,6 +19,16 @@ query personnelDevelopmentActivity($activityId: String!) {
                 positionId
                 name
                 description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
             }
             workFocusName
             workFocus {
@@ -56,8 +66,8 @@ query personnelDevelopmentActivities {
             firstName
             lastName
             photoUrl
-            disciplineId
-            discipline {
+            disciplineIds
+            disciplines {
                 disciplineId
                 name
                 description
@@ -67,6 +77,16 @@ query personnelDevelopmentActivities {
                 positionId
                 name
                 description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
             }
             workFocusName
             workFocus {
@@ -104,8 +124,8 @@ query personnelDevelopmentActivitiesByUser($userId: String) {
             firstName
             lastName
             photoUrl
-            disciplineId
-            discipline {
+            disciplineIds
+            disciplines {
                 disciplineId
                 name
                 description
@@ -115,6 +135,16 @@ query personnelDevelopmentActivitiesByUser($userId: String) {
                 positionId
                 name
                 description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
             }
             workFocusName
             workFocus {

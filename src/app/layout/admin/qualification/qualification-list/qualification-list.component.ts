@@ -1,5 +1,4 @@
 import { MenuItem } from 'primeng/components/common/menuitem';
-import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -73,7 +72,7 @@ export class QualificationListComponent implements OnInit {
     // Methods
     getQualifications() {
         this.qualificationService
-            .getQualifications()
+            .qualifications()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.qualifications = result.data.qualifications;
@@ -84,9 +83,7 @@ export class QualificationListComponent implements OnInit {
     }
     onContextEdit(event) {
         this.alertService.infoToast(
-            `Qualification: ${
-                this.selectedQualification.qualificationId
-            } selected`
+            `Qualification: ${this.selectedQualification.qualificationId} selected`
         );
 
         this.router.navigate(
@@ -144,9 +141,7 @@ export class QualificationListComponent implements OnInit {
     }
     onRowSelect(event) {
         this.alertService.infoToast(
-            `Qualification: ${
-                this.selectedQualification.qualificationId
-            } selected`
+            `Qualification: ${this.selectedQualification.qualificationId} selected`
         );
         this.router.navigate(
             [

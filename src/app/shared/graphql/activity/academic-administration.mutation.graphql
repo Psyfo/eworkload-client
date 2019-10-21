@@ -10,8 +10,8 @@ mutation addAcademicAdministrationActivity(
             firstName
             lastName
             photoUrl
-            disciplineId
-            discipline {
+            disciplineIds
+            disciplines {
                 disciplineId
                 name
                 description
@@ -21,6 +21,16 @@ mutation addAcademicAdministrationActivity(
                 positionId
                 name
                 description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
             }
             workFocusName
             workFocus {
@@ -37,6 +47,22 @@ mutation addAcademicAdministrationActivity(
             dutyId
             name
             description
+        }
+        qualificationId
+        qualification {
+            qualificationId
+            name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
         approvalStatus
         createdAt
@@ -58,8 +84,8 @@ mutation editAcademicAdministrationActivity(
             firstName
             lastName
             photoUrl
-            disciplineId
-            discipline {
+            disciplineIds
+            disciplines {
                 disciplineId
                 name
                 description
@@ -69,6 +95,16 @@ mutation editAcademicAdministrationActivity(
                 positionId
                 name
                 description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
             }
             workFocusName
             workFocus {
@@ -85,6 +121,22 @@ mutation editAcademicAdministrationActivity(
             dutyId
             name
             description
+        }
+        qualificationId
+        qualification {
+            qualificationId
+            name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
         approvalStatus
         createdAt
@@ -106,8 +158,8 @@ mutation deleteAcademicAdministrationActivity(
             firstName
             lastName
             photoUrl
-            disciplineId
-            discipline {
+            disciplineIds
+            disciplines {
                 disciplineId
                 name
                 description
@@ -117,6 +169,16 @@ mutation deleteAcademicAdministrationActivity(
                 positionId
                 name
                 description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
             }
             workFocusName
             workFocus {
@@ -133,6 +195,22 @@ mutation deleteAcademicAdministrationActivity(
             dutyId
             name
             description
+        }
+        qualificationId
+        qualification {
+            qualificationId
+            name
+            type
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+            }
         }
         approvalStatus
         createdAt

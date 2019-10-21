@@ -11,1279 +11,1549 @@ query module(
         qualificationId: $qualificationId
     ) {
         moduleId
-        name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
-        }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
-        disciplineId
-        discipline {
-            disciplineId
-            name
-            description
-        }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
-        }
-        blockId
-        block {
-            blockId
-            name
-            description
-        }
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        coordinatorId
-        coordinator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        moderatorId
-        moderator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        stackId
-        studyPeriod
-        groupSize
-        lecturedBy
-        moderation
+	  name
+	  type
+	  assessmentMethod
+	  nqfLevel
+	  credits
+	  qualificationId
+	  qualification {
+	    qualificationId
+	    name
+	    type
+	    departmentId
+	    department {
+	      departmentId
+	      name
+	      facultyId
+	      faculty {
+	        facultyId
+	        name
+	      }
+	    }
+	  }
+	  offeringTypeId
+	  offeringType {
+	    offeringTypeId
+	    description
+	  }
+	  disciplineId
+	  discipline {
+	    disciplineId
+	    name
+	    description
+	  }
+	  venueId
+	  venue {
+	    venueId
+	    campus
+	    capacity
+	    type
+	  }
+	  blockId
+	  block {
+	    blockId
+	    name
+	    description
+	  }
+	  userId
+	  user {
+	    userId
+	    email
+	    firstName
+	    lastName
+	    photoUrl
+	    disciplineIds
+	    disciplines {
+	      disciplineId
+	      name
+	      description
+	    }
+	    positionId
+	    position {
+	      positionId
+	      name
+	      description
+	    }
+	    departmentId
+	    department {
+	      departmentId
+	      name
+	      facultyId
+	      faculty {
+	        facultyId
+	        name
+	      }
+	    }
+	    workFocusName
+	    workFocus {
+	      name
+	      teachingRatio
+	      researchRatio
+	      serviceRatio
+	    }
+	    gender
+	    nationality
+	  }
+	  coordinatorId
+	  coordinator {
+	    userId
+	    email
+	    firstName
+	    lastName
+	    photoUrl
+	    disciplineIds
+	    disciplines {
+	      disciplineId
+	      name
+	      description
+	    }
+	    positionId
+	    position {
+	      positionId
+	      name
+	      description
+	    }
+	    departmentId
+	    department {
+	      departmentId
+	      name
+	      facultyId
+	      faculty {
+	        facultyId
+	        name
+	      }
+	    }
+	    workFocusName
+	    workFocus {
+	      name
+	      teachingRatio
+	      researchRatio
+	      serviceRatio
+	    }
+	    gender
+	    nationality
+	  }
+	  moderatorId
+	  moderator {
+	    userId
+	    email
+	    firstName
+	    lastName
+	    photoUrl
+	    disciplineIds
+	    disciplines {
+	      disciplineId
+	      name
+	      description
+	    }
+	    positionId
+	    position {
+	      positionId
+	      name
+	      description
+	    }
+	    departmentId
+	    department {
+	      departmentId
+	      name
+	      facultyId
+	      faculty {
+	        facultyId
+	        name
+	      }
+	    }
+	    workFocusName
+	    workFocus {
+	      name
+	      teachingRatio
+	      researchRatio
+	      serviceRatio
+	    }
+	    gender
+	    nationality
+	  }
+	  stackId
+	  studyPeriod
+	  groupSize
+	  lecturedBy
+	  moderation
     }
 }
 query modules {
     modules {
-        moduleId
+            moduleId
+    name
+    type
+    assessmentMethod
+    nqfLevel
+    credits
+    qualificationId
+    qualification {
+      qualificationId
+      name
+      type
+      departmentId
+      department {
+        departmentId
         name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
+      }
+    }
+    offeringTypeId
+    offeringType {
+      offeringTypeId
+      description
+    }
+    disciplineId
+    discipline {
+      disciplineId
+      name
+      description
+    }
+    venueId
+    venue {
+      venueId
+      campus
+      capacity
+      type
+    }
+    blockId
+    block {
+      blockId
+      name
+      description
+    }
+    userId
+    user {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
         disciplineId
-        discipline {
-            disciplineId
-            name
-            description
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    coordinatorId
+    coordinator {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        blockId
-        block {
-            blockId
-            name
-            description
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    moderatorId
+    moderator {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        coordinatorId
-        coordinator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        moderatorId
-        moderator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        stackId
-        studyPeriod
-        groupSize
-        lecturedBy
-        moderation
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    stackId
+    studyPeriod
+    groupSize
+    lecturedBy
+    moderation
     }
 }
-query modulesByDiscipline($disciplineId: String!) {
-    modulesByDiscipline(disciplineId: $disciplineId) {
-        moduleId
+query modulesByDiscipline($disciplineIds: [String!]) {
+    modulesByDiscipline(disciplineIds: $disciplineIds) {
+            moduleId
+    name
+    type
+    assessmentMethod
+    nqfLevel
+    credits
+    qualificationId
+    qualification {
+      qualificationId
+      name
+      type
+      departmentId
+      department {
+        departmentId
         name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
+      }
+    }
+    offeringTypeId
+    offeringType {
+      offeringTypeId
+      description
+    }
+    disciplineId
+    discipline {
+      disciplineId
+      name
+      description
+    }
+    venueId
+    venue {
+      venueId
+      campus
+      capacity
+      type
+    }
+    blockId
+    block {
+      blockId
+      name
+      description
+    }
+    userId
+    user {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
         disciplineId
-        discipline {
-            disciplineId
-            name
-            description
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    coordinatorId
+    coordinator {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        blockId
-        block {
-            blockId
-            name
-            description
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    moderatorId
+    moderator {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        coordinatorId
-        coordinator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        moderatorId
-        moderator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        stackId
-        studyPeriod
-        groupSize
-        lecturedBy
-        moderation
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    stackId
+    studyPeriod
+    groupSize
+    lecturedBy
+    moderation
     }
 }
 query modulesByUnassigned {
     modulesByUnassigned {
-        moduleId
+            moduleId
+    name
+    type
+    assessmentMethod
+    nqfLevel
+    credits
+    qualificationId
+    qualification {
+      qualificationId
+      name
+      type
+      departmentId
+      department {
+        departmentId
         name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
+      }
+    }
+    offeringTypeId
+    offeringType {
+      offeringTypeId
+      description
+    }
+    disciplineId
+    discipline {
+      disciplineId
+      name
+      description
+    }
+    venueId
+    venue {
+      venueId
+      campus
+      capacity
+      type
+    }
+    blockId
+    block {
+      blockId
+      name
+      description
+    }
+    userId
+    user {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
         disciplineId
-        discipline {
-            disciplineId
-            name
-            description
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    coordinatorId
+    coordinator {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        blockId
-        block {
-            blockId
-            name
-            description
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    moderatorId
+    moderator {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        coordinatorId
-        coordinator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        moderatorId
-        moderator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        stackId
-        studyPeriod
-        groupSize
-        lecturedBy
-        moderation
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    stackId
+    studyPeriod
+    groupSize
+    lecturedBy
+    moderation
     }
 }
-query modulesByUnassignedAndDiscipline($disciplineId: String) {
-    modulesByUnassignedAndDiscipline(disciplineId: $disciplineId) {
-        moduleId
+query modulesByUnassignedAndDiscipline($disciplineIds: [String]) {
+    modulesByUnassignedAndDiscipline(disciplineIds: $disciplineIds) {
+            moduleId
+    name
+    type
+    assessmentMethod
+    nqfLevel
+    credits
+    qualificationId
+    qualification {
+      qualificationId
+      name
+      type
+      departmentId
+      department {
+        departmentId
         name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
+      }
+    }
+    offeringTypeId
+    offeringType {
+      offeringTypeId
+      description
+    }
+    disciplineId
+    discipline {
+      disciplineId
+      name
+      description
+    }
+    venueId
+    venue {
+      venueId
+      campus
+      capacity
+      type
+    }
+    blockId
+    block {
+      blockId
+      name
+      description
+    }
+    userId
+    user {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
         disciplineId
-        discipline {
-            disciplineId
-            name
-            description
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    coordinatorId
+    coordinator {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        blockId
-        block {
-            blockId
-            name
-            description
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    moderatorId
+    moderator {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        coordinatorId
-        coordinator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        moderatorId
-        moderator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        stackId
-        studyPeriod
-        groupSize
-        lecturedBy
-        moderation
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    stackId
+    studyPeriod
+    groupSize
+    lecturedBy
+    moderation
     }
 }
 query modulesByUser($userId: String!) {
     modulesByUser(userId: $userId) {
-        moduleId
+            moduleId
+    name
+    type
+    assessmentMethod
+    nqfLevel
+    credits
+    qualificationId
+    qualification {
+      qualificationId
+      name
+      type
+      departmentId
+      department {
+        departmentId
         name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
+      }
+    }
+    offeringTypeId
+    offeringType {
+      offeringTypeId
+      description
+    }
+    disciplineId
+    discipline {
+      disciplineId
+      name
+      description
+    }
+    venueId
+    venue {
+      venueId
+      campus
+      capacity
+      type
+    }
+    blockId
+    block {
+      blockId
+      name
+      description
+    }
+    userId
+    user {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
         disciplineId
-        discipline {
-            disciplineId
-            name
-            description
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    coordinatorId
+    coordinator {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        blockId
-        block {
-            blockId
-            name
-            description
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    moderatorId
+    moderator {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        coordinatorId
-        coordinator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        moderatorId
-        moderator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        stackId
-        studyPeriod
-        groupSize
-        lecturedBy
-        moderation
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    stackId
+    studyPeriod
+    groupSize
+    lecturedBy
+    moderation
     }
 }
 query modulesByModerator($moderatorId: String!) {
     modulesByModerator(moderatorId: $moderatorId) {
-        moduleId
+            moduleId
+    name
+    type
+    assessmentMethod
+    nqfLevel
+    credits
+    qualificationId
+    qualification {
+      qualificationId
+      name
+      type
+      departmentId
+      department {
+        departmentId
         name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
+      }
+    }
+    offeringTypeId
+    offeringType {
+      offeringTypeId
+      description
+    }
+    disciplineId
+    discipline {
+      disciplineId
+      name
+      description
+    }
+    venueId
+    venue {
+      venueId
+      campus
+      capacity
+      type
+    }
+    blockId
+    block {
+      blockId
+      name
+      description
+    }
+    userId
+    user {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
         disciplineId
-        discipline {
-            disciplineId
-            name
-            description
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    coordinatorId
+    coordinator {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        blockId
-        block {
-            blockId
-            name
-            description
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    moderatorId
+    moderator {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        coordinatorId
-        coordinator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        moderatorId
-        moderator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        stackId
-        studyPeriod
-        groupSize
-        lecturedBy
-        moderation
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    stackId
+    studyPeriod
+    groupSize
+    lecturedBy
+    moderation
     }
 }
 query modulesByCoordinator($coordinatorId: String!) {
     modulesByCoordinator(coordinatorId: $coordinatorId) {
-        moduleId
+            moduleId
+    name
+    type
+    assessmentMethod
+    nqfLevel
+    credits
+    qualificationId
+    qualification {
+      qualificationId
+      name
+      type
+      departmentId
+      department {
+        departmentId
         name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
+      }
+    }
+    offeringTypeId
+    offeringType {
+      offeringTypeId
+      description
+    }
+    disciplineId
+    discipline {
+      disciplineId
+      name
+      description
+    }
+    venueId
+    venue {
+      venueId
+      campus
+      capacity
+      type
+    }
+    blockId
+    block {
+      blockId
+      name
+      description
+    }
+    userId
+    user {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
         disciplineId
-        discipline {
-            disciplineId
-            name
-            description
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    coordinatorId
+    coordinator {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        blockId
-        block {
-            blockId
-            name
-            description
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    moderatorId
+    moderator {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        coordinatorId
-        coordinator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        moderatorId
-        moderator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        stackId
-        studyPeriod
-        groupSize
-        lecturedBy
-        moderation
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    stackId
+    studyPeriod
+    groupSize
+    lecturedBy
+    moderation
     }
 }
 
 query modulesByStack($stackId: String!) {
     modulesByStack(stackId: $stackId) {
         moduleId
-        name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
-        }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
-        disciplineId
-        discipline {
-            disciplineId
-            name
-            description
-        }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
-        }
-        blockId
-        block {
-            blockId
-            name
-            description
-        }
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        coordinatorId
-        coordinator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        moderatorId
-        moderator {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
-        }
-        stackId
-        studyPeriod
-        groupSize
-        lecturedBy
-        moderation
+	  name
+	  type
+	  assessmentMethod
+	  nqfLevel
+	  credits
+	  qualificationId
+	  qualification {
+	    qualificationId
+	    name
+	    type
+	    departmentId
+	    department {
+	      departmentId
+	      name
+	      facultyId
+	      faculty {
+	        facultyId
+	        name
+	      }
+	    }
+	  }
+	  offeringTypeId
+	  offeringType {
+	    offeringTypeId
+	    description
+	  }
+	  disciplineId
+	  discipline {
+	    disciplineId
+	    name
+	    description
+	  }
+	  venueId
+	  venue {
+	    venueId
+	    campus
+	    capacity
+	    type
+	  }
+	  blockId
+	  block {
+	    blockId
+	    name
+	    description
+	  }
+	  userId
+	  user {
+	    userId
+	    email
+	    firstName
+	    lastName
+	    photoUrl
+	    disciplineIds
+	    disciplines {
+	      disciplineId
+	      name
+	      description
+	    }
+	    positionId
+	    position {
+	      positionId
+	      name
+	      description
+	    }
+	    departmentId
+	    department {
+	      departmentId
+	      name
+	      facultyId
+	      faculty {
+	        facultyId
+	        name
+	      }
+	    }
+	    workFocusName
+	    workFocus {
+	      name
+	      teachingRatio
+	      researchRatio
+	      serviceRatio
+	    }
+	    gender
+	    nationality
+	  }
+	  coordinatorId
+	  coordinator {
+	    userId
+	    email
+	    firstName
+	    lastName
+	    photoUrl
+	    disciplineIds
+	    disciplines {
+	      disciplineId
+	      name
+	      description
+	    }
+	    positionId
+	    position {
+	      positionId
+	      name
+	      description
+	    }
+	    departmentId
+	    department {
+	      departmentId
+	      name
+	      facultyId
+	      faculty {
+	        facultyId
+	        name
+	      }
+	    }
+	    workFocusName
+	    workFocus {
+	      name
+	      teachingRatio
+	      researchRatio
+	      serviceRatio
+	    }
+	    gender
+	    nationality
+	  }
+	  moderatorId
+	  moderator {
+	    userId
+	    email
+	    firstName
+	    lastName
+	    photoUrl
+	    disciplineIds
+	    disciplines {
+	      disciplineId
+	      name
+	      description
+	    }
+	    positionId
+	    position {
+	      positionId
+	      name
+	      description
+	    }
+	    departmentId
+	    department {
+	      departmentId
+	      name
+	      facultyId
+	      faculty {
+	        facultyId
+	        name
+	      }
+	    }
+	    workFocusName
+	    workFocus {
+	      name
+	      teachingRatio
+	      researchRatio
+	      serviceRatio
+	    }
+	    gender
+	    nationality
+	  }
+	  stackId
+	  studyPeriod
+	  groupSize
+	  lecturedBy
+	  moderation
     }
 }

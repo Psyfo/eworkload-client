@@ -26,7 +26,7 @@ export class DepartmentService {
         private deleteDepartmentGql: DeleteDepartmentGQL
     ) {}
 
-    getDepartments() {
+    departments() {
         return this.departmentsGql
             .watch(
                 {},
@@ -44,7 +44,7 @@ export class DepartmentService {
             );
     }
 
-    getDepartment(departmentId: string) {
+    department(departmentId: string) {
         return this.departmentGql
             .watch(
                 { departmentId: departmentId },

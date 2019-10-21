@@ -22,14 +22,14 @@ export class ResearchService {
     networkStatus: any;
 
     public outputTypes: SelectItem[] = [
-        { label: 'Conference Proceedings', value: 'Conference Proceedings' },
-        { label: 'Journal', value: 'Journal' },
-        { label: 'Book', value: 'Book' },
-        { label: 'Chapter', value: 'Chapter' },
-        { label: 'Patent', value: 'Patent' }
+        { label: 'Conference Proceedings', value: 1 },
+        { label: 'Journal', value: 2 },
+        { label: 'Book', value: 3 },
+        { label: 'Chapter', value: 4 },
+        { label: 'Patent', value: 5 }
     ];
 
-    public conferenceDetails: SelectItem[] = [
+    public conferenceActivities: SelectItem[] = [
         { label: 'Presented Paper', value: 'Presented Paper' },
         { label: 'Presented Poster', value: 'Presented Poster' },
         { label: 'Attended', value: 'Attended' },

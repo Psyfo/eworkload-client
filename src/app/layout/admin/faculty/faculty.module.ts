@@ -1,4 +1,3 @@
-import { DataTablesModule } from 'angular-datatables';
 import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
 
 import { CommonModule } from '@angular/common';
@@ -16,7 +15,6 @@ import { FacultyComponent } from './faculty.component';
     imports: [
         CommonModule,
         FacultyRoutingModule,
-        DataTablesModule,
         ReactiveFormsModule,
         PrimeNgModulesModule
     ],

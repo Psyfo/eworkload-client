@@ -1,4 +1,3 @@
-import { DataTablesModule } from 'angular-datatables';
 import { PageHeaderModule } from 'src/app/shared/modules';
 
 import { CommonModule } from '@angular/common';
@@ -17,7 +16,6 @@ import { DisciplineComponent } from './discipline.component';
         CommonModule,
         DisciplineRoutingModule,
         PageHeaderModule,
-        DataTablesModule,
         ReactiveFormsModule
     ],
     declarations: [

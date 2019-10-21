@@ -1,15 +1,16 @@
+import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
-import { Department, Qualification } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { DepartmentService } from '../../department/department.service';
 import { QualificationService } from '../qualification.service';
+import { Department, QualificationInput } from 'src/app/shared/generated';
 
 @Component({
     selector: 'app-qualification-add',
@@ -18,11 +19,13 @@ import { QualificationService } from '../qualification.service';
     animations: [routerTransition()]
 })
 export class QualificationAddComponent implements OnInit {
-    qualification: Qualification;
-    departments: Department[];
-    types = this.qualificationService.types;
+    breadcrumbs: MenuItem[];
+    @ViewChild('f', { static: false }) form: any;
 
-    qualificationAddForm: FormGroup;
+    qualificationInput: QualificationInput = {};
+    departments: Department[];
+    selectedDepartment: Department;
+    types = this.qualificationService.types;
 
     private unsubscribe = new Subject();
 
@@ -30,81 +33,62 @@ export class QualificationAddComponent implements OnInit {
         private alertService: AlertService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private fb: FormBuilder,
         private qualificationService: QualificationService,
         private departmentService: DepartmentService
     ) {}
 
     ngOnInit() {
-        this.buildForm();
+        this.breadcrumbs = [
+            { label: 'admin' },
+            { label: 'qualification', url: 'admin/qualification' },
+            { label: 'add', url: 'admin/qualification/add' }
+        ];
+        this.getDepartments();
     }
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
 
-    // Methods
-    buildForm() {
-        this.getDepartments();
-
-        this.qualificationAddForm = this.fb.group({
-            qualificationId: ['', [Validators.required]],
-            name: ['', [Validators.required]],
-            type: ['', [Validators.required]],
-            departmentId: ['', [Validators.required]]
-        });
-    }
     getDepartments() {
         this.departmentService
-            .getDepartments()
+            .departments()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.departments = result.data.departments.map(
-                    department => <Department>(<unknown>department)
-                );
+                this.departments = result.data.departments;
             });
     }
-    onAdd() {
-        this.qualification = this.formVal;
+    onSubmit() {
         this.qualificationService
-            .addQualification(this.qualification)
+            .addQualification(this.qualificationInput)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.alertService.success('Qualification added');
-                this.router.navigate(
-                    [
-                        'admin/qualification/view',
-                        this.qualification.qualificationId
-                    ],
-                    {
-                        queryParams: {
-                            qualificationId: this.qualification.qualificationId
+            .subscribe(
+                result => {
+                    this.alertService.success('Qualification added');
+                    this.router.navigate(
+                        [
+                            'admin/qualification/view',
+                            this.qualificationInput.qualificationId
+                        ],
+                        {
+                            queryParams: {
+                                qualificationId: this.qualificationInput
+                                    .qualificationId
+                            }
                         }
-                    }
-                );
-            });
+                    );
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
-    onCancel() {
-        this.router
-            .navigate(['admin/qualification'])
-            .then(() => window.location.reload());
+    onBack(event) {
+        this.router.navigate(['admin/qualification']);
     }
-    onReset() {}
-
-    // Getters
-    get qualificationId() {
-        return this.qualificationAddForm.get('qualificationId');
-    }
-    get name() {
-        return this.qualificationAddForm.get('name');
-    }
-    get type() {
-        return this.qualificationAddForm.get('type');
-    }
-    get departmentId() {
-        return this.qualificationAddForm.get('departmentId');
-    }
-    get formVal() {
-        return this.qualificationAddForm.getRawValue();
+    onReset(event) {
+        this.form.reset();
+        this.ngOnInit();
     }
 }

@@ -20,11 +20,6 @@
                             <p-sortIcon [field]="column.field"></p-sortIcon>
                         </th>
                     </tr>
-                    <tr>
-                        <th *ngFor="let column of columns" [ngSwitch]="column.field">
-
-                        </th>
-                    </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-activity let-columns="columns">
                     <tr [pSelectableRow]="activity" [pContextMenuRow]="activity">

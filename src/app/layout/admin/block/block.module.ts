@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { PrimeNgModulesModule } from '../../../shared/modules/prime-ng-modules.module';
 import { AddBlockComponent } from './add-block/add-block.component';
 import { BlockRoutingModule } from './block-routing.module';
 import { BlockComponent } from './block.component';
@@ -16,6 +17,6 @@ import { ViewBlockComponent } from './view-block/view-block.component';
         ListBlockComponent,
         ViewBlockComponent
     ],
-    imports: [CommonModule, BlockRoutingModule]
+    imports: [CommonModule, BlockRoutingModule, PrimeNgModulesModule]
 })
 export class BlockModule {}

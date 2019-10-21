@@ -1,28 +1,28 @@
-import {
-    AcademicAdministrationWorkloadPerUser,
-    FormalInstructionWorkloadPerUser,
-    CommunityInstructionWorkloadPerUser,
-    ExecutiveManagementWorkloadPerUser,
-    PersonnelDevelopmentWorkloadPerUser,
-    PublicServiceWorkloadPerUser,
-    SupervisionWorkloadPerUser,
-    ResearchWorkloadPerUser
-} from './../../../shared/generated/output';
-import { WorkloadService } from './../../../shared/services/workload.service';
 import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { subscribeOn, takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 import { User } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { UserService } from '../../admin/user/user.service';
+import {
+    AcademicAdministrationWorkload,
+    CommunityInstructionWorkload,
+    ExecutiveManagementWorkload,
+    FormalInstructionWorkload,
+    PersonnelDevelopmentWorkload,
+    PublicServiceWorkload,
+    ResearchWorkload,
+    SupervisionWorkload
+} from '../../../shared/generated/output';
+import { WorkloadService } from '../../../shared/services/workload.service';
 import { FormalInstructionService } from '../../activity/formal-instruction/formal-instruction.service';
 import { ResearchService } from '../../activity/research/research.service';
-import { DomSanitizer } from '@angular/platform-browser';
+import { UserService } from '../../admin/user/user.service';
 
 @Component({
     selector: 'app-profile-view',
@@ -34,50 +34,52 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ProfileViewComponent implements OnInit {
     // Utility properties
     breadcrumbs: MenuItem[];
-    researchData: any = {};
-    formalInstructionData: any = {};
-    academicAdministrationData: any = {};
-    supervisionData: any = {};
-    formalInstructionPieData: any = {};
+    teachingPieData: any = {};
+    teachingPieOptions;
+    researchPieData: any = {};
+    researchPieOptions;
+    servicePieData: any = {};
+    servicePieOptions;
 
     // Data properties
-    userId: string;
+    userId = this.userService.currentUserIdStatic();
     user: User;
     profilePicture;
     profilePictureLoading: boolean;
     imageUrl;
-    academicAdministrationWorkloadPerUser: AcademicAdministrationWorkloadPerUser;
-    communityInstructionWorkloadPerUser: CommunityInstructionWorkloadPerUser;
-    executiveManagementWorkloadPerUser: ExecutiveManagementWorkloadPerUser;
-    formalInstructionWorkloadPerUser: FormalInstructionWorkloadPerUser;
-    personnelDevelopmentWorkloadPerUser: PersonnelDevelopmentWorkloadPerUser;
-    publicServiceWorkloadPerUser: PublicServiceWorkloadPerUser;
-    researchWorkloadPerUser: ResearchWorkloadPerUser;
-    supervisionWorkloadPerUser: SupervisionWorkloadPerUser;
 
     // Workload properties
-    annualHours = 1575;
-    formalInstructionTotalHoursPerUser;
-    formalInstructionPercentageOfAnnualHoursPerUser;
+    annualHours;
+    totalHoursPerUser;
     teachingHours;
     researchHours;
     serviceHours;
+
+    academicAdministrationWorkload: AcademicAdministrationWorkload;
+    communityInstructionWorkload: CommunityInstructionWorkload;
+    executiveManagementWorkload: ExecutiveManagementWorkload;
+    formalInstructionWorkload: FormalInstructionWorkload;
+    personnelDevelopmentWorkload: PersonnelDevelopmentWorkload;
+    publicServiceWorkload: PublicServiceWorkload;
+    researchWorkload: ResearchWorkload;
+    supervisionWorkload: SupervisionWorkload;
+    teachingWorkload: any;
+    serviceWorkload: any;
 
     private unsubscribe = new Subject();
     //TODO: Refresh charts
     constructor(
         private alertService: AlertService,
         private router: Router,
+        private activatedRoute: ActivatedRoute,
         private userService: UserService,
         private workloadService: WorkloadService,
-        private formalInstructionService: FormalInstructionService,
-        private researchService: ResearchService,
         public sanitizer: DomSanitizer
     ) {
-        this.getData();
+        // this.getData();
     }
 
-    async ngOnInit() {
+    ngOnInit() {
         this.breadcrumbs = [
             { label: 'profile' },
             {
@@ -85,16 +87,18 @@ export class ProfileViewComponent implements OnInit {
                 url: 'profile'
             }
         ];
-        this.getData();
+        this.getUser();
         this.getTeachingHours();
         this.getResearchHours();
         this.getServiceHours();
         this.getAnnualHours();
-        this.getFormalInstructionTotalHoursPerUser();
-        this.getFormalInstructionPercentageOfAnnualHoursPerUser();
-        this.getResearchWorkloadPerUser();
-        this.getAcademicAdministrationWorkloadPerUser();
+        this.getTotalHoursPerUser();
+
+        this.getTeachingWorkload();
+        this.getResearchWorkload();
+        this.getServiceWorkload();
     }
+
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
@@ -106,9 +110,25 @@ export class ProfileViewComponent implements OnInit {
     onChangePassword(event): void {
         this.router.navigate(['profile/change-password']);
     }
+
+    getUser() {
+        this.userService
+            .getUser(this.userId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    this.user = result.data.user;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
+    }
+    // Get ratios
     getTeachingHours() {
         this.workloadService
-            .teachingHours(this.userService.currentUserIdStatic())
+            .teachingHours(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
                 result => {
@@ -116,12 +136,13 @@ export class ProfileViewComponent implements OnInit {
                 },
                 err => {
                     this.alertService.errorToast(err);
+                    console.warn(err);
                 }
             );
     }
     getResearchHours() {
         this.workloadService
-            .researchHours(this.userService.currentUserIdStatic())
+            .researchHours(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
                 result => {
@@ -129,12 +150,13 @@ export class ProfileViewComponent implements OnInit {
                 },
                 err => {
                     this.alertService.errorToast(err);
+                    console.warn(err);
                 }
             );
     }
     getServiceHours() {
         this.workloadService
-            .serviceHours(this.userService.currentUserIdStatic())
+            .serviceHours(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
                 result => {
@@ -142,6 +164,7 @@ export class ProfileViewComponent implements OnInit {
                 },
                 err => {
                     this.alertService.errorToast(err);
+                    console.warn(err);
                 }
             );
     }
@@ -155,200 +178,219 @@ export class ProfileViewComponent implements OnInit {
                 },
                 err => {
                     this.alertService.errorToast(err);
+                    console.warn(err);
                 }
             );
     }
-    getFormalInstructionTotalHoursPerUser() {
-        this.formalInstructionService
-            .formalInstructionTotalHoursPerUser(this.currentUserId())
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(
-                result => {
-                    this.formalInstructionTotalHoursPerUser =
-                        result.data.formalInstructionTotalHoursPerUser;
-
-                    let complete = this.formalInstructionTotalHoursPerUser;
-                    if (
-                        this.formalInstructionTotalHoursPerUser >
-                        this.teachingHours
-                    ) {
-                        complete = this.teachingHours;
-                    }
-                    let remaining =
-                        this.teachingHours -
-                        this.formalInstructionTotalHoursPerUser;
-                    if (
-                        this.formalInstructionTotalHoursPerUser >
-                        this.teachingHours
-                    ) {
-                        remaining = 0;
-                    }
-                    let excess = 0;
-                    if (
-                        this.formalInstructionTotalHoursPerUser >
-                        this.teachingHours
-                    ) {
-                        excess =
-                            this.formalInstructionTotalHoursPerUser -
-                            this.teachingHours;
-                    }
-
-                    this.formalInstructionPieData = {
-                        labels: ['Hours complete', 'Hours remaining', 'Excess'],
-                        datasets: [
-                            {
-                                data: [complete, remaining, excess],
-                                backgroundColor: [
-                                    '#00fc04',
-                                    '#888888',
-                                    '#cc0000'
-                                ],
-                                hoverBackgroundColor: [
-                                    '#00fc04',
-                                    '#888888',
-                                    '#cc0000'
-                                ]
-                            }
-                        ]
-                    };
-                },
-                err => {
-                    this.alertService.errorToast(err);
-                }
-            );
-    }
-    getFormalInstructionPercentageOfAnnualHoursPerUser() {
-        this.formalInstructionService
-            .formalInstructionPercentageOfAnnualHoursPerUser(
-                this.currentUserId()
-            )
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(
-                result => {
-                    this.formalInstructionPercentageOfAnnualHoursPerUser =
-                        result.data.formalInstructionPercentageOfAnnualHoursPerUser;
-                },
-                err => {
-                    this.alertService.errorToast(err);
-                }
-            );
-    }
-
-    getResearchWorkloadPerUser() {
+    getTotalHoursPerUser() {
         this.workloadService
-            .researchWorkloadPerUser(this.currentUserId())
+            .totalHoursPerUser(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
                 result => {
-                    this.researchWorkloadPerUser =
-                        result.data.researchWorkloadPerUser;
+                    this.totalHoursPerUser = result.data.totalHoursPerUser;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
+    }
 
-                    let complete = this.researchWorkloadPerUser
-                        .researchTotalHoursPerUser;
-                    if (this.researchWorkloadPerUser > this.researchHours) {
-                        complete = this.researchHours;
-                    }
-                    let remaining =
-                        this.researchHours -
-                        this.researchWorkloadPerUser.researchTotalHoursPerUser;
-                    if (this.researchWorkloadPerUser > this.researchHours) {
-                        remaining = 0;
-                    }
-                    let excess = 0;
+    // Workloads
+    getResearchWorkload() {
+        this.workloadService
+            .researchWorkload(this.userId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    this.researchWorkload = result.data.researchWorkload;
+
+                    let completedHours = this.researchWorkload
+                        .totalHoursPerUser;
                     if (
-                        this.researchWorkloadPerUser.researchTotalHoursPerUser >
+                        this.researchWorkload.totalHoursPerUser >
                         this.researchHours
                     ) {
-                        excess =
-                            this.researchWorkloadPerUser
-                                .researchTotalHoursPerUser - this.researchHours;
+                        completedHours = this.researchHours;
                     }
 
-                    this.researchData = {
+                    let remainingHours =
+                        this.researchHours -
+                        this.researchWorkload.totalHoursPerUser;
+                    if (
+                        this.researchWorkload.totalHoursPerUser >
+                        this.researchHours
+                    ) {
+                        remainingHours = 0;
+                    }
+
+                    let excessHours = 0;
+                    if (
+                        this.researchWorkload.totalHoursPerUser >
+                        this.researchHours
+                    ) {
+                        excessHours =
+                            this.researchWorkload.totalHoursPerUser -
+                            this.researchHours;
+                    }
+
+                    this.researchPieData = {
                         labels: ['Complete', 'Remaining', 'Excess'],
                         datasets: [
                             {
-                                data: [complete, remaining, excess],
+                                data: [
+                                    completedHours,
+                                    remainingHours,
+                                    excessHours
+                                ],
                                 backgroundColor: [
-                                    '#00fc04',
-                                    '#888888',
-                                    '#cc0000'
+                                    '#439981',
+                                    '#aecdc2',
+                                    '#de425b'
                                 ],
                                 hoverBackgroundColor: [
-                                    '#00fc04',
-                                    '#888888',
-                                    '#cc0000'
+                                    '#6aaa96',
+                                    '#cfdfd9',
+                                    '#e66572'
                                 ]
                             }
                         ]
                     };
                 },
-                error => {
-                    this.alertService.errorToast(error);
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
                 }
             );
     }
-
-    getAcademicAdministrationWorkloadPerUser() {
+    getTeachingWorkload() {
         this.workloadService
-            .academicAdministrationWorkloadPerUser(this.currentUserId())
+            .teachingWorkload(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
                 result => {
-                    this.academicAdministrationWorkloadPerUser =
-                        result.data.academicAdministrationWorkloadPerUser;
+                    console.log('Teaching workload: ', result);
+                    this.teachingWorkload = result;
 
-                    let complete = this.academicAdministrationWorkloadPerUser
-                        .academicAdministrationTotalHoursPerUser;
-                    if (
-                        this.academicAdministrationWorkloadPerUser >
-                        this.serviceHours
-                    ) {
-                        complete = this.serviceHours;
-                    }
-                    let remaining =
-                        this.serviceHours -
-                        this.academicAdministrationWorkloadPerUser
-                            .academicAdministrationTotalHoursPerUser;
-                    if (
-                        this.academicAdministrationWorkloadPerUser >
-                        this.serviceHours
-                    ) {
-                        remaining = 0;
-                    }
-                    let excess = 0;
-                    if (
-                        this.academicAdministrationWorkloadPerUser
-                            .academicAdministrationTotalHoursPerUser >
-                        this.serviceHours
-                    ) {
-                        excess =
-                            this.academicAdministrationWorkloadPerUser
-                                .academicAdministrationTotalHoursPerUser -
-                            this.serviceHours;
+                    const totalTeachingHours =
+                        this.teachingWorkload.formalInstructionWorkload
+                            .totalHoursPerUser +
+                        this.teachingWorkload.supervisionWorkload
+                            .totalHoursPerUser;
+
+                    let completedHours = totalTeachingHours;
+                    if (totalTeachingHours > this.teachingHours) {
+                        completedHours = this.teachingHours;
                     }
 
-                    this.academicAdministrationData = {
+                    let remainingHours =
+                        this.teachingHours - totalTeachingHours;
+                    if (totalTeachingHours > this.teachingHours) {
+                        remainingHours = 0;
+                    }
+
+                    let excessHours = 0;
+                    if (totalTeachingHours > this.teachingHours) {
+                        excessHours = totalTeachingHours - this.teachingHours;
+                    }
+
+                    this.teachingPieData = {
                         labels: ['Complete', 'Remaining', 'Excess'],
                         datasets: [
                             {
-                                data: [complete, remaining, excess],
+                                data: [
+                                    completedHours,
+                                    remainingHours,
+                                    excessHours
+                                ],
                                 backgroundColor: [
-                                    '#00fc04',
-                                    '#888888',
-                                    '#cc0000'
+                                    '#439981',
+                                    '#aecdc2',
+                                    '#de425b'
                                 ],
                                 hoverBackgroundColor: [
-                                    '#00fc04',
-                                    '#888888',
-                                    '#cc0000'
+                                    '#6aaa96',
+                                    '#cfdfd9',
+                                    '#e66572'
                                 ]
                             }
                         ]
                     };
                 },
-                error => {
-                    this.alertService.errorToast(error, 'errorToast');
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                },
+                () => {
+                    console.log('Teaching workload loaded');
+                }
+            );
+    }
+    getServiceWorkload() {
+        this.workloadService
+            .serviceWorkload(this.userId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    this.serviceWorkload = result;
+
+                    const totalServiceHours =
+                        this.serviceWorkload.academicAdministrationWorkload
+                            .totalHoursPerUser +
+                        this.serviceWorkload.communityInstructionWorkload
+                            .totalHoursPerUser +
+                        this.serviceWorkload.executiveManagementWorkload
+                            .totalHoursPerUser +
+                        this.serviceWorkload.personnelDevelopmentWorkload
+                            .totalHoursPerUser +
+                        this.serviceWorkload.publicServiceWorkload
+                            .totalHoursPerUser;
+
+                    let completedHours = totalServiceHours;
+                    if (totalServiceHours > this.serviceHours) {
+                        completedHours = this.serviceHours;
+                    }
+
+                    let remainingHours = this.serviceHours - totalServiceHours;
+                    if (totalServiceHours > this.serviceHours) {
+                        remainingHours = 0;
+                    }
+
+                    let excessHours = 0;
+                    if (totalServiceHours > this.serviceHours) {
+                        excessHours = totalServiceHours - this.serviceHours;
+                    }
+
+                    this.servicePieData = {
+                        labels: ['Complete', 'Remaining', 'Excess'],
+                        datasets: [
+                            {
+                                data: [
+                                    completedHours,
+                                    remainingHours,
+                                    excessHours
+                                ],
+                                backgroundColor: [
+                                    '#439981',
+                                    '#aecdc2',
+                                    '#de425b'
+                                ],
+                                hoverBackgroundColor: [
+                                    '#6aaa96',
+                                    '#cfdfd9',
+                                    '#e66572'
+                                ]
+                            }
+                        ]
+                    };
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                },
+                () => {
+                    console.log('Service workload loaded');
                 }
             );
     }
@@ -368,15 +410,12 @@ export class ProfileViewComponent implements OnInit {
                 }
             );
     }
-
     public clearMessage(): void {
         this.alertService.clear();
     }
-
     public currentUserId() {
         return this.userService.currentUserIdStatic();
     }
-
     public getProfilePic(imageUrl: string) {
         this.profilePictureLoading = true;
         this.userService

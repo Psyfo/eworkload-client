@@ -5,15 +5,27 @@ query user($userId: String!) {
         firstName
         lastName
         photoUrl
-        discipline {
+        disciplineIds
+        disciplines {
             disciplineId
             name
             description
         }
+        positionId
         position {
             positionId
             name
             description
+        }
+        departmentId
+        department {
+            departmentId
+            name
+            facultyId
+            faculty {
+                facultyId
+                name
+            }
         }
         workFocusName
         workFocus {
@@ -33,8 +45,8 @@ query users {
         firstName
         lastName
         photoUrl
-        disciplineId
-        discipline {
+        disciplineIds
+        disciplines {
             disciplineId
             name
             description
@@ -44,6 +56,16 @@ query users {
             positionId
             name
             description
+        }
+        departmentId
+        department {
+            departmentId
+            name
+            facultyId
+            faculty {
+                facultyId
+                name
+            }
         }
         workFocusName
         workFocus {

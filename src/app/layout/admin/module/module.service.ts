@@ -36,7 +36,7 @@ export class ModuleService {
     constructor(
         private moduleGql: ModuleGQL,
         private modulesGql: ModulesGQL,
-        private modulesByDiscipline: ModulesByDisciplineGQL,
+        private modulesByDisciplineGql: ModulesByDisciplineGQL,
         private addModuleGql: AddModuleGQL,
         private addModulesGql: AddModulesGQL,
         private editModuleGql: EditModuleGQL,
@@ -46,7 +46,7 @@ export class ModuleService {
         private modulesByUnassignedAndDisciplineGql: ModulesByUnassignedAndDisciplineGQL
     ) {}
 
-    getModules() {
+    modules() {
         return this.modulesGql
             .watch(
                 {},
@@ -55,30 +55,34 @@ export class ModuleService {
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
 
-    getModulesByDiscipline(disciplineId: string) {
-        return this.modulesByDiscipline
+    modulesByDiscipline(disciplineIds: string[]) {
+        return this.modulesByDisciplineGql
             .watch(
-                { disciplineId: disciplineId },
+                { disciplineIds: disciplineIds },
                 {
                     pollInterval: 2000
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
 
@@ -91,16 +95,18 @@ export class ModuleService {
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
 
-    getModule(
+    module(
         moduleId: string,
         blockId: string,
         offeringTypeId: string,
@@ -119,12 +125,14 @@ export class ModuleService {
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
 
@@ -137,73 +145,85 @@ export class ModuleService {
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
-    modulesByUnassignedAndDiscipline(disciplineId: string) {
+    modulesByUnassignedAndDiscipline(disciplineIds: string[]) {
         return this.modulesByUnassignedAndDisciplineGql
             .watch(
-                { disciplineId: disciplineId },
+                { disciplineIds: disciplineIds },
                 {
                     pollInterval: 2000
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
 
     addModule(module: ModuleInput) {
         return this.addModuleGql.mutate({ module: module }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
+            map(
+                result => {
+                    return result;
+                },
+                err => {
+                    return err;
+                }
+            )
         );
     }
 
     addModules(modules: ModuleInput[]) {
         return this.addModulesGql.mutate({ modules: modules }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
+            map(
+                result => {
+                    return result;
+                },
+                err => {
+                    return err;
+                }
+            )
         );
     }
 
     editModule(module: ModuleInput) {
         return this.editModuleGql.mutate({ module: module }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
+            map(
+                result => {
+                    return result;
+                },
+                err => {
+                    return err;
+                }
+            )
         );
     }
 
     deleteModule(module: ModuleInput) {
         return this.deleteModuleGql.mutate({ module: module }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
+            map(
+                result => {
+                    return result;
+                },
+                err => {
+                    return err;
+                }
+            )
         );
     }
 }

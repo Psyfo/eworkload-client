@@ -111,9 +111,9 @@ export class TasksComponent implements OnInit {
             });
     }
 
-    getModulesByDiscipline(disciplineId: string) {
+    getModulesByDiscipline(disciplineIds: string[]) {
         this.moduleService
-            .getModulesByDiscipline(disciplineId)
+            .modulesByDiscipline(disciplineIds)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.modules = result.data.modulesByDiscipline;

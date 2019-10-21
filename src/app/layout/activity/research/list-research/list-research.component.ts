@@ -57,10 +57,10 @@ export class ListResearchComponent implements OnInit {
             }
         ];
         this.cols = [
-            { field: 'userId', header: 'User ID' },
-            { field: 'dutyId', header: 'Duty type' },
+            { field: 'output', header: 'Research Output' },
             { field: 'title', header: 'Title' },
-            { field: 'details', header: 'Research Details' }
+            { field: 'details', header: 'Additional Details' },
+            { field: 'evidence', header: 'Evidence' }
         ];
 
         this.getActivities();
