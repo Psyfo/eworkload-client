@@ -247,6 +247,7 @@ query formalInstructionActivity($activityId: String!) {
                 }
             }
         }
+        isCoordinator
     }
 }
 query formalInstructionActivities {
@@ -498,6 +499,7 @@ query formalInstructionActivities {
                 }
             }
         }
+        isCoordinator
     }
 }
 query formalInstructionActivitiesByUser($userId: String!) {
@@ -749,6 +751,7 @@ query formalInstructionActivitiesByUser($userId: String!) {
                 }
             }
         }
+        isCoordinator
     }
 }
 
@@ -800,6 +803,7 @@ query supervisionActivity($activityId: String!) {
             name
             description
         }
+        year
         approvalStatus
         createdAt
         updatedAt
@@ -813,7 +817,6 @@ query supervisionActivity($activityId: String!) {
             email
             type
             title
-            year
             graduationDate
         }
     }
@@ -866,6 +869,7 @@ query supervisionActivities {
             name
             description
         }
+        year
         approvalStatus
         createdAt
         updatedAt
@@ -879,7 +883,6 @@ query supervisionActivities {
             email
             type
             title
-            year
             graduationDate
         }
     }
@@ -932,6 +935,7 @@ query supervisionActivitiesByUser($userId: String!) {
             name
             description
         }
+        year
         approvalStatus
         createdAt
         updatedAt
@@ -945,7 +949,6 @@ query supervisionActivitiesByUser($userId: String!) {
             email
             type
             title
-            year
             graduationDate
         }
     }

@@ -1,3 +1,5 @@
+import * as html2canvas from 'html2canvas';
+import * as jsPDF from 'jspdf';
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { Duty, User } from 'src/app/shared/generated';
@@ -5,7 +7,7 @@ import { AlertService } from 'src/app/shared/modules';
 import { WorkloadService } from 'src/app/shared/services';
 import { of } from 'zen-observable';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import {
@@ -18,14 +20,6 @@ import {
     ResearchWorkload,
     SupervisionWorkload
 } from '../../../shared/generated/output';
-import { AcademicAdministrationService } from '../../activity/academic-administration/academic-administration.service';
-import { CommunityInstructionService } from '../../activity/community-instruction/community-instruction.service';
-import { ExecutiveManagementService } from '../../activity/executive-management/executive-management.service';
-import { FormalInstructionService } from '../../activity/formal-instruction/formal-instruction.service';
-import { PersonnelDevelopmentService } from '../../activity/personnel-development/personnel-development.service';
-import { PublicServiceService } from '../../activity/public-service/public-service.service';
-import { ResearchService } from '../../activity/research/research.service';
-import { SupervisionService } from '../../activity/supervision/supervision.service';
 import { UserService } from '../../admin/user/user.service';
 
 @Component({
@@ -34,6 +28,8 @@ import { UserService } from '../../admin/user/user.service';
     styleUrls: ['./hemis-historical.component.scss']
 })
 export class HemisHistoricalComponent implements OnInit {
+    @ViewChild('hemis', { static: false }) hemis: ElementRef;
+
     userId: string = this.userService.currentUserIdStatic();
     user: User;
     fiLoading: boolean = false;
@@ -297,5 +293,59 @@ export class HemisHistoricalComponent implements OnInit {
                     console.warn(err);
                 }
             );
+    }
+
+    onPrint(event) {
+        const filename = `${this.userId}_hemis_${new Date().getFullYear()}.pdf`;
+
+        let pdf = new jsPDF();
+
+        const specialElementHandlers = {
+            '#editor': function(element, renderer) {
+                return true;
+            }
+        };
+
+        const hemis = this.hemis.nativeElement;
+        console.log(pdf);
+
+        console.log(hemis);
+
+        pdf.fromHTML(hemis.innerHTML, 15, 15, {
+            width: 800,
+            elementHandlers: specialElementHandlers
+        });
+
+        pdf.save(filename);
+
+        // const options = {
+        //     background: 'white',
+        //     height: hemis.clientHeight,
+        //     width: hemis.clientWidth,
+        //     scale: 1
+        // };
+
+        // html2canvas(hemis, options).then(canvas => {
+        //     let pdf = new jsPDF({
+        //         orientation: 'landscape',
+        //         unit: 'in',
+        //         format: [4, 2]
+        //     });
+
+        //     pdf.addImage(canvas.toDataURL('image/PNG'), 'PNG', 0, 0, 211, 298);
+
+        //     let pdfOutput = pdf.output();
+        //     let buffer = new ArrayBuffer(pdfOutput.length);
+        //     let array = new Uint8Array(buffer);
+        //     for (let i = 0; i < pdfOutput.length; i++) {
+        //         array[i] = pdfOutput.charCodeAt(i);
+        //     }
+        //     pdf.save(filename);
+        // });
+
+        this.alertService.infoToast('Printed hemis');
+    }
+    onMail(event) {
+        this.alertService.infoToast('Mail to HoD WIP');
     }
 }

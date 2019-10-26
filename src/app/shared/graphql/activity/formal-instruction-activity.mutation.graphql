@@ -249,6 +249,7 @@ mutation addFormalInstructionActivity(
                 }
             }
         }
+        isCoordinator
     }
 }
 mutation editFormalInstructionActivity(
@@ -502,6 +503,7 @@ mutation editFormalInstructionActivity(
                 }
             }
         }
+        isCoordinator
     }
 }
 mutation deleteFormalInstructionActivity(
@@ -755,6 +757,7 @@ mutation deleteFormalInstructionActivity(
                 }
             }
         }
+        isCoordinator
     }
 }
 
@@ -806,6 +809,7 @@ mutation addSupervisionActivity($activity: SupervisionActivityInput) {
             name
             description
         }
+        year
         approvalStatus
         createdAt
         updatedAt
@@ -819,7 +823,6 @@ mutation addSupervisionActivity($activity: SupervisionActivityInput) {
             email
             type
             title
-            year
             graduationDate
         }
     }
@@ -872,6 +875,7 @@ mutation editSupervisionActivity($activity: SupervisionActivityInput) {
             name
             description
         }
+        year
         approvalStatus
         createdAt
         updatedAt
@@ -885,7 +889,6 @@ mutation editSupervisionActivity($activity: SupervisionActivityInput) {
             email
             type
             title
-            year
             graduationDate
         }
     }
@@ -938,6 +941,7 @@ mutation deleteSupervisionActivity($activity: SupervisionActivityInput) {
             name
             description
         }
+        year
         approvalStatus
         createdAt
         updatedAt
@@ -951,7 +955,6 @@ mutation deleteSupervisionActivity($activity: SupervisionActivityInput) {
             email
             type
             title
-            year
             graduationDate
         }
     }

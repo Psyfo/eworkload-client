@@ -26,13 +26,14 @@ export class AddResearchComponent implements OnInit {
     outputs = this.researchService.outputTypes;
     selectedOutput: any = null;
     selectedTitle: string = '';
-    selectedDates: string[];
+    selectedDates: Date[];
     conferenceActivities = this.researchService.conferenceActivities;
     selectedConferenceActivities: SelectItem[] = [];
     activityInput: ResearchActivityInput = {};
     selectedAuthors: string[] = [];
     selectedUrl = '';
     selectedDetails = '';
+    isSubmitting: boolean;
 
     private unsubscribe = new Subject();
 
@@ -61,6 +62,8 @@ export class AddResearchComponent implements OnInit {
     onFileSelected(event) {}
 
     onSubmit() {
+        this.isSubmitting = true;
+
         this.activityInput = {
             userId: this.userId,
             dutyId: this.dutyId,
@@ -102,6 +105,8 @@ export class AddResearchComponent implements OnInit {
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
                 result => {
+                    this.isSubmitting = false;
+
                     console.log(result);
 
                     this.alertService.successToast(

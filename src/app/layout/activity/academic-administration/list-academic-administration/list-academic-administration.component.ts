@@ -6,7 +6,10 @@ import { routerTransition } from 'src/app/router.animations';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AcademicAdministrationActivity } from '../../../../shared/generated/output';
+import {
+    AcademicAdministrationActivity,
+    AcademicAdministrationActivityInput
+} from '../../../../shared/generated/output';
 import { AlertService } from '../../../../shared/modules/alert/alert.service';
 import { AcademicAdministrationService } from '../academic-administration.service';
 import { UserService } from 'src/app/layout/admin/user/user.service';
@@ -145,7 +148,42 @@ export class ListAcademicAdministrationComponent implements OnInit {
     onContextDelete(event) {
         this.alertService.confirm('academicAdministrationActivityDelete');
     }
-    onReject() {}
-    onConfirm(event) {}
-    onRowSelect(event) {}
+    onReject() {
+        this.alertService.clear();
+    }
+    onConfirm() {
+        this.alertService.clear();
+        const activityInput: AcademicAdministrationActivityInput = {
+            activityId: this.selectedActivity.activityId
+        };
+        this.academicAdministrationService
+            .deleteAcademicAdministrationActivity(activityInput)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {},
+                err => {
+                    this.alertService.errorToast(err, 'errorToast');
+                }
+            );
+        this.alertService.successToast('Activity Deleted');
+    }
+    onRowSelect(event) {
+        const activityData: AcademicAdministrationActivity = event.data;
+        console.log(activityData);
+
+        this.alertService.infoToast(
+            `Activity: ${this.selectedActivity.activityId} selected`
+        );
+        this.router.navigate(
+            [
+                'activity/academic-administration/view',
+                this.selectedActivity.activityId
+            ],
+            {
+                queryParams: {
+                    activityId: this.selectedActivity.activityId
+                }
+            }
+        );
+    }
 }

@@ -31,6 +31,7 @@ export class AddSupervisionComponent implements OnInit {
 
     userId = this.userService.currentUserIdStatic();
     dutyId = '11';
+    year = new Date().getFullYear();
     activityInput: SupervisionActivityInput = {};
     supervisionRoles = this.supervisionService.supervisionRoles;
     selectedSupervisionRole: any = {};
@@ -38,6 +39,7 @@ export class AddSupervisionComponent implements OnInit {
     selectedSplit: any = {};
     students: Student[] = [];
     selectedStudent: Student = {};
+    isSubmitting: boolean;
 
     private unsubscribe = new Subject();
 
@@ -64,11 +66,11 @@ export class AddSupervisionComponent implements OnInit {
 
     getStudents() {
         this.studentService
-            .students()
+            .studentsUnassigned(this.userId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
                 result => {
-                    this.students = result.data.students;
+                    this.students = result.data.studentsUnassigned;
                 },
                 err => {
                     this.alertService.errorToast(err, 'errorToast');
@@ -77,8 +79,8 @@ export class AddSupervisionComponent implements OnInit {
     }
 
     onSubmit() {
-        this.activityInput.userId = this.userId;
-        this.activityInput.dutyId = this.dutyId;
+        this.isSubmitting = true;
+        this.activityInput = { userId: this.userId, dutyId: this.dutyId };
         this.activityInput.supervisionRole = this.selectedSupervisionRole.value;
         if (this.selectedSupervisionRole.value === 'Supervisor') {
             this.activityInput.split = 100;
@@ -92,6 +94,7 @@ export class AddSupervisionComponent implements OnInit {
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
                 result => {
+                    this.isSubmitting = false;
                     this.alertService.successToast(
                         'Supervision activity added'
                     );

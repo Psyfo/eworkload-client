@@ -78,3 +78,43 @@ query users {
         nationality
     }
 }
+query usersByPosition {
+    usersByPosition {
+        userId
+        email
+        firstName
+        lastName
+        photoUrl
+        disciplineIds
+        disciplines {
+            disciplineId
+            name
+            description
+        }
+        positionId
+        position {
+            positionId
+            name
+            description
+        }
+        departmentId
+        department {
+            departmentId
+            name
+            facultyId
+            faculty {
+                facultyId
+                name
+            }
+        }
+        workFocusName
+        workFocus {
+            name
+            teachingRatio
+            researchRatio
+            serviceRatio
+        }
+        gender
+        nationality
+    }
+}

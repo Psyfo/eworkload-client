@@ -24,7 +24,7 @@
             </div>
 
             <!-- Conference -->
-            <div class="p-grid" *ngIf="activity?.conferenceActivities">
+            <div class="p-grid" *ngIf="activity?.conferenceActivities?.length">
                 <div class="p-col">
                     <strong>Conference Activity</strong>
                 </div>
@@ -36,7 +36,7 @@
             </div>
 
             <!-- Authors -->
-            <div class="p-grid" *ngIf="activity?.authors">
+            <div class="p-grid" *ngIf="activity?.authors?.length">
                 <div class="p-col">
                     <strong>Authors</strong>
                 </div>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="p-col">
                     <div *ngFor="let date of activity?.dates">
-                        {{date}}
+                        {{date | date}}
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                     <strong>Evidence</strong>
                 </div>
                 <div class="p-col">
-                    {{ activity?.evidence }}
+                    <a href="#">Download</a>
                 </div>
             </div>
 

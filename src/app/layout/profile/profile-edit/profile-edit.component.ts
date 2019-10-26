@@ -3,24 +3,24 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 import {
+    Department,
     Discipline,
     Position,
     User,
     UserInput,
-    WorkFocus,
-    Department
+    WorkFocus
 } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
+import { UploadService } from 'src/app/shared/services';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { DepartmentService } from '../../admin/department/department.service';
 import { DisciplineService } from '../../admin/discipline/discipline.service';
 import { PositionService } from '../../admin/position/position.service';
 import { UserService } from '../../admin/user/user.service';
 import { WorkFocusService } from '../../admin/work-focus/work-focus.service';
-import { DepartmentService } from '../../admin/department/department.service';
-import { UploadService } from 'src/app/shared/services';
 
 @Component({
     selector: 'app-profile-edit',
@@ -35,11 +35,12 @@ export class ProfileEditComponent implements OnInit {
     genders = this.userService.genders;
     nationalities = this.userService.nationalities;
     userId = this.userService.currentUserIdStatic();
-    progress: boolean = false;
+    isSubmitting: boolean = false;
+    isUploading: boolean = false;
 
     userInput: UserInput = {};
     userModel: User = {};
-    selectedDepartment: any;
+    selectedDepartment: Department;
     departments: Department[];
     selectedDisciplines: Discipline[];
     disciplines: Discipline[];
@@ -93,9 +94,9 @@ export class ProfileEditComponent implements OnInit {
                     this.userModel = result.data.user;
                     this.selectedDisciplines = this.userModel.disciplines;
                     this.selectedDepartment = this.userModel.department;
+                    this.selectedDepartment.departmentId = this.userModel.departmentId;
                     this.selectedPosition = this.userModel.position;
                     this.selectedWorkFocus = this.userModel.workFocus;
-                    console.log(this.userModel.department);
                 },
                 err => {
                     this.alertService.errorToast(err);
@@ -167,7 +168,7 @@ export class ProfileEditComponent implements OnInit {
             );
     }
     public onSubmit(): void {
-        this.progress = true;
+        this.isSubmitting = true;
 
         // User input
         this.userInput = {
@@ -181,7 +182,7 @@ export class ProfileEditComponent implements OnInit {
             positionId: this.selectedPosition.positionId,
             workFocusName: this.selectedWorkFocus.name,
             departmentId: this.selectedDepartment.departmentId,
-            nationality: this.userModel.departmentId,
+            nationality: '',
             gender: this.userModel.gender
         };
 
@@ -191,7 +192,7 @@ export class ProfileEditComponent implements OnInit {
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
                 result => {
-                    this.progress = false;
+                    this.isSubmitting = false;
                     this.alertService.successToast('User edited');
                     this.router.navigate(['profile']);
                 },
@@ -214,29 +215,39 @@ export class ProfileEditComponent implements OnInit {
         this.userInput = {};
         this.getUser();
     }
-    onFileSelected(event) {
+    onFileSelected(event, imageUpload) {
         this.selectedFile = event.files[0];
         console.log(this.selectedFile);
 
         this.onFileUpload(
             this.selectedFile,
+            imageUpload,
             this.userService.currentUserIdStatic()
         );
     }
-    async onFileUpload(file, userId) {
-        await this.uploadService
-            .uploadProfilePicture(file, userId)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(
-                result => {
-                    console.log(result.data.uploadProfilePicture);
-                },
-                err => {
-                    this.alertService.errorToast(err);
-                    console.warn(err);
-                }
-            );
-        this.alertService.successToast('Image upload success');
+    onFileUpload(file, imageUpload, userId) {
+        // Start progress
+        this.isUploading = true; // start spinner
+
+        // Upload image with 2sec initial delay
+        setTimeout(() => {
+            this.uploadService
+                .uploadProfilePicture(file, userId)
+                .pipe(takeUntil(this.unsubscribe))
+                .subscribe(
+                    result => {
+                        console.log(result.data.uploadProfilePicture);
+
+                        this.alertService.successToast('Image upload success');
+                        this.isUploading = false; // stop spinner
+                        imageUpload.clear(); // clear files
+                    },
+                    err => {
+                        this.alertService.errorToast(err);
+                        console.warn(err);
+                    }
+                );
+        }, 2000);
         //this.photoUrl.reset();
     }
 }

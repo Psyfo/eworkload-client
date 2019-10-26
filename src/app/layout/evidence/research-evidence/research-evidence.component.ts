@@ -76,12 +76,14 @@ export class ResearchEvidenceComponent implements OnInit {
     }
     onUpload(file: File, userId, activityId) {
         this.progress = true;
-        this.uploadService
-            .uploadResearchEvidence(file, userId, activityId)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.progress = false;
-                this.alertService.successToast('Evidence uploaded');
-            });
+        setTimeout(() => {
+            this.uploadService
+                .uploadResearchEvidence(file, userId, activityId)
+                .pipe(takeUntil(this.unsubscribe))
+                .subscribe(result => {
+                    this.progress = false;
+                    this.alertService.successToast('Evidence uploaded');
+                });
+        }, 2000);
     }
 }

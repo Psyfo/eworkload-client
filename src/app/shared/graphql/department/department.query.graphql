@@ -7,6 +7,81 @@ query department($departmentId: String!) {
             facultyId
             name
         }
+        hodId
+        hod {
+            userId
+            email
+            firstName
+            lastName
+            photoUrl
+            disciplineIds
+            disciplines {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+                hodId
+                hod {
+                    userId
+                    email
+                    firstName
+                    lastName
+                    photoUrl
+                    disciplineIds
+                    disciplines {
+                        disciplineId
+                        name
+                        description
+                    }
+                    positionId
+                    position {
+                        positionId
+                        name
+                        description
+                    }
+                    departmentId
+                    department {
+                        departmentId
+                        name
+                        facultyId
+                        hodId
+                    }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
+                }
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
+        }
     }
 }
 query departments {
@@ -17,6 +92,81 @@ query departments {
         faculty {
             facultyId
             name
+        }
+        hodId
+        hod {
+            userId
+            email
+            firstName
+            lastName
+            photoUrl
+            disciplineIds
+            disciplines {
+                disciplineId
+                name
+                description
+            }
+            positionId
+            position {
+                positionId
+                name
+                description
+            }
+            departmentId
+            department {
+                departmentId
+                name
+                facultyId
+                faculty {
+                    facultyId
+                    name
+                }
+                hodId
+                hod {
+                    userId
+                    email
+                    firstName
+                    lastName
+                    photoUrl
+                    disciplineIds
+                    disciplines {
+                        disciplineId
+                        name
+                        description
+                    }
+                    positionId
+                    position {
+                        positionId
+                        name
+                        description
+                    }
+                    departmentId
+                    department {
+                        departmentId
+                        name
+                        facultyId
+                        hodId
+                    }
+                    workFocusName
+                    workFocus {
+                        name
+                        teachingRatio
+                        researchRatio
+                        serviceRatio
+                    }
+                    gender
+                    nationality
+                }
+            }
+            workFocusName
+            workFocus {
+                name
+                teachingRatio
+                researchRatio
+                serviceRatio
+            }
+            gender
+            nationality
         }
     }
 }

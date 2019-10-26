@@ -5,7 +5,8 @@ import {
     EditStudentGQL,
     StudentGQL,
     StudentInput,
-    StudentsGQL
+    StudentsGQL,
+    StudentsUnassignedGQL
 } from 'src/app/shared/generated';
 
 import { Injectable } from '@angular/core';
@@ -21,6 +22,7 @@ export class StudentService {
     constructor(
         private studentGql: StudentGQL,
         private studentsGql: StudentsGQL,
+        private studentsUnassignedGql: StudentsUnassignedGQL,
         private editStudentGql: EditStudentGQL,
         private addStudentGql: AddStudentGQL,
         private deleteStudentGql: DeleteStudentGQL
@@ -35,9 +37,14 @@ export class StudentService {
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
 
@@ -45,33 +52,68 @@ export class StudentService {
         return this.studentsGql
             .watch({}, { pollInterval: 2000 })
             .valueChanges.pipe(
-                map(result => {
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
+            );
+    }
+
+    studentsUnassigned(userId: string) {
+        return this.studentsUnassignedGql
+            .watch({ userId: userId }, { pollInterval: 2000 })
+            .valueChanges.pipe(
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
 
     addStudent(student: StudentInput) {
         return this.addStudentGql.mutate({ student: student }).pipe(
-            map(result => {
-                return result;
-            })
+            map(
+                result => {
+                    return result;
+                },
+                err => {
+                    return err;
+                }
+            )
         );
     }
 
     editStudent(student: StudentInput) {
         return this.editStudentGql.mutate({ student: student }).pipe(
-            map(result => {
-                return result;
-            })
+            map(
+                result => {
+                    return result;
+                },
+                err => {
+                    return err;
+                }
+            )
         );
     }
 
     deleteStudent(student: StudentInput) {
         return this.deleteStudentGql.mutate({ student: student }).pipe(
-            map(result => {
-                return result;
-            })
+            map(
+                result => {
+                    return result;
+                },
+                err => {
+                    return err;
+                }
+            )
         );
     }
 }

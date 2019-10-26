@@ -1,5 +1,8 @@
 import { UserService } from './../../../admin/user/user.service';
-import { PersonnelDevelopmentActivity } from './../../../../shared/generated/output';
+import {
+    PersonnelDevelopmentActivity,
+    PersonnelDevelopmentActivityInput
+} from './../../../../shared/generated/output';
 import { MenuItem } from 'primeng/components/common/menuitem';
 import { PersonnelDevelopmentService } from './../personnel-development.service';
 import { Router } from '@angular/router';
@@ -87,23 +90,6 @@ export class ListPersonnelDevelopmentComponent implements OnInit {
             );
     }
 
-    onRowSelect(event) {
-        this.alertService.infoToast(
-            `Activity: ${this.selectedActivity.activityId} selected`
-        );
-
-        this.router.navigate(
-            [
-                'activity/personnel-development/view',
-                this.selectedActivity.activityId
-            ],
-            {
-                queryParams: {
-                    activityId: this.selectedActivity.activityId
-                }
-            }
-        );
-    }
     onContextView(event) {
         this.alertService.infoToast(
             `Activity: ${this.selectedActivity.activityId} selected`
@@ -138,7 +124,42 @@ export class ListPersonnelDevelopmentComponent implements OnInit {
             }
         );
     }
-    onContextDelete(event) {}
-    onConfirm() {}
-    onReject() {}
+    onContextDelete(event) {
+        this.alertService.confirm('personnelDevelopmentActivityDelete');
+    }
+    onReject() {
+        this.alertService.clear();
+    }
+    onConfirm() {
+        this.alertService.clear();
+        const activityInput: PersonnelDevelopmentActivityInput = {
+            activityId: this.selectedActivity.activityId
+        };
+        this.personnelDevelopmentService
+            .deletePersonnelDevelopmentActivity(activityInput)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {},
+                err => {
+                    this.alertService.errorToast(err, 'errorToast');
+                }
+            );
+        this.alertService.successToast('Activity Deleted');
+    }
+    onRowSelect(event) {
+        const activityData: PersonnelDevelopmentActivity = event.data;
+        console.log(activityData);
+
+        this.alertService.infoToast(
+            `Activity: ${this.selectedActivity.activityId} selected`
+        );
+        this.router.navigate(
+            ['activity/research/view', this.selectedActivity.activityId],
+            {
+                queryParams: {
+                    activityId: this.selectedActivity.activityId
+                }
+            }
+        );
+    }
 }

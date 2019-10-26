@@ -6,7 +6,6 @@ query student($studentId: String!) {
         lastName
         type
         title
-        year
     }
 }
 query students {
@@ -17,6 +16,16 @@ query students {
         lastName
         type
         title
-        year
+    }
+}
+
+query studentsUnassigned($userId: String!) {
+    studentsUnassigned(userId: $userId) {
+        studentId
+        email
+        firstName
+        lastName
+        type
+        title
     }
 }

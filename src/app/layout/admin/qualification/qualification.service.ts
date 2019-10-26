@@ -1,3 +1,4 @@
+import { QualificationsPostgraduateGQL } from './../../../shared/generated/output';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
@@ -26,6 +27,7 @@ export class QualificationService {
     constructor(
         private qualificationGql: QualificationGQL,
         private qualificationsGql: QualificationsGQL,
+        private qualificationsPostgraduateGql: QualificationsPostgraduateGQL,
         private addQualificationGql: AddQualificationGQL,
         private editQualificationGql: EditQualificationGQL,
         private deleteQualificationGql: DeleteQualificationGQL,
@@ -41,12 +43,17 @@ export class QualificationService {
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        this.loading = result.loading;
+                        this.errors = result.errors;
+                        this.networkStatus = result.networkStatus;
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
 
@@ -59,12 +66,40 @@ export class QualificationService {
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        this.loading = result.loading;
+                        this.errors = result.errors;
+                        this.networkStatus = result.networkStatus;
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
+            );
+    }
+
+    qualificationsPostgraduate() {
+        return this.qualificationsPostgraduateGql
+            .watch(
+                {},
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(
+                    result => {
+                        this.loading = result.loading;
+                        this.errors = result.errors;
+                        this.networkStatus = result.networkStatus;
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
 
@@ -77,12 +112,17 @@ export class QualificationService {
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        this.loading = result.loading;
+                        this.errors = result.errors;
+                        this.networkStatus = result.networkStatus;
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
 
@@ -90,12 +130,17 @@ export class QualificationService {
         return this.addQualificationGql
             .mutate({ qualification: qualification })
             .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        this.loading = result.loading;
+                        this.errors = result.errors;
+                        this.networkStatus = result.networkStatus;
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
 
@@ -103,12 +148,17 @@ export class QualificationService {
         return this.editQualificationGql
             .mutate({ qualification: qualification })
             .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        this.loading = result.loading;
+                        this.errors = result.errors;
+                        this.networkStatus = result.networkStatus;
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
 
@@ -116,12 +166,17 @@ export class QualificationService {
         return this.deleteQualificationGql
             .mutate({ qualification: qualification })
             .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        this.loading = result.loading;
+                        this.errors = result.errors;
+                        this.networkStatus = result.networkStatus;
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
 }

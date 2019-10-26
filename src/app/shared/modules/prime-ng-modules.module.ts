@@ -1,3 +1,4 @@
+import { ChartsModule } from 'ng2-charts';
 import { AccordionModule } from 'primeng/accordion';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { BlockUIModule } from 'primeng/blockui';
@@ -37,6 +38,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PageHeaderModule } from './page-header';
+import { SharedPipesModule } from '../pipes/shared-pipes.module';
 
 @NgModule({
     declarations: [],
@@ -48,6 +50,7 @@ import { PageHeaderModule } from './page-header';
         CalendarModule,
         CardModule,
         ChartModule,
+        ChartsModule,
         CheckboxModule,
         ChipsModule,
         CommonModule,
@@ -71,6 +74,7 @@ import { PageHeaderModule } from './page-header';
         ProgressSpinnerModule,
         ReactiveFormsModule,
         ScrollPanelModule,
+        SharedPipesModule,
         SidebarModule,
         SliderModule,
         SpinnerModule,
@@ -87,6 +91,7 @@ import { PageHeaderModule } from './page-header';
         CalendarModule,
         CardModule,
         ChartModule,
+        ChartsModule,
         CheckboxModule,
         ChipsModule,
         CommonModule,
@@ -110,6 +115,7 @@ import { PageHeaderModule } from './page-header';
         PasswordModule,
         ReactiveFormsModule,
         ScrollPanelModule,
+        SharedPipesModule,
         SidebarModule,
         SliderModule,
         SpinnerModule,

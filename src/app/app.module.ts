@@ -41,6 +41,7 @@ import {
     WorkloadService
 } from './shared/services';
 import { StaffSummaryModule } from './layout/hod/staff-summary/staff-summary.module';
+import { SharedPipesModule } from './shared/pipes/shared-pipes.module';
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
@@ -69,6 +70,7 @@ export const createTranslateLoader = (http: HttpClient) => {
                 deps: [HttpClient]
             }
         }),
+        SharedPipesModule,
         AppRoutingModule,
         //GraphQLModule,
         ApolloModule,
@@ -119,7 +121,7 @@ export class AppModule {
                     this.alertService.errorToast(
                         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
                         'errorToast',
-                        0,
+                        5000,
                         true
                     );
                     console.log(
@@ -136,7 +138,7 @@ export class AppModule {
                  Name: ${networkError.name}
                  Stack: ${networkError.stack}`,
                     'errorToast',
-                    0,
+                    5000,
                     true
                 );
                 console.log(`[Network error]:

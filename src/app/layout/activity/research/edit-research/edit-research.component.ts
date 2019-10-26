@@ -1,29 +1,42 @@
-import { ResearchActivity } from './../../../../shared/generated/output';
-import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/components/common/menuitem';
-import { ResearchActivityInput } from 'src/app/shared/generated';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SelectItem } from 'primeng/components/common/selectitem';
 import { Subject } from 'rxjs';
-import { AlertService } from 'src/app/shared/modules';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ResearchService } from '../research.service';
+import { filter, takeUntil } from 'rxjs/operators';
 import { UserService } from 'src/app/layout/admin/user/user.service';
-import { takeUntil } from 'rxjs/operators';
+import { routerTransition } from 'src/app/router.animations';
+import {
+    ResearchActivity,
+    ResearchActivityInput
+} from 'src/app/shared/generated';
+import { AlertService } from 'src/app/shared/modules';
+
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { ResearchService } from '../research.service';
 
 @Component({
     selector: 'app-edit-research',
     templateUrl: './edit-research.component.html',
-    styleUrls: ['./edit-research.component.scss']
+    styleUrls: ['./edit-research.component.scss'],
+    animations: [routerTransition()]
 })
 export class EditResearchComponent implements OnInit {
     breadcrumbs: MenuItem[];
+    @ViewChild('f', { static: false }) form: any;
+
     outputs = this.researchService.outputTypes;
+    selectedOutput: SelectItem;
+    selectedTitle: string = '';
+    selectedDates: Date[];
     conferenceActivities = this.researchService.conferenceActivities;
-    researchActivity: ResearchActivityInput = {};
-    editResearchForm: FormGroup;
-    fullWidth = '100%';
-    activity: ResearchActivity;
-    editedActivity: ResearchActivityInput;
+    selectedConferenceActivities: SelectItem[] = [];
+    activityModel: ResearchActivity;
+    activityInput: ResearchActivityInput = {};
+    selectedAuthors: string[] = [];
+    selectedUrl = '';
+    selectedDetails = '';
+    isSubmitting: boolean;
 
     private unsubscribe = new Subject();
 
@@ -31,7 +44,6 @@ export class EditResearchComponent implements OnInit {
         private alertService: AlertService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private fb: FormBuilder,
         private researchService: ResearchService,
         private userService: UserService
     ) {}
@@ -40,85 +52,130 @@ export class EditResearchComponent implements OnInit {
         this.breadcrumbs = [
             { label: 'activity' },
             { label: 'research' },
-            { label: 'edit' }
+            { label: 'add' }
         ];
-        this.activatedRoute.queryParams.subscribe(result => {
-            this.getActivity(result.activityId);
-        });
-        this.buildForm();
+        this.getActivity();
     }
     ngOnDestroy(): void {
         //Called once, before the instance is destroyed.
-        //Edit 'implements OnDestroy' to the class.
+        //Add 'implements OnDestroy' to the class.
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
-
-    buildForm() {
-        this.editResearchForm = this.fb.group({
-            output: ['', [Validators.required]],
-            title: ['', [Validators.required]],
-            details: ['', [Validators.required]],
-            selectedConferenceDetails: [''],
-            dates: ['', [Validators.required]],
-            url: [''],
-            evidence: ['']
-        });
-    }
-    get output() {
-        return this.editResearchForm.get('output');
-    }
-    get title() {
-        return this.editResearchForm.get('title');
-    }
-    get details() {
-        return this.editResearchForm.get('details');
-    }
-    get dates() {
-        return this.editResearchForm.get('dates');
-    }
-    get url() {
-        return this.editResearchForm.get('url');
-    }
-    get selectedConferenceDetails() {
-        return this.editResearchForm.get('selectedConferenceDetails');
-    }
-    get evidence() {
-        return this.editResearchForm.get('evidence');
-    }
-    getActivity(activityId: string) {
-        this.researchService
-            .researchActivity(activityId)
+    getActivity() {
+        this.activatedRoute.queryParamMap
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.activity = result.data.researchActivity;
-            });
-    }
-    onFileSelected(event) {}
-    onEdit() {
-        this.researchActivity.userId = this.userService.currentUserIdStatic();
-        this.researchActivity.dutyId = '20';
+            .subscribe(
+                result => {
+                    const activityId = result.get('activityId');
+                    this.researchService
+                        .researchActivity(activityId)
+                        .pipe(takeUntil(this.unsubscribe))
+                        .subscribe(
+                            result => {
+                                this.activityModel =
+                                    result.data.researchActivity;
+                                this.selectedOutput = this.outputs.find(
+                                    output =>
+                                        output.label ===
+                                        this.activityModel.output
+                                );
+                                this.selectedDates = this.activityModel.dates.map(
+                                    dateString => {
+                                        return new Date(dateString);
+                                    }
+                                );
 
-        const selectedOutput = this.output.value;
-        this.researchActivity.output = selectedOutput.value;
-        this.researchActivity.title = this.title.value;
-        this.researchActivity.details = this.details.value;
-        this.researchActivity.url = this.url.value;
-        this.researchActivity.dates = this.dates.value;
-        console.log(this.researchActivity);
+                                this.selectedConferenceActivities = this.conferenceActivities.filter(
+                                    function(conferenceActivity) {
+                                        return (
+                                            this.indexOf(
+                                                conferenceActivity.label
+                                            ) >= 0
+                                        );
+                                    },
+                                    this.activityModel.conferenceActivities
+                                );
+                                this.selectedAuthors = this.activityModel.authors;
+                                this.selectedTitle = this.activityModel.title;
+                                this.selectedUrl = this.activityModel.url;
+                                this.selectedDetails = this.activityModel.details;
+                            },
+                            err => {
+                                this.alertService.errorToast(err);
+                                console.warn(err);
+                            }
+                        );
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
+    }
+    onSubmit() {
+        this.isSubmitting = true;
+
+        this.activityInput = {
+            activityId: this.activityModel.activityId,
+            userId: this.activityModel.userId,
+            dutyId: this.activityModel.dutyId,
+            output: this.selectedOutput.label,
+            title: this.activityModel.title,
+            dates: this.selectedDates,
+            details: this.selectedDetails
+        };
+
+        switch (this.selectedOutput.value) {
+            case 1:
+                this.activityInput.conferenceActivities = this.selectedConferenceActivities.map(
+                    activity => activity.label
+                );
+                break;
+
+            case 2:
+                this.activityInput.url = this.selectedUrl;
+                break;
+
+            case 3:
+                this.activityInput.authors = this.selectedAuthors;
+                break;
+
+            case 4:
+                this.activityInput.authors = this.selectedAuthors;
+                break;
+
+            case 5:
+                this.activityInput.url = this.selectedUrl;
+                break;
+
+            default:
+                break;
+        }
 
         this.researchService
-            .editResearchActivity(this.researchActivity)
+            .editResearchActivity(this.activityInput)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {});
-        this.alertService.successToast('Activity edited');
-        this.router.navigate(['activity/research']);
+            .subscribe(
+                result => {
+                    this.isSubmitting = false;
+
+                    console.log(result);
+
+                    this.alertService.successToast('Research activity edited');
+                    this.router.navigate(['activity/research']);
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
     }
     onBack(event) {
         this.router.navigate(['activity/research']);
     }
     onReset(event) {
-        this.editResearchForm.reset();
+        this.form.reset();
         this.ngOnInit();
     }
 }

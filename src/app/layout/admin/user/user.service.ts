@@ -1,4 +1,4 @@
-import { File } from './../../../shared/generated/output';
+import { File, UsersByPositionGQL } from './../../../shared/generated/output';
 import { SelectItem } from 'primeng/components/common/selectitem';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -49,6 +49,7 @@ export class UserService {
         private http: HttpClient,
         private userGql: UserGQL,
         private usersGql: UsersGQL,
+        private usersByPositionGql: UsersByPositionGQL,
         private addUserGql: AddUserGQL,
         private editUserGql: EditUserGQL,
         private deleteUserGql: DeleteUserGQL,
@@ -112,6 +113,24 @@ export class UserService {
 
     getUsers() {
         return this.usersGql
+            .watch(
+                {},
+                {
+                    pollInterval: 2000
+                }
+            )
+            .valueChanges.pipe(
+                map(result => {
+                    this.loading = result.loading;
+                    this.errors = result.errors;
+                    this.networkStatus = result.networkStatus;
+                    return result;
+                })
+            );
+    }
+
+    usersByPosition() {
+        return this.usersByPositionGql
             .watch(
                 {},
                 {

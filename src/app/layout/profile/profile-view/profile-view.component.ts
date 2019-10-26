@@ -23,6 +23,7 @@ import { WorkloadService } from '../../../shared/services/workload.service';
 import { FormalInstructionService } from '../../activity/formal-instruction/formal-instruction.service';
 import { ResearchService } from '../../activity/research/research.service';
 import { UserService } from '../../admin/user/user.service';
+import { ChartOptions } from 'chart.js';
 
 @Component({
     selector: 'app-profile-view',
@@ -39,7 +40,7 @@ export class ProfileViewComponent implements OnInit {
     researchPieData: any = {};
     researchPieOptions;
     servicePieData: any = {};
-    servicePieOptions;
+    servicePieOptions: ChartOptions;
 
     // Data properties
     userId = this.userService.currentUserIdStatic();
@@ -236,23 +237,23 @@ export class ProfileViewComponent implements OnInit {
                     }
 
                     this.researchPieData = {
-                        labels: ['Complete', 'Remaining', 'Excess'],
+                        labels: ['Excess', 'Complete', 'Remaining'],
                         datasets: [
                             {
                                 data: [
+                                    excessHours,
                                     completedHours,
-                                    remainingHours,
-                                    excessHours
+                                    remainingHours
                                 ],
                                 backgroundColor: [
+                                    '#de425b',
                                     '#439981',
-                                    '#aecdc2',
-                                    '#de425b'
+                                    '#aecdc2'
                                 ],
                                 hoverBackgroundColor: [
+                                    '#e66572',
                                     '#6aaa96',
-                                    '#cfdfd9',
-                                    '#e66572'
+                                    '#cfdfd9'
                                 ]
                             }
                         ]
@@ -296,23 +297,23 @@ export class ProfileViewComponent implements OnInit {
                     }
 
                     this.teachingPieData = {
-                        labels: ['Complete', 'Remaining', 'Excess'],
+                        labels: ['Excess', 'Complete', 'Remaining'],
                         datasets: [
                             {
                                 data: [
+                                    excessHours,
                                     completedHours,
-                                    remainingHours,
-                                    excessHours
+                                    remainingHours
                                 ],
                                 backgroundColor: [
+                                    '#de425b',
                                     '#439981',
-                                    '#aecdc2',
-                                    '#de425b'
+                                    '#aecdc2'
                                 ],
                                 hoverBackgroundColor: [
+                                    '#e66572',
                                     '#6aaa96',
-                                    '#cfdfd9',
-                                    '#e66572'
+                                    '#cfdfd9'
                                 ]
                             }
                         ]
@@ -363,26 +364,30 @@ export class ProfileViewComponent implements OnInit {
                     }
 
                     this.servicePieData = {
-                        labels: ['Complete', 'Remaining', 'Excess'],
+                        labels: ['Excess', 'Complete', 'Remaining'],
                         datasets: [
                             {
                                 data: [
+                                    excessHours,
                                     completedHours,
-                                    remainingHours,
-                                    excessHours
+                                    remainingHours
                                 ],
                                 backgroundColor: [
+                                    '#de425b',
                                     '#439981',
-                                    '#aecdc2',
-                                    '#de425b'
+                                    '#aecdc2'
                                 ],
                                 hoverBackgroundColor: [
+                                    '#e66572',
                                     '#6aaa96',
-                                    '#cfdfd9',
-                                    '#e66572'
+                                    '#cfdfd9'
                                 ]
                             }
                         ]
+                    };
+
+                    this.servicePieOptions = {
+                        elements: {}
                     };
                 },
                 err => {

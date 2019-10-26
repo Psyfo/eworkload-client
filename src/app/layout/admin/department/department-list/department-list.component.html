@@ -2,10 +2,10 @@
 <div class="p-grid" [@routerTransition]>
     <div class="p-col">
         <p-panel header="Departments">
-            <p-table #departmentTable [value]="departments" [paginator]="true" [rows]="10" selectionMode="single"
+            <p-table #departmentTable [value]="departments" [paginator]="true" [rows]="20" selectionMode="single"
                 [(selection)]="selectedDepartment" datakey="departmentId" (onRowSelect)="onRowSelect($event)"
-                [reorderableColumns]="true" [responsive]="true" [loading]="loading" [contextMenu]="cm"
-                contextMenuSelectionMode="joint">
+                sortField="faculty.facultyId" sortMode="single" (onSort)="onSort()" [responsive]="true"
+                [loading]="loading" [contextMenu]="cm" contextMenuSelectionMode="joint">
                 <ng-template pTemplate="caption">
                     <div style="text-align: right;">
                         <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
@@ -15,48 +15,53 @@
                 </ng-template>
                 <ng-template pTemplate="header" let-department>
                     <tr>
-                        <th colspan="2">
-                            Department ID
-                            <p-sortIcon [field]="department.departmentId"></p-sortIcon>
-                        </th>
-                        <th colspan="5">
-                            Name
-                            <p-sortIcon [field]="department.name"></p-sortIcon>
-                        </th>
-                        <th colspan="5">
+                        <th colspan="3">
                             Faculty
-                            <p-sortIcon [field]="department.facultyId"></p-sortIcon>
+                        </th>
+                        <th colspan="1">
+                            Department ID
+                        </th>
+                        <th colspan="4">
+                            Name
+                        </th>
+                        <th colspan="3">
+                            Head of Department
                         </th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-department let-columns="columns">
+                <ng-template pTemplate="body" let-department let-rowIndex="rowIndex">
                     <tr [pSelectableRow]="department" [pContextMenuRow]="department">
-                        <th colspan="2">
-                            {{department?.departmentId}}
-                        </th>
-                        <th colspan="5">
-                            {{department?.name}}
-                        </th>
-                        <th colspan="5">
+                        <td colspan="3" *ngIf="rowGroupMetadata[department?.faculty?.facultyId].index === rowIndex"
+                            [attr.rowspan]="rowGroupMetadata[department?.faculty?.facultyId].size">
                             {{department?.faculty?.name}}
-                        </th>
+                        </td>
+                        <td colspan="1">
+                            {{department?.departmentId}}
+                        </td>
+                        <td colspan="4">
+                            {{department?.name}}
+                        </td>
+                        <td colspan="3">
+                            {{department?.hod?.userId}} ({{department?.hod?.lastName}})
+                        </td>
                     </tr>
 
                 </ng-template>
                 <ng-template pTemplate="footer" let-department>
                     <tr>
-                        <th colspan="2">
-                            Department ID
-                            <p-sortIcon [field]="department.departmentId"></p-sortIcon>
-                        </th>
-                        <th colspan="5">
-                            Name
-                            <p-sortIcon [field]="department.name"></p-sortIcon>
-                        </th>
-                        <th colspan="5">
+                        <td colspan="3">
                             Faculty
-                            <p-sortIcon [field]="department.facultyId"></p-sortIcon>
-                        </th>
+                        </td>
+                        <td colspan="1">
+                            Department ID
+                        </td>
+                        <td colspan="4">
+                            Department Name
+                        </td>
+                        <td colspan="3">
+                            Head of Department
+
+                        </td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="summary">
@@ -73,7 +78,7 @@
 
             <p-contextMenu #cm [model]="menuItems" appendTo="body"></p-contextMenu>
             <p-footer>
-                <button pButton type="button" label="New Duty" icon="pi pi-plus" iconPos="left" (click)="onAdd()"
+                <button pButton type="button" label="New Department" icon="pi pi-plus" iconPos="left" (click)="onAdd()"
                     class="mr-2"></button>
                 <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export CSV"
                     (click)="departmentTable.exportCSV()" style="float:right"></button>

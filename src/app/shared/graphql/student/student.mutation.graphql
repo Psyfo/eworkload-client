@@ -6,7 +6,6 @@ mutation addStudent($student: StudentInput) {
         lastName
         type
         title
-        year
     }
 }
 mutation editStudent($student: StudentInput) {
@@ -17,7 +16,6 @@ mutation editStudent($student: StudentInput) {
         lastName
         type
         title
-        year
     }
 }
 mutation deleteStudent($student: StudentInput) {
@@ -28,6 +26,5 @@ mutation deleteStudent($student: StudentInput) {
         lastName
         type
         title
-        year
     }
 }

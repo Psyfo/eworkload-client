@@ -1,11 +1,17 @@
-import { SelectItem } from 'primeng/components/common/selectitem';
 import { MenuItem } from 'primeng/components/common/menuitem';
+import { SelectItem } from 'primeng/components/common/selectitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+    Component,
+    ElementRef,
+    OnInit,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import {
@@ -26,7 +32,7 @@ import { AcademicAdministrationService } from '../academic-administration.servic
 })
 export class AddAcademicAdministrationComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
 
     activityModel: AcademicAdministrationActivity = {};
     userId = this.userService.currentUserIdStatic();
@@ -36,6 +42,7 @@ export class AddAcademicAdministrationComponent implements OnInit {
     selectedTitle;
     qualifications: Qualification[] = [];
     selectedQualification: Qualification;
+    isSubmitting: boolean;
 
     private unsubscribe = new Subject();
 
@@ -69,25 +76,53 @@ export class AddAcademicAdministrationComponent implements OnInit {
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
                 ({ data }) => {
-                    this.qualifications = data.qualifications;
+                    this.qualifications = data.qualifications.map(
+                        qualification => {
+                            const label = `${qualification.qualificationId} - ${qualification.name}`;
+                            let model: any = qualification;
+                            model.label = label;
+                            return model;
+                        }
+                    );
                 },
                 err => {
-                    this.alertService.errorToast(err);
                     console.warn(err);
                 }
             );
     }
 
     onSubmit() {
+        this.isSubmitting = true;
+
         this.activityInput = {
+            activityId: this.activityModel.activityId,
             userId: this.userId,
             dutyId: this.dutyId,
-            title: this.activityModel.title,
+            title: this.selectedTitle.label,
             description: this.activityModel.description
         };
+
+        // If qualification field required
+        if (
+            this.selectedTitle.value === '0' ||
+            this.selectedTitle.value === '1'
+        ) {
+            this.activityInput.qualificationId = this.selectedQualification.qualificationId;
+        }
+
+        this.academicAdministrationService
+            .addAcademicAdministrationActivity(this.activityInput)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.isSubmitting = false;
+                this.alertService.successToast('Activity added');
+                this.router.navigate(['activity/academic-administration']);
+            });
     }
     onBack(event) {
         this.router.navigate(['activity/academic-administration']);
     }
-    onReset(event) {}
+    onReset(event) {
+        this.form.reset();
+    }
 }

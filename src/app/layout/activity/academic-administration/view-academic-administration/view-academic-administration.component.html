@@ -1,1 +1,63 @@
-<p>view-academic-administration works!</p>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col-6">
+        <p-panel header="Academic Administration Activity ({{userId}})">
+
+            <!-- Duty -->
+            <div class="p-grid" *ngIf="activity?.duty">
+                <div class="p-col">
+                    <strong>
+                        Activity Type
+                    </strong>
+                </div>
+                <div class="p-col">
+                    {{activity?.duty?.name}} ({{activity?.duty?.dutyId}})
+                </div>
+            </div>
+
+            <div class="p-grid" *ngIf="activity?.title">
+                <div class="p-col">
+                    <strong>
+                        Title
+                    </strong>
+                </div>
+                <div class="p-col">
+                    {{activity?.title}}
+                </div>
+            </div>
+
+            <div class="p-grid" *ngIf="activity?.qualification">
+                <div class="p-col">
+                    <strong>
+                        Qualification
+                    </strong>
+                </div>
+                <div class="p-col">
+                    {{activity?.qualification?.name}} ({{activity?.qualification?.qualificationId}})
+                </div>
+            </div>
+
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>
+                        Additional Details
+                    </strong>
+                </div>
+                <div class="p-col">
+                    {{activity?.description}}
+                </div>
+            </div>
+
+            <p-footer>
+                <div class="p-grid">
+                    <div class="p-col p-col-align-left">
+                        <button type="button" pButton icon="pi pi-arrow-left" class="ui-button-danger mr-2" label="Back"
+                            (click)="onBack($event)"></button>
+                        <button type="button" pButton icon="pi pi-pencil" class="ui-button-primary" label="Edit"
+                            (click)="onEdit($event)"></button>
+                    </div>
+                </div>
+            </p-footer>
+        </p-panel>
+    </div>
+</div>

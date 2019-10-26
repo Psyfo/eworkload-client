@@ -122,7 +122,6 @@
 
 <!-- WORKLOADS -->
 <div class="p-grid" [@routerTransition]>
-
     <!-- TEACHING -->
     <div class="p-sm-12 p-col-4 p-md-4 p-lg-4">
         <p-panel>
@@ -131,64 +130,73 @@
                     <a [routerLink]="[ '/activity/formal-instruction']">Teaching
                         Workload:
                         ({{teachingWorkload?.formalInstructionWorkload?.totalHoursPerUser + teachingWorkload?.supervisionWorkload?.totalHoursPerUser || 0 | number : '1.2-2'}}
-                        of {{teachingHours}} hours)</a>
+                        of {{teachingHours  | number: '1.0-2'}} hours)</a>
                 </strong>
             </p-header>
             <!-- Chart -->
             <p-chart type="doughnut" [data]="teachingPieData"></p-chart>
         </p-panel>
         <p-panel [showHeader]="false">
-            <div class="p-grid">
-                <div class="p-col-6">
-                    <strong>
-                        Module
-                    </strong>
-                </div>
-                <div class="p-col-3">
-                    <strong>
-                        # Students
-                    </strong>
-                </div>
-                <div class="p-col-3">
-                    <strong>
-                        Hours
-                    </strong>
-                </div>
-            </div>
-            <div class="p-grid"
-                *ngFor="let workload of teachingWorkload?.formalInstructionWorkload?.formalInstructionWorkloads">
-                <div class="p-col-6">
-                    {{workload?.module?.moduleId}} ({{workload?.block?.blockId}})
-                    ({{workload?.offeringType?.offeringTypeId}})
-                </div>
-                <div class="p-col-3">
-                    {{workload?.studentsEnrolled}}
-                </div>
-                <div class="p-col-3">
-                    {{workload?.totalHoursPerActivity}}
-                </div>
-            </div>
-            <div class="p-grid">
-                <div class="p-col-9">
-                    <strong>
-                        Supervision
-                    </strong>
-                </div>
-                <div class="p-col-3">
-                    <strong>
-                        Hours
-                    </strong>
+
+            <!-- FORMAL INSTRUCTION SUMMARY -->
+            <div class="p-grid" *ngIf="teachingWorkload?.formalInstructionWorkload?.formalInstructionWorkloads?.length">
+                <div class="p-col">
+                    <div class="p-grid">
+                        <div class="p-col-9">
+                            <strong>
+                                Module
+                            </strong>
+                        </div>
+                        <div class="p-col-3">
+                            <strong>
+                                Hours
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="p-grid"
+                        *ngFor="let workload of teachingWorkload?.formalInstructionWorkload?.formalInstructionWorkloads">
+                        <div class="p-col-9">
+                            {{workload?.module?.moduleId}} ({{workload?.block?.blockId}})
+                            ({{workload?.offeringType?.offeringTypeId}})
+                        </div>
+                        <div class="p-col-3">
+                            {{workload?.totalHoursPerActivity  | number : '1.0-2'}}
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col"></div>
+                    </div>
                 </div>
             </div>
-            <div class="p-grid" *ngFor="let workload of teachingWorkload?.supervisionWorkload?.supervisionWorkloads">
-                <div class="p-col-9">
-                    {{workload?.activity?.studentId}}
-                </div>
-                <div class="p-col-3">
-                    {{workload?.totalHoursPerActivity}}
+
+            <!-- SUPERVISION SUMMARY -->
+            <div class="p-grid" *ngIf="teachingWorkload?.supervisionWorkload?.supervisionWorkloads?.length">
+                <div class="p-col">
+                    <div class="p-grid">
+                        <div class="p-col-9">
+                            <strong>
+                                Supervision
+                            </strong>
+                        </div>
+                        <div class="p-col-3">
+                            <strong>
+                                Hours
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="p-grid"
+                        *ngFor="let workload of teachingWorkload?.supervisionWorkload?.supervisionWorkloads">
+                        <div class="p-col-9">
+                            {{workload?.activity?.studentId}}
+                        </div>
+                        <div class="p-col-3">
+                            {{workload?.totalHoursPerActivity  | number : '1.0-2'}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </p-panel>
+
     </div>
 
     <!-- RESEARCH -->
@@ -197,22 +205,43 @@
             <p-header>
                 <strong>
                     <a [routerLink]="[ '/activity/research']">Research
-                        Workload: ({{researchWorkload?.totalHoursPerUser || 0}} of {{researchHours}} hours)</a>
+                        Workload: ({{researchWorkload?.totalHoursPerUser || 0 | number: '1.0-2'}} of
+                        {{researchHours  | number: '1.0-2'}} hours)</a>
                 </strong>
             </p-header>
             <p-chart type="doughnut" [data]="researchPieData" [options]=""></p-chart>
         </p-panel>
         <p-panel [showHeader]="false">
-            <div class="p-grid">
-                <div class="p-col">
-                    <strong>
 
-                    </strong>
-                </div>
+            <!-- RESEARCH SUMMARY -->
+            <div class="p-grid" *ngIf="researchWorkload?.researchWorkloads.length">
                 <div class="p-col">
-
+                    <div class="p-grid">
+                        <div class="p-col-9">
+                            <strong>
+                                Research Activity
+                            </strong>
+                        </div>
+                        <div class="p-col-3">
+                            <strong>
+                                Hours
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="p-grid" *ngFor="let workload of researchWorkload?.researchWorkloads">
+                        <div class="p-col-9">
+                            {{workload?.activity?.title}}
+                        </div>
+                        <div class="p-col-3">
+                            {{workload?.totalHoursPerActivity | number : '1.0-2'}}
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col"></div>
+                    </div>
                 </div>
             </div>
+
         </p-panel>
     </div>
 
@@ -224,22 +253,167 @@
                     <a [routerLink]="[ '/activity/academic-administration']">Service
                         Workload:
                         ({{serviceWorkload?.academicAdministrationWorkload?.totalHoursPerUser + serviceWorkload?.communityInstructionWorkload?.totalHoursPerUser + serviceWorkload?.executiveManagementWorkload?.totalHoursPerUser + serviceWorkload?.personnelDevelopmentWorkload?.totalHoursPerUser + serviceWorkload?.publicServiceWorkload?.totalHoursPerUser || 0 | number : '1.2-2'}}
-                        of {{serviceHours}} hours)</a>
+                        of {{serviceHours | number : '1.0-2'}} hours)</a>
                 </strong>
             </p-header>
             <p-chart type="doughnut" [data]="servicePieData" [options]="servicePieOptions"></p-chart>
         </p-panel>
         <p-panel [showHeader]="false">
-            <div class="p-grid">
-                <div class="p-col">
-                    <strong>
 
-                    </strong>
-                </div>
+            <!-- ACADEMIC ADMIN SUMMARY -->
+            <div class="p-grid"
+                *ngIf="serviceWorkload?.academicAdministrationWorkload.academicAdministrationWorkloads.length">
                 <div class="p-col">
-
+                    <div class="p-grid">
+                        <div class="p-col-9">
+                            <strong>
+                                Academic Administration Activity
+                            </strong>
+                        </div>
+                        <div class="p-col-3">
+                            <strong>
+                                Hours
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="p-grid"
+                        *ngFor="let workload of serviceWorkload?.academicAdministrationWorkload?.academicAdministrationWorkloads">
+                        <div class="p-col-9">
+                            {{workload?.activity?.title}}
+                        </div>
+                        <div class="p-col-3">
+                            {{workload?.totalHoursPerActivity}}
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col"></div>
+                    </div>
                 </div>
             </div>
+
+            <!-- COMMUNITY INSTRUCTION SUMMARY  -->
+            <div class="p-grid"
+                *ngIf="serviceWorkload?.communityInstructionWorkload.communityInstructionWorkloads.length">
+                <div class="p-col">
+                    <div class="p-grid">
+                        <div class="p-col-9">
+                            <strong>
+                                Community Instruction Activity
+                            </strong>
+                        </div>
+                        <div class="p-col-3">
+                            <strong>
+                                Hours
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="p-grid"
+                        *ngFor="let workload of serviceWorkload?.communityInstructionWorkload?.communityInstructionWorkloads">
+                        <div class="p-col-9">
+                            {{workload?.activity?.title}}
+                        </div>
+                        <div class="p-col-3">
+                            {{workload?.totalHoursPerActivity}}
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXECUTIVE MANAGEMENT SUMMARY -->
+            <div class="p-grid"
+                *ngIf="serviceWorkload?.executiveManagementWorkload.executiveManagementWorkloads.length">
+                <div class="p-col">
+                    <div class="p-grid">
+                        <div class="p-col-9">
+                            <strong>
+                                Executive Management Activity
+                            </strong>
+                        </div>
+                        <div class="p-col-3">
+                            <strong>
+                                Hours
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="p-grid"
+                        *ngFor="let workload of serviceWorkload?.executiveManagementWorkload?.executiveManagementWorkloads">
+                        <div class="p-col-9">
+                            {{workload?.activity?.title}}
+                        </div>
+                        <div class="p-col-3">
+                            {{workload?.totalHoursPerActivity}}
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PERSONNEL DEVELOPMENT SUMMARY -->
+            <div class="p-grid"
+                *ngIf="serviceWorkload?.personnelDevelopmentWorkload.personnelDevelopmentWorkloads.length">
+                <div class="p-col">
+                    <div class="p-grid">
+                        <div class="p-col-9">
+                            <strong>
+                                Personnel Development Activity
+                            </strong>
+                        </div>
+                        <div class="p-col-3">
+                            <strong>
+                                Hours
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="p-grid"
+                        *ngFor="let workload of serviceWorkload?.personnelDevelopmentWorkload?.personnelDevelopmentWorkloads">
+                        <div class="p-col-9">
+                            {{workload?.activity?.title}}
+                        </div>
+                        <div class="p-col-3">
+                            {{workload?.totalHoursPerActivity}}
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PUBLIC SERVICE -->
+            <div class="p-grid" *ngIf="serviceWorkload?.publicServiceWorkload.publicServiceWorkloads.length">
+                <div class="p-col">
+                    <div class="p-grid">
+                        <div class="p-col-9">
+                            <strong>
+                                Public Service Activity
+                            </strong>
+                        </div>
+                        <div class="p-col-3">
+                            <strong>
+                                Hours
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="p-grid"
+                        *ngFor="let workload of serviceWorkload?.publicServiceWorkload?.publicServiceWorkloads">
+                        <div class="p-col-9">
+                            {{workload?.activity?.title}}
+                        </div>
+                        <div class="p-col-3">
+                            {{workload?.totalHoursPerActivity}}
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col"></div>
+                    </div>
+                </div>
+            </div>
+
         </p-panel>
     </div>
 </div>

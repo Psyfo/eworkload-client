@@ -45,7 +45,7 @@ export class AddStudentComponent implements OnInit {
 
     getQualifications() {
         this.qualificationService
-            .qualifications()
+            .qualificationsPostgraduate()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.qualifications = result.data.qualifications;

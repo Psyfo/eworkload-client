@@ -1,4 +1,7 @@
-import { ModuleInput } from './../../../../shared/generated/output';
+import {
+    ModuleInput,
+    FormalInstructionActivity
+} from './../../../../shared/generated/output';
 import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -12,9 +15,9 @@ import {
 } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { FormalInstructionService } from '../formal-instruction.service';
 
@@ -26,29 +29,25 @@ import { FormalInstructionService } from '../formal-instruction.service';
 })
 export class EditFormalInstructionComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    user: User;
-    users: User[];
-    selectedModule: Module;
+    @ViewChild('f', { static: false }) form: any;
+
+    userId = this.userService.currentUserIdStatic();
+    dutyId = '11';
+
+    selectedModule: Module = {};
     modules: Module[];
-    coordinator: boolean;
+    isCoordinator: boolean;
 
-    blockId: string;
-    oId;
-    qId;
-
-    baseContact: number;
-    coordinationWorkload: number;
-
-    formalInstructionActivity: FormalInstructionActivityInput = {};
+    activityModel: FormalInstructionActivity;
+    activityInput: FormalInstructionActivityInput = {};
+    isSubmitting: boolean = false;
 
     private unsubscribe = new Subject();
-
-    formalInstructionEditForm: FormGroup;
 
     constructor(
         private alertService: AlertService,
         private router: Router,
-        private fb: FormBuilder,
+        private activatedRoute: ActivatedRoute,
         private userService: UserService,
         private moduleService: ModuleService,
         private formalInstructionService: FormalInstructionService
@@ -60,86 +59,100 @@ export class EditFormalInstructionComponent implements OnInit {
             { label: 'formal-instruction' },
             { label: 'edit' }
         ];
-        this.buildForm();
+        this.getActivity();
+        this.getModulesByDiscipline();
+    }
+    ngAfterViewInit(): void {
+        //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+        //Add 'implements AfterViewInit' to the class.
     }
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
-    getVals(event) {
-        console.log(event);
-    }
-    buildForm() {
-        this.formalInstructionEditForm = this.fb.group({
-            userId: [{ value: '', disabled: true }, [Validators.required]],
-            module: ['', [Validators.required]],
-            isCoordinator: ['']
-        });
 
+    getActivity() {
+        this.activatedRoute.queryParamMap
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    const activityId = result.get('activityId');
+                    this.formalInstructionService
+                        .formalInstructionActivity(activityId)
+                        .pipe(takeUntil(this.unsubscribe))
+                        .subscribe(
+                            result => {
+                                this.activityModel =
+                                    result.data.formalInstructionActivity;
+                                this.selectedModule =
+                                    result.data.formalInstructionActivity.module;
+                                this.isCoordinator =
+                                    result.data.formalInstructionActivity.isCoordinator;
+                            },
+                            err => {
+                                this.alertService.errorToast(err);
+                                console.warn(err);
+                            }
+                        );
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
+    }
+    getModulesByDiscipline() {
         this.userService
             .currentUser()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.user = result.data.user
-
-                this.getModulesByUnassignedAndDiscipline(
-                    this.user.disciplineIds
-                );
-
-                this.formalInstructionEditForm.patchValue({
-                    userId: this.user.userId
-                });
+                const user = result.data.user;
+                this.moduleService
+                    .modulesByDiscipline(user.disciplineIds)
+                    .pipe(takeUntil(this.unsubscribe))
+                    .subscribe(result => {
+                        this.modules = result.data.modulesByDiscipline.map(
+                            module => {
+                                const label = `${module.moduleId} - ${module.name} (${module.block.name}) (${module.offeringType.description})`;
+                                let mod: any = module;
+                                mod.label = label;
+                                return mod;
+                            }
+                        );
+                    });
             });
     }
-    getUsers() {
-        this.userService
-            .getUsers()
+
+    onSubmit() {
+        this.isSubmitting = true;
+
+        // Standard activity data
+        this.activityInput.userId = this.activityModel.userId;
+        this.activityInput.dutyId = this.activityModel.dutyId;
+        this.activityInput.activityId = this.activityModel.activityId;
+
+        // Add modules to input
+        this.activityInput.moduleId = this.selectedModule.moduleId;
+        this.activityInput.blockId = this.selectedModule.blockId;
+        this.activityInput.offeringTypeId = this.selectedModule.offeringTypeId;
+        this.activityInput.qualificationId = this.selectedModule.qualificationId;
+
+        this.activityInput.isCoordinator = this.isCoordinator;
+
+        this.formalInstructionService
+            .editFormalInstructionActivity(this.activityInput)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.users = result.data.users;
+                this.isSubmitting = false;
+                this.alertService.successToast('Activity edited');
+                this.router.navigate(['activity/formal-instruction']);
             });
-    }
-    getModulesByUnassignedAndDiscipline(disciplineIds: string[]) {
-        this.moduleService
-            .modulesByUnassignedAndDiscipline(disciplineIds)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.modules = result.data.modulesByUnassignedAndDiscipline;
-            });
-    }
-
-    editModule(module: ModuleInput) {
-        
-    }
-
-    onEdit() {
-        
     }
     onBack(event) {
         this.router.navigate(['activity/formal-instruction']);
     }
     onReset(event) {
-        this.formalInstructionEditForm.reset();
+        this.form.reset();
         this.ngOnInit();
-    }
-    editCoordinator(coordinatorId: string, module: Module) {
-        module.coordinatorId = coordinatorId;
-        this.moduleService
-            .editModule(module)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.alertService.successToast('Coordinator edited');
-            });
-    }
-
-    // Getters
-    get userId() {
-        return this.formalInstructionEditForm.get('userId');
-    }
-    get module() {
-        return this.formalInstructionEditForm.get('module');
-    }
-    get isCoordinator() {
-        return this.formalInstructionEditForm.get('isCoordinator');
     }
 }

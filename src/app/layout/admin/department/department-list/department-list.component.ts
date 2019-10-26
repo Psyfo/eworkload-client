@@ -20,6 +20,7 @@ export class DepartmentListComponent implements OnInit {
     breadcrumbs: MenuItem[];
     menuItems: MenuItem[];
     cols: any[];
+    rowGroupMetadata: any;
 
     departments: Department[] = [];
     selectedDepartment: Department;
@@ -78,6 +79,7 @@ export class DepartmentListComponent implements OnInit {
                 result => {
                     this.loading = result.loading;
                     this.departments = result.data.departments;
+                    this.updateRowGroupMetaData();
                 },
                 err => {
                     this.alertService.errorToast(err);
@@ -87,6 +89,30 @@ export class DepartmentListComponent implements OnInit {
     }
     onAdd() {
         this.router.navigate(['admin/department/add']);
+    }
+
+    onSort() {
+        this.updateRowGroupMetaData();
+    }
+    updateRowGroupMetaData() {
+        this.rowGroupMetadata = {};
+        if (this.departments) {
+            for (let i = 0; i < this.departments.length; i++) {
+                let rowData = this.departments[i];
+                let faculty = rowData.faculty.facultyId;
+                if (i === 0) {
+                    this.rowGroupMetadata[faculty] = { index: 0, size: 1 };
+                } else {
+                    let previousRowData = this.departments[i - 1];
+                    let previousRowGroup = previousRowData.faculty.facultyId;
+                    if (faculty === previousRowGroup) {
+                        this.rowGroupMetadata[faculty].size++;
+                    } else {
+                        this.rowGroupMetadata[faculty] = { index: i, size: 1 };
+                    }
+                }
+            }
+        }
     }
 
     onRowSelect(event) {

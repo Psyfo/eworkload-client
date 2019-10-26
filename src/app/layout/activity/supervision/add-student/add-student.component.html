@@ -37,7 +37,7 @@
                 <div class="p-grid">
                     <div class="p-col-2">Qualification</div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="qualifications" optionLabel="name" placeholder="Select Student"
+                        <p-dropdown [options]="qualifications" optionLabel="name" placeholder="Select Qualification"
                             appendTo="body" showClear="true" [filter]="true" filterBy="qualificationId"
                             [(ngModel)]="selectedQualification" name="qualification" #qualification="ngModel" required>
                         </p-dropdown>
@@ -54,7 +54,8 @@
                         <div class="p-col-10 p-col-align-left">
                             <button type="button" pButton icon="pi pi-arrow-left" label="Back" (click)="onBack($event)"
                                 class="ui-button-danger mr-2"></button>
-                            <button pButton icon="pi pi-plus" label="Save" class="" [disabled]="f.invalid"></button>
+                            <button pButton icon="pi pi-plus" label="Save" class=""
+                                [disabled]="f.pristine || (f.dirty && f.invalid)"></button>
                         </div>
                         <div class="p-col-2 p-col-align-right">
                             <button type="button" pButton icon="pi pi-refresh" label="Reset" (click)="onReset($event)"

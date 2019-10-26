@@ -142,7 +142,6 @@ query activity($activityId: String!) {
                 firstName
                 lastName
                 title
-                year
             }
         }
     }
@@ -295,7 +294,6 @@ query activitiesByUnapproved {
                 firstName
                 lastName
                 title
-                year
             }
         }
     }

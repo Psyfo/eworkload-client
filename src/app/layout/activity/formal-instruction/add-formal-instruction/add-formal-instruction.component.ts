@@ -11,10 +11,8 @@ import {
 import { AlertService } from 'src/app/shared/modules';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { User } from '../../../../shared/generated/output';
 import { FormalInstructionService } from '../formal-instruction.service';
 
 @Component({
@@ -32,7 +30,8 @@ export class AddFormalInstructionComponent implements OnInit {
 
     selectedModule: Module = {};
     modules: Module[];
-    isCoordinator: boolean = false;
+    isCoordinator: boolean;
+    isSubmitting: boolean;
 
     activityInput: FormalInstructionActivityInput = {};
 
@@ -52,24 +51,24 @@ export class AddFormalInstructionComponent implements OnInit {
             { label: 'formal-instruction' },
             { label: 'add' }
         ];
-        this.getModulesByUnassignedAndDiscipline();
+        this.getModulesByDiscipline();
     }
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
 
-    getModulesByUnassignedAndDiscipline() {
+    getModulesByDiscipline() {
         this.userService
             .currentUser()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 const user = result.data.user;
                 this.moduleService
-                    .modulesByUnassignedAndDiscipline(user.disciplineIds)
+                    .modulesByDiscipline(user.disciplineIds)
                     .pipe(takeUntil(this.unsubscribe))
                     .subscribe(result => {
-                        this.modules = result.data.modulesByUnassignedAndDiscipline.map(
+                        this.modules = result.data.modulesByDiscipline.map(
                             module => {
                                 const label = `${module.moduleId} - ${module.name} (${module.block.name}) (${module.offeringType.description})`;
                                 let mod: any = module;
@@ -82,15 +81,18 @@ export class AddFormalInstructionComponent implements OnInit {
     }
 
     onSubmit() {
-        // Standard activity data
-        this.activityInput.userId = this.userId;
-        this.activityInput.dutyId = this.dutyId;
+        this.isSubmitting = true;
 
-        // Add modules to input
-        this.activityInput.moduleId = this.selectedModule.moduleId;
-        this.activityInput.blockId = this.selectedModule.blockId;
-        this.activityInput.offeringTypeId = this.selectedModule.offeringTypeId;
-        this.activityInput.qualificationId = this.selectedModule.qualificationId;
+        // Standard activity data
+        this.activityInput = {
+            userId: this.userId,
+            dutyId: this.dutyId,
+            moduleId: this.selectedModule.moduleId,
+            blockId: this.selectedModule.blockId,
+            offeringTypeId: this.selectedModule.offeringTypeId,
+            qualificationId: this.selectedModule.qualificationId,
+            isCoordinator: this.isCoordinator
+        };
 
         this.formalInstructionService
             .addFormalInstructionActivity(this.activityInput)
@@ -98,6 +100,7 @@ export class AddFormalInstructionComponent implements OnInit {
             .subscribe(result => {
                 console.log('FI Activity added:', result);
 
+                this.isSubmitting = false;
                 this.alertService.successToast('Activity added');
                 this.router.navigate(['activity/formal-instruction']);
             });

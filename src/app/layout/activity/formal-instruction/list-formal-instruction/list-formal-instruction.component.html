@@ -31,16 +31,20 @@
                             Offering Type
                             <p-sortIcon [field]="activity?.offeringType?.description"></p-sortIcon>
                         </th>
-                        <th colspan="5" [pSortableColumn]="activity?.qualification?.name">
+                        <th colspan="4" [pSortableColumn]="activity?.qualification?.name">
                             Qualification
                             <p-sortIcon [field]="activity?.qualification?.name"></p-sortIcon>
+                        </th>
+                        <th colspan="1" [pSortableColumn]="activity?.module?.coordinator">
+                            Coordinator
+                            <p-sortIcon [field]="activity?.module?.coordinatorId"></p-sortIcon>
                         </th>
                         <th colspan="1" [pSortableColumn]="activity?.approvalStatus">
                             Approval Status
                             <p-sortIcon [field]="activity?.approvalStatus"></p-sortIcon>
                         </th>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <th colspan="1">
                             <input type="text" pInputText
                                 (input)="fiTable.filter($event.target.value, 'moduleId', 'contains')"
@@ -61,9 +65,14 @@
                                 (input)="fiTable.filter($event.target.value, 'offeringType.description', 'contains')"
                                 style="width: 100%;">
                         </th>
-                        <th colspan="5">
+                        <th colspan="4">
                             <input type="text" pInputText
                                 (input)="fiTable.filter($event.target.value,'qualification.name', 'contains')"
+                                style="width: 100%;">
+                        </th>
+                        <th colspan="1">
+                            <input type="text" pInputText
+                                (input)="fiTable.filter($event.target.value,'module.coordinatorId', 'contains')"
                                 style="width: 100%;">
                         </th>
                         <th colspan="1">
@@ -71,7 +80,7 @@
                                 (input)="fiTable.filter($event.target.value,'approvalStatus', 'contains')"
                                 style="width: 100%;">
                         </th>
-                    </tr>
+                    </tr> -->
                 </ng-template>
                 <ng-template pTemplate="body" let-activity>
                     <tr [pSelectableRow]="activity" [pContextMenuRow]="activity">
@@ -87,8 +96,11 @@
                         <td colspan="1">
                             {{activity?.offeringType?.description}}
                         </td>
-                        <td colspan="5">
+                        <td colspan="4">
                             {{activity?.qualification?.name}}
+                        </td>
+                        <td colspan="1">
+                            {{activity?.isCoordinator | questionableBoolean}}
                         </td>
                         <td colspan="1">
                             {{activity?.approvalStatus | titlecase}}
@@ -109,8 +121,11 @@
                         <td colspan="1">
                             Offering Type
                         </td>
-                        <td colspan="5">
+                        <td colspan="4">
                             Qualification
+                        </td>
+                        <td colspan="1">
+                            Coordinator
                         </td>
                         <td colspan="1">
                             Approval Status

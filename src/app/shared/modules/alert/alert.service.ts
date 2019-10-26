@@ -73,8 +73,6 @@ export class AlertService {
         life = 5000,
         sticky: boolean = false
     ) {
-        console.log('Key passed:', key);
-
         this.messageService.add({
             severity: 'error',
             summary: 'Error',
