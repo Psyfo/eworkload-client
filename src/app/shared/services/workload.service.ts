@@ -1,3 +1,4 @@
+import { TotalWorkloadGQL } from './../generated/output';
 import { Subject, combineLatest, merge, concat } from 'rxjs';
 import { map, mapTo } from 'rxjs/operators';
 
@@ -40,6 +41,7 @@ export class WorkloadService {
         private publicServiceWorkloadGql: PublicServiceWorkloadGQL,
         private researchWorkloadGql: ResearchWorkloadGQL,
         private supervisionWorkloadGql: SupervisionWorkloadGQL,
+        private totalWorkloadGql: TotalWorkloadGQL,
         private teachingHoursGql: TeachingHoursGQL,
         private researchHoursGql: ResearchHoursGQL,
         private serviceHoursGql: ServiceHoursGQL,
@@ -220,7 +222,21 @@ export class WorkloadService {
 
         return serviceWorkload;
     }
-    hemisWorkload(userId: string) {
+    totalWorkload(userId: string) {
+        return this.totalWorkloadGql
+            .watch({ userId: userId }, { pollInterval: 1000 })
+            .valueChanges.pipe(
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
+            );
+    }
+    totalWorkloadsCombined(userId: string) {
         const aaWorkload = this.academicAdministrationWorkload(userId);
         const ciWorkload = this.communityInstructionWorkload(userId);
         const emWorkload = this.executiveManagementWorkload(userId);
@@ -230,7 +246,35 @@ export class WorkloadService {
         const rWorkload = this.researchWorkload(userId);
         const sWorkload = this.supervisionWorkload(userId);
 
-        
+        const totalWorkload = combineLatest(
+            aaWorkload,
+            ciWorkload,
+            emWorkload,
+            fiWorkload,
+            pdWorkload,
+            psWorkload,
+            rWorkload,
+            sWorkload
+        ).pipe(
+            map(([aa, ci, em, fi, pd, ps, r, s]) => {
+                const totalWorkload = {
+                    academicAdministrationWorkload:
+                        aa.data.academicAdministrationWorkload,
+                    communityInstructionWorkload:
+                        ci.data.communityInstructionWorkload,
+                    executiveManagementWorkload:
+                        em.data.executiveManagementWorkload,
+                    formalInstructionWorkload:
+                        fi.data.formalInstructionWorkload,
+                    personnelDevelopmentWorkload:
+                        pd.data.personnelDevelopmentWorkload,
+                    publicServiceWorkload: ps.data.publicServiceWorkload,
+                    researchWorkload: r.data.researchWorkload,
+                    supervisionWorkload: s.data.supervisionWorkload
+                };
+                return totalWorkload;
+            })
+        );
     }
 
     // General Data

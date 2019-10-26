@@ -1,6 +1,0 @@
-query event($eventId: String!) {
-    event(eventId: $eventId) {
-        eventId
-        description
-    }
-}

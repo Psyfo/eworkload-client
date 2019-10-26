@@ -160,12 +160,13 @@ export class ListAcademicAdministrationComponent implements OnInit {
             .deleteAcademicAdministrationActivity(activityInput)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
-                result => {},
+                result => {
+                    this.alertService.successToast('Activity Deleted');
+                },
                 err => {
                     this.alertService.errorToast(err, 'errorToast');
                 }
             );
-        this.alertService.successToast('Activity Deleted');
     }
     onRowSelect(event) {
         const activityData: AcademicAdministrationActivity = event.data;
