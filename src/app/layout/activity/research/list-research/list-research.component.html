@@ -2,15 +2,15 @@
 <div class="p-grid" [@routerTransition]>
     <div class="p-col">
         <p-panel header="Research Activities">
-            <p-table #fiTable [columns]="cols" [value]="activities" [paginator]="true" [rows]="10"
-                selectionMode="single" [(selection)]="selectedActivity" datakey="activityId"
-                (onRowSelect)="onRowSelect($event)" [reorderableColumns]="true" [responsive]="true" [loading]="loading"
-                [contextMenu]="cm" contextMenuSelectionMode="joint">
+            <p-table #rTable [columns]="cols" [value]="activities" [paginator]="true" [rows]="10" selectionMode="single"
+                [(selection)]="selectedActivity" datakey="activityId" (onRowSelect)="onRowSelect($event)"
+                [reorderableColumns]="true" [responsive]="true" [loading]="loading" [contextMenu]="cm"
+                contextMenuSelectionMode="joint">
                 <ng-template pTemplate="caption">
                     <div style="text-align: right;">
                         <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
                         <input type="text" pInputText size="50" placeholder="Global Filter"
-                            (input)="fiTable.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            (input)="rTable.filterGlobal($event.target.value, 'contains')" style="width:auto">
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header" let-columns>
@@ -73,7 +73,7 @@
                 <button pButton type="button" label="New Activity" icon="pi pi-plus" iconPos="left"
                     (click)="onAdd()"></button>
                 <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export CSV"
-                    (click)="fiTable.exportCSV()" style="float:right"></button>
+                    (click)="rTable.exportCSV()" style="float:right"></button>
             </p-footer>
         </p-panel>
     </div>

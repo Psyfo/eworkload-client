@@ -36,7 +36,6 @@ export class ProfileEditComponent implements OnInit {
     nationalities = this.userService.nationalities;
     userId = this.userService.currentUserIdStatic();
     isSubmitting: boolean = false;
-    isUploading: boolean = false;
 
     userInput: UserInput = {};
     userModel: User = {};
@@ -48,7 +47,6 @@ export class ProfileEditComponent implements OnInit {
     positions: Position[];
     selectedWorkFocus: WorkFocus;
     workFocuses: WorkFocus[];
-    selectedFile: File[];
 
     private unsubscribe = new Subject();
 
@@ -214,40 +212,5 @@ export class ProfileEditComponent implements OnInit {
         this.userModel = null;
         this.userInput = {};
         this.getUser();
-    }
-    onFileSelected(event, imageUpload) {
-        this.selectedFile = event.files[0];
-        console.log(this.selectedFile);
-
-        this.onFileUpload(
-            this.selectedFile,
-            imageUpload,
-            this.userService.currentUserIdStatic()
-        );
-    }
-    onFileUpload(file, imageUpload, userId) {
-        // Start progress
-        this.isUploading = true; // start spinner
-
-        // Upload image with 2sec initial delay
-        setTimeout(() => {
-            this.uploadService
-                .uploadProfilePicture(file, userId)
-                .pipe(takeUntil(this.unsubscribe))
-                .subscribe(
-                    result => {
-                        console.log(result.data.uploadProfilePicture);
-
-                        this.alertService.successToast('Image upload success');
-                        this.isUploading = false; // stop spinner
-                        imageUpload.clear(); // clear files
-                    },
-                    err => {
-                        this.alertService.errorToast(err);
-                        console.warn(err);
-                    }
-                );
-        }, 2000);
-        //this.photoUrl.reset();
     }
 }

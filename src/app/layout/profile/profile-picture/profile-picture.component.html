@@ -1,0 +1,25 @@
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <p-panel header="Edit Profile Picture">
+            <!-- PROFILE PICTURE -->
+            <div class="p-grid">
+                <div class="p-col-2">
+                    Profile Picture
+                </div>
+                <div class="p-col-6">
+                    <p-fileUpload #imageUpload *ngIf="isUploading === false; else spinner" name="myFile[]"
+                        customUpload="true" (uploadHandler)="onFileSelected($event, imageUpload)" accept="image/*"
+                        maxFileSize="1000000" [multiple]="false" [showCancelButton]="false">
+                    </p-fileUpload>
+
+                    <ng-template #spinner>
+                        <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="6" fill="#EEEEEE"
+                            animationDuration=".5s"></p-progressSpinner>
+                    </ng-template>
+                </div>
+            </div>
+        </p-panel>
+    </div>
+</div>

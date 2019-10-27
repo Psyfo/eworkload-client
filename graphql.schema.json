@@ -5810,7 +5810,7 @@
                             "name": null,
                             "ofType": {
                                 "kind": "SCALAR",
-                                "name": "String",
+                                "name": "Date",
                                 "ofType": null
                             }
                         },
@@ -5846,6 +5846,16 @@
                 "interfaces": [
                     { "kind": "INTERFACE", "name": "Activity", "ofType": null }
                 ],
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "SCALAR",
+                "name": "Date",
+                "description": "Date custom scalar type",
+                "fields": null,
+                "inputFields": null,
+                "interfaces": null,
                 "enumValues": null,
                 "possibleTypes": null
             },
@@ -6536,16 +6546,6 @@
                 "interfaces": [
                     { "kind": "INTERFACE", "name": "Activity", "ofType": null }
                 ],
-                "enumValues": null,
-                "possibleTypes": null
-            },
-            {
-                "kind": "SCALAR",
-                "name": "Date",
-                "description": "Date custom scalar type",
-                "fields": null,
-                "inputFields": null,
-                "interfaces": null,
                 "enumValues": null,
                 "possibleTypes": null
             },
@@ -10822,7 +10822,7 @@
                             "name": null,
                             "ofType": {
                                 "kind": "SCALAR",
-                                "name": "String",
+                                "name": "Date",
                                 "ofType": null
                             }
                         },

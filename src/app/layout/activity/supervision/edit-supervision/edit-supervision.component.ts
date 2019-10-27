@@ -1,3 +1,4 @@
+import { routerTransition } from 'src/app/router.animations';
 import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -14,15 +15,17 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { SupervisionService } from '../supervision.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-edit-supervision',
     templateUrl: './edit-supervision.component.html',
-    styleUrls: ['./edit-supervision.component.scss']
+    styleUrls: ['./edit-supervision.component.scss'],
+    animations: [routerTransition()]
 })
 export class EditSupervisionComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
 
     userId = this.userService.currentUserIdStatic();
     dutyId = '11';
@@ -159,6 +162,7 @@ export class EditSupervisionComponent implements OnInit {
         this.router.navigate(['activity/supervision']);
     }
     onReset(event) {
-        this.form.reset();
+        this.getActivity();
+        this.form.form.markAsPristine();
     }
 }

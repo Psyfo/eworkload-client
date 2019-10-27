@@ -14,6 +14,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ResearchService } from '../research.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-edit-research',
@@ -23,7 +24,7 @@ import { ResearchService } from '../research.service';
 })
 export class EditResearchComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
 
     outputs = this.researchService.outputTypes;
     selectedOutput: SelectItem;
@@ -175,7 +176,7 @@ export class EditResearchComponent implements OnInit {
         this.router.navigate(['activity/research']);
     }
     onReset(event) {
-        this.form.reset();
-        this.ngOnInit();
+        this.getActivity();
+        this.form.form.markAsPristine();
     }
 }

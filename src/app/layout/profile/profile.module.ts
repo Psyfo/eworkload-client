@@ -11,6 +11,7 @@ import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { ProfileComponent } from './profile.component';
+import { ProfilePictureComponent } from './profile-picture/profile-picture.component';
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import { ProfileComponent } from './profile.component';
         ProfileComponent,
         ProfileViewComponent,
         ProfileEditComponent,
-        ChangePasswordComponent
+        ChangePasswordComponent,
+        ProfilePictureComponent
     ]
 })
 export class ProfileModule {}

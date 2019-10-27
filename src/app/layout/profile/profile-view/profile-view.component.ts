@@ -104,6 +104,9 @@ export class ProfileViewComponent implements OnInit {
     onChangePassword(event): void {
         this.router.navigate(['profile/change-password']);
     }
+    onChangeProfilePicture(event) {
+        this.router.navigate(['profile/profile-picture']);
+    }
 
     getUser() {
         this.userService
@@ -324,7 +327,6 @@ export class ProfileViewComponent implements OnInit {
                     this.teachingChart();
                     this.researchChart();
                     this.serviceChart();
-
                 },
                 err => {
                     console.error(err);

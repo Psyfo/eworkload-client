@@ -106,7 +106,7 @@ export class ListFormalInstructionComponent implements OnInit {
                         result.data.formalInstructionActivitiesByUser;
                 },
                 err => {
-                    this.alertService.errorToast(err, 'errorToast');
+                    console.warn(err);
                 }
             );
     }

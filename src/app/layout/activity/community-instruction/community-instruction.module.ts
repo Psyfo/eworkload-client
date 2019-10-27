@@ -7,9 +7,14 @@ import { CommunityInstructionComponent } from './community-instruction.component
 import { EditCommunityInstructionComponent } from './edit-community-instruction/edit-community-instruction.component';
 import { ListCommunityInstructionComponent } from './list-community-instruction/list-community-instruction.component';
 import { ViewCommunityInstructionComponent } from './view-community-instruction/view-community-instruction.component';
+import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
 
 @NgModule({
-    imports: [CommonModule, CommunityInstructionRoutingModule],
+    imports: [
+        CommonModule,
+        CommunityInstructionRoutingModule,
+        PrimeNgModulesModule
+    ],
     declarations: [
         CommunityInstructionComponent,
         AddCommunityInstructionComponent,

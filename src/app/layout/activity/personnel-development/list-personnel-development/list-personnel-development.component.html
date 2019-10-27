@@ -7,25 +7,51 @@
                 (onRowSelect)="onRowSelect($event)" [reorderableColumns]="true" [responsive]="true" [loading]="loading"
                 [contextMenu]="cm" contextMenuSelectionMode="joint">
                 <ng-template pTemplate="caption">
+                    <div style="text-align: right;">
+                        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Global Filter"
+                            (input)="pdTable.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
                 </ng-template>
-                <ng-template pTemplate="header" let-cols>
+                <ng-template pTemplate="header" let-activity>
                     <tr>
-                        <th *ngFor="let column of cols">
-                            {{column.header}}
+                        <th [pSortableColumn]="activity?.title">
+                            Title
+                            <p-sortIcon [field]="activity?.title"></p-sortIcon>
+                        </th>
+                        <th [pSortableColumn]="activity?.date">
+                            Date(s)
+                            <p-sortIcon [field]="activity?.date"></p-sortIcon>
+                        </th>
+                        <th [pSortableColumn]="activity?.duration">
+                            Duration
+                            <p-sortIcon [field]="activity?.duration"></p-sortIcon>
                         </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-activity let-cols="columns">
-                    <tr>
-                        <td *ngFor="let column of cols">
-                            {{activity[column.field]}}
+                    <tr [pSelectableRow]="activity" [pContextMenuRow]="activity">
+                        <td>
+                            {{activity?.title}}
+                        </td>
+                        <td>
+                            {{activity?.date[0] | date}} - {{activity?.date[1] | date}}
+                        </td>
+                        <td>
+                            {{activity?.duration}}
                         </td>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="footer" let-cols>
+                <ng-template pTemplate="footer">
                     <tr>
-                        <td *ngFor="let column of cols">
-                            {{column.header}}
+                        <td>
+                            Title
+                        </td>
+                        <td>
+                            Date(s)
+                        </td>
+                        <td>
+                            Duration
                         </td>
                     </tr>
                 </ng-template>

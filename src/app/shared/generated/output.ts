@@ -903,7 +903,7 @@ export type PersonnelDevelopmentActivity = Activity & {
     createdAt?: Maybe<Scalars["String"]>;
     updatedAt?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
-    date?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    date?: Maybe<Array<Maybe<Scalars["Date"]>>>;
     duration?: Maybe<Scalars["String"]>;
     evidence?: Maybe<Scalars["String"]>;
 };
@@ -913,7 +913,7 @@ export type PersonnelDevelopmentActivityInput = {
     userId?: Maybe<Scalars["String"]>;
     dutyId?: Maybe<Scalars["String"]>;
     title?: Maybe<Scalars["String"]>;
-    date?: Maybe<Array<Maybe<Scalars["String"]>>>;
+    date?: Maybe<Array<Maybe<Scalars["Date"]>>>;
     duration?: Maybe<Scalars["String"]>;
 };
 
@@ -9209,31 +9209,6 @@ export type EnrollmentsByYearQuery = { __typename?: "Query" } & {
                             >
                         >;
                     }
-            >
-        >
-    >;
-};
-
-export type EventQueryVariables = {
-    eventId: Scalars["String"];
-};
-
-export type EventQuery = { __typename?: "Query" } & {
-    event: Maybe<
-        { __typename?: "Event" } & Pick<Event, "eventId" | "description">
-    >;
-};
-
-export type EventsQueryVariables = {};
-
-export type EventsQuery = { __typename?: "Query" } & {
-    events: Maybe<
-        Array<
-            Maybe<
-                { __typename?: "Event" } & Pick<
-                    Event,
-                    "eventId" | "description"
-                >
             >
         >
     >;
@@ -22709,36 +22684,6 @@ export class EnrollmentsByYearGQL extends Apollo.Query<
     EnrollmentsByYearQueryVariables
 > {
     document = EnrollmentsByYearDocument;
-}
-export const EventDocument = gql`
-    query event($eventId: String!) {
-        event(eventId: $eventId) {
-            eventId
-            description
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class EventGQL extends Apollo.Query<EventQuery, EventQueryVariables> {
-    document = EventDocument;
-}
-export const EventsDocument = gql`
-    query events {
-        events {
-            eventId
-            description
-        }
-    }
-`;
-
-@Injectable({
-    providedIn: "root"
-})
-export class EventsGQL extends Apollo.Query<EventsQuery, EventsQueryVariables> {
-    document = EventsDocument;
 }
 export const AddFacultyDocument = gql`
     mutation addFaculty($faculty: FacultyInput) {

@@ -1,6 +1,7 @@
 import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { UserService } from 'src/app/layout/admin/user/user.service';
 import { routerTransition } from 'src/app/router.animations';
 
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +13,6 @@ import {
 } from '../../../../shared/generated/output';
 import { AlertService } from '../../../../shared/modules/alert/alert.service';
 import { AcademicAdministrationService } from '../academic-administration.service';
-import { UserService } from 'src/app/layout/admin/user/user.service';
 
 @Component({
     selector: 'app-list-academic-administration',

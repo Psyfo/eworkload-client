@@ -16,7 +16,7 @@ import {
 import { AlertService } from 'src/app/shared/modules';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { FormalInstructionService } from '../formal-instruction.service';
@@ -29,7 +29,7 @@ import { FormalInstructionService } from '../formal-instruction.service';
 })
 export class EditFormalInstructionComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
 
     userId = this.userService.currentUserIdStatic();
     dutyId = '11';
@@ -152,7 +152,7 @@ export class EditFormalInstructionComponent implements OnInit {
         this.router.navigate(['activity/formal-instruction']);
     }
     onReset(event) {
-        this.form.reset();
-        this.ngOnInit();
+        this.getActivity();
+        this.form.form.markAsPristine();
     }
 }

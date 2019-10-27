@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProfileComponent } from './profile.component';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
+import { ProfilePictureComponent } from './profile-picture/profile-picture.component';
 
 const routes: Routes = [
     {
@@ -23,6 +24,11 @@ const routes: Routes = [
             {
                 path: 'change-password',
                 component: ChangePasswordComponent,
+                pathMatch: 'prefix'
+            },
+            {
+                path: 'profile-picture',
+                component: ProfilePictureComponent,
                 pathMatch: 'prefix'
             }
         ]

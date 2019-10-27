@@ -29,6 +29,7 @@ export class AddPersonnelDevelopmentComponent implements OnInit {
         userId: this.userId,
         dutyId: this.dutyId
     };
+    isSubmitting: boolean;
 
     private unsubscribe = new Subject();
     constructor(
@@ -46,18 +47,21 @@ export class AddPersonnelDevelopmentComponent implements OnInit {
         ];
     }
     onSubmit() {
+        this.isSubmitting = true;
         this.personnelDevelopmentService
             .addPersonnelDevelopmentActivity(this.activityInput)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
-                result => {},
+                result => {
+                    this.isSubmitting = false;
+                    this.alertService.successToast('Activity added');
+                    this.router.navigate(['activity/personnel-development']);
+                },
                 err => {
                     this.alertService.errorToast(err);
                     console.warn(err);
                 }
             );
-        this.alertService.successToast('New activity added');
-        this.router.navigate(['activity/personnel-development']);
     }
     onBack(event) {
         this.router.navigate(['activity/personnel-development']);

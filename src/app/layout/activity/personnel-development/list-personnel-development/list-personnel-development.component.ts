@@ -52,6 +52,11 @@ export class ListPersonnelDevelopmentComponent implements OnInit {
                 label: 'Edit',
                 icon: 'pi pi-pencil',
                 command: event => this.onContextEdit(event)
+            },
+            {
+                label: 'Delete',
+                icon: 'pi pi-trash',
+                command: event => this.onContextDelete(event)
             }
         ];
         this.cols = [
@@ -154,7 +159,10 @@ export class ListPersonnelDevelopmentComponent implements OnInit {
             `Activity: ${this.selectedActivity.activityId} selected`
         );
         this.router.navigate(
-            ['activity/research/view', this.selectedActivity.activityId],
+            [
+                'activity/personnel-development/view',
+                this.selectedActivity.activityId
+            ],
             {
                 queryParams: {
                     activityId: this.selectedActivity.activityId

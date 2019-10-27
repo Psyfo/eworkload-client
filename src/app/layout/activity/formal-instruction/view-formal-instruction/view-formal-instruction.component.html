@@ -1,24 +1,34 @@
 <app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
 <div class="p-grid" [@routerTransition]>
     <div class="p-col-6">
-        <p-panel header="Formal Instruction Activity">
+        <p-panel header="Formal Instruction Activity ({{activity?.userId}})">
 
+            <!-- DUTY -->
             <div class="p-grid">
                 <div class="p-col">
                     <strong>Activity Type(Duty)</strong>
                 </div>
                 <div class="p-col">
-                    {{ activity?.duty?.name }}({{ activity?.duty?.dutyId}})
+                    {{ activity?.duty?.name }} ({{ activity?.duty?.dutyId}})
                 </div>
             </div>
+
+            <!-- MODULE -->
             <div class="p-grid">
                 <div class="p-col">
                     <strong>Module</strong>
                 </div>
                 <div class="p-col">
-                    {{ activity?.module?.name }}
+                    <div>
+                        {{ activity?.module?.moduleId}}
+                    </div>
+                    <div>
+                        {{ activity?.module?.name }}
+                    </div>
                 </div>
             </div>
+
+            <!-- BLOCK -->
             <div class="p-grid">
                 <div class="p-col">
                     <strong>Block</strong>
@@ -27,6 +37,8 @@
                     {{ activity?.module?.block?.name }}
                 </div>
             </div>
+
+            <!-- OFFERING TYPE -->
             <div class="p-grid">
                 <div class="p-col">
                     <strong>Offering Type</strong>
@@ -35,22 +47,23 @@
                     {{ activity?.module?.offeringType?.description }}
                 </div>
             </div>
+
+            <!-- QUALIFICATION -->
             <div class="p-grid">
                 <div class="p-col">
-                    <strong>User ID</strong>
+                    <strong>Qualification</strong>
                 </div>
                 <div class="p-col">
-                    {{ activity?.userId }}
+                    <div>
+                        {{ activity?.qualification?.qualificationId}}
+                    </div>
+                    <div>
+                        {{ activity?.qualification?.name }}
+                    </div>
                 </div>
             </div>
-            <div class="p-grid">
-                <div class="p-col">
-                    <strong>User</strong>
-                </div>
-                <div class="p-col">
-                    {{ activity?.user?.firstName }} {{ activity?.user?.lastName }}
-                </div>
-            </div>
+
+            <!-- APPROVAL STATUS -->
             <div class="p-grid">
                 <div class="p-col">
                     <strong>Approval Status</strong>
@@ -62,10 +75,10 @@
             <p-footer>
                 <div class="p-grid">
                     <div class="p-col p-col-justify-start">
-                        <button type="button" pButton icon="pi pi-pencil" (click)="onEdit($event)" label="Edit"
-                            class="mr-2"></button>
                         <button type="button" pButton icon="pi pi-arrow-left" (click)="onBack($event)" label="Back"
-                            class="ui-button-danger"></button>
+                            class="ui-button-danger mr-2"></button>
+                        <button type="button" pButton icon="pi pi-pencil" (click)="onEdit($event)" label="Edit"
+                            class=""></button>
                     </div>
                 </div>
             </p-footer>
