@@ -35,7 +35,7 @@ import { BaseChartDirective } from 'ng2-charts';
     animations: [routerTransition()]
 })
 export class ProfileViewComponent implements OnInit {
-    @ViewChild(BaseChartDirective, { static: false }) chart: BaseChartDirective;
+    // @ViewChild(BaseChartDirective, { static: false }) chart: BaseChartDirective;
 
     // Utility properties
     breadcrumbs: MenuItem[];
@@ -130,7 +130,7 @@ export class ProfileViewComponent implements OnInit {
             .subscribe(
                 result => {
                     this.teachingHours = result.data.teachingHours;
-                    this.chart.chart.update({ lazy: true });
+                    /// this.chart.chart.update({ lazy: true });
                 },
                 err => {
                     console.error(err);

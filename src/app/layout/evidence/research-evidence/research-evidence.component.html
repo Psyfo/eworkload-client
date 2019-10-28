@@ -39,22 +39,17 @@
                     <div class="p-col-2">
                         Upload Evidence
                     </div>
-                    <div class="p-col-6">
+                    <div class="p-col-6" *ngIf="!isUploading; else spinner">
                         <p-fileUpload name="myFile[]" customUpload="true" (uploadHandler)="onFileSelected($event)">
                         </p-fileUpload>
-                        <div class="p-grid">
-                            <div class="p-col" *ngIf="progress === true">
-                                <p-progressBar mode="indeterminate"></p-progressBar>
-                            </div>
-                        </div>
                     </div>
-
+                    <div class="p-col-6">
+                        <ng-template #spinner>
+                            <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="6" fill="#EEEEEE"
+                                animationDuration=".5s"></p-progressSpinner>
+                        </ng-template>
+                    </div>
                 </div>
-
-
-
-                <p-footer>
-                </p-footer>
             </p-panel>
         </form>
     </div>

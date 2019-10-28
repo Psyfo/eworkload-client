@@ -3,7 +3,7 @@
     <div class="p-col-6">
         <p-panel header="Academic Administration Activity ({{userId}})">
 
-            <!-- Duty -->
+            <!-- DUTY -->
             <div class="p-grid" *ngIf="activity?.duty">
                 <div class="p-col">
                     <strong>
@@ -15,6 +15,7 @@
                 </div>
             </div>
 
+            <!-- TITLE -->
             <div class="p-grid" *ngIf="activity?.title">
                 <div class="p-col">
                     <strong>
@@ -26,6 +27,7 @@
                 </div>
             </div>
 
+            <!-- QUALIFICATION -->
             <div class="p-grid" *ngIf="activity?.qualification">
                 <div class="p-col">
                     <strong>
@@ -37,6 +39,7 @@
                 </div>
             </div>
 
+            <!-- DETAILS -->
             <div class="p-grid">
                 <div class="p-col">
                     <strong>
@@ -45,6 +48,16 @@
                 </div>
                 <div class="p-col">
                     {{activity?.description}}
+                </div>
+            </div>
+
+            <!-- EVIDENCE -->
+            <div class="p-grid" *ngIf="activity?.evidence">
+                <div class="p-col">
+                    <strong>Evidence</strong>
+                </div>
+                <div class="p-col">
+                    <a href="{{activity?.evidence}}" icon="pi pi-pdf">Download</a>
                 </div>
             </div>
 

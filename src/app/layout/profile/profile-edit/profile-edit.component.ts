@@ -1,3 +1,5 @@
+import { NgForm } from '@angular/forms';
+import { SelectItem } from 'primeng/components/common/selectitem';
 import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -30,10 +32,12 @@ import { WorkFocusService } from '../../admin/work-focus/work-focus.service';
 })
 export class ProfileEditComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
 
     genders = this.userService.genders;
+    selectedGender: SelectItem;
     nationalities = this.userService.nationalities;
+    selectedNationality: SelectItem;
     userId = this.userService.currentUserIdStatic();
     isSubmitting: boolean = false;
 
@@ -95,6 +99,13 @@ export class ProfileEditComponent implements OnInit {
                     this.selectedDepartment.departmentId = this.userModel.departmentId;
                     this.selectedPosition = this.userModel.position;
                     this.selectedWorkFocus = this.userModel.workFocus;
+                    this.selectedGender = this.genders.find(
+                        gender => gender.label === this.userModel.gender
+                    );
+                    this.selectedNationality = this.nationalities.find(
+                        nationality =>
+                            nationality.label === this.userModel.nationality
+                    );
                 },
                 err => {
                     this.alertService.errorToast(err);
@@ -181,7 +192,7 @@ export class ProfileEditComponent implements OnInit {
             workFocusName: this.selectedWorkFocus.name,
             departmentId: this.selectedDepartment.departmentId,
             nationality: '',
-            gender: this.userModel.gender
+            gender: this.selectedGender.label
         };
 
         // Save user
@@ -204,13 +215,7 @@ export class ProfileEditComponent implements OnInit {
         this.router.navigate(['profile']);
     }
     public onReset(event) {
-        this.form.reset();
-        this.selectedDisciplines = [];
-        this.selectedPosition = null;
-        this.selectedWorkFocus = null;
-        this.selectedDepartment = null;
-        this.userModel = null;
-        this.userInput = {};
         this.getUser();
+        this.form.form.markAsPristine();
     }
 }

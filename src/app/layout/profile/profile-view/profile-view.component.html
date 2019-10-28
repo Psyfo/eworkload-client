@@ -6,7 +6,8 @@
         <p-panel header="User Profile">
             <div class="p-grid">
                 <div class="p-col-5">
-                    <img src="{{user?.photoUrl}}" alt="profile pic" class="img__profile">
+                    <img src="{{user?.photoUrl || 'https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png'}}"
+                        alt="" class="img__profile">
                 </div>
                 <div class=" p-col-7">
                     <div class="p-grid">
@@ -66,13 +67,14 @@
                 <div class="p-grid">
                     <div class="p-col">
                         <button type="button" pButton icon="pi pi-pencil" (click)="onEdit($event)" label="Edit Profile"
-                    class="mr-2"></button>
-                <button type="button" pButton icon="pi pi-pencil" (click)="onChangePassword($event)"
-                    label="Change Password" class="mr-2"></button>
-                    <button type="button" pButton icon="pi pi-user" (click)="onChangeProfilePicture($event)" label="Edit Profile Picture"></button>
+                            class="mr-2"></button>
+                        <button type="button" pButton icon="pi pi-pencil" (click)="onChangePassword($event)"
+                            label="Change Password" class="mr-2"></button>
+                        <button type="button" pButton icon="pi pi-user" (click)="onChangeProfilePicture($event)"
+                            label="Edit Profile Picture"></button>
                     </div>
                 </div>
-                
+
             </p-footer>
         </p-panel>
     </div>
@@ -220,7 +222,7 @@
         <p-panel [showHeader]="false">
 
             <!-- RESEARCH SUMMARY -->
-            <div class="p-grid" *ngIf="totalWorkload?.researchWorkload?.researchWorkloads.length">
+            <div class="p-grid" *ngIf="totalWorkload?.researchWorkload">
                 <div class="p-col">
                     <div class="p-grid">
                         <div class="p-col-9">
@@ -233,6 +235,17 @@
                                 Hours
                             </strong>
                         </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col-9">
+                            Research Global Tarrif
+                        </div>
+                        <div class="p-col-3">
+                            {{totalWorkload?.researchWorkload?.globalTarrif | number : '1.0-2'}}
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col"></div>
                     </div>
                     <div class="p-grid" *ngFor="let workload of totalWorkload?.researchWorkload?.researchWorkloads">
                         <div class="p-col-9">
@@ -268,8 +281,7 @@
         <p-panel [showHeader]="false">
 
             <!-- ACADEMIC ADMIN SUMMARY -->
-            <div class="p-grid"
-                *ngIf="totalWorkload?.academicAdministrationWorkload?.academicAdministrationWorkloads.length">
+            <div class="p-grid" *ngIf="totalWorkload?.academicAdministrationWorkload">
                 <div class="p-col">
                     <div class="p-grid">
                         <div class="p-col-9">
@@ -281,6 +293,14 @@
                             <strong>
                                 Hours
                             </strong>
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col-9">
+                            Academic Administration Global Tarrif
+                        </div>
+                        <div class="p-col-3">
+                            {{totalWorkload?.academicAdministrationWorkload?.globalTarrif | number : '1.0-2'}}
                         </div>
                     </div>
                     <div class="p-grid"
@@ -299,8 +319,7 @@
             </div>
 
             <!-- COMMUNITY INSTRUCTION SUMMARY  -->
-            <div class="p-grid"
-                *ngIf="totalWorkload?.communityInstructionWorkload?.communityInstructionWorkloads?.length">
+            <div class="p-grid" *ngIf="totalWorkload?.communityInstructionWorkload">
                 <div class="p-col">
                     <div class="p-grid">
                         <div class="p-col-9">
@@ -312,6 +331,14 @@
                             <strong>
                                 Hours
                             </strong>
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col-9">
+                            Community Instruction Global Tarrif
+                        </div>
+                        <div class="p-col-3">
+                            {{totalWorkload?.communityInstructionWorkload?.globalTarrif | number : '1.0-2'}}
                         </div>
                     </div>
                     <div class="p-grid"
@@ -330,8 +357,7 @@
             </div>
 
             <!-- EXECUTIVE MANAGEMENT SUMMARY -->
-            <div class="p-grid"
-                *ngIf="totalWorkload?.executiveManagementWorkload?.executiveManagementWorkloads?.length">
+            <div class="p-grid" *ngIf="totalWorkload?.executiveManagementWorkload">
                 <div class="p-col">
                     <div class="p-grid">
                         <div class="p-col-9">
@@ -343,6 +369,14 @@
                             <strong>
                                 Hours
                             </strong>
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col-9">
+                            Executive Management Global Tarrif
+                        </div>
+                        <div class="p-col-3">
+                            {{totalWorkload?.executiveManagementWorkload?.globalTarrif | number : '1.0-2'}}
                         </div>
                     </div>
                     <div class="p-grid"
@@ -361,8 +395,7 @@
             </div>
 
             <!-- PERSONNEL DEVELOPMENT SUMMARY -->
-            <div class="p-grid"
-                *ngIf="totalWorkload?.personnelDevelopmentWorkload?.personnelDevelopmentWorkloads?.length">
+            <div class="p-grid" *ngIf="totalWorkload?.personnelDevelopmentWorkload">
                 <div class="p-col">
                     <div class="p-grid">
                         <div class="p-col-9">
@@ -374,6 +407,14 @@
                             <strong>
                                 Hours
                             </strong>
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col-9">
+                            Personnel Development Global Tarrif
+                        </div>
+                        <div class="p-col-3">
+                            {{totalWorkload?.personnelDevelopmentWorkload?.globalTarrif | number : '1.0-2'}}
                         </div>
                     </div>
                     <div class="p-grid"
@@ -392,7 +433,7 @@
             </div>
 
             <!-- PUBLIC SERVICE -->
-            <div class="p-grid" *ngIf="totalWorkload?.publicServiceWorkload?.publicServiceWorkloads?.length">
+            <div class="p-grid" *ngIf="totalWorkload?.publicServiceWorkload">
                 <div class="p-col">
                     <div class="p-grid">
                         <div class="p-col-9">
@@ -404,6 +445,14 @@
                             <strong>
                                 Hours
                             </strong>
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col-9">
+                            Public Service Global Tarrif
+                        </div>
+                        <div class="p-col-3">
+                            {{totalWorkload?.publicServiceWorkload?.globalTarrif | number : '1.0-2'}}
                         </div>
                     </div>
                     <div class="p-grid"

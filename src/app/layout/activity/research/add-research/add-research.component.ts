@@ -125,6 +125,7 @@ export class AddResearchComponent implements OnInit {
     }
     onReset(event) {
         this.form.reset();
-        this.ngOnInit();
+        this.userId = this.userService.currentUserIdStatic();
+        this.dutyId = '20';
     }
 }

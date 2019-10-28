@@ -29,6 +29,8 @@ import { UserService } from '../../admin/user/user.service';
 })
 export class HemisHistoricalComponent implements OnInit {
     @ViewChild('hemis', { static: false }) hemis: ElementRef;
+    @ViewChild('userData', { static: false }) userData: ElementRef;
+    @ViewChild('dutyData', { static: false }) dutyData: ElementRef;
 
     userId: string = this.userService.currentUserIdStatic();
     user: User;
@@ -298,52 +300,43 @@ export class HemisHistoricalComponent implements OnInit {
     onPrint(event) {
         const filename = `${this.userId}_hemis_${new Date().getFullYear()}.pdf`;
 
-        let pdf = new jsPDF();
+        let pdf = new jsPDF('l', 'mm', 'letter');
+        let options = { margins: 10 };
 
-        const specialElementHandlers = {
-            '#editor': function(element, renderer) {
-                return true;
-            }
-        };
+        const userData = this.userData.nativeElement;
+        const dutyData = this.dutyData.nativeElement;
+        setTimeout(() => {
+            pdf.addHTML(userData, 0, 0, options, () => {});
+            pdf.addPage('letter', 'l');
+            pdf.addHTML(dutyData, 0, 0, options, () => {});
+            let blob = pdf.output('blob');
+            window.open(URL.createObjectURL(blob));
+            pdf.save(filename);
+            this.alertService.infoToast('Printed hemis');
+        }, 600);
 
-        const hemis = this.hemis.nativeElement;
-        console.log(pdf);
-
-        console.log(hemis);
-
-        pdf.fromHTML(hemis.innerHTML, 15, 15, {
-            width: 800,
-            elementHandlers: specialElementHandlers
-        });
-
-        pdf.save(filename);
-
-        // const options = {
-        //     background: 'white',
-        //     height: hemis.clientHeight,
-        //     width: hemis.clientWidth,
-        //     scale: 1
-        // };
-
-        // html2canvas(hemis, options).then(canvas => {
-        //     let pdf = new jsPDF({
-        //         orientation: 'landscape',
-        //         unit: 'in',
-        //         format: [4, 2]
-        //     });
-
-        //     pdf.addImage(canvas.toDataURL('image/PNG'), 'PNG', 0, 0, 211, 298);
-
-        //     let pdfOutput = pdf.output();
-        //     let buffer = new ArrayBuffer(pdfOutput.length);
-        //     let array = new Uint8Array(buffer);
-        //     for (let i = 0; i < pdfOutput.length; i++) {
-        //         array[i] = pdfOutput.charCodeAt(i);
+        // const specialElementHandlers = {
+        //     '#editor': function(element, renderer) {
+        //         return true;
         //     }
-        //     pdf.save(filename);
+        // };
+        // const hemis = this.hemis.nativeElement;
+        // pdf.fromHTML(hemis.innerHTML, 15, 15, {
+        //     width: 800,
+        //     elementHandlers: specialElementHandlers
         // });
+        // pdf.save(filename);
+    }
+    onPrint2(event) {
+        let printContents = document.getElementById('hemis').innerHTML;
+        let originalContents = document.body.innerHTML;
 
-        this.alertService.infoToast('Printed hemis');
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+        return false;
     }
     onMail(event) {
         this.alertService.infoToast('Mail to HoD WIP');

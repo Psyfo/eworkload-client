@@ -157,7 +157,7 @@
                         <label for="gender">Gender:</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="genders" name="gender" [(ngModel)]="userModel.gender" #gender="ngModel"
+                        <p-dropdown [options]="genders" name="gender" [(ngModel)]="selectedGender" #gender="ngModel"
                             required placeholder="Select gender" appendTo="body" showClear="true">
                         </p-dropdown>
                     </div>
@@ -174,7 +174,7 @@
                         <label for="nationality">Race/Nationality:</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="nationalities" name="nationality" [(ngModel)]="userModel.nationality"
+                        <p-dropdown [options]="nationalities" name="nationality" [(ngModel)]="selectedNationality"
                             #nationality="ngModel" required placeholder="Select nationality" appendTo="body"
                             showClear="true">
                         </p-dropdown>

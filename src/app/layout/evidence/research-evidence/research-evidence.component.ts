@@ -26,7 +26,7 @@ export class ResearchEvidenceComponent implements OnInit {
     selectedActivity: ResearchActivity;
     selectedFile: File;
 
-    progress: boolean = false;
+    isUploading: boolean = false;
 
     private unsubscribe = new Subject();
     constructor(
@@ -75,13 +75,14 @@ export class ResearchEvidenceComponent implements OnInit {
         );
     }
     onUpload(file: File, userId, activityId) {
-        this.progress = true;
+        this.isUploading = true;
+
         setTimeout(() => {
             this.uploadService
                 .uploadResearchEvidence(file, userId, activityId)
                 .pipe(takeUntil(this.unsubscribe))
                 .subscribe(result => {
-                    this.progress = false;
+                    this.isUploading = false;
                     this.alertService.successToast('Evidence uploaded');
                 });
         }, 2000);
