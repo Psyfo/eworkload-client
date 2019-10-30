@@ -36,31 +36,13 @@ export class StudentService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     students() {
         return this.studentsGql
             .watch({}, { pollInterval: 2000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     studentsUnassigned(userId: string) {
@@ -79,41 +61,20 @@ export class StudentService {
     }
 
     addStudent(student: StudentInput) {
-        return this.addStudentGql.mutate({ student: student }).pipe(
-            map(
-                result => {
-                    return result;
-                },
-                err => {
-                    return err;
-                }
-            )
-        );
+        return this.addStudentGql
+            .mutate({ student: student })
+            .pipe(map(result => result, err => err));
     }
 
     editStudent(student: StudentInput) {
-        return this.editStudentGql.mutate({ student: student }).pipe(
-            map(
-                result => {
-                    return result;
-                },
-                err => {
-                    return err;
-                }
-            )
-        );
+        return this.editStudentGql
+            .mutate({ student: student })
+            .pipe(map(result => result, err => err));
     }
 
     deleteStudent(student: StudentInput) {
-        return this.deleteStudentGql.mutate({ student: student }).pipe(
-            map(
-                result => {
-                    return result;
-                },
-                err => {
-                    return err;
-                }
-            )
-        );
+        return this.deleteStudentGql
+            .mutate({ student: student })
+            .pipe(map(result => result, err => err));
     }
 }

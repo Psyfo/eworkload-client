@@ -26,19 +26,8 @@ export class UploadService {
     uploadProfilePicture(file: File[], userId: string) {
         return this.uploadProfilePictureGql
             .mutate({ file: file, userId: userId })
-            .pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        this.alertService.errorToast(err);
-                        console.warn(err);
-                    }
-                )
-            );
+            .pipe(map(result => result, err => err));
     }
-
     uploadAcademicAdministrationEvidence(
         file: File,
         userId: string,
@@ -46,31 +35,11 @@ export class UploadService {
     ) {
         return this.uploadAcademicAdministrationEvidenceGql
             .mutate({ file: file, userId: userId, activityId: activityId })
-            .pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        this.alertService.errorToast(err);
-                        console.warn(err);
-                    }
-                )
-            );
+            .pipe(map(result => result, err => err));
     }
     uploadResearchEvidence(file: File, userId: string, activityId: string) {
         return this.uploadResearchEvidenceGql
             .mutate({ file: file, userId: userId, activityId: activityId })
-            .pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        this.alertService.errorToast(err);
-                        console.warn(err);
-                    }
-                )
-            );
+            .pipe(map(result => result, err => err));
     }
 }

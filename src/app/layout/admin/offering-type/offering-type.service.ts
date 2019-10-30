@@ -33,14 +33,7 @@ export class OfferingTypeService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     getOfferingTypes() {
@@ -51,52 +44,24 @@ export class OfferingTypeService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     addOfferingType(offeringType: OfferingTypeInput) {
         return this.addOfferingTypeGql
             .mutate({ offeringType: offeringType })
-            .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .pipe(map(result => result, err => err));
     }
 
     editOfferingType(offeringType: OfferingTypeInput) {
         return this.editOfferingTypeGql
             .mutate({ offeringType: offeringType })
-            .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .pipe(map(result => result, err => err));
     }
 
     deleteOfferingType(offeringType: OfferingTypeInput) {
         return this.deleteOfferingTypeGql
             .mutate({ offeringType: offeringType })
-            .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .pipe(map(result => result, err => err));
     }
 }

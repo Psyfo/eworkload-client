@@ -37,12 +37,14 @@ export class ExecutiveManagementService {
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
     executiveManagementActivities() {
@@ -54,12 +56,14 @@ export class ExecutiveManagementService {
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
     executiveManagementActivitiesByUser(userId: string) {
@@ -71,12 +75,14 @@ export class ExecutiveManagementService {
                 }
             )
             .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
     addExecutiveManagementActivity(activity: ExecutiveManagementActivityInput) {
@@ -85,12 +91,14 @@ export class ExecutiveManagementService {
                 activity: activity
             })
             .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
     editExecutiveManagementActivity(
@@ -101,12 +109,14 @@ export class ExecutiveManagementService {
                 activity: activity
             })
             .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
     deleteExecutiveManagementActivity(
@@ -117,12 +127,14 @@ export class ExecutiveManagementService {
                 activity: activity
             })
             .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
+                map(
+                    result => {
+                        return result;
+                    },
+                    err => {
+                        return err;
+                    }
+                )
             );
     }
 }

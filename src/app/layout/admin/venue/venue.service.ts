@@ -51,17 +51,7 @@ export class VenueService {
                     pollInterval: 1000
                 }
             )
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        this.networkStatus = result.networkStatus;
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     getVenue(venueId: string) {
         return this.venueGql
@@ -71,51 +61,21 @@ export class VenueService {
                     pollInterval: 1000
                 }
             )
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     addVenue(venue: VenueInput) {
-        return this.addVenueGql.mutate({ venue: venue }).pipe(
-            map(
-                result => {
-                    return result;
-                },
-                err => {
-                    return err;
-                }
-            )
-        );
+        return this.addVenueGql
+            .mutate({ venue: venue })
+            .pipe(map(result => result, err => err));
     }
     editVenue(venue: VenueInput) {
-        return this.editVenueGql.mutate({ venue: venue }).pipe(
-            map(
-                result => {
-                    return result;
-                },
-                err => {
-                    return err;
-                }
-            )
-        );
+        return this.editVenueGql
+            .mutate({ venue: venue })
+            .pipe(map(result => result, err => err));
     }
     deleteVenue(venue: VenueInput) {
-        return this.deleteVenueGql.mutate({ venue: venue }).pipe(
-            map(
-                result => {
-                    return result;
-                },
-                err => {
-                    return err;
-                }
-            )
-        );
+        return this.deleteVenueGql
+            .mutate({ venue: venue })
+            .pipe(map(result => result, err => err));
     }
 }

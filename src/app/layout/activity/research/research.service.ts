@@ -55,14 +55,7 @@ export class ResearchService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     researchActivities() {
         return this.researchActivitiesGql
@@ -72,14 +65,7 @@ export class ResearchService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     researchActivitiesByUser(userId: string) {
         return this.researchActivitiesByUserGql
@@ -89,50 +75,21 @@ export class ResearchService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     addResearchActivity(activity: ResearchActivityInput) {
-        return this.addresearchActivityGql.mutate({ activity: activity }).pipe(
-            map(
-                result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                },
-                err => {
-                    console.warn(err);
-                }
-            )
-        );
+        return this.addresearchActivityGql
+            .mutate({ activity: activity })
+            .pipe(map(result => result, err => err));
     }
     editResearchActivity(activity: ResearchActivityInput) {
-        return this.editresearchActivityGql.mutate({ activity: activity }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.editresearchActivityGql
+            .mutate({ activity: activity })
+            .pipe(map(result => result, err => err));
     }
     deleteResearchActivity(activity: ResearchActivityInput) {
         return this.deleteresearchActivityGql
             .mutate({ activity: activity })
-            .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .pipe(map(result => result, err => err));
     }
 }

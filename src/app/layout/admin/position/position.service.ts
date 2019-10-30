@@ -34,14 +34,7 @@ export class PositionService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     positions() {
@@ -52,46 +45,24 @@ export class PositionService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     addPosition(position: PositionInput) {
-        return this.addPositionGql.mutate({ position: position }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.addPositionGql
+            .mutate({ position: position })
+            .pipe(map(result => result, err => err));
     }
 
     editPosition(position: PositionInput) {
-        return this.editPositionGql.mutate({ position: position }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.editPositionGql
+            .mutate({ position: position })
+            .pipe(map(result => result, err => err));
     }
 
     deletePosition(position: PositionInput) {
-        return this.deletePositionGql.mutate({ position: position }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.deletePositionGql
+            .mutate({ position: position })
+            .pipe(map(result => result, err => err));
     }
 }

@@ -41,14 +41,7 @@ export class EnrollmentService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     enrollments() {
@@ -59,14 +52,7 @@ export class EnrollmentService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     enrollmentsByYear(enrollmentYear: string) {
@@ -77,14 +63,7 @@ export class EnrollmentService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     enrollmentsByQualification(qualificationId: string) {
@@ -95,46 +74,24 @@ export class EnrollmentService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     addEnrollment(enrollment: EnrollmentInput) {
-        return this.addEnrollmentGql.mutate({ enrollment: enrollment }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.addEnrollmentGql
+            .mutate({ enrollment: enrollment })
+            .pipe(map(result => result, err => err));
     }
 
     editEnrollment(enrollment: EnrollmentInput) {
-        return this.editEnrollmentGql.mutate({ enrollment: enrollment }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.editEnrollmentGql
+            .mutate({ enrollment: enrollment })
+            .pipe(map(result => result, err => err));
     }
 
     deleteEnrollment(enrollment: EnrollmentInput) {
-        return this.deleteEnrollmentGql.mutate({ enrollment: enrollment }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.deleteEnrollmentGql
+            .mutate({ enrollment: enrollment })
+            .pipe(map(result => result, err => err));
     }
 }

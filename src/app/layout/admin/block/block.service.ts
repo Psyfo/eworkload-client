@@ -34,14 +34,7 @@ export class BlockService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     block(blockId: string) {
@@ -52,44 +45,22 @@ export class BlockService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     addBlock(block: BlockInput) {
-        return this.addBlockGql.mutate({ block: block }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.addBlockGql
+            .mutate({ block: block })
+            .pipe(map(result => result, err => err));
     }
     editBlock(block: BlockInput) {
-        return this.editBlockGql.mutate({ block: block }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.editBlockGql
+            .mutate({ block: block })
+            .pipe(map(result => result, err => err));
     }
     deleteBlock(block: BlockInput) {
-        return this.deleteBlockGql.mutate({ block: block }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.deleteBlockGql
+            .mutate({ block: block })
+            .pipe(map(result => result, err => err));
     }
 }

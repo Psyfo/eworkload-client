@@ -36,14 +36,7 @@ export class PersonnelDevelopmentService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     personnelDevelopmentActivities() {
         return this.personnelDevelopmentActivitiesGql
@@ -53,14 +46,7 @@ export class PersonnelDevelopmentService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     personnelDevelopmentActivitiesByUser(userId: string) {
         return this.personnelDevelopmentActivitiesByUserGql
@@ -70,14 +56,7 @@ export class PersonnelDevelopmentService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     addPersonnelDevelopmentActivity(
         activity: PersonnelDevelopmentActivityInput
@@ -86,14 +65,7 @@ export class PersonnelDevelopmentService {
             .mutate({
                 activity: activity
             })
-            .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .pipe(map(result => result, err => err));
     }
     editPersonnelDevelopmentActivity(
         activity: PersonnelDevelopmentActivityInput
@@ -102,14 +74,7 @@ export class PersonnelDevelopmentService {
             .mutate({
                 activity: activity
             })
-            .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .pipe(map(result => result, err => err));
     }
     deletePersonnelDevelopmentActivity(
         activity: PersonnelDevelopmentActivityInput
@@ -118,13 +83,6 @@ export class PersonnelDevelopmentService {
             .mutate({
                 activity: activity
             })
-            .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .pipe(map(result => result, err => err));
     }
 }

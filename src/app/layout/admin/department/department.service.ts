@@ -34,14 +34,7 @@ export class DepartmentService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     department(departmentId: string) {
@@ -52,48 +45,26 @@ export class DepartmentService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     addDepartment(department: DepartmentInput) {
-        return this.addDepartmentGql.mutate({ department: department }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.addDepartmentGql
+            .mutate({ department: department })
+            .pipe(map(result => result, err => err));
     }
 
     editDepartment(department: DepartmentInput) {
-        return this.editDepartmentGql.mutate({ department: department }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.editDepartmentGql
+            .mutate({ department: department })
+            .pipe(map(result => result, err => err));
     }
 
     deleteDepartment(department: DepartmentInput) {
         console.log('dept del model:', department);
 
-        return this.deleteDepartmentGql.mutate({ department: department }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.deleteDepartmentGql
+            .mutate({ department: department })
+            .pipe(map(result => result, err => err));
     }
 }

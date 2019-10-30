@@ -54,16 +54,7 @@ export class ModuleService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     modulesByDiscipline(disciplineIds: string[]) {
@@ -74,16 +65,7 @@ export class ModuleService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     modulesByStack(stackId: string) {
@@ -94,16 +76,7 @@ export class ModuleService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     module(
@@ -124,16 +97,7 @@ export class ModuleService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     modulesByUnassigned() {
@@ -144,16 +108,7 @@ export class ModuleService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     modulesByUnassignedAndDiscipline(disciplineIds: string[]) {
         return this.modulesByUnassignedAndDisciplineGql
@@ -163,67 +118,30 @@ export class ModuleService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     addModule(module: ModuleInput) {
-        return this.addModuleGql.mutate({ module: module }).pipe(
-            map(
-                result => {
-                    return result;
-                },
-                err => {
-                    return err;
-                }
-            )
-        );
+        return this.addModuleGql
+            .mutate({ module: module })
+            .pipe(map(result => result, err => err));
     }
 
     addModules(modules: ModuleInput[]) {
-        return this.addModulesGql.mutate({ modules: modules }).pipe(
-            map(
-                result => {
-                    return result;
-                },
-                err => {
-                    return err;
-                }
-            )
-        );
+        return this.addModulesGql
+            .mutate({ modules: modules })
+            .pipe(map(result => result, err => err));
     }
 
     editModule(module: ModuleInput) {
-        return this.editModuleGql.mutate({ module: module }).pipe(
-            map(
-                result => {
-                    return result;
-                },
-                err => {
-                    return err;
-                }
-            )
-        );
+        return this.editModuleGql
+            .mutate({ module: module })
+            .pipe(map(result => result, err => err));
     }
 
     deleteModule(module: ModuleInput) {
-        return this.deleteModuleGql.mutate({ module: module }).pipe(
-            map(
-                result => {
-                    return result;
-                },
-                err => {
-                    return err;
-                }
-            )
-        );
+        return this.deleteModuleGql
+            .mutate({ module: module })
+            .pipe(map(result => result, err => err));
     }
 }

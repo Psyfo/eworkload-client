@@ -57,114 +57,42 @@ export class WorkloadService {
     academicAdministrationWorkload(userId: string) {
         return this.academicAdministrationWorkloadGql
             .watch({ userId: userId }, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     communityInstructionWorkload(userId: string) {
         return this.communityInstructionWorkloadGql
             .watch({ userId: userId }, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     executiveManagementWorkload(userId: string) {
         return this.executiveManagementWorkloadGql
             .watch({ userId: userId }, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     formalInstructionWorkload(userId: string) {
         return this.formalInstructionWorkloadGql
             .watch({ userId: userId }, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     personnelDevelopmentWorkload(userId: string) {
         return this.personnelDevelopmentWorkloadGql
             .watch({ userId: userId }, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     publicServiceWorkload(userId: string) {
         return this.publicServiceWorkloadGql
             .watch({ userId: userId }, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     researchWorkload(userId: string) {
         return this.researchWorkloadGql
             .watch({ userId: userId }, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     supervisionWorkload(userId: string) {
         return this.supervisionWorkloadGql
             .watch({ userId: userId }, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     teachingWorkload(userId: string) {
         const formalInstructionWorkload = this.formalInstructionWorkload(
@@ -225,16 +153,7 @@ export class WorkloadService {
     totalWorkload(userId: string) {
         return this.totalWorkloadGql
             .watch({ userId: userId }, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     totalWorkloadsCombined(userId: string) {
         const aaWorkload = this.academicAdministrationWorkload(userId);
@@ -281,127 +200,46 @@ export class WorkloadService {
     teachingHours(userId: string) {
         return this.teachingHoursGql
             .watch({ userId: userId }, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     researchHours(userId: string) {
         return this.researchHoursGql
             .watch({ userId: userId }, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     serviceHours(userId: string) {
         return this.serviceHoursGql
             .watch({ userId: userId }, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     annualHours() {
         return this.annualHoursGql
             .watch({}, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     totalHoursPerUser(userId: string) {
         return this.totalHoursPerUserGql
             .watch({ userId: userId }, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     teachingHoursPerUser(userId: string) {
         return this.teachingHoursPerUserGql
             .watch({ userId: userId }, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     researchHoursPerUser(userId: string) {
         return this.researchHoursPerUserGql
             .watch({ userId: userId }, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     serviceHoursPerUser(userId: string) {
         return this.serviceHoursPerUserGql
             .watch({ userId: userId }, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     workloadSummaries() {
         return this.workloadSummariesGql
             .watch({}, { pollInterval: 1000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 }

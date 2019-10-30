@@ -78,14 +78,7 @@ export class UserService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     currentUser() {
@@ -98,14 +91,7 @@ export class UserService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     getUsers() {
@@ -116,14 +102,7 @@ export class UserService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     usersByPosition() {
@@ -134,47 +113,25 @@ export class UserService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     addUser(user: UserInput) {
-        return this.addUserGql.mutate({ user: user }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.addUserGql
+            .mutate({ user: user })
+            .pipe(map(result => result, err => err));
     }
 
     editUser(user: UserInput) {
-        return this.editUserGql.mutate({ user: user }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.editUserGql
+            .mutate({ user: user })
+            .pipe(map(result => result, err => err));
     }
 
     deleteUser(user: UserInput) {
-        return this.deleteUserGql.mutate({ user: user }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.deleteUserGql
+            .mutate({ user: user })
+            .pipe(map(result => result, err => err));
     }
 
     changePassword(userId: string, oldPassword: string, newPassword: string) {
@@ -184,14 +141,7 @@ export class UserService {
                 oldPassword: oldPassword,
                 newPassword: newPassword
             })
-            .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .pipe(map(result => result, err => err));
     }
 
     getProfilePicture(imageUrl: string): Observable<Blob> {

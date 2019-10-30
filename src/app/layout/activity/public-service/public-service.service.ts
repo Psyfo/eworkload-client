@@ -36,14 +36,7 @@ export class PublicServiceService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     publicServiceActivities() {
         return this.publicServiceActivitiesGql
@@ -53,14 +46,7 @@ export class PublicServiceService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     publicServiceActivitiesByUser(userId: string) {
         return this.publicServiceActivitiesByUserGql
@@ -70,49 +56,21 @@ export class PublicServiceService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     addPublicServiceActivity(activity: PublicServiceActivityInput) {
         return this.addpublicServiceActivityGql
             .mutate({ activity: activity })
-            .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .pipe(map(result => result, err => err));
     }
     editPublicServiceActivity(activity: PublicServiceActivityInput) {
         return this.editpublicServiceActivityGql
             .mutate({ activity: activity })
-            .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .pipe(map(result => result, err => err));
     }
     deletePublicServiceActivity(activity: PublicServiceActivityInput) {
         return this.deletepublicServiceActivityGql
             .mutate({ activity: activity })
-            .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .pipe(map(result => result, err => err));
     }
 }

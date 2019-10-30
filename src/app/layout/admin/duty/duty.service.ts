@@ -34,14 +34,7 @@ export class DutyService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     duties() {
@@ -52,46 +45,24 @@ export class DutyService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     addDuty(duty: DutyInput) {
-        return this.addDutyGql.mutate({ duty: duty }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.addDutyGql
+            .mutate({ duty: duty })
+            .pipe(map(result => result, err => err));
     }
 
     editDuty(duty: DutyInput) {
-        return this.editDutyGql.mutate({ duty: duty }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.editDutyGql
+            .mutate({ duty: duty })
+            .pipe(map(result => result, err => err));
     }
 
     deleteDuty(duty: DutyInput) {
-        return this.deleteDutyGql.mutate({ duty: duty }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.deleteDutyGql
+            .mutate({ duty: duty })
+            .pipe(map(result => result, err => err));
     }
 }

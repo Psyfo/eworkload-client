@@ -34,14 +34,7 @@ export class FacultyService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     getFaculties() {
@@ -52,46 +45,24 @@ export class FacultyService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     addFaculty(faculty: FacultyInput) {
-        return this.addFacultyGql.mutate({ faculty: faculty }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.addFacultyGql
+            .mutate({ faculty: faculty })
+            .pipe(map(result => result, err => err));
     }
 
     editFaculty(faculty: FacultyInput) {
-        return this.editFacultyGql.mutate({ faculty: faculty }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.editFacultyGql
+            .mutate({ faculty: faculty })
+            .pipe(map(result => result, err => err));
     }
 
     deleteFaculty(faculty: FacultyInput) {
-        return this.deleteFacultyGql.mutate({ faculty: faculty }).pipe(
-            map(result => {
-                this.loading = result.loading;
-                this.errors = result.errors;
-                this.networkStatus = result.networkStatus;
-                return result;
-            })
-        );
+        return this.deleteFacultyGql
+            .mutate({ faculty: faculty })
+            .pipe(map(result => result, err => err));
     }
 }

@@ -46,14 +46,7 @@ export class SupervisionService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     supervisionActivities() {
         return this.supervisionActivitiesGql
@@ -63,14 +56,7 @@ export class SupervisionService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     supervisionActivitiesByUser(userId: string) {
         return this.supervisionActivitiesByUserGql
@@ -80,49 +66,21 @@ export class SupervisionService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
     addSupervisionActivity(activity: SupervisionActivityInput) {
         return this.addsupervisionActivityGql
             .mutate({ activity: activity })
-            .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .pipe(map(result => result, err => err));
     }
     editSupervisionActivity(activity: SupervisionActivityInput) {
         return this.editsupervisionActivityGql
             .mutate({ activity: activity })
-            .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .pipe(map(result => result, err => err));
     }
     deleteSupervisionActivity(activity: SupervisionActivityInput) {
         return this.deletesupervisionActivityGql
             .mutate({ activity: activity })
-            .pipe(
-                map(result => {
-                    this.loading = result.loading;
-                    this.errors = result.errors;
-                    this.networkStatus = result.networkStatus;
-                    return result;
-                })
-            );
+            .pipe(map(result => result, err => err));
     }
 }

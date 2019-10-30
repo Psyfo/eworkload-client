@@ -42,19 +42,7 @@ export class QualificationService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        this.loading = result.loading;
-                        this.errors = result.errors;
-                        this.networkStatus = result.networkStatus;
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     qualification(qualificationId: string) {
@@ -65,19 +53,7 @@ export class QualificationService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        this.loading = result.loading;
-                        this.errors = result.errors;
-                        this.networkStatus = result.networkStatus;
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     qualificationsPostgraduate() {
@@ -88,19 +64,7 @@ export class QualificationService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        this.loading = result.loading;
-                        this.errors = result.errors;
-                        this.networkStatus = result.networkStatus;
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     qualificationsNoEnrollment() {
@@ -111,72 +75,24 @@ export class QualificationService {
                     pollInterval: 2000
                 }
             )
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        this.loading = result.loading;
-                        this.errors = result.errors;
-                        this.networkStatus = result.networkStatus;
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .valueChanges.pipe(map(result => result, err => err));
     }
 
     addQualification(qualification: QualificationInput) {
         return this.addQualificationGql
             .mutate({ qualification: qualification })
-            .pipe(
-                map(
-                    result => {
-                        this.loading = result.loading;
-                        this.errors = result.errors;
-                        this.networkStatus = result.networkStatus;
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .pipe(map(result => result, err => err));
     }
 
     editQualification(qualification: QualificationInput) {
         return this.editQualificationGql
             .mutate({ qualification: qualification })
-            .pipe(
-                map(
-                    result => {
-                        this.loading = result.loading;
-                        this.errors = result.errors;
-                        this.networkStatus = result.networkStatus;
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .pipe(map(result => result, err => err));
     }
 
     deleteQualification(qualification: QualificationInput) {
         return this.deleteQualificationGql
             .mutate({ qualification: qualification })
-            .pipe(
-                map(
-                    result => {
-                        this.loading = result.loading;
-                        this.errors = result.errors;
-                        this.networkStatus = result.networkStatus;
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
+            .pipe(map(result => result, err => err));
     }
 }
