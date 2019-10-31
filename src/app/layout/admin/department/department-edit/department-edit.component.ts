@@ -105,8 +105,6 @@ export class DepartmentEditComponent implements OnInit {
             .editDepartment(this.departmentInput)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                console.log('Errors:', result.errors);
-                console.log('Network Status:', result.networkStatus);
                 this.alertService.success('Department edited');
                 setTimeout(() => {
                     this.router.navigate(

@@ -157,7 +157,6 @@ export class ModuleListComponent implements OnInit {
             .addModules(this.uploadedModules.slice(1))
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                console.log(result.addModules);
                 this.alertService.successToast('Bulk upload complete');
             });
     }

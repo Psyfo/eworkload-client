@@ -140,7 +140,7 @@ export class EditAcademicAdministrationComponent implements OnInit {
             .editAcademicAdministrationActivity(this.activityInput)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.isSubmitting = result.data.loading;
+                this.isSubmitting = false;
                 this.alertService.successToast('Activity added');
                 this.router.navigate(['activity/academic-administration']);
             });

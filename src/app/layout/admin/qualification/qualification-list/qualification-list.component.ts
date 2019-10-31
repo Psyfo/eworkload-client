@@ -127,9 +127,7 @@ export class QualificationListComponent implements OnInit {
             .deleteQualification(qualificationInput)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
-                result => {
-                    this.loading = result.loading;
-                },
+                result => {},
                 err => {
                     this.alertService.errorToast(err, 'errorToast');
                 }

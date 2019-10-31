@@ -77,7 +77,6 @@ export class DepartmentListComponent implements OnInit {
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
                 result => {
-                    this.loading = result.loading;
                     this.departments = result.data.departments;
                     this.updateRowGroupMetaData();
                 },
@@ -172,8 +171,6 @@ export class DepartmentListComponent implements OnInit {
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
                 result => {
-                    console.log(result.data.deleteBlock);
-
                     this.alertService.successToast('Department Deleted');
                 },
                 err => {
