@@ -1,3 +1,5 @@
+import { MenuItem } from 'primeng/components/common/menuitem';
+import { SelectItem } from 'primeng/components/common/selectitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -17,8 +19,9 @@ import { DepartmentService } from '../department.service';
     animations: [routerTransition()]
 })
 export class DepartmentViewComponent implements OnInit {
+    breadcrumbs: MenuItem[];
+
     department: Department;
-    departmentInput: DepartmentInput;
 
     private unsubscribe = new Subject();
 
@@ -26,38 +29,48 @@ export class DepartmentViewComponent implements OnInit {
         private alertService: AlertService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private renderer: Renderer,
-        private departmentService: DepartmentService,
-        private modalService: NgbModal
+        private departmentService: DepartmentService
     ) {}
 
     ngOnInit() {
-        // Get ID from route
-        this.activatedRoute.queryParams
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.getDepartment(result.departmentId);
-            });
+        this.breadcrumbs = [
+            { label: 'admin' },
+            { label: 'department', url: 'admin/department' },
+            { label: 'add', url: 'admin/department/add' }
+        ];
+        this.getDepartment();
     }
     ngOnDestroy(): void {
-        //Called once, before the instance is destroyed.
-        //Add 'implements OnDestroy' to the class.
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
 
     // Methods
-
-    getDepartment(departmentId: string) {
-        this.departmentService
-            .department(departmentId)
+    getDepartment() {
+        this.activatedRoute.queryParamMap
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.department = <Department>(<unknown>result.data.department);
-            });
-    }
+            .subscribe(
+                result => {
+                    const departmentId = result.get('departmentId');
 
-    onEdit() {
+                    this.departmentService
+                        .department(departmentId)
+                        .pipe(takeUntil(this.unsubscribe))
+                        .subscribe(
+                            result => {
+                                this.department = result.data.department;
+                            },
+                            err => {
+                                console.error(err);
+                            }
+                        );
+                },
+                err => {
+                    console.error(err);
+                }
+            );
+    }
+    onEdit(event) {
         this.router.navigate(
             ['admin/department/edit', this.department.departmentId],
             {
@@ -67,55 +80,7 @@ export class DepartmentViewComponent implements OnInit {
             }
         );
     }
-
-    onCancel() {
-        this.router.navigate(['../admin/department']);
-    }
-
-    async onDelete() {
-        this.departmentInput.departmentId = await this.department.departmentId;
-        this.departmentInput.name = await this.department.name;
-        this.departmentInput.facultyId = await this.department.faculty
-            .facultyId;
-        console.log('Dept input', this.departmentInput);
-
-        this.departmentService
-            .deleteDepartment(this.departmentInput)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                console.log('Errors:', result.errors);
-                console.log('Network Status:', result.networkStatus);
-                this.alertService.success('Department deleted');
-                setTimeout(() => {
-                    this.modalService.dismissAll('Operations complete');
-                    this.router.navigate(['admin/department']);
-                }, 1000);
-            });
-    }
-
-    closeResult: string;
-    open(content) {
-        this.modalService
-            .open(content, { ariaLabelledBy: 'modal-basic-title' })
-            .result.then(
-                result => {
-                    this.closeResult = `Closed with: ${result}`;
-                },
-                reason => {
-                    this.closeResult = `Dismissed ${this.getDismissReason(
-                        reason
-                    )}`;
-                }
-            );
-    }
-
-    private getDismissReason(reason: any): string {
-        if (reason === ModalDismissReasons.ESC) {
-            return 'by pressing ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-            return 'by clicking on a backdrop';
-        } else {
-            return `with: ${reason}`;
-        }
+    onBack(event) {
+        this.router.navigate(['admin/department']);
     }
 }

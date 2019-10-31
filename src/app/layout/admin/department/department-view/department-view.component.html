@@ -1,50 +1,48 @@
-<div class="row" [@routerTransition]>
-    <div class="col-6">
-        <div class="card">
-            <div class="card-header">
-                <h4>Details</h4>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <dl class="row">
-                            <dt class="col-4">Department Code</dt>
-                            <dd class="col-8">{{ department?.departmentId }}</dd>
-                            <dt class="col-4">Department</dt>
-                            <dd class="col-8">{{ department?.name }}</dd>
-                            <dt class="col-4">Faculty(code)</dt>
-                            <dd class="col-8">{{ department?.faculty?.name }} ({{ department?.faculty?.facultyId }})
-                            </dd>
-                        </dl>
-                    </div>
+<app-page-header [breadcrumbs]='breadcrumbs'></app-page-header>
+
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col-6">
+        <p-panel header="Add Department">
+            <!-- DEAPRTMENT ID -->
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>Department Code</strong>
+                </div>
+                <div class="p-col">
+                    {{department?.departmentId}}
                 </div>
             </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col">
-                        <button class="btn btn-primary mr-3" (click)="onEdit()">Edit</button>
-                        <button class="btn btn-danger" (click)="onCancel()">Cancel</button>
-                        <button class="btn btn-warning float-right" (click)="open(content)">Delete</button>
-                    </div>
+
+            <!-- NAME -->
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>Name</strong>
+                </div>
+                <div class="p-col">
+                    {{department?.name}}
                 </div>
             </div>
-        </div>
+
+            <!-- FACULTY -->
+            <div class="p-grid">
+                <div class="p-col">
+                    <strong>Faculty</strong>
+                </div>
+                <div class="p-col">
+                    {{department?.faculty?.name}}
+                </div>
+            </div>
+
+            <p-footer>
+                <div class="p-grid">
+                    <div class="p-col">
+                        <button type="button" pButton class="ui-button-danger mr-2" icon="pi pi-arrow-left" label="Back"
+                            (click)="onBack($event)"></button>
+                        <button type="button" pButton class="ui-button-primary mr-2" icon="pi pi-pencil" label="Edit"
+                            (click)="onEdit($event)"></button>
+                    </div>
+                </div>
+            </p-footer>
+        </p-panel>
     </div>
 </div>
-
-<ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h4 class="modal-title">Delete Department</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-
-    </div>
-    <div class="modal-body">
-        <p>Are you sure you want to delete this department?</p>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" (click)="onDelete()">Confirm</button>
-        <button type="button" class="btn btn-danger" (click)="c('Close click')">Cancel</button>
-    </div>
-</ng-template>
