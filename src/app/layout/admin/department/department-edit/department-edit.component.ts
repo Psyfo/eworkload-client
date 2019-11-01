@@ -1,15 +1,22 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
-import { Department, DepartmentInput, Faculty } from 'src/app/shared/generated';
+import {
+    Department,
+    DepartmentInput,
+    Faculty,
+    User
+} from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FacultyService } from '../../faculty/faculty.service';
 import { DepartmentService } from '../department.service';
+import { MenuItem } from 'primeng/components/common/menuitem';
+import { UserService } from '../../user/user.service';
 
 @Component({
     selector: 'app-department-edit',
@@ -18,11 +25,16 @@ import { DepartmentService } from '../department.service';
     animations: [routerTransition()]
 })
 export class DepartmentEditComponent implements OnInit {
-    faculties: Faculty[];
-    departmentInput: DepartmentInput;
-    department: Department;
+    breadcrumbs: MenuItem[];
+    @ViewChild('f', { static: false }) form: any;
 
-    departmentEditForm: FormGroup;
+    faculties: Faculty[];
+    selectedFaculty: Faculty;
+    departmentModel: Department;
+    departmentInput: DepartmentInput = {};
+    users: User[];
+    selectedHod: User;
+    isSubmitting: boolean;
 
     private unsubscribe = new Subject();
 
@@ -30,106 +42,92 @@ export class DepartmentEditComponent implements OnInit {
         private alertService: AlertService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private fb: FormBuilder,
+        private facultyService: FacultyService,
         private departmentService: DepartmentService,
-        private facultyService: FacultyService
+        private userService: UserService
     ) {}
 
     ngOnInit() {
-        this.activatedRoute.queryParams
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.buildForm(result.departmentId);
-            });
+        this.breadcrumbs = [
+            { label: 'admin' },
+            { label: 'department', url: 'admin/department' },
+            { label: 'edit' }
+        ];
+        this.getFaculties();
+        this.getUsers();
+        this.getDepartment();
     }
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
 
-    // Getters
-    get departmentId() {
-        return this.departmentEditForm.get('departmentId');
-    }
-    get name() {
-        return this.departmentEditForm.get('name');
-    }
-    get facultyId() {
-        return this.departmentEditForm.get('facultyId');
-    }
-    get formVal() {
-        return this.departmentEditForm.getRawValue();
-    }
-
-    // Methods
-
-    public buildForm(departmentId: string) {
-        this.departmentEditForm = this.fb.group({
-            departmentId: [
-                { value: '', disabled: true },
-                [Validators.required]
-            ],
-            name: ['', [Validators.required]],
-            facultyId: ['', [Validators.required]]
-        });
-
-        this.departmentService
-            .department(departmentId)
+    getDepartment() {
+        this.activatedRoute.queryParamMap
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.department = <Department>(<unknown>result.data.department);
-
-                this.getFaculties();
-                console.log('Dept Id:', this.department.departmentId);
-
-                this.departmentEditForm.patchValue({
-                    departmentId: this.department.departmentId,
-                    name: this.department.name,
-                    facultyId: this.department.faculty.facultyId
-                });
-            });
+            .subscribe(
+                result => {
+                    const departmentId = result.get('departmentId');
+                    this.departmentService
+                        .department(departmentId)
+                        .pipe(takeUntil(this.unsubscribe))
+                        .subscribe(result => {
+                            this.departmentModel = result.data.department;
+                            this.selectedFaculty = this.faculties.find(
+                                faculty =>
+                                    faculty.facultyId ===
+                                    this.departmentModel.facultyId
+                            );
+                            this.selectedHod = this.users.find(
+                                user =>
+                                    user.userId === this.departmentModel.hodId
+                            );
+                        });
+                },
+                err => {
+                    console.error(err);
+                }
+            );
     }
-    public getFaculties() {
+    getFaculties() {
         this.facultyService
             .getFaculties()
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.faculties = result.data.faculties.map(
-                    faculty => <Faculty>(<unknown>faculty)
-                );
-            });
-    }
-    public onEdit() {
-        this.departmentInput = this.formVal;
-        this.departmentService
-            .editDepartment(this.departmentInput)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.alertService.success('Department edited');
-                setTimeout(() => {
-                    this.router.navigate(
-                        ['admin/department/view', this.departmentId.value],
-                        {
-                            queryParams: {
-                                departmentId: this.departmentId.value
-                            }
-                        }
-                    );
-                }, 3000);
-            });
-    }
-    public onCancel() {
-        this.router.navigate(
-            ['admin/department/view', this.departmentId.value],
-            {
-                queryParams: {
-                    departmentId: this.departmentId.value
+            .subscribe(
+                result => {
+                    this.faculties = result.data.faculties;
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
                 }
-            }
-        );
+            );
     }
-    public onReset() {
-        this.departmentEditForm.reset();
-        this.ngOnInit();
+    getUsers() {
+        this.userService
+            .getUsers()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    this.users = result.data.users.map(user => {
+                        const label = `${user.userId} - ${user.firstName} ${user.lastName}`;
+                        let hod: any = user;
+                        hod.label = label;
+                        return hod;
+                    });
+                },
+                err => {
+                    this.alertService.errorToast(err);
+                    console.warn(err);
+                }
+            );
+    }
+
+    onSubmit() {}
+    onBack(event) {
+        this.router.navigate(['../admin/department']);
+    }
+    onReset(event) {
+        this.getDepartment();
     }
 }

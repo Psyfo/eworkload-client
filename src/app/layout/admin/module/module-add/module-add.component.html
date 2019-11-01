@@ -1,5 +1,5 @@
 <app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
-<div class="p-grid">
+<div class="p-grid" [@routerTransition]>
     <div class="p-col">
         <p-panel header="Add Module">
 
@@ -83,7 +83,7 @@
                         <label for="credits">Credits:</label>
                     </div>
                     <div class="p-col-6">
-                        <input type="number" pInputText placeholder="NQF Level" name="credits"
+                        <input type="number" pInputText placeholder="Credits" name="credits"
                             [(ngModel)]="moduleInput.credits" #credits="ngModel" required pkeyFilter="num">
                     </div>
                     <div class="p-col-4">
@@ -175,16 +175,25 @@
             </form>
 
             <p-footer>
-                <div class="p-grid">
-                    <div class="p-col p-justify-start">
-                        <button pButton label="Add Module" icon="pi pi-plus" [disabled]="f.invalid"
-                            class="mr-2"></button>
+                <div class="p-grid" *ngIf="!isSubmitting; else spinner">
+                    <div class="p-col-10 p-col-align-left">
                         <button pButton type="button" label="Back" icon="pi pi-arrow-left" (click)="onBack($event)"
-                            class="ui-button-danger"></button>
+                            class="ui-button-danger mr-2"></button>
+                        <button pButton label="Save" icon="pi pi-plus"
+                            [disabled]="f.untouched || (f.touched && f.invalid)" class=""></button>
                     </div>
-                    <div class="p-col p-justify-end">
+                    <div class="p-col-2 p-col-align-right">
                         <button pButton type="button" label="Reset" icon="pi pi-refresh" (click)="onReset($event)"
                             class="ui-button-secondary"></button>
+                    </div>
+                </div>
+
+                <div class="p-grid">
+                    <div class="p-col">
+                        <ng-template #spinner>
+                            <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="6" fill="#EEEEEE"
+                                animationDuration=".5s"></p-progressSpinner>
+                        </ng-template>
                     </div>
                 </div>
             </p-footer>

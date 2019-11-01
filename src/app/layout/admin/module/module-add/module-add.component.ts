@@ -13,7 +13,7 @@ import {
 import { AlertService } from 'src/app/shared/modules';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { BlockService } from '../../block/block.service';
@@ -31,7 +31,7 @@ import { ModuleService } from '../module.service';
 })
 export class ModuleAddComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
 
     moduleInput: ModuleInput = {};
     qualifications: Qualification[];
@@ -48,6 +48,7 @@ export class ModuleAddComponent implements OnInit {
     selectedBlock: Block;
     selectedDiscipline: Discipline;
     selectedVenue: Venue;
+    isSubmitting: boolean;
 
     private unsubscribe = new Subject();
 
@@ -121,10 +122,18 @@ export class ModuleAddComponent implements OnInit {
             });
     }
     onSubmit() {
+        this.isSubmitting = true;
+
+        this.moduleInput.blockId = this.selectedBlock.blockId;
+        this.moduleInput.offeringTypeId = this.selectedOfferingType.offeringTypeId;
+        this.moduleInput.qualificationId = this.selectedQualification.qualificationId;
+        this.moduleInput.disciplineId = this.selectedDiscipline.disciplineId;
+        this.moduleInput.venueId = this.selectedVenue.venueId;
         this.moduleService
             .addModule(this.moduleInput)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
+                this.isSubmitting = false;
                 this.alertService.success('Module added');
 
                 this.router.navigate(
