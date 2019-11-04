@@ -67,10 +67,7 @@ query formalInstructionActivity($activityId: String!) {
                     departmentId
                     name
                     facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
+                    hodId
                 }
             }
             offeringTypeId
@@ -97,127 +94,29 @@ query formalInstructionActivity($activityId: String!) {
                 name
                 description
             }
-            userId
-            user {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                disciplines {
-                    disciplineId
-                    name
-                    description
-                }
-                positionId
-                position {
-                    positionId
-                    name
-                    description
-                }
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                }
-                workFocusName
-                workFocus {
-                    name
-                    teachingRatio
-                    researchRatio
-                    serviceRatio
-                }
-                gender
-                nationality
-            }
-            coordinatorId
-            coordinator {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                disciplines {
-                    disciplineId
-                    name
-                    description
-                }
-                positionId
-                position {
-                    positionId
-                    name
-                    description
-                }
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                }
-                workFocusName
-                workFocus {
-                    name
-                    teachingRatio
-                    researchRatio
-                    serviceRatio
-                }
-                gender
-                nationality
-            }
-            moderatorId
-            moderator {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                disciplines {
-                    disciplineId
-                    name
-                    description
-                }
-                positionId
-                position {
-                    positionId
-                    name
-                    description
-                }
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                }
-                workFocusName
-                workFocus {
-                    name
-                    teachingRatio
-                    researchRatio
-                    serviceRatio
-                }
-                gender
-                nationality
-            }
             stackId
             studyPeriod
-            groupSize
+            groups {
+                groupCode
+                enrolled
+                lecturerIds
+                lecturers {
+                    userId
+                    email
+                    firstName
+                    lastName
+                    photoUrl
+                    disciplineIds
+                    positionId
+                    departmentId
+                    workFocusName
+                    gender
+                    nationality
+                }
+                repeat
+            }
             lecturedBy
+            enrolled
             moderation
         }
         blockId
@@ -319,10 +218,7 @@ query formalInstructionActivities {
                     departmentId
                     name
                     facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
+                    hodId
                 }
             }
             offeringTypeId
@@ -349,127 +245,29 @@ query formalInstructionActivities {
                 name
                 description
             }
-            userId
-            user {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                disciplines {
-                    disciplineId
-                    name
-                    description
-                }
-                positionId
-                position {
-                    positionId
-                    name
-                    description
-                }
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                }
-                workFocusName
-                workFocus {
-                    name
-                    teachingRatio
-                    researchRatio
-                    serviceRatio
-                }
-                gender
-                nationality
-            }
-            coordinatorId
-            coordinator {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                disciplines {
-                    disciplineId
-                    name
-                    description
-                }
-                positionId
-                position {
-                    positionId
-                    name
-                    description
-                }
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                }
-                workFocusName
-                workFocus {
-                    name
-                    teachingRatio
-                    researchRatio
-                    serviceRatio
-                }
-                gender
-                nationality
-            }
-            moderatorId
-            moderator {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                disciplines {
-                    disciplineId
-                    name
-                    description
-                }
-                positionId
-                position {
-                    positionId
-                    name
-                    description
-                }
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                }
-                workFocusName
-                workFocus {
-                    name
-                    teachingRatio
-                    researchRatio
-                    serviceRatio
-                }
-                gender
-                nationality
-            }
             stackId
             studyPeriod
-            groupSize
+            groups {
+                groupCode
+                enrolled
+                lecturerIds
+                lecturers {
+                    userId
+                    email
+                    firstName
+                    lastName
+                    photoUrl
+                    disciplineIds
+                    positionId
+                    departmentId
+                    workFocusName
+                    gender
+                    nationality
+                }
+                repeat
+            }
             lecturedBy
+            enrolled
             moderation
         }
         blockId
@@ -571,10 +369,7 @@ query formalInstructionActivitiesByUser($userId: String!) {
                     departmentId
                     name
                     facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
+                    hodId
                 }
             }
             offeringTypeId
@@ -601,127 +396,29 @@ query formalInstructionActivitiesByUser($userId: String!) {
                 name
                 description
             }
-            userId
-            user {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                disciplines {
-                    disciplineId
-                    name
-                    description
-                }
-                positionId
-                position {
-                    positionId
-                    name
-                    description
-                }
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                }
-                workFocusName
-                workFocus {
-                    name
-                    teachingRatio
-                    researchRatio
-                    serviceRatio
-                }
-                gender
-                nationality
-            }
-            coordinatorId
-            coordinator {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                disciplines {
-                    disciplineId
-                    name
-                    description
-                }
-                positionId
-                position {
-                    positionId
-                    name
-                    description
-                }
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                }
-                workFocusName
-                workFocus {
-                    name
-                    teachingRatio
-                    researchRatio
-                    serviceRatio
-                }
-                gender
-                nationality
-            }
-            moderatorId
-            moderator {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                disciplines {
-                    disciplineId
-                    name
-                    description
-                }
-                positionId
-                position {
-                    positionId
-                    name
-                    description
-                }
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                }
-                workFocusName
-                workFocus {
-                    name
-                    teachingRatio
-                    researchRatio
-                    serviceRatio
-                }
-                gender
-                nationality
-            }
             stackId
             studyPeriod
-            groupSize
+            groups {
+                groupCode
+                enrolled
+                lecturerIds
+                lecturers {
+                    userId
+                    email
+                    firstName
+                    lastName
+                    photoUrl
+                    disciplineIds
+                    positionId
+                    departmentId
+                    workFocusName
+                    gender
+                    nationality
+                }
+                repeat
+            }
             lecturedBy
+            enrolled
             moderation
         }
         blockId

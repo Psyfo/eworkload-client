@@ -11,41 +11,41 @@ query serviceHoursPerUser($userId: String!) {
     serviceHoursPerUser(userId: $userId)
 }
 query totalWorkload($userId: String!) {
-    totalWorkload(userId: $userId){
+    totalWorkload(userId: $userId) {
         academicAdministrationWorkload {
             academicAdministrationWorkloads {
                 activity {
-                activityId
-                userId
-                dutyId
-                duty {
+                    activityId
+                    userId
                     dutyId
-                    name
-                    description
-                }
-                approvalStatus
-                createdAt
-                updatedAt
-                title
-                qualificationId
-                qualification {
-                    qualificationId
-                    name
-                    type
-                    departmentId
-                    department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
+                    duty {
+                        dutyId
                         name
+                        description
                     }
-                    hodId
+                    approvalStatus
+                    createdAt
+                    updatedAt
+                    title
+                    qualificationId
+                    qualification {
+                        qualificationId
+                        name
+                        type
+                        departmentId
+                        department {
+                            departmentId
+                            name
+                            facultyId
+                            faculty {
+                                facultyId
+                                name
+                            }
+                            hodId
+                        }
                     }
-                }
-                description
-                evidence
+                    description
+                    evidence
                 }
                 totalHoursPerActivity
                 percentageOfWorkFocusPerActivity
@@ -61,20 +61,20 @@ query totalWorkload($userId: String!) {
         communityInstructionWorkload {
             communityInstructionWorkloads {
                 activity {
-                activityId
-                userId
-                dutyId
-                duty {
+                    activityId
+                    userId
                     dutyId
-                    name
+                    duty {
+                        dutyId
+                        name
+                        description
+                    }
+                    approvalStatus
+                    createdAt
+                    updatedAt
+                    title
                     description
-                }
-                approvalStatus
-                createdAt
-                updatedAt
-                title
-                description
-                evidence
+                    evidence
                 }
                 totalHoursPerActivity
                 percentageOfWorkFocusPerActivity
@@ -90,20 +90,20 @@ query totalWorkload($userId: String!) {
         executiveManagementWorkload {
             executiveManagementWorkloads {
                 activity {
-                activityId
-                userId
-                dutyId
-                duty {
+                    activityId
+                    userId
                     dutyId
-                    name
+                    duty {
+                        dutyId
+                        name
+                        description
+                    }
+                    approvalStatus
+                    createdAt
+                    updatedAt
+                    title
                     description
-                }
-                approvalStatus
-                createdAt
-                updatedAt
-                title
-                description
-                evidence
+                    evidence
                 }
                 totalHoursPerActivity
                 percentageOfWorkFocusPerActivity
@@ -119,18 +119,157 @@ query totalWorkload($userId: String!) {
         formalInstructionWorkload {
             formalInstructionWorkloads {
                 activity {
-                activityId
-                userId
-                dutyId
-                duty {
+                    activityId
+                    userId
                     dutyId
-                    name
-                    description
+                    duty {
+                        dutyId
+                        name
+                        description
+                    }
+                    approvalStatus
+                    createdAt
+                    updatedAt
+                    moduleId
+                    module {
+                        moduleId
+                        name
+                        type
+                        assessmentMethod
+                        nqfLevel
+                        credits
+                        qualificationId
+                        qualification {
+                            qualificationId
+                            name
+                            type
+                            departmentId
+                            department {
+                                departmentId
+                                name
+                                facultyId
+                                hodId
+                            }
+                        }
+                        offeringTypeId
+                        offeringType {
+                            offeringTypeId
+                            description
+                        }
+                        disciplineId
+                        discipline {
+                            disciplineId
+                            name
+                            description
+                        }
+                        venueId
+                        venue {
+                            venueId
+                            campus
+                            capacity
+                            type
+                        }
+                        blockId
+                        block {
+                            blockId
+                            name
+                            description
+                        }
+                        stackId
+                        studyPeriod
+                        groups {
+                            groupCode
+                            enrolled
+                            lecturerIds
+                            lecturers {
+                                userId
+                                email
+                                firstName
+                                lastName
+                                photoUrl
+                                disciplineIds
+                                positionId
+                                departmentId
+                                workFocusName
+                                gender
+                                nationality
+                            }
+                            repeat
+                        }
+                        lecturedBy
+                        enrolled
+                        moderation
+                    }
+                    blockId
+                    block {
+                        blockId
+                        name
+                        description
+                    }
+                    offeringTypeId
+                    offeringType {
+                        offeringTypeId
+                        description
+                    }
+                    qualificationId
+                    qualification {
+                        qualificationId
+                        name
+                        type
+                        departmentId
+                        department {
+                            departmentId
+                            name
+                            facultyId
+                            faculty {
+                                facultyId
+                                name
+                            }
+                            hodId
+                            hod {
+                                userId
+                                email
+                                firstName
+                                lastName
+                                photoUrl
+                                disciplineIds
+                                disciplines {
+                                    disciplineId
+                                    name
+                                    description
+                                }
+                                positionId
+                                position {
+                                    positionId
+                                    name
+                                    description
+                                }
+                                departmentId
+                                department {
+                                    departmentId
+                                    name
+                                    facultyId
+                                    faculty {
+                                        facultyId
+                                        name
+                                    }
+                                    hodId
+                                }
+                                workFocusName
+                                workFocus {
+                                    name
+                                    teachingRatio
+                                    researchRatio
+                                    serviceRatio
+                                }
+                                gender
+                                nationality
+                            }
+                        }
+                    }
+                    evidence
+                    isCoordinator
                 }
-                approvalStatus
-                createdAt
-                updatedAt
-                moduleId
                 module {
                     moduleId
                     name
@@ -140,218 +279,81 @@ query totalWorkload($userId: String!) {
                     credits
                     qualificationId
                     qualification {
-                    qualificationId
-                    name
-                    type
-                    departmentId
-                    department {
+                        qualificationId
+                        name
+                        type
                         departmentId
-                        name
-                        facultyId
-                        faculty {
-                        facultyId
-                        name
+                        department {
+                            departmentId
+                            name
+                            facultyId
+                            hodId
                         }
-                        hodId
-                    }
                     }
                     offeringTypeId
                     offeringType {
-                    offeringTypeId
-                    description
+                        offeringTypeId
+                        description
                     }
                     disciplineId
                     discipline {
-                    disciplineId
-                    name
-                    description
+                        disciplineId
+                        name
+                        description
                     }
                     venueId
                     venue {
-                    venueId
-                    campus
-                    capacity
-                    type
+                        venueId
+                        campus
+                        capacity
+                        type
                     }
                     blockId
                     block {
-                    blockId
-                    name
-                    description
-                    }
-                    userId
-                    user {
-                    userId
-                    email
-                    firstName
-                    lastName
-                    photoUrl
-                    disciplineIds
-                    disciplines {
-                        disciplineId
+                        blockId
                         name
                         description
-                    }
-                    positionId
-                    position {
-                        positionId
-                        name
-                        description
-                    }
-                    departmentId
-                    department {
-                        departmentId
-                        name
-                        facultyId
-                        faculty {
-                        facultyId
-                        name
-                        }
-                        hodId
-                    }
-                    workFocusName
-                    workFocus {
-                        name
-                        teachingRatio
-                        researchRatio
-                        serviceRatio
-                    }
-                    gender
-                    nationality
-                    }
-                    coordinatorId
-                    coordinator {
-                    userId
-                    email
-                    firstName
-                    lastName
-                    photoUrl
-                    disciplineIds
-                    disciplines {
-                        disciplineId
-                        name
-                        description
-                    }
-                    positionId
-                    position {
-                        positionId
-                        name
-                        description
-                    }
-                    departmentId
-                    department {
-                        departmentId
-                        name
-                        facultyId
-                        faculty {
-                        facultyId
-                        name
-                        }
-                        hodId
-                    }
-                    workFocusName
-                    workFocus {
-                        name
-                        teachingRatio
-                        researchRatio
-                        serviceRatio
-                    }
-                    gender
-                    nationality
-                    }
-                    moderatorId
-                    moderator {
-                    userId
-                    email
-                    firstName
-                    lastName
-                    photoUrl
-                    disciplineIds
-                    disciplines {
-                        disciplineId
-                        name
-                        description
-                    }
-                    positionId
-                    position {
-                        positionId
-                        name
-                        description
-                    }
-                    departmentId
-                    department {
-                        departmentId
-                        name
-                        facultyId
-                        faculty {
-                        facultyId
-                        name
-                        }
-                        hodId
-                    }
-                    workFocusName
-                    workFocus {
-                        name
-                        teachingRatio
-                        researchRatio
-                        serviceRatio
-                    }
-                    gender
-                    nationality
                     }
                     stackId
                     studyPeriod
-                    groupSize
+                    groups {
+                        groupCode
+                        enrolled
+                        lecturerIds
+                        lecturers {
+                            userId
+                            email
+                            firstName
+                            lastName
+                            photoUrl
+                            disciplineIds
+                            positionId
+                            departmentId
+                            workFocusName
+                            gender
+                            nationality
+                        }
+                        repeat
+                    }
                     lecturedBy
                     enrolled
                     moderation
                 }
-                blockId
                 block {
                     blockId
                     name
                     description
                 }
-                offeringTypeId
                 offeringType {
                     offeringTypeId
                     description
                 }
-                qualificationId
                 qualification {
                     qualificationId
                     name
                     type
                     departmentId
                     department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                    hodId
-                    hod {
-                        userId
-                        email
-                        firstName
-                        lastName
-                        photoUrl
-                        disciplineIds
-                        disciplines {
-                        disciplineId
-                        name
-                        description
-                        }
-                        positionId
-                        position {
-                        positionId
-                        name
-                        description
-                        }
-                        departmentId
-                        department {
                         departmentId
                         name
                         facultyId
@@ -359,100 +361,7 @@ query totalWorkload($userId: String!) {
                             facultyId
                             name
                         }
-                        hodId
-                        }
-                        workFocusName
-                        workFocus {
-                        name
-                        teachingRatio
-                        researchRatio
-                        serviceRatio
-                        }
-                        gender
-                        nationality
                     }
-                    }
-                }
-                evidence
-                isCoordinator
-                }
-                module {
-                moduleId
-                name
-                type
-                assessmentMethod
-                nqfLevel
-                credits
-                qualificationId
-                qualification {
-                    qualificationId
-                    name
-                    type
-                    departmentId
-                    department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                    }
-                }
-                offeringTypeId
-                offeringType {
-                    offeringTypeId
-                    description
-                }
-                disciplineId
-                discipline {
-                    disciplineId
-                    name
-                    description
-                }
-                venueId
-                venue {
-                    venueId
-                    campus
-                    capacity
-                    type
-                }
-                blockId
-                block {
-                    blockId
-                    name
-                    description
-                }
-                stackId
-                studyPeriod
-                groupSize
-                lecturedBy
-                enrolled
-                moderation
-                }
-                block {
-                blockId
-                name
-                description
-                }
-                offeringType {
-                offeringTypeId
-                description
-                }
-                qualification {
-                qualificationId
-                name
-                type
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                    facultyId
-                    name
-                    }
-                }
                 }
                 studentsEnrolled
                 baseContactHours
@@ -479,21 +388,21 @@ query totalWorkload($userId: String!) {
         personnelDevelopmentWorkload {
             personnelDevelopmentWorkloads {
                 activity {
-                activityId
-                userId
-                dutyId
-                duty {
+                    activityId
+                    userId
                     dutyId
-                    name
-                    description
-                }
-                approvalStatus
-                createdAt
-                updatedAt
-                title
-                date
-                duration
-                evidence
+                    duty {
+                        dutyId
+                        name
+                        description
+                    }
+                    approvalStatus
+                    createdAt
+                    updatedAt
+                    title
+                    date
+                    duration
+                    evidence
                 }
                 totalHoursPerActivity
                 percentageOfWorkFocusPerActivity
@@ -509,20 +418,20 @@ query totalWorkload($userId: String!) {
         publicServiceWorkload {
             publicServiceWorkloads {
                 activity {
-                activityId
-                userId
-                dutyId
-                duty {
+                    activityId
+                    userId
                     dutyId
-                    name
+                    duty {
+                        dutyId
+                        name
+                        description
+                    }
+                    approvalStatus
+                    createdAt
+                    updatedAt
+                    title
                     description
-                }
-                approvalStatus
-                createdAt
-                updatedAt
-                title
-                description
-                evidence
+                    evidence
                 }
                 totalHoursPerActivity
                 percentageOfWorkFocusPerActivity
@@ -538,25 +447,25 @@ query totalWorkload($userId: String!) {
         researchWorkload {
             researchWorkloads {
                 activity {
-                activityId
-                userId
-                dutyId
-                duty {
+                    activityId
+                    userId
                     dutyId
-                    name
-                    description
-                }
-                approvalStatus
-                createdAt
-                updatedAt
-                output
-                title
-                details
-                dates
-                conferenceActivities
-                authors
-                url
-                evidence
+                    duty {
+                        dutyId
+                        name
+                        description
+                    }
+                    approvalStatus
+                    createdAt
+                    updatedAt
+                    output
+                    title
+                    details
+                    dates
+                    conferenceActivities
+                    authors
+                    url
+                    evidence
                 }
                 totalHoursPerActivity
                 percentageOfWorkFocusPerActivity
@@ -572,37 +481,9 @@ query totalWorkload($userId: String!) {
         supervisionWorkload {
             supervisionWorkloads {
                 activity {
-                activityId
-                userId
-                user {
+                    activityId
                     userId
-                    email
-                    firstName
-                    lastName
-                    photoUrl
-                    disciplineIds
-                    disciplines {
-                    disciplineId
-                    name
-                    description
-                    }
-                    positionId
-                    position {
-                    positionId
-                    name
-                    description
-                    }
-                    departmentId
-                    department {
-                    departmentId
-                    name
-                    facultyId
-                    faculty {
-                        facultyId
-                        name
-                    }
-                    hodId
-                    hod {
+                    user {
                         userId
                         email
                         firstName
@@ -610,70 +491,98 @@ query totalWorkload($userId: String!) {
                         photoUrl
                         disciplineIds
                         disciplines {
-                        disciplineId
-                        name
-                        description
+                            disciplineId
+                            name
+                            description
                         }
                         positionId
                         position {
-                        positionId
-                        name
-                        description
+                            positionId
+                            name
+                            description
                         }
                         departmentId
                         department {
-                        departmentId
-                        name
-                        facultyId
-                        faculty {
-                            facultyId
+                            departmentId
                             name
-                        }
+                            facultyId
+                            faculty {
+                                facultyId
+                                name
+                            }
+                            hodId
+                            hod {
+                                userId
+                                email
+                                firstName
+                                lastName
+                                photoUrl
+                                disciplineIds
+                                disciplines {
+                                    disciplineId
+                                    name
+                                    description
+                                }
+                                positionId
+                                position {
+                                    positionId
+                                    name
+                                    description
+                                }
+                                departmentId
+                                department {
+                                    departmentId
+                                    name
+                                    facultyId
+                                    faculty {
+                                        facultyId
+                                        name
+                                    }
+                                }
+                                workFocusName
+                                workFocus {
+                                    name
+                                    teachingRatio
+                                    researchRatio
+                                    serviceRatio
+                                }
+                                gender
+                                nationality
+                            }
                         }
                         workFocusName
                         workFocus {
-                        name
-                        teachingRatio
-                        researchRatio
-                        serviceRatio
+                            name
+                            teachingRatio
+                            researchRatio
+                            serviceRatio
                         }
                         gender
                         nationality
                     }
-                    }
-                    workFocusName
-                    workFocus {
-                    name
-                    teachingRatio
-                    researchRatio
-                    serviceRatio
-                    }
-                    gender
-                    nationality
-                }
-                dutyId
-                duty {
                     dutyId
-                    name
-                    description
-                }
-                approvalStatus
-                createdAt
-                updatedAt
-                supervisionRole
-                split
-                studentId
-                student {
+                    duty {
+                        dutyId
+                        name
+                        description
+                    }
+                    approvalStatus
+                    createdAt
+                    updatedAt
+                    supervisionRole
+                    split
                     studentId
-                    firstName
-                    lastName
-                    email
-                    type
-                    title
-                    graduationDate
-                }
-                year
-                evidence
+                    student {
+                        studentId
+                        firstName
+                        lastName
+                        email
+                        type
+                        title
+                        graduationDate
+                    }
+                    year
+                    evidence
                 }
                 totalHoursPerActivity
                 percentageOfWorkFocusPerActivity

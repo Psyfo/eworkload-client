@@ -56,6 +56,14 @@ query activity($activityId: String!) {
                 qualification {
                     qualificationId
                     name
+                    type
+                    departmentId
+                    department {
+                        departmentId
+                        name
+                        facultyId
+                        hodId
+                    }
                 }
                 offeringTypeId
                 offeringType {
@@ -66,49 +74,44 @@ query activity($activityId: String!) {
                 discipline {
                     disciplineId
                     name
+                    description
                 }
                 venueId
                 venue {
                     venueId
                     campus
                     capacity
+                    type
                 }
                 blockId
                 block {
                     blockId
                     name
+                    description
                 }
-                coordinatorId
-                coordinator {
-                    userId
-                    firstName
-                    lastName
-                    disciplines {
-                        disciplineId
-                        name
-                    }
-                    position {
-                        positionId
-                        name
-                    }
-                }
-                moderatorId
-                moderator {
-                    userId
-                    firstName
-                    lastName
-                    disciplines {
-                        disciplineId
-                        name
-                    }
-                    position {
-                        positionId
-                        name
-                    }
-                }
+                stackId
                 studyPeriod
-                groupSize
+                groups {
+                    groupCode
+                    enrolled
+                    lecturerIds
+                    lecturers {
+                        userId
+                        email
+                        firstName
+                        lastName
+                        photoUrl
+                        disciplineIds
+                        positionId
+                        departmentId
+                        workFocusName
+                        gender
+                        nationality
+                    }
+                    repeat
+                }
                 lecturedBy
+                enrolled
                 moderation
             }
             blockId
@@ -209,6 +212,14 @@ query activitiesByUnapproved {
                 qualification {
                     qualificationId
                     name
+                    type
+                    departmentId
+                    department {
+                        departmentId
+                        name
+                        facultyId
+                        hodId
+                    }
                 }
                 offeringTypeId
                 offeringType {
@@ -219,49 +230,44 @@ query activitiesByUnapproved {
                 discipline {
                     disciplineId
                     name
+                    description
                 }
                 venueId
                 venue {
                     venueId
                     campus
                     capacity
+                    type
                 }
                 blockId
                 block {
                     blockId
                     name
+                    description
                 }
-                coordinatorId
-                coordinator {
-                    userId
-                    firstName
-                    lastName
-                    disciplines {
-                        disciplineId
-                        name
-                    }
-                    position {
-                        positionId
-                        name
-                    }
-                }
-                moderatorId
-                moderator {
-                    userId
-                    firstName
-                    lastName
-                    disciplines {
-                        disciplineId
-                        name
-                    }
-                    position {
-                        positionId
-                        name
-                    }
-                }
+                stackId
                 studyPeriod
-                groupSize
+                groups {
+                    groupCode
+                    enrolled
+                    lecturerIds
+                    lecturers {
+                        userId
+                        email
+                        firstName
+                        lastName
+                        photoUrl
+                        disciplineIds
+                        positionId
+                        departmentId
+                        workFocusName
+                        gender
+                        nationality
+                    }
+                    repeat
+                }
                 lecturedBy
+                enrolled
                 moderation
             }
             blockId
