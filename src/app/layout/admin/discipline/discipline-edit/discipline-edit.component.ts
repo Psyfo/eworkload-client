@@ -1,112 +1,90 @@
+import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
-import { Discipline } from 'src/app/shared/generated';
+import { Discipline, DisciplineInput } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm, NgModel } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { DisciplineService } from '../discipline.service';
 
 @Component({
-    selector: 'app-discipline-edit',
-    templateUrl: './discipline-edit.component.html',
-    styleUrls: ['./discipline-edit.component.scss'],
-    animations: [routerTransition()]
+  selector: 'app-discipline-edit',
+  templateUrl: './discipline-edit.component.html',
+  styleUrls: ['./discipline-edit.component.scss'],
+  animations: [routerTransition()]
 })
 export class DisciplineEditComponent implements OnInit {
-    discipline: Discipline;
+  breadcrumbs: MenuItem[];
+  @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
 
-    private unsubscribe = new Subject();
+  disciplineModel: Discipline;
+  disciplineInput: DisciplineInput;
+  isSubmitting: boolean;
 
-    disciplineEditForm: FormGroup;
+  private unsubscribe = new Subject();
+  constructor(
+    private alertService: AlertService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private disciplineService: DisciplineService
+  ) {}
 
-    constructor(
-        private alertService: AlertService,
-        private router: Router,
-        private activatedRoute: ActivatedRoute,
-        private fb: FormBuilder,
-        private disciplineService: DisciplineService
-    ) {}
+  ngOnInit() {
+    this.breadcrumbs = [{ label: 'admin' }, { label: 'discipline' }, { label: 'edit' }];
+    this.getDiscipline();
+  }
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
 
-    ngOnInit() {
-        this.activatedRoute.queryParams
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.buildForm(result.disciplineId);
-            });
-    }
-    ngOnDestroy(): void {
-        this.unsubscribe.next();
-        this.unsubscribe.complete();
-    }
-
-    // Getters
-    get disciplineId() {
-        return this.disciplineEditForm.get('disciplineId');
-    }
-    get name() {
-        return this.disciplineEditForm.get('name');
-    }
-    get description() {
-        return this.disciplineEditForm.get('description');
-    }
-    get formVal() {
-        return this.disciplineEditForm.getRawValue();
-    }
-
-    // Methods
-    buildForm(disciplineId: string) {
-        this.disciplineEditForm = this.fb.group({
-            disciplineId: [
-                { value: '', disabled: true },
-                [Validators.required]
-            ],
-            name: ['', [Validators.required]],
-            description: ['', [Validators.required]]
-        });
+  getDiscipline() {
+    this.activatedRoute.queryParamMap.pipe(takeUntil(this.unsubscribe)).subscribe(
+      result => {
+        const disciplineId = result.get('disciplineId');
         this.disciplineService
-            .discipline(disciplineId)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.discipline = result.data.discipline;
-
-                this.disciplineEditForm.patchValue(this.discipline);
-            });
-    }
-    onEdit() {
-        this.discipline = this.formVal;
-
-        this.disciplineService
-            .editDiscipline(this.discipline)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.alertService.success('Discipline edited');
-
-                this.router.navigate(
-                    ['admin/discipline/view', this.disciplineId.value],
-                    {
-                        queryParams: {
-                            disciplineId: this.disciplineId.value
-                        }
-                    }
-                );
-            });
-    }
-    onCancel() {
-        this.router.navigate(
-            ['admin/discipline/view', this.discipline.disciplineId],
-            {
-                queryParams: {
-                    disciplineId: this.discipline.disciplineId
-                }
+          .discipline(disciplineId)
+          .pipe(takeUntil(this.unsubscribe))
+          .subscribe(
+            result => {
+              this.disciplineModel = result.data.discipline;
+            },
+            err => {
+              console.error(err);
             }
-        );
-    }
-    onReset() {
-        this.disciplineEditForm.reset();
-        this.ngOnInit();
-    }
+          );
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+  onSubmit() {
+    this.isSubmitting = true;
+    this.disciplineInput = {
+      disciplineId: this.disciplineModel.disciplineId,
+      name: this.disciplineModel.name,
+      description: this.disciplineModel.description
+    };
+
+    this.disciplineService
+      .editDiscipline(this.disciplineInput)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(result => {
+        this.isSubmitting = false;
+        this.alertService.successToast(`Discipline ${this.disciplineInput.disciplineId} edited`);
+        this.router.navigate(['admin/discipline']);
+      });
+  }
+  onBack(event) {
+    this.router.navigate(['admin/discipline']);
+  }
+  onReset(event) {
+    this.getDiscipline();
+    this.form.form.markAsPristine();
+  }
 }

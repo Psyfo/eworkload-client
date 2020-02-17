@@ -772,7 +772,327 @@
     <div class="p-col">
         <button type="button" pButton icon="pi pi-print" class="ui-button mr-2" label="Print HEMIS"
             (click)="onPrint2($event)"></button>
-        <button type="button" pButton icon="pi pi-mail" class="ui-button mr-2" label="Mail to HOD"
-            (click)="onMail($event)"></button>
+        <!-- <button type="button" pButton icon="pi pi-mail" class="ui-button mr-2" label="Mail to HOD"
+            (click)="onMail($event)"></button> -->
+    </div>
+</div>
+
+
+
+
+<!-- For Print -->
+<div id="hemis2" [hidden]="true">
+
+    <div class="p-grid mb-3" id="userData" #userData>
+        <div class="p-col-6">
+            <!-- <h5 class="mb-5">General Information</h5> -->
+            <div class="p-grid">
+                <div class="p-col-4">
+                    <strong>Employee Number</strong>
+                </div>
+                <div class="p-col-8">
+                    {{user?.userId}}
+                </div>
+            </div>
+            <!-- <div class="p-grid">
+                <div class="p-col-4">
+                    <strong>Name</strong>
+                </div>
+                <div class="p-col-8">
+                    {{user?.firstName}} {{user?.lastName}}
+                </div>
+            </div>
+            <div class="p-grid">
+                <div class="p-col-4">
+                    <strong>Position</strong>
+                </div>
+                <div class="p-col-8">
+                    {{user?.position?.name}}
+                </div>
+            </div>
+            <div class="p-grid">
+                <div class="p-col-4">
+                    <strong>Faculty</strong>
+                </div>
+                <div class="p-col-8">
+                    Accounting & Informatics
+                </div>
+            </div>
+            <div class="p-grid">
+                <div class="p-col-4">
+                    <strong>Department</strong>
+                </div>
+                <div class="p-col-8">
+                    Information Technology
+                </div>
+            </div> -->
+
+        </div>
+    </div>
+
+    <!-- DUTIES -->
+    <div class="p-grid mb-3" id="dutyData" #dutyData>
+        <div class="p-col">
+            <!-- <h5>Part Two: Allocation of Time</h5> -->
+            <p-table #dutyTable [value]="[{}]" tableStyleClass="prime-table">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th colspan="9" style="text-align: center;">
+                            <strong>PROGRAMME/SUB-PROGRAMME</strong>
+                        </th>
+                        <th colspan="1" style="text-align: center;">
+                            <strong>% TIME</strong>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body">
+                    <tr>
+                        <td colspan="1" rowspan="1">
+                            11
+                        </td>
+                        <td colspan="8" rowspan="1">
+                            FORMAL INSTRUCTION
+                        </td>
+                        <td colspan="1" rowspan="1">
+                            {{formalInstructionWorkload?.percentageOfTotalHoursPerUser + supervisionWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="1">
+                            12
+                        </td>
+                        <td colspan="8">
+                            COMMUNITY INSTRUCTION
+                        </td>
+                        <td colspan="1">
+                            {{communityInstructionWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="1">
+                            20
+                        </td>
+                        <td colspan="8">
+                            RESEARCH
+                        </td>
+                        <td colspan="1">
+                            {{researchWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="1">
+                            30
+                        </td>
+                        <td colspan="8">
+                            PUBLIC SERVICE
+                        </td>
+                        <td colspan="1">
+                            {{publicServiceWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="1">
+                            46
+                        </td>
+                        <td colspan="8">
+                            ACADEMIC ADMINISTRATION
+                        </td>
+                        <td colspan="1">
+                            {{academicAdministrationWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="1">
+                            48
+                        </td>
+                        <td colspan="8">
+                            PERSONNEL DEVELOPMENT
+                        </td>
+                        <td colspan="1">
+                            {{personnelDevelopmentWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="1">
+                            61 </td>
+                        <td colspan="8">
+                            EXECUTIVE MANAGEMENT
+                        </td>
+                        <td colspan="1">
+                            {{executiveManagementWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td colspan="9">
+                            <strong>TOTAL</strong>
+                        </td>
+                        <td colspan="1">
+                            {{formalInstructionWorkload?.percentageOfTotalHoursPerUser +
+                                    communityInstructionWorkload?.percentageOfTotalHoursPerUser +
+                                    researchWorkload?.percentageOfTotalHoursPerUser +
+                                    publicServiceWorkload?.percentageOfTotalHoursPerUser +
+                                    academicAdministrationWorkload?.percentageOfTotalHoursPerUser +
+                                    personnelDevelopmentWorkload?.percentageOfTotalHoursPerUser +
+                                    executiveManagementWorkload?.percentageOfTotalHoursPerUser + 
+                                    supervisionWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <!-- FORMAL INSTRUCTION -->
+    <div class="p-grid mb-3">
+        <div class="p-col">
+            <strong>BREAKDOWN OF 11: FORMAL INSTRUCTION</strong>
+            <p-table [value]="[{}]" [loading]="fiLoading" tableStyleClass="prime-table">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th colspan="1" rowspan="2">
+                            <strong>SUBJECT CODE</strong>
+                        </th>
+                        <th colspan="4" rowspan="2">
+                            <strong>DESCRIPTION</strong>
+                        </th>
+                        <th colspan="3" rowspan="1" style="text-align: center;">
+                            <strong>ANNUAL HOURS</strong>
+                        </th>
+                        <th colspan="1" rowspan="2">
+                            <strong>% TIME</strong>
+                        </th>
+                        <th colspan="1" rowspan="2">
+                            <strong>NO OF STUDENTS</strong>
+                        </th>
+                        <th colspan="1" rowspan="2">
+                            <strong>LECTURE ROOM</strong>
+                        </th>
+                        <th colspan="1" rowspan="2">
+                            <strong>C/L</strong>
+                        </th>
+                    </tr>
+                    <tr>
+
+                        <th colspan="1">
+                            <strong>CONTACT</strong>
+                        </th>
+                        <th colspan="1">
+                            <strong>OTHER</strong>
+                        </th>
+                        <th colspan="1">
+                            <strong>TOTAL</strong>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body">
+                    <tr *ngFor="let item of formalInstructionWorkload?.formalInstructionWorkloads; let i = index;">
+                        <td colspan="1">
+                            {{item?.module?.moduleId}}
+                        </td>
+                        <td colspan="4">
+                            {{item?.module?.name}}
+                            ({{item?.block?.name}})
+                            ({{item?.offeringType?.description}})
+                        </td>
+                        <td colspan="1">
+                            {{item?.baseContactHours | number :'1.2-2'}}
+                        </td>
+                        <td colspan="1">
+                            {{item?.otherHoursPerActivity | number :'1.2-2'}}
+                        </td>
+                        <td colspan="1">
+                            {{item?.totalHoursPerActivity | number :'1.2-2'}}
+                        </td>
+                        <td colspan="1">
+                            {{item?.percentageOfTotalHoursPerActivity | number :'1.2-2'}}%
+                        </td>
+                        <td colspan="1">
+                            {{item?.studentsEnrolled}}
+                        </td>
+                        <td colspan="1">
+                            {{item?.activity?.module?.venue?.venueId}}
+                        </td>
+                        <td colspan="1">
+                            {{item?.activity?.module?.venue?.type}}
+                        </td>
+                    </tr>
+
+                    <tr *ngFor="let item of supervisionWorkload?.supervisionWorkloads; let i = index;">
+                        <td colspan="5">
+                            SUPERVISION ACTIVITY ({{item?.activity?.studentId}})
+                        </td>
+                        <td colspan="2">
+
+                        </td>
+                        <td colspan="1">
+                            {{item?.totalHoursPerActivity | number :'1.2-2'}}
+                        </td>
+                        <td colspan="1">
+                            {{item?.percentageOfAnnualHoursPerActivity | number :'1.2-2'}}%
+                        </td>
+                        <td colspan="3">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <strong>TOTAL</strong>
+                        </td>
+                        <td colspan="2">
+
+                        </td>
+                        <td colspan="1">
+                            <strong>{{supervisionWorkload?.totalHoursPerUser + formalInstructionWorkload?.totalHoursPerUser | number:'1.2-2'}}</strong>
+                        </td>
+                        <td colspan="1">
+                            <strong>{{formalInstructionWorkload?.percentageOfTotalHoursPerUser + supervisionWorkload?.percentageOfTotalHoursPerUser | number :'1.2-2'}}%</strong>
+                        </td>
+                        <td colspan="3">
+
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    Formal Instruction Workload </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="12">
+                            No records found
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <!-- SIGNATURE -->
+    <div class="p-grid mb-3">
+        <div class="p-col-3">
+            <strong>Staff Signature: </strong>
+            <div style="border: 0; border-bottom: 1px solid #000;">
+
+            </div>
+        </div>
+
+        <div class="p-col"></div>
+        <div class="p-col-3">
+            <strong>DATE: </strong>
+            <div style="border: 0; border-bottom: 1px solid #000;">
+
+            </div>
+        </div>
+        <div class="p-col-3">
+            <strong>HOD Signature: </strong>
+            <div style="border: 0; border-bottom: 1px solid #000;">
+
+            </div>
+        </div>
     </div>
 </div>

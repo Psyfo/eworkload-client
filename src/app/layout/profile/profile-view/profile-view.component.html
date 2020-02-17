@@ -1,8 +1,8 @@
 <app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
-<div class="p-grid" [@routerTransition]>
+<div class="ui-fluid" [@routerTransition]>
 
     <!-- PROFILE -->
-    <div class="p-col">
+    <div class="p-col-12 p-md-6 p-lg-6">
         <p-panel header="User Profile">
             <div class="p-grid">
                 <div class="p-col-5">
@@ -80,8 +80,8 @@
     </div>
 
     <!-- WORK FOCUS -->
-    <div class="p-col">
-        <p-panel header="Annual Work Distribution">
+    <div class="p-col-12 p-md-6 p-lg-6">
+        <p-panel header="Work Focus">
             <div class="p-grid">
                 <div class="p-col-4">
                     <div class="p-grid p-dir-col">
@@ -144,7 +144,7 @@
             <!-- Chart -->
             <p-chart type="doughnut" [data]="teachingPieData"></p-chart>
         </p-panel>
-        <p-panel [showHeader]="false">
+        <p-panel [showHeader]="false" [toggleable]="true">
 
             <!-- FORMAL INSTRUCTION SUMMARY -->
             <div class="p-grid" *ngIf="totalWorkload?.formalInstructionWorkload?.formalInstructionWorkloads?.length">
@@ -164,8 +164,8 @@
                     <div class="p-grid"
                         *ngFor="let workload of totalWorkload?.formalInstructionWorkload?.formalInstructionWorkloads">
                         <div class="p-col-9">
-                            {{workload?.module?.moduleId}} ({{workload?.block?.blockId}})
-                            ({{workload?.offeringType?.offeringTypeId}})
+                            {{workload?.module?.moduleId}} ({{workload?.module?.block?.blockId}})
+                            ({{workload?.module?.offeringType?.offeringTypeId}})
                         </div>
                         <div class="p-col-3">
                             {{workload?.totalHoursPerActivity  | number : '1.0-2'}}
@@ -222,9 +222,10 @@
         <p-panel [showHeader]="false">
 
             <!-- RESEARCH SUMMARY -->
-            <div class="p-grid" *ngIf="totalWorkload?.researchWorkload">
+            <div class="p-grid" *ngIf="totalWorkload?.researchWorkload !== null">
                 <div class="p-col">
-                    <div class="p-grid">
+                    <div class="p-grid"
+                        *ngIf="(totalWorkload?.researchWorkload?.researchWorkloads?.length)||(totalWorkload?.researchWorkload?.globalTarrif)">
                         <div class="p-col-9">
                             <strong>
                                 Research Activity
@@ -236,7 +237,7 @@
                             </strong>
                         </div>
                     </div>
-                    <div class="p-grid">
+                    <div class="p-grid" *ngIf="totalWorkload?.researchWorkload?.globalTarrif">
                         <div class="p-col-9">
                             Research Global Tarrif
                         </div>
@@ -281,7 +282,7 @@
         <p-panel [showHeader]="false">
 
             <!-- ACADEMIC ADMIN SUMMARY -->
-            <div class="p-grid" *ngIf="totalWorkload?.academicAdministrationWorkload">
+            <div class="p-grid" *ngIf="totalWorkload?.academicAdministrationWorkload !== null">
                 <div class="p-col">
                     <div class="p-grid">
                         <div class="p-col-9">
@@ -295,7 +296,7 @@
                             </strong>
                         </div>
                     </div>
-                    <div class="p-grid">
+                    <div class="p-grid" *ngIf="totalWorkload?.academicAdministrationWorkload?.globalTarrif">
                         <div class="p-col-9">
                             Academic Administration Global Tarrif
                         </div>
@@ -319,7 +320,7 @@
             </div>
 
             <!-- COMMUNITY INSTRUCTION SUMMARY  -->
-            <div class="p-grid" *ngIf="totalWorkload?.communityInstructionWorkload">
+            <div class="p-grid" *ngIf="totalWorkload?.communityInstructionWorkload !== null">
                 <div class="p-col">
                     <div class="p-grid">
                         <div class="p-col-9">
@@ -333,7 +334,7 @@
                             </strong>
                         </div>
                     </div>
-                    <div class="p-grid">
+                    <div class="p-grid" *ngIf="totalWorkload?.communityInstructionWorkload?.globalTarrif">
                         <div class="p-col-9">
                             Community Instruction Global Tarrif
                         </div>
@@ -357,7 +358,7 @@
             </div>
 
             <!-- EXECUTIVE MANAGEMENT SUMMARY -->
-            <div class="p-grid" *ngIf="totalWorkload?.executiveManagementWorkload">
+            <div class="p-grid" *ngIf="totalWorkload?.executiveManagementWorkload !== null">
                 <div class="p-col">
                     <div class="p-grid">
                         <div class="p-col-9">
@@ -371,7 +372,7 @@
                             </strong>
                         </div>
                     </div>
-                    <div class="p-grid">
+                    <div class="p-grid" *ngIf="totalWorkload?.executiveManagementWorkload?.globalTarrif">
                         <div class="p-col-9">
                             Executive Management Global Tarrif
                         </div>
@@ -395,7 +396,7 @@
             </div>
 
             <!-- PERSONNEL DEVELOPMENT SUMMARY -->
-            <div class="p-grid" *ngIf="totalWorkload?.personnelDevelopmentWorkload">
+            <div class="p-grid" *ngIf="totalWorkload?.personnelDevelopmentWorkload !== null">
                 <div class="p-col">
                     <div class="p-grid">
                         <div class="p-col-9">
@@ -409,7 +410,7 @@
                             </strong>
                         </div>
                     </div>
-                    <div class="p-grid">
+                    <div class="p-grid" *ngIf="totalWorkload?.personnelDevelopmentWorkload?.globalTarrif">
                         <div class="p-col-9">
                             Personnel Development Global Tarrif
                         </div>
@@ -433,7 +434,7 @@
             </div>
 
             <!-- PUBLIC SERVICE -->
-            <div class="p-grid" *ngIf="totalWorkload?.publicServiceWorkload">
+            <div class="p-grid" *ngIf="totalWorkload?.publicServiceWorkload !== null">
                 <div class="p-col">
                     <div class="p-grid">
                         <div class="p-col-9">
@@ -447,7 +448,7 @@
                             </strong>
                         </div>
                     </div>
-                    <div class="p-grid">
+                    <div class="p-grid" *ngIf="totalWorkload?.publicServiceWorkload?.globalTarrif">
                         <div class="p-col-9">
                             Public Service Global Tarrif
                         </div>

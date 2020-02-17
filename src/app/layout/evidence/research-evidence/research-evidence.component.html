@@ -2,11 +2,11 @@
 <div class="p-grid" [@routerTransition]>
     <div class="p-col">
         <form #f="ngForm">
-            <p-panel header="Add Student">
+            <p-panel header="Research Evidence">
 
-                <!-- STUDENT ID -->
+                <!-- USER ID -->
                 <div class="p-grid">
-                    <div class="p-col-2">Student ID</div>
+                    <div class="p-col-2">User ID</div>
                     <div class="p-col-6">
                         <input type="text" pInputText [(ngModel)]="currentUserId" name="userId" #userId="ngModel"
                             required disabled="true">
@@ -29,7 +29,7 @@
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
-                        <p-message severity="error" text="Qualification is required"
+                        <p-message severity="error" text="Research Activity is required"
                             *ngIf="(activity.touched || activity.dirty) && activity.hasError('required')">
                         </p-message>
                     </div>

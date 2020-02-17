@@ -22,6 +22,7 @@ import { OfferingTypeService } from '../../offering-type/offering-type.service';
 import { QualificationService } from '../../qualification/qualification.service';
 import { VenueService } from '../../venue/venue.service';
 import { ModuleService } from '../module.service';
+import { SelectItem } from 'primeng/components/common/selectitem';
 
 @Component({
     selector: 'app-module-add',
@@ -34,28 +35,28 @@ export class ModuleAddComponent implements OnInit {
     @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
 
     moduleInput: ModuleInput = {};
-    qualifications: Qualification[];
-    offeringTypes: OfferingType[];
-    disciplines: Discipline[];
-    venues: Venue[];
-    blocks: Block[];
-
-    types = this.moduleService.types;
-    assessmentMethods = this.moduleService.assessmentMethods;
-
-    selectedQualification: Qualification;
-    selectedOfferingType: OfferingType;
-    selectedBlock: Block;
     selectedDiscipline: Discipline;
+    disciplines: Discipline[] = [];
+    selectedBlock: Block;
+    blocks: Block[] = [];
+    selectedOfferingType: OfferingType;
+    offeringTypes: OfferingType[] = [];
+    selectedQualification: Qualification;
+    qualifications: Qualification[] = [];
     selectedVenue: Venue;
+    venues: Venue[] = [];
     isSubmitting: boolean;
+
+    assessmentMethods = this.moduleService.assessmentMethods;
+    selectedAssessmentMethod: SelectItem;
+    types = this.moduleService.types;
+    selectedType: SelectItem;
 
     private unsubscribe = new Subject();
 
     constructor(
         private router: Router,
         private alertService: AlertService,
-        private fb: FormBuilder,
         private moduleService: ModuleService,
         private qualificationService: QualificationService,
         private offeringTypeService: OfferingTypeService,
@@ -70,10 +71,11 @@ export class ModuleAddComponent implements OnInit {
             { label: 'module', url: 'admin/module' },
             { label: 'add', url: 'admin/module/add' }
         ];
-        this.getQualifications();
         this.getBlocks();
-        this.getDisciplines();
         this.getOfferingTypes();
+        this.getQualifications();
+        this.getDisciplines();
+        this.getVenues();
         this.getVenues();
     }
     ngOnDestroy(): void {
@@ -81,45 +83,75 @@ export class ModuleAddComponent implements OnInit {
         this.unsubscribe.complete();
     }
 
-    getQualifications() {
-        this.qualificationService
-            .qualifications()
+    getBlocks() {
+        this.blockService
+            .blocks()
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.qualifications = result.data.qualifications;
-            });
+            .subscribe(
+                result => {
+                    this.blocks = result.data.blocks;
+                },
+                err => {
+                    console.error(err);
+                }
+            );
     }
     getOfferingTypes() {
         this.offeringTypeService
             .getOfferingTypes()
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.offeringTypes = result.data.offeringTypes;
-            });
+            .subscribe(
+                result => {
+                    this.offeringTypes = result.data.offeringTypes;
+                },
+                err => {
+                    console.error(err);
+                }
+            );
+    }
+    getQualifications() {
+        this.qualificationService
+            .qualifications()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+                result => {
+                    this.qualifications = result.data.qualifications;
+                },
+                err => {
+                    console.error(err);
+                }
+            );
     }
     getDisciplines() {
         this.disciplineService
             .disciplines()
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.disciplines = result.data.disciplines;
-            });
-    }
-    getBlocks() {
-        this.blockService
-            .blocks()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.blocks = result.data.blocks;
-            });
+            .subscribe(
+                result => {
+                    this.disciplines = result.data.disciplines;
+                },
+                err => {
+                    console.error(err);
+                }
+            );
     }
     getVenues() {
         this.venueService
             .getVenues()
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.venues = result.data.venues;
-            });
+            .subscribe(
+                result => {
+                    this.venues = result.data.venues.map(venue => {
+                        const label = `${venue.venueId} (${venue.type})`;
+                        let modifiedVenue: any = venue;
+                        modifiedVenue.label = label;
+                        return modifiedVenue;
+                    });
+                },
+                err => {
+                    console.error(err);
+                }
+            );
     }
     onSubmit() {
         this.isSubmitting = true;
@@ -129,25 +161,31 @@ export class ModuleAddComponent implements OnInit {
         this.moduleInput.qualificationId = this.selectedQualification.qualificationId;
         this.moduleInput.disciplineId = this.selectedDiscipline.disciplineId;
         this.moduleInput.venueId = this.selectedVenue.venueId;
-        this.moduleService
-            .addModule(this.moduleInput)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.isSubmitting = false;
-                this.alertService.success('Module added');
 
-                this.router.navigate(
-                    ['admin/module/view', this.moduleInput.moduleId],
-                    {
-                        queryParams: {
-                            moduleId: this.moduleInput.moduleId,
-                            blockId: this.moduleInput.blockId,
-                            offeringTypeId: this.moduleInput.offeringTypeId,
-                            qualificationId: this.moduleInput.qualificationId
+        setTimeout(() => {
+            this.moduleService
+                .addModule(this.moduleInput)
+                .pipe(takeUntil(this.unsubscribe))
+                .subscribe(result => {
+                    this.isSubmitting = false;
+                    this.alertService.successToast(
+                        `Module ${result.data.addModule.moduleId} added`
+                    );
+
+                    this.router.navigate(
+                        ['admin/module/view', this.moduleInput.moduleId],
+                        {
+                            queryParams: {
+                                moduleId: this.moduleInput.moduleId,
+                                blockId: this.moduleInput.blockId,
+                                offeringTypeId: this.moduleInput.offeringTypeId,
+                                qualificationId: this.moduleInput
+                                    .qualificationId
+                            }
                         }
-                    }
-                );
-            });
+                    );
+                });
+        }, 1000);
     }
     onBack(event) {
         this.router.navigate(['admin/module']);

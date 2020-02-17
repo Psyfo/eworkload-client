@@ -1,14 +1,14 @@
-import { TotalWorkload } from './../../../shared/generated/output';
-import { MenuItem } from 'primeng/components/common/menuitem';
-import { Subject } from 'rxjs';
-import { subscribeOn, takeUntil } from 'rxjs/operators';
-import { routerTransition } from 'src/app/router.animations';
-import { User } from 'src/app/shared/generated';
-import { AlertService } from 'src/app/shared/modules';
+import { TotalWorkload } from "./../../../shared/generated/output";
+import { MenuItem } from "primeng/components/common/menuitem";
+import { Subject } from "rxjs";
+import { subscribeOn, takeUntil } from "rxjs/operators";
+import { routerTransition } from "src/app/router.animations";
+import { User } from "src/app/shared/generated";
+import { AlertService } from "src/app/shared/modules";
 
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
+import { ActivatedRoute, Router } from "@angular/router";
 
 import {
     AcademicAdministrationWorkload,
@@ -19,19 +19,19 @@ import {
     PublicServiceWorkload,
     ResearchWorkload,
     SupervisionWorkload
-} from '../../../shared/generated/output';
-import { WorkloadService } from '../../../shared/services/workload.service';
-import { FormalInstructionService } from '../../activity/formal-instruction/formal-instruction.service';
-import { ResearchService } from '../../activity/research/research.service';
-import { UserService } from '../../admin/user/user.service';
-import { ChartOptions } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
+} from "../../../shared/generated/output";
+import { WorkloadService } from "../../../shared/services/workload.service";
+import { FormalInstructionService } from "../../activity/formal-instruction/formal-instruction.service";
+import { ResearchService } from "../../activity/research/research.service";
+import { UserService } from "../../admin/user/user.service";
+import { ChartOptions } from "chart.js";
+import { BaseChartDirective } from "ng2-charts";
 
 @Component({
-    selector: 'app-profile-view',
+    selector: "app-profile-view",
     moduleId: module.id,
-    templateUrl: 'profile-view.component.html',
-    styleUrls: ['profile-view.component.scss'],
+    templateUrl: "profile-view.component.html",
+    styleUrls: ["profile-view.component.scss"],
     animations: [routerTransition()]
 })
 export class ProfileViewComponent implements OnInit {
@@ -79,10 +79,10 @@ export class ProfileViewComponent implements OnInit {
 
     ngOnInit() {
         this.breadcrumbs = [
-            { label: 'profile' },
+            { label: "profile" },
             {
                 label: this.userService.currentUserIdStatic(),
-                url: 'profile'
+                url: "profile"
             }
         ];
         this.getUser();
@@ -99,13 +99,13 @@ export class ProfileViewComponent implements OnInit {
     }
 
     onEdit(event): void {
-        this.router.navigate(['profile/edit']);
+        this.router.navigate(["profile/edit"]);
     }
     onChangePassword(event): void {
-        this.router.navigate(['profile/change-password']);
+        this.router.navigate(["profile/change-password"]);
     }
     onChangeProfilePicture(event) {
-        this.router.navigate(['profile/profile-picture']);
+        this.router.navigate(["profile/profile-picture"]);
     }
 
     getUser() {
@@ -215,12 +215,12 @@ export class ProfileViewComponent implements OnInit {
         }
 
         this.researchPieData = {
-            labels: ['Excess', 'Complete', 'Remaining'],
+            labels: ["Excess", "Complete", "Remaining"],
             datasets: [
                 {
                     data: [excessHours, completedHours, remainingHours],
-                    backgroundColor: ['#de425b', '#439981', '#aecdc2'],
-                    hoverBackgroundColor: ['#e66572', '#6aaa96', '#cfdfd9']
+                    backgroundColor: ["#de425b", "#439981", "#aecdc2"],
+                    hoverBackgroundColor: ["#e66572", "#6aaa96", "#cfdfd9"]
                 }
             ]
         };
@@ -228,11 +228,11 @@ export class ProfileViewComponent implements OnInit {
     teachingChart() {
         // Total teaching hours
         let totalTeachingHours = 0;
-        if (this.totalWorkload.formalInstructionWorkload !== null) {
+        if (this.totalWorkload.formalInstructionWorkload) {
             totalTeachingHours += this.totalWorkload.formalInstructionWorkload
                 .totalHoursPerUser;
         }
-        if (this.totalWorkload.supervisionWorkload !== null) {
+        if (this.totalWorkload.supervisionWorkload) {
             totalTeachingHours += this.totalWorkload.supervisionWorkload
                 .totalHoursPerUser;
         }
@@ -253,12 +253,12 @@ export class ProfileViewComponent implements OnInit {
         }
 
         this.teachingPieData = {
-            labels: ['Excess', 'Complete', 'Remaining'],
+            labels: ["Excess", "Complete", "Remaining"],
             datasets: [
                 {
                     data: [excessHours, completedHours, remainingHours],
-                    backgroundColor: ['#de425b', '#439981', '#aecdc2'],
-                    hoverBackgroundColor: ['#e66572', '#6aaa96', '#cfdfd9']
+                    backgroundColor: ["#de425b", "#439981", "#aecdc2"],
+                    hoverBackgroundColor: ["#e66572", "#6aaa96", "#cfdfd9"]
                 }
             ]
         };
@@ -303,12 +303,12 @@ export class ProfileViewComponent implements OnInit {
         }
 
         this.servicePieData = {
-            labels: ['Excess', 'Complete', 'Remaining'],
+            labels: ["Excess", "Complete", "Remaining"],
             datasets: [
                 {
                     data: [excessHours, completedHours, remainingHours],
-                    backgroundColor: ['#de425b', '#439981', '#aecdc2'],
-                    hoverBackgroundColor: ['#e66572', '#6aaa96', '#cfdfd9']
+                    backgroundColor: ["#de425b", "#439981", "#aecdc2"],
+                    hoverBackgroundColor: ["#e66572", "#6aaa96", "#cfdfd9"]
                 }
             ]
         };
@@ -373,7 +373,7 @@ export class ProfileViewComponent implements OnInit {
     public createImageFromBlob(image: Blob) {
         let reader = new FileReader();
         reader.addEventListener(
-            'load',
+            "load",
             () => {
                 this.profilePicture = reader.result;
             },

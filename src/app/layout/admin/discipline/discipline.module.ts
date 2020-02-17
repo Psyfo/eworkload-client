@@ -1,4 +1,5 @@
 import { PageHeaderModule } from 'src/app/shared/modules';
+import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -12,18 +13,19 @@ import { DisciplineViewComponent } from './discipline-view/discipline-view.compo
 import { DisciplineComponent } from './discipline.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        DisciplineRoutingModule,
-        PageHeaderModule,
-        ReactiveFormsModule
-    ],
-    declarations: [
-        DisciplineComponent,
-        DisciplineAddComponent,
-        DisciplineEditComponent,
-        DisciplineListComponent,
-        DisciplineViewComponent
-    ]
+  imports: [
+    CommonModule,
+    DisciplineRoutingModule,
+    PageHeaderModule,
+    ReactiveFormsModule,
+    PrimeNgModulesModule
+  ],
+  declarations: [
+    DisciplineComponent,
+    DisciplineAddComponent,
+    DisciplineEditComponent,
+    DisciplineListComponent,
+    DisciplineViewComponent
+  ]
 })
 export class DisciplineModule {}

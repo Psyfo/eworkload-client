@@ -8,60 +8,56 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-    selector: 'app-view-enrollment',
-    templateUrl: './view-enrollment.component.html',
-    styleUrls: ['./view-enrollment.component.scss'],
-    animations: [routerTransition()]
+  selector: 'app-view-enrollment',
+  templateUrl: './view-enrollment.component.html',
+  styleUrls: ['./view-enrollment.component.scss'],
+  animations: [routerTransition()]
 })
 export class ViewEnrollmentComponent implements OnInit {
-    enrollmentYear: string = '';
-    qualificationId: string = '';
+  enrollmentYear: string = '';
+  qualificationId: string = '';
 
-    enrollment: Enrollment;
+  enrollment: Enrollment;
 
-    private unsubscribe = new Subject();
+  private unsubscribe = new Subject();
 
-    constructor(
-        private router: Router,
-        private activatedRoute: ActivatedRoute,
-        private enrollmentService: EnrollmentService
-    ) {}
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private enrollmentService: EnrollmentService
+  ) {}
 
-    ngOnInit() {
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-        this.activatedRoute.queryParams
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(queryparams => {
-                this.enrollmentYear = queryparams.enrollmentYear;
-                this.qualificationId = queryparams.qualificationId;
+  ngOnInit() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.activatedRoute.queryParamMap.pipe(takeUntil(this.unsubscribe)).subscribe(queryparams => {
+      const id = queryparams.get('id');
 
-                this.getEnrollment(this.enrollmentYear, this.qualificationId);
-            });
-    }
-    ngOnDestroy(): void {
-        this.unsubscribe.next();
-        this.unsubscribe.complete();
-    }
+      this.getEnrollment(id);
+    });
+  }
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
 
-    getEnrollment(enrollmentYear: string, qualificationId: string) {
-        this.enrollmentService
-            .enrollment(enrollmentYear, qualificationId)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.enrollment = <Enrollment>(<unknown>result.data.enrollment);
-            });
-    }
+  getEnrollment(id: string) {
+    this.enrollmentService
+      .enrollment(id)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(result => {
+        this.enrollment = result.data.enrollment;
+      });
+  }
 
-    onEdit() {
-        this.router.navigate(['hod/enrollment/edit', this.qualificationId], {
-            queryParams: {
-                enrollmentYear: this.enrollmentYear,
-                qualificationId: this.qualificationId
-            }
-        });
-    }
-    onCancel() {
-        this.router.navigate(['hod/enrollment']);
-    }
-    onDelete() {}
+  onEdit() {
+    this.router.navigate(['hod/enrollment/edit', this.qualificationId], {
+      queryParams: {
+        id: this.enrollment.id
+      }
+    });
+  }
+  onCancel() {
+    this.router.navigate(['hod/enrollment']);
+  }
+  onDelete() {}
 }

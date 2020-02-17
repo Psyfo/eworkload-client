@@ -1,0 +1,101 @@
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <p-panel header="Disciplines">
+
+            <p-table #disciplineTable [columns]="columns" [value]="disciplines" dataKey="disciplineId"
+                [paginator]="true" [rows]="10" sortMode="multiple" sortField="disciplineId"
+                [(selection)]="selectedDiscipline" selectionMode="single" (onRowSelect)="onRowSelect($event)"
+                [contextMenu]="cm" contextMenuSelectionMode="joint">
+
+                <!-- CAPTION -->
+                <ng-template pTemplate="caption">
+                    <div style="text-align: right;">
+                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Global Filter"
+                            (input)="disciplineTable.filterGlobal($event.target.value, 'contains')" style="width:auto"
+                            class="">
+                    </div>
+                </ng-template>
+
+                <!-- HEADER -->
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let column of columns" [pSortableColumn]="column.field">
+                            {{column.header}}
+                            <p-sortIcon [field]="column.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let column of columns" [ngSwitch]="column.field">
+                            <input *ngSwitchCase="'disciplineId'" pInputText type="text"
+                                (input)="disciplineTable.filter($event.target.value, column.field, column.filterMatchMode)">
+                            <input *ngSwitchCase="'name'" pInputText type="text"
+                                (input)="disciplineTable.filter($event.target.value, column.field, column.filterMatchMode)">
+                            <input *ngSwitchCase="'description'" pInputText type="text"
+                                (input)="disciplineTable.filter($event.target.value, column.field, column.filterMatchMode)">
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <!-- BODY -->
+                <ng-template pTemplate="body" let-discipline let-columns="columns" let-rowIndex="rowIndex">
+                    <tr [pSelectableRow]="discipline" [pSelectableRowIndex]="rowIndex" [pContextMenuRow]="discipline"
+                        [pContextMenuRowIndex]="rowIndex">
+                        <td *ngFor="let column of columns">
+                            {{discipline[column.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <!-- FOOTER -->
+                <ng-template pTemplate="footer" let-columns>
+                    <tr>
+                        <td *ngFor="let column of columns">
+                            {{column.header}}
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <!-- SUMMARY -->
+                <ng-template pTemplate="emptymessage">
+
+                </ng-template>
+
+            </p-table>
+
+            <!-- CONTEXT MENU -->
+            <p-contextMenu #cm [model]="items" appendTo="body"></p-contextMenu>
+
+            <p-footer>
+                <div class="p-grid">
+                    <div class="p-col">
+                        <button type="button" pButton label="Add Discipline" icon="pi pi-plus" class="ui-button-primary"
+                            (click)="onAdd($event)"></button>
+                        <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export CSV"
+                            (click)="disciplineTable.exportCSV()" style="float:right"></button>
+                    </div>
+                </div>
+            </p-footer>
+        </p-panel>
+    </div>
+</div>
+
+<!-- DELETE DIALOG -->
+<p-toast position="center" key="disciplineDelete" (onClose)="onReject()" [modal]="true" [baseZIndex]="9000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onConfirm()" label="Yes" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>

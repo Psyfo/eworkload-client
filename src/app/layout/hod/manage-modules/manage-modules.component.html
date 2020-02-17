@@ -1,0 +1,33 @@
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <p-tabView>
+
+            <!-- ENROLLMENTS -->
+            <p-tabPanel header="Modules" [cache]="false" leftIcon="fas fa fw fa-book"
+                tooltip="Modify attributes for existing modules services by your department">
+                <ng-template pTemplate="content">
+                    <app-module-enrollments></app-module-enrollments>
+                </ng-template>
+            </p-tabPanel>
+
+            <!-- STACK MODULES -->
+            <p-tabPanel header="Stack Modules" [cache]="false" leftIcon="pi pi-bars"
+                tooltip="Stack modules that are instructed together" [selected]="true">
+                <ng-template pTemplate="content">
+                    <app-stack-module></app-stack-module>
+                </ng-template>
+            </p-tabPanel>
+
+            <!-- GROUPS -->
+            <p-tabPanel header="Groups & Modularity" [cache]="false" leftIcon="pi pi-users"
+                tooltip="Create module groups staff to pick from">
+                <ng-template pTemplate="content">
+                    <app-grouping></app-grouping>
+                </ng-template>
+            </p-tabPanel>
+
+        </p-tabView>
+    </div>
+</div>

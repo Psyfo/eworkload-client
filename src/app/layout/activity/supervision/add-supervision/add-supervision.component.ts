@@ -1,36 +1,36 @@
-import { SelectItem } from 'primeng/components/common/selectitem';
-import { MenuItem } from 'primeng/components/common/menuitem';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { QualificationService } from 'src/app/layout/admin/qualification/qualification.service';
-import { StudentService } from 'src/app/layout/admin/student/student.service';
-import { UserService } from 'src/app/layout/admin/user/user.service';
-import { routerTransition } from 'src/app/router.animations';
-import { AlertService } from 'src/app/shared/modules';
+import { SelectItem } from "primeng/components/common/selectitem";
+import { MenuItem } from "primeng/components/common/menuitem";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { QualificationService } from "src/app/layout/admin/qualification/qualification.service";
+import { StudentService } from "src/app/layout/admin/student/student.service";
+import { UserService } from "src/app/layout/admin/user/user.service";
+import { routerTransition } from "src/app/router.animations";
+import { AlertService } from "src/app/shared/modules";
 
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 
 import {
     Qualification,
     Student,
     SupervisionActivityInput
-} from '../../../../shared/generated/output';
-import { SupervisionService } from '../supervision.service';
+} from "../../../../shared/generated/output";
+import { SupervisionService } from "../supervision.service";
 
 @Component({
-    selector: 'app-add-supervision',
-    templateUrl: './add-supervision.component.html',
-    styleUrls: ['./add-supervision.component.scss'],
+    selector: "app-add-supervision",
+    templateUrl: "./add-supervision.component.html",
+    styleUrls: ["./add-supervision.component.scss"],
     animations: [routerTransition()]
 })
 export class AddSupervisionComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild("f", { static: false }) form: any;
 
     userId = this.userService.currentUserIdStatic();
-    dutyId = '11';
+    dutyId = "11";
     year = new Date().getFullYear();
     activityInput: SupervisionActivityInput = {};
     supervisionRoles = this.supervisionService.supervisionRoles;
@@ -53,9 +53,9 @@ export class AddSupervisionComponent implements OnInit {
 
     ngOnInit() {
         this.breadcrumbs = [
-            { label: 'activity' },
-            { label: 'supervision' },
-            { label: 'add' }
+            { label: "activity" },
+            { label: "supervision" },
+            { label: "add" }
         ];
         this.getStudents();
     }
@@ -70,10 +70,16 @@ export class AddSupervisionComponent implements OnInit {
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
                 result => {
-                    this.students = result.data.studentsUnassigned;
+                    this.students = result.data.studentsUnassigned.map(
+                        student => {
+                            let modStudent: any = student;
+                            modStudent.label = `${student.studentId} - ${student.firstName} ${student.lastName}`;
+                            return modStudent;
+                        }
+                    );
                 },
                 err => {
-                    this.alertService.errorToast(err, 'errorToast');
+                    this.alertService.errorToast(err, "errorToast");
                 }
             );
     }
@@ -82,7 +88,7 @@ export class AddSupervisionComponent implements OnInit {
         this.isSubmitting = true;
         this.activityInput = { userId: this.userId, dutyId: this.dutyId };
         this.activityInput.supervisionRole = this.selectedSupervisionRole.value;
-        if (this.selectedSupervisionRole.value === 'Supervisor') {
+        if (this.selectedSupervisionRole.value === "Supervisor") {
             this.activityInput.split = 100;
         } else {
             this.activityInput.split = this.selectedSplit.value;
@@ -96,23 +102,23 @@ export class AddSupervisionComponent implements OnInit {
                 result => {
                     this.isSubmitting = false;
                     this.alertService.successToast(
-                        'Supervision activity added'
+                        "Supervision activity added"
                     );
-                    this.router.navigate(['activity/supervision']);
+                    this.router.navigate(["activity/supervision"]);
                 },
                 err => {
-                    this.alertService.errorToast(err, 'errorToast');
+                    this.alertService.errorToast(err, "errorToast");
                     console.warn(err);
                 }
             );
     }
     onBack(event) {
-        this.router.navigate(['activity/supervision']);
+        this.router.navigate(["activity/supervision"]);
     }
     onReset(event) {
         this.form.reset();
     }
     onAddStudent(event) {
-        this.router.navigate(['activity/supervision/add-student']);
+        this.router.navigate(["activity/supervision/add-student"]);
     }
 }

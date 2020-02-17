@@ -1,14 +1,14 @@
-import * as html2canvas from 'html2canvas';
-import * as jsPDF from 'jspdf';
-import { Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
-import { Duty, User } from 'src/app/shared/generated';
-import { AlertService } from 'src/app/shared/modules';
-import { WorkloadService } from 'src/app/shared/services';
-import { of } from 'zen-observable';
+import * as html2canvas from "html2canvas";
+import * as jsPDF from "jspdf";
+import { Subject } from "rxjs";
+import { map, takeUntil } from "rxjs/operators";
+import { Duty, User } from "src/app/shared/generated";
+import { AlertService } from "src/app/shared/modules";
+import { WorkloadService } from "src/app/shared/services";
+import { of } from "zen-observable";
 
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
 
 import {
     AcademicAdministrationWorkload,
@@ -19,18 +19,18 @@ import {
     PublicServiceWorkload,
     ResearchWorkload,
     SupervisionWorkload
-} from '../../../shared/generated/output';
-import { UserService } from '../../admin/user/user.service';
+} from "../../../shared/generated/output";
+import { UserService } from "../../admin/user/user.service";
 
 @Component({
-    selector: 'app-hemis-historical',
-    templateUrl: './hemis-historical.component.html',
-    styleUrls: ['./hemis-historical.component.scss']
+    selector: "app-hemis-historical",
+    templateUrl: "./hemis-historical.component.html",
+    styleUrls: ["./hemis-historical.component.scss"]
 })
 export class HemisHistoricalComponent implements OnInit {
-    @ViewChild('hemis', { static: false }) hemis: ElementRef;
-    @ViewChild('userData', { static: false }) userData: ElementRef;
-    @ViewChild('dutyData', { static: false }) dutyData: ElementRef;
+    @ViewChild("hemis", { static: false }) hemis: ElementRef;
+    @ViewChild("userData", { static: false }) userData: ElementRef;
+    @ViewChild("dutyData", { static: false }) dutyData: ElementRef;
 
     userId: string = this.userService.currentUserIdStatic();
     user: User;
@@ -300,19 +300,19 @@ export class HemisHistoricalComponent implements OnInit {
     onPrint(event) {
         const filename = `${this.userId}_hemis_${new Date().getFullYear()}.pdf`;
 
-        let pdf = new jsPDF('l', 'mm', 'letter');
+        let pdf = new jsPDF("l", "mm", "letter");
         let options = { margins: 10 };
 
         const userData = this.userData.nativeElement;
         const dutyData = this.dutyData.nativeElement;
         setTimeout(() => {
             pdf.addHTML(userData, 0, 0, options, () => {});
-            pdf.addPage('letter', 'l');
+            pdf.addPage("letter", "l");
             pdf.addHTML(dutyData, 0, 0, options, () => {});
-            let blob = pdf.output('blob');
+            let blob = pdf.output("blob");
             window.open(URL.createObjectURL(blob));
             pdf.save(filename);
-            this.alertService.infoToast('Printed hemis');
+            this.alertService.infoToast("Printed hemis");
         }, 600);
 
         // const specialElementHandlers = {
@@ -328,7 +328,7 @@ export class HemisHistoricalComponent implements OnInit {
         // pdf.save(filename);
     }
     onPrint2(event) {
-        let printContents = document.getElementById('hemis').innerHTML;
+        let printContents = document.getElementById("hemis2").innerHTML;
         let originalContents = document.body.innerHTML;
 
         document.body.innerHTML = printContents;
@@ -339,6 +339,6 @@ export class HemisHistoricalComponent implements OnInit {
         return false;
     }
     onMail(event) {
-        this.alertService.infoToast('Mail to HoD WIP');
+        this.alertService.infoToast("Mail to HoD WIP");
     }
 }

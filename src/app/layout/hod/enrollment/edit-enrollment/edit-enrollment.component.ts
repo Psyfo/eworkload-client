@@ -13,117 +13,105 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-    selector: 'app-edit-enrollment',
-    templateUrl: './edit-enrollment.component.html',
-    styleUrls: ['./edit-enrollment.component.scss'],
-    animations: [routerTransition()]
+  selector: 'app-edit-enrollment',
+  templateUrl: './edit-enrollment.component.html',
+  styleUrls: ['./edit-enrollment.component.scss'],
+  animations: [routerTransition()]
 })
 export class EditEnrollmentComponent implements OnInit {
-    breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+  breadcrumbs: MenuItem[];
+  @ViewChild('f', { static: false }) form: any;
 
-    enrollment: Enrollment;
-    enrollmentInput: EnrollmentInput = {};
-    qualifications: Qualification[];
-    selectedQualification: Qualification;
+  enrollment: Enrollment;
+  enrollmentInput: EnrollmentInput = {};
+  qualifications: Qualification[];
+  selectedQualification: Qualification;
 
-    private unsubscribe = new Subject();
+  private unsubscribe = new Subject();
 
-    constructor(
-        private alertService: AlertService,
-        private router: Router,
-        private activatedRoute: ActivatedRoute,
-        private enrollmentService: EnrollmentService,
-        private qualificationService: QualificationService
-    ) {}
+  constructor(
+    private alertService: AlertService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private enrollmentService: EnrollmentService,
+    private qualificationService: QualificationService
+  ) {}
 
-    ngOnInit() {
-        this.activatedRoute.queryParamMap
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(
-                result => {
-                    const qualificationId = result.get('qualificationId');
-                    const enrollmentYear = result.get('enrollmentYear');
-                    this.alertService.successToast(
-                        `${qualificationId}(${enrollmentYear})`
-                    );
-                    this.getEnrollment(enrollmentYear, qualificationId);
-                    this.breadcrumbs = [
-                        { label: 'hod' },
-                        { label: 'enrollment' },
-                        { label: 'edit' },
-                        { label: qualificationId }
-                    ];
-                },
-                err => {
-                    this.alertService.errorToast(err);
-                }
-            );
-        this.getQualifications();
-    }
-    ngOnDestroy(): void {
-        this.unsubscribe.next();
-        this.unsubscribe.complete();
-    }
+  ngOnInit() {
+    this.activatedRoute.queryParamMap.pipe(takeUntil(this.unsubscribe)).subscribe(
+      result => {
+        const qualificationId = result.get('qualificationId');
+        const enrollmentYear = result.get('enrollmentYear');
+        const id = result.get('id');
+        this.alertService.successToast(`${qualificationId}(${enrollmentYear})`);
+        this.getEnrollment(id);
+        this.breadcrumbs = [{ label: 'hod' }, { label: 'enrollment' }, { label: 'edit' }, { label: qualificationId }];
+      },
+      err => {
+        this.alertService.errorToast(err);
+      }
+    );
+    this.getQualifications();
+  }
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
 
-    getEnrollment(enrollmentYear: string, qualificationId: string) {
-        this.enrollmentService
-            .enrollment(enrollmentYear, qualificationId)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(
-                result => {
-                    this.enrollment = result.data.enrollment;
-                    this.enrollmentInput = {};
-                    this.enrollmentInput = {
-                        enrollmentYear: this.enrollment.enrollmentYear,
-                        qualificationId: this.enrollment.qualificationId,
-                        firstYearEstimated: this.enrollment.firstYearEstimated,
-                        secondYearEstimated: this.enrollment
-                            .secondYearEstimated,
-                        thirdYearEstimated: this.enrollment.thirdYearEstimated
-                    };
-                },
-                err => {
-                    this.alertService.errorToast(err);
-                    console.warn(err);
-                }
-            );
-    }
+  getEnrollment(id: string) {
+    this.enrollmentService
+      .enrollment(id)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        result => {
+          this.enrollment = result.data.enrollment;
+          this.enrollmentInput = {};
+          this.enrollmentInput = {
+            id: this.enrollment.id,
+            enrollmentYear: this.enrollment.enrollmentYear,
+            qualificationId: this.enrollment.qualificationId,
+            firstYearEstimated: this.enrollment.firstYearEstimated,
+            secondYearEstimated: this.enrollment.secondYearEstimated,
+            thirdYearEstimated: this.enrollment.thirdYearEstimated
+          };
+        },
+        err => {
+          this.alertService.errorToast(err);
+          console.warn(err);
+        }
+      );
+  }
 
-    getQualifications() {
-        this.qualificationService
-            .qualificationsNoEnrollment()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.qualifications = result.data.qualificationsNoEnrollment;
-            });
-    }
+  getQualifications() {
+    this.qualificationService
+      .qualificationsUnenrolled()
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(result => {
+        this.qualifications = result.data.qualificationsUnenrolled;
+      });
+  }
 
-    onSubmit() {
-        this.enrollmentService
-            .editEnrollment(this.enrollmentInput)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(
-                result => {},
-                err => {
-                    this.alertService.errorToast(err);
-                    console.warn(err);
-                }
-            );
-        this.router.navigate(
-            ['hod/enrollment/view', this.enrollment.qualificationId],
-            {
-                queryParams: {
-                    enrollmentYear: this.enrollment.enrollmentYear,
-                    qualificationId: this.enrollment.qualificationId
-                }
-            }
-        );
-    }
-    onBack(event) {
-        this.router.navigate(['hod/enrollment']);
-    }
-    onReset(event) {
-        this.ngOnInit();
-    }
+  onSubmit() {
+    this.enrollmentService
+      .editEnrollment(this.enrollmentInput)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        result => {},
+        err => {
+          this.alertService.errorToast(err);
+          console.warn(err);
+        }
+      );
+    this.router.navigate(['hod/enrollment/view', this.enrollment.qualificationId], {
+      queryParams: {
+        id: this.enrollment.id
+      }
+    });
+  }
+  onBack(event) {
+    this.router.navigate(['hod/enrollment']);
+  }
+  onReset(event) {
+    this.ngOnInit();
+  }
 }

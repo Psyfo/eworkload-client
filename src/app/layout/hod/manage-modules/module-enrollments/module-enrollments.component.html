@@ -1,0 +1,97 @@
+<div class="p-grid" [@routerTransition]>
+    <div class="p-col">
+        <p-panel header="Modules">
+            <p-table #moduleTable [columns]="cols" [value]="modules" [paginator]="true" [rows]="10"
+                selectionMode="single" [(selection)]="selectedModule" datakey="id" (onRowSelect)="onRowSelect($event)"
+                [responsive]="true" [loading]="modulesLoading" [contextMenu]="cm" contextMenuSelectionMode="joint">
+                <ng-template pTemplate="caption">
+                    <div style="text-align: right;">
+                        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Global Filter"
+                            (input)="moduleTable.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let column of columns" [pSortableColumn]="column.field">
+                            {{column.header}}
+                            <p-sortIcon [field]="column.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                    <!-- <tr>
+                            <th *ngFor="let column of columns" [ngSwitch]="column.field">
+                                <input type="text" pInputText *ngSwitchCase="'userId'"
+                                    (input)="userTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                                    style="width: 100%;">
+                                <input type="text" pInputText *ngSwitchCase="'lastName'"
+                                    (input)="userTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                                    style="width: 100%;">
+                                <input type="text" pInputText *ngSwitchCase="'firstName'"
+                                    (input)="userTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                                    style="width: 100%;">
+                                <input type="text" pInputText *ngSwitchCase="'email'"
+                                    (input)="userTable.filter($event.target.value, column.field, column.filterMatchMode)"
+                                    style="width: 100%;">
+                                <p-dropdown *ngSwitchCase="'workFocusName'" [options]="workFocuses"
+                                    [style]="{'width':'100%'}"
+                                    (onChange)="userTable.filter($event.value, column.field, 'equals')"></p-dropdown>
+                                <p-dropdown *ngSwitchCase="'gender'" [options]="genders" [style]="{'width':'100%'}"
+                                    (onChange)="userTable.filter($event.value, column.field, 'equals')"></p-dropdown>
+                            </th>
+                        </tr> -->
+                </ng-template>
+                <ng-template pTemplate="body" let-module let-columns="columns">
+                    <tr [pSelectableRow]="module" [pContextMenuRow]="module">
+                        <td *ngFor="let column of columns">
+                            {{module[column.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer" let-columns>
+                    <tr>
+                        <td *ngFor="let column of columns">
+                            {{column.header}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="columns.length">
+                            No records found
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+            <p-contextMenu #cm [model]="menuItems" appendTo="body"></p-contextMenu>
+            <p-footer>
+                <button pButton type="button" label="New Module" icon="pi pi-plus" iconPos="left"
+                    (click)="onAdd()"></button>
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export CSV"
+                    (click)="moduleTable.exportCSV()" style="float:right"></button>
+            </p-footer>
+        </p-panel>
+    </div>
+</div>
+
+<!-- DELETE -->
+<p-toast position="center" key="moduleDelete" (onClose)="onReject()" [modal]="true" [baseZIndex]="9000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onConfirm()" label="Yes" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>

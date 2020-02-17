@@ -1,0 +1,163 @@
+<div class="p-grid">
+    <div class="p-col-6">
+        <form #f="ngForm" (change)="onChanges($event)">
+            <p-panel header="Module Groups">
+
+                <!-- MODULE -->
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="module">
+                            Module
+                        </label>
+                    </div>
+                    <div class="p-col-10">
+                        <p-dropdown [options]="modModules" optionLabel="label" dataKey="id" [(ngModel)]="selectedModule"
+                            name="module" #module="ngModel" placeholder="Select a Module" [showClear]="true"
+                            [filter]="true" appendTo="body" (onChange)="onModuleSelected($event)">
+                        </p-dropdown>
+                    </div>
+                </div>
+
+
+                <!-- STUDENTS ENROLLED (MODULE) -->
+                <div class="p-grid" *ngIf="selectedModule">
+                    <div class="p-col-2">
+                        <label for="enrolled">
+                            Enrolled (Total)
+                        </label>
+                    </div>
+                    <div class="p-col-4">
+                        <p-spinner [(ngModel)]="selectedModule.studentsEnrolled" [ngModelOptions]="{standalone: true}"
+                            [disabled]="true" [style]="{'width':'100%;'}">
+                        </p-spinner>
+                    </div>
+                    <div class="p-col-2">
+                        <label for="remaining">
+                            Remaining
+                        </label>
+                    </div>
+                    <div class="p-col-4">
+                        <p-spinner [(ngModel)]="remainingStudents" [ngModelOptions]="{standalone: true}"
+                            [disabled]="true" [style]="{'width':'100%;'}">
+                        </p-spinner>
+                    </div>
+                </div>
+
+                <!-- GROUP NAME -->
+                <div class="p-grid" *ngIf="selectedModule">
+                    <div class="p-col-2">
+                        Group Name
+                    </div>
+                    <div class="p-col-6">
+                        <input type="text" pInputText [(ngModel)]="groupInput.groupId" name="groupCode"
+                            #groupCode="ngModel" required (input)="onGroupNameChanged($event)">
+                    </div>
+                </div>
+
+                <!-- STUDENTS ENROLLED (GROUP) -->
+                <div class="p-grid" *ngIf="selectedModule">
+                    <div class="p-col-2">
+                        Number of Students
+                    </div>
+                    <div class="p-col-6">
+                        <p-spinner [(ngModel)]="groupInput.studentsEnrolled" name="studentsEnroll"
+                            #studentsEnrolled="ngModel" [min]="0" [max]="remainingStudents" [style]="{'width':'100%'}"
+                            required (change)="onNumberOfStudentsChanged($event, studentsEnrolled)"></p-spinner>
+                    </div>
+                </div>
+
+                <!-- MODULARITY -->
+                <div class="p-grid" *ngIf="selectedModule">
+                    <div class="p-col-2">
+
+                    </div>
+                    <div class="p-col-6">
+                        <p-checkbox name="isModular" label="Is there more than one lecturer?" [(ngModel)]="isModular"
+                            #is_Modular="ngModel" binary="true">
+                        </p-checkbox>
+                    </div>
+                </div>
+                <div class="p-grid" *ngIf="isModular">
+                    <div class="p-col-2">
+                        Modularity?
+                    </div>
+                    <div class="p-col-6">
+                        <p-spinner [(ngModel)]="groupInput.modularity" name="modularity" #modularity="ngModel" [min]="2"
+                            [max]="5" [style]="{'width':'100%'}" required>
+                        </p-spinner>
+                    </div>
+                </div>
+
+                <p-footer>
+                    <div class="p-grid" *ngIf="!isSubmittingGroup; else spinner">
+                        <div class="p-col">
+                            <button type="button" pButton label="Add Group" icon="pi pi-plus"
+                                class="ui-button-success mr-2" (click)="onAddGroup($event)"
+                                [disabled]="f.untouched||(f.touched&&f.invalid)"></button>
+                            <button type="button" pButton label="Reset" icon="pi pi-refresh"
+                                class="ui-button-secondary float-right" (click)="onReset($event)"></button>
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col">
+                            <ng-template #spinner>
+                                <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="6"
+                                    fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+                            </ng-template>
+                        </div>
+                    </div>
+                </p-footer>
+            </p-panel>
+        </form>
+    </div>
+    <div class="p-col-6" *ngIf="selectedModule&&groups">
+        <p-table [value]="groups">
+            <ng-template pTemplate="caption">
+                <div>
+                    Groups
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>
+                        Group Name
+                    </th>
+                    <th>
+                        # of Students
+                    </th>
+                    <th>
+                        Modularity
+                    </th>
+
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-group>
+                <tr>
+                    <td>
+                        {{group.groupId }}
+                    </td>
+                    <td>
+                        {{group.studentsEnrolled}}
+                    </td>
+                    <td>
+                        {{group.modularity}}
+                    </td>
+
+                    <td>
+                        <div class="p-grid">
+                            <div class="p-col">
+                                <div class="box">
+                                    <button type="button" pButton icon="pi pi-pencil" class="ui-button-success mr-2"
+                                        (click)="onUpdateGroup($event, group)"></button>
+                                    <button type="button" pButton icon="pi pi-times" class="ui-button-danger"
+                                        (click)="onDeleteGroup($event, group)"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

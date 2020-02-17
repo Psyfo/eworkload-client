@@ -1,8 +1,10 @@
 <app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
 <div class="p-grid" [@routerTransition]>
     <div class="p-col">
-        <p-panel header="Edit Qualification">
-            <form #f="ngForm" (ngSubmit)="onSubmit()">
+        <form #f="ngForm" (ngSubmit)="onSubmit()" *ngIf="qualificationModel">
+            <p-panel header="Edit Qualification">
+
+                <!-- QUALIFICATION ID -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="qualificationId">
@@ -10,7 +12,7 @@
                         </label>
                     </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText [(ngModel)]="qualificationInput.qualificationId"
+                        <input type="text" pInputText [(ngModel)]="qualificationModel.qualificationId"
                             name="qualificationId" placeholder="Qualification ID" #qualificationId="ngModel" required>
                     </div>
                     <div class="p-col-4"
@@ -18,6 +20,8 @@
                         <p-message severity="error" text="This field is required"></p-message>
                     </div>
                 </div>
+
+                <!-- NAME -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="name">
@@ -25,13 +29,33 @@
                         </label>
                     </div>
                     <div class="p-col-6">
-                        <input type="text" pInputText [(ngModel)]="qualificationInput.name" name="name" #name="ngModel"
+                        <input type="text" pInputText [(ngModel)]="qualificationModel.name" name="name" #name="ngModel"
                             placeholder="Qualification name" required>
                     </div>
                     <div class="p-col-4" *ngIf="(name.dirty||name.touched)&&name.hasError('required')">
                         <p-message severity="error" text="This field is required"></p-message>
                     </div>
                 </div>
+
+                <!-- TYPE -->
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="type">
+                            Type
+                        </label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-dropdown [options]="types" optionLabel="label" dataKey="label" [(ngModel)]="selectedType"
+                            name="type" #type="ngModel" #type placeholder="Select Type" [showClear]="true"
+                            appendTo="body" [filter]="true" required>
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-4" *ngIf="(type.dirty||type.touched)&&type.hasError('required')">
+                        <p-message severity="error" text="Type is required"></p-message>
+                    </div>
+                </div>
+
+                <!-- DEPARTMENT -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="departmentId">
@@ -39,9 +63,9 @@
                         </label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="departments" [(ngModel)]="selectedDepartment" name="department"
-                            #department="ngModel" #department placeholder="Select Department" optionLabel="name"
-                            [showClear]="true" appendTo="body" [filter]="true" required>
+                        <p-dropdown [options]="departments" optionLabel="name" dataKey="departmentId"
+                            [(ngModel)]="selectedDepartment" name="department" #department="ngModel" #department
+                            placeholder="Select Department" [showClear]="true" appendTo="body" [filter]="true" required>
                         </p-dropdown>
                     </div>
                     <div class="p-col-4"
@@ -50,28 +74,27 @@
                     </div>
                 </div>
 
-            </form>
+                <p-footer>
+                    <div class="p-grid" *ngIf="!isSubmitting; else spinner">
+                        <div class="p-col">
+                            <button type="button" pButton label="Back" icon="pi pi-arrow-left"
+                                class="ui-button-danger mr-2" (click)="onBack($event)"></button>
+                            <button pButton label="Save" icon="pi pi-plus" class="ui-button-primary"></button>
+                            <button type="button" pButton label="Reset" icon="pi pi-refresh"
+                                class="ui-button-secondary float-right" (click)="onReset($event)"></button>
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col">
+                            <ng-template #spinner>
+                                <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="6"
+                                    fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+                            </ng-template>
+                        </div>
+                    </div>
+                </p-footer>
 
-            <p-footer>
-                <div class="p-grid">
-                    <div class="p-col p-col-align-left">
-                        <button pButton label="Edit Qualification" icon="pi pi-plus" class="mr-2"></button>
-                        <button type="button" pButton label="Back" icon="pi pi-arrow-left" class="ui-button-danger"
-                            (click)="onBack($event)"></button>
-                    </div>
-                    <div class="p-col-2 p-col-align-right">
-                        <button type="button" pButton label="Reset" icon="pi pi-refresh" class="ui-button-secondary"
-                            (click)="onReset($event)"></button>
-                    </div>
-                </div>
-            </p-footer>
-        </p-panel>
+            </p-panel>
+        </form>
     </div>
-</div>
-
-<div>
-    {{qualificationInput | json}}
-</div>
-<div>
-    {{selectedDepartment | json}}
 </div>

@@ -1,20 +1,20 @@
-import { MenuItem } from 'primeng/components/common/menuitem';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { EnrollmentService } from 'src/app/layout/admin/enrollment/enrollment.service';
-import { QualificationService } from 'src/app/layout/admin/qualification/qualification.service';
-import { routerTransition } from 'src/app/router.animations';
-import { EnrollmentInput, Qualification } from 'src/app/shared/generated';
-import { AlertService } from 'src/app/shared/modules';
+import { MenuItem } from "primeng/components/common/menuitem";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { EnrollmentService } from "src/app/layout/admin/enrollment/enrollment.service";
+import { QualificationService } from "src/app/layout/admin/qualification/qualification.service";
+import { routerTransition } from "src/app/router.animations";
+import { EnrollmentInput, Qualification } from "src/app/shared/generated";
+import { AlertService } from "src/app/shared/modules";
 
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 
 @Component({
-    selector: 'app-add-enrollment',
-    templateUrl: './add-enrollment.component.html',
-    styleUrls: ['./add-enrollment.component.scss'],
+    selector: "app-add-enrollment",
+    templateUrl: "./add-enrollment.component.html",
+    styleUrls: ["./add-enrollment.component.scss"],
     animations: [routerTransition()]
 })
 export class AddEnrollmentComponent implements OnInit {
@@ -37,9 +37,9 @@ export class AddEnrollmentComponent implements OnInit {
 
     ngOnInit() {
         this.breadcrumbs = [
-            { label: 'hod' },
-            { label: 'enrollment', url: 'hod/enrollment' },
-            { label: 'add', url: 'hod/enrollment/add' }
+            { label: "hod" },
+            { label: "enrollment", url: "hod/enrollment" },
+            { label: "add", url: "hod/enrollment/add" }
         ];
         this.getQualifications();
         this.buildForm();
@@ -48,10 +48,10 @@ export class AddEnrollmentComponent implements OnInit {
     buildForm() {
         this.enrollmentAddForm = this.fb.group({
             enrollmentYear: [
-                { value: '', disabled: true },
+                { value: "", disabled: true },
                 Validators.required
             ],
-            selectedQualification: ['', Validators.required],
+            selectedQualification: ["", Validators.required],
             firstYearEstimated: [0, Validators.required],
             secondYearEstimated: [0, Validators.required],
             thirdYearEstimated: [0, Validators.required]
@@ -62,19 +62,19 @@ export class AddEnrollmentComponent implements OnInit {
         });
     }
     get selectedQualification() {
-        return this.enrollmentAddForm.get('selectedQualification');
+        return this.enrollmentAddForm.get("selectedQualification");
     }
     get enrollmentYear() {
-        return this.enrollmentAddForm.get('enrollmentYear');
+        return this.enrollmentAddForm.get("enrollmentYear");
     }
     get firstYearEstimated() {
-        return this.enrollmentAddForm.get('firstYearEstimated');
+        return this.enrollmentAddForm.get("firstYearEstimated");
     }
     get secondYearEstimated() {
-        return this.enrollmentAddForm.get('secondYearEstimated');
+        return this.enrollmentAddForm.get("secondYearEstimated");
     }
     get thirdYearEstimated() {
-        return this.enrollmentAddForm.get('thirdYearEstimated');
+        return this.enrollmentAddForm.get("thirdYearEstimated");
     }
     get formVal() {
         return this.enrollmentAddForm.getRawValue();
@@ -82,10 +82,10 @@ export class AddEnrollmentComponent implements OnInit {
 
     getQualifications() {
         this.qualificationService
-            .qualificationsNoEnrollment()
+            .qualificationsUnenrolled()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.qualifications = result.data.qualificationsNoEnrollment;
+                this.qualifications = result.data.qualificationsUnenrolled;
             });
     }
 
@@ -102,10 +102,10 @@ export class AddEnrollmentComponent implements OnInit {
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
                 result => {
-                    this.alertService.success('Enrollment Added');
+                    this.alertService.success("Enrollment Added");
                     this.router.navigate(
                         [
-                            'hod/enrollment/view',
+                            "hod/enrollment/view",
                             this.enrollment.qualificationId
                         ],
                         {
@@ -127,6 +127,6 @@ export class AddEnrollmentComponent implements OnInit {
         this.ngOnInit();
     }
     onBack(event) {
-        this.router.navigate(['hod/enrollment']);
+        this.router.navigate(["hod/enrollment"]);
     }
 }

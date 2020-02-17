@@ -2,7 +2,7 @@
 <div class="p-grid" [@routerTransition]>
     <div class="p-col">
         <form #f="ngForm" (ngSubmit)="onSubmit()">
-            <p-panel header="Edit Department">
+            <p-panel header="Edit Department" *ngIf="departmentModel">
 
                 <!-- DEPARTMENT ID -->
                 <div class="p-grid">
@@ -48,9 +48,10 @@
                         </label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="faculties" [(ngModel)]="selectedFaculty" name="faculty"
-                            #faculty="ngModel" placeholder="Select a faculty" optionLabel="name" [showClear]="true"
-                            [filter]="true" filterBy="label" appendTo="body" [resetFilterOnHide]="true" required>
+                        <p-dropdown [options]="faculties" dataKey="facultyId" [(ngModel)]="selectedFaculty"
+                            name="faculty" #faculty="ngModel" placeholder="Select a faculty" optionLabel="name"
+                            [showClear]="true" [filter]="true" filterBy="label" appendTo="body"
+                            [resetFilterOnHide]="true" required>
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
@@ -100,7 +101,6 @@
                             </ng-template>
                         </div>
                     </div>
-
                 </p-footer>
             </p-panel>
         </form>

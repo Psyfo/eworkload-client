@@ -1,3 +1,5 @@
+import { MenuItem } from 'primeng/components/common/menuitem';
+import { AlertService } from './../../../../shared/modules/alert/alert.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -9,65 +11,74 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModuleService } from '../module.service';
 
 @Component({
-    selector: 'app-module-view',
-    templateUrl: './module-view.component.html',
-    styleUrls: ['./module-view.component.scss'],
-    animations: [routerTransition()]
+  selector: 'app-module-view',
+  templateUrl: './module-view.component.html',
+  styleUrls: ['./module-view.component.scss'],
+  animations: [routerTransition()]
 })
 export class ModuleViewComponent implements OnInit {
-    module: Module;
+  breadcrumbs: MenuItem[];
+  module: Module;
 
-    editModuleForm: FormGroup;
+  private unsubscribe = new Subject();
 
-    private unsubscribe = new Subject();
+  constructor(
+    private alertService: AlertService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private moduleService: ModuleService
+  ) {}
 
-    constructor(
-        private router: Router,
-        private activatedRoute: ActivatedRoute,
-        private moduleService: ModuleService
-    ) {}
+  ngOnInit() {
+    this.breadcrumbs = [
+      { label: 'admin' },
+      { label: 'module' },
+      { label: 'view' }
+    ];
+    this.getModule();
+  }
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
 
-    ngOnInit() {
-        this.activatedRoute.queryParams
+  getModule() {
+    this.activatedRoute.queryParamMap
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        result => {
+          const id = result.get('id');
+
+          this.moduleService
+            .module(id)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.getModule(
-                    result.moduleId,
-                    result.blockId,
-                    result.offeringTypeId,
-                    result.qualificationId
+            .subscribe(
+              result => {
+                this.module = result.data.module;
+                this.alertService.successToast(
+                  `Loaded module ${this.module.id}`
                 );
-            });
-    }
-    ngOnDestroy(): void {
-        this.unsubscribe.next();
-        this.unsubscribe.complete();
-    }
+              },
+              err => {
+                console.error(err);
+              }
+            );
+        },
+        err => {
+          console.error(err);
+        }
+      );
+  }
 
-    getModule(
-        moduleId: string,
-        blockId: string,
-        offeringTypeId: string,
-        qualificationId: string
-    ) {
-        this.moduleService
-            .module(moduleId, blockId, offeringTypeId, qualificationId)
-            .subscribe(result => {
-                this.module = <Module>(<unknown>result.data.module);
-            });
-    }
+  onEdit(event) {
+    this.router.navigate(['admin/module/edit', this.module.id], {
+      queryParams: {
+        id: this.module.id
+      }
+    });
+  }
 
-    onEdit() {
-        this.router.navigate(['admin/module/edit', this.module.moduleId], {
-            queryParams: {
-                moduleId: this.module.moduleId,
-                blockId: this.module.block.blockId,
-                offeringTypeId: this.module.offeringType.offeringTypeId
-            }
-        });
-    }
-
-    onCancel() {
-        this.router.navigate(['../admin/module']);
-    }
+  onBack(event) {
+    this.router.navigate(['admin/module']);
+  }
 }

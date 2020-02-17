@@ -18,18 +18,18 @@ const routes: Routes = [
                 pathMatch: 'prefix'
             },
             {
-                path: 'lecture-tasks',
-                loadChildren: () =>
-                    import('./lecture-tasks/lecture-tasks.module').then(
-                        m => m.LectureTasksModule
-                    ),
-                pathMatch: 'prefix'
-            },
-            {
                 path: 'enrollment',
                 loadChildren: () =>
                     import('./enrollment/enrollment.module').then(
                         m => m.EnrollmentModule
+                    ),
+                pathMatch: 'prefix'
+            },
+            {
+                path: 'manage-modules',
+                loadChildren: () =>
+                    import('./manage-modules/manage-modules.module').then(
+                        m => m.ManageModulesModule
                     ),
                 pathMatch: 'prefix'
             },

@@ -70,7 +70,7 @@
                     <div class="p-col-6">
                         <p-dropdown [options]="users" [(ngModel)]="selectedHod" name="hod" #hod="ngModel"
                             placeholder="Select a hod" optionLabel="label" [showClear]="true" [filter]="true"
-                            filterBy="label" appendTo="body" [resetFilterOnHide]="true" required>
+                            filterBy="label" appendTo="body" [resetFilterOnHide]="true">
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
@@ -85,7 +85,8 @@
                         <div class="p-col">
                             <button type="button" pButton label="Back" class="ui-button-danger mr-2"
                                 icon="pi pi-arrow-left" (click)="onBack($event)"></button>
-                            <button pButton label="Save" class="ui-button-primary" icon="pi pi-plus"></button>
+                            <button pButton label="Save" class="ui-button-primary" icon="pi pi-plus"
+                                [disabled]="f.untouched||(f.touched&&f.invalid)"></button>
                         </div>
                         <div class="p-col-2">
                             <button type="button" pButton label="Reset" class="ui-button-secondary" icon="pi pi-refresh"
@@ -105,14 +106,4 @@
             </p-panel>
         </form>
     </div>
-</div>
-
-<div>
-    {{departmentInput || 'none' | json}}
-</div>
-<div>
-    {{selectedFaculty || 'none' | json}}
-</div>
-<div>
-    {{selectedHod || 'none' | json}}
 </div>

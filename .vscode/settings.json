@@ -1,13 +1,22 @@
 {
-    "editor.wordWrap": "off",
-    "files.exclude": {
-			"**/node_modules": {},
-			"typings": {},
-			"**/*.map": {},
-			"**/*.js": {
-				"when": "$(basename).ts"
-			}
-	},
-    "eslint.enable": false,
-    "workbench.colorCustomizations": {}
+  "editor.wordWrap": "off",
+  "files.exclude": {
+    "**/node_modules": {},
+    "typings": {},
+    "**/*.map": {},
+    "**/*.js": {
+      "when": "$(basename).ts"
+    }
+  },
+  "eslint.enable": false,
+  "workbench.colorCustomizations": {},
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+"editor.formatOnSave": true,
+"explorer.compactFolders": false,
+"appService.zipIgnorePattern": [
+    "node_modules{,/**}",
+    ".vscode{,/**}"
+],
+"appService.defaultWebAppToDeploy": "/subscriptions/05b5dde6-57b1-46a2-a8b8-6816bc4b9372/resourceGroups/eworkload/providers/Microsoft.Web/sites/eworkload",
+"appService.deploySubpath": "dist"
 }

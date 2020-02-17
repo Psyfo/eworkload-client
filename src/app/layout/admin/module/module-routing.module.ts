@@ -1,11 +1,13 @@
-import { CustomRouteReuseStrategy } from './../../../shared/helpers/routing-strategy';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, RouteReuseStrategy } from '@angular/router';
-import { ModuleComponent } from './module.component';
-import { ModuleListComponent } from './module-list/module-list.component';
-import { ModuleViewComponent } from './module-view/module-view.component';
-import { ModuleEditComponent } from './module-edit/module-edit.component';
+import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
+
+import { CustomRouteReuseStrategy } from '../../../shared/helpers/routing-strategy';
 import { ModuleAddComponent } from './module-add/module-add.component';
+import { ModuleEditComponent } from './module-edit/module-edit.component';
+import { ModuleListComponent } from './module-list/module-list.component';
+import { ModuleStackComponent } from './module-stack/module-stack.component';
+import { ModuleViewComponent } from './module-view/module-view.component';
+import { ModuleComponent } from './module.component';
 
 const routes: Routes = [
     {
@@ -27,6 +29,10 @@ const routes: Routes = [
             {
                 path: 'add',
                 component: ModuleAddComponent
+            },
+            {
+                path: 'stack',
+                component: ModuleStackComponent
             }
         ]
     }

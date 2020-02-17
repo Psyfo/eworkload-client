@@ -2,20 +2,19 @@
 <div class="p-grid" [@routerTransition]>
     <div class="p-col">
         <p-panel header="Modules">
-            <p-table #fiTable [columns]="cols" [value]="modules" [paginator]="true" [rows]="10" selectionMode="single"
-                [(selection)]="selectedModule" datakey="moduleId" (onRowSelect)="onRowSelect($event)"
-                [reorderableColumns]="true" [responsive]="true" [loading]="loading" [contextMenu]="cm"
-                contextMenuSelectionMode="joint">
+            <p-table #moduleTable [columns]="cols" [value]="modules" [paginator]="true" [rows]="10"
+                selectionMode="single" [(selection)]="selectedModule" datakey="id" (onRowSelect)="onRowSelect($event)"
+                [responsive]="true" [loading]="loading" [contextMenu]="cm" contextMenuSelectionMode="joint">
                 <ng-template pTemplate="caption">
                     <div style="text-align: right;">
                         <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
                         <input type="text" pInputText size="50" placeholder="Global Filter"
-                            (input)="fiTable.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            (input)="moduleTable.filterGlobal($event.target.value, 'contains')" style="width:auto">
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th *ngFor="let column of columns" [pSortableColumn]="column.field" pReorderableColumn>
+                        <th *ngFor="let column of columns" [pSortableColumn]="column.field">
                             {{column.header}}
                             <p-sortIcon [field]="column.field"></p-sortIcon>
                         </th>
@@ -42,10 +41,10 @@
                             </th>
                         </tr> -->
                 </ng-template>
-                <ng-template pTemplate="body" let-activity let-columns="columns">
-                    <tr [pSelectableRow]="activity" [pContextMenuRow]="activity">
+                <ng-template pTemplate="body" let-module let-columns="columns">
+                    <tr [pSelectableRow]="module" [pContextMenuRow]="module">
                         <td *ngFor="let column of columns">
-                            {{activity[column.field]}}
+                            {{module[column.field]}}
                         </td>
                     </tr>
                 </ng-template>
@@ -68,13 +67,34 @@
                 </ng-template>
             </p-table>
 
-            <p-contextMenu #cm [model]="menuItems"></p-contextMenu>
+            <p-contextMenu #cm [model]="menuItems" appendTo="body"></p-contextMenu>
             <p-footer>
-                <button pButton type="button" label="New Module" icon="pi pi-plus" iconPos="left"
+                <button type="button" pButton label="New Module" icon="pi pi-plus" iconPos="left" class="mr-2"
                     (click)="onAdd()"></button>
+                <p-fileUpload mode="basic" name="myFile[]" customUpload="true"
+                    (uploadHandler)="onFileSelectedExcel($event)">
+                </p-fileUpload>
                 <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export CSV"
-                    (click)="fiTable.exportCSV()" style="float:right"></button>
+                    (click)="moduleTable.exportCSV()" style="float:right"></button>
             </p-footer>
         </p-panel>
     </div>
 </div>
+
+<p-toast position="center" key="moduleDelete" (onClose)="onReject()" [modal]="true" [baseZIndex]="9000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onConfirm()" label="Yes" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>

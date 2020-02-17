@@ -1,16 +1,17 @@
 <app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
 <div class="p-grid" [@routerTransition]>
     <div class="p-col">
-        <p-panel header="Add Module">
+        <form #f="ngForm" (ngSubmit)="onSubmit()">
+            <p-panel header="Add Module">
 
-            <form #f="ngForm" (ngSubmit)="onSubmit()">
+                <!-- MODULE ID -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="moduleId">Module ID:</label>
                     </div>
                     <div class="p-col-6">
                         <input type="text" pInputText placeholder="Module ID" name="moduleId"
-                            [(ngModel)]="moduleInput.moduleId" #moduleId="ngModel" required>
+                            [(ngModel)]="moduleInput.moduleId" #moduleId="ngModel" [disabled]="true" required>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Module ID is required"
@@ -18,6 +19,8 @@
                         </p-message>
                     </div>
                 </div>
+
+                <!-- NAME -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="name">Name:</label>
@@ -32,14 +35,16 @@
                         </p-message>
                     </div>
                 </div>
+
+                <!-- TYPE -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="type">Type:</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="types" name="type" [(ngModel)]="moduleInput.type" #type="ngModel"
-                            required placeholder="Select module type" [showClear]="true" appendTo="body"
-                            [filter]="true">
+                        <p-dropdown [options]="types" name="type" [(ngModel)]="selectedType" #type="ngModel" required
+                            placeholder="Select module type" [showClear]="true" appendTo="body" [filter]="true"
+                            [resetFilterOnHide]=true>
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
@@ -48,14 +53,16 @@
                         </p-message>
                     </div>
                 </div>
+
+                <!-- ASSESSMENT METHOD -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="assessmentMethod">Assessment Method:</label>
                     </div>
                     <div class="p-col-6">
                         <p-dropdown [options]="assessmentMethods" placeholder="Select assessment method"
-                            name="assessmentMethod" [(ngModel)]="moduleInput.assessmentMethod"
-                            #assessmentMethod="ngModel" required [showClear]="true" appendTo="body" [filter]="true">
+                            name="assessmentMethod" [(ngModel)]="selectedAssessmentMethod" #assessmentMethod="ngModel"
+                            required [showClear]="true" appendTo="body" [filter]="true" [resetFilterOnHide]=true>
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
@@ -64,7 +71,9 @@
                         </p-message>
                     </div>
                 </div>
-                <div class="p-grid">
+
+                <!-- NQF LEVEL -->
+                <div class="p-grid" *ngIf="moduleInput">
                     <div class="p-col-2">
                         <label for="nqfLevel">NQF Level:</label>
                     </div>
@@ -78,7 +87,9 @@
                         </p-message>
                     </div>
                 </div>
-                <div class="p-grid">
+
+                <!-- CREDITS -->
+                <div class="p-grid" *ngIf="moduleInput">
                     <div class="p-col-2">
                         <label for="credits">Credits:</label>
                     </div>
@@ -92,14 +103,16 @@
                         </p-message>
                     </div>
                 </div>
-                <div class="p-grid">
+
+                <!-- BLOCK -->
+                <div class="p-grid" *ngIf="blocks">
                     <div class="p-col-2">
                         <label for="block">Block</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="blocks" optionLabel="name" name="block" [(ngModel)]="selectedBlock"
-                            #block="ngModel" required placeholder="Select block" [showClear]="true" appendTo="body"
-                            [filter]="true"></p-dropdown>
+                        <p-dropdown [options]="blocks" optionLabel="name" dataKey="blockId" name="block"
+                            [(ngModel)]="selectedBlock" #block="ngModel" required placeholder="Select block"
+                            [showClear]="true" appendTo="body" [filter]="true"></p-dropdown>
                     </div>
                     <div class="p-col-4">
                         <p-message severity="error" text="Block is required"
@@ -107,13 +120,15 @@
                         </p-message>
                     </div>
                 </div>
-                <div class="p-grid">
+
+                <!-- QUALIFICATION -->
+                <div class="p-grid" *ngIf="qualifications">
                     <div class="p-col-2">
                         <label for="qualification">Qualification</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="qualifications" optionLabel="name" name="qualification"
-                            [(ngModel)]="selectedQualification" #qualification="ngModel" required
+                        <p-dropdown [options]="qualifications" optionLabel="name" dataKey="qualificationId"
+                            name="qualification" [(ngModel)]="selectedQualification" #qualification="ngModel" required
                             placeholder="Select qualification" [showClear]="true" appendTo="body" [filter]="true"
                             filterBy="label">
                         </p-dropdown>
@@ -124,13 +139,15 @@
                         </p-message>
                     </div>
                 </div>
-                <div class="p-grid">
+
+                <!-- OFFERING TYPE -->
+                <div class="p-grid" *ngIf="offeringTypes">
                     <div class="p-col-2">
                         <label for="offeringType">Offering Type</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="offeringTypes" optionLabel="description" name="offeringType"
-                            [(ngModel)]="selectedOfferingType" #offeringType="ngModel" required
+                        <p-dropdown [options]="offeringTypes" optionLabel="description" dataKey="offeringTypeId"
+                            name="offeringType" [(ngModel)]="selectedOfferingType" #offeringType="ngModel" required
                             placeholder="Select offering type" [showClear]="true" appendTo="body" [filter]="true">
                         </p-dropdown>
                     </div>
@@ -140,12 +157,14 @@
                         </p-message>
                     </div>
                 </div>
-                <div class="p-grid">
+
+                <!-- DISCIPLINE -->
+                <div class="p-grid" *ngIf="disciplines">
                     <div class="p-col-2">
                         <label for="discipline">Discipline</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="disciplines" optionLabel="name" name="discipline"
+                        <p-dropdown [options]="disciplines" optionLabel="name" dataKey="disciplineId" name="discipline"
                             [(ngModel)]="selectedDiscipline" #discipline="ngModel" required
                             placeholder="Select discipline" [showClear]="true" appendTo="body" [filter]="true">
                         </p-dropdown>
@@ -156,14 +175,34 @@
                         </p-message>
                     </div>
                 </div>
+
+                <!-- STUDENTS ENROLLED -->
+                <div class="p-grid">
+                    <div class="p-col-2">
+                        <label for="enrolled">
+                            Students Enrolled
+                        </label>
+                    </div>
+                    <div class="p-col-6">
+                        <p-spinner size="50" [(ngModel)]="moduleInput.studentsEnrolled" name="enrolled"
+                            #enrolled="ngModel" required></p-spinner>
+                    </div>
+                    <div class="p-col-4">
+                        <p-message severity="error" text="Students enrolled is required"
+                            *ngIf="(enrolled.touched || enrolled.dirty) && enrolled.hasError('required')">
+                        </p-message>
+                    </div>
+                </div>
+
+                <!-- VENUE -->
                 <div class="p-grid">
                     <div class="p-col-2">
                         <label for="venue">Venue</label>
                     </div>
                     <div class="p-col-6">
-                        <p-dropdown [options]="venues" optionLabel="venueId" name="venue" [(ngModel)]="selectedVenue"
-                            #venue="ngModel" required placeholder="Select venue" [showClear]="true" appendTo="body"
-                            [filter]="true">
+                        <p-dropdown [options]="venues" optionLabel="label" datakey="venueId" name="venue"
+                            [(ngModel)]="selectedVenue" #venue="ngModel" placeholder="Select venue" [showClear]="true"
+                            appendTo="body" [filter]="true">
                         </p-dropdown>
                     </div>
                     <div class="p-col-4">
@@ -172,49 +211,30 @@
                         </p-message>
                     </div>
                 </div>
-            </form>
 
-            <p-footer>
-                <div class="p-grid" *ngIf="!isSubmitting; else spinner">
-                    <div class="p-col-10 p-col-align-left">
-                        <button pButton type="button" label="Back" icon="pi pi-arrow-left" (click)="onBack($event)"
-                            class="ui-button-danger mr-2"></button>
-                        <button pButton label="Save" icon="pi pi-plus"
-                            [disabled]="f.untouched || (f.touched && f.invalid)" class=""></button>
-                    </div>
-                    <div class="p-col-2 p-col-align-right">
-                        <button pButton type="button" label="Reset" icon="pi pi-refresh" (click)="onReset($event)"
-                            class="ui-button-secondary"></button>
-                    </div>
-                </div>
 
-                <div class="p-grid">
-                    <div class="p-col">
-                        <ng-template #spinner>
-                            <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="6" fill="#EEEEEE"
-                                animationDuration=".5s"></p-progressSpinner>
-                        </ng-template>
+                <p-footer>
+                    <div class="p-grid" *ngIf="!isSubmitting; else spinner">
+                        <div class="p-col">
+                            <button pButton type="button" label="Back" icon="pi pi-arrow-left" (click)="onBack($event)"
+                                class="ui-button-danger mr-2"></button>
+                            <button pButton label="Save" icon="pi pi-plus" [disabled]="f.untouched || f.invalid"
+                                class=""></button>
+                            <button pButton type="button" label="Reset" icon="pi pi-refresh" (click)="onReset($event)"
+                                class="ui-button-secondary float-right"></button>
+                        </div>
                     </div>
-                </div>
-            </p-footer>
-        </p-panel>
+
+                    <div class="p-grid">
+                        <div class="p-col">
+                            <ng-template #spinner>
+                                <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="6"
+                                    fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+                            </ng-template>
+                        </div>
+                    </div>
+                </p-footer>
+            </p-panel>
+        </form>
     </div>
-</div>
-<div>
-    {{moduleInput|json}}
-</div>
-<div>
-    {{selectedBlock|json}}
-</div>
-<div>
-    {{selectedOfferingType|json}}
-</div>
-<div>
-    {{selectedQualification|json}}
-</div>
-<div>
-    {{selectedDiscipline|json}}
-</div>
-<div>
-    {{selectedVenue|json}}
 </div>

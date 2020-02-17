@@ -1,3 +1,4 @@
+import { SelectItem } from 'primeng/components/common/selectitem';
 import { MenuItem } from 'primeng/components/common/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -13,82 +14,85 @@ import { QualificationService } from '../qualification.service';
 import { Department, QualificationInput } from 'src/app/shared/generated';
 
 @Component({
-    selector: 'app-qualification-add',
-    templateUrl: './qualification-add.component.html',
-    styleUrls: ['./qualification-add.component.scss'],
-    animations: [routerTransition()]
+  selector: 'app-qualification-add',
+  templateUrl: './qualification-add.component.html',
+  styleUrls: ['./qualification-add.component.scss'],
+  animations: [routerTransition()]
 })
 export class QualificationAddComponent implements OnInit {
-    breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+  breadcrumbs: MenuItem[];
+  @ViewChild('f', { static: false }) form: any;
 
-    qualificationInput: QualificationInput = {};
-    departments: Department[];
-    selectedDepartment: Department;
-    types = this.qualificationService.types;
+  qualificationInput: QualificationInput = {};
+  departments: Department[];
+  selectedDepartment: Department;
+  types = this.qualificationService.types;
+  selectedType: SelectItem;
+  isSubmitting: boolean;
 
-    private unsubscribe = new Subject();
+  private unsubscribe = new Subject();
 
-    constructor(
-        private alertService: AlertService,
-        private router: Router,
-        private activatedRoute: ActivatedRoute,
-        private qualificationService: QualificationService,
-        private departmentService: DepartmentService
-    ) {}
+  constructor(
+    private alertService: AlertService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private qualificationService: QualificationService,
+    private departmentService: DepartmentService
+  ) {}
 
-    ngOnInit() {
-        this.breadcrumbs = [
-            { label: 'admin' },
-            { label: 'qualification', url: 'admin/qualification' },
-            { label: 'add', url: 'admin/qualification/add' }
-        ];
-        this.getDepartments();
-    }
-    ngOnDestroy(): void {
-        this.unsubscribe.next();
-        this.unsubscribe.complete();
-    }
+  ngOnInit() {
+    this.breadcrumbs = [
+      { label: 'admin' },
+      { label: 'qualification', url: 'admin/qualification' },
+      { label: 'add', url: 'admin/qualification/add' }
+    ];
+    this.getDepartments();
+  }
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
 
-    getDepartments() {
-        this.departmentService
-            .departments()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.departments = result.data.departments;
-            });
-    }
-    onSubmit() {
-        this.qualificationService
-            .addQualification(this.qualificationInput)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(
-                result => {
-                    this.alertService.success('Qualification added');
-                    this.router.navigate(
-                        [
-                            'admin/qualification/view',
-                            this.qualificationInput.qualificationId
-                        ],
-                        {
-                            queryParams: {
-                                qualificationId: this.qualificationInput
-                                    .qualificationId
-                            }
-                        }
-                    );
-                },
-                err => {
-                    this.alertService.errorToast(err);
-                    console.warn(err);
-                }
-            );
-    }
-    onBack(event) {
-        this.router.navigate(['admin/qualification']);
-    }
-    onReset(event) {
-        this.form.reset();
-        this.ngOnInit();
-    }
+  getDepartments() {
+    this.departmentService
+      .departments()
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(result => {
+        this.departments = result.data.departments;
+      });
+  }
+  onSubmit() {
+    this.isSubmitting = true;
+    this.qualificationInput.departmentId = this.selectedDepartment.departmentId;
+    this.qualificationInput.type = this.selectedType.value;
+    this.qualificationService
+      .addQualification(this.qualificationInput)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        result => {
+          this.isSubmitting = false;
+          this.alertService.successToast('Qualification added');
+          this.router.navigate(
+            [
+              'admin/qualification/view',
+              this.qualificationInput.qualificationId
+            ],
+            {
+              queryParams: {
+                qualificationId: this.qualificationInput.qualificationId
+              }
+            }
+          );
+        },
+        err => {
+          console.error(err);
+        }
+      );
+  }
+  onBack(event) {
+    this.router.navigate(['admin/qualification']);
+  }
+  onReset(event) {
+    this.form.reset();
+  }
 }

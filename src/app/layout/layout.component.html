@@ -3,7 +3,5 @@ Layout route
 <app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar>
 <section class="main-container" [ngClass]="{collapsed: collapedSideBar}">
     <p-messages></p-messages>
-    <p-toast key="toast" position="top-right" baseZIndex="9000"></p-toast>
-    <p-toast key="errorToast" position="top-right" baseZIndex="9000"></p-toast>
     <router-outlet></router-outlet>
 </section>

@@ -13,133 +13,33 @@
                             (input)="fiTable.filterGlobal($event.target.value, 'contains')" style="width:auto">
                     </div>
                 </ng-template>
-                <ng-template pTemplate="header">
+                <ng-template pTemplate="header" let-activity let-columns>
                     <tr>
-                        <th colspan="1" [pSortableColumn]="activity?.module?.moduleId">
-                            Module ID
-                            <p-sortIcon [field]="activity?.module?.moduleId"></p-sortIcon>
-                        </th>
-                        <th colspan="3" [pSortableColumn]="activity?.module?.name">
-                            Module
-                            <p-sortIcon [field]="activity?.module?.name"></p-sortIcon>
-                        </th>
-                        <th colspan="1" [pSortableColumn]="activity?.block?.name">
-                            Block
-                            <p-sortIcon [field]="activity?.block?.name"></p-sortIcon>
-                        </th>
-                        <th colspan="1" [pSortableColumn]="activity?.offeringType?.description">
-                            Offering Type
-                            <p-sortIcon [field]="activity?.offeringType?.description"></p-sortIcon>
-                        </th>
-                        <th colspan="4" [pSortableColumn]="activity?.qualification?.name">
-                            Qualification
-                            <p-sortIcon [field]="activity?.qualification?.name"></p-sortIcon>
-                        </th>
-                        <th colspan="1" [pSortableColumn]="activity?.module?.coordinator">
-                            Coordinator
-                            <p-sortIcon [field]="activity?.module?.coordinatorId"></p-sortIcon>
-                        </th>
-                        <th colspan="1" [pSortableColumn]="activity?.approvalStatus">
-                            Approval Status
-                            <p-sortIcon [field]="activity?.approvalStatus"></p-sortIcon>
+                        <th *ngFor="let column of columns" [pSortableColumn]="column.field" colspan="column.colspan">
+                            {{column.header}}
+                            <p-sortIcon [field]="column.field"></p-sortIcon>
                         </th>
                     </tr>
-                    <!-- <tr>
-                        <th colspan="1">
-                            <input type="text" pInputText
-                                (input)="fiTable.filter($event.target.value, 'moduleId', 'contains')"
-                                style="width: 100%;">
-                        </th>
-                        <th colspan="3">
-                            <input type="text" pInputText
-                                (input)="fiTable.filter($event.target.value, 'module.name', 'contains')"
-                                style="width: 100%;">
-                        </th>
-                        <th colspan="1">
-                            <input type="text" pInputText
-                                (input)="fiTable.filter($event.target.value, 'block.name', 'contains')"
-                                style="width: 100%;">
-                        </th>
-                        <th colspan="1">
-                            <input type="text" pInputText
-                                (input)="fiTable.filter($event.target.value, 'offeringType.description', 'contains')"
-                                style="width: 100%;">
-                        </th>
-                        <th colspan="4">
-                            <input type="text" pInputText
-                                (input)="fiTable.filter($event.target.value,'qualification.name', 'contains')"
-                                style="width: 100%;">
-                        </th>
-                        <th colspan="1">
-                            <input type="text" pInputText
-                                (input)="fiTable.filter($event.target.value,'module.coordinatorId', 'contains')"
-                                style="width: 100%;">
-                        </th>
-                        <th colspan="1">
-                            <input type="text" pInputText
-                                (input)="fiTable.filter($event.target.value,'approvalStatus', 'contains')"
-                                style="width: 100%;">
-                        </th>
-                    </tr> -->
                 </ng-template>
-                <ng-template pTemplate="body" let-activity>
-                    <tr [pSelectableRow]="activity" [pContextMenuRow]="activity">
-                        <td colspan="1">
-                            {{activity?.module?.moduleId}}
-                        </td>
-                        <td colspan="3">
-                            {{activity?.module?.name}}
-                        </td>
-                        <td colspan="1">
-                            {{activity?.block?.name}}
-                        </td>
-                        <td colspan="1">
-                            {{activity?.offeringType?.description}}
-                        </td>
-                        <td colspan="4">
-                            {{activity?.qualification?.name}}
-                        </td>
-                        <td colspan="1">
-                            {{activity?.isCoordinator | questionableBoolean}}
-                        </td>
-                        <td colspan="1">
-                            {{activity?.approvalStatus | titlecase}}
+                <ng-template pTemplate="body" let-activity let-columns="columns" let-rowIndex="rowIndex">
+                    <tr [pSelectableRow]="activity" [pSelectableRowIndex]="rowIndex" [pContextMenuRow]="activity"
+                        [pContextMenuRowIndex]="rowIndex">
+                        <td *ngFor="let column of columns">
+                            {{activity[column.field]}}
                         </td>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="footer">
+                <ng-template pTemplate="footer" let-columns>
                     <tr>
-                        <td colspan="1">
-                            Module ID
-                        </td>
-                        <td colspan="3">
-                            Module
-                        </td>
-                        <td colspan="1">
-                            Block
-                        </td>
-                        <td colspan="1">
-                            Offering Type
-                        </td>
-                        <td colspan="4">
-                            Qualification
-                        </td>
-                        <td colspan="1">
-                            Coordinator
-                        </td>
-                        <td colspan="1">
-                            Approval Status
-                        </td>
-                </ng-template>
-                <ng-template pTemplate="summary">
-                    <tr>
-                        <td colspan="12">
+                        <td *ngFor="let column of columns" [pSortableColumn]="column.field">
+                            {{column.header}}
+                            <p-sortIcon [field]="column.field"></p-sortIcon>
                         </td>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="emptymessage">
+                <ng-template pTemplate="emptymessage" let-columns>
                     <tr>
-                        <td colspan="12">
+                        <td [attr.colspan]="columns.length">
                             No records found
                         </td>
                     </tr>
@@ -157,6 +57,7 @@
         </p-panel>
     </div>
 </div>
+
 
 <p-toast position="center" key="formalInstructionActivityDelete" (onClose)="onReject()" [modal]="true"
     [baseZIndex]="9000">
