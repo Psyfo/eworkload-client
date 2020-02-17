@@ -1,0 +1,11 @@
+mutation changePassword(
+  $userId: String!
+  $password: String!
+  $newPassword: String!
+) {
+  changePassword(
+    userId: $userId
+    password: $password
+    newPassword: $newPassword
+  )
+}

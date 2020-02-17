@@ -1,39 +1,39 @@
-mutation addEnrollment($enrollment: EnrollmentInput) {
-    addEnrollment(enrollment: $enrollment) {
-        enrollmentYear
-        qualificationId
-        qualification {
-            qualificationId
-            name
-        }
-        firstYearEstimated
-        secondYearEstimated
-        thirdYearEstimated
+mutation addEnrollment($enrollment: EnrollmentInput!) {
+  addEnrollment(enrollment: $enrollment) {
+    enrollmentYear
+    qualificationId
+    qualification {
+      qualificationId
+      name
     }
+    firstYearEstimated
+    secondYearEstimated
+    thirdYearEstimated
+  }
 }
-mutation editEnrollment($enrollment: EnrollmentInput) {
-    editEnrollment(enrollment: $enrollment) {
-        enrollmentYear
-        qualificationId
-        qualification {
-            qualificationId
-            name
-        }
-        firstYearEstimated
-        secondYearEstimated
-        thirdYearEstimated
+mutation editEnrollment($enrollment: EnrollmentInput!) {
+  editEnrollment(enrollment: $enrollment) {
+    enrollmentYear
+    qualificationId
+    qualification {
+      qualificationId
+      name
     }
+    firstYearEstimated
+    secondYearEstimated
+    thirdYearEstimated
+  }
 }
-mutation deleteEnrollment($enrollment: EnrollmentInput) {
-    deleteEnrollment(enrollment: $enrollment) {
-        enrollmentYear
-        qualificationId
-        qualification {
-            qualificationId
-            name
-        }
-        firstYearEstimated
-        secondYearEstimated
-        thirdYearEstimated
+mutation deleteEnrollment($enrollment: EnrollmentInput!) {
+  deleteEnrollment(enrollment: $enrollment) {
+    enrollmentYear
+    qualificationId
+    qualification {
+      qualificationId
+      name
     }
+    firstYearEstimated
+    secondYearEstimated
+    thirdYearEstimated
+  }
 }

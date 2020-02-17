@@ -46,8 +46,8 @@ query qualificationsPostgraduate {
         }
     }
 }
-query qualificationsNoEnrollment {
-    qualificationsNoEnrollment {
+query qualificationsUnenrolled {
+    qualificationsUnenrolled {
         qualificationId
         name
         type

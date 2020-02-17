@@ -1,650 +1,399 @@
-query module(
-    $moduleId: String!
-    $blockId: String!
-    $offeringTypeId: String!
-    $qualificationId: String!
-) {
-    module(
-        moduleId: $moduleId
-        blockId: $blockId
-        offeringTypeId: $offeringTypeId
-        qualificationId: $qualificationId
-    ) {
-        moduleId
+query module($id: String!) {
+  module(id: $id) {
+    id
+    moduleId
+    name
+    type
+    assessmentMethod
+    nqfLevel
+    credits
+    qualificationId
+    qualification {
+      qualificationId
+      name
+      type
+      departmentId
+      department {
+        departmentId
         name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                hodId
-            }
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
-        disciplineId
-        discipline {
-            disciplineId
-            name
-            description
-        }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
-        }
-        blockId
-        block {
-            blockId
-            name
-            description
-        }
-        stackId
-        studyPeriod
-        groups {
-            groupCode
-            enrolled
-            lecturerIds
-            lecturers {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                positionId
-                departmentId
-                workFocusName
-                gender
-                nationality
-            }
-            repeat
-        }
-        lecturedBy
-        enrolled
-        moderation
+        hodId
+      }
     }
+    offeringTypeId
+    offeringType {
+      offeringTypeId
+      description
+    }
+    disciplineId
+    discipline {
+      disciplineId
+      name
+      description
+    }
+    venueId
+    venue {
+      venueId
+      campus
+      capacity
+      type
+    }
+    blockId
+    block {
+      blockId
+      name
+      description
+    }
+    stackId
+    studyPeriod
+    lecturedBy
+    studentsEnrolled
+    moderation
+  }
 }
 query modules {
-    modules {
-        moduleId
+  modules {
+    id
+    moduleId
+    name
+    type
+    assessmentMethod
+    nqfLevel
+    credits
+    qualificationId
+    qualification {
+      qualificationId
+      name
+      type
+      departmentId
+      department {
+        departmentId
         name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                hodId
-            }
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
-        disciplineId
-        discipline {
-            disciplineId
-            name
-            description
-        }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
-        }
-        blockId
-        block {
-            blockId
-            name
-            description
-        }
-        stackId
-        studyPeriod
-        groups {
-            groupCode
-            enrolled
-            lecturerIds
-            lecturers {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                positionId
-                departmentId
-                workFocusName
-                gender
-                nationality
-            }
-            repeat
-        }
-        lecturedBy
-        enrolled
-        moderation
+        hodId
+      }
     }
+    offeringTypeId
+    offeringType {
+      offeringTypeId
+      description
+    }
+    disciplineId
+    discipline {
+      disciplineId
+      name
+      description
+    }
+    venueId
+    venue {
+      venueId
+      campus
+      capacity
+      type
+    }
+    blockId
+    block {
+      blockId
+      name
+      description
+    }
+    stackId
+    studyPeriod
+    lecturedBy
+    studentsEnrolled
+    moderation
+  }
 }
-query modulesByDiscipline($disciplineIds: [String!]) {
-    modulesByDiscipline(disciplineIds: $disciplineIds) {
-        moduleId
+query modulesByDiscipline($disciplineIds: [String!]!) {
+  modulesByDiscipline(disciplineIds: $disciplineIds) {
+    id
+    moduleId
+    name
+    type
+    assessmentMethod
+    nqfLevel
+    credits
+    qualificationId
+    qualification {
+      qualificationId
+      name
+      type
+      departmentId
+      department {
+        departmentId
         name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                hodId
-            }
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
-        disciplineId
-        discipline {
-            disciplineId
-            name
-            description
-        }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
-        }
-        blockId
-        block {
-            blockId
-            name
-            description
-        }
-        stackId
-        studyPeriod
-        groups {
-            groupCode
-            enrolled
-            lecturerIds
-            lecturers {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                positionId
-                departmentId
-                workFocusName
-                gender
-                nationality
-            }
-            repeat
-        }
-        lecturedBy
-        enrolled
-        moderation
+        hodId
+      }
     }
-}
-query modulesByUnassigned {
-    modulesByUnassigned {
-        moduleId
-        name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                hodId
-            }
-        }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
-        disciplineId
-        discipline {
-            disciplineId
-            name
-            description
-        }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
-        }
-        blockId
-        block {
-            blockId
-            name
-            description
-        }
-        stackId
-        studyPeriod
-        groups {
-            groupCode
-            enrolled
-            lecturerIds
-            lecturers {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                positionId
-                departmentId
-                workFocusName
-                gender
-                nationality
-            }
-            repeat
-        }
-        lecturedBy
-        enrolled
-        moderation
+    offeringTypeId
+    offeringType {
+      offeringTypeId
+      description
     }
-}
-query modulesByUnassignedAndDiscipline($disciplineIds: [String]) {
-    modulesByUnassignedAndDiscipline(disciplineIds: $disciplineIds) {
-        moduleId
-        name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                hodId
-            }
-        }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
-        disciplineId
-        discipline {
-            disciplineId
-            name
-            description
-        }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
-        }
-        blockId
-        block {
-            blockId
-            name
-            description
-        }
-        stackId
-        studyPeriod
-        groups {
-            groupCode
-            enrolled
-            lecturerIds
-            lecturers {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                positionId
-                departmentId
-                workFocusName
-                gender
-                nationality
-            }
-            repeat
-        }
-        lecturedBy
-        enrolled
-        moderation
+    disciplineId
+    discipline {
+      disciplineId
+      name
+      description
     }
-}
-query modulesByUser($userId: String!) {
-    modulesByUser(userId: $userId) {
-        moduleId
-        name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                hodId
-            }
-        }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
-        disciplineId
-        discipline {
-            disciplineId
-            name
-            description
-        }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
-        }
-        blockId
-        block {
-            blockId
-            name
-            description
-        }
-        stackId
-        studyPeriod
-        groups {
-            groupCode
-            enrolled
-            lecturerIds
-            lecturers {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                positionId
-                departmentId
-                workFocusName
-                gender
-                nationality
-            }
-            repeat
-        }
-        lecturedBy
-        enrolled
-        moderation
+    venueId
+    venue {
+      venueId
+      campus
+      capacity
+      type
     }
-}
-query modulesByModerator($moderatorId: String!) {
-    modulesByModerator(moderatorId: $moderatorId) {
-        moduleId
-        name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                hodId
-            }
-        }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
-        disciplineId
-        discipline {
-            disciplineId
-            name
-            description
-        }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
-        }
-        blockId
-        block {
-            blockId
-            name
-            description
-        }
-        stackId
-        studyPeriod
-        groups {
-            groupCode
-            enrolled
-            lecturerIds
-            lecturers {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                positionId
-                departmentId
-                workFocusName
-                gender
-                nationality
-            }
-            repeat
-        }
-        lecturedBy
-        enrolled
-        moderation
+    blockId
+    block {
+      blockId
+      name
+      description
     }
+    stackId
+    studyPeriod
+    lecturedBy
+    studentsEnrolled
+    moderation
+  }
 }
-query modulesByCoordinator($coordinatorId: String!) {
-    modulesByCoordinator(coordinatorId: $coordinatorId) {
-        moduleId
-        name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                hodId
-            }
-        }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
-        disciplineId
-        discipline {
-            disciplineId
-            name
-            description
-        }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
-        }
-        blockId
-        block {
-            blockId
-            name
-            description
-        }
-        stackId
-        studyPeriod
-        groups {
-            groupCode
-            enrolled
-            lecturerIds
-            lecturers {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                positionId
-                departmentId
-                workFocusName
-                gender
-                nationality
-            }
-            repeat
-        }
-        lecturedBy
-        enrolled
-        moderation
-    }
-}
-
 query modulesByStack($stackId: String!) {
-    modulesByStack(stackId: $stackId) {
-        moduleId
+  modulesByStack(stackId: $stackId) {
+    id
+    moduleId
+    name
+    type
+    assessmentMethod
+    nqfLevel
+    credits
+    qualificationId
+    qualification {
+      qualificationId
+      name
+      type
+      departmentId
+      department {
+        departmentId
         name
-        type
-        assessmentMethod
-        nqfLevel
-        credits
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                hodId
-            }
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        offeringTypeId
-        offeringType {
-            offeringTypeId
-            description
-        }
-        disciplineId
-        discipline {
-            disciplineId
-            name
-            description
-        }
-        venueId
-        venue {
-            venueId
-            campus
-            capacity
-            type
-        }
-        blockId
-        block {
-            blockId
-            name
-            description
-        }
-        stackId
-        studyPeriod
-        groups {
-            groupCode
-            enrolled
-            lecturerIds
-            lecturers {
-                userId
-                email
-                firstName
-                lastName
-                photoUrl
-                disciplineIds
-                positionId
-                departmentId
-                workFocusName
-                gender
-                nationality
-            }
-            repeat
-        }
-        lecturedBy
-        enrolled
-        moderation
+        hodId
+      }
     }
+    offeringTypeId
+    offeringType {
+      offeringTypeId
+      description
+    }
+    disciplineId
+    discipline {
+      disciplineId
+      name
+      description
+    }
+    venueId
+    venue {
+      venueId
+      campus
+      capacity
+      type
+    }
+    blockId
+    block {
+      blockId
+      name
+      description
+    }
+    stackId
+    studyPeriod
+    lecturedBy
+    studentsEnrolled
+    moderation
+  }
+}
+query modulesByDepartment($departmentId: String!) {
+  modulesByDepartment(departmentId: $departmentId) {
+    id
+    moduleId
+    name
+    type
+    assessmentMethod
+    nqfLevel
+    credits
+    qualificationId
+    qualification {
+      qualificationId
+      name
+      type
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
+        }
+        hodId
+      }
+    }
+    offeringTypeId
+    offeringType {
+      offeringTypeId
+      description
+    }
+    disciplineId
+    discipline {
+      disciplineId
+      name
+      description
+    }
+    venueId
+    venue {
+      venueId
+      campus
+      capacity
+      type
+    }
+    blockId
+    block {
+      blockId
+      name
+      description
+    }
+    stackId
+    studyPeriod
+    lecturedBy
+    studentsEnrolled
+    moderation
+  }
+}
+query stackedWith($id: String!, $stackId: String) {
+  stackedWith(id: $id, stackId: $stackId) {
+    id
+    moduleId
+    name
+    type
+    assessmentMethod
+    nqfLevel
+    credits
+    qualificationId
+    qualification {
+      qualificationId
+      name
+      type
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
+        }
+        hodId
+      }
+    }
+    offeringTypeId
+    offeringType {
+      offeringTypeId
+      description
+    }
+    disciplineId
+    discipline {
+      disciplineId
+      name
+      description
+    }
+    venueId
+    venue {
+      venueId
+      campus
+      capacity
+      type
+    }
+    blockId
+    block {
+      blockId
+      name
+      description
+    }
+    stackId
+    studyPeriod
+    lecturedBy
+    studentsEnrolled
+    moderation
+  }
+}
+query unstackedModules {
+  unstackedModules {
+    id
+    moduleId
+    name
+    type
+    assessmentMethod
+    nqfLevel
+    credits
+    qualificationId
+    qualification {
+      qualificationId
+      name
+      type
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
+        }
+        hodId
+      }
+    }
+    offeringTypeId
+    offeringType {
+      offeringTypeId
+      description
+    }
+    disciplineId
+    discipline {
+      disciplineId
+      name
+      description
+    }
+    venueId
+    venue {
+      venueId
+      campus
+      capacity
+      type
+    }
+    blockId
+    block {
+      blockId
+      name
+      description
+    }
+    stackId
+    studyPeriod
+    lecturedBy
+    studentsEnrolled
+    moderation
+  }
 }

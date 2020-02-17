@@ -1,652 +1,547 @@
 query formalInstructionActivity($activityId: String!) {
-    formalInstructionActivity(activityId: $activityId) {
-        activityId
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineIds
-            disciplines {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
+  formalInstructionActivity(activityId: $activityId) {
+    activityId
+    userId
+    user {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        dutyId
-        duty {
-            dutyId
-            name
-            description
-        }
-        approvalStatus
-        createdAt
-        updatedAt
+        hodId
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    dutyId
+    duty {
+      dutyId
+      name
+      description
+    }
+    approvalStatus
+    groupId
+    group {
+      id
+      groupId
+      moduleId
+      module {
+        id
         moduleId
-        module {
-            moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
+        credits
+        qualificationId
+        qualification {
+          qualificationId
+          name
+          type
+          departmentId
+          department {
+            departmentId
             name
-            type
-            assessmentMethod
-            nqfLevel
-            credits
-            qualificationId
-            qualification {
-                qualificationId
-                name
-                type
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    hodId
-                }
+            facultyId
+            faculty {
+              facultyId
+              name
             }
-            offeringTypeId
-            offeringType {
-                offeringTypeId
-                description
-            }
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            venueId
-            venue {
-                venueId
-                campus
-                capacity
-                type
-            }
-            blockId
-            block {
-                blockId
-                name
-                description
-            }
-            stackId
-            studyPeriod
-            groups {
-                groupCode
-                enrolled
-                lecturerIds
-                lecturers {
-                    userId
-                    email
-                    firstName
-                    lastName
-                    photoUrl
-                    disciplineIds
-                    positionId
-                    departmentId
-                    workFocusName
-                    gender
-                    nationality
-                }
-                repeat
-            }
-            lecturedBy
-            enrolled
-            moderation
-        }
-        blockId
-        block {
-            blockId
-            name
-            description
+            hodId
+          }
         }
         offeringTypeId
         offeringType {
-            offeringTypeId
-            description
+          offeringTypeId
+          description
         }
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
+        disciplineId
+        discipline {
+          disciplineId
+          name
+          description
         }
-        isCoordinator
+        venueId
+        venue {
+          venueId
+          campus
+          capacity
+          type
+        }
+        blockId
+        block {
+          blockId
+          name
+          description
+        }
+        stackId
+        studyPeriod
+        lecturedBy
+        studentsEnrolled
+        moderation
+      }
+      studentsEnrolled
+      modularity
     }
+    isCoordinator
+  }
 }
 query formalInstructionActivities {
-    formalInstructionActivities {
-        activityId
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineIds
-            disciplines {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
+  formalInstructionActivities {
+    activityId
+    userId
+    user {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        dutyId
-        duty {
-            dutyId
-            name
-            description
-        }
-        approvalStatus
-        createdAt
-        updatedAt
+        hodId
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    dutyId
+    duty {
+      dutyId
+      name
+      description
+    }
+    approvalStatus
+    groupId
+    group {
+      id
+      groupId
+      moduleId
+      module {
+        id
         moduleId
-        module {
-            moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
+        credits
+        qualificationId
+        qualification {
+          qualificationId
+          name
+          type
+          departmentId
+          department {
+            departmentId
             name
-            type
-            assessmentMethod
-            nqfLevel
-            credits
-            qualificationId
-            qualification {
-                qualificationId
-                name
-                type
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    hodId
-                }
+            facultyId
+            faculty {
+              facultyId
+              name
             }
-            offeringTypeId
-            offeringType {
-                offeringTypeId
-                description
-            }
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            venueId
-            venue {
-                venueId
-                campus
-                capacity
-                type
-            }
-            blockId
-            block {
-                blockId
-                name
-                description
-            }
-            stackId
-            studyPeriod
-            groups {
-                groupCode
-                enrolled
-                lecturerIds
-                lecturers {
-                    userId
-                    email
-                    firstName
-                    lastName
-                    photoUrl
-                    disciplineIds
-                    positionId
-                    departmentId
-                    workFocusName
-                    gender
-                    nationality
-                }
-                repeat
-            }
-            lecturedBy
-            enrolled
-            moderation
-        }
-        blockId
-        block {
-            blockId
-            name
-            description
+            hodId
+          }
         }
         offeringTypeId
         offeringType {
-            offeringTypeId
-            description
+          offeringTypeId
+          description
         }
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
+        disciplineId
+        discipline {
+          disciplineId
+          name
+          description
         }
-        isCoordinator
+        venueId
+        venue {
+          venueId
+          campus
+          capacity
+          type
+        }
+        blockId
+        block {
+          blockId
+          name
+          description
+        }
+        stackId
+        studyPeriod
+        lecturedBy
+        studentsEnrolled
+        moderation
+      }
+      studentsEnrolled
+      modularity
     }
+    isCoordinator
+  }
 }
 query formalInstructionActivitiesByUser($userId: String!) {
-    formalInstructionActivitiesByUser(userId: $userId) {
-        activityId
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineIds
-            disciplines {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
+  formalInstructionActivitiesByUser(userId: $userId) {
+    activityId
+    userId
+    user {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        dutyId
-        duty {
-            dutyId
-            name
-            description
-        }
-        approvalStatus
-        createdAt
-        updatedAt
+        hodId
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
+    }
+    dutyId
+    duty {
+      dutyId
+      name
+      description
+    }
+    approvalStatus
+    groupId
+    group {
+      id
+      groupId
+      moduleId
+      module {
+        id
         moduleId
-        module {
-            moduleId
+        name
+        type
+        assessmentMethod
+        nqfLevel
+        credits
+        qualificationId
+        qualification {
+          qualificationId
+          name
+          type
+          departmentId
+          department {
+            departmentId
             name
-            type
-            assessmentMethod
-            nqfLevel
-            credits
-            qualificationId
-            qualification {
-                qualificationId
-                name
-                type
-                departmentId
-                department {
-                    departmentId
-                    name
-                    facultyId
-                    hodId
-                }
+            facultyId
+            faculty {
+              facultyId
+              name
             }
-            offeringTypeId
-            offeringType {
-                offeringTypeId
-                description
-            }
-            disciplineId
-            discipline {
-                disciplineId
-                name
-                description
-            }
-            venueId
-            venue {
-                venueId
-                campus
-                capacity
-                type
-            }
-            blockId
-            block {
-                blockId
-                name
-                description
-            }
-            stackId
-            studyPeriod
-            groups {
-                groupCode
-                enrolled
-                lecturerIds
-                lecturers {
-                    userId
-                    email
-                    firstName
-                    lastName
-                    photoUrl
-                    disciplineIds
-                    positionId
-                    departmentId
-                    workFocusName
-                    gender
-                    nationality
-                }
-                repeat
-            }
-            lecturedBy
-            enrolled
-            moderation
-        }
-        blockId
-        block {
-            blockId
-            name
-            description
+            hodId
+          }
         }
         offeringTypeId
         offeringType {
-            offeringTypeId
-            description
+          offeringTypeId
+          description
         }
-        qualificationId
-        qualification {
-            qualificationId
-            name
-            type
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
+        disciplineId
+        discipline {
+          disciplineId
+          name
+          description
         }
-        isCoordinator
+        venueId
+        venue {
+          venueId
+          campus
+          capacity
+          type
+        }
+        blockId
+        block {
+          blockId
+          name
+          description
+        }
+        stackId
+        studyPeriod
+        lecturedBy
+        studentsEnrolled
+        moderation
+      }
+      studentsEnrolled
+      modularity
     }
+    isCoordinator
+  }
 }
 
 query supervisionActivity($activityId: String!) {
-    supervisionActivity(activityId: $activityId) {
-        activityId
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineIds
-            disciplines {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
+  supervisionActivity(activityId: $activityId) {
+    activityId
+    userId
+    user {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        dutyId
-        duty {
-            dutyId
-            name
-            description
-        }
-        year
-        approvalStatus
-        createdAt
-        updatedAt
-        supervisionRole
-        split
-        studentId
-        student {
-            studentId
-            firstName
-            lastName
-            email
-            type
-            title
-            graduationDate
-        }
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
     }
+    dutyId
+    duty {
+      dutyId
+      name
+      description
+    }
+    year
+    approvalStatus
+    createdAt
+    updatedAt
+    supervisionRole
+    split
+    studentId
+    student {
+      studentId
+      firstName
+      lastName
+      email
+      type
+      title
+      graduationDate
+    }
+  }
 }
 query supervisionActivities {
-    supervisionActivities {
-        activityId
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineIds
-            disciplines {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
+  supervisionActivities {
+    activityId
+    userId
+    user {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        dutyId
-        duty {
-            dutyId
-            name
-            description
-        }
-        year
-        approvalStatus
-        createdAt
-        updatedAt
-        supervisionRole
-        split
-        studentId
-        student {
-            studentId
-            firstName
-            lastName
-            email
-            type
-            title
-            graduationDate
-        }
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
     }
+    dutyId
+    duty {
+      dutyId
+      name
+      description
+    }
+    year
+    approvalStatus
+    createdAt
+    updatedAt
+    supervisionRole
+    split
+    studentId
+    student {
+      studentId
+      firstName
+      lastName
+      email
+      type
+      title
+      graduationDate
+    }
+  }
 }
 query supervisionActivitiesByUser($userId: String!) {
-    supervisionActivitiesByUser(userId: $userId) {
-        activityId
-        userId
-        user {
-            userId
-            email
-            firstName
-            lastName
-            photoUrl
-            disciplineIds
-            disciplines {
-                disciplineId
-                name
-                description
-            }
-            positionId
-            position {
-                positionId
-                name
-                description
-            }
-            departmentId
-            department {
-                departmentId
-                name
-                facultyId
-                faculty {
-                    facultyId
-                    name
-                }
-            }
-            workFocusName
-            workFocus {
-                name
-                teachingRatio
-                researchRatio
-                serviceRatio
-            }
-            gender
-            nationality
+  supervisionActivitiesByUser(userId: $userId) {
+    activityId
+    userId
+    user {
+      userId
+      email
+      firstName
+      lastName
+      photoUrl
+      disciplineIds
+      disciplines {
+        disciplineId
+        name
+        description
+      }
+      positionId
+      position {
+        positionId
+        name
+        description
+      }
+      departmentId
+      department {
+        departmentId
+        name
+        facultyId
+        faculty {
+          facultyId
+          name
         }
-        dutyId
-        duty {
-            dutyId
-            name
-            description
-        }
-        year
-        approvalStatus
-        createdAt
-        updatedAt
-        supervisionRole
-        split
-        studentId
-        student {
-            studentId
-            firstName
-            lastName
-            email
-            type
-            title
-            graduationDate
-        }
+      }
+      workFocusName
+      workFocus {
+        name
+        teachingRatio
+        researchRatio
+        serviceRatio
+      }
+      gender
+      nationality
     }
+    dutyId
+    duty {
+      dutyId
+      name
+      description
+    }
+    year
+    approvalStatus
+    createdAt
+    updatedAt
+    supervisionRole
+    split
+    studentId
+    student {
+      studentId
+      firstName
+      lastName
+      email
+      type
+      title
+      graduationDate
+    }
+  }
 }

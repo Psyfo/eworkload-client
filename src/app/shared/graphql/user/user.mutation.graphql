@@ -1,133 +1,120 @@
 mutation addUser($user: UserInput) {
-    addUser(user: $user) {
-        userId
-        email
-        firstName
-        lastName
-        photoUrl
-        disciplineIds
-        disciplines {
-            disciplineId
-            name
-            description
-        }
-        positionId
-        position {
-            positionId
-            name
-            description
-        }
-        departmentId
-        department {
-            departmentId
-            name
-            facultyId
-            faculty {
-                facultyId
-                name
-            }
-        }
-        workFocusName
-        workFocus {
-            name
-            teachingRatio
-            researchRatio
-            serviceRatio
-        }
-        gender
-        nationality
+  addUser(user: $user) {
+    userId
+    email
+    firstName
+    lastName
+    photoUrl
+    disciplineIds
+    disciplines {
+      disciplineId
+      name
+      description
     }
+    positionId
+    position {
+      positionId
+      name
+      description
+    }
+    departmentId
+    department {
+      departmentId
+      name
+      facultyId
+      faculty {
+        facultyId
+        name
+      }
+    }
+    workFocusName
+    workFocus {
+      name
+      teachingRatio
+      researchRatio
+      serviceRatio
+    }
+    gender
+    nationality
+  }
 }
 mutation editUser($user: UserInput) {
-    editUser(user: $user) {
-        userId
-        email
-        firstName
-        lastName
-        photoUrl
-        disciplineIds
-        disciplines {
-            disciplineId
-            name
-            description
-        }
-        positionId
-        position {
-            positionId
-            name
-            description
-        }
-        departmentId
-        department {
-            departmentId
-            name
-            facultyId
-            faculty {
-                facultyId
-                name
-            }
-        }
-        workFocusName
-        workFocus {
-            name
-            teachingRatio
-            researchRatio
-            serviceRatio
-        }
-        gender
-        nationality
+  editUser(user: $user) {
+    userId
+    email
+    firstName
+    lastName
+    photoUrl
+    disciplineIds
+    disciplines {
+      disciplineId
+      name
+      description
     }
+    positionId
+    position {
+      positionId
+      name
+      description
+    }
+    departmentId
+    department {
+      departmentId
+      name
+      facultyId
+      faculty {
+        facultyId
+        name
+      }
+    }
+    workFocusName
+    workFocus {
+      name
+      teachingRatio
+      researchRatio
+      serviceRatio
+    }
+    gender
+    nationality
+  }
 }
 mutation deleteUser($user: UserInput) {
-    deleteUser(user: $user) {
-        userId
-        email
-        firstName
-        lastName
-        photoUrl
-        disciplineIds
-        disciplines {
-            disciplineId
-            name
-            description
-        }
-        positionId
-        position {
-            positionId
-            name
-            description
-        }
-        departmentId
-        department {
-            departmentId
-            name
-            facultyId
-            faculty {
-                facultyId
-                name
-            }
-        }
-        workFocusName
-        workFocus {
-            name
-            teachingRatio
-            researchRatio
-            serviceRatio
-        }
-        gender
-        nationality
+  deleteUser(user: $user) {
+    userId
+    email
+    firstName
+    lastName
+    photoUrl
+    disciplineIds
+    disciplines {
+      disciplineId
+      name
+      description
     }
-}
-mutation changePassword(
-    $userId: String
-    $oldPassword: String
-    $newPassword: String
-) {
-    changePassword(
-        userId: $userId
-        oldPassword: $oldPassword
-        newPassword: $newPassword
-    ) {
-        userId
+    positionId
+    position {
+      positionId
+      name
+      description
     }
+    departmentId
+    department {
+      departmentId
+      name
+      facultyId
+      faculty {
+        facultyId
+        name
+      }
+    }
+    workFocusName
+    workFocus {
+      name
+      teachingRatio
+      researchRatio
+      serviceRatio
+    }
+    gender
+    nationality
+  }
 }

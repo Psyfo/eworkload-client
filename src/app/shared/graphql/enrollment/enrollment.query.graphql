@@ -1,55 +1,52 @@
-query enrollment($enrollmentYear: String, $qualificationId: String) {
-    enrollment(
-        enrollmentYear: $enrollmentYear
-        qualificationId: $qualificationId
-    ) {
-        enrollmentYear
-        qualification {
-            qualificationId
-            name
-        }
-        firstYearEstimated
-        secondYearEstimated
-        thirdYearEstimated
+query enrollment($id: String!) {
+  enrollment(id: $id) {
+    enrollmentYear
+    qualification {
+      qualificationId
+      name
     }
+    firstYearEstimated
+    secondYearEstimated
+    thirdYearEstimated
+  }
 }
 query enrollments {
-    enrollments {
-        enrollmentYear
-        qualificationId
-        qualification {
-            qualificationId
-            name
-        }
-        firstYearEstimated
-        secondYearEstimated
-        thirdYearEstimated
+  enrollments {
+    enrollmentYear
+    qualificationId
+    qualification {
+      qualificationId
+      name
     }
+    firstYearEstimated
+    secondYearEstimated
+    thirdYearEstimated
+  }
 }
 
-query enrollmentsByQualification($qualificationId: String) {
-    enrollmentsByQualification(qualificationId: $qualificationId) {
-        enrollmentYear
-        qualificationId
-        qualification {
-            qualificationId
-            name
-        }
-        firstYearEstimated
-        secondYearEstimated
-        thirdYearEstimated
+query enrollmentsByQualification($qualificationId: String!) {
+  enrollmentsByQualification(qualificationId: $qualificationId) {
+    enrollmentYear
+    qualificationId
+    qualification {
+      qualificationId
+      name
     }
+    firstYearEstimated
+    secondYearEstimated
+    thirdYearEstimated
+  }
 }
-query enrollmentsByYear($enrollmentYear: String) {
-    enrollmentsByYear(enrollmentYear: $enrollmentYear) {
-        enrollmentYear
-        qualificationId
-        qualification {
-            qualificationId
-            name
-        }
-        firstYearEstimated
-        secondYearEstimated
-        thirdYearEstimated
+query enrollmentsByYear($enrollmentYear: String!) {
+  enrollmentsByYear(enrollmentYear: $enrollmentYear) {
+    enrollmentYear
+    qualificationId
+    qualification {
+      qualificationId
+      name
     }
+    firstYearEstimated
+    secondYearEstimated
+    thirdYearEstimated
+  }
 }
