@@ -5,6 +5,7 @@ import { ApolloLink } from 'apollo-link';
 import { onError } from 'apollo-link-error';
 import { createUploadLink } from 'apollo-upload-client';
 import { ConfirmationService, DialogService } from 'primeng/api';
+import { environment } from 'src/environments/environment';
 
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -118,7 +119,7 @@ export class AppModule {
   ) {
     // Set client uri
     const webLink = httpLink.create({
-      uri: 'http://localhost:5000/graphql'
+      uri: environment.graphqlUrl
     });
     // Set error handling
     const errorLink = onError(({ graphQLErrors, networkError }) => {
@@ -158,7 +159,7 @@ export class AppModule {
       }
     });
     const uploadLink = createUploadLink({
-      uri: 'http://localhost:5000/graphql'
+      uri: environment.graphqlUrl
     });
 
     const link = ApolloLink.from([errorLink, uploadLink]);
