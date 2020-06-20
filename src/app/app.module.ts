@@ -7,7 +7,11 @@ import { createUploadLink } from 'apollo-upload-client';
 import { ConfirmationService, DialogService } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule,
+  LocationStrategy,
+  HashLocationStrategy
+} from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -86,6 +90,7 @@ export const createTranslateLoader = (http: HttpClient) => {
   ],
   declarations: [AppComponent],
   providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     AlertService,
     AuthGuard,
     [{ provide: RouteReuseStrategy, userClass: CustomRouteReuseStrategy }],

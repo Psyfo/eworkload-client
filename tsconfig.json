@@ -1,24 +1,24 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-        "baseUrl": "./",
-        "outDir": "./dist/out-tsc",
-        "sourceMap": true,
-        "declaration": false,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "target": "es2015",
-        "typeRoots": ["node_modules/@types"],
-        "lib": ["es2017", "dom", "esnext.asynciterable"]
-    },
-    "angularCompilerOptions": {
-        "enableIvy": false
-    },
-    "plugins": [
-        {
-            "name": "@angular/language-service"
-        }
-    ]
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["ES5", "ES6", "DOM", "ESNext"]
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false
+  },
+  "plugins": [
+    {
+      "name": "@angular/language-service"
+    }
+  ]
 }
