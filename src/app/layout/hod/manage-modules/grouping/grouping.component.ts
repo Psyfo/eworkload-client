@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./grouping.component.scss']
 })
 export class GroupingComponent implements OnInit {
-  @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
+  @ViewChild('f', { read: NgForm }) form: NgForm;
 
   modules: Module[];
   modModules: any[];

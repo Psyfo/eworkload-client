@@ -28,9 +28,9 @@ import { UserService } from "../../admin/user/user.service";
     styleUrls: ["./hemis-historical.component.scss"]
 })
 export class HemisHistoricalComponent implements OnInit {
-    @ViewChild("hemis", { static: false }) hemis: ElementRef;
-    @ViewChild("userData", { static: false }) userData: ElementRef;
-    @ViewChild("dutyData", { static: false }) dutyData: ElementRef;
+    @ViewChild("hemis") hemis: ElementRef;
+    @ViewChild("userData") userData: ElementRef;
+    @ViewChild("dutyData") dutyData: ElementRef;
 
     userId: string = this.userService.currentUserIdStatic();
     user: User;

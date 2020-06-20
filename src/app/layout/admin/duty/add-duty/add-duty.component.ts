@@ -17,7 +17,7 @@ import { DutyService } from '../duty.service';
 })
 export class AddDutyComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f') form: any;
 
     duty: DutyInput = {};
 

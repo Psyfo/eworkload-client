@@ -15,7 +15,7 @@ import { BlockInput } from 'src/app/shared/generated';
 })
 export class AddBlockComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f') form: any;
 
     blockInput: BlockInput = {};
 

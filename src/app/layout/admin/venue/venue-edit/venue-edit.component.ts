@@ -19,7 +19,7 @@ import { VenueService } from '../venue.service';
 })
 export class VenueEditComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f') form: any;
 
     venueInput: VenueInput = {};
     types = this.venueService.types;

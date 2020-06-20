@@ -20,7 +20,7 @@ import { routerTransition } from 'src/app/router.animations';
 })
 export class AddPersonnelDevelopmentComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f') form: any;
 
     userId = this.userService.currentUserIdStatic();
     dutyId = '48';

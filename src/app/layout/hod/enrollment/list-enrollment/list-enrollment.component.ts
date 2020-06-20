@@ -6,7 +6,7 @@ import { EnrollmentService } from 'src/app/layout/admin/enrollment/enrollment.se
 import { routerTransition } from 'src/app/router.animations';
 import { Enrollment } from 'src/app/shared/generated';
 
-import { Component, OnInit, Renderer } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({

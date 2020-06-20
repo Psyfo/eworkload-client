@@ -26,7 +26,7 @@ import { UserService } from '../../user/user.service';
 })
 export class DepartmentEditComponent implements OnInit {
   breadcrumbs: MenuItem[];
-  @ViewChild('f', { static: false }) form: any;
+  @ViewChild('f') form: any;
 
   faculties: Faculty[];
   selectedFaculty: Faculty;

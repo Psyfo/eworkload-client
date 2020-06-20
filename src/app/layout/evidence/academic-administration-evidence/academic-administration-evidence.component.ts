@@ -8,7 +8,7 @@ import { MenuItem } from 'primeng/components/common/menuitem';
 })
 export class AcademicAdministrationEvidenceComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f') form: any;
     constructor() {}
 
     ngOnInit() {

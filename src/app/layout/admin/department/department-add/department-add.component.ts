@@ -22,7 +22,7 @@ import { DepartmentService } from '../department.service';
 })
 export class DepartmentAddComponent implements OnInit {
   breadcrumbs: MenuItem[];
-  @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
+  @ViewChild('f', { read: NgForm }) form: NgForm;
 
   faculties: Faculty[];
   selectedFaculty: Faculty;

@@ -15,7 +15,7 @@ import { takeUntil } from 'rxjs/operators';
   animations: [routerTransition()]
 })
 export class LoginComponent implements OnInit {
-  @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
+  @ViewChild('f', { read: NgForm }) form: NgForm;
 
   loginData: any = {};
 

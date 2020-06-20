@@ -18,7 +18,7 @@ import { routerTransition } from 'src/app/router.animations';
 })
 export class AddStudentComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f') form: any;
 
     student: any = {};
     qualifications: Qualification[] = [];

@@ -25,7 +25,7 @@ import { NgForm } from '@angular/forms';
 })
 export class EditSupervisionComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
+    @ViewChild('f', { read: NgForm }) form: NgForm;
 
     userId = this.userService.currentUserIdStatic();
     dutyId = '11';

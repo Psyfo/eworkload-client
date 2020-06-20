@@ -19,7 +19,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class AddResearchComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f') form: any;
 
     userId = this.userService.currentUserIdStatic();
     dutyId = '20';

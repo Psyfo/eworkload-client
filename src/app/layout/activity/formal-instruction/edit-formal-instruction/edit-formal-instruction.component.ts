@@ -32,7 +32,7 @@ import { group } from '@angular/animations';
 })
 export class EditFormalInstructionComponent implements OnInit {
   breadcrumbs: MenuItem[];
-  @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
+  @ViewChild('f', { read: NgForm }) form: NgForm;
 
   userId = this.userService.currentUserIdStatic();
   dutyId = '11';

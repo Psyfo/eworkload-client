@@ -18,7 +18,7 @@ import { BlockService } from '../block.service';
 })
 export class EditBlockComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f') form: any;
 
     blockModel: Block;
 

@@ -20,7 +20,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EditEnrollmentComponent implements OnInit {
   breadcrumbs: MenuItem[];
-  @ViewChild('f', { static: false }) form: any;
+  @ViewChild('f') form: any;
 
   enrollment: Enrollment;
   enrollmentInput: EnrollmentInput = {};

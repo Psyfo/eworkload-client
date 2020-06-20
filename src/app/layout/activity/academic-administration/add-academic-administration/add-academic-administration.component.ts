@@ -32,7 +32,7 @@ import { AcademicAdministrationService } from '../academic-administration.servic
 })
 export class AddAcademicAdministrationComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
+    @ViewChild('f', { read: NgForm }) form: NgForm;
 
     activityModel: AcademicAdministrationActivity = {};
     userId = this.userService.currentUserIdStatic();

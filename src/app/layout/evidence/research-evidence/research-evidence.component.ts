@@ -18,7 +18,7 @@ import { UploadService } from 'src/app/shared/services';
 })
 export class ResearchEvidenceComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f') form: any;
 
     userId = this.userService.currentUserIdStatic();
     currentUserId = this.userId;

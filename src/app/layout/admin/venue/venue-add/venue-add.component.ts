@@ -20,7 +20,7 @@ import { VenueService } from '../venue.service';
 })
 export class VenueAddComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f') form: any;
     types = this.venueService.types;
     campuses = this.venueService.campuses;
 

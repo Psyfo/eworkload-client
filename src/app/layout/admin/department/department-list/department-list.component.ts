@@ -5,7 +5,7 @@ import { routerTransition } from 'src/app/router.animations';
 import { Department, DepartmentInput } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
-import { Component, OnInit, Renderer, SimpleChanges } from '@angular/core';
+import { Component, OnInit, SimpleChanges, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DepartmentService } from '../department.service';

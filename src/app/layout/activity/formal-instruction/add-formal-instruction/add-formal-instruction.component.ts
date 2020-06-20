@@ -22,7 +22,7 @@ import { FormalInstructionService } from '../formal-instruction.service';
 })
 export class AddFormalInstructionComponent implements OnInit {
   breadcrumbs: MenuItem[];
-  @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
+  @ViewChild('f', { read: NgForm }) form: NgForm;
 
   userId = this.userService.currentUserIdStatic();
   dutyId = '11';

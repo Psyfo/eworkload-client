@@ -32,7 +32,7 @@ import { SelectItem } from 'primeng/components/common/selectitem';
 })
 export class ModuleAddComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
+    @ViewChild('f', { read: NgForm }) form: NgForm;
 
     moduleInput: ModuleInput = {};
     selectedDiscipline: Discipline;

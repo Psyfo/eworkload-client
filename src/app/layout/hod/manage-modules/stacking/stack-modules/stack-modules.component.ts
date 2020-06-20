@@ -15,7 +15,7 @@ import { NgForm } from '@angular/forms';
   animations: [routerTransition()]
 })
 export class StackModulesComponent implements OnInit {
-  @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
+  @ViewChild('f', { read: NgForm }) form: NgForm;
 
   modules: Module[];
   unstackedModules: Module[];

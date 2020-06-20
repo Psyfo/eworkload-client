@@ -33,7 +33,7 @@ import { ModuleService } from '../module.service';
 })
 export class ModuleEditComponent implements OnInit {
   breadcrumbs: MenuItem[];
-  @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
+  @ViewChild('f', { read: NgForm }) form: NgForm;
 
   moduleModel: Module = null;
   moduleInput: ModuleInput = {};

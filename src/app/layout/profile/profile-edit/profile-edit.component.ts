@@ -32,7 +32,7 @@ import { WorkFocusService } from '../../admin/work-focus/work-focus.service';
 })
 export class ProfileEditComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
+    @ViewChild('f', { read: NgForm }) form: NgForm;
 
     genders = this.userService.genders;
     selectedGender: SelectItem;

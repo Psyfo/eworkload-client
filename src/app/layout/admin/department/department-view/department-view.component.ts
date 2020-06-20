@@ -6,7 +6,7 @@ import { routerTransition } from 'src/app/router.animations';
 import { Department, DepartmentInput } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
-import { Component, OnInit, Renderer } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 

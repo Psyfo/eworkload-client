@@ -24,7 +24,7 @@ import { NgForm } from '@angular/forms';
 })
 export class EditResearchComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
+    @ViewChild('f', { read: NgForm }) form: NgForm;
 
     outputs = this.researchService.outputTypes;
     selectedOutput: SelectItem;

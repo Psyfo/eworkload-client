@@ -3,7 +3,7 @@ import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
 import { Discipline } from 'src/app/shared/generated';
 
-import { Component, OnInit, Renderer, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DisciplineService } from '../discipline.service';

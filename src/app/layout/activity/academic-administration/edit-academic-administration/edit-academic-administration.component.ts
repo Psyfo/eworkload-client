@@ -24,7 +24,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class EditAcademicAdministrationComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
+    @ViewChild('f', { read: NgForm }) form: NgForm;
 
     activityModel: AcademicAdministrationActivity = {};
     userId = this.userService.currentUserIdStatic();

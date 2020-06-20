@@ -27,7 +27,7 @@ import { SupervisionService } from "../supervision.service";
 })
 export class AddSupervisionComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild("f", { static: false }) form: any;
+    @ViewChild("f") form: any;
 
     userId = this.userService.currentUserIdStatic();
     dutyId = "11";

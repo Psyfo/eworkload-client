@@ -22,7 +22,7 @@ import { QualificationService } from '../qualification.service';
 })
 export class QualificationEditComponent implements OnInit {
   breadcrumbs: MenuItem[];
-  @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
+  @ViewChild('f', { read: NgForm }) form: NgForm;
 
   qualificationModel: Qualification;
   qualificationInput: QualificationInput = {};

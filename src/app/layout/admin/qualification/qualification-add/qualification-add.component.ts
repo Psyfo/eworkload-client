@@ -21,7 +21,7 @@ import { Department, QualificationInput } from 'src/app/shared/generated';
 })
 export class QualificationAddComponent implements OnInit {
   breadcrumbs: MenuItem[];
-  @ViewChild('f', { static: false }) form: any;
+  @ViewChild('f') form: any;
 
   qualificationInput: QualificationInput = {};
   departments: Department[];

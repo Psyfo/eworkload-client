@@ -21,7 +21,7 @@ import { DepartmentService } from '../../department/department.service';
 })
 export class AddUserComponent implements OnInit {
     breadcrumbs: MenuItem[];
-    @ViewChild('f', { static: false }) form: any;
+    @ViewChild('f') form: any;
 
     userInput: UserInput = {};
     positions: Position[];

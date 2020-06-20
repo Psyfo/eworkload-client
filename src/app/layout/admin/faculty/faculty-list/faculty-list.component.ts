@@ -5,7 +5,7 @@ import { routerTransition } from 'src/app/router.animations';
 import { Faculty, FacultyInput } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
-import { Component, OnInit, Renderer } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { FacultyService } from '../faculty.service';

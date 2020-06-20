@@ -93,7 +93,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     AlertService,
     AuthGuard,
-    [{ provide: RouteReuseStrategy, userClass: CustomRouteReuseStrategy }],
+    [{ provide: RouteReuseStrategy, userClass: CustomRouteReuseStrategy, useValue: undefined }],
     ActivityService,
     BlockService,
     ConfirmationService,

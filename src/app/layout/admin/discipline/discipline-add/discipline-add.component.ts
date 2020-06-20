@@ -19,7 +19,7 @@ import { MenuItem } from 'primeng/components/common/menuitem';
 })
 export class DisciplineAddComponent implements OnInit {
   breadcrumbs: MenuItem[];
-  @ViewChild('f', { static: false, read: NgForm }) form: NgForm;
+  @ViewChild('f', { read: NgForm }) form: NgForm;
 
   disciplineInput: DisciplineInput = {};
   isSubmitting: boolean;
