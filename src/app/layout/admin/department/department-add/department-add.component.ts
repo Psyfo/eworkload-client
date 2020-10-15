@@ -1,5 +1,5 @@
-import { MenuItem } from 'primeng/components/common/menuitem';
-import { SelectItem } from 'primeng/components/common/selectitem';
+import { MenuItem } from 'primeng/api/menuitem';
+import { SelectItem } from 'primeng/api/selectitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -61,10 +61,10 @@ export class DepartmentAddComponent implements OnInit {
       .getFaculties()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.faculties = result.data.faculties;
         },
-        err => {
+        (err) => {
           this.alertService.errorToast(err);
           console.warn(err);
         }
@@ -75,15 +75,15 @@ export class DepartmentAddComponent implements OnInit {
       .getUsers()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
-          this.users = result.data.users.map(user => {
+        (result) => {
+          this.users = result.data.users.map((user) => {
             const label = `${user.userId} - ${user.firstName} ${user.lastName}`;
             let hod: any = user;
             hod.label = label;
             return hod;
           });
         },
-        err => {
+        (err) => {
           this.alertService.errorToast(err);
           console.warn(err);
         }
@@ -99,13 +99,13 @@ export class DepartmentAddComponent implements OnInit {
       .addDepartment(this.departmentInput)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.alertService.successToast(
             `Department ${this.departmentInput.departmentId} added`
           );
           this.router.navigate(['admin/department']);
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );

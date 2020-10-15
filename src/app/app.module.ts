@@ -1,16 +1,7 @@
-import { Apollo, ApolloModule } from 'apollo-angular';
-import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloLink } from 'apollo-link';
-import { onError } from 'apollo-link-error';
-import { createUploadLink } from 'apollo-upload-client';
-import { ConfirmationService, DialogService } from 'primeng/api';
-import { environment } from 'src/environments/environment';
-
 import {
   CommonModule,
-  LocationStrategy,
-  HashLocationStrategy
+  HashLocationStrategy,
+  LocationStrategy
 } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -20,6 +11,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { Apollo, ApolloModule } from 'apollo-angular';
+import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloLink } from 'apollo-link';
+import { onError } from 'apollo-link-error';
+import { createUploadLink } from 'apollo-upload-client';
+import { MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,7 +39,6 @@ import { StudentService } from './layout/admin/student/student.service';
 import { UserService } from './layout/admin/user/user.service';
 import { VenueService } from './layout/admin/venue/venue.service';
 import { WorkFocusService } from './layout/admin/work-focus/work-focus.service';
-import { ManageModulesModule } from './layout/hod/manage-modules/manage-modules.module';
 import { StaffSummaryModule } from './layout/hod/staff-summary/staff-summary.module';
 import { AuthGuard } from './shared/guard';
 import { CustomRouteReuseStrategy } from './shared/helpers';
@@ -93,7 +93,13 @@ export const createTranslateLoader = (http: HttpClient) => {
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     AlertService,
     AuthGuard,
-    [{ provide: RouteReuseStrategy, userClass: CustomRouteReuseStrategy, useValue: undefined }],
+    [
+      {
+        provide: RouteReuseStrategy,
+        userClass: CustomRouteReuseStrategy,
+        useValue: undefined
+      }
+    ],
     ActivityService,
     BlockService,
     ConfirmationService,
@@ -101,6 +107,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     DutyService,
     EnrollmentService,
     FacultyService,
+    MessageService,
     ModuleService,
     OfferingTypeService,
     PositionService,

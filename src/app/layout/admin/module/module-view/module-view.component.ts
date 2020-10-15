@@ -1,4 +1,4 @@
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { AlertService } from './../../../../shared/modules/alert/alert.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -46,25 +46,25 @@ export class ModuleViewComponent implements OnInit {
     this.activatedRoute.queryParamMap
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           const id = result.get('id');
 
           this.moduleService
             .module(id)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
-              result => {
+              (result) => {
                 this.module = result.data.module;
                 this.alertService.successToast(
                   `Loaded module ${this.module.id}`
                 );
               },
-              err => {
+              (err) => {
                 console.error(err);
               }
             );
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );

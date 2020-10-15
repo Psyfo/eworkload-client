@@ -1,9 +1,14 @@
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UserService } from 'src/app/layout/admin/user/user.service';
 import { routerTransition } from 'src/app/router.animations';
-import { Block, FormalInstructionActivity, Module, FormalInstructionActivityInput } from 'src/app/shared/generated';
+import {
+  Block,
+  FormalInstructionActivity,
+  Module,
+  FormalInstructionActivityInput
+} from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 import { WorkloadService } from 'src/app/shared/services';
 
@@ -33,7 +38,11 @@ export class ListFormalInstructionComponent implements OnInit {
   selectedActivity: FormalInstructionActivity;
   selectedWorkload: any;
   userId: string = this.userService.currentUserIdStatic();
-  statuses = [{ label: 'Awaiting' }, { label: 'Approved' }, { label: 'Review' }];
+  statuses = [
+    { label: 'Awaiting' },
+    { label: 'Approved' },
+    { label: 'Review' }
+  ];
 
   private unsubscribe = new Subject();
 
@@ -51,17 +60,17 @@ export class ListFormalInstructionComponent implements OnInit {
       {
         label: 'View',
         icon: 'pi pi-search',
-        command: event => this.onContextView(event)
+        command: (event) => this.onContextView(event)
       },
       {
         label: 'Edit',
         icon: 'pi pi-pencil',
-        command: event => this.onContextEdit(event)
+        command: (event) => this.onContextEdit(event)
       },
       {
         label: 'Delete',
         icon: 'pi pi-trash',
-        command: event => this.onContextDelete(event)
+        command: (event) => this.onContextDelete(event)
       }
     ];
     this.cols = [
@@ -89,44 +98,58 @@ export class ListFormalInstructionComponent implements OnInit {
       .formalInstructionActivitiesByUser(this.userId)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.loading = result.loading;
-          this.activities = result.data.formalInstructionActivitiesByUser.map(activity => {
-            let mod: any = activity;
-            mod.groupLabel = `${activity.group.groupId}`;
-            mod.moduleLabel = `${activity.group.module.moduleId} - ${activity.group.module.name}`;
-            mod.blockLabel = `${activity.group.module.block.name} (${activity.group.module.block.blockId})`;
-            mod.offeringTypeLabel = `${activity.group.module.offeringType.description} (${activity.group.module.offeringType.offeringTypeId})`;
-            mod.qualificationLabel = `${activity.group.module.qualification.name} (${activity.group.module.qualification.qualificationId})`;
-            mod.studentsEnrolledLabel = `${activity.group.module.studentsEnrolled}`;
-            mod.isCoordinatorLabel = activity.isCoordinator ? 'True' : 'False';
+          this.activities = result.data.formalInstructionActivitiesByUser.map(
+            (activity) => {
+              let mod: any = activity;
+              mod.groupLabel = `${activity.group.groupId}`;
+              mod.moduleLabel = `${activity.group.module.moduleId} - ${activity.group.module.name}`;
+              mod.blockLabel = `${activity.group.module.block.name} (${activity.group.module.block.blockId})`;
+              mod.offeringTypeLabel = `${activity.group.module.offeringType.description} (${activity.group.module.offeringType.offeringTypeId})`;
+              mod.qualificationLabel = `${activity.group.module.qualification.name} (${activity.group.module.qualification.qualificationId})`;
+              mod.studentsEnrolledLabel = `${activity.group.module.studentsEnrolled}`;
+              mod.isCoordinatorLabel = activity.isCoordinator
+                ? 'True'
+                : 'False';
 
-            return mod;
-          });
+              return mod;
+            }
+          );
         },
-        err => {
+        (err) => {
           console.warn(err);
         }
       );
   }
 
   onContextView(event) {
-    this.alertService.infoToast(`Activity: ${this.selectedActivity.activityId} selected`);
+    this.alertService.infoToast(
+      `Activity: ${this.selectedActivity.activityId} selected`
+    );
 
-    this.router.navigate(['activity/formal-instruction/view', this.selectedActivity.activityId], {
-      queryParams: {
-        activityId: this.selectedActivity.activityId
+    this.router.navigate(
+      ['activity/formal-instruction/view', this.selectedActivity.activityId],
+      {
+        queryParams: {
+          activityId: this.selectedActivity.activityId
+        }
       }
-    });
+    );
   }
   onContextEdit(event) {
-    this.alertService.infoToast(`Activity: ${this.selectedActivity.activityId} selected`);
+    this.alertService.infoToast(
+      `Activity: ${this.selectedActivity.activityId} selected`
+    );
 
-    this.router.navigate(['activity/formal-instruction/edit', this.selectedActivity.activityId], {
-      queryParams: {
-        activityId: this.selectedActivity.activityId
+    this.router.navigate(
+      ['activity/formal-instruction/edit', this.selectedActivity.activityId],
+      {
+        queryParams: {
+          activityId: this.selectedActivity.activityId
+        }
       }
-    });
+    );
   }
   onContextDelete(event) {
     this.alertService.confirm('formalInstructionActivityDelete');
@@ -143,19 +166,24 @@ export class ListFormalInstructionComponent implements OnInit {
       .deleteFormalInstructionActivity(activityInput)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {},
-        err => {
+        (result) => {},
+        (err) => {
           console.error(err);
         }
       );
     this.alertService.successToast('Activity Deleted');
   }
   onRowSelect(event) {
-    this.alertService.infoToast(`Activity: ${this.selectedActivity.activityId} selected`);
-    this.router.navigate(['activity/formal-instruction/view', this.selectedActivity.activityId], {
-      queryParams: {
-        activityId: this.selectedActivity.activityId
+    this.alertService.infoToast(
+      `Activity: ${this.selectedActivity.activityId} selected`
+    );
+    this.router.navigate(
+      ['activity/formal-instruction/view', this.selectedActivity.activityId],
+      {
+        queryParams: {
+          activityId: this.selectedActivity.activityId
+        }
       }
-    });
+    );
   }
 }

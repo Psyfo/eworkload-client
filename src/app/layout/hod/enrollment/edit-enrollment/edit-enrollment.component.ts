@@ -1,5 +1,5 @@
 import { AlertService } from 'src/app/shared/modules';
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { EnrollmentInput } from './../../../../shared/generated/output';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -38,19 +38,28 @@ export class EditEnrollmentComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.queryParamMap.pipe(takeUntil(this.unsubscribe)).subscribe(
-      result => {
-        const qualificationId = result.get('qualificationId');
-        const enrollmentYear = result.get('enrollmentYear');
-        const id = result.get('id');
-        this.alertService.successToast(`${qualificationId}(${enrollmentYear})`);
-        this.getEnrollment(id);
-        this.breadcrumbs = [{ label: 'hod' }, { label: 'enrollment' }, { label: 'edit' }, { label: qualificationId }];
-      },
-      err => {
-        this.alertService.errorToast(err);
-      }
-    );
+    this.activatedRoute.queryParamMap
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        (result) => {
+          const qualificationId = result.get('qualificationId');
+          const enrollmentYear = result.get('enrollmentYear');
+          const id = result.get('id');
+          this.alertService.successToast(
+            `${qualificationId}(${enrollmentYear})`
+          );
+          this.getEnrollment(id);
+          this.breadcrumbs = [
+            { label: 'hod' },
+            { label: 'enrollment' },
+            { label: 'edit' },
+            { label: qualificationId }
+          ];
+        },
+        (err) => {
+          this.alertService.errorToast(err);
+        }
+      );
     this.getQualifications();
   }
   ngOnDestroy(): void {
@@ -63,7 +72,7 @@ export class EditEnrollmentComponent implements OnInit {
       .enrollment(id)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.enrollment = result.data.enrollment;
           this.enrollmentInput = {};
           this.enrollmentInput = {
@@ -75,7 +84,7 @@ export class EditEnrollmentComponent implements OnInit {
             thirdYearEstimated: this.enrollment.thirdYearEstimated
           };
         },
-        err => {
+        (err) => {
           this.alertService.errorToast(err);
           console.warn(err);
         }
@@ -86,7 +95,7 @@ export class EditEnrollmentComponent implements OnInit {
     this.qualificationService
       .qualificationsUnenrolled()
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(result => {
+      .subscribe((result) => {
         this.qualifications = result.data.qualificationsUnenrolled;
       });
   }
@@ -96,17 +105,20 @@ export class EditEnrollmentComponent implements OnInit {
       .editEnrollment(this.enrollmentInput)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {},
-        err => {
+        (result) => {},
+        (err) => {
           this.alertService.errorToast(err);
           console.warn(err);
         }
       );
-    this.router.navigate(['hod/enrollment/view', this.enrollment.qualificationId], {
-      queryParams: {
-        id: this.enrollment.id
+    this.router.navigate(
+      ['hod/enrollment/view', this.enrollment.qualificationId],
+      {
+        queryParams: {
+          id: this.enrollment.id
+        }
       }
-    });
+    );
   }
   onBack(event) {
     this.router.navigate(['hod/enrollment']);

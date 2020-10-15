@@ -15,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { FacultyService } from '../../faculty/faculty.service';
 import { DepartmentService } from '../department.service';
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { UserService } from '../../user/user.service';
 
 @Component({
@@ -66,25 +66,26 @@ export class DepartmentEditComponent implements OnInit {
     this.activatedRoute.queryParamMap
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           const departmentId = result.get('departmentId');
           this.departmentService
             .department(departmentId)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
+            .subscribe((result) => {
               this.departmentModel = result.data.department;
               this.selectedFaculty = this.faculties.find(
-                faculty => faculty.facultyId === this.departmentModel.facultyId
+                (faculty) =>
+                  faculty.facultyId === this.departmentModel.facultyId
               );
 
               if (this.departmentModel.hodId) {
                 this.selectedHod = this.users.find(
-                  user => user.userId === this.departmentModel.hodId
+                  (user) => user.userId === this.departmentModel.hodId
                 );
               }
             });
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
@@ -94,10 +95,10 @@ export class DepartmentEditComponent implements OnInit {
       .getFaculties()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.faculties = result.data.faculties;
         },
-        err => {
+        (err) => {
           this.alertService.errorToast(err);
           console.error(err);
         }
@@ -108,15 +109,15 @@ export class DepartmentEditComponent implements OnInit {
       .getUsers()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
-          this.users = result.data.users.map(user => {
+        (result) => {
+          this.users = result.data.users.map((user) => {
             const label = `${user.userId} - ${user.firstName} ${user.lastName}`;
             let hod: any = user;
             hod.label = label;
             return hod;
           });
         },
-        err => {
+        (err) => {
           this.alertService.errorToast(err);
           console.error(err);
         }
@@ -137,11 +138,11 @@ export class DepartmentEditComponent implements OnInit {
       .editDepartment(this.departmentInput)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.alertService.successToast('Department edited');
           this.router.navigate(['admin/department']);
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );

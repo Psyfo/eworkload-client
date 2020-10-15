@@ -1,11 +1,15 @@
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GroupService } from 'src/app/layout/admin/group/group.service';
 import { ModuleService } from 'src/app/layout/admin/module/module.service';
 import { UserService } from 'src/app/layout/admin/user/user.service';
 import { routerTransition } from 'src/app/router.animations';
-import { FormalInstructionActivityInput, Group, Module } from 'src/app/shared/generated';
+import {
+  FormalInstructionActivityInput,
+  Group,
+  Module
+} from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -48,7 +52,11 @@ export class AddFormalInstructionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.breadcrumbs = [{ label: 'activity' }, { label: 'formal-instruction' }, { label: 'add' }];
+    this.breadcrumbs = [
+      { label: 'activity' },
+      { label: 'formal-instruction' },
+      { label: 'add' }
+    ];
     this.getModulesByDiscipline();
   }
   ngOnDestroy(): void {
@@ -60,19 +68,21 @@ export class AddFormalInstructionComponent implements OnInit {
     this.userService
       .currentUser()
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(result => {
+      .subscribe((result) => {
         const user = result.data.user;
         this.moduleService
           .modulesByDiscipline(user.disciplineIds)
           .pipe(takeUntil(this.unsubscribe))
-          .subscribe(result => {
-            this.modules = result.data.modulesByDiscipline.map((module: Module) => {
-              let mod: any = module;
-              if (mod) {
-                mod.label = `${module.moduleId} - ${module.name} (${module.block.name}) (${module.offeringType.description})`;
+          .subscribe((result) => {
+            this.modules = result.data.modulesByDiscipline.map(
+              (module: Module) => {
+                let mod: any = module;
+                if (mod) {
+                  mod.label = `${module.moduleId} - ${module.name} (${module.block.name}) (${module.offeringType.description})`;
+                }
+                return mod;
               }
-              return mod;
-            });
+            );
           });
       });
   }
@@ -81,7 +91,7 @@ export class AddFormalInstructionComponent implements OnInit {
       .groupsByModule(moduleId)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.groups = result.data.groupsByModule.map((group: Group) => {
             let mod: any = group;
             if (group.module) {
@@ -90,7 +100,7 @@ export class AddFormalInstructionComponent implements OnInit {
             return mod;
           });
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
@@ -113,7 +123,7 @@ export class AddFormalInstructionComponent implements OnInit {
     this.formalInstructionService
       .addFormalInstructionActivity(this.activityInput)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(result => {
+      .subscribe((result) => {
         console.log('FI Activity added:', result);
 
         this.isSubmitting = false;

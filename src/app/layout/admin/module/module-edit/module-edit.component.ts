@@ -1,5 +1,5 @@
-import { MenuItem } from 'primeng/components/common/menuitem';
-import { SelectItem } from 'primeng/components/common/selectitem';
+import { MenuItem } from 'primeng/api/menuitem';
+import { SelectItem } from 'primeng/api/selectitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -90,51 +90,51 @@ export class ModuleEditComponent implements OnInit {
     this.activatedRoute.queryParamMap
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           const id = result.get('id');
 
           this.moduleService
             .module(id)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
-              result => {
+              (result) => {
                 this.moduleModel = result.data.module;
 
                 this.selectedAssessmentMethod = this.assessmentMethods.find(
-                  assessementMethod =>
+                  (assessementMethod) =>
                     assessementMethod.label ===
                     this.moduleModel.assessmentMethod
                 );
                 this.selectedType = this.types.find(
-                  type => type.label === this.moduleModel.type
+                  (type) => type.label === this.moduleModel.type
                 );
                 this.selectedBlock = this.blocks.find(
-                  block => block.blockId === this.moduleModel.blockId
+                  (block) => block.blockId === this.moduleModel.blockId
                 );
                 this.selectedOfferingType = this.offeringTypes.find(
-                  offeringType =>
+                  (offeringType) =>
                     offeringType.offeringTypeId ===
                     this.moduleModel.offeringTypeId
                 );
                 this.selectedQualification = this.qualifications.find(
-                  qualification =>
+                  (qualification) =>
                     qualification.qualificationId ===
                     this.moduleModel.qualificationId
                 );
                 this.selectedDiscipline = this.disciplines.find(
-                  discipline =>
+                  (discipline) =>
                     discipline.disciplineId === this.moduleModel.disciplineId
                 );
                 this.selectedVenue = this.venues.find(
-                  venue => venue.venueId === this.moduleModel.venueId
+                  (venue) => venue.venueId === this.moduleModel.venueId
                 );
               },
-              err => {
+              (err) => {
                 console.error(err);
               }
             );
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
@@ -145,10 +145,10 @@ export class ModuleEditComponent implements OnInit {
       .blocks()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.blocks = result.data.blocks;
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
@@ -158,10 +158,10 @@ export class ModuleEditComponent implements OnInit {
       .getOfferingTypes()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.offeringTypes = result.data.offeringTypes;
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
@@ -171,10 +171,10 @@ export class ModuleEditComponent implements OnInit {
       .qualifications()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.qualifications = result.data.qualifications;
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
@@ -184,10 +184,10 @@ export class ModuleEditComponent implements OnInit {
       .disciplines()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.disciplines = result.data.disciplines;
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
@@ -197,15 +197,15 @@ export class ModuleEditComponent implements OnInit {
       .getVenues()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
-          this.venues = result.data.venues.map(venue => {
+        (result) => {
+          this.venues = result.data.venues.map((venue) => {
             const label = `${venue.venueId} (${venue.type})`;
             let modifiedVenue: any = venue;
             modifiedVenue.label = label;
             return modifiedVenue;
           });
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
@@ -237,14 +237,14 @@ export class ModuleEditComponent implements OnInit {
         .editModule(this.moduleInput)
         .pipe(takeUntil(this.unsubscribe))
         .subscribe(
-          result => {
+          (result) => {
             this.isSubmitting = false;
             this.alertService.successToast(
               `Module ${result.data.editModule.moduleId} edited`
             );
             this.router.navigate(['admin/module']);
           },
-          err => {
+          (err) => {
             console.error(err);
           }
         );

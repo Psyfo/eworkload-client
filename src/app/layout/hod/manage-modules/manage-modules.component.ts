@@ -1,4 +1,4 @@
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { routerTransition } from 'src/app/router.animations';
 import { AlertService } from 'src/app/shared/modules';
 

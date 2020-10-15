@@ -1,5 +1,5 @@
 import { File, UsersByPositionGQL } from './../../../shared/generated/output';
-import { SelectItem } from 'primeng/components/common/selectitem';
+import { SelectItem } from 'primeng/api/selectitem';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
@@ -78,8 +78,8 @@ export class UserService {
       )
       .valueChanges.pipe(
         map(
-          result => result,
-          err => err
+          (result) => result,
+          (err) => err
         )
       );
   }
@@ -96,8 +96,8 @@ export class UserService {
       )
       .valueChanges.pipe(
         map(
-          result => result,
-          err => err
+          (result) => result,
+          (err) => err
         )
       );
   }
@@ -112,8 +112,8 @@ export class UserService {
       )
       .valueChanges.pipe(
         map(
-          result => result,
-          err => err
+          (result) => result,
+          (err) => err
         )
       );
   }
@@ -128,8 +128,8 @@ export class UserService {
       )
       .valueChanges.pipe(
         map(
-          result => result,
-          err => err
+          (result) => result,
+          (err) => err
         )
       );
   }
@@ -137,8 +137,8 @@ export class UserService {
   addUser(user: UserInput) {
     return this.addUserGql.mutate({ user: user }).pipe(
       map(
-        result => result,
-        err => err
+        (result) => result,
+        (err) => err
       )
     );
   }
@@ -146,8 +146,8 @@ export class UserService {
   editUser(user: UserInput) {
     return this.editUserGql.mutate({ user: user }).pipe(
       map(
-        result => result,
-        err => err
+        (result) => result,
+        (err) => err
       )
     );
   }
@@ -155,8 +155,8 @@ export class UserService {
   deleteUser(user: UserInput) {
     return this.deleteUserGql.mutate({ user: user }).pipe(
       map(
-        result => result,
-        err => err
+        (result) => result,
+        (err) => err
       )
     );
   }

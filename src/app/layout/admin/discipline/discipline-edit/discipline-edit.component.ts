@@ -1,4 +1,4 @@
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -34,7 +34,11 @@ export class DisciplineEditComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.breadcrumbs = [{ label: 'admin' }, { label: 'discipline' }, { label: 'edit' }];
+    this.breadcrumbs = [
+      { label: 'admin' },
+      { label: 'discipline' },
+      { label: 'edit' }
+    ];
     this.getDiscipline();
   }
   ngOnDestroy(): void {
@@ -43,25 +47,27 @@ export class DisciplineEditComponent implements OnInit {
   }
 
   getDiscipline() {
-    this.activatedRoute.queryParamMap.pipe(takeUntil(this.unsubscribe)).subscribe(
-      result => {
-        const disciplineId = result.get('disciplineId');
-        this.disciplineService
-          .discipline(disciplineId)
-          .pipe(takeUntil(this.unsubscribe))
-          .subscribe(
-            result => {
-              this.disciplineModel = result.data.discipline;
-            },
-            err => {
-              console.error(err);
-            }
-          );
-      },
-      err => {
-        console.error(err);
-      }
-    );
+    this.activatedRoute.queryParamMap
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        (result) => {
+          const disciplineId = result.get('disciplineId');
+          this.disciplineService
+            .discipline(disciplineId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(
+              (result) => {
+                this.disciplineModel = result.data.discipline;
+              },
+              (err) => {
+                console.error(err);
+              }
+            );
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
   }
   onSubmit() {
     this.isSubmitting = true;
@@ -74,9 +80,11 @@ export class DisciplineEditComponent implements OnInit {
     this.disciplineService
       .editDiscipline(this.disciplineInput)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(result => {
+      .subscribe((result) => {
         this.isSubmitting = false;
-        this.alertService.successToast(`Discipline ${this.disciplineInput.disciplineId} edited`);
+        this.alertService.successToast(
+          `Discipline ${this.disciplineInput.disciplineId} edited`
+        );
         this.router.navigate(['admin/discipline']);
       });
   }

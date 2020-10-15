@@ -1,4 +1,4 @@
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -44,17 +44,17 @@ export class FacultyListComponent implements OnInit {
       {
         label: 'View',
         icon: 'pi pi-search',
-        command: event => this.onContextView(event)
+        command: (event) => this.onContextView(event)
       },
       {
         label: 'Edit',
         icon: 'pi pi-pencil',
-        command: event => this.onContextEdit(event)
+        command: (event) => this.onContextEdit(event)
       },
       {
         label: 'Delete',
         icon: 'pi pi-trash',
-        command: event => this.onContextDelete(event)
+        command: (event) => this.onContextDelete(event)
       }
     ];
     this.cols = [
@@ -77,11 +77,11 @@ export class FacultyListComponent implements OnInit {
       .getFaculties()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.faculties = result.data.faculties;
           this.loading = false;
         },
-        err => {
+        (err) => {
           console.warn(err);
         }
       );
@@ -145,10 +145,10 @@ export class FacultyListComponent implements OnInit {
       .deleteFaculty(facultyInput)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.alertService.successToast('Faculty Deleted');
         },
-        err => {
+        (err) => {
           this.alertService.errorToast(err, 'errorToast');
         }
       );

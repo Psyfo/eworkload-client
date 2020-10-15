@@ -1,7 +1,7 @@
-import { SelectItem } from 'primeng/components/common/selectitem';
+import { SelectItem } from 'primeng/api/selectitem';
 import { NgForm } from '@angular/forms';
 import { routerTransition } from 'src/app/router.animations';
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Department, QualificationInput } from 'src/app/shared/generated';
@@ -58,24 +58,24 @@ export class QualificationEditComponent implements OnInit {
   getQualification() {
     this.activatedRoute.queryParamMap
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(result => {
+      .subscribe((result) => {
         const qualificationId = result.get('qualificationId');
         this.qualificationService
           .qualification(qualificationId)
           .pipe(takeUntil(this.unsubscribe))
           .subscribe(
-            result => {
+            (result) => {
               this.qualificationModel = result.data.qualification;
               this.selectedDepartment = this.departments.find(
-                department =>
+                (department) =>
                   department.departmentId ===
                   this.qualificationModel.departmentId
               );
               this.selectedType = this.types.find(
-                type => type.value === this.qualificationModel.type
+                (type) => type.value === this.qualificationModel.type
               );
             },
-            err => {
+            (err) => {
               console.warn(err);
             }
           );
@@ -86,10 +86,10 @@ export class QualificationEditComponent implements OnInit {
       .departments()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.departments = result.data.departments;
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
@@ -107,7 +107,7 @@ export class QualificationEditComponent implements OnInit {
       .editQualification(this.qualificationInput)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.isSubmitting = false;
           this.alertService.successToast(
             `Qualification ${this.qualificationInput.qualificationId} edited`
@@ -115,7 +115,7 @@ export class QualificationEditComponent implements OnInit {
 
           this.router.navigate(['admin/qualification']);
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );

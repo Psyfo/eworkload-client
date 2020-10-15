@@ -1,14 +1,13 @@
-import { DialogService } from 'primeng/api';
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api/menuitem';
+import { DialogService } from 'primeng/dynamicdialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ModuleService } from 'src/app/layout/admin/module/module.service';
 import { routerTransition } from 'src/app/router.animations';
 import { Module, ModuleInput } from 'src/app/shared/generated';
 import { AlertService } from 'src/app/shared/modules';
-
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-module-enrollments',
@@ -49,17 +48,17 @@ export class ModuleEnrollmentsComponent implements OnInit {
       {
         label: 'View',
         icon: 'pi pi-search',
-        command: event => this.onContextView(event)
+        command: (event) => this.onContextView(event)
       },
       {
         label: 'Edit',
         icon: 'pi pi-pencil',
-        command: event => this.onContextEdit(event)
+        command: (event) => this.onContextEdit(event)
       },
       {
         label: 'Delete',
         icon: 'pi pi-trash',
-        command: event => this.onContextDelete(event)
+        command: (event) => this.onContextDelete(event)
       }
     ];
 
@@ -76,8 +75,8 @@ export class ModuleEnrollmentsComponent implements OnInit {
       .modules()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
-          this.modules = result.data.modules.map(module => {
+        (result) => {
+          this.modules = result.data.modules.map((module) => {
             const mod: any = module as any;
             if (module.block) {
               mod.blockLabel = `${module.block.name} (${module.block.blockId})`;
@@ -96,7 +95,7 @@ export class ModuleEnrollmentsComponent implements OnInit {
           });
           this.modulesLoading = false;
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
@@ -141,10 +140,10 @@ export class ModuleEnrollmentsComponent implements OnInit {
       .deleteModule(moduleInput)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.alertService.successToast('Activity Deleted');
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );

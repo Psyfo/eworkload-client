@@ -1,5 +1,5 @@
 import { UserService } from './../../user/user.service';
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -52,17 +52,17 @@ export class ModuleListComponent implements OnInit {
       {
         label: 'View',
         icon: 'pi pi-search',
-        command: event => this.onContextView(event)
+        command: (event) => this.onContextView(event)
       },
       {
         label: 'Edit',
         icon: 'pi pi-pencil',
-        command: event => this.onContextEdit(event)
+        command: (event) => this.onContextEdit(event)
       },
       {
         label: 'Delete',
         icon: 'pi pi-trash',
-        command: event => this.onContextDelete(event)
+        command: (event) => this.onContextDelete(event)
       }
     ];
     this.cols = [
@@ -88,11 +88,11 @@ export class ModuleListComponent implements OnInit {
       .modules()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.loading = result.loading;
           this.modules = result.data.modules;
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
@@ -116,7 +116,7 @@ export class ModuleListComponent implements OnInit {
       this.worksheetData = wsdata;
 
       // Get work sheet data into module array
-      wsdata.forEach(element => {
+      wsdata.forEach((element) => {
         let module: ModuleInput;
         module.id = element[3];
         module.qualificationId = element[2];
@@ -159,7 +159,7 @@ export class ModuleListComponent implements OnInit {
     await this.moduleService
       .addModules(this.uploadedModules.slice(1))
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(result => {
+      .subscribe((result) => {
         this.alertService.successToast('Bulk upload complete');
       });
   }
@@ -201,10 +201,10 @@ export class ModuleListComponent implements OnInit {
       .deleteModule(moduleInput)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.alertService.successToast('Activity Deleted');
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );

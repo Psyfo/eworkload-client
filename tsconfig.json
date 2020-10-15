@@ -14,7 +14,7 @@
     "lib": ["ES5", "ES6", "DOM", "ESNext"]
   },
   "angularCompilerOptions": {
-    "enableIvy": true
+    "enableIvy": false
   },
   "plugins": [
     {

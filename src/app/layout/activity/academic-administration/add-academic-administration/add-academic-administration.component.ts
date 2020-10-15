@@ -1,5 +1,5 @@
-import { MenuItem } from 'primeng/components/common/menuitem';
-import { SelectItem } from 'primeng/components/common/selectitem';
+import { MenuItem } from 'primeng/api/menuitem';
+import { SelectItem } from 'primeng/api/selectitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';

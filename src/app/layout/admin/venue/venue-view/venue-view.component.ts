@@ -1,4 +1,4 @@
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -11,84 +11,84 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VenueService } from '../venue.service';
 
 @Component({
-    selector: 'app-venue-view',
-    templateUrl: './venue-view.component.html',
-    styleUrls: ['./venue-view.component.scss'],
-    animations: [routerTransition()]
+  selector: 'app-venue-view',
+  templateUrl: './venue-view.component.html',
+  styleUrls: ['./venue-view.component.scss'],
+  animations: [routerTransition()]
 })
 export class VenueViewComponent implements OnInit {
-    breadcrumbs: MenuItem[];
+  breadcrumbs: MenuItem[];
 
-    venueId: string;
-    venue: Venue;
+  venueId: string;
+  venue: Venue;
 
-    private unsubscribe = new Subject();
+  private unsubscribe = new Subject();
 
-    constructor(
-        private alertService: AlertService,
-        private router: Router,
-        private activatedRoute: ActivatedRoute,
-        private venueService: VenueService
-    ) {}
+  constructor(
+    private alertService: AlertService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private venueService: VenueService
+  ) {}
 
-    ngOnInit() {
-        // Get ID from route
-        this.activatedRoute.queryParams
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.getVenue(result.venueId);
-            });
-    }
-    ngOnDestroy(): void {
-        this.unsubscribe.next();
-        this.unsubscribe.complete();
-    }
+  ngOnInit() {
+    // Get ID from route
+    this.activatedRoute.queryParams
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((result) => {
+        this.getVenue(result.venueId);
+      });
+  }
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
 
-    getVenue(venueId: string) {
-        this.venueService
-            .getVenue(venueId)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.venue = result.data.venue;
+  getVenue(venueId: string) {
+    this.venueService
+      .getVenue(venueId)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((result) => {
+        this.venue = result.data.venue;
 
-                this.breadcrumbs = [
-                    { label: 'admin' },
-                    { label: 'venue', url: 'admin/venue' },
-                    { label: 'view' },
-                    { label: this.venue.venueId }
-                ];
-            });
-    }
+        this.breadcrumbs = [
+          { label: 'admin' },
+          { label: 'venue', url: 'admin/venue' },
+          { label: 'view' },
+          { label: this.venue.venueId }
+        ];
+      });
+  }
 
-    onEdit(event) {
-        this.router.navigate(['admin/venue/edit', this.venue.venueId], {
-            queryParams: { venueId: this.venue.venueId }
-        });
-    }
+  onEdit(event) {
+    this.router.navigate(['admin/venue/edit', this.venue.venueId], {
+      queryParams: { venueId: this.venue.venueId }
+    });
+  }
 
-    onBack(event) {
-        this.router.navigate(['admin/venue']);
-    }
-    showConfirm() {
-        this.alertService.clear();
-        this.alertService.confirm('venueDelete');
-    }
-    onConfirm() {
-        this.venueService
-            .deleteVenue(this.venue)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(
-                result => {
-                    this.alertService.infoToast('Venue deleted');
-                    this.router.navigate(['admin/venue']);
-                },
-                err => {
-                    this.alertService.errorToast(err);
-                    console.warn(err);
-                }
-            );
-    }
-    onReject() {
-        this.alertService.clear();
-    }
+  onBack(event) {
+    this.router.navigate(['admin/venue']);
+  }
+  showConfirm() {
+    this.alertService.clear();
+    this.alertService.confirm('venueDelete');
+  }
+  onConfirm() {
+    this.venueService
+      .deleteVenue(this.venue)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        (result) => {
+          this.alertService.infoToast('Venue deleted');
+          this.router.navigate(['admin/venue']);
+        },
+        (err) => {
+          this.alertService.errorToast(err);
+          console.warn(err);
+        }
+      );
+  }
+  onReject() {
+    this.alertService.clear();
+  }
 }

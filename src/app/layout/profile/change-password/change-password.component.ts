@@ -1,4 +1,4 @@
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -62,7 +62,7 @@ export class ChangePasswordComponent implements OnInit {
     this.userService
       .currentUserId()
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(result => {
+      .subscribe((result) => {
         this.userId = result;
       });
   }
@@ -76,7 +76,7 @@ export class ChangePasswordComponent implements OnInit {
       this.authService
         .changePassword(userId, this.oldPassword.value, this.newPassword.value)
         .pipe(takeUntil(this.unsubscribe))
-        .subscribe(result => {
+        .subscribe((result) => {
           try {
             this.alertService.successToast('Password changed');
             this.router.navigate(['profile']);
@@ -100,7 +100,7 @@ export class ChangePasswordComponent implements OnInit {
   comparePasswords() {
     this.confirmPassword.valueChanges
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(result => {
+      .subscribe((result) => {
         if (this.newPassword.value !== this.confirmPassword.value) {
           this.passwordMatch = false;
         } else {

@@ -1,20 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 
 @Component({
-    selector: 'app-academic-administration-evidence',
-    templateUrl: './academic-administration-evidence.component.html',
-    styleUrls: ['./academic-administration-evidence.component.scss']
+  selector: 'app-academic-administration-evidence',
+  templateUrl: './academic-administration-evidence.component.html',
+  styleUrls: ['./academic-administration-evidence.component.scss']
 })
 export class AcademicAdministrationEvidenceComponent implements OnInit {
-    breadcrumbs: MenuItem[];
-    @ViewChild('f') form: any;
-    constructor() {}
+  breadcrumbs: MenuItem[];
+  @ViewChild('f') form: any;
+  constructor() {}
 
-    ngOnInit() {
-        this.breadcrumbs = [
-            { label: 'activity' },
-            { label: 'formal-instruction' }
-        ];
-    }
+  ngOnInit() {
+    this.breadcrumbs = [{ label: 'activity' }, { label: 'formal-instruction' }];
+  }
 }

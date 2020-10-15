@@ -11,7 +11,7 @@ import {
   QualificationsUnenrolledGQL,
   QualificationInput
 } from 'src/app/shared/generated';
-import { SelectItem } from 'primeng/components/common/selectitem';
+import { SelectItem } from 'primeng/api/selectitem';
 
 @Injectable({
   providedIn: 'root'
@@ -50,8 +50,8 @@ export class QualificationService {
       )
       .valueChanges.pipe(
         map(
-          result => result,
-          err => err
+          (result) => result,
+          (err) => err
         )
       );
   }
@@ -66,8 +66,8 @@ export class QualificationService {
       )
       .valueChanges.pipe(
         map(
-          result => result,
-          err => err
+          (result) => result,
+          (err) => err
         )
       );
   }
@@ -82,8 +82,8 @@ export class QualificationService {
       )
       .valueChanges.pipe(
         map(
-          result => result,
-          err => err
+          (result) => result,
+          (err) => err
         )
       );
   }
@@ -98,8 +98,8 @@ export class QualificationService {
       )
       .valueChanges.pipe(
         map(
-          result => result,
-          err => err
+          (result) => result,
+          (err) => err
         )
       );
   }
@@ -109,8 +109,8 @@ export class QualificationService {
       .mutate({ qualification: qualification })
       .pipe(
         map(
-          result => result,
-          err => err
+          (result) => result,
+          (err) => err
         )
       );
   }
@@ -120,8 +120,8 @@ export class QualificationService {
       .mutate({ qualification: qualification })
       .pipe(
         map(
-          result => result,
-          err => err
+          (result) => result,
+          (err) => err
         )
       );
   }
@@ -131,8 +131,8 @@ export class QualificationService {
       .mutate({ qualification: qualification })
       .pipe(
         map(
-          result => result,
-          err => err
+          (result) => result,
+          (err) => err
         )
       );
   }

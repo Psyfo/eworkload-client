@@ -1,4 +1,4 @@
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -39,27 +39,32 @@ export class DisciplineViewComponent implements OnInit {
   }
 
   getDiscipline() {
-    this.activatedRoute.queryParamMap.pipe(takeUntil(this.unsubscribe)).subscribe(
-      result => {
-        const disciplineId = result.get('disciplineId');
-        this.disciplineService
-          .discipline(disciplineId)
-          .pipe(takeUntil(this.unsubscribe))
-          .subscribe(result => {
-            this.discipline = result.data.discipline;
-          });
-      },
-      err => {
-        console.error(err);
-      }
-    );
+    this.activatedRoute.queryParamMap
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        (result) => {
+          const disciplineId = result.get('disciplineId');
+          this.disciplineService
+            .discipline(disciplineId)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe((result) => {
+              this.discipline = result.data.discipline;
+            });
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
   }
   onEdit(event) {
-    this.router.navigate(['admin/discipline/edit', this.discipline.disciplineId], {
-      queryParams: {
-        disciplineId: this.discipline.disciplineId
+    this.router.navigate(
+      ['admin/discipline/edit', this.discipline.disciplineId],
+      {
+        queryParams: {
+          disciplineId: this.discipline.disciplineId
+        }
       }
-    });
+    );
   }
   onBack(event): void {
     this.router.navigate(['../admin/discipline']);

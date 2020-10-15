@@ -1,5 +1,5 @@
-import { SelectItem } from 'primeng/components/common/selectitem';
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { SelectItem } from 'primeng/api/selectitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { routerTransition } from 'src/app/router.animations';
@@ -57,7 +57,7 @@ export class QualificationAddComponent implements OnInit {
     this.departmentService
       .departments()
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(result => {
+      .subscribe((result) => {
         this.departments = result.data.departments;
       });
   }
@@ -69,7 +69,7 @@ export class QualificationAddComponent implements OnInit {
       .addQualification(this.qualificationInput)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.isSubmitting = false;
           this.alertService.successToast('Qualification added');
           this.router.navigate(
@@ -84,7 +84,7 @@ export class QualificationAddComponent implements OnInit {
             }
           );
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );

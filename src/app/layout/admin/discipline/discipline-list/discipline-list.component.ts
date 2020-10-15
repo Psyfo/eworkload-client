@@ -7,7 +7,7 @@ import { Component, OnInit, ViewChild, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DisciplineService } from '../discipline.service';
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { AlertService } from 'src/app/shared/modules';
 
 @Component({
@@ -43,17 +43,17 @@ export class DisciplineListComponent implements OnInit {
       {
         label: 'View',
         icon: 'pi pi-search',
-        command: event => this.onContextView(event)
+        command: (event) => this.onContextView(event)
       },
       {
         label: 'Edit',
         icon: 'pi pi-pencil',
-        command: event => this.onContextEdit(event)
+        command: (event) => this.onContextEdit(event)
       },
       {
         label: 'Delete',
         icon: 'pi pi-trash',
-        command: event => this.onContextDelete(event)
+        command: (event) => this.onContextDelete(event)
       }
     ];
 
@@ -70,10 +70,10 @@ export class DisciplineListComponent implements OnInit {
       .disciplines()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.disciplines = result.data.disciplines;
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
@@ -131,12 +131,12 @@ export class DisciplineListComponent implements OnInit {
       .deleteDiscipline(this.selectedDiscipline)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.alertService.successToast(
             `Discipline: ${result.data.deleteDiscipline.disciplineId} deleted`
           );
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );

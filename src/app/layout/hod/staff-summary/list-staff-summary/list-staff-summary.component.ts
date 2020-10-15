@@ -1,4 +1,4 @@
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { Subject } from 'rxjs';
 import { UserService } from 'src/app/layout/admin/user/user.service';
 import { routerTransition } from 'src/app/router.animations';
@@ -13,53 +13,53 @@ import { WorkloadSummary } from '../../../../shared/generated/output';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-list-staff-summary',
-    templateUrl: './list-staff-summary.component.html',
-    styleUrls: ['./list-staff-summary.component.scss'],
-    animations: [routerTransition()]
+  selector: 'app-list-staff-summary',
+  templateUrl: './list-staff-summary.component.html',
+  styleUrls: ['./list-staff-summary.component.scss'],
+  animations: [routerTransition()]
 })
 export class ListStaffSummaryComponent implements OnInit {
-    breadcrumbs: MenuItem[];
+  breadcrumbs: MenuItem[];
 
-    users: User[];
+  users: User[];
 
-    workloadSummaries: WorkloadSummary[];
+  workloadSummaries: WorkloadSummary[];
 
-    private unsubscribe = new Subject();
-    constructor(
-        private alertService: AlertService,
-        private router: Router,
-        private workloadService: WorkloadService
-    ) {}
+  private unsubscribe = new Subject();
+  constructor(
+    private alertService: AlertService,
+    private router: Router,
+    private workloadService: WorkloadService
+  ) {}
 
-    ngOnInit() {
-        this.breadcrumbs = [
-            { label: 'hod' },
-            { label: 'staff-summary', url: 'hod/staff-summary' }
-        ];
-        this.getWorkloadSummaries();
-    }
-    ngOnDestroy(): void {
-        //Called once, before the instance is destroyed.
-        //Add 'implements OnDestroy' to the class.
-        this.unsubscribe.next();
-        this.unsubscribe.complete();
-    }
+  ngOnInit() {
+    this.breadcrumbs = [
+      { label: 'hod' },
+      { label: 'staff-summary', url: 'hod/staff-summary' }
+    ];
+    this.getWorkloadSummaries();
+  }
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
 
-    getWorkloadSummaries() {
-        this.workloadService
-            .workloadSummaries()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(
-                result => {
-                    this.workloadSummaries = result.data.workloadSummaries;
-                    console.log(this.workloadSummaries);
-                },
-                err => {
-                    this.alertService.errorToast(err);
-                    console.warn(err);
-                }
-            );
-    }
-    onBack(event) {}
+  getWorkloadSummaries() {
+    this.workloadService
+      .workloadSummaries()
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        (result) => {
+          this.workloadSummaries = result.data.workloadSummaries;
+          console.log(this.workloadSummaries);
+        },
+        (err) => {
+          this.alertService.errorToast(err);
+          console.warn(err);
+        }
+      );
+  }
+  onBack(event) {}
 }

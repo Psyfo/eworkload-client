@@ -3,7 +3,7 @@ import {
   FormalInstructionActivity,
   Group
 } from './../../../../shared/generated/output';
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ModuleService } from 'src/app/layout/admin/module/module.service';
@@ -81,12 +81,12 @@ export class EditFormalInstructionComponent implements OnInit {
     this.userService
       .currentUser()
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(result => {
+      .subscribe((result) => {
         const user = result.data.user;
         this.moduleService
           .modulesByDiscipline(user.disciplineIds)
           .pipe(takeUntil(this.unsubscribe))
-          .subscribe(result => {
+          .subscribe((result) => {
             this.modules = result.data.modulesByDiscipline.map(
               (module: Module) => {
                 let mod: any = module;
@@ -104,7 +104,7 @@ export class EditFormalInstructionComponent implements OnInit {
       .groupsByModule(moduleId)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.groups = result.data.groupsByModule.map((group: Group) => {
             let mod: any = group;
             if (group.module) {
@@ -113,7 +113,7 @@ export class EditFormalInstructionComponent implements OnInit {
             return mod;
           });
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
@@ -122,28 +122,28 @@ export class EditFormalInstructionComponent implements OnInit {
     this.activatedRoute.queryParamMap
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           const activityId: string = result.get('activityId');
           this.formalInstructionService
             .formalInstructionActivity(activityId)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(
-              result => {
+              (result) => {
                 this.activityModel = result.data.formalInstructionActivity;
                 this.selectedModule = this.modules.find(
-                  module => module.id === this.activityModel.group.module.id
+                  (module) => module.id === this.activityModel.group.module.id
                 );
                 this.selectedGroup = this.groups.find(
-                  group => group.id === this.activityModel.groupId
+                  (group) => group.id === this.activityModel.groupId
                 );
                 this.isCoordinator = this.activityModel.isCoordinator;
               },
-              err => {
+              (err) => {
                 console.error(err);
               }
             );
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
@@ -166,7 +166,7 @@ export class EditFormalInstructionComponent implements OnInit {
     this.formalInstructionService
       .addFormalInstructionActivity(this.activityInput)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(result => {
+      .subscribe((result) => {
         console.log('FI Activity added:', result);
 
         this.isSubmitting = false;

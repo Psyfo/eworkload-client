@@ -3,48 +3,54 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared/guard';
+import { LayoutComponent } from './layout/layout.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        loadChildren: () =>
-            import('./layout/layout.module').then(m => m.LayoutModule)
-    },
-    {
-        path: 'login',
-        loadChildren: () =>
-            import('./login/login.module').then(m => m.LoginModule)
-    },
-    {
-        path: 'signup',
-        loadChildren: () =>
-            import('./signup/signup.module').then(m => m.SignupModule)
-    },
-    {
-        path: 'error',
-        loadChildren: () =>
-            import('./server-error/server-error.module').then(
-                m => m.ServerErrorModule
-            )
-    },
-    {
-        path: 'access-denied',
-        loadChildren: () =>
-            import('./access-denied/access-denied.module').then(
-                m => m.AccessDeniedModule
-            )
-    },
-    {
-        path: 'not-found',
-        loadChildren: () =>
-            import('./not-found/not-found.module').then(m => m.NotFoundModule)
-    },
-    { path: '**', redirectTo: 'not-found' },
-    { path: 'layout/evidence', loadChildren: () => import('./layout/evidence/evidence.module').then(m => m.EvidenceModule) }
+  {},
+  {
+    path: '',
+    loadChildren: () =>
+      import('./layout/layout.module').then((m) => m.LayoutModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./login/login.module').then((m) => m.LoginModule)
+  },
+  {
+    path: 'signup',
+    loadChildren: () =>
+      import('./signup/signup.module').then((m) => m.SignupModule)
+  },
+  {
+    path: 'error',
+    loadChildren: () =>
+      import('./server-error/server-error.module').then(
+        (m) => m.ServerErrorModule
+      )
+  },
+  {
+    path: 'access-denied',
+    loadChildren: () =>
+      import('./access-denied/access-denied.module').then(
+        (m) => m.AccessDeniedModule
+      )
+  },
+  {
+    path: 'not-found',
+    loadChildren: () =>
+      import('./not-found/not-found.module').then((m) => m.NotFoundModule)
+  },
+  { path: '**', redirectTo: 'not-found' },
+  {
+    path: 'layout/evidence',
+    loadChildren: () =>
+      import('./layout/evidence/evidence.module').then((m) => m.EvidenceModule)
+  }
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

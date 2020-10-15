@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { DisciplineService } from '../discipline.service';
-import { MenuItem } from 'primeng/components/common/menuitem';
+import { MenuItem } from 'primeng/api/menuitem';
 
 @Component({
   selector: 'app-discipline-add',
@@ -51,14 +51,14 @@ export class DisciplineAddComponent implements OnInit {
       .addDiscipline(this.disciplineInput)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        result => {
+        (result) => {
           this.isSubmitting = false;
           this.alertService.successToast(
             `Discipline ${result.data.addDiscipline.disciplineId} added`
           );
           this.router.navigate(['admin/discipline']);
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
