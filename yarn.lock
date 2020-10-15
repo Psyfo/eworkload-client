@@ -10726,9 +10726,9 @@ typescript@3.6.5:
   integrity sha512-BEjlc0Z06ORZKbtcxGrIvvwYs5hAnuo6TKdNFL55frVDlB+na3z5bsLhFaIxmT+dPWgBIjMo6aNnTOgHHmHgiQ==
 
 typescript@3.8.1:
-  version "3.8.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
-  integrity sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
+  version "4.1.0-dev.20201015"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.1.0-dev.20201015.tgz#f6b1d17e95b283a367f0897440120a0cdcc26dbb"
+  integrity sha512-HxuxG+/jnKqvcMfn3UU/XLmMPuGY9CToCWVDidksDpm2XIB4ySjBH6bduGPpgR8/BkaQoSv8cycFy7Ql9t9SXA==
 
 ua-parser-js@0.7.21, ua-parser-js@^0.7.18:
   version "0.7.21"
