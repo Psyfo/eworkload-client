@@ -1,48 +1,51 @@
 mutation addQualification($qualification: QualificationInput) {
-    addQualification(qualification: $qualification) {
-        qualificationId
+  addQualification(qualification: $qualification) {
+    qualificationId
+    name
+    type
+    departmentId
+    department {
+      departmentId
+      name
+      facultyId
+      faculty {
+        facultyId
         name
-        type
-        departmentId
-        department {
-            departmentId
-            name
-            faculty {
-                facultyId
-                name
-            }
-        }
+      }
     }
+  }
 }
 mutation editQualification($qualification: QualificationInput) {
-    editQualification(qualification: $qualification) {
-        qualificationId
+  editQualification(qualification: $qualification) {
+    qualificationId
+    name
+    type
+    departmentId
+    department {
+      departmentId
+      name
+      facultyId
+      faculty {
+        facultyId
         name
-        type
-        departmentId
-        department {
-            departmentId
-            name
-            faculty {
-                facultyId
-                name
-            }
-        }
+      }
     }
+  }
 }
 mutation deleteQualification($qualification: QualificationInput) {
-    deleteQualification(qualification: $qualification) {
-        qualificationId
+  deleteQualification(qualification: $qualification) {
+    qualificationId
+    name
+    type
+    departmentId
+    department {
+      departmentId
+      name
+      facultyId
+      faculty {
+        facultyId
         name
-        type
-        departmentId
-        department {
-            departmentId
-            name
-            faculty {
-                facultyId
-                name
-            }
-        }
+      }
     }
+  }
 }

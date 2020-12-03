@@ -1,64 +1,68 @@
 query qualification($qualificationId: String!) {
-    qualification(qualificationId: $qualificationId) {
-        qualificationId
+  qualification(qualificationId: $qualificationId) {
+    qualificationId
+    name
+    type
+    departmentId
+    department {
+      departmentId
+      name
+      facultyId
+      faculty {
+        facultyId
         name
-        type
-        departmentId
-        department {
-            departmentId
-            name
-            faculty {
-                facultyId
-                name
-            }
-        }
+      }
     }
+  }
 }
 query qualifications {
-    qualifications {
-        qualificationId
+  qualifications {
+    qualificationId
+    name
+    type
+    departmentId
+    department {
+      departmentId
+      name
+      facultyId
+      faculty {
+        facultyId
         name
-        type
-        departmentId
-        department {
-            departmentId
-            name
-            faculty {
-                facultyId
-                name
-            }
-        }
+      }
     }
+  }
 }
 query qualificationsPostgraduate {
-    qualifications {
-        qualificationId
+  qualifications {
+    qualificationId
+    name
+    type
+    departmentId
+    department {
+      departmentId
+      name
+      facultyId
+      faculty {
+        facultyId
         name
-        type
-        departmentId
-        department {
-            departmentId
-            name
-            faculty {
-                facultyId
-                name
-            }
-        }
+      }
     }
+  }
 }
 query qualificationsUnenrolled {
-    qualificationsUnenrolled {
-        qualificationId
+  qualificationsUnenrolled {
+    qualificationId
+    name
+    type
+    departmentId
+    department {
+      departmentId
+      name
+      facultyId
+      faculty {
+        facultyId
         name
-        type
-        departmentId
-        department {
-            departmentId
-            name
-            faculty {
-                facultyId
-                name
-            }
-        }
+      }
     }
+  }
 }
