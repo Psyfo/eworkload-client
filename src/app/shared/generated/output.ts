@@ -2,96 +2,1673 @@ import gql from 'graphql-tag';
 import { Injectable } from '@angular/core';
 import * as Apollo from 'apollo-angular';
 export type Maybe<T> = T | null;
+export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string,
-  String: string,
-  Boolean: boolean,
-  Int: number,
-  Float: number,
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
   /** Date custom scalar type */
-  Date: any,
+  Date: any;
   /** The `Upload` scalar type represents a file upload. */
-  Upload: any,
+  Upload: any;
 };
 
 
 
-
-export type AcademicAdministrationActivity = Activity & {
-   __typename?: 'AcademicAdministrationActivity',
-  activityId?: Maybe<Scalars['String']>,
-  userId?: Maybe<Scalars['String']>,
-  user?: Maybe<User>,
-  dutyId?: Maybe<Scalars['String']>,
-  duty?: Maybe<Duty>,
-  approvalStatus?: Maybe<Scalars['String']>,
-  createdAt?: Maybe<Scalars['String']>,
-  updatedAt?: Maybe<Scalars['String']>,
-  title?: Maybe<Scalars['String']>,
-  qualificationId?: Maybe<Scalars['String']>,
-  qualification?: Maybe<Qualification>,
-  description?: Maybe<Scalars['String']>,
-  evidence?: Maybe<Scalars['String']>,
+export type Query = {
+  __typename?: 'Query';
+  login: AuthData;
+  block?: Maybe<Block>;
+  blocks?: Maybe<Array<Maybe<Block>>>;
+  department?: Maybe<Department>;
+  departments?: Maybe<Array<Maybe<Department>>>;
+  discipline?: Maybe<Discipline>;
+  disciplines?: Maybe<Array<Maybe<Discipline>>>;
+  duty?: Maybe<Duty>;
+  duties?: Maybe<Array<Maybe<Duty>>>;
+  enrollment?: Maybe<Enrollment>;
+  enrollments?: Maybe<Array<Maybe<Enrollment>>>;
+  enrollmentsByYear?: Maybe<Array<Maybe<Enrollment>>>;
+  enrollmentsByQualification?: Maybe<Array<Maybe<Enrollment>>>;
+  faculty?: Maybe<Faculty>;
+  faculties?: Maybe<Array<Maybe<Faculty>>>;
+  group?: Maybe<Group>;
+  groups?: Maybe<Array<Maybe<Group>>>;
+  groupsByModule?: Maybe<Array<Maybe<Group>>>;
+  groupTotal?: Maybe<Scalars['Int']>;
+  remainingStudents?: Maybe<Scalars['Int']>;
+  groupExists?: Maybe<Scalars['Boolean']>;
+  module?: Maybe<Module>;
+  modules?: Maybe<Array<Maybe<Module>>>;
+  modulesByDiscipline?: Maybe<Array<Maybe<Module>>>;
+  modulesByModerator?: Maybe<Array<Maybe<Module>>>;
+  modulesByStack?: Maybe<Array<Maybe<Module>>>;
+  stackedWith?: Maybe<Array<Maybe<Module>>>;
+  unstackedModules?: Maybe<Array<Maybe<Module>>>;
+  modulesByDepartment?: Maybe<Array<Maybe<Module>>>;
+  offeringType?: Maybe<OfferingType>;
+  offeringTypes?: Maybe<Array<Maybe<OfferingType>>>;
+  position?: Maybe<Position>;
+  positions?: Maybe<Array<Maybe<Position>>>;
+  qualification?: Maybe<Qualification>;
+  qualifications?: Maybe<Array<Maybe<Qualification>>>;
+  qualificationsByLevel?: Maybe<Array<Maybe<Qualification>>>;
+  qualificationsUnenrolled?: Maybe<Array<Maybe<Qualification>>>;
+  student?: Maybe<Student>;
+  students?: Maybe<Array<Maybe<Student>>>;
+  studentsUnassigned?: Maybe<Array<Maybe<Student>>>;
+  files?: Maybe<Array<Maybe<File>>>;
+  user?: Maybe<User>;
+  users?: Maybe<Array<Maybe<User>>>;
+  usersByPosition?: Maybe<Array<Maybe<User>>>;
+  userExists?: Maybe<Scalars['Boolean']>;
+  venue?: Maybe<Venue>;
+  venues?: Maybe<Array<Maybe<Venue>>>;
+  workFocus?: Maybe<WorkFocus>;
+  workFocuses?: Maybe<Array<Maybe<WorkFocus>>>;
+  teachingHours?: Maybe<Scalars['Float']>;
+  researchHours?: Maybe<Scalars['Float']>;
+  serviceHours?: Maybe<Scalars['Float']>;
+  annualHours?: Maybe<Scalars['Float']>;
+  totalHoursPerUser?: Maybe<Scalars['Float']>;
+  teachingHoursPerUser?: Maybe<Scalars['Float']>;
+  researchHoursPerUser?: Maybe<Scalars['Float']>;
+  serviceHoursPerUser?: Maybe<Scalars['Float']>;
+  workloadSummaries?: Maybe<Array<Maybe<WorkloadSummary>>>;
+  academicAdministrationWorkload?: Maybe<AcademicAdministrationWorkload>;
+  communityInstructionWorkload?: Maybe<CommunityInstructionWorkload>;
+  executiveManagementWorkload?: Maybe<ExecutiveManagementWorkload>;
+  formalInstructionWorkload?: Maybe<FormalInstructionWorkload>;
+  personnelDevelopmentWorkload?: Maybe<PersonnelDevelopmentWorkload>;
+  publicServiceWorkload?: Maybe<PublicServiceWorkload>;
+  researchWorkload?: Maybe<ResearchWorkload>;
+  supervisionWorkload?: Maybe<SupervisionWorkload>;
+  totalWorkload?: Maybe<TotalWorkload>;
+  academicAdministrationActivity?: Maybe<AcademicAdministrationActivity>;
+  academicAdministrationActivities?: Maybe<Array<Maybe<AcademicAdministrationActivity>>>;
+  academicAdministrationActivitiesByUser?: Maybe<Array<Maybe<AcademicAdministrationActivity>>>;
+  activity?: Maybe<Activity>;
+  activities?: Maybe<Array<Maybe<Activity>>>;
+  activitiesByDuty?: Maybe<Array<Maybe<Activity>>>;
+  activitiesByUser?: Maybe<Array<Maybe<Activity>>>;
+  activitiesByUnapproved?: Maybe<Array<Maybe<Activity>>>;
+  activitiesByApproved?: Maybe<Array<Maybe<Activity>>>;
+  communityInstructionActivity?: Maybe<CommunityInstructionActivity>;
+  communityInstructionActivities?: Maybe<Array<Maybe<CommunityInstructionActivity>>>;
+  communityInstructionActivitiesByUser?: Maybe<Array<Maybe<CommunityInstructionActivity>>>;
+  executiveManagementActivity?: Maybe<ExecutiveManagementActivity>;
+  executiveManagementActivities?: Maybe<Array<Maybe<ExecutiveManagementActivity>>>;
+  executiveManagementActivitiesByUser?: Maybe<Array<Maybe<ExecutiveManagementActivity>>>;
+  formalInstructionActivity?: Maybe<FormalInstructionActivity>;
+  formalInstructionActivities?: Maybe<Array<Maybe<FormalInstructionActivity>>>;
+  formalInstructionActivitiesByUser?: Maybe<Array<Maybe<FormalInstructionActivity>>>;
+  supervisionActivity?: Maybe<SupervisionActivity>;
+  supervisionActivities?: Maybe<Array<Maybe<SupervisionActivity>>>;
+  supervisionActivitiesByUser?: Maybe<Array<Maybe<SupervisionActivity>>>;
+  personnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivity>;
+  personnelDevelopmentActivities?: Maybe<Array<Maybe<PersonnelDevelopmentActivity>>>;
+  personnelDevelopmentActivitiesByUser?: Maybe<Array<Maybe<PersonnelDevelopmentActivity>>>;
+  publicServiceActivity?: Maybe<PublicServiceActivity>;
+  publicServiceActivities?: Maybe<Array<Maybe<PublicServiceActivity>>>;
+  publicServiceActivitiesByUser?: Maybe<Array<Maybe<PublicServiceActivity>>>;
+  researchActivity?: Maybe<ResearchActivity>;
+  researchActivities?: Maybe<Array<Maybe<ResearchActivity>>>;
+  researchActivitiesByUser?: Maybe<Array<Maybe<ResearchActivity>>>;
 };
 
-export type AcademicAdministrationActivityInput = {
-  activityId?: Maybe<Scalars['String']>,
-  userId?: Maybe<Scalars['String']>,
-  dutyId?: Maybe<Scalars['String']>,
-  title?: Maybe<Scalars['String']>,
-  qualificationId?: Maybe<Scalars['String']>,
-  description?: Maybe<Scalars['String']>,
+
+export type QueryLoginArgs = {
+  userId: Scalars['String'];
+  password: Scalars['String'];
 };
 
-export type AcademicAdministrationWorkload = {
-   __typename?: 'AcademicAdministrationWorkload',
-  academicAdministrationWorkloads?: Maybe<Array<Maybe<AcademicAdministrationWorkloadPerActivity>>>,
-  globalTarrif?: Maybe<Scalars['Float']>,
-  totalHoursPerUser?: Maybe<Scalars['Float']>,
-  percentageOfWorkFocusPerUser?: Maybe<Scalars['Float']>,
-  percentageOfAnnualHoursPerUser?: Maybe<Scalars['Float']>,
-  percentageOfTotalHoursPerUser?: Maybe<Scalars['Float']>,
+
+export type QueryBlockArgs = {
+  blockId: Scalars['String'];
 };
 
-export type AcademicAdministrationWorkloadPerActivity = {
-   __typename?: 'AcademicAdministrationWorkloadPerActivity',
-  activity?: Maybe<AcademicAdministrationActivity>,
-  totalHoursPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfWorkFocusPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfAnnualHoursPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfTotalHoursPerActivity?: Maybe<Scalars['Float']>,
+
+export type QueryDepartmentArgs = {
+  departmentId: Scalars['String'];
 };
 
-export type Activity = {
-  activityId?: Maybe<Scalars['String']>,
-  userId?: Maybe<Scalars['String']>,
-  user?: Maybe<User>,
-  dutyId?: Maybe<Scalars['String']>,
-  duty?: Maybe<Duty>,
-  approvalStatus?: Maybe<Scalars['String']>,
-  createdAt?: Maybe<Scalars['String']>,
-  updatedAt?: Maybe<Scalars['String']>,
+
+export type QueryDisciplineArgs = {
+  disciplineId: Scalars['String'];
+};
+
+
+export type QueryDutyArgs = {
+  dutyId: Scalars['String'];
+};
+
+
+export type QueryEnrollmentArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryEnrollmentsByYearArgs = {
+  enrollmentYear: Scalars['String'];
+};
+
+
+export type QueryEnrollmentsByQualificationArgs = {
+  qualificationId: Scalars['String'];
+};
+
+
+export type QueryFacultyArgs = {
+  facultyId: Scalars['String'];
+};
+
+
+export type QueryGroupArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryGroupsByModuleArgs = {
+  moduleId: Scalars['String'];
+};
+
+
+export type QueryGroupTotalArgs = {
+  moduleId: Scalars['String'];
+};
+
+
+export type QueryRemainingStudentsArgs = {
+  moduleId: Scalars['String'];
+};
+
+
+export type QueryGroupExistsArgs = {
+  groupId: Scalars['String'];
+  moduleId: Scalars['String'];
+};
+
+
+export type QueryModuleArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryModulesByDisciplineArgs = {
+  disciplineIds: Array<Scalars['String']>;
+};
+
+
+export type QueryModulesByModeratorArgs = {
+  moderatorId: Scalars['String'];
+};
+
+
+export type QueryModulesByStackArgs = {
+  stackId: Scalars['String'];
+};
+
+
+export type QueryStackedWithArgs = {
+  id: Scalars['String'];
+  stackId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryModulesByDepartmentArgs = {
+  departmentId: Scalars['String'];
+};
+
+
+export type QueryOfferingTypeArgs = {
+  offeringTypeId: Scalars['String'];
+};
+
+
+export type QueryPositionArgs = {
+  positionId: Scalars['String'];
+};
+
+
+export type QueryQualificationArgs = {
+  qualificationId: Scalars['String'];
+};
+
+
+export type QueryStudentArgs = {
+  studentId: Scalars['String'];
+};
+
+
+export type QueryStudentsUnassignedArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type QueryUserArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type QueryUserExistsArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryVenueArgs = {
+  venueId: Scalars['String'];
+};
+
+
+export type QueryWorkFocusArgs = {
+  name: Scalars['String'];
+};
+
+
+export type QueryTeachingHoursArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryResearchHoursArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryServiceHoursArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryTotalHoursPerUserArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type QueryTeachingHoursPerUserArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type QueryResearchHoursPerUserArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type QueryServiceHoursPerUserArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type QueryAcademicAdministrationWorkloadArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryCommunityInstructionWorkloadArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryExecutiveManagementWorkloadArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryFormalInstructionWorkloadArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryPersonnelDevelopmentWorkloadArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryPublicServiceWorkloadArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryResearchWorkloadArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QuerySupervisionWorkloadArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryTotalWorkloadArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type QueryAcademicAdministrationActivityArgs = {
+  activityId: Scalars['String'];
+};
+
+
+export type QueryAcademicAdministrationActivitiesByUserArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryActivityArgs = {
+  activityId: Scalars['String'];
+};
+
+
+export type QueryActivitiesByDutyArgs = {
+  dutyId: Scalars['String'];
+};
+
+
+export type QueryActivitiesByUserArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type QueryCommunityInstructionActivityArgs = {
+  activityId: Scalars['String'];
+};
+
+
+export type QueryCommunityInstructionActivitiesByUserArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryExecutiveManagementActivityArgs = {
+  activityId: Scalars['String'];
+};
+
+
+export type QueryExecutiveManagementActivitiesByUserArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryFormalInstructionActivityArgs = {
+  activityId: Scalars['String'];
+};
+
+
+export type QueryFormalInstructionActivitiesByUserArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type QuerySupervisionActivityArgs = {
+  activityId: Scalars['String'];
+};
+
+
+export type QuerySupervisionActivitiesByUserArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryPersonnelDevelopmentActivityArgs = {
+  activityId: Scalars['String'];
+};
+
+
+export type QueryPersonnelDevelopmentActivitiesByUserArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryPublicServiceActivityArgs = {
+  activityId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryPublicServiceActivitiesByUserArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryResearchActivityArgs = {
+  activityId: Scalars['String'];
+};
+
+
+export type QueryResearchActivitiesByUserArgs = {
+  userId: Scalars['String'];
 };
 
 export type AuthData = {
-   __typename?: 'AuthData',
-  userId: Scalars['String'],
-  token: Scalars['String'],
-  tokenExpiration: Scalars['Int'],
+  __typename?: 'AuthData';
+  userId: Scalars['String'];
+  token: Scalars['String'];
+  tokenExpiration: Scalars['Int'];
 };
 
 export type Block = {
-   __typename?: 'Block',
-  blockId: Scalars['String'],
-  name: Scalars['String'],
-  description: Scalars['String'],
+  __typename?: 'Block';
+  blockId: Scalars['String'];
+  name: Scalars['String'];
+  description: Scalars['String'];
+};
+
+export type Department = {
+  __typename?: 'Department';
+  departmentId: Scalars['String'];
+  name: Scalars['String'];
+  facultyId: Scalars['String'];
+  faculty?: Maybe<Faculty>;
+  hodId?: Maybe<Scalars['String']>;
+};
+
+export type Faculty = {
+  __typename?: 'Faculty';
+  facultyId: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type Discipline = {
+  __typename?: 'Discipline';
+  disciplineId: Scalars['String'];
+  name: Scalars['String'];
+  description: Scalars['String'];
+};
+
+export type Duty = {
+  __typename?: 'Duty';
+  dutyId: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type Enrollment = {
+  __typename?: 'Enrollment';
+  id?: Maybe<Scalars['String']>;
+  enrollmentYear?: Maybe<Scalars['String']>;
+  qualificationId?: Maybe<Scalars['String']>;
+  qualification?: Maybe<Qualification>;
+  firstYearEstimated?: Maybe<Scalars['Int']>;
+  secondYearEstimated?: Maybe<Scalars['Int']>;
+  thirdYearEstimated?: Maybe<Scalars['Int']>;
+};
+
+export type Qualification = {
+  __typename?: 'Qualification';
+  qualificationId: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  departmentId?: Maybe<Scalars['String']>;
+  department?: Maybe<Department>;
+};
+
+export type Group = {
+  __typename?: 'Group';
+  id?: Maybe<Scalars['String']>;
+  groupId?: Maybe<Scalars['String']>;
+  moduleId?: Maybe<Scalars['String']>;
+  module?: Maybe<Module>;
+  studentsEnrolled?: Maybe<Scalars['Int']>;
+  modularity?: Maybe<Scalars['Int']>;
+};
+
+export type Module = {
+  __typename?: 'Module';
+  id?: Maybe<Scalars['String']>;
+  moduleId?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  assessmentMethod?: Maybe<Scalars['String']>;
+  nqfLevel?: Maybe<Scalars['String']>;
+  credits?: Maybe<Scalars['Int']>;
+  qualificationId?: Maybe<Scalars['String']>;
+  qualification?: Maybe<Qualification>;
+  offeringTypeId?: Maybe<Scalars['String']>;
+  offeringType?: Maybe<OfferingType>;
+  disciplineId?: Maybe<Scalars['String']>;
+  discipline?: Maybe<Discipline>;
+  venueId?: Maybe<Scalars['String']>;
+  venue?: Maybe<Venue>;
+  blockId?: Maybe<Scalars['String']>;
+  block?: Maybe<Block>;
+  stackId?: Maybe<Scalars['String']>;
+  studyPeriod?: Maybe<Scalars['String']>;
+  lecturedBy?: Maybe<Scalars['String']>;
+  studentsEnrolled?: Maybe<Scalars['Int']>;
+  moderation?: Maybe<Scalars['String']>;
+};
+
+export type OfferingType = {
+  __typename?: 'OfferingType';
+  offeringTypeId: Scalars['String'];
+  description: Scalars['String'];
+};
+
+export type Venue = {
+  __typename?: 'Venue';
+  venueId?: Maybe<Scalars['String']>;
+  campus?: Maybe<Scalars['String']>;
+  capacity?: Maybe<Scalars['Int']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type Position = {
+  __typename?: 'Position';
+  positionId: Scalars['String'];
+  name: Scalars['String'];
+  description: Scalars['String'];
+};
+
+export type Student = {
+  __typename?: 'Student';
+  studentId?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  graduationDate?: Maybe<Scalars['String']>;
+};
+
+export type File = {
+  __typename?: 'File';
+  id: Scalars['ID'];
+  path: Scalars['String'];
+  filename: Scalars['String'];
+  mimetype: Scalars['String'];
+};
+
+export type User = {
+  __typename?: 'User';
+  userId?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  photoUrl?: Maybe<Scalars['String']>;
+  disciplineIds?: Maybe<Array<Maybe<Scalars['String']>>>;
+  disciplines?: Maybe<Array<Maybe<Discipline>>>;
+  positionId?: Maybe<Scalars['String']>;
+  position?: Maybe<Position>;
+  departmentId?: Maybe<Scalars['String']>;
+  department?: Maybe<Department>;
+  workFocusName?: Maybe<Scalars['String']>;
+  workFocus?: Maybe<WorkFocus>;
+  gender?: Maybe<Scalars['String']>;
+  nationality?: Maybe<Scalars['String']>;
+};
+
+export type WorkFocus = {
+  __typename?: 'WorkFocus';
+  name: Scalars['String'];
+  teachingRatio?: Maybe<Scalars['Float']>;
+  researchRatio?: Maybe<Scalars['Float']>;
+  serviceRatio?: Maybe<Scalars['Float']>;
+};
+
+export type WorkloadSummary = {
+  __typename?: 'WorkloadSummary';
+  user?: Maybe<User>;
+  teachingHours?: Maybe<Scalars['Float']>;
+  teachingHoursPerUser?: Maybe<Scalars['Float']>;
+  teachingDifference?: Maybe<Scalars['Float']>;
+  researchHours?: Maybe<Scalars['Float']>;
+  researchHoursPerUser?: Maybe<Scalars['Float']>;
+  researchDifference?: Maybe<Scalars['Float']>;
+  serviceHours?: Maybe<Scalars['Float']>;
+  serviceHoursPerUser?: Maybe<Scalars['Float']>;
+  serviceDifference?: Maybe<Scalars['Float']>;
+};
+
+export type AcademicAdministrationWorkload = {
+  __typename?: 'AcademicAdministrationWorkload';
+  academicAdministrationWorkloads?: Maybe<Array<Maybe<AcademicAdministrationWorkloadPerActivity>>>;
+  globalTarrif?: Maybe<Scalars['Float']>;
+  totalHoursPerUser?: Maybe<Scalars['Float']>;
+  percentageOfWorkFocusPerUser?: Maybe<Scalars['Float']>;
+  percentageOfAnnualHoursPerUser?: Maybe<Scalars['Float']>;
+  percentageOfTotalHoursPerUser?: Maybe<Scalars['Float']>;
+};
+
+export type AcademicAdministrationWorkloadPerActivity = {
+  __typename?: 'AcademicAdministrationWorkloadPerActivity';
+  activity?: Maybe<AcademicAdministrationActivity>;
+  totalHoursPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfWorkFocusPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfAnnualHoursPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfTotalHoursPerActivity?: Maybe<Scalars['Float']>;
+};
+
+export type AcademicAdministrationActivity = Activity & {
+  __typename?: 'AcademicAdministrationActivity';
+  activityId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+  dutyId?: Maybe<Scalars['String']>;
+  duty?: Maybe<Duty>;
+  approvalStatus?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  qualificationId?: Maybe<Scalars['String']>;
+  qualification?: Maybe<Qualification>;
+  description?: Maybe<Scalars['String']>;
+  evidence?: Maybe<Scalars['String']>;
+};
+
+export type Activity = {
+  activityId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+  dutyId?: Maybe<Scalars['String']>;
+  duty?: Maybe<Duty>;
+  approvalStatus?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['String']>;
+};
+
+export type CommunityInstructionWorkload = {
+  __typename?: 'CommunityInstructionWorkload';
+  communityInstructionWorkloads?: Maybe<Array<Maybe<CommunityInstructionWorkloadPerActivity>>>;
+  globalTarrif?: Maybe<Scalars['Float']>;
+  totalHoursPerUser?: Maybe<Scalars['Float']>;
+  percentageOfWorkFocusPerUser?: Maybe<Scalars['Float']>;
+  percentageOfAnnualHoursPerUser?: Maybe<Scalars['Float']>;
+  percentageOfTotalHoursPerUser?: Maybe<Scalars['Float']>;
+};
+
+export type CommunityInstructionWorkloadPerActivity = {
+  __typename?: 'CommunityInstructionWorkloadPerActivity';
+  activity?: Maybe<CommunityInstructionActivity>;
+  totalHoursPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfWorkFocusPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfAnnualHoursPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfTotalHoursPerActivity?: Maybe<Scalars['Float']>;
+};
+
+export type CommunityInstructionActivity = Activity & {
+  __typename?: 'CommunityInstructionActivity';
+  activityId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+  dutyId?: Maybe<Scalars['String']>;
+  duty?: Maybe<Duty>;
+  approvalStatus?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  evidence?: Maybe<Scalars['String']>;
+};
+
+export type ExecutiveManagementWorkload = {
+  __typename?: 'ExecutiveManagementWorkload';
+  executiveManagementWorkloads?: Maybe<Array<Maybe<ExecutiveManagementWorkloadPerActivity>>>;
+  globalTarrif?: Maybe<Scalars['Float']>;
+  totalHoursPerUser?: Maybe<Scalars['Float']>;
+  percentageOfWorkFocusPerUser?: Maybe<Scalars['Float']>;
+  percentageOfAnnualHoursPerUser?: Maybe<Scalars['Float']>;
+  percentageOfTotalHoursPerUser?: Maybe<Scalars['Float']>;
+};
+
+export type ExecutiveManagementWorkloadPerActivity = {
+  __typename?: 'ExecutiveManagementWorkloadPerActivity';
+  activity?: Maybe<ExecutiveManagementActivity>;
+  totalHoursPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfWorkFocusPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfAnnualHoursPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfTotalHoursPerActivity?: Maybe<Scalars['Float']>;
+};
+
+export type ExecutiveManagementActivity = Activity & {
+  __typename?: 'ExecutiveManagementActivity';
+  activityId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+  dutyId?: Maybe<Scalars['String']>;
+  duty?: Maybe<Duty>;
+  approvalStatus?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  evidence?: Maybe<Scalars['String']>;
+};
+
+export type FormalInstructionWorkload = {
+  __typename?: 'FormalInstructionWorkload';
+  formalInstructionWorkloads?: Maybe<Array<Maybe<FormalInstructionWorkloadPerActivity>>>;
+  totalHoursPerUser?: Maybe<Scalars['Float']>;
+  percentageOfWorkFocusPerUser?: Maybe<Scalars['Float']>;
+  percentageOfAnnualHoursPerUser?: Maybe<Scalars['Float']>;
+  percentageOfTotalHoursPerUser?: Maybe<Scalars['Float']>;
+};
+
+export type FormalInstructionWorkloadPerActivity = {
+  __typename?: 'FormalInstructionWorkloadPerActivity';
+  activity?: Maybe<FormalInstructionActivity>;
+  module?: Maybe<Module>;
+  block?: Maybe<Block>;
+  offeringType?: Maybe<OfferingType>;
+  qualification?: Maybe<Qualification>;
+  studentsEnrolled?: Maybe<Scalars['Float']>;
+  baseContactHours?: Maybe<Scalars['Float']>;
+  coordinationHours?: Maybe<Scalars['Float']>;
+  studentSupportHours?: Maybe<Scalars['Float']>;
+  preparationTimeHours?: Maybe<Scalars['Float']>;
+  assessmentSettingHours?: Maybe<Scalars['Float']>;
+  examMarkingHours?: Maybe<Scalars['Float']>;
+  courseworkMarkingHours?: Maybe<Scalars['Float']>;
+  feedbackHours?: Maybe<Scalars['Float']>;
+  formativeAssessmentHours?: Maybe<Scalars['Float']>;
+  moderationHours?: Maybe<Scalars['Float']>;
+  otherHoursPerActivity?: Maybe<Scalars['Float']>;
+  totalHoursPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfWorkFocusPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfAnnualHoursPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfTotalHoursPerActivity?: Maybe<Scalars['Float']>;
+};
+
+export type FormalInstructionActivity = Activity & {
+  __typename?: 'FormalInstructionActivity';
+  activityId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+  dutyId?: Maybe<Scalars['String']>;
+  duty?: Maybe<Duty>;
+  approvalStatus?: Maybe<Scalars['String']>;
+  groupId?: Maybe<Scalars['String']>;
+  group?: Maybe<Group>;
+  isCoordinator?: Maybe<Scalars['Boolean']>;
+  createdAt?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['String']>;
+};
+
+export type PersonnelDevelopmentWorkload = {
+  __typename?: 'PersonnelDevelopmentWorkload';
+  personnelDevelopmentWorkloads?: Maybe<Array<Maybe<PersonnelDevelopmentWorkloadPerActivity>>>;
+  globalTarrif?: Maybe<Scalars['Float']>;
+  totalHoursPerUser?: Maybe<Scalars['Float']>;
+  percentageOfWorkFocusPerUser?: Maybe<Scalars['Float']>;
+  percentageOfAnnualHoursPerUser?: Maybe<Scalars['Float']>;
+  percentageOfTotalHoursPerUser?: Maybe<Scalars['Float']>;
+};
+
+export type PersonnelDevelopmentWorkloadPerActivity = {
+  __typename?: 'PersonnelDevelopmentWorkloadPerActivity';
+  activity?: Maybe<PersonnelDevelopmentActivity>;
+  totalHoursPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfWorkFocusPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfAnnualHoursPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfTotalHoursPerActivity?: Maybe<Scalars['Float']>;
+};
+
+export type PersonnelDevelopmentActivity = Activity & {
+  __typename?: 'PersonnelDevelopmentActivity';
+  activityId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+  dutyId?: Maybe<Scalars['String']>;
+  duty?: Maybe<Duty>;
+  approvalStatus?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  date?: Maybe<Array<Maybe<Scalars['Date']>>>;
+  duration?: Maybe<Scalars['String']>;
+  evidence?: Maybe<Scalars['String']>;
+};
+
+
+export type PublicServiceWorkload = {
+  __typename?: 'PublicServiceWorkload';
+  publicServiceWorkloads?: Maybe<Array<Maybe<PublicServiceWorkloadPerActivity>>>;
+  globalTarrif?: Maybe<Scalars['Float']>;
+  totalHoursPerUser?: Maybe<Scalars['Float']>;
+  percentageOfWorkFocusPerUser?: Maybe<Scalars['Float']>;
+  percentageOfAnnualHoursPerUser?: Maybe<Scalars['Float']>;
+  percentageOfTotalHoursPerUser?: Maybe<Scalars['Float']>;
+};
+
+export type PublicServiceWorkloadPerActivity = {
+  __typename?: 'PublicServiceWorkloadPerActivity';
+  activity?: Maybe<PublicServiceActivity>;
+  totalHoursPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfWorkFocusPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfAnnualHoursPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfTotalHoursPerActivity?: Maybe<Scalars['Float']>;
+};
+
+export type PublicServiceActivity = Activity & {
+  __typename?: 'PublicServiceActivity';
+  activityId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+  dutyId?: Maybe<Scalars['String']>;
+  duty?: Maybe<Duty>;
+  approvalStatus?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  evidence?: Maybe<Scalars['String']>;
+};
+
+export type ResearchWorkload = {
+  __typename?: 'ResearchWorkload';
+  researchWorkloads?: Maybe<Array<Maybe<ResearchWorkloadPerActivity>>>;
+  globalTarrif?: Maybe<Scalars['Float']>;
+  totalHoursPerUser?: Maybe<Scalars['Float']>;
+  percentageOfWorkFocusPerUser?: Maybe<Scalars['Float']>;
+  percentageOfAnnualHoursPerUser?: Maybe<Scalars['Float']>;
+  percentageOfTotalHoursPerUser?: Maybe<Scalars['Float']>;
+};
+
+export type ResearchWorkloadPerActivity = {
+  __typename?: 'ResearchWorkloadPerActivity';
+  activity?: Maybe<ResearchActivity>;
+  totalHoursPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfWorkFocusPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfAnnualHoursPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfTotalHoursPerActivity?: Maybe<Scalars['Float']>;
+};
+
+export type ResearchActivity = Activity & {
+  __typename?: 'ResearchActivity';
+  activityId: Scalars['String'];
+  userId: Scalars['String'];
+  user?: Maybe<User>;
+  dutyId: Scalars['String'];
+  duty?: Maybe<Duty>;
+  approvalStatus?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['String']>;
+  output?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  details?: Maybe<Scalars['String']>;
+  dates?: Maybe<Array<Maybe<Scalars['Date']>>>;
+  conferenceActivities?: Maybe<Array<Maybe<Scalars['String']>>>;
+  authors?: Maybe<Array<Maybe<Scalars['String']>>>;
+  url?: Maybe<Scalars['String']>;
+  evidence?: Maybe<Scalars['String']>;
+};
+
+export type SupervisionWorkload = {
+  __typename?: 'SupervisionWorkload';
+  supervisionWorkloads?: Maybe<Array<Maybe<SupervisionWorkloadPerActivity>>>;
+  totalHoursPerUser?: Maybe<Scalars['Float']>;
+  percentageOfWorkFocusPerUser?: Maybe<Scalars['Float']>;
+  percentageOfAnnualHoursPerUser?: Maybe<Scalars['Float']>;
+  percentageOfTotalHoursPerUser?: Maybe<Scalars['Float']>;
+};
+
+export type SupervisionWorkloadPerActivity = {
+  __typename?: 'SupervisionWorkloadPerActivity';
+  activity?: Maybe<SupervisionActivity>;
+  totalHoursPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfWorkFocusPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfAnnualHoursPerActivity?: Maybe<Scalars['Float']>;
+  percentageOfTotalHoursPerActivity?: Maybe<Scalars['Float']>;
+};
+
+export type SupervisionActivity = Activity & {
+  __typename?: 'SupervisionActivity';
+  activityId: Scalars['String'];
+  userId: Scalars['String'];
+  user?: Maybe<User>;
+  dutyId: Scalars['String'];
+  duty?: Maybe<Duty>;
+  approvalStatus?: Maybe<Scalars['String']>;
+  supervisionRole: Scalars['String'];
+  split?: Maybe<Scalars['Int']>;
+  studentId: Scalars['String'];
+  student?: Maybe<Student>;
+  year?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['String']>;
+};
+
+export type TotalWorkload = {
+  __typename?: 'TotalWorkload';
+  academicAdministrationWorkload?: Maybe<AcademicAdministrationWorkload>;
+  communityInstructionWorkload?: Maybe<CommunityInstructionWorkload>;
+  executiveManagementWorkload?: Maybe<ExecutiveManagementWorkload>;
+  formalInstructionWorkload?: Maybe<FormalInstructionWorkload>;
+  personnelDevelopmentWorkload?: Maybe<PersonnelDevelopmentWorkload>;
+  publicServiceWorkload?: Maybe<PublicServiceWorkload>;
+  researchWorkload?: Maybe<ResearchWorkload>;
+  supervisionWorkload?: Maybe<SupervisionWorkload>;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  changePassword: Scalars['String'];
+  addBlock?: Maybe<Block>;
+  editBlock?: Maybe<Block>;
+  deleteBlock?: Maybe<Block>;
+  addDepartment?: Maybe<Department>;
+  editDepartment?: Maybe<Department>;
+  deleteDepartment?: Maybe<Department>;
+  addDiscipline?: Maybe<Discipline>;
+  editDiscipline?: Maybe<Discipline>;
+  deleteDiscipline?: Maybe<Discipline>;
+  addDuty?: Maybe<Duty>;
+  editDuty?: Maybe<Duty>;
+  deleteDuty?: Maybe<Duty>;
+  addEnrollment?: Maybe<Enrollment>;
+  editEnrollment?: Maybe<Enrollment>;
+  deleteEnrollment?: Maybe<Enrollment>;
+  addFaculty?: Maybe<Faculty>;
+  editFaculty?: Maybe<Faculty>;
+  deleteFaculty?: Maybe<Faculty>;
+  createGroup?: Maybe<Group>;
+  updateGroup?: Maybe<Group>;
+  deleteGroup?: Maybe<Group>;
+  addModule?: Maybe<Module>;
+  addModules?: Maybe<Array<Maybe<Module>>>;
+  editModule?: Maybe<Module>;
+  deleteModule?: Maybe<Module>;
+  unassignAllModules?: Maybe<Scalars['String']>;
+  stackModules?: Maybe<Array<Maybe<Module>>>;
+  addModuleToStack?: Maybe<Module>;
+  unstackModule?: Maybe<Module>;
+  resetStacks: Scalars['String'];
+  resetEnrollments: Scalars['String'];
+  defaultGroupsAllModules: Scalars['String'];
+  addOfferingType?: Maybe<OfferingType>;
+  editOfferingType?: Maybe<OfferingType>;
+  deleteOfferingType?: Maybe<OfferingType>;
+  addPosition?: Maybe<Position>;
+  editPosition?: Maybe<Position>;
+  deletePosition?: Maybe<Position>;
+  addQualification?: Maybe<Qualification>;
+  editQualification?: Maybe<Qualification>;
+  deleteQualification?: Maybe<Qualification>;
+  addStudent?: Maybe<Student>;
+  editStudent?: Maybe<Student>;
+  deleteStudent?: Maybe<Student>;
+  singleUpload: File;
+  multipleUpload: Array<File>;
+  uploadProfilePicture?: Maybe<Location>;
+  uploadAcademicAdministrationEvidenceAWS?: Maybe<Location>;
+  uploadResearchEvidenceAWS?: Maybe<Location>;
+  addUser?: Maybe<User>;
+  editUser?: Maybe<User>;
+  deleteUser?: Maybe<User>;
+  assignProfilePicture?: Maybe<User>;
+  resetModuleDepartments?: Maybe<Scalars['String']>;
+  addVenue?: Maybe<Venue>;
+  editVenue?: Maybe<Venue>;
+  deleteVenue?: Maybe<Venue>;
+  addWorkFocus?: Maybe<WorkFocus>;
+  editWorkFocus?: Maybe<WorkFocus>;
+  deleteWorkFocus?: Maybe<WorkFocus>;
+  initializeWorkloads?: Maybe<Scalars['String']>;
+  updateWorkloads?: Maybe<Scalars['String']>;
+  deleteWorkloads?: Maybe<Scalars['String']>;
+  addAcademicAdministrationActivity?: Maybe<AcademicAdministrationActivity>;
+  editAcademicAdministrationActivity?: Maybe<AcademicAdministrationActivity>;
+  deleteAcademicAdministrationActivity?: Maybe<AcademicAdministrationActivity>;
+  addCommunityInstructionActivity?: Maybe<CommunityInstructionActivity>;
+  editCommunityInstructionActivity?: Maybe<CommunityInstructionActivity>;
+  deleteCommunityInstructionActivity?: Maybe<CommunityInstructionActivity>;
+  addExecutiveManagementActivity?: Maybe<ExecutiveManagementActivity>;
+  editExecutiveManagementActivity?: Maybe<ExecutiveManagementActivity>;
+  deleteExecutiveManagementActivity?: Maybe<ExecutiveManagementActivity>;
+  addFormalInstructionActivity?: Maybe<FormalInstructionActivity>;
+  editFormalInstructionActivity?: Maybe<FormalInstructionActivity>;
+  deleteFormalInstructionActivity?: Maybe<FormalInstructionActivity>;
+  addSupervisionActivity?: Maybe<SupervisionActivity>;
+  editSupervisionActivity?: Maybe<SupervisionActivity>;
+  deleteSupervisionActivity?: Maybe<SupervisionActivity>;
+  addPersonnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivity>;
+  editPersonnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivity>;
+  deletePersonnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivity>;
+  addPublicServiceActivity?: Maybe<PublicServiceActivity>;
+  editPublicServiceActivity?: Maybe<PublicServiceActivity>;
+  deletePublicServiceActivity?: Maybe<PublicServiceActivity>;
+  addResearchActivity?: Maybe<ResearchActivity>;
+  editResearchActivity?: Maybe<ResearchActivity>;
+  deleteResearchActivity?: Maybe<ResearchActivity>;
+};
+
+
+export type MutationChangePasswordArgs = {
+  userId: Scalars['String'];
+  password: Scalars['String'];
+  newPassword: Scalars['String'];
+};
+
+
+export type MutationAddBlockArgs = {
+  block?: Maybe<BlockInput>;
+};
+
+
+export type MutationEditBlockArgs = {
+  block?: Maybe<BlockInput>;
+};
+
+
+export type MutationDeleteBlockArgs = {
+  block?: Maybe<BlockInput>;
+};
+
+
+export type MutationAddDepartmentArgs = {
+  department?: Maybe<DepartmentInput>;
+};
+
+
+export type MutationEditDepartmentArgs = {
+  department?: Maybe<DepartmentInput>;
+};
+
+
+export type MutationDeleteDepartmentArgs = {
+  department?: Maybe<DepartmentInput>;
+};
+
+
+export type MutationAddDisciplineArgs = {
+  discipline?: Maybe<DisciplineInput>;
+};
+
+
+export type MutationEditDisciplineArgs = {
+  discipline?: Maybe<DisciplineInput>;
+};
+
+
+export type MutationDeleteDisciplineArgs = {
+  discipline?: Maybe<DisciplineInput>;
+};
+
+
+export type MutationAddDutyArgs = {
+  duty?: Maybe<DutyInput>;
+};
+
+
+export type MutationEditDutyArgs = {
+  duty?: Maybe<DutyInput>;
+};
+
+
+export type MutationDeleteDutyArgs = {
+  duty?: Maybe<DutyInput>;
+};
+
+
+export type MutationAddEnrollmentArgs = {
+  enrollment: EnrollmentInput;
+};
+
+
+export type MutationEditEnrollmentArgs = {
+  enrollment: EnrollmentInput;
+};
+
+
+export type MutationDeleteEnrollmentArgs = {
+  enrollment: EnrollmentInput;
+};
+
+
+export type MutationAddFacultyArgs = {
+  faculty?: Maybe<FacultyInput>;
+};
+
+
+export type MutationEditFacultyArgs = {
+  faculty?: Maybe<FacultyInput>;
+};
+
+
+export type MutationDeleteFacultyArgs = {
+  faculty?: Maybe<FacultyInput>;
+};
+
+
+export type MutationCreateGroupArgs = {
+  group: GroupInput;
+};
+
+
+export type MutationUpdateGroupArgs = {
+  group: GroupInput;
+};
+
+
+export type MutationDeleteGroupArgs = {
+  group: GroupInput;
+};
+
+
+export type MutationAddModuleArgs = {
+  module: ModuleInput;
+};
+
+
+export type MutationAddModulesArgs = {
+  modules: Array<ModuleInput>;
+};
+
+
+export type MutationEditModuleArgs = {
+  module: ModuleInput;
+};
+
+
+export type MutationDeleteModuleArgs = {
+  module: ModuleInput;
+};
+
+
+export type MutationStackModulesArgs = {
+  ids: Array<Scalars['String']>;
+};
+
+
+export type MutationAddModuleToStackArgs = {
+  id: Scalars['String'];
+  stackId?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationUnstackModuleArgs = {
+  id: Scalars['String'];
+};
+
+
+export type MutationAddOfferingTypeArgs = {
+  offeringType?: Maybe<OfferingTypeInput>;
+};
+
+
+export type MutationEditOfferingTypeArgs = {
+  offeringType?: Maybe<OfferingTypeInput>;
+};
+
+
+export type MutationDeleteOfferingTypeArgs = {
+  offeringType?: Maybe<OfferingTypeInput>;
+};
+
+
+export type MutationAddPositionArgs = {
+  position?: Maybe<PositionInput>;
+};
+
+
+export type MutationEditPositionArgs = {
+  position?: Maybe<PositionInput>;
+};
+
+
+export type MutationDeletePositionArgs = {
+  position?: Maybe<PositionInput>;
+};
+
+
+export type MutationAddQualificationArgs = {
+  qualification?: Maybe<QualificationInput>;
+};
+
+
+export type MutationEditQualificationArgs = {
+  qualification?: Maybe<QualificationInput>;
+};
+
+
+export type MutationDeleteQualificationArgs = {
+  qualification?: Maybe<QualificationInput>;
+};
+
+
+export type MutationAddStudentArgs = {
+  student?: Maybe<StudentInput>;
+};
+
+
+export type MutationEditStudentArgs = {
+  student?: Maybe<StudentInput>;
+};
+
+
+export type MutationDeleteStudentArgs = {
+  student?: Maybe<StudentInput>;
+};
+
+
+export type MutationSingleUploadArgs = {
+  file: Scalars['Upload'];
+};
+
+
+export type MutationMultipleUploadArgs = {
+  files: Array<Scalars['Upload']>;
+};
+
+
+export type MutationUploadProfilePictureArgs = {
+  file: Scalars['Upload'];
+  userId: Scalars['String'];
+};
+
+
+export type MutationUploadAcademicAdministrationEvidenceAwsArgs = {
+  file: Scalars['Upload'];
+  userId: Scalars['String'];
+  activityId: Scalars['String'];
+};
+
+
+export type MutationUploadResearchEvidenceAwsArgs = {
+  file: Scalars['Upload'];
+  userId: Scalars['String'];
+  activityId: Scalars['String'];
+};
+
+
+export type MutationAddUserArgs = {
+  user?: Maybe<UserInput>;
+};
+
+
+export type MutationEditUserArgs = {
+  user?: Maybe<UserInput>;
+};
+
+
+export type MutationDeleteUserArgs = {
+  user?: Maybe<UserInput>;
+};
+
+
+export type MutationAssignProfilePictureArgs = {
+  userId?: Maybe<Scalars['String']>;
+  photoUrl?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationResetModuleDepartmentsArgs = {
+  departmentId: Scalars['String'];
+};
+
+
+export type MutationAddVenueArgs = {
+  venue?: Maybe<VenueInput>;
+};
+
+
+export type MutationEditVenueArgs = {
+  venue?: Maybe<VenueInput>;
+};
+
+
+export type MutationDeleteVenueArgs = {
+  venue?: Maybe<VenueInput>;
+};
+
+
+export type MutationAddWorkFocusArgs = {
+  workFocus?: Maybe<WorkFocusInput>;
+};
+
+
+export type MutationEditWorkFocusArgs = {
+  workFocus?: Maybe<WorkFocusInput>;
+};
+
+
+export type MutationDeleteWorkFocusArgs = {
+  workFocus?: Maybe<WorkFocusInput>;
+};
+
+
+export type MutationInitializeWorkloadsArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type MutationUpdateWorkloadsArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type MutationDeleteWorkloadsArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type MutationAddAcademicAdministrationActivityArgs = {
+  activity?: Maybe<AcademicAdministrationActivityInput>;
+};
+
+
+export type MutationEditAcademicAdministrationActivityArgs = {
+  activity?: Maybe<AcademicAdministrationActivityInput>;
+};
+
+
+export type MutationDeleteAcademicAdministrationActivityArgs = {
+  activity?: Maybe<AcademicAdministrationActivityInput>;
+};
+
+
+export type MutationAddCommunityInstructionActivityArgs = {
+  activity?: Maybe<CommunityInstructionActivityInput>;
+};
+
+
+export type MutationEditCommunityInstructionActivityArgs = {
+  activity?: Maybe<CommunityInstructionActivityInput>;
+};
+
+
+export type MutationDeleteCommunityInstructionActivityArgs = {
+  activity?: Maybe<CommunityInstructionActivityInput>;
+};
+
+
+export type MutationAddExecutiveManagementActivityArgs = {
+  activity?: Maybe<ExecutiveManagementActivityInput>;
+};
+
+
+export type MutationEditExecutiveManagementActivityArgs = {
+  activity?: Maybe<ExecutiveManagementActivityInput>;
+};
+
+
+export type MutationDeleteExecutiveManagementActivityArgs = {
+  activity?: Maybe<ExecutiveManagementActivityInput>;
+};
+
+
+export type MutationAddFormalInstructionActivityArgs = {
+  activity?: Maybe<FormalInstructionActivityInput>;
+};
+
+
+export type MutationEditFormalInstructionActivityArgs = {
+  activity?: Maybe<FormalInstructionActivityInput>;
+};
+
+
+export type MutationDeleteFormalInstructionActivityArgs = {
+  activity?: Maybe<FormalInstructionActivityInput>;
+};
+
+
+export type MutationAddSupervisionActivityArgs = {
+  activity?: Maybe<SupervisionActivityInput>;
+};
+
+
+export type MutationEditSupervisionActivityArgs = {
+  activity?: Maybe<SupervisionActivityInput>;
+};
+
+
+export type MutationDeleteSupervisionActivityArgs = {
+  activity?: Maybe<SupervisionActivityInput>;
+};
+
+
+export type MutationAddPersonnelDevelopmentActivityArgs = {
+  activity?: Maybe<PersonnelDevelopmentActivityInput>;
+};
+
+
+export type MutationEditPersonnelDevelopmentActivityArgs = {
+  activity?: Maybe<PersonnelDevelopmentActivityInput>;
+};
+
+
+export type MutationDeletePersonnelDevelopmentActivityArgs = {
+  activity?: Maybe<PersonnelDevelopmentActivityInput>;
+};
+
+
+export type MutationAddPublicServiceActivityArgs = {
+  activity?: Maybe<PublicServiceActivityInput>;
+};
+
+
+export type MutationEditPublicServiceActivityArgs = {
+  activity?: Maybe<PublicServiceActivityInput>;
+};
+
+
+export type MutationDeletePublicServiceActivityArgs = {
+  activity?: Maybe<PublicServiceActivityInput>;
+};
+
+
+export type MutationAddResearchActivityArgs = {
+  activity?: Maybe<ResearchActivityInput>;
+};
+
+
+export type MutationEditResearchActivityArgs = {
+  activity?: Maybe<ResearchActivityInput>;
+};
+
+
+export type MutationDeleteResearchActivityArgs = {
+  activity?: Maybe<ResearchActivityInput>;
 };
 
 export type BlockInput = {
-  blockId?: Maybe<Scalars['String']>,
-  name?: Maybe<Scalars['String']>,
-  description?: Maybe<Scalars['String']>,
+  blockId?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type DepartmentInput = {
+  departmentId?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  facultyId?: Maybe<Scalars['String']>;
+  hodId?: Maybe<Scalars['String']>;
+};
+
+export type DisciplineInput = {
+  disciplineId?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type DutyInput = {
+  dutyId?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type EnrollmentInput = {
+  id?: Maybe<Scalars['String']>;
+  enrollmentYear?: Maybe<Scalars['String']>;
+  qualificationId?: Maybe<Scalars['String']>;
+  firstYearEstimated?: Maybe<Scalars['Int']>;
+  secondYearEstimated?: Maybe<Scalars['Int']>;
+  thirdYearEstimated?: Maybe<Scalars['Int']>;
+};
+
+export type FacultyInput = {
+  facultyId?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type GroupInput = {
+  id?: Maybe<Scalars['String']>;
+  groupId?: Maybe<Scalars['String']>;
+  moduleId?: Maybe<Scalars['String']>;
+  studentsEnrolled?: Maybe<Scalars['Int']>;
+  modularity?: Maybe<Scalars['Int']>;
+};
+
+export type ModuleInput = {
+  id?: Maybe<Scalars['String']>;
+  moduleId?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  assessmentMethod?: Maybe<Scalars['String']>;
+  nqfLevel?: Maybe<Scalars['String']>;
+  credits?: Maybe<Scalars['Int']>;
+  qualificationId?: Maybe<Scalars['String']>;
+  offeringTypeId?: Maybe<Scalars['String']>;
+  disciplineId?: Maybe<Scalars['String']>;
+  venueId?: Maybe<Scalars['String']>;
+  blockId?: Maybe<Scalars['String']>;
+  stackId?: Maybe<Scalars['String']>;
+  studyPeriod?: Maybe<Scalars['String']>;
+  lecturedBy?: Maybe<Scalars['String']>;
+  studentsEnrolled?: Maybe<Scalars['Int']>;
+  moderation?: Maybe<Scalars['String']>;
+};
+
+export type OfferingTypeInput = {
+  description?: Maybe<Scalars['String']>;
+};
+
+export type PositionInput = {
+  positionId?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type QualificationInput = {
+  qualificationId?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  departmentId?: Maybe<Scalars['String']>;
+};
+
+export type StudentInput = {
+  studentId?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+
+export type Location = {
+  __typename?: 'Location';
+  location?: Maybe<Scalars['String']>;
+};
+
+export type UserInput = {
+  userId?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  photoUrl?: Maybe<Scalars['String']>;
+  disciplineIds?: Maybe<Array<Maybe<Scalars['String']>>>;
+  positionId?: Maybe<Scalars['String']>;
+  departmentId?: Maybe<Scalars['String']>;
+  workFocusName?: Maybe<Scalars['String']>;
+  gender?: Maybe<Scalars['String']>;
+  nationality?: Maybe<Scalars['String']>;
+};
+
+export type VenueInput = {
+  venueId?: Maybe<Scalars['String']>;
+  campus?: Maybe<Scalars['String']>;
+  capacity?: Maybe<Scalars['Int']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type WorkFocusInput = {
+  name?: Maybe<Scalars['String']>;
+  teachingRatio?: Maybe<Scalars['Float']>;
+  researchRatio?: Maybe<Scalars['Float']>;
+  serviceRatio?: Maybe<Scalars['Float']>;
+};
+
+export type AcademicAdministrationActivityInput = {
+  activityId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  dutyId?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  qualificationId?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type CommunityInstructionActivityInput = {
+  activityId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  dutyId?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type ExecutiveManagementActivityInput = {
+  activityId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  dutyId?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type FormalInstructionActivityInput = {
+  activityId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  dutyId?: Maybe<Scalars['String']>;
+  groupId?: Maybe<Scalars['String']>;
+  isCoordinator?: Maybe<Scalars['Boolean']>;
+};
+
+export type SupervisionActivityInput = {
+  activityId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  dutyId?: Maybe<Scalars['String']>;
+  supervisionRole?: Maybe<Scalars['String']>;
+  split?: Maybe<Scalars['Int']>;
+  studentId?: Maybe<Scalars['String']>;
+  year?: Maybe<Scalars['String']>;
+};
+
+export type PersonnelDevelopmentActivityInput = {
+  activityId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  dutyId?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  date?: Maybe<Array<Maybe<Scalars['Date']>>>;
+  duration?: Maybe<Scalars['String']>;
+};
+
+export type PublicServiceActivityInput = {
+  activityId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  dutyId?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type ResearchActivityInput = {
+  activityId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  dutyId?: Maybe<Scalars['String']>;
+  output?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  details?: Maybe<Scalars['String']>;
+  dates?: Maybe<Array<Maybe<Scalars['Date']>>>;
+  conferenceActivities?: Maybe<Array<Maybe<Scalars['String']>>>;
+  authors?: Maybe<Array<Maybe<Scalars['String']>>>;
+  url?: Maybe<Scalars['String']>;
+  evidenceId?: Maybe<Scalars['String']>;
+};
+
+export type Evidence = {
+  __typename?: 'Evidence';
+  activityId: Scalars['String'];
+  location: Scalars['String'];
 };
 
 export enum CacheControlScope {
@@ -99,1623 +1676,46 @@ export enum CacheControlScope {
   Private = 'PRIVATE'
 }
 
-export type CommunityInstructionActivity = Activity & {
-   __typename?: 'CommunityInstructionActivity',
-  activityId?: Maybe<Scalars['String']>,
-  userId?: Maybe<Scalars['String']>,
-  user?: Maybe<User>,
-  dutyId?: Maybe<Scalars['String']>,
-  duty?: Maybe<Duty>,
-  approvalStatus?: Maybe<Scalars['String']>,
-  createdAt?: Maybe<Scalars['String']>,
-  updatedAt?: Maybe<Scalars['String']>,
-  title?: Maybe<Scalars['String']>,
-  description?: Maybe<Scalars['String']>,
-  evidence?: Maybe<Scalars['String']>,
-};
-
-export type CommunityInstructionActivityInput = {
-  activityId?: Maybe<Scalars['String']>,
-  userId?: Maybe<Scalars['String']>,
-  dutyId?: Maybe<Scalars['String']>,
-  title?: Maybe<Scalars['String']>,
-  description?: Maybe<Scalars['String']>,
-};
-
-export type CommunityInstructionWorkload = {
-   __typename?: 'CommunityInstructionWorkload',
-  communityInstructionWorkloads?: Maybe<Array<Maybe<CommunityInstructionWorkloadPerActivity>>>,
-  globalTarrif?: Maybe<Scalars['Float']>,
-  totalHoursPerUser?: Maybe<Scalars['Float']>,
-  percentageOfWorkFocusPerUser?: Maybe<Scalars['Float']>,
-  percentageOfAnnualHoursPerUser?: Maybe<Scalars['Float']>,
-  percentageOfTotalHoursPerUser?: Maybe<Scalars['Float']>,
-};
-
-export type CommunityInstructionWorkloadPerActivity = {
-   __typename?: 'CommunityInstructionWorkloadPerActivity',
-  activity?: Maybe<CommunityInstructionActivity>,
-  totalHoursPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfWorkFocusPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfAnnualHoursPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfTotalHoursPerActivity?: Maybe<Scalars['Float']>,
-};
-
-
-export type Department = {
-   __typename?: 'Department',
-  departmentId: Scalars['String'],
-  name: Scalars['String'],
-  facultyId: Scalars['String'],
-  faculty?: Maybe<Faculty>,
-  hodId?: Maybe<Scalars['String']>,
-};
-
-export type DepartmentInput = {
-  departmentId?: Maybe<Scalars['String']>,
-  name?: Maybe<Scalars['String']>,
-  facultyId?: Maybe<Scalars['String']>,
-  hodId?: Maybe<Scalars['String']>,
-};
-
-export type Discipline = {
-   __typename?: 'Discipline',
-  disciplineId: Scalars['String'],
-  name: Scalars['String'],
-  description: Scalars['String'],
-};
-
-export type DisciplineInput = {
-  disciplineId?: Maybe<Scalars['String']>,
-  name?: Maybe<Scalars['String']>,
-  description?: Maybe<Scalars['String']>,
-};
-
-export type Duty = {
-   __typename?: 'Duty',
-  dutyId: Scalars['String'],
-  name?: Maybe<Scalars['String']>,
-  description?: Maybe<Scalars['String']>,
-};
-
-export type DutyInput = {
-  dutyId?: Maybe<Scalars['String']>,
-  name?: Maybe<Scalars['String']>,
-  description?: Maybe<Scalars['String']>,
-};
-
-export type Enrollment = {
-   __typename?: 'Enrollment',
-  id?: Maybe<Scalars['String']>,
-  enrollmentYear?: Maybe<Scalars['String']>,
-  qualificationId?: Maybe<Scalars['String']>,
-  qualification?: Maybe<Qualification>,
-  firstYearEstimated?: Maybe<Scalars['Int']>,
-  secondYearEstimated?: Maybe<Scalars['Int']>,
-  thirdYearEstimated?: Maybe<Scalars['Int']>,
-};
-
-export type EnrollmentInput = {
-  id?: Maybe<Scalars['String']>,
-  enrollmentYear?: Maybe<Scalars['String']>,
-  qualificationId?: Maybe<Scalars['String']>,
-  firstYearEstimated?: Maybe<Scalars['Int']>,
-  secondYearEstimated?: Maybe<Scalars['Int']>,
-  thirdYearEstimated?: Maybe<Scalars['Int']>,
-};
-
-export type Evidence = {
-   __typename?: 'Evidence',
-  activityId: Scalars['String'],
-  location: Scalars['String'],
-};
-
-export type ExecutiveManagementActivity = Activity & {
-   __typename?: 'ExecutiveManagementActivity',
-  activityId?: Maybe<Scalars['String']>,
-  userId?: Maybe<Scalars['String']>,
-  user?: Maybe<User>,
-  dutyId?: Maybe<Scalars['String']>,
-  duty?: Maybe<Duty>,
-  approvalStatus?: Maybe<Scalars['String']>,
-  createdAt?: Maybe<Scalars['String']>,
-  updatedAt?: Maybe<Scalars['String']>,
-  title?: Maybe<Scalars['String']>,
-  description?: Maybe<Scalars['String']>,
-  evidence?: Maybe<Scalars['String']>,
-};
-
-export type ExecutiveManagementActivityInput = {
-  activityId?: Maybe<Scalars['String']>,
-  userId?: Maybe<Scalars['String']>,
-  dutyId?: Maybe<Scalars['String']>,
-  title?: Maybe<Scalars['String']>,
-  description?: Maybe<Scalars['String']>,
-};
-
-export type ExecutiveManagementWorkload = {
-   __typename?: 'ExecutiveManagementWorkload',
-  executiveManagementWorkloads?: Maybe<Array<Maybe<ExecutiveManagementWorkloadPerActivity>>>,
-  globalTarrif?: Maybe<Scalars['Float']>,
-  totalHoursPerUser?: Maybe<Scalars['Float']>,
-  percentageOfWorkFocusPerUser?: Maybe<Scalars['Float']>,
-  percentageOfAnnualHoursPerUser?: Maybe<Scalars['Float']>,
-  percentageOfTotalHoursPerUser?: Maybe<Scalars['Float']>,
-};
-
-export type ExecutiveManagementWorkloadPerActivity = {
-   __typename?: 'ExecutiveManagementWorkloadPerActivity',
-  activity?: Maybe<ExecutiveManagementActivity>,
-  totalHoursPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfWorkFocusPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfAnnualHoursPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfTotalHoursPerActivity?: Maybe<Scalars['Float']>,
-};
-
-export type Faculty = {
-   __typename?: 'Faculty',
-  facultyId: Scalars['String'],
-  name: Scalars['String'],
-};
-
-export type FacultyInput = {
-  facultyId?: Maybe<Scalars['String']>,
-  name?: Maybe<Scalars['String']>,
-};
-
-export type File = {
-   __typename?: 'File',
-  id: Scalars['ID'],
-  path: Scalars['String'],
-  filename: Scalars['String'],
-  mimetype: Scalars['String'],
-};
-
-export type FormalInstructionActivity = Activity & {
-   __typename?: 'FormalInstructionActivity',
-  activityId?: Maybe<Scalars['String']>,
-  userId?: Maybe<Scalars['String']>,
-  user?: Maybe<User>,
-  dutyId?: Maybe<Scalars['String']>,
-  duty?: Maybe<Duty>,
-  approvalStatus?: Maybe<Scalars['String']>,
-  groupId?: Maybe<Scalars['String']>,
-  group?: Maybe<Group>,
-  isCoordinator?: Maybe<Scalars['Boolean']>,
-  createdAt?: Maybe<Scalars['String']>,
-  updatedAt?: Maybe<Scalars['String']>,
-};
-
-export type FormalInstructionActivityInput = {
-  activityId?: Maybe<Scalars['String']>,
-  userId?: Maybe<Scalars['String']>,
-  dutyId?: Maybe<Scalars['String']>,
-  groupId?: Maybe<Scalars['String']>,
-  isCoordinator?: Maybe<Scalars['Boolean']>,
-};
-
-export type FormalInstructionWorkload = {
-   __typename?: 'FormalInstructionWorkload',
-  formalInstructionWorkloads?: Maybe<Array<Maybe<FormalInstructionWorkloadPerActivity>>>,
-  totalHoursPerUser?: Maybe<Scalars['Float']>,
-  percentageOfWorkFocusPerUser?: Maybe<Scalars['Float']>,
-  percentageOfAnnualHoursPerUser?: Maybe<Scalars['Float']>,
-  percentageOfTotalHoursPerUser?: Maybe<Scalars['Float']>,
-};
-
-export type FormalInstructionWorkloadPerActivity = {
-   __typename?: 'FormalInstructionWorkloadPerActivity',
-  activity?: Maybe<FormalInstructionActivity>,
-  module?: Maybe<Module>,
-  block?: Maybe<Block>,
-  offeringType?: Maybe<OfferingType>,
-  qualification?: Maybe<Qualification>,
-  studentsEnrolled?: Maybe<Scalars['Float']>,
-  baseContactHours?: Maybe<Scalars['Float']>,
-  coordinationHours?: Maybe<Scalars['Float']>,
-  studentSupportHours?: Maybe<Scalars['Float']>,
-  preparationTimeHours?: Maybe<Scalars['Float']>,
-  assessmentSettingHours?: Maybe<Scalars['Float']>,
-  examMarkingHours?: Maybe<Scalars['Float']>,
-  courseworkMarkingHours?: Maybe<Scalars['Float']>,
-  feedbackHours?: Maybe<Scalars['Float']>,
-  formativeAssessmentHours?: Maybe<Scalars['Float']>,
-  moderationHours?: Maybe<Scalars['Float']>,
-  otherHoursPerActivity?: Maybe<Scalars['Float']>,
-  totalHoursPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfWorkFocusPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfAnnualHoursPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfTotalHoursPerActivity?: Maybe<Scalars['Float']>,
-};
-
-export type Group = {
-   __typename?: 'Group',
-  id?: Maybe<Scalars['String']>,
-  groupId?: Maybe<Scalars['String']>,
-  moduleId?: Maybe<Scalars['String']>,
-  module?: Maybe<Module>,
-  studentsEnrolled?: Maybe<Scalars['Int']>,
-  modularity?: Maybe<Scalars['Int']>,
-};
-
-export type GroupInput = {
-  id?: Maybe<Scalars['String']>,
-  groupId?: Maybe<Scalars['String']>,
-  moduleId?: Maybe<Scalars['String']>,
-  studentsEnrolled?: Maybe<Scalars['Int']>,
-  modularity?: Maybe<Scalars['Int']>,
-};
-
-export type Location = {
-   __typename?: 'Location',
-  location?: Maybe<Scalars['String']>,
-};
-
-export type Module = {
-   __typename?: 'Module',
-  id?: Maybe<Scalars['String']>,
-  moduleId?: Maybe<Scalars['String']>,
-  name?: Maybe<Scalars['String']>,
-  type?: Maybe<Scalars['String']>,
-  assessmentMethod?: Maybe<Scalars['String']>,
-  nqfLevel?: Maybe<Scalars['String']>,
-  credits?: Maybe<Scalars['Int']>,
-  qualificationId?: Maybe<Scalars['String']>,
-  qualification?: Maybe<Qualification>,
-  offeringTypeId?: Maybe<Scalars['String']>,
-  offeringType?: Maybe<OfferingType>,
-  disciplineId?: Maybe<Scalars['String']>,
-  discipline?: Maybe<Discipline>,
-  venueId?: Maybe<Scalars['String']>,
-  venue?: Maybe<Venue>,
-  blockId?: Maybe<Scalars['String']>,
-  block?: Maybe<Block>,
-  stackId?: Maybe<Scalars['String']>,
-  studyPeriod?: Maybe<Scalars['String']>,
-  lecturedBy?: Maybe<Scalars['String']>,
-  studentsEnrolled?: Maybe<Scalars['Int']>,
-  moderation?: Maybe<Scalars['String']>,
-};
-
-export type ModuleInput = {
-  id?: Maybe<Scalars['String']>,
-  moduleId?: Maybe<Scalars['String']>,
-  name?: Maybe<Scalars['String']>,
-  type?: Maybe<Scalars['String']>,
-  assessmentMethod?: Maybe<Scalars['String']>,
-  nqfLevel?: Maybe<Scalars['String']>,
-  credits?: Maybe<Scalars['Int']>,
-  qualificationId?: Maybe<Scalars['String']>,
-  offeringTypeId?: Maybe<Scalars['String']>,
-  disciplineId?: Maybe<Scalars['String']>,
-  venueId?: Maybe<Scalars['String']>,
-  blockId?: Maybe<Scalars['String']>,
-  stackId?: Maybe<Scalars['String']>,
-  studyPeriod?: Maybe<Scalars['String']>,
-  lecturedBy?: Maybe<Scalars['String']>,
-  studentsEnrolled?: Maybe<Scalars['Int']>,
-  moderation?: Maybe<Scalars['String']>,
-};
-
-export type Mutation = {
-   __typename?: 'Mutation',
-  addAcademicAdministrationActivity?: Maybe<AcademicAdministrationActivity>,
-  editAcademicAdministrationActivity?: Maybe<AcademicAdministrationActivity>,
-  deleteAcademicAdministrationActivity?: Maybe<AcademicAdministrationActivity>,
-  addCommunityInstructionActivity?: Maybe<CommunityInstructionActivity>,
-  editCommunityInstructionActivity?: Maybe<CommunityInstructionActivity>,
-  deleteCommunityInstructionActivity?: Maybe<CommunityInstructionActivity>,
-  addExecutiveManagementActivity?: Maybe<ExecutiveManagementActivity>,
-  editExecutiveManagementActivity?: Maybe<ExecutiveManagementActivity>,
-  deleteExecutiveManagementActivity?: Maybe<ExecutiveManagementActivity>,
-  addFormalInstructionActivity?: Maybe<FormalInstructionActivity>,
-  editFormalInstructionActivity?: Maybe<FormalInstructionActivity>,
-  deleteFormalInstructionActivity?: Maybe<FormalInstructionActivity>,
-  addSupervisionActivity?: Maybe<SupervisionActivity>,
-  editSupervisionActivity?: Maybe<SupervisionActivity>,
-  deleteSupervisionActivity?: Maybe<SupervisionActivity>,
-  addPersonnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivity>,
-  editPersonnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivity>,
-  deletePersonnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivity>,
-  addPublicServiceActivity?: Maybe<PublicServiceActivity>,
-  editPublicServiceActivity?: Maybe<PublicServiceActivity>,
-  deletePublicServiceActivity?: Maybe<PublicServiceActivity>,
-  addResearchActivity?: Maybe<ResearchActivity>,
-  editResearchActivity?: Maybe<ResearchActivity>,
-  deleteResearchActivity?: Maybe<ResearchActivity>,
-  changePassword: Scalars['String'],
-  addBlock?: Maybe<Block>,
-  editBlock?: Maybe<Block>,
-  deleteBlock?: Maybe<Block>,
-  addDepartment?: Maybe<Department>,
-  editDepartment?: Maybe<Department>,
-  deleteDepartment?: Maybe<Department>,
-  addDiscipline?: Maybe<Discipline>,
-  editDiscipline?: Maybe<Discipline>,
-  deleteDiscipline?: Maybe<Discipline>,
-  addDuty?: Maybe<Duty>,
-  editDuty?: Maybe<Duty>,
-  deleteDuty?: Maybe<Duty>,
-  addEnrollment?: Maybe<Enrollment>,
-  editEnrollment?: Maybe<Enrollment>,
-  deleteEnrollment?: Maybe<Enrollment>,
-  addFaculty?: Maybe<Faculty>,
-  editFaculty?: Maybe<Faculty>,
-  deleteFaculty?: Maybe<Faculty>,
-  createGroup?: Maybe<Group>,
-  updateGroup?: Maybe<Group>,
-  deleteGroup?: Maybe<Group>,
-  addModule?: Maybe<Module>,
-  addModules?: Maybe<Array<Maybe<Module>>>,
-  editModule?: Maybe<Module>,
-  deleteModule?: Maybe<Module>,
-  unassignAllModules?: Maybe<Scalars['String']>,
-  stackModules?: Maybe<Array<Maybe<Module>>>,
-  addModuleToStack?: Maybe<Module>,
-  unstackModule?: Maybe<Module>,
-  resetStacks: Scalars['String'],
-  resetEnrollments: Scalars['String'],
-  defaultGroupsAllModules: Scalars['String'],
-  addOfferingType?: Maybe<OfferingType>,
-  editOfferingType?: Maybe<OfferingType>,
-  deleteOfferingType?: Maybe<OfferingType>,
-  addPosition?: Maybe<Position>,
-  editPosition?: Maybe<Position>,
-  deletePosition?: Maybe<Position>,
-  addQualification?: Maybe<Qualification>,
-  editQualification?: Maybe<Qualification>,
-  deleteQualification?: Maybe<Qualification>,
-  addStudent?: Maybe<Student>,
-  editStudent?: Maybe<Student>,
-  deleteStudent?: Maybe<Student>,
-  singleUpload: File,
-  multipleUpload: Array<File>,
-  uploadProfilePicture?: Maybe<Location>,
-  uploadAcademicAdministrationEvidenceAWS?: Maybe<Location>,
-  uploadResearchEvidenceAWS?: Maybe<Location>,
-  addUser?: Maybe<User>,
-  editUser?: Maybe<User>,
-  deleteUser?: Maybe<User>,
-  assignProfilePicture?: Maybe<User>,
-  resetModuleDepartments?: Maybe<Scalars['String']>,
-  addVenue?: Maybe<Venue>,
-  editVenue?: Maybe<Venue>,
-  deleteVenue?: Maybe<Venue>,
-  addWorkFocus?: Maybe<WorkFocus>,
-  editWorkFocus?: Maybe<WorkFocus>,
-  deleteWorkFocus?: Maybe<WorkFocus>,
-  initializeWorkloads?: Maybe<Scalars['String']>,
-  updateWorkloads?: Maybe<Scalars['String']>,
-  deleteWorkloads?: Maybe<Scalars['String']>,
-};
-
-
-export type MutationAddAcademicAdministrationActivityArgs = {
-  activity?: Maybe<AcademicAdministrationActivityInput>
-};
-
-
-export type MutationEditAcademicAdministrationActivityArgs = {
-  activity?: Maybe<AcademicAdministrationActivityInput>
-};
-
-
-export type MutationDeleteAcademicAdministrationActivityArgs = {
-  activity?: Maybe<AcademicAdministrationActivityInput>
-};
-
-
-export type MutationAddCommunityInstructionActivityArgs = {
-  activity?: Maybe<CommunityInstructionActivityInput>
-};
-
-
-export type MutationEditCommunityInstructionActivityArgs = {
-  activity?: Maybe<CommunityInstructionActivityInput>
-};
-
-
-export type MutationDeleteCommunityInstructionActivityArgs = {
-  activity?: Maybe<CommunityInstructionActivityInput>
-};
-
-
-export type MutationAddExecutiveManagementActivityArgs = {
-  activity?: Maybe<ExecutiveManagementActivityInput>
-};
-
-
-export type MutationEditExecutiveManagementActivityArgs = {
-  activity?: Maybe<ExecutiveManagementActivityInput>
-};
-
-
-export type MutationDeleteExecutiveManagementActivityArgs = {
-  activity?: Maybe<ExecutiveManagementActivityInput>
-};
-
-
-export type MutationAddFormalInstructionActivityArgs = {
-  activity?: Maybe<FormalInstructionActivityInput>
-};
-
-
-export type MutationEditFormalInstructionActivityArgs = {
-  activity?: Maybe<FormalInstructionActivityInput>
-};
-
-
-export type MutationDeleteFormalInstructionActivityArgs = {
-  activity?: Maybe<FormalInstructionActivityInput>
-};
-
-
-export type MutationAddSupervisionActivityArgs = {
-  activity?: Maybe<SupervisionActivityInput>
-};
-
-
-export type MutationEditSupervisionActivityArgs = {
-  activity?: Maybe<SupervisionActivityInput>
-};
-
-
-export type MutationDeleteSupervisionActivityArgs = {
-  activity?: Maybe<SupervisionActivityInput>
-};
-
-
-export type MutationAddPersonnelDevelopmentActivityArgs = {
-  activity?: Maybe<PersonnelDevelopmentActivityInput>
-};
-
-
-export type MutationEditPersonnelDevelopmentActivityArgs = {
-  activity?: Maybe<PersonnelDevelopmentActivityInput>
-};
-
-
-export type MutationDeletePersonnelDevelopmentActivityArgs = {
-  activity?: Maybe<PersonnelDevelopmentActivityInput>
-};
-
-
-export type MutationAddPublicServiceActivityArgs = {
-  activity?: Maybe<PublicServiceActivityInput>
-};
-
-
-export type MutationEditPublicServiceActivityArgs = {
-  activity?: Maybe<PublicServiceActivityInput>
-};
-
-
-export type MutationDeletePublicServiceActivityArgs = {
-  activity?: Maybe<PublicServiceActivityInput>
-};
-
-
-export type MutationAddResearchActivityArgs = {
-  activity?: Maybe<ResearchActivityInput>
-};
-
-
-export type MutationEditResearchActivityArgs = {
-  activity?: Maybe<ResearchActivityInput>
-};
-
-
-export type MutationDeleteResearchActivityArgs = {
-  activity?: Maybe<ResearchActivityInput>
-};
-
-
-export type MutationChangePasswordArgs = {
-  userId: Scalars['String'],
-  password: Scalars['String'],
-  newPassword: Scalars['String']
-};
-
-
-export type MutationAddBlockArgs = {
-  block?: Maybe<BlockInput>
-};
-
-
-export type MutationEditBlockArgs = {
-  block?: Maybe<BlockInput>
-};
-
-
-export type MutationDeleteBlockArgs = {
-  block?: Maybe<BlockInput>
-};
-
-
-export type MutationAddDepartmentArgs = {
-  department?: Maybe<DepartmentInput>
-};
-
-
-export type MutationEditDepartmentArgs = {
-  department?: Maybe<DepartmentInput>
-};
-
-
-export type MutationDeleteDepartmentArgs = {
-  department?: Maybe<DepartmentInput>
-};
-
-
-export type MutationAddDisciplineArgs = {
-  discipline?: Maybe<DisciplineInput>
-};
-
-
-export type MutationEditDisciplineArgs = {
-  discipline?: Maybe<DisciplineInput>
-};
-
-
-export type MutationDeleteDisciplineArgs = {
-  discipline?: Maybe<DisciplineInput>
-};
-
-
-export type MutationAddDutyArgs = {
-  duty?: Maybe<DutyInput>
-};
-
-
-export type MutationEditDutyArgs = {
-  duty?: Maybe<DutyInput>
-};
-
-
-export type MutationDeleteDutyArgs = {
-  duty?: Maybe<DutyInput>
-};
-
-
-export type MutationAddEnrollmentArgs = {
-  enrollment: EnrollmentInput
-};
-
-
-export type MutationEditEnrollmentArgs = {
-  enrollment: EnrollmentInput
-};
-
-
-export type MutationDeleteEnrollmentArgs = {
-  enrollment: EnrollmentInput
-};
-
-
-export type MutationAddFacultyArgs = {
-  faculty?: Maybe<FacultyInput>
-};
-
-
-export type MutationEditFacultyArgs = {
-  faculty?: Maybe<FacultyInput>
-};
-
-
-export type MutationDeleteFacultyArgs = {
-  faculty?: Maybe<FacultyInput>
-};
-
-
-export type MutationCreateGroupArgs = {
-  group: GroupInput
-};
-
-
-export type MutationUpdateGroupArgs = {
-  group: GroupInput
-};
-
-
-export type MutationDeleteGroupArgs = {
-  group: GroupInput
-};
-
-
-export type MutationAddModuleArgs = {
-  module: ModuleInput
-};
-
-
-export type MutationAddModulesArgs = {
-  modules: Array<ModuleInput>
-};
-
-
-export type MutationEditModuleArgs = {
-  module: ModuleInput
-};
-
-
-export type MutationDeleteModuleArgs = {
-  module: ModuleInput
-};
-
-
-export type MutationStackModulesArgs = {
-  ids: Array<Scalars['String']>
-};
-
-
-export type MutationAddModuleToStackArgs = {
-  id: Scalars['String'],
-  stackId?: Maybe<Scalars['String']>
-};
-
-
-export type MutationUnstackModuleArgs = {
-  id: Scalars['String']
-};
-
-
-export type MutationAddOfferingTypeArgs = {
-  offeringType?: Maybe<OfferingTypeInput>
-};
-
-
-export type MutationEditOfferingTypeArgs = {
-  offeringType?: Maybe<OfferingTypeInput>
-};
-
-
-export type MutationDeleteOfferingTypeArgs = {
-  offeringType?: Maybe<OfferingTypeInput>
-};
-
-
-export type MutationAddPositionArgs = {
-  position?: Maybe<PositionInput>
-};
-
-
-export type MutationEditPositionArgs = {
-  position?: Maybe<PositionInput>
-};
-
-
-export type MutationDeletePositionArgs = {
-  position?: Maybe<PositionInput>
-};
-
-
-export type MutationAddQualificationArgs = {
-  qualification?: Maybe<QualificationInput>
-};
-
-
-export type MutationEditQualificationArgs = {
-  qualification?: Maybe<QualificationInput>
-};
-
-
-export type MutationDeleteQualificationArgs = {
-  qualification?: Maybe<QualificationInput>
-};
-
-
-export type MutationAddStudentArgs = {
-  student?: Maybe<StudentInput>
-};
-
-
-export type MutationEditStudentArgs = {
-  student?: Maybe<StudentInput>
-};
-
-
-export type MutationDeleteStudentArgs = {
-  student?: Maybe<StudentInput>
-};
-
-
-export type MutationSingleUploadArgs = {
-  file: Scalars['Upload']
-};
-
-
-export type MutationMultipleUploadArgs = {
-  files: Array<Scalars['Upload']>
-};
-
-
-export type MutationUploadProfilePictureArgs = {
-  file: Scalars['Upload'],
-  userId: Scalars['String']
-};
-
-
-export type MutationUploadAcademicAdministrationEvidenceAwsArgs = {
-  file: Scalars['Upload'],
-  userId: Scalars['String'],
-  activityId: Scalars['String']
-};
-
-
-export type MutationUploadResearchEvidenceAwsArgs = {
-  file: Scalars['Upload'],
-  userId: Scalars['String'],
-  activityId: Scalars['String']
-};
-
-
-export type MutationAddUserArgs = {
-  user?: Maybe<UserInput>
-};
-
-
-export type MutationEditUserArgs = {
-  user?: Maybe<UserInput>
-};
-
-
-export type MutationDeleteUserArgs = {
-  user?: Maybe<UserInput>
-};
-
-
-export type MutationAssignProfilePictureArgs = {
-  userId?: Maybe<Scalars['String']>,
-  photoUrl?: Maybe<Scalars['String']>
-};
-
-
-export type MutationResetModuleDepartmentsArgs = {
-  departmentId: Scalars['String']
-};
-
-
-export type MutationAddVenueArgs = {
-  venue?: Maybe<VenueInput>
-};
-
-
-export type MutationEditVenueArgs = {
-  venue?: Maybe<VenueInput>
-};
-
-
-export type MutationDeleteVenueArgs = {
-  venue?: Maybe<VenueInput>
-};
-
-
-export type MutationAddWorkFocusArgs = {
-  workFocus?: Maybe<WorkFocusInput>
-};
-
-
-export type MutationEditWorkFocusArgs = {
-  workFocus?: Maybe<WorkFocusInput>
-};
-
-
-export type MutationDeleteWorkFocusArgs = {
-  workFocus?: Maybe<WorkFocusInput>
-};
-
-
-export type MutationInitializeWorkloadsArgs = {
-  userId: Scalars['String']
-};
-
-
-export type MutationUpdateWorkloadsArgs = {
-  userId: Scalars['String']
-};
-
-
-export type MutationDeleteWorkloadsArgs = {
-  userId: Scalars['String']
-};
-
-export type OfferingType = {
-   __typename?: 'OfferingType',
-  offeringTypeId: Scalars['String'],
-  description: Scalars['String'],
-};
-
-export type OfferingTypeInput = {
-  description?: Maybe<Scalars['String']>,
-};
-
-export type PersonnelDevelopmentActivity = Activity & {
-   __typename?: 'PersonnelDevelopmentActivity',
-  activityId?: Maybe<Scalars['String']>,
-  userId?: Maybe<Scalars['String']>,
-  user?: Maybe<User>,
-  dutyId?: Maybe<Scalars['String']>,
-  duty?: Maybe<Duty>,
-  approvalStatus?: Maybe<Scalars['String']>,
-  createdAt?: Maybe<Scalars['String']>,
-  updatedAt?: Maybe<Scalars['String']>,
-  title?: Maybe<Scalars['String']>,
-  date?: Maybe<Array<Maybe<Scalars['Date']>>>,
-  duration?: Maybe<Scalars['String']>,
-  evidence?: Maybe<Scalars['String']>,
-};
-
-export type PersonnelDevelopmentActivityInput = {
-  activityId?: Maybe<Scalars['String']>,
-  userId?: Maybe<Scalars['String']>,
-  dutyId?: Maybe<Scalars['String']>,
-  title?: Maybe<Scalars['String']>,
-  date?: Maybe<Array<Maybe<Scalars['Date']>>>,
-  duration?: Maybe<Scalars['String']>,
-};
-
-export type PersonnelDevelopmentWorkload = {
-   __typename?: 'PersonnelDevelopmentWorkload',
-  personnelDevelopmentWorkloads?: Maybe<Array<Maybe<PersonnelDevelopmentWorkloadPerActivity>>>,
-  globalTarrif?: Maybe<Scalars['Float']>,
-  totalHoursPerUser?: Maybe<Scalars['Float']>,
-  percentageOfWorkFocusPerUser?: Maybe<Scalars['Float']>,
-  percentageOfAnnualHoursPerUser?: Maybe<Scalars['Float']>,
-  percentageOfTotalHoursPerUser?: Maybe<Scalars['Float']>,
-};
-
-export type PersonnelDevelopmentWorkloadPerActivity = {
-   __typename?: 'PersonnelDevelopmentWorkloadPerActivity',
-  activity?: Maybe<PersonnelDevelopmentActivity>,
-  totalHoursPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfWorkFocusPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfAnnualHoursPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfTotalHoursPerActivity?: Maybe<Scalars['Float']>,
-};
-
-export type Position = {
-   __typename?: 'Position',
-  positionId: Scalars['String'],
-  name: Scalars['String'],
-  description: Scalars['String'],
-};
-
-export type PositionInput = {
-  positionId?: Maybe<Scalars['String']>,
-  name?: Maybe<Scalars['String']>,
-  description?: Maybe<Scalars['String']>,
-};
-
-export type PublicServiceActivity = Activity & {
-   __typename?: 'PublicServiceActivity',
-  activityId?: Maybe<Scalars['String']>,
-  userId?: Maybe<Scalars['String']>,
-  user?: Maybe<User>,
-  dutyId?: Maybe<Scalars['String']>,
-  duty?: Maybe<Duty>,
-  approvalStatus?: Maybe<Scalars['String']>,
-  createdAt?: Maybe<Scalars['String']>,
-  updatedAt?: Maybe<Scalars['String']>,
-  title?: Maybe<Scalars['String']>,
-  description?: Maybe<Scalars['String']>,
-  evidence?: Maybe<Scalars['String']>,
-};
-
-export type PublicServiceActivityInput = {
-  activityId?: Maybe<Scalars['String']>,
-  userId?: Maybe<Scalars['String']>,
-  dutyId?: Maybe<Scalars['String']>,
-  title?: Maybe<Scalars['String']>,
-  description?: Maybe<Scalars['String']>,
-};
-
-export type PublicServiceWorkload = {
-   __typename?: 'PublicServiceWorkload',
-  publicServiceWorkloads?: Maybe<Array<Maybe<PublicServiceWorkloadPerActivity>>>,
-  globalTarrif?: Maybe<Scalars['Float']>,
-  totalHoursPerUser?: Maybe<Scalars['Float']>,
-  percentageOfWorkFocusPerUser?: Maybe<Scalars['Float']>,
-  percentageOfAnnualHoursPerUser?: Maybe<Scalars['Float']>,
-  percentageOfTotalHoursPerUser?: Maybe<Scalars['Float']>,
-};
-
-export type PublicServiceWorkloadPerActivity = {
-   __typename?: 'PublicServiceWorkloadPerActivity',
-  activity?: Maybe<PublicServiceActivity>,
-  totalHoursPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfWorkFocusPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfAnnualHoursPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfTotalHoursPerActivity?: Maybe<Scalars['Float']>,
-};
-
-export type Qualification = {
-   __typename?: 'Qualification',
-  qualificationId: Scalars['String'],
-  name?: Maybe<Scalars['String']>,
-  type?: Maybe<Scalars['String']>,
-  departmentId?: Maybe<Scalars['String']>,
-  department?: Maybe<Department>,
-};
-
-export type QualificationInput = {
-  qualificationId?: Maybe<Scalars['String']>,
-  name?: Maybe<Scalars['String']>,
-  type?: Maybe<Scalars['String']>,
-  departmentId?: Maybe<Scalars['String']>,
-};
-
-export type Query = {
-   __typename?: 'Query',
-  academicAdministrationActivity?: Maybe<AcademicAdministrationActivity>,
-  academicAdministrationActivities?: Maybe<Array<Maybe<AcademicAdministrationActivity>>>,
-  academicAdministrationActivitiesByUser?: Maybe<Array<Maybe<AcademicAdministrationActivity>>>,
-  activity?: Maybe<Activity>,
-  activities?: Maybe<Array<Maybe<Activity>>>,
-  activitiesByDuty?: Maybe<Array<Maybe<Activity>>>,
-  activitiesByUser?: Maybe<Array<Maybe<Activity>>>,
-  activitiesByUnapproved?: Maybe<Array<Maybe<Activity>>>,
-  activitiesByApproved?: Maybe<Array<Maybe<Activity>>>,
-  communityInstructionActivity?: Maybe<CommunityInstructionActivity>,
-  communityInstructionActivities?: Maybe<Array<Maybe<CommunityInstructionActivity>>>,
-  communityInstructionActivitiesByUser?: Maybe<Array<Maybe<CommunityInstructionActivity>>>,
-  executiveManagementActivity?: Maybe<ExecutiveManagementActivity>,
-  executiveManagementActivities?: Maybe<Array<Maybe<ExecutiveManagementActivity>>>,
-  executiveManagementActivitiesByUser?: Maybe<Array<Maybe<ExecutiveManagementActivity>>>,
-  formalInstructionActivity?: Maybe<FormalInstructionActivity>,
-  formalInstructionActivities?: Maybe<Array<Maybe<FormalInstructionActivity>>>,
-  formalInstructionActivitiesByUser?: Maybe<Array<Maybe<FormalInstructionActivity>>>,
-  supervisionActivity?: Maybe<SupervisionActivity>,
-  supervisionActivities?: Maybe<Array<Maybe<SupervisionActivity>>>,
-  supervisionActivitiesByUser?: Maybe<Array<Maybe<SupervisionActivity>>>,
-  personnelDevelopmentActivity?: Maybe<PersonnelDevelopmentActivity>,
-  personnelDevelopmentActivities?: Maybe<Array<Maybe<PersonnelDevelopmentActivity>>>,
-  personnelDevelopmentActivitiesByUser?: Maybe<Array<Maybe<PersonnelDevelopmentActivity>>>,
-  publicServiceActivity?: Maybe<PublicServiceActivity>,
-  publicServiceActivities?: Maybe<Array<Maybe<PublicServiceActivity>>>,
-  publicServiceActivitiesByUser?: Maybe<Array<Maybe<PublicServiceActivity>>>,
-  researchActivity?: Maybe<ResearchActivity>,
-  researchActivities?: Maybe<Array<Maybe<ResearchActivity>>>,
-  researchActivitiesByUser?: Maybe<Array<Maybe<ResearchActivity>>>,
-  login: AuthData,
-  block?: Maybe<Block>,
-  blocks?: Maybe<Array<Maybe<Block>>>,
-  department?: Maybe<Department>,
-  departments?: Maybe<Array<Maybe<Department>>>,
-  discipline?: Maybe<Discipline>,
-  disciplines?: Maybe<Array<Maybe<Discipline>>>,
-  duty?: Maybe<Duty>,
-  duties?: Maybe<Array<Maybe<Duty>>>,
-  enrollment?: Maybe<Enrollment>,
-  enrollments?: Maybe<Array<Maybe<Enrollment>>>,
-  enrollmentsByYear?: Maybe<Array<Maybe<Enrollment>>>,
-  enrollmentsByQualification?: Maybe<Array<Maybe<Enrollment>>>,
-  faculty?: Maybe<Faculty>,
-  faculties?: Maybe<Array<Maybe<Faculty>>>,
-  group?: Maybe<Group>,
-  groups?: Maybe<Array<Maybe<Group>>>,
-  groupsByModule?: Maybe<Array<Maybe<Group>>>,
-  groupTotal?: Maybe<Scalars['Int']>,
-  remainingStudents?: Maybe<Scalars['Int']>,
-  groupExists?: Maybe<Scalars['Boolean']>,
-  module?: Maybe<Module>,
-  modules?: Maybe<Array<Maybe<Module>>>,
-  modulesByDiscipline?: Maybe<Array<Maybe<Module>>>,
-  modulesByModerator?: Maybe<Array<Maybe<Module>>>,
-  modulesByStack?: Maybe<Array<Maybe<Module>>>,
-  stackedWith?: Maybe<Array<Maybe<Module>>>,
-  unstackedModules?: Maybe<Array<Maybe<Module>>>,
-  modulesByDepartment?: Maybe<Array<Maybe<Module>>>,
-  offeringType?: Maybe<OfferingType>,
-  offeringTypes?: Maybe<Array<Maybe<OfferingType>>>,
-  position?: Maybe<Position>,
-  positions?: Maybe<Array<Maybe<Position>>>,
-  qualification?: Maybe<Qualification>,
-  qualifications?: Maybe<Array<Maybe<Qualification>>>,
-  qualificationsByLevel?: Maybe<Array<Maybe<Qualification>>>,
-  qualificationsUnenrolled?: Maybe<Array<Maybe<Qualification>>>,
-  student?: Maybe<Student>,
-  students?: Maybe<Array<Maybe<Student>>>,
-  studentsUnassigned?: Maybe<Array<Maybe<Student>>>,
-  files?: Maybe<Array<Maybe<File>>>,
-  user?: Maybe<User>,
-  users?: Maybe<Array<Maybe<User>>>,
-  usersByPosition?: Maybe<Array<Maybe<User>>>,
-  userExists?: Maybe<Scalars['Boolean']>,
-  venue?: Maybe<Venue>,
-  venues?: Maybe<Array<Maybe<Venue>>>,
-  workFocus?: Maybe<WorkFocus>,
-  workFocuses?: Maybe<Array<Maybe<WorkFocus>>>,
-  teachingHours?: Maybe<Scalars['Float']>,
-  researchHours?: Maybe<Scalars['Float']>,
-  serviceHours?: Maybe<Scalars['Float']>,
-  annualHours?: Maybe<Scalars['Float']>,
-  totalHoursPerUser?: Maybe<Scalars['Float']>,
-  teachingHoursPerUser?: Maybe<Scalars['Float']>,
-  researchHoursPerUser?: Maybe<Scalars['Float']>,
-  serviceHoursPerUser?: Maybe<Scalars['Float']>,
-  workloadSummaries?: Maybe<Array<Maybe<WorkloadSummary>>>,
-  academicAdministrationWorkload?: Maybe<AcademicAdministrationWorkload>,
-  communityInstructionWorkload?: Maybe<CommunityInstructionWorkload>,
-  executiveManagementWorkload?: Maybe<ExecutiveManagementWorkload>,
-  formalInstructionWorkload?: Maybe<FormalInstructionWorkload>,
-  personnelDevelopmentWorkload?: Maybe<PersonnelDevelopmentWorkload>,
-  publicServiceWorkload?: Maybe<PublicServiceWorkload>,
-  researchWorkload?: Maybe<ResearchWorkload>,
-  supervisionWorkload?: Maybe<SupervisionWorkload>,
-  totalWorkload?: Maybe<TotalWorkload>,
-};
-
-
-export type QueryAcademicAdministrationActivityArgs = {
-  activityId: Scalars['String']
-};
-
-
-export type QueryAcademicAdministrationActivitiesByUserArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryActivityArgs = {
-  activityId: Scalars['String']
-};
-
-
-export type QueryActivitiesByDutyArgs = {
-  dutyId: Scalars['String']
-};
-
-
-export type QueryActivitiesByUserArgs = {
-  userId: Scalars['String']
-};
-
-
-export type QueryCommunityInstructionActivityArgs = {
-  activityId: Scalars['String']
-};
-
-
-export type QueryCommunityInstructionActivitiesByUserArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryExecutiveManagementActivityArgs = {
-  activityId: Scalars['String']
-};
-
-
-export type QueryExecutiveManagementActivitiesByUserArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryFormalInstructionActivityArgs = {
-  activityId: Scalars['String']
-};
-
-
-export type QueryFormalInstructionActivitiesByUserArgs = {
-  userId: Scalars['String']
-};
-
-
-export type QuerySupervisionActivityArgs = {
-  activityId: Scalars['String']
-};
-
-
-export type QuerySupervisionActivitiesByUserArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryPersonnelDevelopmentActivityArgs = {
-  activityId: Scalars['String']
-};
-
-
-export type QueryPersonnelDevelopmentActivitiesByUserArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryPublicServiceActivityArgs = {
-  activityId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryPublicServiceActivitiesByUserArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryResearchActivityArgs = {
-  activityId: Scalars['String']
-};
-
-
-export type QueryResearchActivitiesByUserArgs = {
-  userId: Scalars['String']
-};
-
-
-export type QueryLoginArgs = {
-  userId: Scalars['String'],
-  password: Scalars['String']
-};
-
-
-export type QueryBlockArgs = {
-  blockId: Scalars['String']
-};
-
-
-export type QueryDepartmentArgs = {
-  departmentId: Scalars['String']
-};
-
-
-export type QueryDisciplineArgs = {
-  disciplineId: Scalars['String']
-};
-
-
-export type QueryDutyArgs = {
-  dutyId: Scalars['String']
-};
-
-
-export type QueryEnrollmentArgs = {
-  id: Scalars['String']
-};
-
-
-export type QueryEnrollmentsByYearArgs = {
-  enrollmentYear: Scalars['String']
-};
-
-
-export type QueryEnrollmentsByQualificationArgs = {
-  qualificationId: Scalars['String']
-};
-
-
-export type QueryFacultyArgs = {
-  facultyId: Scalars['String']
-};
-
-
-export type QueryGroupArgs = {
-  id: Scalars['String']
-};
-
-
-export type QueryGroupsByModuleArgs = {
-  moduleId: Scalars['String']
-};
-
-
-export type QueryGroupTotalArgs = {
-  moduleId: Scalars['String']
-};
-
-
-export type QueryRemainingStudentsArgs = {
-  moduleId: Scalars['String']
-};
-
-
-export type QueryGroupExistsArgs = {
-  groupId: Scalars['String'],
-  moduleId: Scalars['String']
-};
-
-
-export type QueryModuleArgs = {
-  id: Scalars['String']
-};
-
-
-export type QueryModulesByDisciplineArgs = {
-  disciplineIds: Array<Scalars['String']>
-};
-
-
-export type QueryModulesByModeratorArgs = {
-  moderatorId: Scalars['String']
-};
-
-
-export type QueryModulesByStackArgs = {
-  stackId: Scalars['String']
-};
-
-
-export type QueryStackedWithArgs = {
-  id: Scalars['String'],
-  stackId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryModulesByDepartmentArgs = {
-  departmentId: Scalars['String']
-};
-
-
-export type QueryOfferingTypeArgs = {
-  offeringTypeId: Scalars['String']
-};
-
-
-export type QueryPositionArgs = {
-  positionId: Scalars['String']
-};
-
-
-export type QueryQualificationArgs = {
-  qualificationId: Scalars['String']
-};
-
-
-export type QueryStudentArgs = {
-  studentId: Scalars['String']
-};
-
-
-export type QueryStudentsUnassignedArgs = {
-  userId: Scalars['String']
-};
-
-
-export type QueryUserArgs = {
-  userId: Scalars['String']
-};
-
-
-export type QueryUserExistsArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryVenueArgs = {
-  venueId: Scalars['String']
-};
-
-
-export type QueryWorkFocusArgs = {
-  name: Scalars['String']
-};
-
-
-export type QueryTeachingHoursArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryResearchHoursArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryServiceHoursArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryTotalHoursPerUserArgs = {
-  userId: Scalars['String']
-};
-
-
-export type QueryTeachingHoursPerUserArgs = {
-  userId: Scalars['String']
-};
-
-
-export type QueryResearchHoursPerUserArgs = {
-  userId: Scalars['String']
-};
-
-
-export type QueryServiceHoursPerUserArgs = {
-  userId: Scalars['String']
-};
-
-
-export type QueryAcademicAdministrationWorkloadArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryCommunityInstructionWorkloadArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryExecutiveManagementWorkloadArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryFormalInstructionWorkloadArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryPersonnelDevelopmentWorkloadArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryPublicServiceWorkloadArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryResearchWorkloadArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QuerySupervisionWorkloadArgs = {
-  userId?: Maybe<Scalars['String']>
-};
-
-
-export type QueryTotalWorkloadArgs = {
-  userId: Scalars['String']
-};
-
-export type ResearchActivity = Activity & {
-   __typename?: 'ResearchActivity',
-  activityId: Scalars['String'],
-  userId: Scalars['String'],
-  user?: Maybe<User>,
-  dutyId: Scalars['String'],
-  duty?: Maybe<Duty>,
-  approvalStatus?: Maybe<Scalars['String']>,
-  createdAt?: Maybe<Scalars['String']>,
-  updatedAt?: Maybe<Scalars['String']>,
-  output?: Maybe<Scalars['String']>,
-  title?: Maybe<Scalars['String']>,
-  details?: Maybe<Scalars['String']>,
-  dates?: Maybe<Array<Maybe<Scalars['Date']>>>,
-  conferenceActivities?: Maybe<Array<Maybe<Scalars['String']>>>,
-  authors?: Maybe<Array<Maybe<Scalars['String']>>>,
-  url?: Maybe<Scalars['String']>,
-  evidence?: Maybe<Scalars['String']>,
-};
-
-export type ResearchActivityInput = {
-  activityId?: Maybe<Scalars['String']>,
-  userId?: Maybe<Scalars['String']>,
-  dutyId?: Maybe<Scalars['String']>,
-  output?: Maybe<Scalars['String']>,
-  title?: Maybe<Scalars['String']>,
-  details?: Maybe<Scalars['String']>,
-  dates?: Maybe<Array<Maybe<Scalars['Date']>>>,
-  conferenceActivities?: Maybe<Array<Maybe<Scalars['String']>>>,
-  authors?: Maybe<Array<Maybe<Scalars['String']>>>,
-  url?: Maybe<Scalars['String']>,
-  evidenceId?: Maybe<Scalars['String']>,
-};
-
-export type ResearchWorkload = {
-   __typename?: 'ResearchWorkload',
-  researchWorkloads?: Maybe<Array<Maybe<ResearchWorkloadPerActivity>>>,
-  globalTarrif?: Maybe<Scalars['Float']>,
-  totalHoursPerUser?: Maybe<Scalars['Float']>,
-  percentageOfWorkFocusPerUser?: Maybe<Scalars['Float']>,
-  percentageOfAnnualHoursPerUser?: Maybe<Scalars['Float']>,
-  percentageOfTotalHoursPerUser?: Maybe<Scalars['Float']>,
-};
-
-export type ResearchWorkloadPerActivity = {
-   __typename?: 'ResearchWorkloadPerActivity',
-  activity?: Maybe<ResearchActivity>,
-  totalHoursPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfWorkFocusPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfAnnualHoursPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfTotalHoursPerActivity?: Maybe<Scalars['Float']>,
-};
-
-export type Student = {
-   __typename?: 'Student',
-  studentId?: Maybe<Scalars['String']>,
-  firstName?: Maybe<Scalars['String']>,
-  lastName?: Maybe<Scalars['String']>,
-  email?: Maybe<Scalars['String']>,
-  type?: Maybe<Scalars['String']>,
-  title?: Maybe<Scalars['String']>,
-  graduationDate?: Maybe<Scalars['String']>,
-};
-
-export type StudentInput = {
-  studentId?: Maybe<Scalars['String']>,
-  firstName?: Maybe<Scalars['String']>,
-  lastName?: Maybe<Scalars['String']>,
-  email?: Maybe<Scalars['String']>,
-  type?: Maybe<Scalars['String']>,
-  title?: Maybe<Scalars['String']>,
-};
-
-export type SupervisionActivity = Activity & {
-   __typename?: 'SupervisionActivity',
-  activityId: Scalars['String'],
-  userId: Scalars['String'],
-  user?: Maybe<User>,
-  dutyId: Scalars['String'],
-  duty?: Maybe<Duty>,
-  approvalStatus?: Maybe<Scalars['String']>,
-  supervisionRole: Scalars['String'],
-  split?: Maybe<Scalars['Int']>,
-  studentId: Scalars['String'],
-  student?: Maybe<Student>,
-  year?: Maybe<Scalars['String']>,
-  createdAt?: Maybe<Scalars['String']>,
-  updatedAt?: Maybe<Scalars['String']>,
-};
-
-export type SupervisionActivityInput = {
-  activityId?: Maybe<Scalars['String']>,
-  userId?: Maybe<Scalars['String']>,
-  dutyId?: Maybe<Scalars['String']>,
-  supervisionRole?: Maybe<Scalars['String']>,
-  split?: Maybe<Scalars['Int']>,
-  studentId?: Maybe<Scalars['String']>,
-  year?: Maybe<Scalars['String']>,
-};
-
-export type SupervisionWorkload = {
-   __typename?: 'SupervisionWorkload',
-  supervisionWorkloads?: Maybe<Array<Maybe<SupervisionWorkloadPerActivity>>>,
-  totalHoursPerUser?: Maybe<Scalars['Float']>,
-  percentageOfWorkFocusPerUser?: Maybe<Scalars['Float']>,
-  percentageOfAnnualHoursPerUser?: Maybe<Scalars['Float']>,
-  percentageOfTotalHoursPerUser?: Maybe<Scalars['Float']>,
-};
-
-export type SupervisionWorkloadPerActivity = {
-   __typename?: 'SupervisionWorkloadPerActivity',
-  activity?: Maybe<SupervisionActivity>,
-  totalHoursPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfWorkFocusPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfAnnualHoursPerActivity?: Maybe<Scalars['Float']>,
-  percentageOfTotalHoursPerActivity?: Maybe<Scalars['Float']>,
-};
-
-export type TotalWorkload = {
-   __typename?: 'TotalWorkload',
-  academicAdministrationWorkload?: Maybe<AcademicAdministrationWorkload>,
-  communityInstructionWorkload?: Maybe<CommunityInstructionWorkload>,
-  executiveManagementWorkload?: Maybe<ExecutiveManagementWorkload>,
-  formalInstructionWorkload?: Maybe<FormalInstructionWorkload>,
-  personnelDevelopmentWorkload?: Maybe<PersonnelDevelopmentWorkload>,
-  publicServiceWorkload?: Maybe<PublicServiceWorkload>,
-  researchWorkload?: Maybe<ResearchWorkload>,
-  supervisionWorkload?: Maybe<SupervisionWorkload>,
-};
-
-
-export type User = {
-   __typename?: 'User',
-  userId?: Maybe<Scalars['String']>,
-  email?: Maybe<Scalars['String']>,
-  firstName?: Maybe<Scalars['String']>,
-  lastName?: Maybe<Scalars['String']>,
-  photoUrl?: Maybe<Scalars['String']>,
-  disciplineIds?: Maybe<Array<Maybe<Scalars['String']>>>,
-  disciplines?: Maybe<Array<Maybe<Discipline>>>,
-  positionId?: Maybe<Scalars['String']>,
-  position?: Maybe<Position>,
-  departmentId?: Maybe<Scalars['String']>,
-  department?: Maybe<Department>,
-  workFocusName?: Maybe<Scalars['String']>,
-  workFocus?: Maybe<WorkFocus>,
-  gender?: Maybe<Scalars['String']>,
-  nationality?: Maybe<Scalars['String']>,
-};
-
-export type UserInput = {
-  userId?: Maybe<Scalars['String']>,
-  password?: Maybe<Scalars['String']>,
-  email?: Maybe<Scalars['String']>,
-  firstName?: Maybe<Scalars['String']>,
-  lastName?: Maybe<Scalars['String']>,
-  photoUrl?: Maybe<Scalars['String']>,
-  disciplineIds?: Maybe<Array<Maybe<Scalars['String']>>>,
-  positionId?: Maybe<Scalars['String']>,
-  departmentId?: Maybe<Scalars['String']>,
-  workFocusName?: Maybe<Scalars['String']>,
-  gender?: Maybe<Scalars['String']>,
-  nationality?: Maybe<Scalars['String']>,
-};
-
-export type Venue = {
-   __typename?: 'Venue',
-  venueId?: Maybe<Scalars['String']>,
-  campus?: Maybe<Scalars['String']>,
-  capacity?: Maybe<Scalars['Int']>,
-  type?: Maybe<Scalars['String']>,
-};
-
-export type VenueInput = {
-  venueId?: Maybe<Scalars['String']>,
-  campus?: Maybe<Scalars['String']>,
-  capacity?: Maybe<Scalars['Int']>,
-  type?: Maybe<Scalars['String']>,
-};
-
-export type WorkFocus = {
-   __typename?: 'WorkFocus',
-  name: Scalars['String'],
-  teachingRatio?: Maybe<Scalars['Float']>,
-  researchRatio?: Maybe<Scalars['Float']>,
-  serviceRatio?: Maybe<Scalars['Float']>,
-};
-
-export type WorkFocusInput = {
-  name?: Maybe<Scalars['String']>,
-  teachingRatio?: Maybe<Scalars['Float']>,
-  researchRatio?: Maybe<Scalars['Float']>,
-  serviceRatio?: Maybe<Scalars['Float']>,
-};
-
-export type WorkloadSummary = {
-   __typename?: 'WorkloadSummary',
-  user?: Maybe<User>,
-  teachingHours?: Maybe<Scalars['Float']>,
-  teachingHoursPerUser?: Maybe<Scalars['Float']>,
-  teachingDifference?: Maybe<Scalars['Float']>,
-  researchHours?: Maybe<Scalars['Float']>,
-  researchHoursPerUser?: Maybe<Scalars['Float']>,
-  researchDifference?: Maybe<Scalars['Float']>,
-  serviceHours?: Maybe<Scalars['Float']>,
-  serviceHoursPerUser?: Maybe<Scalars['Float']>,
-  serviceDifference?: Maybe<Scalars['Float']>,
-};
-
-export type AddAcademicAdministrationActivityMutationVariables = {
-  activity?: Maybe<AcademicAdministrationActivityInput>
-};
+export type AddAcademicAdministrationActivityMutationVariables = Exact<{
+  activity?: Maybe<AcademicAdministrationActivityInput>;
+}>;
 
 
 export type AddAcademicAdministrationActivityMutation = (
   { __typename?: 'Mutation' }
-  & { addAcademicAdministrationActivity: Maybe<(
+  & { addAcademicAdministrationActivity?: Maybe<(
     { __typename?: 'AcademicAdministrationActivity' }
     & Pick<AcademicAdministrationActivity, 'activityId' | 'userId' | 'dutyId' | 'qualificationId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, qualification: Maybe<(
+    )>, qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
@@ -1724,46 +1724,46 @@ export type AddAcademicAdministrationActivityMutation = (
   )> }
 );
 
-export type EditAcademicAdministrationActivityMutationVariables = {
-  activity?: Maybe<AcademicAdministrationActivityInput>
-};
+export type EditAcademicAdministrationActivityMutationVariables = Exact<{
+  activity?: Maybe<AcademicAdministrationActivityInput>;
+}>;
 
 
 export type EditAcademicAdministrationActivityMutation = (
   { __typename?: 'Mutation' }
-  & { editAcademicAdministrationActivity: Maybe<(
+  & { editAcademicAdministrationActivity?: Maybe<(
     { __typename?: 'AcademicAdministrationActivity' }
     & Pick<AcademicAdministrationActivity, 'activityId' | 'userId' | 'dutyId' | 'qualificationId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, qualification: Maybe<(
+    )>, qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
@@ -1772,46 +1772,46 @@ export type EditAcademicAdministrationActivityMutation = (
   )> }
 );
 
-export type DeleteAcademicAdministrationActivityMutationVariables = {
-  activity?: Maybe<AcademicAdministrationActivityInput>
-};
+export type DeleteAcademicAdministrationActivityMutationVariables = Exact<{
+  activity?: Maybe<AcademicAdministrationActivityInput>;
+}>;
 
 
 export type DeleteAcademicAdministrationActivityMutation = (
   { __typename?: 'Mutation' }
-  & { deleteAcademicAdministrationActivity: Maybe<(
+  & { deleteAcademicAdministrationActivity?: Maybe<(
     { __typename?: 'AcademicAdministrationActivity' }
     & Pick<AcademicAdministrationActivity, 'activityId' | 'userId' | 'dutyId' | 'qualificationId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, qualification: Maybe<(
+    )>, qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
@@ -1820,46 +1820,46 @@ export type DeleteAcademicAdministrationActivityMutation = (
   )> }
 );
 
-export type AcademicAdministrationActivityQueryVariables = {
-  activityId: Scalars['String']
-};
+export type AcademicAdministrationActivityQueryVariables = Exact<{
+  activityId: Scalars['String'];
+}>;
 
 
 export type AcademicAdministrationActivityQuery = (
   { __typename?: 'Query' }
-  & { academicAdministrationActivity: Maybe<(
+  & { academicAdministrationActivity?: Maybe<(
     { __typename?: 'AcademicAdministrationActivity' }
     & Pick<AcademicAdministrationActivity, 'activityId' | 'userId' | 'dutyId' | 'qualificationId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, qualification: Maybe<(
+    )>, qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
@@ -1868,44 +1868,44 @@ export type AcademicAdministrationActivityQuery = (
   )> }
 );
 
-export type AcademicAdministrationActivitiesQueryVariables = {};
+export type AcademicAdministrationActivitiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type AcademicAdministrationActivitiesQuery = (
   { __typename?: 'Query' }
-  & { academicAdministrationActivities: Maybe<Array<Maybe<(
+  & { academicAdministrationActivities?: Maybe<Array<Maybe<(
     { __typename?: 'AcademicAdministrationActivity' }
     & Pick<AcademicAdministrationActivity, 'activityId' | 'userId' | 'dutyId' | 'qualificationId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, qualification: Maybe<(
+    )>, qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
@@ -1914,46 +1914,46 @@ export type AcademicAdministrationActivitiesQuery = (
   )>>> }
 );
 
-export type AcademicAdministrationActivitiesByUserQueryVariables = {
-  userId: Scalars['String']
-};
+export type AcademicAdministrationActivitiesByUserQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
 
 
 export type AcademicAdministrationActivitiesByUserQuery = (
   { __typename?: 'Query' }
-  & { academicAdministrationActivitiesByUser: Maybe<Array<Maybe<(
+  & { academicAdministrationActivitiesByUser?: Maybe<Array<Maybe<(
     { __typename?: 'AcademicAdministrationActivity' }
     & Pick<AcademicAdministrationActivity, 'activityId' | 'userId' | 'dutyId' | 'qualificationId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, qualification: Maybe<(
+    )>, qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
@@ -1962,752 +1962,752 @@ export type AcademicAdministrationActivitiesByUserQuery = (
   )>>> }
 );
 
-export type ActivityQueryVariables = {
-  activityId: Scalars['String']
-};
+export type ActivityQueryVariables = Exact<{
+  activityId: Scalars['String'];
+}>;
 
 
 export type ActivityQuery = (
   { __typename?: 'Query' }
-  & { activity: Maybe<(
+  & { activity?: Maybe<(
     { __typename?: 'AcademicAdministrationActivity' }
     & Pick<AcademicAdministrationActivity, 'title' | 'description' | 'evidence' | 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   ) | (
     { __typename?: 'CommunityInstructionActivity' }
     & Pick<CommunityInstructionActivity, 'title' | 'description' | 'evidence' | 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   ) | (
     { __typename?: 'ExecutiveManagementActivity' }
     & Pick<ExecutiveManagementActivity, 'title' | 'description' | 'evidence' | 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   ) | (
     { __typename?: 'FormalInstructionActivity' }
     & Pick<FormalInstructionActivity, 'groupId' | 'isCoordinator' | 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt'>
-    & { group: Maybe<(
+    & { group?: Maybe<(
       { __typename?: 'Group' }
       & Pick<Group, 'id' | 'groupId' | 'moduleId' | 'studentsEnrolled' | 'modularity'>
-      & { module: Maybe<(
+      & { module?: Maybe<(
         { __typename?: 'Module' }
         & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-        & { qualification: Maybe<(
+        & { qualification?: Maybe<(
           { __typename?: 'Qualification' }
           & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-          & { department: Maybe<(
+          & { department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-            & { faculty: Maybe<(
+            & { faculty?: Maybe<(
               { __typename?: 'Faculty' }
               & Pick<Faculty, 'facultyId' | 'name'>
             )> }
           )> }
-        )>, offeringType: Maybe<(
+        )>, offeringType?: Maybe<(
           { __typename?: 'OfferingType' }
           & Pick<OfferingType, 'offeringTypeId' | 'description'>
-        )>, discipline: Maybe<(
+        )>, discipline?: Maybe<(
           { __typename?: 'Discipline' }
           & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-        )>, venue: Maybe<(
+        )>, venue?: Maybe<(
           { __typename?: 'Venue' }
           & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-        )>, block: Maybe<(
+        )>, block?: Maybe<(
           { __typename?: 'Block' }
           & Pick<Block, 'blockId' | 'name' | 'description'>
         )> }
       )> }
-    )>, user: Maybe<(
+    )>, user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
-      { __typename?: 'Duty' }
-      & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )> }
-  ) | (
-    { __typename?: 'SupervisionActivity' }
-    & Pick<SupervisionActivity, 'supervisionRole' | 'split' | 'studentId' | 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt'>
-    & { student: Maybe<(
-      { __typename?: 'Student' }
-      & Pick<Student, 'studentId' | 'firstName' | 'lastName' | 'title'>
-    )>, user: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   ) | (
     { __typename?: 'PersonnelDevelopmentActivity' }
     & Pick<PersonnelDevelopmentActivity, 'title' | 'date' | 'duration' | 'evidence' | 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   ) | (
     { __typename?: 'PublicServiceActivity' }
     & Pick<PublicServiceActivity, 'title' | 'description' | 'evidence' | 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   ) | (
     { __typename?: 'ResearchActivity' }
     & Pick<ResearchActivity, 'output' | 'title' | 'details' | 'evidence' | 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
+      { __typename?: 'Duty' }
+      & Pick<Duty, 'dutyId' | 'name' | 'description'>
+    )> }
+  ) | (
+    { __typename?: 'SupervisionActivity' }
+    & Pick<SupervisionActivity, 'supervisionRole' | 'split' | 'studentId' | 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt'>
+    & { student?: Maybe<(
+      { __typename?: 'Student' }
+      & Pick<Student, 'studentId' | 'firstName' | 'lastName' | 'title'>
+    )>, user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type ActivitiesByUnapprovedQueryVariables = {};
+export type ActivitiesByUnapprovedQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ActivitiesByUnapprovedQuery = (
   { __typename?: 'Query' }
-  & { activitiesByUnapproved: Maybe<Array<Maybe<(
+  & { activitiesByUnapproved?: Maybe<Array<Maybe<(
     { __typename?: 'AcademicAdministrationActivity' }
     & Pick<AcademicAdministrationActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   ) | (
     { __typename?: 'CommunityInstructionActivity' }
     & Pick<CommunityInstructionActivity, 'title' | 'description' | 'evidence' | 'activityId' | 'userId' | 'dutyId' | 'approvalStatus'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   ) | (
     { __typename?: 'ExecutiveManagementActivity' }
     & Pick<ExecutiveManagementActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   ) | (
     { __typename?: 'FormalInstructionActivity' }
     & Pick<FormalInstructionActivity, 'groupId' | 'isCoordinator' | 'activityId' | 'userId' | 'dutyId' | 'approvalStatus'>
-    & { group: Maybe<(
+    & { group?: Maybe<(
       { __typename?: 'Group' }
       & Pick<Group, 'id' | 'groupId' | 'moduleId' | 'studentsEnrolled' | 'modularity'>
-      & { module: Maybe<(
+      & { module?: Maybe<(
         { __typename?: 'Module' }
         & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-        & { qualification: Maybe<(
+        & { qualification?: Maybe<(
           { __typename?: 'Qualification' }
           & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-          & { department: Maybe<(
+          & { department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-            & { faculty: Maybe<(
+            & { faculty?: Maybe<(
               { __typename?: 'Faculty' }
               & Pick<Faculty, 'facultyId' | 'name'>
             )> }
           )> }
-        )>, offeringType: Maybe<(
+        )>, offeringType?: Maybe<(
           { __typename?: 'OfferingType' }
           & Pick<OfferingType, 'offeringTypeId' | 'description'>
-        )>, discipline: Maybe<(
+        )>, discipline?: Maybe<(
           { __typename?: 'Discipline' }
           & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-        )>, venue: Maybe<(
+        )>, venue?: Maybe<(
           { __typename?: 'Venue' }
           & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-        )>, block: Maybe<(
+        )>, block?: Maybe<(
           { __typename?: 'Block' }
           & Pick<Block, 'blockId' | 'name' | 'description'>
         )> }
       )> }
-    )>, user: Maybe<(
+    )>, user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
-      { __typename?: 'Duty' }
-      & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )> }
-  ) | (
-    { __typename?: 'SupervisionActivity' }
-    & Pick<SupervisionActivity, 'supervisionRole' | 'studentId' | 'activityId' | 'userId' | 'dutyId' | 'approvalStatus'>
-    & { student: Maybe<(
-      { __typename?: 'Student' }
-      & Pick<Student, 'studentId' | 'firstName' | 'lastName' | 'title'>
-    )>, user: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   ) | (
     { __typename?: 'PersonnelDevelopmentActivity' }
     & Pick<PersonnelDevelopmentActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   ) | (
     { __typename?: 'PublicServiceActivity' }
     & Pick<PublicServiceActivity, 'title' | 'description' | 'evidence' | 'activityId' | 'userId' | 'dutyId' | 'approvalStatus'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   ) | (
     { __typename?: 'ResearchActivity' }
     & Pick<ResearchActivity, 'output' | 'title' | 'details' | 'evidence' | 'activityId' | 'userId' | 'dutyId' | 'approvalStatus'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
+      { __typename?: 'Duty' }
+      & Pick<Duty, 'dutyId' | 'name' | 'description'>
+    )> }
+  ) | (
+    { __typename?: 'SupervisionActivity' }
+    & Pick<SupervisionActivity, 'supervisionRole' | 'studentId' | 'activityId' | 'userId' | 'dutyId' | 'approvalStatus'>
+    & { student?: Maybe<(
+      { __typename?: 'Student' }
+      & Pick<Student, 'studentId' | 'firstName' | 'lastName' | 'title'>
+    )>, user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type AddCommunityInstructionActivityMutationVariables = {
-  activity?: Maybe<CommunityInstructionActivityInput>
-};
+export type AddCommunityInstructionActivityMutationVariables = Exact<{
+  activity?: Maybe<CommunityInstructionActivityInput>;
+}>;
 
 
 export type AddCommunityInstructionActivityMutation = (
   { __typename?: 'Mutation' }
-  & { addCommunityInstructionActivity: Maybe<(
+  & { addCommunityInstructionActivity?: Maybe<(
     { __typename?: 'CommunityInstructionActivity' }
     & Pick<CommunityInstructionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type EditCommunityInstructionActivityMutationVariables = {
-  activity?: Maybe<CommunityInstructionActivityInput>
-};
+export type EditCommunityInstructionActivityMutationVariables = Exact<{
+  activity?: Maybe<CommunityInstructionActivityInput>;
+}>;
 
 
 export type EditCommunityInstructionActivityMutation = (
   { __typename?: 'Mutation' }
-  & { editCommunityInstructionActivity: Maybe<(
+  & { editCommunityInstructionActivity?: Maybe<(
     { __typename?: 'CommunityInstructionActivity' }
     & Pick<CommunityInstructionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type DeleteCommunityInstructionActivityMutationVariables = {
-  activity?: Maybe<CommunityInstructionActivityInput>
-};
+export type DeleteCommunityInstructionActivityMutationVariables = Exact<{
+  activity?: Maybe<CommunityInstructionActivityInput>;
+}>;
 
 
 export type DeleteCommunityInstructionActivityMutation = (
   { __typename?: 'Mutation' }
-  & { deleteCommunityInstructionActivity: Maybe<(
+  & { deleteCommunityInstructionActivity?: Maybe<(
     { __typename?: 'CommunityInstructionActivity' }
     & Pick<CommunityInstructionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type CommunityInstructionActivityQueryVariables = {
-  activityId: Scalars['String']
-};
+export type CommunityInstructionActivityQueryVariables = Exact<{
+  activityId: Scalars['String'];
+}>;
 
 
 export type CommunityInstructionActivityQuery = (
   { __typename?: 'Query' }
-  & { communityInstructionActivity: Maybe<(
+  & { communityInstructionActivity?: Maybe<(
     { __typename?: 'CommunityInstructionActivity' }
     & Pick<CommunityInstructionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type CommunityInstructionActivitiesQueryVariables = {};
+export type CommunityInstructionActivitiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CommunityInstructionActivitiesQuery = (
   { __typename?: 'Query' }
-  & { communityInstructionActivities: Maybe<Array<Maybe<(
+  & { communityInstructionActivities?: Maybe<Array<Maybe<(
     { __typename?: 'CommunityInstructionActivity' }
     & Pick<CommunityInstructionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type CommunityInstructionActivitiesByUserQueryVariables = {
-  userId?: Maybe<Scalars['String']>
-};
+export type CommunityInstructionActivitiesByUserQueryVariables = Exact<{
+  userId?: Maybe<Scalars['String']>;
+}>;
 
 
 export type CommunityInstructionActivitiesByUserQuery = (
   { __typename?: 'Query' }
-  & { communityInstructionActivitiesByUser: Maybe<Array<Maybe<(
+  & { communityInstructionActivitiesByUser?: Maybe<Array<Maybe<(
     { __typename?: 'CommunityInstructionActivity' }
     & Pick<CommunityInstructionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type AddExecutiveManagementActivityMutationVariables = {
-  activity?: Maybe<ExecutiveManagementActivityInput>
-};
+export type AddExecutiveManagementActivityMutationVariables = Exact<{
+  activity?: Maybe<ExecutiveManagementActivityInput>;
+}>;
 
 
 export type AddExecutiveManagementActivityMutation = (
   { __typename?: 'Mutation' }
-  & { addExecutiveManagementActivity: Maybe<(
+  & { addExecutiveManagementActivity?: Maybe<(
     { __typename?: 'ExecutiveManagementActivity' }
     & Pick<ExecutiveManagementActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type EditExecutiveManagementActivityMutationVariables = {
-  activity?: Maybe<ExecutiveManagementActivityInput>
-};
+export type EditExecutiveManagementActivityMutationVariables = Exact<{
+  activity?: Maybe<ExecutiveManagementActivityInput>;
+}>;
 
 
 export type EditExecutiveManagementActivityMutation = (
   { __typename?: 'Mutation' }
-  & { editExecutiveManagementActivity: Maybe<(
+  & { editExecutiveManagementActivity?: Maybe<(
     { __typename?: 'ExecutiveManagementActivity' }
     & Pick<ExecutiveManagementActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type DeleteExecutiveManagementActivityMutationVariables = {
-  activity?: Maybe<ExecutiveManagementActivityInput>
-};
+export type DeleteExecutiveManagementActivityMutationVariables = Exact<{
+  activity?: Maybe<ExecutiveManagementActivityInput>;
+}>;
 
 
 export type DeleteExecutiveManagementActivityMutation = (
   { __typename?: 'Mutation' }
-  & { deleteExecutiveManagementActivity: Maybe<(
+  & { deleteExecutiveManagementActivity?: Maybe<(
     { __typename?: 'ExecutiveManagementActivity' }
     & Pick<ExecutiveManagementActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type ExecutiveManagementActivityQueryVariables = {
-  activityId: Scalars['String']
-};
+export type ExecutiveManagementActivityQueryVariables = Exact<{
+  activityId: Scalars['String'];
+}>;
 
 
 export type ExecutiveManagementActivityQuery = (
   { __typename?: 'Query' }
-  & { executiveManagementActivity: Maybe<(
+  & { executiveManagementActivity?: Maybe<(
     { __typename?: 'ExecutiveManagementActivity' }
     & Pick<ExecutiveManagementActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type ExecutiveManagementActivitiesQueryVariables = {};
+export type ExecutiveManagementActivitiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ExecutiveManagementActivitiesQuery = (
   { __typename?: 'Query' }
-  & { executiveManagementActivities: Maybe<Array<Maybe<(
+  & { executiveManagementActivities?: Maybe<Array<Maybe<(
     { __typename?: 'ExecutiveManagementActivity' }
     & Pick<ExecutiveManagementActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type ExecutiveManagementActivitiesByUserQueryVariables = {
-  userId?: Maybe<Scalars['String']>
-};
+export type ExecutiveManagementActivitiesByUserQueryVariables = Exact<{
+  userId?: Maybe<Scalars['String']>;
+}>;
 
 
 export type ExecutiveManagementActivitiesByUserQuery = (
   { __typename?: 'Query' }
-  & { executiveManagementActivitiesByUser: Maybe<Array<Maybe<(
+  & { executiveManagementActivitiesByUser?: Maybe<Array<Maybe<(
     { __typename?: 'ExecutiveManagementActivity' }
     & Pick<ExecutiveManagementActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type AddFormalInstructionActivityMutationVariables = {
-  activity?: Maybe<FormalInstructionActivityInput>
-};
+export type AddFormalInstructionActivityMutationVariables = Exact<{
+  activity?: Maybe<FormalInstructionActivityInput>;
+}>;
 
 
 export type AddFormalInstructionActivityMutation = (
   { __typename?: 'Mutation' }
-  & { addFormalInstructionActivity: Maybe<(
+  & { addFormalInstructionActivity?: Maybe<(
     { __typename?: 'FormalInstructionActivity' }
     & Pick<FormalInstructionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'groupId' | 'isCoordinator'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, group: Maybe<(
+    )>, group?: Maybe<(
       { __typename?: 'Group' }
       & Pick<Group, 'id' | 'groupId' | 'moduleId' | 'studentsEnrolled' | 'modularity'>
-      & { module: Maybe<(
+      & { module?: Maybe<(
         { __typename?: 'Module' }
         & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-        & { qualification: Maybe<(
+        & { qualification?: Maybe<(
           { __typename?: 'Qualification' }
           & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-          & { department: Maybe<(
+          & { department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-            & { faculty: Maybe<(
+            & { faculty?: Maybe<(
               { __typename?: 'Faculty' }
               & Pick<Faculty, 'facultyId' | 'name'>
             )> }
           )> }
-        )>, offeringType: Maybe<(
+        )>, offeringType?: Maybe<(
           { __typename?: 'OfferingType' }
           & Pick<OfferingType, 'offeringTypeId' | 'description'>
-        )>, discipline: Maybe<(
+        )>, discipline?: Maybe<(
           { __typename?: 'Discipline' }
           & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-        )>, venue: Maybe<(
+        )>, venue?: Maybe<(
           { __typename?: 'Venue' }
           & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-        )>, block: Maybe<(
+        )>, block?: Maybe<(
           { __typename?: 'Block' }
           & Pick<Block, 'blockId' | 'name' | 'description'>
         )> }
@@ -2716,66 +2716,66 @@ export type AddFormalInstructionActivityMutation = (
   )> }
 );
 
-export type EditFormalInstructionActivityMutationVariables = {
-  activity?: Maybe<FormalInstructionActivityInput>
-};
+export type EditFormalInstructionActivityMutationVariables = Exact<{
+  activity?: Maybe<FormalInstructionActivityInput>;
+}>;
 
 
 export type EditFormalInstructionActivityMutation = (
   { __typename?: 'Mutation' }
-  & { editFormalInstructionActivity: Maybe<(
+  & { editFormalInstructionActivity?: Maybe<(
     { __typename?: 'FormalInstructionActivity' }
     & Pick<FormalInstructionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'groupId' | 'isCoordinator'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, group: Maybe<(
+    )>, group?: Maybe<(
       { __typename?: 'Group' }
       & Pick<Group, 'id' | 'groupId' | 'moduleId' | 'studentsEnrolled' | 'modularity'>
-      & { module: Maybe<(
+      & { module?: Maybe<(
         { __typename?: 'Module' }
         & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-        & { qualification: Maybe<(
+        & { qualification?: Maybe<(
           { __typename?: 'Qualification' }
           & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-          & { department: Maybe<(
+          & { department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-            & { faculty: Maybe<(
+            & { faculty?: Maybe<(
               { __typename?: 'Faculty' }
               & Pick<Faculty, 'facultyId' | 'name'>
             )> }
           )> }
-        )>, offeringType: Maybe<(
+        )>, offeringType?: Maybe<(
           { __typename?: 'OfferingType' }
           & Pick<OfferingType, 'offeringTypeId' | 'description'>
-        )>, discipline: Maybe<(
+        )>, discipline?: Maybe<(
           { __typename?: 'Discipline' }
           & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-        )>, venue: Maybe<(
+        )>, venue?: Maybe<(
           { __typename?: 'Venue' }
           & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-        )>, block: Maybe<(
+        )>, block?: Maybe<(
           { __typename?: 'Block' }
           & Pick<Block, 'blockId' | 'name' | 'description'>
         )> }
@@ -2784,66 +2784,66 @@ export type EditFormalInstructionActivityMutation = (
   )> }
 );
 
-export type DeleteFormalInstructionActivityMutationVariables = {
-  activity?: Maybe<FormalInstructionActivityInput>
-};
+export type DeleteFormalInstructionActivityMutationVariables = Exact<{
+  activity?: Maybe<FormalInstructionActivityInput>;
+}>;
 
 
 export type DeleteFormalInstructionActivityMutation = (
   { __typename?: 'Mutation' }
-  & { deleteFormalInstructionActivity: Maybe<(
+  & { deleteFormalInstructionActivity?: Maybe<(
     { __typename?: 'FormalInstructionActivity' }
     & Pick<FormalInstructionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'groupId' | 'isCoordinator'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, group: Maybe<(
+    )>, group?: Maybe<(
       { __typename?: 'Group' }
       & Pick<Group, 'id' | 'groupId' | 'moduleId' | 'studentsEnrolled' | 'modularity'>
-      & { module: Maybe<(
+      & { module?: Maybe<(
         { __typename?: 'Module' }
         & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-        & { qualification: Maybe<(
+        & { qualification?: Maybe<(
           { __typename?: 'Qualification' }
           & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-          & { department: Maybe<(
+          & { department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-            & { faculty: Maybe<(
+            & { faculty?: Maybe<(
               { __typename?: 'Faculty' }
               & Pick<Faculty, 'facultyId' | 'name'>
             )> }
           )> }
-        )>, offeringType: Maybe<(
+        )>, offeringType?: Maybe<(
           { __typename?: 'OfferingType' }
           & Pick<OfferingType, 'offeringTypeId' | 'description'>
-        )>, discipline: Maybe<(
+        )>, discipline?: Maybe<(
           { __typename?: 'Discipline' }
           & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-        )>, venue: Maybe<(
+        )>, venue?: Maybe<(
           { __typename?: 'Venue' }
           & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-        )>, block: Maybe<(
+        )>, block?: Maybe<(
           { __typename?: 'Block' }
           & Pick<Block, 'blockId' | 'name' | 'description'>
         )> }
@@ -2852,186 +2852,186 @@ export type DeleteFormalInstructionActivityMutation = (
   )> }
 );
 
-export type AddSupervisionActivityMutationVariables = {
-  activity?: Maybe<SupervisionActivityInput>
-};
+export type AddSupervisionActivityMutationVariables = Exact<{
+  activity?: Maybe<SupervisionActivityInput>;
+}>;
 
 
 export type AddSupervisionActivityMutation = (
   { __typename?: 'Mutation' }
-  & { addSupervisionActivity: Maybe<(
+  & { addSupervisionActivity?: Maybe<(
     { __typename?: 'SupervisionActivity' }
     & Pick<SupervisionActivity, 'activityId' | 'userId' | 'dutyId' | 'year' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'supervisionRole' | 'split' | 'studentId'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, student: Maybe<(
+    )>, student?: Maybe<(
       { __typename?: 'Student' }
       & Pick<Student, 'studentId' | 'firstName' | 'lastName' | 'email' | 'type' | 'title' | 'graduationDate'>
     )> }
   )> }
 );
 
-export type EditSupervisionActivityMutationVariables = {
-  activity?: Maybe<SupervisionActivityInput>
-};
+export type EditSupervisionActivityMutationVariables = Exact<{
+  activity?: Maybe<SupervisionActivityInput>;
+}>;
 
 
 export type EditSupervisionActivityMutation = (
   { __typename?: 'Mutation' }
-  & { editSupervisionActivity: Maybe<(
+  & { editSupervisionActivity?: Maybe<(
     { __typename?: 'SupervisionActivity' }
     & Pick<SupervisionActivity, 'activityId' | 'userId' | 'dutyId' | 'year' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'supervisionRole' | 'split' | 'studentId'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, student: Maybe<(
+    )>, student?: Maybe<(
       { __typename?: 'Student' }
       & Pick<Student, 'studentId' | 'firstName' | 'lastName' | 'email' | 'type' | 'title' | 'graduationDate'>
     )> }
   )> }
 );
 
-export type DeleteSupervisionActivityMutationVariables = {
-  activity?: Maybe<SupervisionActivityInput>
-};
+export type DeleteSupervisionActivityMutationVariables = Exact<{
+  activity?: Maybe<SupervisionActivityInput>;
+}>;
 
 
 export type DeleteSupervisionActivityMutation = (
   { __typename?: 'Mutation' }
-  & { deleteSupervisionActivity: Maybe<(
+  & { deleteSupervisionActivity?: Maybe<(
     { __typename?: 'SupervisionActivity' }
     & Pick<SupervisionActivity, 'activityId' | 'userId' | 'dutyId' | 'year' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'supervisionRole' | 'split' | 'studentId'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, student: Maybe<(
+    )>, student?: Maybe<(
       { __typename?: 'Student' }
       & Pick<Student, 'studentId' | 'firstName' | 'lastName' | 'email' | 'type' | 'title' | 'graduationDate'>
     )> }
   )> }
 );
 
-export type FormalInstructionActivityQueryVariables = {
-  activityId: Scalars['String']
-};
+export type FormalInstructionActivityQueryVariables = Exact<{
+  activityId: Scalars['String'];
+}>;
 
 
 export type FormalInstructionActivityQuery = (
   { __typename?: 'Query' }
-  & { formalInstructionActivity: Maybe<(
+  & { formalInstructionActivity?: Maybe<(
     { __typename?: 'FormalInstructionActivity' }
     & Pick<FormalInstructionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'groupId' | 'isCoordinator'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, group: Maybe<(
+    )>, group?: Maybe<(
       { __typename?: 'Group' }
       & Pick<Group, 'id' | 'groupId' | 'moduleId' | 'studentsEnrolled' | 'modularity'>
-      & { module: Maybe<(
+      & { module?: Maybe<(
         { __typename?: 'Module' }
         & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-        & { qualification: Maybe<(
+        & { qualification?: Maybe<(
           { __typename?: 'Qualification' }
           & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-          & { department: Maybe<(
+          & { department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-            & { faculty: Maybe<(
+            & { faculty?: Maybe<(
               { __typename?: 'Faculty' }
               & Pick<Faculty, 'facultyId' | 'name'>
             )> }
           )> }
-        )>, offeringType: Maybe<(
+        )>, offeringType?: Maybe<(
           { __typename?: 'OfferingType' }
           & Pick<OfferingType, 'offeringTypeId' | 'description'>
-        )>, discipline: Maybe<(
+        )>, discipline?: Maybe<(
           { __typename?: 'Discipline' }
           & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-        )>, venue: Maybe<(
+        )>, venue?: Maybe<(
           { __typename?: 'Venue' }
           & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-        )>, block: Maybe<(
+        )>, block?: Maybe<(
           { __typename?: 'Block' }
           & Pick<Block, 'blockId' | 'name' | 'description'>
         )> }
@@ -3040,64 +3040,64 @@ export type FormalInstructionActivityQuery = (
   )> }
 );
 
-export type FormalInstructionActivitiesQueryVariables = {};
+export type FormalInstructionActivitiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type FormalInstructionActivitiesQuery = (
   { __typename?: 'Query' }
-  & { formalInstructionActivities: Maybe<Array<Maybe<(
+  & { formalInstructionActivities?: Maybe<Array<Maybe<(
     { __typename?: 'FormalInstructionActivity' }
     & Pick<FormalInstructionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'groupId' | 'isCoordinator'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, group: Maybe<(
+    )>, group?: Maybe<(
       { __typename?: 'Group' }
       & Pick<Group, 'id' | 'groupId' | 'moduleId' | 'studentsEnrolled' | 'modularity'>
-      & { module: Maybe<(
+      & { module?: Maybe<(
         { __typename?: 'Module' }
         & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-        & { qualification: Maybe<(
+        & { qualification?: Maybe<(
           { __typename?: 'Qualification' }
           & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-          & { department: Maybe<(
+          & { department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-            & { faculty: Maybe<(
+            & { faculty?: Maybe<(
               { __typename?: 'Faculty' }
               & Pick<Faculty, 'facultyId' | 'name'>
             )> }
           )> }
-        )>, offeringType: Maybe<(
+        )>, offeringType?: Maybe<(
           { __typename?: 'OfferingType' }
           & Pick<OfferingType, 'offeringTypeId' | 'description'>
-        )>, discipline: Maybe<(
+        )>, discipline?: Maybe<(
           { __typename?: 'Discipline' }
           & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-        )>, venue: Maybe<(
+        )>, venue?: Maybe<(
           { __typename?: 'Venue' }
           & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-        )>, block: Maybe<(
+        )>, block?: Maybe<(
           { __typename?: 'Block' }
           & Pick<Block, 'blockId' | 'name' | 'description'>
         )> }
@@ -3106,66 +3106,66 @@ export type FormalInstructionActivitiesQuery = (
   )>>> }
 );
 
-export type FormalInstructionActivitiesByUserQueryVariables = {
-  userId: Scalars['String']
-};
+export type FormalInstructionActivitiesByUserQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
 
 
 export type FormalInstructionActivitiesByUserQuery = (
   { __typename?: 'Query' }
-  & { formalInstructionActivitiesByUser: Maybe<Array<Maybe<(
+  & { formalInstructionActivitiesByUser?: Maybe<Array<Maybe<(
     { __typename?: 'FormalInstructionActivity' }
     & Pick<FormalInstructionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'groupId' | 'isCoordinator'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, group: Maybe<(
+    )>, group?: Maybe<(
       { __typename?: 'Group' }
       & Pick<Group, 'id' | 'groupId' | 'moduleId' | 'studentsEnrolled' | 'modularity'>
-      & { module: Maybe<(
+      & { module?: Maybe<(
         { __typename?: 'Module' }
         & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-        & { qualification: Maybe<(
+        & { qualification?: Maybe<(
           { __typename?: 'Qualification' }
           & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-          & { department: Maybe<(
+          & { department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-            & { faculty: Maybe<(
+            & { faculty?: Maybe<(
               { __typename?: 'Faculty' }
               & Pick<Faculty, 'facultyId' | 'name'>
             )> }
           )> }
-        )>, offeringType: Maybe<(
+        )>, offeringType?: Maybe<(
           { __typename?: 'OfferingType' }
           & Pick<OfferingType, 'offeringTypeId' | 'description'>
-        )>, discipline: Maybe<(
+        )>, discipline?: Maybe<(
           { __typename?: 'Discipline' }
           & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-        )>, venue: Maybe<(
+        )>, venue?: Maybe<(
           { __typename?: 'Venue' }
           & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-        )>, block: Maybe<(
+        )>, block?: Maybe<(
           { __typename?: 'Block' }
           & Pick<Block, 'blockId' | 'name' | 'description'>
         )> }
@@ -3174,772 +3174,772 @@ export type FormalInstructionActivitiesByUserQuery = (
   )>>> }
 );
 
-export type SupervisionActivityQueryVariables = {
-  activityId: Scalars['String']
-};
+export type SupervisionActivityQueryVariables = Exact<{
+  activityId: Scalars['String'];
+}>;
 
 
 export type SupervisionActivityQuery = (
   { __typename?: 'Query' }
-  & { supervisionActivity: Maybe<(
+  & { supervisionActivity?: Maybe<(
     { __typename?: 'SupervisionActivity' }
     & Pick<SupervisionActivity, 'activityId' | 'userId' | 'dutyId' | 'year' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'supervisionRole' | 'split' | 'studentId'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, student: Maybe<(
+    )>, student?: Maybe<(
       { __typename?: 'Student' }
       & Pick<Student, 'studentId' | 'firstName' | 'lastName' | 'email' | 'type' | 'title' | 'graduationDate'>
     )> }
   )> }
 );
 
-export type SupervisionActivitiesQueryVariables = {};
+export type SupervisionActivitiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SupervisionActivitiesQuery = (
   { __typename?: 'Query' }
-  & { supervisionActivities: Maybe<Array<Maybe<(
+  & { supervisionActivities?: Maybe<Array<Maybe<(
     { __typename?: 'SupervisionActivity' }
     & Pick<SupervisionActivity, 'activityId' | 'userId' | 'dutyId' | 'year' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'supervisionRole' | 'split' | 'studentId'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, student: Maybe<(
+    )>, student?: Maybe<(
       { __typename?: 'Student' }
       & Pick<Student, 'studentId' | 'firstName' | 'lastName' | 'email' | 'type' | 'title' | 'graduationDate'>
     )> }
   )>>> }
 );
 
-export type SupervisionActivitiesByUserQueryVariables = {
-  userId: Scalars['String']
-};
+export type SupervisionActivitiesByUserQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
 
 
 export type SupervisionActivitiesByUserQuery = (
   { __typename?: 'Query' }
-  & { supervisionActivitiesByUser: Maybe<Array<Maybe<(
+  & { supervisionActivitiesByUser?: Maybe<Array<Maybe<(
     { __typename?: 'SupervisionActivity' }
     & Pick<SupervisionActivity, 'activityId' | 'userId' | 'dutyId' | 'year' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'supervisionRole' | 'split' | 'studentId'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
-    )>, student: Maybe<(
+    )>, student?: Maybe<(
       { __typename?: 'Student' }
       & Pick<Student, 'studentId' | 'firstName' | 'lastName' | 'email' | 'type' | 'title' | 'graduationDate'>
     )> }
   )>>> }
 );
 
-export type AddPersonnelDevelopmentActivityMutationVariables = {
-  activity?: Maybe<PersonnelDevelopmentActivityInput>
-};
+export type AddPersonnelDevelopmentActivityMutationVariables = Exact<{
+  activity?: Maybe<PersonnelDevelopmentActivityInput>;
+}>;
 
 
 export type AddPersonnelDevelopmentActivityMutation = (
   { __typename?: 'Mutation' }
-  & { addPersonnelDevelopmentActivity: Maybe<(
+  & { addPersonnelDevelopmentActivity?: Maybe<(
     { __typename?: 'PersonnelDevelopmentActivity' }
     & Pick<PersonnelDevelopmentActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'date' | 'duration' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type EditPersonnelDevelopmentActivityMutationVariables = {
-  activity?: Maybe<PersonnelDevelopmentActivityInput>
-};
+export type EditPersonnelDevelopmentActivityMutationVariables = Exact<{
+  activity?: Maybe<PersonnelDevelopmentActivityInput>;
+}>;
 
 
 export type EditPersonnelDevelopmentActivityMutation = (
   { __typename?: 'Mutation' }
-  & { editPersonnelDevelopmentActivity: Maybe<(
+  & { editPersonnelDevelopmentActivity?: Maybe<(
     { __typename?: 'PersonnelDevelopmentActivity' }
     & Pick<PersonnelDevelopmentActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'date' | 'duration' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type DeletePersonnelDevelopmentActivityMutationVariables = {
-  activity?: Maybe<PersonnelDevelopmentActivityInput>
-};
+export type DeletePersonnelDevelopmentActivityMutationVariables = Exact<{
+  activity?: Maybe<PersonnelDevelopmentActivityInput>;
+}>;
 
 
 export type DeletePersonnelDevelopmentActivityMutation = (
   { __typename?: 'Mutation' }
-  & { deletePersonnelDevelopmentActivity: Maybe<(
+  & { deletePersonnelDevelopmentActivity?: Maybe<(
     { __typename?: 'PersonnelDevelopmentActivity' }
     & Pick<PersonnelDevelopmentActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'date' | 'duration' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type PersonnelDevelopmentActivityQueryVariables = {
-  activityId: Scalars['String']
-};
+export type PersonnelDevelopmentActivityQueryVariables = Exact<{
+  activityId: Scalars['String'];
+}>;
 
 
 export type PersonnelDevelopmentActivityQuery = (
   { __typename?: 'Query' }
-  & { personnelDevelopmentActivity: Maybe<(
+  & { personnelDevelopmentActivity?: Maybe<(
     { __typename?: 'PersonnelDevelopmentActivity' }
     & Pick<PersonnelDevelopmentActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'date' | 'duration' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type PersonnelDevelopmentActivitiesQueryVariables = {};
+export type PersonnelDevelopmentActivitiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type PersonnelDevelopmentActivitiesQuery = (
   { __typename?: 'Query' }
-  & { personnelDevelopmentActivities: Maybe<Array<Maybe<(
+  & { personnelDevelopmentActivities?: Maybe<Array<Maybe<(
     { __typename?: 'PersonnelDevelopmentActivity' }
     & Pick<PersonnelDevelopmentActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'date' | 'duration' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type PersonnelDevelopmentActivitiesByUserQueryVariables = {
-  userId?: Maybe<Scalars['String']>
-};
+export type PersonnelDevelopmentActivitiesByUserQueryVariables = Exact<{
+  userId?: Maybe<Scalars['String']>;
+}>;
 
 
 export type PersonnelDevelopmentActivitiesByUserQuery = (
   { __typename?: 'Query' }
-  & { personnelDevelopmentActivitiesByUser: Maybe<Array<Maybe<(
+  & { personnelDevelopmentActivitiesByUser?: Maybe<Array<Maybe<(
     { __typename?: 'PersonnelDevelopmentActivity' }
     & Pick<PersonnelDevelopmentActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'date' | 'duration' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type AddPublicServiceActivityMutationVariables = {
-  activity?: Maybe<PublicServiceActivityInput>
-};
+export type AddPublicServiceActivityMutationVariables = Exact<{
+  activity?: Maybe<PublicServiceActivityInput>;
+}>;
 
 
 export type AddPublicServiceActivityMutation = (
   { __typename?: 'Mutation' }
-  & { addPublicServiceActivity: Maybe<(
+  & { addPublicServiceActivity?: Maybe<(
     { __typename?: 'PublicServiceActivity' }
     & Pick<PublicServiceActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type EditPublicServiceActivityMutationVariables = {
-  activity?: Maybe<PublicServiceActivityInput>
-};
+export type EditPublicServiceActivityMutationVariables = Exact<{
+  activity?: Maybe<PublicServiceActivityInput>;
+}>;
 
 
 export type EditPublicServiceActivityMutation = (
   { __typename?: 'Mutation' }
-  & { editPublicServiceActivity: Maybe<(
+  & { editPublicServiceActivity?: Maybe<(
     { __typename?: 'PublicServiceActivity' }
     & Pick<PublicServiceActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type DeletePublicServiceActivityMutationVariables = {
-  activity?: Maybe<PublicServiceActivityInput>
-};
+export type DeletePublicServiceActivityMutationVariables = Exact<{
+  activity?: Maybe<PublicServiceActivityInput>;
+}>;
 
 
 export type DeletePublicServiceActivityMutation = (
   { __typename?: 'Mutation' }
-  & { deletePublicServiceActivity: Maybe<(
+  & { deletePublicServiceActivity?: Maybe<(
     { __typename?: 'PublicServiceActivity' }
     & Pick<PublicServiceActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type PublicServiceActivityQueryVariables = {
-  activityId?: Maybe<Scalars['String']>
-};
+export type PublicServiceActivityQueryVariables = Exact<{
+  activityId?: Maybe<Scalars['String']>;
+}>;
 
 
 export type PublicServiceActivityQuery = (
   { __typename?: 'Query' }
-  & { publicServiceActivity: Maybe<(
+  & { publicServiceActivity?: Maybe<(
     { __typename?: 'PublicServiceActivity' }
     & Pick<PublicServiceActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type PublicServiceActivitiesQueryVariables = {};
+export type PublicServiceActivitiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type PublicServiceActivitiesQuery = (
   { __typename?: 'Query' }
-  & { publicServiceActivities: Maybe<Array<Maybe<(
+  & { publicServiceActivities?: Maybe<Array<Maybe<(
     { __typename?: 'PublicServiceActivity' }
     & Pick<PublicServiceActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type PublicServiceActivitiesByUserQueryVariables = {
-  userId?: Maybe<Scalars['String']>
-};
+export type PublicServiceActivitiesByUserQueryVariables = Exact<{
+  userId?: Maybe<Scalars['String']>;
+}>;
 
 
 export type PublicServiceActivitiesByUserQuery = (
   { __typename?: 'Query' }
-  & { publicServiceActivitiesByUser: Maybe<Array<Maybe<(
+  & { publicServiceActivitiesByUser?: Maybe<Array<Maybe<(
     { __typename?: 'PublicServiceActivity' }
     & Pick<PublicServiceActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName'>
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type AddResearchActivityMutationVariables = {
-  activity?: Maybe<ResearchActivityInput>
-};
+export type AddResearchActivityMutationVariables = Exact<{
+  activity?: Maybe<ResearchActivityInput>;
+}>;
 
 
 export type AddResearchActivityMutation = (
   { __typename?: 'Mutation' }
-  & { addResearchActivity: Maybe<(
+  & { addResearchActivity?: Maybe<(
     { __typename?: 'ResearchActivity' }
     & Pick<ResearchActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'output' | 'title' | 'details' | 'dates' | 'url' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type EditResearchActivityMutationVariables = {
-  activity?: Maybe<ResearchActivityInput>
-};
+export type EditResearchActivityMutationVariables = Exact<{
+  activity?: Maybe<ResearchActivityInput>;
+}>;
 
 
 export type EditResearchActivityMutation = (
   { __typename?: 'Mutation' }
-  & { editResearchActivity: Maybe<(
+  & { editResearchActivity?: Maybe<(
     { __typename?: 'ResearchActivity' }
     & Pick<ResearchActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'output' | 'title' | 'details' | 'dates' | 'url' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type DeleteResearchActivityMutationVariables = {
-  activity?: Maybe<ResearchActivityInput>
-};
+export type DeleteResearchActivityMutationVariables = Exact<{
+  activity?: Maybe<ResearchActivityInput>;
+}>;
 
 
 export type DeleteResearchActivityMutation = (
   { __typename?: 'Mutation' }
-  & { deleteResearchActivity: Maybe<(
+  & { deleteResearchActivity?: Maybe<(
     { __typename?: 'ResearchActivity' }
     & Pick<ResearchActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'output' | 'title' | 'details' | 'dates' | 'url' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type ResearchActivityQueryVariables = {
-  activityId: Scalars['String']
-};
+export type ResearchActivityQueryVariables = Exact<{
+  activityId: Scalars['String'];
+}>;
 
 
 export type ResearchActivityQuery = (
   { __typename?: 'Query' }
-  & { researchActivity: Maybe<(
+  & { researchActivity?: Maybe<(
     { __typename?: 'ResearchActivity' }
     & Pick<ResearchActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'output' | 'title' | 'details' | 'dates' | 'conferenceActivities' | 'authors' | 'url' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type ResearchActivitiesQueryVariables = {};
+export type ResearchActivitiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ResearchActivitiesQuery = (
   { __typename?: 'Query' }
-  & { researchActivities: Maybe<Array<Maybe<(
+  & { researchActivities?: Maybe<Array<Maybe<(
     { __typename?: 'ResearchActivity' }
     & Pick<ResearchActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'output' | 'title' | 'details' | 'dates' | 'conferenceActivities' | 'authors' | 'url' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type ResearchActivitiesByUserQueryVariables = {
-  userId: Scalars['String']
-};
+export type ResearchActivitiesByUserQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
 
 
 export type ResearchActivitiesByUserQuery = (
   { __typename?: 'Query' }
-  & { researchActivitiesByUser: Maybe<Array<Maybe<(
+  & { researchActivitiesByUser?: Maybe<Array<Maybe<(
     { __typename?: 'ResearchActivity' }
     & Pick<ResearchActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'output' | 'title' | 'details' | 'dates' | 'conferenceActivities' | 'authors' | 'url' | 'evidence'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
-    )>, duty: Maybe<(
+    )>, duty?: Maybe<(
       { __typename?: 'Duty' }
       & Pick<Duty, 'dutyId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type ChangePasswordMutationVariables = {
-  userId: Scalars['String'],
-  password: Scalars['String'],
-  newPassword: Scalars['String']
-};
+export type ChangePasswordMutationVariables = Exact<{
+  userId: Scalars['String'];
+  password: Scalars['String'];
+  newPassword: Scalars['String'];
+}>;
 
 
 export type ChangePasswordMutation = (
@@ -3947,10 +3947,10 @@ export type ChangePasswordMutation = (
   & Pick<Mutation, 'changePassword'>
 );
 
-export type LoginQueryVariables = {
-  userId: Scalars['String'],
-  password: Scalars['String']
-};
+export type LoginQueryVariables = Exact<{
+  userId: Scalars['String'];
+  password: Scalars['String'];
+}>;
 
 
 export type LoginQuery = (
@@ -3961,492 +3961,492 @@ export type LoginQuery = (
   ) }
 );
 
-export type AddBlockMutationVariables = {
-  block?: Maybe<BlockInput>
-};
+export type AddBlockMutationVariables = Exact<{
+  block?: Maybe<BlockInput>;
+}>;
 
 
 export type AddBlockMutation = (
   { __typename?: 'Mutation' }
-  & { addBlock: Maybe<(
+  & { addBlock?: Maybe<(
     { __typename?: 'Block' }
     & Pick<Block, 'blockId' | 'name' | 'description'>
   )> }
 );
 
-export type EditBlockMutationVariables = {
-  block?: Maybe<BlockInput>
-};
+export type EditBlockMutationVariables = Exact<{
+  block?: Maybe<BlockInput>;
+}>;
 
 
 export type EditBlockMutation = (
   { __typename?: 'Mutation' }
-  & { editBlock: Maybe<(
+  & { editBlock?: Maybe<(
     { __typename?: 'Block' }
     & Pick<Block, 'blockId' | 'name' | 'description'>
   )> }
 );
 
-export type DeleteBlockMutationVariables = {
-  block?: Maybe<BlockInput>
-};
+export type DeleteBlockMutationVariables = Exact<{
+  block?: Maybe<BlockInput>;
+}>;
 
 
 export type DeleteBlockMutation = (
   { __typename?: 'Mutation' }
-  & { deleteBlock: Maybe<(
+  & { deleteBlock?: Maybe<(
     { __typename?: 'Block' }
     & Pick<Block, 'blockId' | 'name' | 'description'>
   )> }
 );
 
-export type BlockQueryVariables = {
-  blockId: Scalars['String']
-};
+export type BlockQueryVariables = Exact<{
+  blockId: Scalars['String'];
+}>;
 
 
 export type BlockQuery = (
   { __typename?: 'Query' }
-  & { block: Maybe<(
+  & { block?: Maybe<(
     { __typename?: 'Block' }
     & Pick<Block, 'blockId' | 'name' | 'description'>
   )> }
 );
 
-export type BlocksQueryVariables = {};
+export type BlocksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type BlocksQuery = (
   { __typename?: 'Query' }
-  & { blocks: Maybe<Array<Maybe<(
+  & { blocks?: Maybe<Array<Maybe<(
     { __typename?: 'Block' }
     & Pick<Block, 'blockId' | 'name' | 'description'>
   )>>> }
 );
 
-export type AddDepartmentMutationVariables = {
-  department?: Maybe<DepartmentInput>
-};
+export type AddDepartmentMutationVariables = Exact<{
+  department?: Maybe<DepartmentInput>;
+}>;
 
 
 export type AddDepartmentMutation = (
   { __typename?: 'Mutation' }
-  & { addDepartment: Maybe<(
+  & { addDepartment?: Maybe<(
     { __typename?: 'Department' }
     & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-    & { faculty: Maybe<(
+    & { faculty?: Maybe<(
       { __typename?: 'Faculty' }
       & Pick<Faculty, 'facultyId' | 'name'>
     )> }
   )> }
 );
 
-export type EditDepartmentMutationVariables = {
-  department?: Maybe<DepartmentInput>
-};
+export type EditDepartmentMutationVariables = Exact<{
+  department?: Maybe<DepartmentInput>;
+}>;
 
 
 export type EditDepartmentMutation = (
   { __typename?: 'Mutation' }
-  & { editDepartment: Maybe<(
+  & { editDepartment?: Maybe<(
     { __typename?: 'Department' }
     & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-    & { faculty: Maybe<(
+    & { faculty?: Maybe<(
       { __typename?: 'Faculty' }
       & Pick<Faculty, 'facultyId' | 'name'>
     )> }
   )> }
 );
 
-export type DeleteDepartmentMutationVariables = {
-  department?: Maybe<DepartmentInput>
-};
+export type DeleteDepartmentMutationVariables = Exact<{
+  department?: Maybe<DepartmentInput>;
+}>;
 
 
 export type DeleteDepartmentMutation = (
   { __typename?: 'Mutation' }
-  & { deleteDepartment: Maybe<(
+  & { deleteDepartment?: Maybe<(
     { __typename?: 'Department' }
     & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-    & { faculty: Maybe<(
+    & { faculty?: Maybe<(
       { __typename?: 'Faculty' }
       & Pick<Faculty, 'facultyId' | 'name'>
     )> }
   )> }
 );
 
-export type DepartmentQueryVariables = {
-  departmentId: Scalars['String']
-};
+export type DepartmentQueryVariables = Exact<{
+  departmentId: Scalars['String'];
+}>;
 
 
 export type DepartmentQuery = (
   { __typename?: 'Query' }
-  & { department: Maybe<(
+  & { department?: Maybe<(
     { __typename?: 'Department' }
     & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-    & { faculty: Maybe<(
+    & { faculty?: Maybe<(
       { __typename?: 'Faculty' }
       & Pick<Faculty, 'facultyId' | 'name'>
     )> }
   )> }
 );
 
-export type DepartmentsQueryVariables = {};
+export type DepartmentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type DepartmentsQuery = (
   { __typename?: 'Query' }
-  & { departments: Maybe<Array<Maybe<(
+  & { departments?: Maybe<Array<Maybe<(
     { __typename?: 'Department' }
     & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-    & { faculty: Maybe<(
+    & { faculty?: Maybe<(
       { __typename?: 'Faculty' }
       & Pick<Faculty, 'facultyId' | 'name'>
     )> }
   )>>> }
 );
 
-export type AddDisciplineMutationVariables = {
-  discipline?: Maybe<DisciplineInput>
-};
+export type AddDisciplineMutationVariables = Exact<{
+  discipline?: Maybe<DisciplineInput>;
+}>;
 
 
 export type AddDisciplineMutation = (
   { __typename?: 'Mutation' }
-  & { addDiscipline: Maybe<(
+  & { addDiscipline?: Maybe<(
     { __typename?: 'Discipline' }
     & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
   )> }
 );
 
-export type EditDisciplineMutationVariables = {
-  discipline?: Maybe<DisciplineInput>
-};
+export type EditDisciplineMutationVariables = Exact<{
+  discipline?: Maybe<DisciplineInput>;
+}>;
 
 
 export type EditDisciplineMutation = (
   { __typename?: 'Mutation' }
-  & { editDiscipline: Maybe<(
+  & { editDiscipline?: Maybe<(
     { __typename?: 'Discipline' }
     & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
   )> }
 );
 
-export type DeleteDisciplineMutationVariables = {
-  discipline?: Maybe<DisciplineInput>
-};
+export type DeleteDisciplineMutationVariables = Exact<{
+  discipline?: Maybe<DisciplineInput>;
+}>;
 
 
 export type DeleteDisciplineMutation = (
   { __typename?: 'Mutation' }
-  & { deleteDiscipline: Maybe<(
+  & { deleteDiscipline?: Maybe<(
     { __typename?: 'Discipline' }
     & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
   )> }
 );
 
-export type DisciplineQueryVariables = {
-  disciplineId: Scalars['String']
-};
+export type DisciplineQueryVariables = Exact<{
+  disciplineId: Scalars['String'];
+}>;
 
 
 export type DisciplineQuery = (
   { __typename?: 'Query' }
-  & { discipline: Maybe<(
+  & { discipline?: Maybe<(
     { __typename?: 'Discipline' }
     & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
   )> }
 );
 
-export type DisciplinesQueryVariables = {};
+export type DisciplinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type DisciplinesQuery = (
   { __typename?: 'Query' }
-  & { disciplines: Maybe<Array<Maybe<(
+  & { disciplines?: Maybe<Array<Maybe<(
     { __typename?: 'Discipline' }
     & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
   )>>> }
 );
 
-export type AddDutyMutationVariables = {
-  duty?: Maybe<DutyInput>
-};
+export type AddDutyMutationVariables = Exact<{
+  duty?: Maybe<DutyInput>;
+}>;
 
 
 export type AddDutyMutation = (
   { __typename?: 'Mutation' }
-  & { addDuty: Maybe<(
+  & { addDuty?: Maybe<(
     { __typename?: 'Duty' }
     & Pick<Duty, 'dutyId' | 'name' | 'description'>
   )> }
 );
 
-export type EditDutyMutationVariables = {
-  duty?: Maybe<DutyInput>
-};
+export type EditDutyMutationVariables = Exact<{
+  duty?: Maybe<DutyInput>;
+}>;
 
 
 export type EditDutyMutation = (
   { __typename?: 'Mutation' }
-  & { editDuty: Maybe<(
+  & { editDuty?: Maybe<(
     { __typename?: 'Duty' }
     & Pick<Duty, 'dutyId' | 'name' | 'description'>
   )> }
 );
 
-export type DeleteDutyMutationVariables = {
-  duty?: Maybe<DutyInput>
-};
+export type DeleteDutyMutationVariables = Exact<{
+  duty?: Maybe<DutyInput>;
+}>;
 
 
 export type DeleteDutyMutation = (
   { __typename?: 'Mutation' }
-  & { deleteDuty: Maybe<(
+  & { deleteDuty?: Maybe<(
     { __typename?: 'Duty' }
     & Pick<Duty, 'dutyId' | 'name' | 'description'>
   )> }
 );
 
-export type DutyQueryVariables = {
-  dutyId: Scalars['String']
-};
+export type DutyQueryVariables = Exact<{
+  dutyId: Scalars['String'];
+}>;
 
 
 export type DutyQuery = (
   { __typename?: 'Query' }
-  & { duty: Maybe<(
+  & { duty?: Maybe<(
     { __typename?: 'Duty' }
     & Pick<Duty, 'dutyId' | 'name' | 'description'>
   )> }
 );
 
-export type DutiesQueryVariables = {};
+export type DutiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type DutiesQuery = (
   { __typename?: 'Query' }
-  & { duties: Maybe<Array<Maybe<(
+  & { duties?: Maybe<Array<Maybe<(
     { __typename?: 'Duty' }
     & Pick<Duty, 'dutyId' | 'name' | 'description'>
   )>>> }
 );
 
-export type AddEnrollmentMutationVariables = {
-  enrollment: EnrollmentInput
-};
+export type AddEnrollmentMutationVariables = Exact<{
+  enrollment: EnrollmentInput;
+}>;
 
 
 export type AddEnrollmentMutation = (
   { __typename?: 'Mutation' }
-  & { addEnrollment: Maybe<(
+  & { addEnrollment?: Maybe<(
     { __typename?: 'Enrollment' }
     & Pick<Enrollment, 'enrollmentYear' | 'qualificationId' | 'firstYearEstimated' | 'secondYearEstimated' | 'thirdYearEstimated'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name'>
     )> }
   )> }
 );
 
-export type EditEnrollmentMutationVariables = {
-  enrollment: EnrollmentInput
-};
+export type EditEnrollmentMutationVariables = Exact<{
+  enrollment: EnrollmentInput;
+}>;
 
 
 export type EditEnrollmentMutation = (
   { __typename?: 'Mutation' }
-  & { editEnrollment: Maybe<(
+  & { editEnrollment?: Maybe<(
     { __typename?: 'Enrollment' }
     & Pick<Enrollment, 'enrollmentYear' | 'qualificationId' | 'firstYearEstimated' | 'secondYearEstimated' | 'thirdYearEstimated'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name'>
     )> }
   )> }
 );
 
-export type DeleteEnrollmentMutationVariables = {
-  enrollment: EnrollmentInput
-};
+export type DeleteEnrollmentMutationVariables = Exact<{
+  enrollment: EnrollmentInput;
+}>;
 
 
 export type DeleteEnrollmentMutation = (
   { __typename?: 'Mutation' }
-  & { deleteEnrollment: Maybe<(
+  & { deleteEnrollment?: Maybe<(
     { __typename?: 'Enrollment' }
     & Pick<Enrollment, 'enrollmentYear' | 'qualificationId' | 'firstYearEstimated' | 'secondYearEstimated' | 'thirdYearEstimated'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name'>
     )> }
   )> }
 );
 
-export type EnrollmentQueryVariables = {
-  id: Scalars['String']
-};
+export type EnrollmentQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
 
 
 export type EnrollmentQuery = (
   { __typename?: 'Query' }
-  & { enrollment: Maybe<(
+  & { enrollment?: Maybe<(
     { __typename?: 'Enrollment' }
     & Pick<Enrollment, 'enrollmentYear' | 'firstYearEstimated' | 'secondYearEstimated' | 'thirdYearEstimated'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name'>
     )> }
   )> }
 );
 
-export type EnrollmentsQueryVariables = {};
+export type EnrollmentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type EnrollmentsQuery = (
   { __typename?: 'Query' }
-  & { enrollments: Maybe<Array<Maybe<(
+  & { enrollments?: Maybe<Array<Maybe<(
     { __typename?: 'Enrollment' }
     & Pick<Enrollment, 'enrollmentYear' | 'qualificationId' | 'firstYearEstimated' | 'secondYearEstimated' | 'thirdYearEstimated'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name'>
     )> }
   )>>> }
 );
 
-export type EnrollmentsByQualificationQueryVariables = {
-  qualificationId: Scalars['String']
-};
+export type EnrollmentsByQualificationQueryVariables = Exact<{
+  qualificationId: Scalars['String'];
+}>;
 
 
 export type EnrollmentsByQualificationQuery = (
   { __typename?: 'Query' }
-  & { enrollmentsByQualification: Maybe<Array<Maybe<(
+  & { enrollmentsByQualification?: Maybe<Array<Maybe<(
     { __typename?: 'Enrollment' }
     & Pick<Enrollment, 'enrollmentYear' | 'qualificationId' | 'firstYearEstimated' | 'secondYearEstimated' | 'thirdYearEstimated'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name'>
     )> }
   )>>> }
 );
 
-export type EnrollmentsByYearQueryVariables = {
-  enrollmentYear: Scalars['String']
-};
+export type EnrollmentsByYearQueryVariables = Exact<{
+  enrollmentYear: Scalars['String'];
+}>;
 
 
 export type EnrollmentsByYearQuery = (
   { __typename?: 'Query' }
-  & { enrollmentsByYear: Maybe<Array<Maybe<(
+  & { enrollmentsByYear?: Maybe<Array<Maybe<(
     { __typename?: 'Enrollment' }
     & Pick<Enrollment, 'enrollmentYear' | 'qualificationId' | 'firstYearEstimated' | 'secondYearEstimated' | 'thirdYearEstimated'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name'>
     )> }
   )>>> }
 );
 
-export type AddFacultyMutationVariables = {
-  faculty?: Maybe<FacultyInput>
-};
+export type AddFacultyMutationVariables = Exact<{
+  faculty?: Maybe<FacultyInput>;
+}>;
 
 
 export type AddFacultyMutation = (
   { __typename?: 'Mutation' }
-  & { addFaculty: Maybe<(
+  & { addFaculty?: Maybe<(
     { __typename?: 'Faculty' }
     & Pick<Faculty, 'facultyId' | 'name'>
   )> }
 );
 
-export type EditFacultyMutationVariables = {
-  faculty?: Maybe<FacultyInput>
-};
+export type EditFacultyMutationVariables = Exact<{
+  faculty?: Maybe<FacultyInput>;
+}>;
 
 
 export type EditFacultyMutation = (
   { __typename?: 'Mutation' }
-  & { addFaculty: Maybe<(
+  & { addFaculty?: Maybe<(
     { __typename?: 'Faculty' }
     & Pick<Faculty, 'facultyId' | 'name'>
   )> }
 );
 
-export type DeleteFacultyMutationVariables = {
-  faculty?: Maybe<FacultyInput>
-};
+export type DeleteFacultyMutationVariables = Exact<{
+  faculty?: Maybe<FacultyInput>;
+}>;
 
 
 export type DeleteFacultyMutation = (
   { __typename?: 'Mutation' }
-  & { deleteFaculty: Maybe<(
+  & { deleteFaculty?: Maybe<(
     { __typename?: 'Faculty' }
     & Pick<Faculty, 'facultyId' | 'name'>
   )> }
 );
 
-export type FacultyQueryVariables = {
-  facultyId: Scalars['String']
-};
+export type FacultyQueryVariables = Exact<{
+  facultyId: Scalars['String'];
+}>;
 
 
 export type FacultyQuery = (
   { __typename?: 'Query' }
-  & { faculty: Maybe<(
+  & { faculty?: Maybe<(
     { __typename?: 'Faculty' }
     & Pick<Faculty, 'facultyId' | 'name'>
   )> }
 );
 
-export type FacultiesQueryVariables = {};
+export type FacultiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type FacultiesQuery = (
   { __typename?: 'Query' }
-  & { faculties: Maybe<Array<Maybe<(
+  & { faculties?: Maybe<Array<Maybe<(
     { __typename?: 'Faculty' }
     & Pick<Faculty, 'facultyId' | 'name'>
   )>>> }
 );
 
-export type CreateGroupMutationVariables = {
-  group: GroupInput
-};
+export type CreateGroupMutationVariables = Exact<{
+  group: GroupInput;
+}>;
 
 
 export type CreateGroupMutation = (
   { __typename?: 'Mutation' }
-  & { createGroup: Maybe<(
+  & { createGroup?: Maybe<(
     { __typename?: 'Group' }
     & Pick<Group, 'id' | 'groupId' | 'moduleId' | 'studentsEnrolled' | 'modularity'>
-    & { module: Maybe<(
+    & { module?: Maybe<(
       { __typename?: 'Module' }
       & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-      & { qualification: Maybe<(
+      & { qualification?: Maybe<(
         { __typename?: 'Qualification' }
         & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-        & { department: Maybe<(
+        & { department?: Maybe<(
           { __typename?: 'Department' }
           & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-          & { faculty: Maybe<(
+          & { faculty?: Maybe<(
             { __typename?: 'Faculty' }
             & Pick<Faculty, 'facultyId' | 'name'>
           )> }
         )> }
-      )>, offeringType: Maybe<(
+      )>, offeringType?: Maybe<(
         { __typename?: 'OfferingType' }
         & Pick<OfferingType, 'offeringTypeId' | 'description'>
-      )>, discipline: Maybe<(
+      )>, discipline?: Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>, venue: Maybe<(
+      )>, venue?: Maybe<(
         { __typename?: 'Venue' }
         & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-      )>, block: Maybe<(
+      )>, block?: Maybe<(
         { __typename?: 'Block' }
         & Pick<Block, 'blockId' | 'name' | 'description'>
       )> }
@@ -4454,40 +4454,40 @@ export type CreateGroupMutation = (
   )> }
 );
 
-export type UpdateGroupMutationVariables = {
-  group: GroupInput
-};
+export type UpdateGroupMutationVariables = Exact<{
+  group: GroupInput;
+}>;
 
 
 export type UpdateGroupMutation = (
   { __typename?: 'Mutation' }
-  & { updateGroup: Maybe<(
+  & { updateGroup?: Maybe<(
     { __typename?: 'Group' }
     & Pick<Group, 'id' | 'groupId' | 'moduleId' | 'studentsEnrolled' | 'modularity'>
-    & { module: Maybe<(
+    & { module?: Maybe<(
       { __typename?: 'Module' }
       & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-      & { qualification: Maybe<(
+      & { qualification?: Maybe<(
         { __typename?: 'Qualification' }
         & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-        & { department: Maybe<(
+        & { department?: Maybe<(
           { __typename?: 'Department' }
           & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-          & { faculty: Maybe<(
+          & { faculty?: Maybe<(
             { __typename?: 'Faculty' }
             & Pick<Faculty, 'facultyId' | 'name'>
           )> }
         )> }
-      )>, offeringType: Maybe<(
+      )>, offeringType?: Maybe<(
         { __typename?: 'OfferingType' }
         & Pick<OfferingType, 'offeringTypeId' | 'description'>
-      )>, discipline: Maybe<(
+      )>, discipline?: Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>, venue: Maybe<(
+      )>, venue?: Maybe<(
         { __typename?: 'Venue' }
         & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-      )>, block: Maybe<(
+      )>, block?: Maybe<(
         { __typename?: 'Block' }
         & Pick<Block, 'blockId' | 'name' | 'description'>
       )> }
@@ -4495,40 +4495,40 @@ export type UpdateGroupMutation = (
   )> }
 );
 
-export type DeleteGroupMutationVariables = {
-  group: GroupInput
-};
+export type DeleteGroupMutationVariables = Exact<{
+  group: GroupInput;
+}>;
 
 
 export type DeleteGroupMutation = (
   { __typename?: 'Mutation' }
-  & { deleteGroup: Maybe<(
+  & { deleteGroup?: Maybe<(
     { __typename?: 'Group' }
     & Pick<Group, 'id' | 'groupId' | 'moduleId' | 'studentsEnrolled' | 'modularity'>
-    & { module: Maybe<(
+    & { module?: Maybe<(
       { __typename?: 'Module' }
       & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-      & { qualification: Maybe<(
+      & { qualification?: Maybe<(
         { __typename?: 'Qualification' }
         & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-        & { department: Maybe<(
+        & { department?: Maybe<(
           { __typename?: 'Department' }
           & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-          & { faculty: Maybe<(
+          & { faculty?: Maybe<(
             { __typename?: 'Faculty' }
             & Pick<Faculty, 'facultyId' | 'name'>
           )> }
         )> }
-      )>, offeringType: Maybe<(
+      )>, offeringType?: Maybe<(
         { __typename?: 'OfferingType' }
         & Pick<OfferingType, 'offeringTypeId' | 'description'>
-      )>, discipline: Maybe<(
+      )>, discipline?: Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>, venue: Maybe<(
+      )>, venue?: Maybe<(
         { __typename?: 'Venue' }
         & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-      )>, block: Maybe<(
+      )>, block?: Maybe<(
         { __typename?: 'Block' }
         & Pick<Block, 'blockId' | 'name' | 'description'>
       )> }
@@ -4536,40 +4536,40 @@ export type DeleteGroupMutation = (
   )> }
 );
 
-export type GroupQueryVariables = {
-  id: Scalars['String']
-};
+export type GroupQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
 
 
 export type GroupQuery = (
   { __typename?: 'Query' }
-  & { group: Maybe<(
+  & { group?: Maybe<(
     { __typename?: 'Group' }
     & Pick<Group, 'id' | 'groupId' | 'moduleId' | 'studentsEnrolled' | 'modularity'>
-    & { module: Maybe<(
+    & { module?: Maybe<(
       { __typename?: 'Module' }
       & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-      & { qualification: Maybe<(
+      & { qualification?: Maybe<(
         { __typename?: 'Qualification' }
         & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-        & { department: Maybe<(
+        & { department?: Maybe<(
           { __typename?: 'Department' }
           & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-          & { faculty: Maybe<(
+          & { faculty?: Maybe<(
             { __typename?: 'Faculty' }
             & Pick<Faculty, 'facultyId' | 'name'>
           )> }
         )> }
-      )>, offeringType: Maybe<(
+      )>, offeringType?: Maybe<(
         { __typename?: 'OfferingType' }
         & Pick<OfferingType, 'offeringTypeId' | 'description'>
-      )>, discipline: Maybe<(
+      )>, discipline?: Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>, venue: Maybe<(
+      )>, venue?: Maybe<(
         { __typename?: 'Venue' }
         & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-      )>, block: Maybe<(
+      )>, block?: Maybe<(
         { __typename?: 'Block' }
         & Pick<Block, 'blockId' | 'name' | 'description'>
       )> }
@@ -4577,38 +4577,38 @@ export type GroupQuery = (
   )> }
 );
 
-export type GroupsQueryVariables = {};
+export type GroupsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GroupsQuery = (
   { __typename?: 'Query' }
-  & { groups: Maybe<Array<Maybe<(
+  & { groups?: Maybe<Array<Maybe<(
     { __typename?: 'Group' }
     & Pick<Group, 'id' | 'groupId' | 'moduleId' | 'studentsEnrolled' | 'modularity'>
-    & { module: Maybe<(
+    & { module?: Maybe<(
       { __typename?: 'Module' }
       & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-      & { qualification: Maybe<(
+      & { qualification?: Maybe<(
         { __typename?: 'Qualification' }
         & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-        & { department: Maybe<(
+        & { department?: Maybe<(
           { __typename?: 'Department' }
           & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-          & { faculty: Maybe<(
+          & { faculty?: Maybe<(
             { __typename?: 'Faculty' }
             & Pick<Faculty, 'facultyId' | 'name'>
           )> }
         )> }
-      )>, offeringType: Maybe<(
+      )>, offeringType?: Maybe<(
         { __typename?: 'OfferingType' }
         & Pick<OfferingType, 'offeringTypeId' | 'description'>
-      )>, discipline: Maybe<(
+      )>, discipline?: Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>, venue: Maybe<(
+      )>, venue?: Maybe<(
         { __typename?: 'Venue' }
         & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-      )>, block: Maybe<(
+      )>, block?: Maybe<(
         { __typename?: 'Block' }
         & Pick<Block, 'blockId' | 'name' | 'description'>
       )> }
@@ -4616,40 +4616,40 @@ export type GroupsQuery = (
   )>>> }
 );
 
-export type GroupsByModuleQueryVariables = {
-  moduleId: Scalars['String']
-};
+export type GroupsByModuleQueryVariables = Exact<{
+  moduleId: Scalars['String'];
+}>;
 
 
 export type GroupsByModuleQuery = (
   { __typename?: 'Query' }
-  & { groupsByModule: Maybe<Array<Maybe<(
+  & { groupsByModule?: Maybe<Array<Maybe<(
     { __typename?: 'Group' }
     & Pick<Group, 'id' | 'groupId' | 'moduleId' | 'studentsEnrolled' | 'modularity'>
-    & { module: Maybe<(
+    & { module?: Maybe<(
       { __typename?: 'Module' }
       & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-      & { qualification: Maybe<(
+      & { qualification?: Maybe<(
         { __typename?: 'Qualification' }
         & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-        & { department: Maybe<(
+        & { department?: Maybe<(
           { __typename?: 'Department' }
           & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-          & { faculty: Maybe<(
+          & { faculty?: Maybe<(
             { __typename?: 'Faculty' }
             & Pick<Faculty, 'facultyId' | 'name'>
           )> }
         )> }
-      )>, offeringType: Maybe<(
+      )>, offeringType?: Maybe<(
         { __typename?: 'OfferingType' }
         & Pick<OfferingType, 'offeringTypeId' | 'description'>
-      )>, discipline: Maybe<(
+      )>, discipline?: Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>, venue: Maybe<(
+      )>, venue?: Maybe<(
         { __typename?: 'Venue' }
         & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-      )>, block: Maybe<(
+      )>, block?: Maybe<(
         { __typename?: 'Block' }
         & Pick<Block, 'blockId' | 'name' | 'description'>
       )> }
@@ -4657,9 +4657,9 @@ export type GroupsByModuleQuery = (
   )>>> }
 );
 
-export type GroupTotalQueryVariables = {
-  moduleId: Scalars['String']
-};
+export type GroupTotalQueryVariables = Exact<{
+  moduleId: Scalars['String'];
+}>;
 
 
 export type GroupTotalQuery = (
@@ -4667,9 +4667,9 @@ export type GroupTotalQuery = (
   & Pick<Query, 'groupTotal'>
 );
 
-export type RemainingStudentsQueryVariables = {
-  moduleId: Scalars['String']
-};
+export type RemainingStudentsQueryVariables = Exact<{
+  moduleId: Scalars['String'];
+}>;
 
 
 export type RemainingStudentsQuery = (
@@ -4677,10 +4677,10 @@ export type RemainingStudentsQuery = (
   & Pick<Query, 'remainingStudents'>
 );
 
-export type GroupExistsQueryVariables = {
-  groupId: Scalars['String'],
-  moduleId: Scalars['String']
-};
+export type GroupExistsQueryVariables = Exact<{
+  groupId: Scalars['String'];
+  moduleId: Scalars['String'];
+}>;
 
 
 export type GroupExistsQuery = (
@@ -4688,662 +4688,662 @@ export type GroupExistsQuery = (
   & Pick<Query, 'groupExists'>
 );
 
-export type AddModuleMutationVariables = {
-  module: ModuleInput
-};
+export type AddModuleMutationVariables = Exact<{
+  module: ModuleInput;
+}>;
 
 
 export type AddModuleMutation = (
   { __typename?: 'Mutation' }
-  & { addModule: Maybe<(
+  & { addModule?: Maybe<(
     { __typename?: 'Module' }
     & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
       )> }
-    )>, offeringType: Maybe<(
+    )>, offeringType?: Maybe<(
       { __typename?: 'OfferingType' }
       & Pick<OfferingType, 'offeringTypeId' | 'description'>
-    )>, discipline: Maybe<(
+    )>, discipline?: Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>, venue: Maybe<(
+    )>, venue?: Maybe<(
       { __typename?: 'Venue' }
       & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-    )>, block: Maybe<(
+    )>, block?: Maybe<(
       { __typename?: 'Block' }
       & Pick<Block, 'blockId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type AddModulesMutationVariables = {
-  modules: Array<ModuleInput>
-};
+export type AddModulesMutationVariables = Exact<{
+  modules: Array<ModuleInput>;
+}>;
 
 
 export type AddModulesMutation = (
   { __typename?: 'Mutation' }
-  & { addModules: Maybe<Array<Maybe<(
+  & { addModules?: Maybe<Array<Maybe<(
     { __typename?: 'Module' }
     & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
       )> }
-    )>, offeringType: Maybe<(
+    )>, offeringType?: Maybe<(
       { __typename?: 'OfferingType' }
       & Pick<OfferingType, 'offeringTypeId' | 'description'>
-    )>, discipline: Maybe<(
+    )>, discipline?: Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>, venue: Maybe<(
+    )>, venue?: Maybe<(
       { __typename?: 'Venue' }
       & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-    )>, block: Maybe<(
+    )>, block?: Maybe<(
       { __typename?: 'Block' }
       & Pick<Block, 'blockId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type EditModuleMutationVariables = {
-  module: ModuleInput
-};
+export type EditModuleMutationVariables = Exact<{
+  module: ModuleInput;
+}>;
 
 
 export type EditModuleMutation = (
   { __typename?: 'Mutation' }
-  & { editModule: Maybe<(
+  & { editModule?: Maybe<(
     { __typename?: 'Module' }
     & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
       )> }
-    )>, offeringType: Maybe<(
+    )>, offeringType?: Maybe<(
       { __typename?: 'OfferingType' }
       & Pick<OfferingType, 'offeringTypeId' | 'description'>
-    )>, discipline: Maybe<(
+    )>, discipline?: Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>, venue: Maybe<(
+    )>, venue?: Maybe<(
       { __typename?: 'Venue' }
       & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-    )>, block: Maybe<(
+    )>, block?: Maybe<(
       { __typename?: 'Block' }
       & Pick<Block, 'blockId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type DeleteModuleMutationVariables = {
-  module: ModuleInput
-};
+export type DeleteModuleMutationVariables = Exact<{
+  module: ModuleInput;
+}>;
 
 
 export type DeleteModuleMutation = (
   { __typename?: 'Mutation' }
-  & { deleteModule: Maybe<(
+  & { deleteModule?: Maybe<(
     { __typename?: 'Module' }
     & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
       )> }
-    )>, offeringType: Maybe<(
+    )>, offeringType?: Maybe<(
       { __typename?: 'OfferingType' }
       & Pick<OfferingType, 'offeringTypeId' | 'description'>
-    )>, discipline: Maybe<(
+    )>, discipline?: Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>, venue: Maybe<(
+    )>, venue?: Maybe<(
       { __typename?: 'Venue' }
       & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-    )>, block: Maybe<(
+    )>, block?: Maybe<(
       { __typename?: 'Block' }
       & Pick<Block, 'blockId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type StackModulesMutationVariables = {
-  ids: Array<Scalars['String']>
-};
+export type StackModulesMutationVariables = Exact<{
+  ids: Array<Scalars['String']>;
+}>;
 
 
 export type StackModulesMutation = (
   { __typename?: 'Mutation' }
-  & { stackModules: Maybe<Array<Maybe<(
+  & { stackModules?: Maybe<Array<Maybe<(
     { __typename?: 'Module' }
     & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
       )> }
-    )>, offeringType: Maybe<(
+    )>, offeringType?: Maybe<(
       { __typename?: 'OfferingType' }
       & Pick<OfferingType, 'offeringTypeId' | 'description'>
-    )>, discipline: Maybe<(
+    )>, discipline?: Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>, venue: Maybe<(
+    )>, venue?: Maybe<(
       { __typename?: 'Venue' }
       & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-    )>, block: Maybe<(
+    )>, block?: Maybe<(
       { __typename?: 'Block' }
       & Pick<Block, 'blockId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type AddModuleToStackMutationVariables = {
-  id: Scalars['String'],
-  stackId?: Maybe<Scalars['String']>
-};
+export type AddModuleToStackMutationVariables = Exact<{
+  id: Scalars['String'];
+  stackId?: Maybe<Scalars['String']>;
+}>;
 
 
 export type AddModuleToStackMutation = (
   { __typename?: 'Mutation' }
-  & { addModuleToStack: Maybe<(
+  & { addModuleToStack?: Maybe<(
     { __typename?: 'Module' }
     & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
       )> }
-    )>, offeringType: Maybe<(
+    )>, offeringType?: Maybe<(
       { __typename?: 'OfferingType' }
       & Pick<OfferingType, 'offeringTypeId' | 'description'>
-    )>, discipline: Maybe<(
+    )>, discipline?: Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>, venue: Maybe<(
+    )>, venue?: Maybe<(
       { __typename?: 'Venue' }
       & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-    )>, block: Maybe<(
+    )>, block?: Maybe<(
       { __typename?: 'Block' }
       & Pick<Block, 'blockId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type UnstackModuleMutationVariables = {
-  id: Scalars['String']
-};
+export type UnstackModuleMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
 
 
 export type UnstackModuleMutation = (
   { __typename?: 'Mutation' }
-  & { unstackModule: Maybe<(
+  & { unstackModule?: Maybe<(
     { __typename?: 'Module' }
     & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
       )> }
-    )>, offeringType: Maybe<(
+    )>, offeringType?: Maybe<(
       { __typename?: 'OfferingType' }
       & Pick<OfferingType, 'offeringTypeId' | 'description'>
-    )>, discipline: Maybe<(
+    )>, discipline?: Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>, venue: Maybe<(
+    )>, venue?: Maybe<(
       { __typename?: 'Venue' }
       & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-    )>, block: Maybe<(
+    )>, block?: Maybe<(
       { __typename?: 'Block' }
       & Pick<Block, 'blockId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type ModuleQueryVariables = {
-  id: Scalars['String']
-};
+export type ModuleQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
 
 
 export type ModuleQuery = (
   { __typename?: 'Query' }
-  & { module: Maybe<(
+  & { module?: Maybe<(
     { __typename?: 'Module' }
     & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
       )> }
-    )>, offeringType: Maybe<(
+    )>, offeringType?: Maybe<(
       { __typename?: 'OfferingType' }
       & Pick<OfferingType, 'offeringTypeId' | 'description'>
-    )>, discipline: Maybe<(
+    )>, discipline?: Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>, venue: Maybe<(
+    )>, venue?: Maybe<(
       { __typename?: 'Venue' }
       & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-    )>, block: Maybe<(
+    )>, block?: Maybe<(
       { __typename?: 'Block' }
       & Pick<Block, 'blockId' | 'name' | 'description'>
     )> }
   )> }
 );
 
-export type ModulesQueryVariables = {};
+export type ModulesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ModulesQuery = (
   { __typename?: 'Query' }
-  & { modules: Maybe<Array<Maybe<(
+  & { modules?: Maybe<Array<Maybe<(
     { __typename?: 'Module' }
     & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
       )> }
-    )>, offeringType: Maybe<(
+    )>, offeringType?: Maybe<(
       { __typename?: 'OfferingType' }
       & Pick<OfferingType, 'offeringTypeId' | 'description'>
-    )>, discipline: Maybe<(
+    )>, discipline?: Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>, venue: Maybe<(
+    )>, venue?: Maybe<(
       { __typename?: 'Venue' }
       & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-    )>, block: Maybe<(
+    )>, block?: Maybe<(
       { __typename?: 'Block' }
       & Pick<Block, 'blockId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type ModulesByDisciplineQueryVariables = {
-  disciplineIds: Array<Scalars['String']>
-};
+export type ModulesByDisciplineQueryVariables = Exact<{
+  disciplineIds: Array<Scalars['String']>;
+}>;
 
 
 export type ModulesByDisciplineQuery = (
   { __typename?: 'Query' }
-  & { modulesByDiscipline: Maybe<Array<Maybe<(
+  & { modulesByDiscipline?: Maybe<Array<Maybe<(
     { __typename?: 'Module' }
     & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
       )> }
-    )>, offeringType: Maybe<(
+    )>, offeringType?: Maybe<(
       { __typename?: 'OfferingType' }
       & Pick<OfferingType, 'offeringTypeId' | 'description'>
-    )>, discipline: Maybe<(
+    )>, discipline?: Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>, venue: Maybe<(
+    )>, venue?: Maybe<(
       { __typename?: 'Venue' }
       & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-    )>, block: Maybe<(
+    )>, block?: Maybe<(
       { __typename?: 'Block' }
       & Pick<Block, 'blockId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type ModulesByStackQueryVariables = {
-  stackId: Scalars['String']
-};
+export type ModulesByStackQueryVariables = Exact<{
+  stackId: Scalars['String'];
+}>;
 
 
 export type ModulesByStackQuery = (
   { __typename?: 'Query' }
-  & { modulesByStack: Maybe<Array<Maybe<(
+  & { modulesByStack?: Maybe<Array<Maybe<(
     { __typename?: 'Module' }
     & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
       )> }
-    )>, offeringType: Maybe<(
+    )>, offeringType?: Maybe<(
       { __typename?: 'OfferingType' }
       & Pick<OfferingType, 'offeringTypeId' | 'description'>
-    )>, discipline: Maybe<(
+    )>, discipline?: Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>, venue: Maybe<(
+    )>, venue?: Maybe<(
       { __typename?: 'Venue' }
       & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-    )>, block: Maybe<(
+    )>, block?: Maybe<(
       { __typename?: 'Block' }
       & Pick<Block, 'blockId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type ModulesByDepartmentQueryVariables = {
-  departmentId: Scalars['String']
-};
+export type ModulesByDepartmentQueryVariables = Exact<{
+  departmentId: Scalars['String'];
+}>;
 
 
 export type ModulesByDepartmentQuery = (
   { __typename?: 'Query' }
-  & { modulesByDepartment: Maybe<Array<Maybe<(
+  & { modulesByDepartment?: Maybe<Array<Maybe<(
     { __typename?: 'Module' }
     & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
       )> }
-    )>, offeringType: Maybe<(
+    )>, offeringType?: Maybe<(
       { __typename?: 'OfferingType' }
       & Pick<OfferingType, 'offeringTypeId' | 'description'>
-    )>, discipline: Maybe<(
+    )>, discipline?: Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>, venue: Maybe<(
+    )>, venue?: Maybe<(
       { __typename?: 'Venue' }
       & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-    )>, block: Maybe<(
+    )>, block?: Maybe<(
       { __typename?: 'Block' }
       & Pick<Block, 'blockId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type StackedWithQueryVariables = {
-  id: Scalars['String'],
-  stackId?: Maybe<Scalars['String']>
-};
+export type StackedWithQueryVariables = Exact<{
+  id: Scalars['String'];
+  stackId?: Maybe<Scalars['String']>;
+}>;
 
 
 export type StackedWithQuery = (
   { __typename?: 'Query' }
-  & { stackedWith: Maybe<Array<Maybe<(
+  & { stackedWith?: Maybe<Array<Maybe<(
     { __typename?: 'Module' }
     & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
       )> }
-    )>, offeringType: Maybe<(
+    )>, offeringType?: Maybe<(
       { __typename?: 'OfferingType' }
       & Pick<OfferingType, 'offeringTypeId' | 'description'>
-    )>, discipline: Maybe<(
+    )>, discipline?: Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>, venue: Maybe<(
+    )>, venue?: Maybe<(
       { __typename?: 'Venue' }
       & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-    )>, block: Maybe<(
+    )>, block?: Maybe<(
       { __typename?: 'Block' }
       & Pick<Block, 'blockId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type UnstackedModulesQueryVariables = {};
+export type UnstackedModulesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UnstackedModulesQuery = (
   { __typename?: 'Query' }
-  & { unstackedModules: Maybe<Array<Maybe<(
+  & { unstackedModules?: Maybe<Array<Maybe<(
     { __typename?: 'Module' }
     & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-    & { qualification: Maybe<(
+    & { qualification?: Maybe<(
       { __typename?: 'Qualification' }
       & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-      & { department: Maybe<(
+      & { department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
       )> }
-    )>, offeringType: Maybe<(
+    )>, offeringType?: Maybe<(
       { __typename?: 'OfferingType' }
       & Pick<OfferingType, 'offeringTypeId' | 'description'>
-    )>, discipline: Maybe<(
+    )>, discipline?: Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>, venue: Maybe<(
+    )>, venue?: Maybe<(
       { __typename?: 'Venue' }
       & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-    )>, block: Maybe<(
+    )>, block?: Maybe<(
       { __typename?: 'Block' }
       & Pick<Block, 'blockId' | 'name' | 'description'>
     )> }
   )>>> }
 );
 
-export type AddOfferingTypeMutationVariables = {
-  offeringType?: Maybe<OfferingTypeInput>
-};
+export type AddOfferingTypeMutationVariables = Exact<{
+  offeringType?: Maybe<OfferingTypeInput>;
+}>;
 
 
 export type AddOfferingTypeMutation = (
   { __typename?: 'Mutation' }
-  & { addOfferingType: Maybe<(
+  & { addOfferingType?: Maybe<(
     { __typename?: 'OfferingType' }
     & Pick<OfferingType, 'offeringTypeId' | 'description'>
   )> }
 );
 
-export type EditOfferingTypeMutationVariables = {
-  offeringType?: Maybe<OfferingTypeInput>
-};
+export type EditOfferingTypeMutationVariables = Exact<{
+  offeringType?: Maybe<OfferingTypeInput>;
+}>;
 
 
 export type EditOfferingTypeMutation = (
   { __typename?: 'Mutation' }
-  & { editOfferingType: Maybe<(
+  & { editOfferingType?: Maybe<(
     { __typename?: 'OfferingType' }
     & Pick<OfferingType, 'offeringTypeId' | 'description'>
   )> }
 );
 
-export type DeleteOfferingTypeMutationVariables = {
-  offeringType?: Maybe<OfferingTypeInput>
-};
+export type DeleteOfferingTypeMutationVariables = Exact<{
+  offeringType?: Maybe<OfferingTypeInput>;
+}>;
 
 
 export type DeleteOfferingTypeMutation = (
   { __typename?: 'Mutation' }
-  & { deleteOfferingType: Maybe<(
+  & { deleteOfferingType?: Maybe<(
     { __typename?: 'OfferingType' }
     & Pick<OfferingType, 'offeringTypeId' | 'description'>
   )> }
 );
 
-export type OfferingTypeQueryVariables = {
-  offeringTypeId: Scalars['String']
-};
+export type OfferingTypeQueryVariables = Exact<{
+  offeringTypeId: Scalars['String'];
+}>;
 
 
 export type OfferingTypeQuery = (
   { __typename?: 'Query' }
-  & { offeringType: Maybe<(
+  & { offeringType?: Maybe<(
     { __typename?: 'OfferingType' }
     & Pick<OfferingType, 'offeringTypeId' | 'description'>
   )> }
 );
 
-export type OfferingTypesQueryVariables = {};
+export type OfferingTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type OfferingTypesQuery = (
   { __typename?: 'Query' }
-  & { offeringTypes: Maybe<Array<Maybe<(
+  & { offeringTypes?: Maybe<Array<Maybe<(
     { __typename?: 'OfferingType' }
     & Pick<OfferingType, 'offeringTypeId' | 'description'>
   )>>> }
 );
 
-export type AddPositionMutationVariables = {
-  position?: Maybe<PositionInput>
-};
+export type AddPositionMutationVariables = Exact<{
+  position?: Maybe<PositionInput>;
+}>;
 
 
 export type AddPositionMutation = (
   { __typename?: 'Mutation' }
-  & { addPosition: Maybe<(
+  & { addPosition?: Maybe<(
     { __typename?: 'Position' }
     & Pick<Position, 'positionId' | 'name' | 'description'>
   )> }
 );
 
-export type EditPositionMutationVariables = {
-  position?: Maybe<PositionInput>
-};
+export type EditPositionMutationVariables = Exact<{
+  position?: Maybe<PositionInput>;
+}>;
 
 
 export type EditPositionMutation = (
   { __typename?: 'Mutation' }
-  & { editPosition: Maybe<(
+  & { editPosition?: Maybe<(
     { __typename?: 'Position' }
     & Pick<Position, 'positionId' | 'name' | 'description'>
   )> }
 );
 
-export type DeletePositionMutationVariables = {
-  position?: Maybe<PositionInput>
-};
+export type DeletePositionMutationVariables = Exact<{
+  position?: Maybe<PositionInput>;
+}>;
 
 
 export type DeletePositionMutation = (
   { __typename?: 'Mutation' }
-  & { deletePosition: Maybe<(
+  & { deletePosition?: Maybe<(
     { __typename?: 'Position' }
     & Pick<Position, 'positionId' | 'name' | 'description'>
   )> }
 );
 
-export type PositionQueryVariables = {
-  positionId: Scalars['String']
-};
+export type PositionQueryVariables = Exact<{
+  positionId: Scalars['String'];
+}>;
 
 
 export type PositionQuery = (
   { __typename?: 'Query' }
-  & { position: Maybe<(
+  & { position?: Maybe<(
     { __typename?: 'Position' }
     & Pick<Position, 'positionId' | 'name' | 'description'>
   )> }
 );
 
-export type PositionsQueryVariables = {};
+export type PositionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type PositionsQuery = (
   { __typename?: 'Query' }
-  & { positions: Maybe<Array<Maybe<(
+  & { positions?: Maybe<Array<Maybe<(
     { __typename?: 'Position' }
     & Pick<Position, 'positionId' | 'name' | 'description'>
   )>>> }
 );
 
-export type AddQualificationMutationVariables = {
-  qualification?: Maybe<QualificationInput>
-};
+export type AddQualificationMutationVariables = Exact<{
+  qualification?: Maybe<QualificationInput>;
+}>;
 
 
 export type AddQualificationMutation = (
   { __typename?: 'Mutation' }
-  & { addQualification: Maybe<(
+  & { addQualification?: Maybe<(
     { __typename?: 'Qualification' }
     & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-    & { department: Maybe<(
+    & { department?: Maybe<(
       { __typename?: 'Department' }
-      & Pick<Department, 'departmentId' | 'name'>
-      & { faculty: Maybe<(
+      & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
+      & { faculty?: Maybe<(
         { __typename?: 'Faculty' }
         & Pick<Faculty, 'facultyId' | 'name'>
       )> }
@@ -5351,20 +5351,20 @@ export type AddQualificationMutation = (
   )> }
 );
 
-export type EditQualificationMutationVariables = {
-  qualification?: Maybe<QualificationInput>
-};
+export type EditQualificationMutationVariables = Exact<{
+  qualification?: Maybe<QualificationInput>;
+}>;
 
 
 export type EditQualificationMutation = (
   { __typename?: 'Mutation' }
-  & { editQualification: Maybe<(
+  & { editQualification?: Maybe<(
     { __typename?: 'Qualification' }
     & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-    & { department: Maybe<(
+    & { department?: Maybe<(
       { __typename?: 'Department' }
-      & Pick<Department, 'departmentId' | 'name'>
-      & { faculty: Maybe<(
+      & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
+      & { faculty?: Maybe<(
         { __typename?: 'Faculty' }
         & Pick<Faculty, 'facultyId' | 'name'>
       )> }
@@ -5372,20 +5372,20 @@ export type EditQualificationMutation = (
   )> }
 );
 
-export type DeleteQualificationMutationVariables = {
-  qualification?: Maybe<QualificationInput>
-};
+export type DeleteQualificationMutationVariables = Exact<{
+  qualification?: Maybe<QualificationInput>;
+}>;
 
 
 export type DeleteQualificationMutation = (
   { __typename?: 'Mutation' }
-  & { deleteQualification: Maybe<(
+  & { deleteQualification?: Maybe<(
     { __typename?: 'Qualification' }
     & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-    & { department: Maybe<(
+    & { department?: Maybe<(
       { __typename?: 'Department' }
-      & Pick<Department, 'departmentId' | 'name'>
-      & { faculty: Maybe<(
+      & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
+      & { faculty?: Maybe<(
         { __typename?: 'Faculty' }
         & Pick<Faculty, 'facultyId' | 'name'>
       )> }
@@ -5393,20 +5393,20 @@ export type DeleteQualificationMutation = (
   )> }
 );
 
-export type QualificationQueryVariables = {
-  qualificationId: Scalars['String']
-};
+export type QualificationQueryVariables = Exact<{
+  qualificationId: Scalars['String'];
+}>;
 
 
 export type QualificationQuery = (
   { __typename?: 'Query' }
-  & { qualification: Maybe<(
+  & { qualification?: Maybe<(
     { __typename?: 'Qualification' }
     & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-    & { department: Maybe<(
+    & { department?: Maybe<(
       { __typename?: 'Department' }
-      & Pick<Department, 'departmentId' | 'name'>
-      & { faculty: Maybe<(
+      & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
+      & { faculty?: Maybe<(
         { __typename?: 'Faculty' }
         & Pick<Faculty, 'facultyId' | 'name'>
       )> }
@@ -5414,18 +5414,18 @@ export type QualificationQuery = (
   )> }
 );
 
-export type QualificationsQueryVariables = {};
+export type QualificationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type QualificationsQuery = (
   { __typename?: 'Query' }
-  & { qualifications: Maybe<Array<Maybe<(
+  & { qualifications?: Maybe<Array<Maybe<(
     { __typename?: 'Qualification' }
     & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-    & { department: Maybe<(
+    & { department?: Maybe<(
       { __typename?: 'Department' }
-      & Pick<Department, 'departmentId' | 'name'>
-      & { faculty: Maybe<(
+      & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
+      & { faculty?: Maybe<(
         { __typename?: 'Faculty' }
         & Pick<Faculty, 'facultyId' | 'name'>
       )> }
@@ -5433,18 +5433,18 @@ export type QualificationsQuery = (
   )>>> }
 );
 
-export type QualificationsPostgraduateQueryVariables = {};
+export type QualificationsPostgraduateQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type QualificationsPostgraduateQuery = (
   { __typename?: 'Query' }
-  & { qualifications: Maybe<Array<Maybe<(
+  & { qualifications?: Maybe<Array<Maybe<(
     { __typename?: 'Qualification' }
     & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-    & { department: Maybe<(
+    & { department?: Maybe<(
       { __typename?: 'Department' }
-      & Pick<Department, 'departmentId' | 'name'>
-      & { faculty: Maybe<(
+      & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
+      & { faculty?: Maybe<(
         { __typename?: 'Faculty' }
         & Pick<Faculty, 'facultyId' | 'name'>
       )> }
@@ -5452,18 +5452,18 @@ export type QualificationsPostgraduateQuery = (
   )>>> }
 );
 
-export type QualificationsUnenrolledQueryVariables = {};
+export type QualificationsUnenrolledQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type QualificationsUnenrolledQuery = (
   { __typename?: 'Query' }
-  & { qualificationsUnenrolled: Maybe<Array<Maybe<(
+  & { qualificationsUnenrolled?: Maybe<Array<Maybe<(
     { __typename?: 'Qualification' }
     & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-    & { department: Maybe<(
+    & { department?: Maybe<(
       { __typename?: 'Department' }
-      & Pick<Department, 'departmentId' | 'name'>
-      & { faculty: Maybe<(
+      & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
+      & { faculty?: Maybe<(
         { __typename?: 'Faculty' }
         & Pick<Faculty, 'facultyId' | 'name'>
       )> }
@@ -5471,305 +5471,305 @@ export type QualificationsUnenrolledQuery = (
   )>>> }
 );
 
-export type AddStudentMutationVariables = {
-  student?: Maybe<StudentInput>
-};
+export type AddStudentMutationVariables = Exact<{
+  student?: Maybe<StudentInput>;
+}>;
 
 
 export type AddStudentMutation = (
   { __typename?: 'Mutation' }
-  & { addStudent: Maybe<(
+  & { addStudent?: Maybe<(
     { __typename?: 'Student' }
     & Pick<Student, 'studentId' | 'email' | 'firstName' | 'lastName' | 'type' | 'title'>
   )> }
 );
 
-export type EditStudentMutationVariables = {
-  student?: Maybe<StudentInput>
-};
+export type EditStudentMutationVariables = Exact<{
+  student?: Maybe<StudentInput>;
+}>;
 
 
 export type EditStudentMutation = (
   { __typename?: 'Mutation' }
-  & { editStudent: Maybe<(
+  & { editStudent?: Maybe<(
     { __typename?: 'Student' }
     & Pick<Student, 'studentId' | 'email' | 'firstName' | 'lastName' | 'type' | 'title'>
   )> }
 );
 
-export type DeleteStudentMutationVariables = {
-  student?: Maybe<StudentInput>
-};
+export type DeleteStudentMutationVariables = Exact<{
+  student?: Maybe<StudentInput>;
+}>;
 
 
 export type DeleteStudentMutation = (
   { __typename?: 'Mutation' }
-  & { deleteStudent: Maybe<(
+  & { deleteStudent?: Maybe<(
     { __typename?: 'Student' }
     & Pick<Student, 'studentId' | 'email' | 'firstName' | 'lastName' | 'type' | 'title'>
   )> }
 );
 
-export type StudentQueryVariables = {
-  studentId: Scalars['String']
-};
+export type StudentQueryVariables = Exact<{
+  studentId: Scalars['String'];
+}>;
 
 
 export type StudentQuery = (
   { __typename?: 'Query' }
-  & { student: Maybe<(
+  & { student?: Maybe<(
     { __typename?: 'Student' }
     & Pick<Student, 'studentId' | 'email' | 'firstName' | 'lastName' | 'type' | 'title'>
   )> }
 );
 
-export type StudentsQueryVariables = {};
+export type StudentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type StudentsQuery = (
   { __typename?: 'Query' }
-  & { students: Maybe<Array<Maybe<(
+  & { students?: Maybe<Array<Maybe<(
     { __typename?: 'Student' }
     & Pick<Student, 'studentId' | 'email' | 'firstName' | 'lastName' | 'type' | 'title'>
   )>>> }
 );
 
-export type StudentsUnassignedQueryVariables = {
-  userId: Scalars['String']
-};
+export type StudentsUnassignedQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
 
 
 export type StudentsUnassignedQuery = (
   { __typename?: 'Query' }
-  & { studentsUnassigned: Maybe<Array<Maybe<(
+  & { studentsUnassigned?: Maybe<Array<Maybe<(
     { __typename?: 'Student' }
     & Pick<Student, 'studentId' | 'email' | 'firstName' | 'lastName' | 'type' | 'title'>
   )>>> }
 );
 
-export type UploadlProfilePictureMutationVariables = {
-  file: Scalars['Upload'],
-  userId: Scalars['String']
-};
+export type UploadlProfilePictureMutationVariables = Exact<{
+  file: Scalars['Upload'];
+  userId: Scalars['String'];
+}>;
 
 
 export type UploadlProfilePictureMutation = (
   { __typename?: 'Mutation' }
-  & { uploadProfilePicture: Maybe<(
+  & { uploadProfilePicture?: Maybe<(
     { __typename?: 'Location' }
     & Pick<Location, 'location'>
   )> }
 );
 
-export type UploadAcademicAdministrationEvidenceAwsMutationVariables = {
-  file: Scalars['Upload'],
-  userId: Scalars['String'],
-  activityId: Scalars['String']
-};
+export type UploadAcademicAdministrationEvidenceAwsMutationVariables = Exact<{
+  file: Scalars['Upload'];
+  userId: Scalars['String'];
+  activityId: Scalars['String'];
+}>;
 
 
 export type UploadAcademicAdministrationEvidenceAwsMutation = (
   { __typename?: 'Mutation' }
-  & { uploadAcademicAdministrationEvidenceAWS: Maybe<(
+  & { uploadAcademicAdministrationEvidenceAWS?: Maybe<(
     { __typename?: 'Location' }
     & Pick<Location, 'location'>
   )> }
 );
 
-export type UploadResearchEvidenceAwsMutationVariables = {
-  file: Scalars['Upload'],
-  userId: Scalars['String'],
-  activityId: Scalars['String']
-};
+export type UploadResearchEvidenceAwsMutationVariables = Exact<{
+  file: Scalars['Upload'];
+  userId: Scalars['String'];
+  activityId: Scalars['String'];
+}>;
 
 
 export type UploadResearchEvidenceAwsMutation = (
   { __typename?: 'Mutation' }
-  & { uploadResearchEvidenceAWS: Maybe<(
+  & { uploadResearchEvidenceAWS?: Maybe<(
     { __typename?: 'Location' }
     & Pick<Location, 'location'>
   )> }
 );
 
-export type AddUserMutationVariables = {
-  user?: Maybe<UserInput>
-};
+export type AddUserMutationVariables = Exact<{
+  user?: Maybe<UserInput>;
+}>;
 
 
 export type AddUserMutation = (
   { __typename?: 'Mutation' }
-  & { addUser: Maybe<(
+  & { addUser?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-    & { disciplines: Maybe<Array<Maybe<(
+    & { disciplines?: Maybe<Array<Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>>>, position: Maybe<(
+    )>>>, position?: Maybe<(
       { __typename?: 'Position' }
       & Pick<Position, 'positionId' | 'name' | 'description'>
-    )>, department: Maybe<(
+    )>, department?: Maybe<(
       { __typename?: 'Department' }
       & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-      & { faculty: Maybe<(
+      & { faculty?: Maybe<(
         { __typename?: 'Faculty' }
         & Pick<Faculty, 'facultyId' | 'name'>
       )> }
-    )>, workFocus: Maybe<(
+    )>, workFocus?: Maybe<(
       { __typename?: 'WorkFocus' }
       & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
     )> }
   )> }
 );
 
-export type EditUserMutationVariables = {
-  user?: Maybe<UserInput>
-};
+export type EditUserMutationVariables = Exact<{
+  user?: Maybe<UserInput>;
+}>;
 
 
 export type EditUserMutation = (
   { __typename?: 'Mutation' }
-  & { editUser: Maybe<(
+  & { editUser?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-    & { disciplines: Maybe<Array<Maybe<(
+    & { disciplines?: Maybe<Array<Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>>>, position: Maybe<(
+    )>>>, position?: Maybe<(
       { __typename?: 'Position' }
       & Pick<Position, 'positionId' | 'name' | 'description'>
-    )>, department: Maybe<(
+    )>, department?: Maybe<(
       { __typename?: 'Department' }
       & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-      & { faculty: Maybe<(
+      & { faculty?: Maybe<(
         { __typename?: 'Faculty' }
         & Pick<Faculty, 'facultyId' | 'name'>
       )> }
-    )>, workFocus: Maybe<(
+    )>, workFocus?: Maybe<(
       { __typename?: 'WorkFocus' }
       & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
     )> }
   )> }
 );
 
-export type DeleteUserMutationVariables = {
-  user?: Maybe<UserInput>
-};
+export type DeleteUserMutationVariables = Exact<{
+  user?: Maybe<UserInput>;
+}>;
 
 
 export type DeleteUserMutation = (
   { __typename?: 'Mutation' }
-  & { deleteUser: Maybe<(
+  & { deleteUser?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-    & { disciplines: Maybe<Array<Maybe<(
+    & { disciplines?: Maybe<Array<Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>>>, position: Maybe<(
+    )>>>, position?: Maybe<(
       { __typename?: 'Position' }
       & Pick<Position, 'positionId' | 'name' | 'description'>
-    )>, department: Maybe<(
+    )>, department?: Maybe<(
       { __typename?: 'Department' }
       & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-      & { faculty: Maybe<(
+      & { faculty?: Maybe<(
         { __typename?: 'Faculty' }
         & Pick<Faculty, 'facultyId' | 'name'>
       )> }
-    )>, workFocus: Maybe<(
+    )>, workFocus?: Maybe<(
       { __typename?: 'WorkFocus' }
       & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
     )> }
   )> }
 );
 
-export type UserQueryVariables = {
-  userId: Scalars['String']
-};
+export type UserQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
 
 
 export type UserQuery = (
   { __typename?: 'Query' }
-  & { user: Maybe<(
+  & { user?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-    & { disciplines: Maybe<Array<Maybe<(
+    & { disciplines?: Maybe<Array<Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>>>, position: Maybe<(
+    )>>>, position?: Maybe<(
       { __typename?: 'Position' }
       & Pick<Position, 'positionId' | 'name' | 'description'>
-    )>, department: Maybe<(
+    )>, department?: Maybe<(
       { __typename?: 'Department' }
       & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-      & { faculty: Maybe<(
+      & { faculty?: Maybe<(
         { __typename?: 'Faculty' }
         & Pick<Faculty, 'facultyId' | 'name'>
       )> }
-    )>, workFocus: Maybe<(
+    )>, workFocus?: Maybe<(
       { __typename?: 'WorkFocus' }
       & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
     )> }
   )> }
 );
 
-export type UsersQueryVariables = {};
+export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UsersQuery = (
   { __typename?: 'Query' }
-  & { users: Maybe<Array<Maybe<(
+  & { users?: Maybe<Array<Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-    & { disciplines: Maybe<Array<Maybe<(
+    & { disciplines?: Maybe<Array<Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>>>, position: Maybe<(
+    )>>>, position?: Maybe<(
       { __typename?: 'Position' }
       & Pick<Position, 'positionId' | 'name' | 'description'>
-    )>, department: Maybe<(
+    )>, department?: Maybe<(
       { __typename?: 'Department' }
       & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-      & { faculty: Maybe<(
+      & { faculty?: Maybe<(
         { __typename?: 'Faculty' }
         & Pick<Faculty, 'facultyId' | 'name'>
       )> }
-    )>, workFocus: Maybe<(
+    )>, workFocus?: Maybe<(
       { __typename?: 'WorkFocus' }
       & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
     )> }
   )>>> }
 );
 
-export type UsersByPositionQueryVariables = {};
+export type UsersByPositionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UsersByPositionQuery = (
   { __typename?: 'Query' }
-  & { usersByPosition: Maybe<Array<Maybe<(
+  & { usersByPosition?: Maybe<Array<Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-    & { disciplines: Maybe<Array<Maybe<(
+    & { disciplines?: Maybe<Array<Maybe<(
       { __typename?: 'Discipline' }
       & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-    )>>>, position: Maybe<(
+    )>>>, position?: Maybe<(
       { __typename?: 'Position' }
       & Pick<Position, 'positionId' | 'name' | 'description'>
-    )>, department: Maybe<(
+    )>, department?: Maybe<(
       { __typename?: 'Department' }
       & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-      & { faculty: Maybe<(
+      & { faculty?: Maybe<(
         { __typename?: 'Faculty' }
         & Pick<Faculty, 'facultyId' | 'name'>
       )> }
-    )>, workFocus: Maybe<(
+    )>, workFocus?: Maybe<(
       { __typename?: 'WorkFocus' }
       & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
     )> }
   )>>> }
 );
 
-export type UserExistsQueryVariables = {
-  userId: Scalars['String']
-};
+export type UserExistsQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
 
 
 export type UserExistsQuery = (
@@ -5777,135 +5777,135 @@ export type UserExistsQuery = (
   & Pick<Query, 'userExists'>
 );
 
-export type AddVenueMutationVariables = {
-  venue?: Maybe<VenueInput>
-};
+export type AddVenueMutationVariables = Exact<{
+  venue?: Maybe<VenueInput>;
+}>;
 
 
 export type AddVenueMutation = (
   { __typename?: 'Mutation' }
-  & { addVenue: Maybe<(
+  & { addVenue?: Maybe<(
     { __typename?: 'Venue' }
     & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
   )> }
 );
 
-export type EditVenueMutationVariables = {
-  venue?: Maybe<VenueInput>
-};
+export type EditVenueMutationVariables = Exact<{
+  venue?: Maybe<VenueInput>;
+}>;
 
 
 export type EditVenueMutation = (
   { __typename?: 'Mutation' }
-  & { editVenue: Maybe<(
+  & { editVenue?: Maybe<(
     { __typename?: 'Venue' }
     & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
   )> }
 );
 
-export type DeleteVenueMutationVariables = {
-  venue?: Maybe<VenueInput>
-};
+export type DeleteVenueMutationVariables = Exact<{
+  venue?: Maybe<VenueInput>;
+}>;
 
 
 export type DeleteVenueMutation = (
   { __typename?: 'Mutation' }
-  & { deleteVenue: Maybe<(
+  & { deleteVenue?: Maybe<(
     { __typename?: 'Venue' }
     & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
   )> }
 );
 
-export type VenueQueryVariables = {
-  venueId: Scalars['String']
-};
+export type VenueQueryVariables = Exact<{
+  venueId: Scalars['String'];
+}>;
 
 
 export type VenueQuery = (
   { __typename?: 'Query' }
-  & { venue: Maybe<(
+  & { venue?: Maybe<(
     { __typename?: 'Venue' }
     & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
   )> }
 );
 
-export type VenuesQueryVariables = {};
+export type VenuesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type VenuesQuery = (
   { __typename?: 'Query' }
-  & { venues: Maybe<Array<Maybe<(
+  & { venues?: Maybe<Array<Maybe<(
     { __typename?: 'Venue' }
     & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
   )>>> }
 );
 
-export type AddWorkFocusMutationVariables = {
-  workFocus?: Maybe<WorkFocusInput>
-};
+export type AddWorkFocusMutationVariables = Exact<{
+  workFocus?: Maybe<WorkFocusInput>;
+}>;
 
 
 export type AddWorkFocusMutation = (
   { __typename?: 'Mutation' }
-  & { addWorkFocus: Maybe<(
+  & { addWorkFocus?: Maybe<(
     { __typename?: 'WorkFocus' }
     & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
   )> }
 );
 
-export type EditWorkFocusMutationVariables = {
-  workFocus?: Maybe<WorkFocusInput>
-};
+export type EditWorkFocusMutationVariables = Exact<{
+  workFocus?: Maybe<WorkFocusInput>;
+}>;
 
 
 export type EditWorkFocusMutation = (
   { __typename?: 'Mutation' }
-  & { editWorkFocus: Maybe<(
+  & { editWorkFocus?: Maybe<(
     { __typename?: 'WorkFocus' }
     & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
   )> }
 );
 
-export type DeleteWorkFocusMutationVariables = {
-  workFocus?: Maybe<WorkFocusInput>
-};
+export type DeleteWorkFocusMutationVariables = Exact<{
+  workFocus?: Maybe<WorkFocusInput>;
+}>;
 
 
 export type DeleteWorkFocusMutation = (
   { __typename?: 'Mutation' }
-  & { deleteWorkFocus: Maybe<(
+  & { deleteWorkFocus?: Maybe<(
     { __typename?: 'WorkFocus' }
     & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
   )> }
 );
 
-export type WorkFocusQueryVariables = {
-  name: Scalars['String']
-};
+export type WorkFocusQueryVariables = Exact<{
+  name: Scalars['String'];
+}>;
 
 
 export type WorkFocusQuery = (
   { __typename?: 'Query' }
-  & { workFocus: Maybe<(
+  & { workFocus?: Maybe<(
     { __typename?: 'WorkFocus' }
     & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
   )> }
 );
 
-export type WorkFocusesQueryVariables = {};
+export type WorkFocusesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type WorkFocusesQuery = (
   { __typename?: 'Query' }
-  & { workFocuses: Maybe<Array<Maybe<(
+  & { workFocuses?: Maybe<Array<Maybe<(
     { __typename?: 'WorkFocus' }
     & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
   )>>> }
 );
 
-export type TeachingHoursQueryVariables = {
-  userId: Scalars['String']
-};
+export type TeachingHoursQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
 
 
 export type TeachingHoursQuery = (
@@ -5913,9 +5913,9 @@ export type TeachingHoursQuery = (
   & Pick<Query, 'teachingHours'>
 );
 
-export type ResearchHoursQueryVariables = {
-  userId: Scalars['String']
-};
+export type ResearchHoursQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
 
 
 export type ResearchHoursQuery = (
@@ -5923,9 +5923,9 @@ export type ResearchHoursQuery = (
   & Pick<Query, 'researchHours'>
 );
 
-export type ServiceHoursQueryVariables = {
-  userId: Scalars['String']
-};
+export type ServiceHoursQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
 
 
 export type ServiceHoursQuery = (
@@ -5933,7 +5933,7 @@ export type ServiceHoursQuery = (
   & Pick<Query, 'serviceHours'>
 );
 
-export type AnnualHoursQueryVariables = {};
+export type AnnualHoursQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type AnnualHoursQuery = (
@@ -5941,43 +5941,43 @@ export type AnnualHoursQuery = (
   & Pick<Query, 'annualHours'>
 );
 
-export type AcademicAdministrationWorkloadQueryVariables = {
-  userId?: Maybe<Scalars['String']>
-};
+export type AcademicAdministrationWorkloadQueryVariables = Exact<{
+  userId?: Maybe<Scalars['String']>;
+}>;
 
 
 export type AcademicAdministrationWorkloadQuery = (
   { __typename?: 'Query' }
-  & { academicAdministrationWorkload: Maybe<(
+  & { academicAdministrationWorkload?: Maybe<(
     { __typename?: 'AcademicAdministrationWorkload' }
     & Pick<AcademicAdministrationWorkload, 'globalTarrif' | 'totalHoursPerUser' | 'percentageOfWorkFocusPerUser' | 'percentageOfAnnualHoursPerUser' | 'percentageOfTotalHoursPerUser'>
-    & { academicAdministrationWorkloads: Maybe<Array<Maybe<(
+    & { academicAdministrationWorkloads?: Maybe<Array<Maybe<(
       { __typename?: 'AcademicAdministrationWorkloadPerActivity' }
       & Pick<AcademicAdministrationWorkloadPerActivity, 'totalHoursPerActivity' | 'percentageOfWorkFocusPerActivity' | 'percentageOfAnnualHoursPerActivity' | 'percentageOfTotalHoursPerActivity'>
-      & { activity: Maybe<(
+      & { activity?: Maybe<(
         { __typename?: 'AcademicAdministrationActivity' }
         & Pick<AcademicAdministrationActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-        & { user: Maybe<(
+        & { user?: Maybe<(
           { __typename?: 'User' }
           & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-          & { disciplines: Maybe<Array<Maybe<(
+          & { disciplines?: Maybe<Array<Maybe<(
             { __typename?: 'Discipline' }
             & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-          )>>>, position: Maybe<(
+          )>>>, position?: Maybe<(
             { __typename?: 'Position' }
             & Pick<Position, 'positionId' | 'name' | 'description'>
-          )>, department: Maybe<(
+          )>, department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-            & { faculty: Maybe<(
+            & { faculty?: Maybe<(
               { __typename?: 'Faculty' }
               & Pick<Faculty, 'facultyId' | 'name'>
             )> }
-          )>, workFocus: Maybe<(
+          )>, workFocus?: Maybe<(
             { __typename?: 'WorkFocus' }
             & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
           )> }
-        )>, duty: Maybe<(
+        )>, duty?: Maybe<(
           { __typename?: 'Duty' }
           & Pick<Duty, 'dutyId' | 'name' | 'description'>
         )> }
@@ -5986,43 +5986,43 @@ export type AcademicAdministrationWorkloadQuery = (
   )> }
 );
 
-export type CommunityInstructionWorkloadQueryVariables = {
-  userId?: Maybe<Scalars['String']>
-};
+export type CommunityInstructionWorkloadQueryVariables = Exact<{
+  userId?: Maybe<Scalars['String']>;
+}>;
 
 
 export type CommunityInstructionWorkloadQuery = (
   { __typename?: 'Query' }
-  & { communityInstructionWorkload: Maybe<(
+  & { communityInstructionWorkload?: Maybe<(
     { __typename?: 'CommunityInstructionWorkload' }
     & Pick<CommunityInstructionWorkload, 'globalTarrif' | 'totalHoursPerUser' | 'percentageOfWorkFocusPerUser' | 'percentageOfAnnualHoursPerUser' | 'percentageOfTotalHoursPerUser'>
-    & { communityInstructionWorkloads: Maybe<Array<Maybe<(
+    & { communityInstructionWorkloads?: Maybe<Array<Maybe<(
       { __typename?: 'CommunityInstructionWorkloadPerActivity' }
       & Pick<CommunityInstructionWorkloadPerActivity, 'totalHoursPerActivity' | 'percentageOfWorkFocusPerActivity' | 'percentageOfAnnualHoursPerActivity' | 'percentageOfTotalHoursPerActivity'>
-      & { activity: Maybe<(
+      & { activity?: Maybe<(
         { __typename?: 'CommunityInstructionActivity' }
         & Pick<CommunityInstructionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-        & { user: Maybe<(
+        & { user?: Maybe<(
           { __typename?: 'User' }
           & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-          & { disciplines: Maybe<Array<Maybe<(
+          & { disciplines?: Maybe<Array<Maybe<(
             { __typename?: 'Discipline' }
             & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-          )>>>, position: Maybe<(
+          )>>>, position?: Maybe<(
             { __typename?: 'Position' }
             & Pick<Position, 'positionId' | 'name' | 'description'>
-          )>, department: Maybe<(
+          )>, department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-            & { faculty: Maybe<(
+            & { faculty?: Maybe<(
               { __typename?: 'Faculty' }
               & Pick<Faculty, 'facultyId' | 'name'>
             )> }
-          )>, workFocus: Maybe<(
+          )>, workFocus?: Maybe<(
             { __typename?: 'WorkFocus' }
             & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
           )> }
-        )>, duty: Maybe<(
+        )>, duty?: Maybe<(
           { __typename?: 'Duty' }
           & Pick<Duty, 'dutyId' | 'name' | 'description'>
         )> }
@@ -6031,43 +6031,43 @@ export type CommunityInstructionWorkloadQuery = (
   )> }
 );
 
-export type ExecutiveManagementWorkloadQueryVariables = {
-  userId?: Maybe<Scalars['String']>
-};
+export type ExecutiveManagementWorkloadQueryVariables = Exact<{
+  userId?: Maybe<Scalars['String']>;
+}>;
 
 
 export type ExecutiveManagementWorkloadQuery = (
   { __typename?: 'Query' }
-  & { executiveManagementWorkload: Maybe<(
+  & { executiveManagementWorkload?: Maybe<(
     { __typename?: 'ExecutiveManagementWorkload' }
     & Pick<ExecutiveManagementWorkload, 'globalTarrif' | 'totalHoursPerUser' | 'percentageOfWorkFocusPerUser' | 'percentageOfAnnualHoursPerUser' | 'percentageOfTotalHoursPerUser'>
-    & { executiveManagementWorkloads: Maybe<Array<Maybe<(
+    & { executiveManagementWorkloads?: Maybe<Array<Maybe<(
       { __typename?: 'ExecutiveManagementWorkloadPerActivity' }
       & Pick<ExecutiveManagementWorkloadPerActivity, 'totalHoursPerActivity' | 'percentageOfWorkFocusPerActivity' | 'percentageOfAnnualHoursPerActivity' | 'percentageOfTotalHoursPerActivity'>
-      & { activity: Maybe<(
+      & { activity?: Maybe<(
         { __typename?: 'ExecutiveManagementActivity' }
         & Pick<ExecutiveManagementActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-        & { user: Maybe<(
+        & { user?: Maybe<(
           { __typename?: 'User' }
           & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-          & { disciplines: Maybe<Array<Maybe<(
+          & { disciplines?: Maybe<Array<Maybe<(
             { __typename?: 'Discipline' }
             & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-          )>>>, position: Maybe<(
+          )>>>, position?: Maybe<(
             { __typename?: 'Position' }
             & Pick<Position, 'positionId' | 'name' | 'description'>
-          )>, department: Maybe<(
+          )>, department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-            & { faculty: Maybe<(
+            & { faculty?: Maybe<(
               { __typename?: 'Faculty' }
               & Pick<Faculty, 'facultyId' | 'name'>
             )> }
-          )>, workFocus: Maybe<(
+          )>, workFocus?: Maybe<(
             { __typename?: 'WorkFocus' }
             & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
           )> }
-        )>, duty: Maybe<(
+        )>, duty?: Maybe<(
           { __typename?: 'Duty' }
           & Pick<Duty, 'dutyId' | 'name' | 'description'>
         )> }
@@ -6076,97 +6076,97 @@ export type ExecutiveManagementWorkloadQuery = (
   )> }
 );
 
-export type FormalInstructionWorkloadQueryVariables = {
-  userId?: Maybe<Scalars['String']>
-};
+export type FormalInstructionWorkloadQueryVariables = Exact<{
+  userId?: Maybe<Scalars['String']>;
+}>;
 
 
 export type FormalInstructionWorkloadQuery = (
   { __typename?: 'Query' }
-  & { formalInstructionWorkload: Maybe<(
+  & { formalInstructionWorkload?: Maybe<(
     { __typename?: 'FormalInstructionWorkload' }
     & Pick<FormalInstructionWorkload, 'totalHoursPerUser' | 'percentageOfWorkFocusPerUser' | 'percentageOfAnnualHoursPerUser' | 'percentageOfTotalHoursPerUser'>
-    & { formalInstructionWorkloads: Maybe<Array<Maybe<(
+    & { formalInstructionWorkloads?: Maybe<Array<Maybe<(
       { __typename?: 'FormalInstructionWorkloadPerActivity' }
       & Pick<FormalInstructionWorkloadPerActivity, 'studentsEnrolled' | 'baseContactHours' | 'coordinationHours' | 'studentSupportHours' | 'preparationTimeHours' | 'assessmentSettingHours' | 'examMarkingHours' | 'courseworkMarkingHours' | 'feedbackHours' | 'formativeAssessmentHours' | 'moderationHours' | 'otherHoursPerActivity' | 'totalHoursPerActivity' | 'percentageOfWorkFocusPerActivity' | 'percentageOfAnnualHoursPerActivity' | 'percentageOfTotalHoursPerActivity'>
-      & { activity: Maybe<(
+      & { activity?: Maybe<(
         { __typename?: 'FormalInstructionActivity' }
         & Pick<FormalInstructionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'groupId' | 'isCoordinator'>
-        & { user: Maybe<(
+        & { user?: Maybe<(
           { __typename?: 'User' }
           & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-          & { disciplines: Maybe<Array<Maybe<(
+          & { disciplines?: Maybe<Array<Maybe<(
             { __typename?: 'Discipline' }
             & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-          )>>>, position: Maybe<(
+          )>>>, position?: Maybe<(
             { __typename?: 'Position' }
             & Pick<Position, 'positionId' | 'name' | 'description'>
-          )>, department: Maybe<(
+          )>, department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-            & { faculty: Maybe<(
+            & { faculty?: Maybe<(
               { __typename?: 'Faculty' }
               & Pick<Faculty, 'facultyId' | 'name'>
             )> }
-          )>, workFocus: Maybe<(
+          )>, workFocus?: Maybe<(
             { __typename?: 'WorkFocus' }
             & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
           )> }
-        )>, duty: Maybe<(
+        )>, duty?: Maybe<(
           { __typename?: 'Duty' }
           & Pick<Duty, 'dutyId' | 'name' | 'description'>
-        )>, group: Maybe<(
+        )>, group?: Maybe<(
           { __typename?: 'Group' }
           & Pick<Group, 'id' | 'groupId' | 'moduleId' | 'studentsEnrolled' | 'modularity'>
-          & { module: Maybe<(
+          & { module?: Maybe<(
             { __typename?: 'Module' }
             & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-            & { qualification: Maybe<(
+            & { qualification?: Maybe<(
               { __typename?: 'Qualification' }
               & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-              & { department: Maybe<(
+              & { department?: Maybe<(
                 { __typename?: 'Department' }
                 & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-                & { faculty: Maybe<(
+                & { faculty?: Maybe<(
                   { __typename?: 'Faculty' }
                   & Pick<Faculty, 'facultyId' | 'name'>
                 )> }
               )> }
-            )>, offeringType: Maybe<(
+            )>, offeringType?: Maybe<(
               { __typename?: 'OfferingType' }
               & Pick<OfferingType, 'offeringTypeId' | 'description'>
-            )>, discipline: Maybe<(
+            )>, discipline?: Maybe<(
               { __typename?: 'Discipline' }
               & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-            )>, venue: Maybe<(
+            )>, venue?: Maybe<(
               { __typename?: 'Venue' }
               & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-            )>, block: Maybe<(
+            )>, block?: Maybe<(
               { __typename?: 'Block' }
               & Pick<Block, 'blockId' | 'name' | 'description'>
             )> }
           )> }
         )> }
-      )>, module: Maybe<(
+      )>, module?: Maybe<(
         { __typename?: 'Module' }
         & Pick<Module, 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-        & { qualification: Maybe<(
+        & { qualification?: Maybe<(
           { __typename?: 'Qualification' }
           & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-          & { department: Maybe<(
+          & { department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
           )> }
-        )>, offeringType: Maybe<(
+        )>, offeringType?: Maybe<(
           { __typename?: 'OfferingType' }
           & Pick<OfferingType, 'offeringTypeId' | 'description'>
-        )>, discipline: Maybe<(
+        )>, discipline?: Maybe<(
           { __typename?: 'Discipline' }
           & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-        )>, venue: Maybe<(
+        )>, venue?: Maybe<(
           { __typename?: 'Venue' }
           & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-        )>, block: Maybe<(
+        )>, block?: Maybe<(
           { __typename?: 'Block' }
           & Pick<Block, 'blockId' | 'name' | 'description'>
         )> }
@@ -6175,43 +6175,43 @@ export type FormalInstructionWorkloadQuery = (
   )> }
 );
 
-export type PersonnelDevelopmentWorkloadQueryVariables = {
-  userId?: Maybe<Scalars['String']>
-};
+export type PersonnelDevelopmentWorkloadQueryVariables = Exact<{
+  userId?: Maybe<Scalars['String']>;
+}>;
 
 
 export type PersonnelDevelopmentWorkloadQuery = (
   { __typename?: 'Query' }
-  & { personnelDevelopmentWorkload: Maybe<(
+  & { personnelDevelopmentWorkload?: Maybe<(
     { __typename?: 'PersonnelDevelopmentWorkload' }
     & Pick<PersonnelDevelopmentWorkload, 'globalTarrif' | 'totalHoursPerUser' | 'percentageOfWorkFocusPerUser' | 'percentageOfAnnualHoursPerUser' | 'percentageOfTotalHoursPerUser'>
-    & { personnelDevelopmentWorkloads: Maybe<Array<Maybe<(
+    & { personnelDevelopmentWorkloads?: Maybe<Array<Maybe<(
       { __typename?: 'PersonnelDevelopmentWorkloadPerActivity' }
       & Pick<PersonnelDevelopmentWorkloadPerActivity, 'totalHoursPerActivity' | 'percentageOfWorkFocusPerActivity' | 'percentageOfAnnualHoursPerActivity' | 'percentageOfTotalHoursPerActivity'>
-      & { activity: Maybe<(
+      & { activity?: Maybe<(
         { __typename?: 'PersonnelDevelopmentActivity' }
         & Pick<PersonnelDevelopmentActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'date' | 'duration' | 'evidence'>
-        & { user: Maybe<(
+        & { user?: Maybe<(
           { __typename?: 'User' }
           & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-          & { disciplines: Maybe<Array<Maybe<(
+          & { disciplines?: Maybe<Array<Maybe<(
             { __typename?: 'Discipline' }
             & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-          )>>>, position: Maybe<(
+          )>>>, position?: Maybe<(
             { __typename?: 'Position' }
             & Pick<Position, 'positionId' | 'name' | 'description'>
-          )>, department: Maybe<(
+          )>, department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-            & { faculty: Maybe<(
+            & { faculty?: Maybe<(
               { __typename?: 'Faculty' }
               & Pick<Faculty, 'facultyId' | 'name'>
             )> }
-          )>, workFocus: Maybe<(
+          )>, workFocus?: Maybe<(
             { __typename?: 'WorkFocus' }
             & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
           )> }
-        )>, duty: Maybe<(
+        )>, duty?: Maybe<(
           { __typename?: 'Duty' }
           & Pick<Duty, 'dutyId' | 'name' | 'description'>
         )> }
@@ -6220,43 +6220,43 @@ export type PersonnelDevelopmentWorkloadQuery = (
   )> }
 );
 
-export type PublicServiceWorkloadQueryVariables = {
-  userId?: Maybe<Scalars['String']>
-};
+export type PublicServiceWorkloadQueryVariables = Exact<{
+  userId?: Maybe<Scalars['String']>;
+}>;
 
 
 export type PublicServiceWorkloadQuery = (
   { __typename?: 'Query' }
-  & { publicServiceWorkload: Maybe<(
+  & { publicServiceWorkload?: Maybe<(
     { __typename?: 'PublicServiceWorkload' }
     & Pick<PublicServiceWorkload, 'globalTarrif' | 'totalHoursPerUser' | 'percentageOfWorkFocusPerUser' | 'percentageOfAnnualHoursPerUser' | 'percentageOfTotalHoursPerUser'>
-    & { publicServiceWorkloads: Maybe<Array<Maybe<(
+    & { publicServiceWorkloads?: Maybe<Array<Maybe<(
       { __typename?: 'PublicServiceWorkloadPerActivity' }
       & Pick<PublicServiceWorkloadPerActivity, 'totalHoursPerActivity' | 'percentageOfWorkFocusPerActivity' | 'percentageOfAnnualHoursPerActivity' | 'percentageOfTotalHoursPerActivity'>
-      & { activity: Maybe<(
+      & { activity?: Maybe<(
         { __typename?: 'PublicServiceActivity' }
         & Pick<PublicServiceActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-        & { user: Maybe<(
+        & { user?: Maybe<(
           { __typename?: 'User' }
           & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-          & { disciplines: Maybe<Array<Maybe<(
+          & { disciplines?: Maybe<Array<Maybe<(
             { __typename?: 'Discipline' }
             & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-          )>>>, position: Maybe<(
+          )>>>, position?: Maybe<(
             { __typename?: 'Position' }
             & Pick<Position, 'positionId' | 'name' | 'description'>
-          )>, department: Maybe<(
+          )>, department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-            & { faculty: Maybe<(
+            & { faculty?: Maybe<(
               { __typename?: 'Faculty' }
               & Pick<Faculty, 'facultyId' | 'name'>
             )> }
-          )>, workFocus: Maybe<(
+          )>, workFocus?: Maybe<(
             { __typename?: 'WorkFocus' }
             & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
           )> }
-        )>, duty: Maybe<(
+        )>, duty?: Maybe<(
           { __typename?: 'Duty' }
           & Pick<Duty, 'dutyId' | 'name' | 'description'>
         )> }
@@ -6265,43 +6265,43 @@ export type PublicServiceWorkloadQuery = (
   )> }
 );
 
-export type ResearchWorkloadQueryVariables = {
-  userId?: Maybe<Scalars['String']>
-};
+export type ResearchWorkloadQueryVariables = Exact<{
+  userId?: Maybe<Scalars['String']>;
+}>;
 
 
 export type ResearchWorkloadQuery = (
   { __typename?: 'Query' }
-  & { researchWorkload: Maybe<(
+  & { researchWorkload?: Maybe<(
     { __typename?: 'ResearchWorkload' }
     & Pick<ResearchWorkload, 'globalTarrif' | 'totalHoursPerUser' | 'percentageOfWorkFocusPerUser' | 'percentageOfAnnualHoursPerUser' | 'percentageOfTotalHoursPerUser'>
-    & { researchWorkloads: Maybe<Array<Maybe<(
+    & { researchWorkloads?: Maybe<Array<Maybe<(
       { __typename?: 'ResearchWorkloadPerActivity' }
       & Pick<ResearchWorkloadPerActivity, 'totalHoursPerActivity' | 'percentageOfWorkFocusPerActivity' | 'percentageOfAnnualHoursPerActivity' | 'percentageOfTotalHoursPerActivity'>
-      & { activity: Maybe<(
+      & { activity?: Maybe<(
         { __typename?: 'ResearchActivity' }
         & Pick<ResearchActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'output' | 'title' | 'details' | 'dates' | 'url' | 'evidence'>
-        & { user: Maybe<(
+        & { user?: Maybe<(
           { __typename?: 'User' }
           & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-          & { disciplines: Maybe<Array<Maybe<(
+          & { disciplines?: Maybe<Array<Maybe<(
             { __typename?: 'Discipline' }
             & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-          )>>>, position: Maybe<(
+          )>>>, position?: Maybe<(
             { __typename?: 'Position' }
             & Pick<Position, 'positionId' | 'name' | 'description'>
-          )>, department: Maybe<(
+          )>, department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-            & { faculty: Maybe<(
+            & { faculty?: Maybe<(
               { __typename?: 'Faculty' }
               & Pick<Faculty, 'facultyId' | 'name'>
             )> }
-          )>, workFocus: Maybe<(
+          )>, workFocus?: Maybe<(
             { __typename?: 'WorkFocus' }
             & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
           )> }
-        )>, duty: Maybe<(
+        )>, duty?: Maybe<(
           { __typename?: 'Duty' }
           & Pick<Duty, 'dutyId' | 'name' | 'description'>
         )> }
@@ -6310,42 +6310,42 @@ export type ResearchWorkloadQuery = (
   )> }
 );
 
-export type SupervisionWorkloadQueryVariables = {
-  userId?: Maybe<Scalars['String']>
-};
+export type SupervisionWorkloadQueryVariables = Exact<{
+  userId?: Maybe<Scalars['String']>;
+}>;
 
 
 export type SupervisionWorkloadQuery = (
   { __typename?: 'Query' }
-  & { supervisionWorkload: Maybe<(
+  & { supervisionWorkload?: Maybe<(
     { __typename?: 'SupervisionWorkload' }
     & Pick<SupervisionWorkload, 'totalHoursPerUser' | 'percentageOfWorkFocusPerUser' | 'percentageOfAnnualHoursPerUser' | 'percentageOfTotalHoursPerUser'>
-    & { supervisionWorkloads: Maybe<Array<Maybe<(
+    & { supervisionWorkloads?: Maybe<Array<Maybe<(
       { __typename?: 'SupervisionWorkloadPerActivity' }
       & Pick<SupervisionWorkloadPerActivity, 'totalHoursPerActivity' | 'percentageOfWorkFocusPerActivity' | 'percentageOfAnnualHoursPerActivity' | 'percentageOfTotalHoursPerActivity'>
-      & { activity: Maybe<(
+      & { activity?: Maybe<(
         { __typename?: 'SupervisionActivity' }
         & Pick<SupervisionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'supervisionRole' | 'split' | 'studentId'>
-        & { user: Maybe<(
+        & { user?: Maybe<(
           { __typename?: 'User' }
           & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-          & { disciplines: Maybe<Array<Maybe<(
+          & { disciplines?: Maybe<Array<Maybe<(
             { __typename?: 'Discipline' }
             & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-          )>>>, position: Maybe<(
+          )>>>, position?: Maybe<(
             { __typename?: 'Position' }
             & Pick<Position, 'positionId' | 'name' | 'description'>
-          )>, department: Maybe<(
+          )>, department?: Maybe<(
             { __typename?: 'Department' }
             & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-          )>, workFocus: Maybe<(
+          )>, workFocus?: Maybe<(
             { __typename?: 'WorkFocus' }
             & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
           )> }
-        )>, duty: Maybe<(
+        )>, duty?: Maybe<(
           { __typename?: 'Duty' }
           & Pick<Duty, 'dutyId' | 'name' | 'description'>
-        )>, student: Maybe<(
+        )>, student?: Maybe<(
           { __typename?: 'Student' }
           & Pick<Student, 'studentId' | 'firstName' | 'lastName' | 'email' | 'type' | 'title' | 'graduationDate'>
         )> }
@@ -6354,9 +6354,9 @@ export type SupervisionWorkloadQuery = (
   )> }
 );
 
-export type TotalHoursPerUserQueryVariables = {
-  userId: Scalars['String']
-};
+export type TotalHoursPerUserQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
 
 
 export type TotalHoursPerUserQuery = (
@@ -6364,9 +6364,9 @@ export type TotalHoursPerUserQuery = (
   & Pick<Query, 'totalHoursPerUser'>
 );
 
-export type TeachingHoursPerUserQueryVariables = {
-  userId: Scalars['String']
-};
+export type TeachingHoursPerUserQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
 
 
 export type TeachingHoursPerUserQuery = (
@@ -6374,9 +6374,9 @@ export type TeachingHoursPerUserQuery = (
   & Pick<Query, 'teachingHoursPerUser'>
 );
 
-export type ResearchHoursPerUserQueryVariables = {
-  userId: Scalars['String']
-};
+export type ResearchHoursPerUserQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
 
 
 export type ResearchHoursPerUserQuery = (
@@ -6384,9 +6384,9 @@ export type ResearchHoursPerUserQuery = (
   & Pick<Query, 'researchHoursPerUser'>
 );
 
-export type ServiceHoursPerUserQueryVariables = {
-  userId: Scalars['String']
-};
+export type ServiceHoursPerUserQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
 
 
 export type ServiceHoursPerUserQuery = (
@@ -6394,34 +6394,34 @@ export type ServiceHoursPerUserQuery = (
   & Pick<Query, 'serviceHoursPerUser'>
 );
 
-export type TotalWorkloadQueryVariables = {
-  userId: Scalars['String']
-};
+export type TotalWorkloadQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
 
 
 export type TotalWorkloadQuery = (
   { __typename?: 'Query' }
-  & { totalWorkload: Maybe<(
+  & { totalWorkload?: Maybe<(
     { __typename?: 'TotalWorkload' }
-    & { academicAdministrationWorkload: Maybe<(
+    & { academicAdministrationWorkload?: Maybe<(
       { __typename?: 'AcademicAdministrationWorkload' }
       & Pick<AcademicAdministrationWorkload, 'globalTarrif' | 'totalHoursPerUser' | 'percentageOfWorkFocusPerUser' | 'percentageOfAnnualHoursPerUser' | 'percentageOfTotalHoursPerUser'>
-      & { academicAdministrationWorkloads: Maybe<Array<Maybe<(
+      & { academicAdministrationWorkloads?: Maybe<Array<Maybe<(
         { __typename?: 'AcademicAdministrationWorkloadPerActivity' }
         & Pick<AcademicAdministrationWorkloadPerActivity, 'totalHoursPerActivity' | 'percentageOfWorkFocusPerActivity' | 'percentageOfAnnualHoursPerActivity' | 'percentageOfTotalHoursPerActivity'>
-        & { activity: Maybe<(
+        & { activity?: Maybe<(
           { __typename?: 'AcademicAdministrationActivity' }
           & Pick<AcademicAdministrationActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'qualificationId' | 'description' | 'evidence'>
-          & { duty: Maybe<(
+          & { duty?: Maybe<(
             { __typename?: 'Duty' }
             & Pick<Duty, 'dutyId' | 'name' | 'description'>
-          )>, qualification: Maybe<(
+          )>, qualification?: Maybe<(
             { __typename?: 'Qualification' }
             & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-            & { department: Maybe<(
+            & { department?: Maybe<(
               { __typename?: 'Department' }
               & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-              & { faculty: Maybe<(
+              & { faculty?: Maybe<(
                 { __typename?: 'Faculty' }
                 & Pick<Faculty, 'facultyId' | 'name'>
               )> }
@@ -6429,203 +6429,203 @@ export type TotalWorkloadQuery = (
           )> }
         )> }
       )>>> }
-    )>, communityInstructionWorkload: Maybe<(
+    )>, communityInstructionWorkload?: Maybe<(
       { __typename?: 'CommunityInstructionWorkload' }
       & Pick<CommunityInstructionWorkload, 'globalTarrif' | 'totalHoursPerUser' | 'percentageOfWorkFocusPerUser' | 'percentageOfAnnualHoursPerUser' | 'percentageOfTotalHoursPerUser'>
-      & { communityInstructionWorkloads: Maybe<Array<Maybe<(
+      & { communityInstructionWorkloads?: Maybe<Array<Maybe<(
         { __typename?: 'CommunityInstructionWorkloadPerActivity' }
         & Pick<CommunityInstructionWorkloadPerActivity, 'totalHoursPerActivity' | 'percentageOfWorkFocusPerActivity' | 'percentageOfAnnualHoursPerActivity' | 'percentageOfTotalHoursPerActivity'>
-        & { activity: Maybe<(
+        & { activity?: Maybe<(
           { __typename?: 'CommunityInstructionActivity' }
           & Pick<CommunityInstructionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-          & { duty: Maybe<(
+          & { duty?: Maybe<(
             { __typename?: 'Duty' }
             & Pick<Duty, 'dutyId' | 'name' | 'description'>
           )> }
         )> }
       )>>> }
-    )>, executiveManagementWorkload: Maybe<(
+    )>, executiveManagementWorkload?: Maybe<(
       { __typename?: 'ExecutiveManagementWorkload' }
       & Pick<ExecutiveManagementWorkload, 'globalTarrif' | 'totalHoursPerUser' | 'percentageOfWorkFocusPerUser' | 'percentageOfAnnualHoursPerUser' | 'percentageOfTotalHoursPerUser'>
-      & { executiveManagementWorkloads: Maybe<Array<Maybe<(
+      & { executiveManagementWorkloads?: Maybe<Array<Maybe<(
         { __typename?: 'ExecutiveManagementWorkloadPerActivity' }
         & Pick<ExecutiveManagementWorkloadPerActivity, 'totalHoursPerActivity' | 'percentageOfWorkFocusPerActivity' | 'percentageOfAnnualHoursPerActivity' | 'percentageOfTotalHoursPerActivity'>
-        & { activity: Maybe<(
+        & { activity?: Maybe<(
           { __typename?: 'ExecutiveManagementActivity' }
           & Pick<ExecutiveManagementActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-          & { duty: Maybe<(
+          & { duty?: Maybe<(
             { __typename?: 'Duty' }
             & Pick<Duty, 'dutyId' | 'name' | 'description'>
           )> }
         )> }
       )>>> }
-    )>, formalInstructionWorkload: Maybe<(
+    )>, formalInstructionWorkload?: Maybe<(
       { __typename?: 'FormalInstructionWorkload' }
       & Pick<FormalInstructionWorkload, 'totalHoursPerUser' | 'percentageOfWorkFocusPerUser' | 'percentageOfAnnualHoursPerUser' | 'percentageOfTotalHoursPerUser'>
-      & { formalInstructionWorkloads: Maybe<Array<Maybe<(
+      & { formalInstructionWorkloads?: Maybe<Array<Maybe<(
         { __typename?: 'FormalInstructionWorkloadPerActivity' }
         & Pick<FormalInstructionWorkloadPerActivity, 'studentsEnrolled' | 'baseContactHours' | 'coordinationHours' | 'studentSupportHours' | 'preparationTimeHours' | 'assessmentSettingHours' | 'examMarkingHours' | 'courseworkMarkingHours' | 'feedbackHours' | 'formativeAssessmentHours' | 'moderationHours' | 'otherHoursPerActivity' | 'totalHoursPerActivity' | 'percentageOfWorkFocusPerActivity' | 'percentageOfAnnualHoursPerActivity' | 'percentageOfTotalHoursPerActivity'>
-        & { activity: Maybe<(
+        & { activity?: Maybe<(
           { __typename?: 'FormalInstructionActivity' }
           & Pick<FormalInstructionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'groupId' | 'isCoordinator'>
-          & { user: Maybe<(
+          & { user?: Maybe<(
             { __typename?: 'User' }
             & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-            & { disciplines: Maybe<Array<Maybe<(
+            & { disciplines?: Maybe<Array<Maybe<(
               { __typename?: 'Discipline' }
               & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-            )>>>, position: Maybe<(
+            )>>>, position?: Maybe<(
               { __typename?: 'Position' }
               & Pick<Position, 'positionId' | 'name' | 'description'>
-            )>, department: Maybe<(
+            )>, department?: Maybe<(
               { __typename?: 'Department' }
               & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-              & { faculty: Maybe<(
+              & { faculty?: Maybe<(
                 { __typename?: 'Faculty' }
                 & Pick<Faculty, 'facultyId' | 'name'>
               )> }
-            )>, workFocus: Maybe<(
+            )>, workFocus?: Maybe<(
               { __typename?: 'WorkFocus' }
               & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
             )> }
-          )>, duty: Maybe<(
+          )>, duty?: Maybe<(
             { __typename?: 'Duty' }
             & Pick<Duty, 'dutyId' | 'name' | 'description'>
-          )>, group: Maybe<(
+          )>, group?: Maybe<(
             { __typename?: 'Group' }
             & Pick<Group, 'id' | 'groupId' | 'moduleId' | 'studentsEnrolled' | 'modularity'>
-            & { module: Maybe<(
+            & { module?: Maybe<(
               { __typename?: 'Module' }
               & Pick<Module, 'id' | 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-              & { qualification: Maybe<(
+              & { qualification?: Maybe<(
                 { __typename?: 'Qualification' }
                 & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-                & { department: Maybe<(
+                & { department?: Maybe<(
                   { __typename?: 'Department' }
                   & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-                  & { faculty: Maybe<(
+                  & { faculty?: Maybe<(
                     { __typename?: 'Faculty' }
                     & Pick<Faculty, 'facultyId' | 'name'>
                   )> }
                 )> }
-              )>, offeringType: Maybe<(
+              )>, offeringType?: Maybe<(
                 { __typename?: 'OfferingType' }
                 & Pick<OfferingType, 'offeringTypeId' | 'description'>
-              )>, discipline: Maybe<(
+              )>, discipline?: Maybe<(
                 { __typename?: 'Discipline' }
                 & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-              )>, venue: Maybe<(
+              )>, venue?: Maybe<(
                 { __typename?: 'Venue' }
                 & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-              )>, block: Maybe<(
+              )>, block?: Maybe<(
                 { __typename?: 'Block' }
                 & Pick<Block, 'blockId' | 'name' | 'description'>
               )> }
             )> }
           )> }
-        )>, module: Maybe<(
+        )>, module?: Maybe<(
           { __typename?: 'Module' }
           & Pick<Module, 'moduleId' | 'name' | 'type' | 'assessmentMethod' | 'nqfLevel' | 'credits' | 'qualificationId' | 'offeringTypeId' | 'disciplineId' | 'venueId' | 'blockId' | 'stackId' | 'studyPeriod' | 'lecturedBy' | 'studentsEnrolled' | 'moderation'>
-          & { qualification: Maybe<(
+          & { qualification?: Maybe<(
             { __typename?: 'Qualification' }
             & Pick<Qualification, 'qualificationId' | 'name' | 'type' | 'departmentId'>
-            & { department: Maybe<(
+            & { department?: Maybe<(
               { __typename?: 'Department' }
               & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
             )> }
-          )>, offeringType: Maybe<(
+          )>, offeringType?: Maybe<(
             { __typename?: 'OfferingType' }
             & Pick<OfferingType, 'offeringTypeId' | 'description'>
-          )>, discipline: Maybe<(
+          )>, discipline?: Maybe<(
             { __typename?: 'Discipline' }
             & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-          )>, venue: Maybe<(
+          )>, venue?: Maybe<(
             { __typename?: 'Venue' }
             & Pick<Venue, 'venueId' | 'campus' | 'capacity' | 'type'>
-          )>, block: Maybe<(
+          )>, block?: Maybe<(
             { __typename?: 'Block' }
             & Pick<Block, 'blockId' | 'name' | 'description'>
           )> }
         )> }
       )>>> }
-    )>, personnelDevelopmentWorkload: Maybe<(
+    )>, personnelDevelopmentWorkload?: Maybe<(
       { __typename?: 'PersonnelDevelopmentWorkload' }
       & Pick<PersonnelDevelopmentWorkload, 'globalTarrif' | 'totalHoursPerUser' | 'percentageOfWorkFocusPerUser' | 'percentageOfAnnualHoursPerUser' | 'percentageOfTotalHoursPerUser'>
-      & { personnelDevelopmentWorkloads: Maybe<Array<Maybe<(
+      & { personnelDevelopmentWorkloads?: Maybe<Array<Maybe<(
         { __typename?: 'PersonnelDevelopmentWorkloadPerActivity' }
         & Pick<PersonnelDevelopmentWorkloadPerActivity, 'totalHoursPerActivity' | 'percentageOfWorkFocusPerActivity' | 'percentageOfAnnualHoursPerActivity' | 'percentageOfTotalHoursPerActivity'>
-        & { activity: Maybe<(
+        & { activity?: Maybe<(
           { __typename?: 'PersonnelDevelopmentActivity' }
           & Pick<PersonnelDevelopmentActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'date' | 'duration' | 'evidence'>
-          & { duty: Maybe<(
+          & { duty?: Maybe<(
             { __typename?: 'Duty' }
             & Pick<Duty, 'dutyId' | 'name' | 'description'>
           )> }
         )> }
       )>>> }
-    )>, publicServiceWorkload: Maybe<(
+    )>, publicServiceWorkload?: Maybe<(
       { __typename?: 'PublicServiceWorkload' }
       & Pick<PublicServiceWorkload, 'globalTarrif' | 'totalHoursPerUser' | 'percentageOfWorkFocusPerUser' | 'percentageOfAnnualHoursPerUser' | 'percentageOfTotalHoursPerUser'>
-      & { publicServiceWorkloads: Maybe<Array<Maybe<(
+      & { publicServiceWorkloads?: Maybe<Array<Maybe<(
         { __typename?: 'PublicServiceWorkloadPerActivity' }
         & Pick<PublicServiceWorkloadPerActivity, 'totalHoursPerActivity' | 'percentageOfWorkFocusPerActivity' | 'percentageOfAnnualHoursPerActivity' | 'percentageOfTotalHoursPerActivity'>
-        & { activity: Maybe<(
+        & { activity?: Maybe<(
           { __typename?: 'PublicServiceActivity' }
           & Pick<PublicServiceActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'title' | 'description' | 'evidence'>
-          & { duty: Maybe<(
+          & { duty?: Maybe<(
             { __typename?: 'Duty' }
             & Pick<Duty, 'dutyId' | 'name' | 'description'>
           )> }
         )> }
       )>>> }
-    )>, researchWorkload: Maybe<(
+    )>, researchWorkload?: Maybe<(
       { __typename?: 'ResearchWorkload' }
       & Pick<ResearchWorkload, 'globalTarrif' | 'totalHoursPerUser' | 'percentageOfWorkFocusPerUser' | 'percentageOfAnnualHoursPerUser' | 'percentageOfTotalHoursPerUser'>
-      & { researchWorkloads: Maybe<Array<Maybe<(
+      & { researchWorkloads?: Maybe<Array<Maybe<(
         { __typename?: 'ResearchWorkloadPerActivity' }
         & Pick<ResearchWorkloadPerActivity, 'totalHoursPerActivity' | 'percentageOfWorkFocusPerActivity' | 'percentageOfAnnualHoursPerActivity' | 'percentageOfTotalHoursPerActivity'>
-        & { activity: Maybe<(
+        & { activity?: Maybe<(
           { __typename?: 'ResearchActivity' }
           & Pick<ResearchActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'output' | 'title' | 'details' | 'dates' | 'conferenceActivities' | 'authors' | 'url' | 'evidence'>
-          & { duty: Maybe<(
+          & { duty?: Maybe<(
             { __typename?: 'Duty' }
             & Pick<Duty, 'dutyId' | 'name' | 'description'>
           )> }
         )> }
       )>>> }
-    )>, supervisionWorkload: Maybe<(
+    )>, supervisionWorkload?: Maybe<(
       { __typename?: 'SupervisionWorkload' }
       & Pick<SupervisionWorkload, 'totalHoursPerUser' | 'percentageOfWorkFocusPerUser' | 'percentageOfAnnualHoursPerUser' | 'percentageOfTotalHoursPerUser'>
-      & { supervisionWorkloads: Maybe<Array<Maybe<(
+      & { supervisionWorkloads?: Maybe<Array<Maybe<(
         { __typename?: 'SupervisionWorkloadPerActivity' }
         & Pick<SupervisionWorkloadPerActivity, 'totalHoursPerActivity' | 'percentageOfWorkFocusPerActivity' | 'percentageOfAnnualHoursPerActivity' | 'percentageOfTotalHoursPerActivity'>
-        & { activity: Maybe<(
+        & { activity?: Maybe<(
           { __typename?: 'SupervisionActivity' }
           & Pick<SupervisionActivity, 'activityId' | 'userId' | 'dutyId' | 'approvalStatus' | 'createdAt' | 'updatedAt' | 'supervisionRole' | 'split' | 'studentId' | 'year'>
-          & { user: Maybe<(
+          & { user?: Maybe<(
             { __typename?: 'User' }
             & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-            & { disciplines: Maybe<Array<Maybe<(
+            & { disciplines?: Maybe<Array<Maybe<(
               { __typename?: 'Discipline' }
               & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-            )>>>, position: Maybe<(
+            )>>>, position?: Maybe<(
               { __typename?: 'Position' }
               & Pick<Position, 'positionId' | 'name' | 'description'>
-            )>, department: Maybe<(
+            )>, department?: Maybe<(
               { __typename?: 'Department' }
               & Pick<Department, 'departmentId' | 'name' | 'facultyId' | 'hodId'>
-              & { faculty: Maybe<(
+              & { faculty?: Maybe<(
                 { __typename?: 'Faculty' }
                 & Pick<Faculty, 'facultyId' | 'name'>
               )> }
-            )>, workFocus: Maybe<(
+            )>, workFocus?: Maybe<(
               { __typename?: 'WorkFocus' }
               & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
             )> }
-          )>, duty: Maybe<(
+          )>, duty?: Maybe<(
             { __typename?: 'Duty' }
             & Pick<Duty, 'dutyId' | 'name' | 'description'>
-          )>, student: Maybe<(
+          )>, student?: Maybe<(
             { __typename?: 'Student' }
             & Pick<Student, 'studentId' | 'firstName' | 'lastName' | 'email' | 'type' | 'title' | 'graduationDate'>
           )> }
@@ -6635,38 +6635,37 @@ export type TotalWorkloadQuery = (
   )> }
 );
 
-export type WorkloadSummariesQueryVariables = {};
+export type WorkloadSummariesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type WorkloadSummariesQuery = (
   { __typename?: 'Query' }
-  & { workloadSummaries: Maybe<Array<Maybe<(
+  & { workloadSummaries?: Maybe<Array<Maybe<(
     { __typename?: 'WorkloadSummary' }
     & Pick<WorkloadSummary, 'teachingHours' | 'teachingHoursPerUser' | 'teachingDifference' | 'researchHours' | 'researchHoursPerUser' | 'researchDifference' | 'serviceHours' | 'serviceHoursPerUser' | 'serviceDifference'>
-    & { user: Maybe<(
+    & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'userId' | 'email' | 'firstName' | 'lastName' | 'photoUrl' | 'disciplineIds' | 'positionId' | 'departmentId' | 'workFocusName' | 'gender' | 'nationality'>
-      & { disciplines: Maybe<Array<Maybe<(
+      & { disciplines?: Maybe<Array<Maybe<(
         { __typename?: 'Discipline' }
         & Pick<Discipline, 'disciplineId' | 'name' | 'description'>
-      )>>>, position: Maybe<(
+      )>>>, position?: Maybe<(
         { __typename?: 'Position' }
         & Pick<Position, 'positionId' | 'name' | 'description'>
-      )>, department: Maybe<(
+      )>, department?: Maybe<(
         { __typename?: 'Department' }
         & Pick<Department, 'departmentId' | 'name' | 'facultyId'>
-        & { faculty: Maybe<(
+        & { faculty?: Maybe<(
           { __typename?: 'Faculty' }
           & Pick<Faculty, 'facultyId' | 'name'>
         )> }
-      )>, workFocus: Maybe<(
+      )>, workFocus?: Maybe<(
         { __typename?: 'WorkFocus' }
         & Pick<WorkFocus, 'name' | 'teachingRatio' | 'researchRatio' | 'serviceRatio'>
       )> }
     )> }
   )>>> }
 );
-
 
 export const AddAcademicAdministrationActivityDocument = gql`
     mutation addAcademicAdministrationActivity($activity: AcademicAdministrationActivityInput) {
@@ -12839,6 +12838,7 @@ export const AddQualificationDocument = gql`
     department {
       departmentId
       name
+      facultyId
       faculty {
         facultyId
         name
@@ -12865,6 +12865,7 @@ export const EditQualificationDocument = gql`
     department {
       departmentId
       name
+      facultyId
       faculty {
         facultyId
         name
@@ -12891,6 +12892,7 @@ export const DeleteQualificationDocument = gql`
     department {
       departmentId
       name
+      facultyId
       faculty {
         facultyId
         name
@@ -12917,6 +12919,7 @@ export const QualificationDocument = gql`
     department {
       departmentId
       name
+      facultyId
       faculty {
         facultyId
         name
@@ -12943,6 +12946,7 @@ export const QualificationsDocument = gql`
     department {
       departmentId
       name
+      facultyId
       faculty {
         facultyId
         name
@@ -12969,6 +12973,7 @@ export const QualificationsPostgraduateDocument = gql`
     department {
       departmentId
       name
+      facultyId
       faculty {
         facultyId
         name
@@ -12995,6 +13000,7 @@ export const QualificationsUnenrolledDocument = gql`
     department {
       departmentId
       name
+      facultyId
       faculty {
         facultyId
         name
