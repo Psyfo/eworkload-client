@@ -10,8 +10,16 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["ES5", "ES6", "DOM", "ESNext"]
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "ES5",
+      "ES6",
+      "DOM",
+      "ESNext"
+    ],
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "enableIvy": false

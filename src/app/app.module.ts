@@ -1,3 +1,7 @@
+import {Apollo, ApolloModule} from 'apollo-angular';
+import {HttpLink, HttpLinkModule} from 'apollo-angular/http';
+import {InMemoryCache, ApolloLink} from '@apollo/client/core';
+import {onError} from '@apollo/client/link/error';
 import {
   CommonModule,
   HashLocationStrategy,
@@ -11,11 +15,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { Apollo, ApolloModule } from 'apollo-angular';
-import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloLink } from 'apollo-link';
-import { onError } from 'apollo-link-error';
+
+
+
+
+
 import { createUploadLink } from 'apollo-upload-client';
 import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
