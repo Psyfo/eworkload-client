@@ -6,7 +6,6 @@ import { AuthGuard } from './shared/guard';
 import { LayoutComponent } from './layout/layout.component';
 
 const routes: Routes = [
-  {},
   {
     path: '',
     loadChildren: () =>
