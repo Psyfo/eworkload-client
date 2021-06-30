@@ -1,66 +1,48 @@
-import { map } from 'rxjs/operators';
-import {
-    AddBlockGQL,
-    BlockGQL,
-    BlockInput,
-    BlocksGQL,
-    DeleteBlockGQL,
-    EditBlockGQL
-} from 'src/app/shared/generated';
+import { Observable } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { ErrorService } from 'src/app/shared/services';
+import { environment } from 'src/environments/environment';
 
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { AlertService } from '../../../shared/modules/alert/alert.service';
+import { IBlock } from './block.interface';
 
 @Injectable({
     providedIn: 'root'
 })
 export class BlockService {
-    loading: boolean;
-    errors: any;
-    networkStatus: any;
+
+    private baseUrl = `${environment.baseUrl}/blocks`
+
+    httpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      };
 
     constructor(
-        private blockGql: BlockGQL,
-        private blocksGql: BlocksGQL,
-        private addBlockGql: AddBlockGQL,
-        private editBlockGql: EditBlockGQL,
-        private deleteBlockGql: DeleteBlockGQL
+        private http: HttpClient,
+        private alertService: AlertService,
+        private errorService: ErrorService
     ) {}
 
-    blocks() {
-        return this.blocksGql
-            .watch(
-                {},
-                {
-                    pollInterval: 2000
-                }
-            )
-            .valueChanges.pipe(map(result => result, err => err));
+    all(): Observable<IBlock[]> {
+        return this.http.get<IBlock[]>(`${this.baseUrl}`).pipe(tap(result => console.log('fetched data')), catchError(this.errorService.handleError('all', [])));
     }
 
-    block(blockId: string) {
-        return this.blockGql
-            .watch(
-                { blockId: blockId },
-                {
-                    pollInterval: 2000
-                }
-            )
-            .valueChanges.pipe(map(result => result, err => err));
+    byId(_id: string): Observable<IBlock> {
+       return this.http.get<IBlock>(`${this.baseUrl}/${_id}`).pipe(tap(result => console.log('fetch request sent')), catchError(this.errorService.handleError));
     }
 
-    addBlock(block: BlockInput) {
-        return this.addBlockGql
-            .mutate({ block: block })
-            .pipe(map(result => result, err => err));
+    create(block: IBlock): Observable<IBlock> {
+       return this.http.post<IBlock>(`${this.baseUrl}/create`, block, this.httpOptions).pipe(tap(result => console.log('create request sent')), catchError(this.errorService.handleError));
     }
-    editBlock(block: BlockInput) {
-        return this.editBlockGql
-            .mutate({ block: block })
-            .pipe(map(result => result, err => err));
+
+    update(block: IBlock): Observable<IBlock>  {
+        return this.http.put<IBlock>(`${this.baseUrl}/${block._id}`, block, this.httpOptions).pipe(tap(result => console.log('update request sent')), catchError(this.errorService.handleError));
     }
-    deleteBlock(block: BlockInput) {
-        return this.deleteBlockGql
-            .mutate({ block: block })
-            .pipe(map(result => result, err => err));
+
+    delete(_id: string): Observable<IBlock> {
+       return this.http.delete<IBlock>(`${this.baseUrl}/${_id}`, this.httpOptions).pipe(tap(result => console.log('delete request sent')), catchError(this.errorService.handleError));
     }
 }
