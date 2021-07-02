@@ -1,7 +1,0 @@
-query login($userId: String!, $password: String!) {
-  login(userId: $userId, password: $password) {
-    userId
-    token
-    tokenExpiration
-  }
-}

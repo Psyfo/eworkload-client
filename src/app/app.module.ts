@@ -1,30 +1,20 @@
-import {Apollo, ApolloModule} from 'apollo-angular';
-import {HttpLink, HttpLinkModule} from 'apollo-angular/http';
-import {InMemoryCache, ApolloLink} from '@apollo/client/core';
-import {onError} from '@apollo/client/link/error';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ErrorService } from 'src/app/shared/services';
+import { environment } from 'src/environments/environment';
+
+import { CommonModule } from '@angular/common';
 import {
-  CommonModule,
-  HashLocationStrategy,
-  LocationStrategy
-} from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule
+} from '@angular/common/http';
+import { CUSTOM_ELEMENTS_SCHEMA, ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouteReuseStrategy } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
-
-
-
-
-import { createUploadLink } from 'apollo-upload-client';
-import { MessageService } from 'primeng/api';
-import { ConfirmationService } from 'primeng/api';
-import { DialogService } from 'primeng/dynamicdialog';
-import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -45,7 +35,7 @@ import { VenueService } from './layout/admin/venue/venue.service';
 import { WorkFocusService } from './layout/admin/work-focus/work-focus.service';
 import { StaffSummaryModule } from './layout/hod/staff-summary/staff-summary.module';
 import { AuthGuard } from './shared/guard';
-import { CustomRouteReuseStrategy } from './shared/helpers';
+import { ErrorIntercept } from './shared/helpers/error.interceptor';
 import { AlertModule, AlertService } from './shared/modules';
 import { PrimeNgModulesModule } from './shared/modules/prime-ng-modules.module';
 import { SharedPipesModule } from './shared/pipes/shared-pipes.module';
@@ -84,9 +74,6 @@ export const createTranslateLoader = (http: HttpClient) => {
     }),
     SharedPipesModule,
     AppRoutingModule,
-    //GraphQLModule,
-    ApolloModule,
-    HttpLinkModule,
     AlertModule,
     PrimeNgModulesModule,
     StaffSummaryModule,
@@ -94,22 +81,24 @@ export const createTranslateLoader = (http: HttpClient) => {
   ],
   declarations: [AppComponent],
   providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
     AlertService,
     AuthGuard,
-    [
-      {
-        provide: RouteReuseStrategy,
-        userClass: CustomRouteReuseStrategy,
-        useValue: undefined
-      }
-    ],
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorIntercept,
+      multi: true
+    },
+    {
+      provide: ErrorHandler,
+      useClass: ErrorService
+    },
     ActivityService,
     BlockService,
     ConfirmationService,
     DepartmentService,
     DutyService,
     EnrollmentService,
+    ErrorService,
     FacultyService,
     MessageService,
     ModuleService,
@@ -125,79 +114,9 @@ export const createTranslateLoader = (http: HttpClient) => {
     WorkloadService,
     DialogService
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(
-    private apollo: Apollo,
-    private httpLink: HttpLink,
-    private alertService: AlertService
-  ) {
-    // Set client uri
-    const webLink = httpLink.create({
-      uri: environment.graphqlUrl
-    });
-    // Set error handling
-    const errorLink = onError(({ graphQLErrors, networkError }) => {
-      if (graphQLErrors) {
-        graphQLErrors.map(({ message, locations, path }) => {
-          // this.alertService.errorToast(
-          //     `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${JSON.stringify(path)}`,
-          //     'errorToast',
-          //     5000,
-          //     true
-          // );
-          this.alertService.errorToast(`${JSON.stringify(message)}`);
-          console.error(
-            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${JSON.stringify(
-              path
-            )}`
-          );
-        });
-        return;
-      }
-
-      if (networkError) {
-        // this.alertService.errorToast(
-        //     `[Network error]:
-        //  Message: ${networkError.message}
-        //  Name: ${networkError.name}
-        //  Stack: ${networkError.stack}`,
-        //     'errorToast',
-        //     5000,
-        //     true
-        // );
-        console.error(`[Network error]:
-                Message: ${networkError.message}
-                Name: ${networkError.name}
-                Stack: ${networkError.stack}`);
-        return;
-      }
-    });
-    const uploadLink = createUploadLink({
-      uri: environment.graphqlUrl
-    });
-
-    const link = ApolloLink.from([errorLink, uploadLink]);
-
-    const cache = new InMemoryCache({
-      addTypename: true
-    });
-
-    apollo.create({
-      link,
-      cache: cache,
-      defaultOptions: {
-        watchQuery: {
-          errorPolicy: 'all'
-        },
-        query: {
-          errorPolicy: 'all'
-        },
-        mutate: {
-          errorPolicy: 'all'
-        }
-      }
-    });
-  }
+  constructor() {}
 }

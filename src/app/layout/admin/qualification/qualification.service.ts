@@ -1,139 +1,60 @@
-import { QualificationsPostgraduateGQL } from './../../../shared/generated/output';
-import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  QualificationGQL,
-  QualificationsGQL,
-  AddQualificationGQL,
-  EditQualificationGQL,
-  DeleteQualificationGQL,
-  QualificationsUnenrolledGQL,
-  QualificationInput
-} from 'src/app/shared/generated';
-import { SelectItem } from 'primeng/api/selectitem';
+
+import { IQualification } from './qualification.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QualificationService {
-  loading: boolean;
-  errors: any;
-  networkStatus: any;
+  private baseUrl = environment.baseUrl;
 
-  public types: SelectItem[] = [
-    { label: 'Diploma', value: 'Diploma' },
-    { label: 'Bachelor', value: 'Bachelor' },
-    { label: 'Masters', value: 'Masters' },
-    { label: 'Doctorate', value: 'Doctorate' }
-  ];
-
-  private unsubscribe = new Subject();
+  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(
-    private qualificationGql: QualificationGQL,
-    private qualificationsGql: QualificationsGQL,
-    private qualificationsPostgraduateGql: QualificationsPostgraduateGQL,
-    private addQualificationGql: AddQualificationGQL,
-    private editQualificationGql: EditQualificationGQL,
-    private deleteQualificationGql: DeleteQualificationGQL,
-    private qualificationsUnenrolledGql: QualificationsUnenrolledGQL
+    private http: HttpClient
   ) {}
 
-  qualifications() {
-    return this.qualificationsGql
-      .watch(
-        {},
-        {
-          pollInterval: 2000
-        }
-      )
-      .valueChanges.pipe(
-        map(
-          (result) => result,
-          (err) => err
-        )
-      );
+  all(): Observable<IQualification[]> {
+    return this.http
+      .get<IQualification[]>(`${this.baseUrl}/qualifications`)
+      .pipe(tap((result) => console.log('fetched data')));
   }
 
-  qualification(qualificationId: string) {
-    return this.qualificationGql
-      .watch(
-        { qualificationId: qualificationId },
-        {
-          pollInterval: 2000
-        }
-      )
-      .valueChanges.pipe(
-        map(
-          (result) => result,
-          (err) => err
-        )
-      );
+  byId(_id: string): Observable<IQualification> {
+    return this.http
+      .get<IQualification>(`${this.baseUrl}/qualifications/${_id}`)
+      .pipe(tap((result) => console.log('fetch request sent')));
   }
 
-  qualificationsPostgraduate() {
-    return this.qualificationsPostgraduateGql
-      .watch(
-        {},
-        {
-          pollInterval: 2000
-        }
-      )
-      .valueChanges.pipe(
-        map(
-          (result) => result,
-          (err) => err
-        )
-      );
+  byQualificationId(qualificationId: string): Observable<IQualification> {
+    return this.http
+      .get<IQualification>(`${this.baseUrl}/qualifications/qualificationId/${qualificationId}`)
+      .pipe(tap((result) => console.log('fetch request sent')));
   }
 
-  qualificationsUnenrolled() {
-    return this.qualificationsUnenrolledGql
-      .watch(
-        {},
-        {
-          pollInterval: 2000
-        }
-      )
-      .valueChanges.pipe(
-        map(
-          (result) => result,
-          (err) => err
-        )
-      );
+  create(qualification: IQualification): Observable<IQualification> {
+    return this.http
+      .post<IQualification>(`${this.baseUrl}/qualifications`, qualification, { headers: this.headers })
+      .pipe(tap((result) => console.log('create request sent')));
   }
 
-  addQualification(qualification: QualificationInput) {
-    return this.addQualificationGql
-      .mutate({ qualification: qualification })
-      .pipe(
-        map(
-          (result) => result,
-          (err) => err
-        )
-      );
+  update(qualification: IQualification): Observable<IQualification> {
+    return this.http
+      .put<IQualification>(`${this.baseUrl}/qualifications`, qualification, { headers: this.headers })
+      .pipe(tap((result) => console.log('update request sent')));
   }
 
-  editQualification(qualification: QualificationInput) {
-    return this.editQualificationGql
-      .mutate({ qualification: qualification })
-      .pipe(
-        map(
-          (result) => result,
-          (err) => err
-        )
-      );
-  }
-
-  deleteQualification(qualification: QualificationInput) {
-    return this.deleteQualificationGql
-      .mutate({ qualification: qualification })
-      .pipe(
-        map(
-          (result) => result,
-          (err) => err
-        )
-      );
+  delete(_id: string): Observable<IQualification> {
+    return this.http
+      .delete<IQualification>(`${this.baseUrl}/qualifications`, {
+        headers: this.headers,
+        body: { _id: _id }
+      })
+      .pipe(tap((result) => console.log('delete request sent')));
   }
 }

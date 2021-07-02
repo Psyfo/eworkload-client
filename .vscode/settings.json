@@ -18,5 +18,29 @@
     ".vscode{,/**}"
 ],
 "appService.defaultWebAppToDeploy": "/subscriptions/05b5dde6-57b1-46a2-a8b8-6816bc4b9372/resourceGroups/eworkload/providers/Microsoft.Web/sites/eworkload",
-"appService.deploySubpath": "dist"
+"appService.deploySubpath": "dist",
+"cSpell.words": [
+  "Inplace",
+  "Listbox",
+  "blockui",
+  "codegen",
+  "confirmdialog",
+  "dynamicdialog",
+  "fileupload",
+  "gitbuild",
+  "inputtext",
+  "inputtextarea",
+  "keyfilter",
+  "multiselect",
+  "ngcc",
+  "overlaypanel",
+  "panelmenu",
+  "picklist",
+  "primeng",
+  "progressbar",
+  "progressspinner",
+  "scrollpanel",
+  "selectitem",
+  "tabview"
+]
 }

@@ -1,80 +1,60 @@
-import { map } from 'rxjs/operators';
-import {
-    AddStudentGQL,
-    DeleteStudentGQL,
-    EditStudentGQL,
-    StudentGQL,
-    StudentInput,
-    StudentsGQL,
-    StudentsUnassignedGQL
-} from 'src/app/shared/generated';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { IStudent } from './student.interface';
+
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class StudentService {
-    loading: boolean;
-    errors: any;
-    networkStatus: any;
+  private baseUrl = environment.baseUrl;
 
-    constructor(
-        private studentGql: StudentGQL,
-        private studentsGql: StudentsGQL,
-        private studentsUnassignedGql: StudentsUnassignedGQL,
-        private editStudentGql: EditStudentGQL,
-        private addStudentGql: AddStudentGQL,
-        private deleteStudentGql: DeleteStudentGQL
-    ) {}
+  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    student(studentId: string) {
-        return this.studentGql
-            .watch(
-                { studentId: studentId },
-                {
-                    pollInterval: 2000
-                }
-            )
-            .valueChanges.pipe(map(result => result, err => err));
-    }
+  constructor(
+    private http: HttpClient
+  ) {}
 
-    students() {
-        return this.studentsGql
-            .watch({}, { pollInterval: 2000 })
-            .valueChanges.pipe(map(result => result, err => err));
-    }
+  all(): Observable<IStudent[]> {
+    return this.http
+      .get<IStudent[]>(`${this.baseUrl}/students`)
+      .pipe(tap((result) => console.log('fetched data')));
+  }
 
-    studentsUnassigned(userId: string) {
-        return this.studentsUnassignedGql
-            .watch({ userId: userId }, { pollInterval: 2000 })
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
-    }
+  byId(_id: string): Observable<IStudent> {
+    return this.http
+      .get<IStudent>(`${this.baseUrl}/students/${_id}`)
+      .pipe(tap((result) => console.log('fetch request sent')));
+  }
 
-    addStudent(student: StudentInput) {
-        return this.addStudentGql
-            .mutate({ student: student })
-            .pipe(map(result => result, err => err));
-    }
+  byStudentId(studentId: string): Observable<IStudent> {
+    return this.http
+      .get<IStudent>(`${this.baseUrl}/students/studentId/${studentId}`)
+      .pipe(tap((result) => console.log('fetch request sent')));
+  }
 
-    editStudent(student: StudentInput) {
-        return this.editStudentGql
-            .mutate({ student: student })
-            .pipe(map(result => result, err => err));
-    }
+  create(student: IStudent): Observable<IStudent> {
+    return this.http
+      .post<IStudent>(`${this.baseUrl}/students`, student, { headers: this.headers })
+      .pipe(tap((result) => console.log('create request sent')));
+  }
 
-    deleteStudent(student: StudentInput) {
-        return this.deleteStudentGql
-            .mutate({ student: student })
-            .pipe(map(result => result, err => err));
-    }
+  update(student: IStudent): Observable<IStudent> {
+    return this.http
+      .put<IStudent>(`${this.baseUrl}/students`, student, { headers: this.headers })
+      .pipe(tap((result) => console.log('update request sent')));
+  }
+
+  delete(_id: string): Observable<IStudent> {
+    return this.http
+      .delete<IStudent>(`${this.baseUrl}/students`, {
+        headers: this.headers,
+        body: { _id: _id }
+      })
+      .pipe(tap((result) => console.log('delete request sent')));
+  }
 }

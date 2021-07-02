@@ -2,7 +2,6 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EnrollmentService } from 'src/app/layout/admin/enrollment/enrollment.service';
 import { routerTransition } from 'src/app/router.animations';
-import { Enrollment } from 'src/app/shared/generated';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,10 +13,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   animations: [routerTransition()]
 })
 export class ViewEnrollmentComponent implements OnInit {
-  enrollmentYear: string = '';
-  qualificationId: string = '';
+  // enrollmentYear: string = '';
+  // qualificationId: string = '';
 
-  enrollment: Enrollment;
+  // enrollment: Enrollment;
 
   private unsubscribe = new Subject();
 
@@ -32,32 +31,32 @@ export class ViewEnrollmentComponent implements OnInit {
     this.activatedRoute.queryParamMap.pipe(takeUntil(this.unsubscribe)).subscribe(queryparams => {
       const id = queryparams.get('id');
 
-      this.getEnrollment(id);
+      //this.getEnrollment(id);
     });
   }
-  ngOnDestroy(): void {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
-  }
+  // ngOnDestroy(): void {
+  //   this.unsubscribe.next();
+  //   this.unsubscribe.complete();
+  // }
 
-  getEnrollment(id: string) {
-    this.enrollmentService
-      .enrollment(id)
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(result => {
-        this.enrollment = result.data.enrollment;
-      });
-  }
+  // getEnrollment(id: string) {
+  //   this.enrollmentService
+  //     .enrollment(id)
+  //     .pipe(takeUntil(this.unsubscribe))
+  //     .subscribe(result => {
+  //       this.enrollment = result.data.enrollment;
+  //     });
+  // }
 
-  onEdit() {
-    this.router.navigate(['hod/enrollment/edit', this.qualificationId], {
-      queryParams: {
-        id: this.enrollment.id
-      }
-    });
-  }
-  onCancel() {
-    this.router.navigate(['hod/enrollment']);
-  }
-  onDelete() {}
+  // onEdit() {
+  //   this.router.navigate(['hod/enrollment/edit', this.qualificationId], {
+  //     queryParams: {
+  //       id: this.enrollment.id
+  //     }
+  //   });
+  // }
+  // onCancel() {
+  //   this.router.navigate(['hod/enrollment']);
+  // }
+  // onDelete() {}
 }

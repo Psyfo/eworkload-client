@@ -34,91 +34,91 @@ export class ChangePasswordComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.breadcrumbs = [
-      {
-        label: 'profile',
-        url: 'profile/view'
-      },
-      {
-        label: 'change-password',
-        url: 'profile/change-password'
-      }
-    ];
-    this.buildForm();
-    this.comparePasswords();
+    // this.breadcrumbs = [
+    //   {
+    //     label: 'profile',
+    //     url: 'profile/view'
+    //   },
+    //   {
+    //     label: 'change-password',
+    //     url: 'profile/change-password'
+    //   }
+    // ];
+    // this.buildForm();
+    // this.comparePasswords();
   }
-  ngOnDestroy(): void {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
-  }
+  // ngOnDestroy(): void {
+  //   this.unsubscribe.next();
+  //   this.unsubscribe.complete();
+  // }
 
-  buildForm() {
-    this.changePasswordForm = this.fb.group({
-      oldPassword: ['', [Validators.required]],
-      newPassword: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]]
-    });
+  // buildForm() {
+  //   this.changePasswordForm = this.fb.group({
+  //     oldPassword: ['', [Validators.required]],
+  //     newPassword: ['', [Validators.required]],
+  //     confirmPassword: ['', [Validators.required]]
+  //   });
 
-    this.userService
-      .currentUserId()
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe((result) => {
-        this.userId = result;
-      });
-  }
+  //   this.userService
+  //     .currentUserId()
+  //     .pipe(takeUntil(this.unsubscribe))
+  //     .subscribe((result) => {
+  //       this.userId = result;
+  //     });
+  // }
 
-  onEdit() {
-    const userId = this.userService.currentUserIdStatic();
-    console.log(this.oldPassword.value);
-    console.log(this.newPassword.value);
+  // onEdit() {
+  //   const userId = this.userService.currentUserIdStatic();
+  //   console.log(this.oldPassword.value);
+  //   console.log(this.newPassword.value);
 
-    try {
-      this.authService
-        .changePassword(userId, this.oldPassword.value, this.newPassword.value)
-        .pipe(takeUntil(this.unsubscribe))
-        .subscribe((result) => {
-          try {
-            this.alertService.successToast('Password changed');
-            this.router.navigate(['profile']);
-          } catch (error) {
-            this.alertService.errorToast(error, 'errorToast');
-          }
-        });
-    } catch (error) {
-      this.alertService.errorToast(error, 'errorToast');
-      return;
-    }
-  }
-  onBack(event) {
-    this.router.navigate(['profile']);
-  }
-  onReset(event) {
-    this.changePasswordForm.reset();
-    this.ngOnInit();
-  }
+  //   try {
+  //     this.authService
+  //       .changePassword(userId, this.oldPassword.value, this.newPassword.value)
+  //       .pipe(takeUntil(this.unsubscribe))
+  //       .subscribe((result) => {
+  //         try {
+  //           this.alertService.successToast('Password changed');
+  //           this.router.navigate(['profile']);
+  //         } catch (error) {
+  //           this.alertService.errorToast(error, 'errorToast');
+  //         }
+  //       });
+  //   } catch (error) {
+  //     this.alertService.errorToast(error, 'errorToast');
+  //     return;
+  //   }
+  // }
+  // onBack(event) {
+  //   this.router.navigate(['profile']);
+  // }
+  // onReset(event) {
+  //   this.changePasswordForm.reset();
+  //   this.ngOnInit();
+  // }
 
-  comparePasswords() {
-    this.confirmPassword.valueChanges
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe((result) => {
-        if (this.newPassword.value !== this.confirmPassword.value) {
-          this.passwordMatch = false;
-        } else {
-          this.passwordMatch = true;
-        }
-      });
-  }
+  // comparePasswords() {
+  //   this.confirmPassword.valueChanges
+  //     .pipe(takeUntil(this.unsubscribe))
+  //     .subscribe((result) => {
+  //       if (this.newPassword.value !== this.confirmPassword.value) {
+  //         this.passwordMatch = false;
+  //       } else {
+  //         this.passwordMatch = true;
+  //       }
+  //     });
+  // }
 
-  get oldPassword() {
-    return this.changePasswordForm.get('oldPassword');
-  }
-  get newPassword() {
-    return this.changePasswordForm.get('newPassword');
-  }
-  get confirmPassword() {
-    return this.changePasswordForm.get('confirmPassword');
-  }
-  get formVal() {
-    return this.changePasswordForm.value;
-  }
+  // get oldPassword() {
+  //   return this.changePasswordForm.get('oldPassword');
+  // }
+  // get newPassword() {
+  //   return this.changePasswordForm.get('newPassword');
+  // }
+  // get confirmPassword() {
+  //   return this.changePasswordForm.get('confirmPassword');
+  // }
+  // get formVal() {
+  //   return this.changePasswordForm.value;
+  // }
 }

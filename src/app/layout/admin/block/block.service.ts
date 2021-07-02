@@ -1,48 +1,60 @@
 import { Observable } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-import { ErrorService } from 'src/app/shared/services';
+import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { AlertService } from '../../../shared/modules/alert/alert.service';
 import { IBlock } from './block.interface';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class BlockService {
+  private baseUrl = environment.baseUrl;
 
-    private baseUrl = `${environment.baseUrl}/blocks`
+  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-      };
+  constructor(
+    private http: HttpClient
+  ) {}
 
-    constructor(
-        private http: HttpClient,
-        private alertService: AlertService,
-        private errorService: ErrorService
-    ) {}
+  all(): Observable<IBlock[]> {
+    return this.http
+      .get<IBlock[]>(`${this.baseUrl}/blocks`)
+      .pipe(tap((result) => console.log('fetched data')));
+  }
 
-    all(): Observable<IBlock[]> {
-        return this.http.get<IBlock[]>(`${this.baseUrl}`).pipe(tap(result => console.log('fetched data')), catchError(this.errorService.handleError('all', [])));
-    }
+  byId(_id: string): Observable<IBlock> {
+    return this.http
+      .get<IBlock>(`${this.baseUrl}/blocks/${_id}`)
+      .pipe(tap((result) => console.log('fetch request sent')));
+  }
 
-    byId(_id: string): Observable<IBlock> {
-       return this.http.get<IBlock>(`${this.baseUrl}/${_id}`).pipe(tap(result => console.log('fetch request sent')), catchError(this.errorService.handleError));
-    }
+  byBlockId(blockId: string): Observable<IBlock> {
+    return this.http
+      .get<IBlock>(`${this.baseUrl}/blocks/blockId/${blockId}`)
+      .pipe(tap((result) => console.log('fetch request sent')));
+  }
 
-    create(block: IBlock): Observable<IBlock> {
-       return this.http.post<IBlock>(`${this.baseUrl}/create`, block, this.httpOptions).pipe(tap(result => console.log('create request sent')), catchError(this.errorService.handleError));
-    }
+  create(block: IBlock): Observable<IBlock> {
+    return this.http
+      .post<IBlock>(`${this.baseUrl}/blocks`, block, { headers: this.headers })
+      .pipe(tap((result) => console.log('create request sent')));
+  }
 
-    update(block: IBlock): Observable<IBlock>  {
-        return this.http.put<IBlock>(`${this.baseUrl}/${block._id}`, block, this.httpOptions).pipe(tap(result => console.log('update request sent')), catchError(this.errorService.handleError));
-    }
+  update(block: IBlock): Observable<IBlock> {
+    return this.http
+      .put<IBlock>(`${this.baseUrl}/blocks`, block, { headers: this.headers })
+      .pipe(tap((result) => console.log('update request sent')));
+  }
 
-    delete(_id: string): Observable<IBlock> {
-       return this.http.delete<IBlock>(`${this.baseUrl}/${_id}`, this.httpOptions).pipe(tap(result => console.log('delete request sent')), catchError(this.errorService.handleError));
-    }
+  delete(_id: string): Observable<IBlock> {
+    return this.http
+      .delete<IBlock>(`${this.baseUrl}/blocks`, {
+        headers: this.headers,
+        body: { _id: _id }
+      })
+      .pipe(tap((result) => console.log('delete request sent')));
+  }
 }

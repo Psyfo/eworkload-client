@@ -49,20 +49,12 @@ export class LoginComponent implements OnInit {
     }
     this.authService
       .login(this.loginData.userId, this.loginData.password)
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(
-        result => {
-          const authData = result.data.login;
-          localStorage.setItem('authData', JSON.stringify(authData));
-          setTimeout(() => {
-            this.alertService.successToast('Logged in!');
-          }, 1000);
-          this.router.navigate(['profile']);
-        },
-        err => {
-          console.log(err.message);
-          this.alertService.warnToast(err.message);
-        }
-      );
+      .subscribe((result) => {
+        const authData = result;
+        localStorage.setItem('authData', JSON.stringify(authData));
+        this.alertService.successToast('Logged in!');
+
+        this.router.navigate(['profile']);
+      });
   }
 }

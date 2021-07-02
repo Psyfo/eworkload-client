@@ -1,13 +1,5 @@
 import { map } from 'rxjs/operators';
-import {
-    AcademicAdministrationActivitiesByUserGQL,
-    AcademicAdministrationActivitiesGQL,
-    AcademicAdministrationActivityGQL,
-    AcademicAdministrationActivityInput,
-    AddAcademicAdministrationActivityGQL,
-    DeleteAcademicAdministrationActivityGQL,
-    EditAcademicAdministrationActivityGQL
-} from 'src/app/shared/generated';
+
 
 import { Injectable } from '@angular/core';
 
@@ -15,9 +7,6 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class AcademicAdministrationService {
-    loading: boolean;
-    errors: any;
-    networkStatus: any;
 
     public titles = [
         { label: 'Programme coordinator', value: '0' },
@@ -41,124 +30,7 @@ export class AcademicAdministrationService {
         }
     ];
 
-    constructor(
-        private academicAdministrationActivityGql: AcademicAdministrationActivityGQL,
-        private academicAdministrationActivitiesGql: AcademicAdministrationActivitiesGQL,
-        private academicAdministrationActivitiesByUserGql: AcademicAdministrationActivitiesByUserGQL,
-        private addacademicAdministrationActivityGql: AddAcademicAdministrationActivityGQL,
-        private editacademicAdministrationActivityGql: EditAcademicAdministrationActivityGQL,
-        private deleteacademicAdministrationActivityGql: DeleteAcademicAdministrationActivityGQL
-    ) {}
+    constructor() {}
 
-    academicAdministrationActivity(activityId: string) {
-        return this.academicAdministrationActivityGql
-            .watch(
-                { activityId: activityId },
-                {
-                    pollInterval: 2000
-                }
-            )
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
-    }
-    academicAdministrationActivities() {
-        return this.academicAdministrationActivitiesGql
-            .watch(
-                {},
-                {
-                    pollInterval: 2000
-                }
-            )
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
-    }
-    academicAdministrationActivitiesByUser(userId: string) {
-        return this.academicAdministrationActivitiesByUserGql
-            .watch(
-                { userId: userId },
-                {
-                    pollInterval: 2000
-                }
-            )
-            .valueChanges.pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
-    }
-    addAcademicAdministrationActivity(
-        activity: AcademicAdministrationActivityInput
-    ) {
-        return this.addacademicAdministrationActivityGql
-            .mutate({
-                activity: activity
-            })
-            .pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
-    }
-    editAcademicAdministrationActivity(
-        activity: AcademicAdministrationActivityInput
-    ) {
-        return this.editacademicAdministrationActivityGql
-            .mutate({
-                activity: activity
-            })
-            .pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
-    }
-    deleteAcademicAdministrationActivity(
-        activity: AcademicAdministrationActivityInput
-    ) {
-        return this.deleteacademicAdministrationActivityGql
-            .mutate({
-                activity: activity
-            })
-            .pipe(
-                map(
-                    result => {
-                        return result;
-                    },
-                    err => {
-                        return err;
-                    }
-                )
-            );
-    }
+   
 }

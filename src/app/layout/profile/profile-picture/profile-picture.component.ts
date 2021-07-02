@@ -42,38 +42,38 @@ export class ProfilePictureComponent implements OnInit {
     ];
   }
 
-  onFileSelected(event, imageUpload) {
-    this.selectedFile = event.files[0];
-    console.log(this.selectedFile);
+  // onFileSelected(event, imageUpload) {
+  //   this.selectedFile = event.files[0];
+  //   console.log(this.selectedFile);
 
-    this.onFileUpload(
-      this.selectedFile,
-      imageUpload,
-      this.userService.currentUserIdStatic()
-    );
-  }
-  onFileUpload(file, imageUpload, userId) {
-    // Start progress
-    this.isUploading = true; // start spinner
+  //   this.onFileUpload(
+  //     this.selectedFile,
+  //     imageUpload,
+  //     this.userService.currentUserIdStatic()
+  //   );
+  // }
+  // onFileUpload(file, imageUpload, userId) {
+  //   // Start progress
+  //   this.isUploading = true; // start spinner
 
-    // Upload image with 2sec initial delay
-    setTimeout(() => {
-      this.uploadService
-        .uploadProfilePicture(file, userId)
-        .pipe(takeUntil(this.unsubscribe))
-        .subscribe(
-          (result) => {
-            console.log(result.data.uploadProfilePicture);
+  //   // Upload image with 2sec initial delay
+  //   setTimeout(() => {
+  //     this.uploadService
+  //       .uploadProfilePicture(file, userId)
+  //       .pipe(takeUntil(this.unsubscribe))
+  //       .subscribe(
+  //         (result) => {
+  //           console.log(result.data.uploadProfilePicture);
 
-            this.alertService.successToast('Image upload success');
-            this.isUploading = false; // stop spinner
-            imageUpload.clear(); // clear files
-            this.router.navigate(['profile']);
-          },
-          (err) => {
-            console.error(err);
-          }
-        );
-    }, 2000);
-  }
+  //           this.alertService.successToast('Image upload success');
+  //           this.isUploading = false; // stop spinner
+  //           imageUpload.clear(); // clear files
+  //           this.router.navigate(['profile']);
+  //         },
+  //         (err) => {
+  //           console.error(err);
+  //         }
+  //       );
+  //   }, 2000);
+  //}
 }

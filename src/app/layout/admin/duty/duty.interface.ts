@@ -1,6 +1,6 @@
 export interface IDuty {
-    _id: string;
-    dutyId: string;
+    _id?: string;
+    dutyId?: string;
     name?: string;
     createdAt?: Date;
     updatedAt?: Date;

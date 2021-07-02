@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 
-import { CustomRouteReuseStrategy } from '../../shared/helpers/routing-strategy';
 import { HodComponent } from './hod.component';
 
 const routes: Routes = [
@@ -49,7 +48,7 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
     providers: [
-        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }
+        
     ]
 })
 export class HodRoutingModule {}

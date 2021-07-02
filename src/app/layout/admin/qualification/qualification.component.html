@@ -1,1 +1,188 @@
-<router-outlet></router-outlet>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+
+<div class="card" [@routerTransition]>
+  <p-toolbar styleClass="p=mb-4">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success p-mr-2"
+        (click)="openNew()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        [label]="Delete"
+        icon="pi pi-trash"
+        class="p-button-danger"
+        (click)="deleteSelectedQualifications()"
+        [disabled]="!selectedQualifications || !selectedQualifications.length"
+      ></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+      <p-fileUpload
+        mode="basic"
+        accept="image/*"
+        [maxFileSize]="1000000"
+        label="Import"
+        chooseLabel="Import"
+        class="p-mr-2 p-d-inline-qualification"
+      ></p-fileUpload>
+      <button
+        pButton
+        pRipple
+        label="Export"
+        icon="pi pi-upload"
+        class="p-button-help"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table
+    #dt
+    [value]="qualifications"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['qualificationId', 'name', 'description']"
+    [(selection)]="selectedQualifications"
+    [rowHover]="true"
+    dataKey="qualificationId"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0">Manage Qualifications</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Search..."
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="qualificationId">
+          Qualification ID <p-sortIcon field="qualificationId"></p-sortIcon>
+        </th>
+        <th pSortableColumn="name">
+          Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-qualification>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="qualification"></p-tableCheckbox>
+        </td>
+        <td>{{ qualification.qualificationId }}</td>
+        <td>{{ qualification.name }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success p-mr-2"
+            (click)="editQualification(qualification)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-warning"
+            (click)="deleteQualification(qualification)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        In total there are {{ qualifications ? qualifications.length : 0 }} qualifications.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [(visible)]="qualificationDialog"
+  [style]="{ width: '450px' }"
+  header="Qualification Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="qualificationId">QualificationId</label>
+      <input
+        type="text"
+        pInputText
+        id="qualificationId"
+        [(ngModel)]="qualification.qualificationId"
+        required
+        autofocus
+      />
+      <small class="p-error" *ngIf="submitted && !qualification.qualificationId"
+        >Qualification ID is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="name">name</label>
+      <input
+        type="text"
+        pInputText
+        id="name"
+        [(ngModel)]="qualification.name"
+        required
+        autofocus
+      />
+      <small class="p-error" *ngIf="submitted && !qualification.name"
+        >Qualification ID is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="description">description</label>
+      <textarea
+        id="description"
+        pInputTextarea
+        [(ngModel)]="qualification.description"
+        required
+        rows="3"
+        cols="20"
+      ></textarea>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="saveQualification()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+
+<p-toast></p-toast>

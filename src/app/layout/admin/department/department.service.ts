@@ -1,89 +1,60 @@
-import { map } from 'rxjs/operators';
-import {
-  AddDepartmentGQL,
-  DeleteDepartmentGQL,
-  DepartmentGQL,
-  DepartmentInput,
-  DepartmentsGQL,
-  EditDepartmentGQL
-} from 'src/app/shared/generated';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { IDepartment } from './department.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DepartmentService {
-  loading: boolean;
-  errors: any;
-  networkStatus: any;
+  private baseUrl = environment.baseUrl;
+
+  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(
-    private departmentGql: DepartmentGQL,
-    private departmentsGql: DepartmentsGQL,
-    private addDepartmentGql: AddDepartmentGQL,
-    private editDepartmentGql: EditDepartmentGQL,
-    private deleteDepartmentGql: DeleteDepartmentGQL
+    private http: HttpClient
   ) {}
 
-  departments() {
-    return this.departmentsGql
-      .watch(
-        {},
-        {
-          pollInterval: 2000
-        }
-      )
-      .valueChanges.pipe(
-        map(
-          result => result,
-          err => err
-        )
-      );
+  all(): Observable<IDepartment[]> {
+    return this.http
+      .get<IDepartment[]>(`${this.baseUrl}/departments`)
+      .pipe(tap((result) => console.log('fetched data')));
   }
 
-  department(departmentId: string) {
-    return this.departmentGql
-      .watch(
-        { departmentId: departmentId },
-        {
-          pollInterval: 2000
-        }
-      )
-      .valueChanges.pipe(
-        map(
-          result => result,
-          err => err
-        )
-      );
+  byId(_id: string): Observable<IDepartment> {
+    return this.http
+      .get<IDepartment>(`${this.baseUrl}/departments/${_id}`)
+      .pipe(tap((result) => console.log('fetch request sent')));
   }
 
-  addDepartment(department: DepartmentInput) {
-    return this.addDepartmentGql.mutate({ department: department }).pipe(
-      map(
-        result => result,
-        err => err
-      )
-    );
+  byDepartmentId(departmentId: string): Observable<IDepartment> {
+    return this.http
+      .get<IDepartment>(`${this.baseUrl}/departments/departmentId/${departmentId}`)
+      .pipe(tap((result) => console.log('fetch request sent')));
   }
 
-  editDepartment(department: DepartmentInput) {
-    return this.editDepartmentGql.mutate({ department: department }).pipe(
-      map(
-        result => result,
-        err => err
-      )
-    );
+  create(department: IDepartment): Observable<IDepartment> {
+    return this.http
+      .post<IDepartment>(`${this.baseUrl}/departments`, department, { headers: this.headers })
+      .pipe(tap((result) => console.log('create request sent')));
   }
 
-  deleteDepartment(department: DepartmentInput) {
-    console.log('dept del model:', department);
+  update(department: IDepartment): Observable<IDepartment> {
+    return this.http
+      .put<IDepartment>(`${this.baseUrl}/departments`, department, { headers: this.headers })
+      .pipe(tap((result) => console.log('update request sent')));
+  }
 
-    return this.deleteDepartmentGql.mutate({ department: department }).pipe(
-      map(
-        result => result,
-        err => err
-      )
-    );
+  delete(_id: string): Observable<IDepartment> {
+    return this.http
+      .delete<IDepartment>(`${this.baseUrl}/departments`, {
+        headers: this.headers,
+        body: { _id: _id }
+      })
+      .pipe(tap((result) => console.log('delete request sent')));
   }
 }

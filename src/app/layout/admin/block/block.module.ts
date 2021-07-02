@@ -1,22 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { PrimeNgModulesModule } from '../../../shared/modules/prime-ng-modules.module';
-import { AddBlockComponent } from './add-block/add-block.component';
 import { BlockRoutingModule } from './block-routing.module';
 import { BlockComponent } from './block.component';
-import { EditBlockComponent } from './edit-block/edit-block.component';
-import { ListBlockComponent } from './list-block/list-block.component';
-import { ViewBlockComponent } from './view-block/view-block.component';
 
 @NgModule({
-    declarations: [
-        BlockComponent,
-        AddBlockComponent,
-        EditBlockComponent,
-        ListBlockComponent,
-        ViewBlockComponent
-    ],
-    imports: [CommonModule, BlockRoutingModule, PrimeNgModulesModule]
+  declarations: [
+    BlockComponent
+  ],
+  imports: [CommonModule, BlockRoutingModule, PrimeNgModulesModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class BlockModule {}

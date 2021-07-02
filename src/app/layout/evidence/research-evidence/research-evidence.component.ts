@@ -6,7 +6,6 @@ import { AlertService } from 'src/app/shared/modules';
 import { Router } from '@angular/router';
 import { ResearchService } from '../../activity/research/research.service';
 import { Subject } from 'rxjs';
-import { ResearchActivity, File } from 'src/app/shared/generated';
 import { UserService } from '../../admin/user/user.service';
 import { UploadService } from 'src/app/shared/services';
 
@@ -22,8 +21,8 @@ export class ResearchEvidenceComponent implements OnInit {
 
   userId = this.userService.currentUserIdStatic();
   currentUserId = this.userId;
-  activities: ResearchActivity[] = [];
-  selectedActivity: ResearchActivity;
+  // activities: ResearchActivity[] = [];
+  // selectedActivity: ResearchActivity;
   selectedFile: File;
 
   isUploading: boolean = false;
@@ -40,7 +39,7 @@ export class ResearchEvidenceComponent implements OnInit {
   ngOnInit() {
     this.breadcrumbs = [{ label: 'evidence' }, { label: 'research' }];
 
-    this.getResearchActivities();
+    //this.getResearchActivities();
   }
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
@@ -49,42 +48,42 @@ export class ResearchEvidenceComponent implements OnInit {
     this.unsubscribe.complete;
   }
 
-  getResearchActivities() {
-    this.researchService
-      .researchActivitiesByUser(this.userId)
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(
-        (result) => {
-          this.activities = result.data.researchActivitiesByUser;
-        },
-        (err) => {
-          this.alertService.errorToast(err);
-          console.warn(err);
-        }
-      );
-  }
+  // getResearchActivities() {
+  //   this.researchService
+  //     .researchActivitiesByUser(this.userId)
+  //     .pipe(takeUntil(this.unsubscribe))
+  //     .subscribe(
+  //       (result) => {
+  //         this.activities = result.data.researchActivitiesByUser;
+  //       },
+  //       (err) => {
+  //         this.alertService.errorToast(err);
+  //         console.warn(err);
+  //       }
+  //     );
+  // }
 
-  onFileSelected(event) {
-    this.selectedFile = event.files[0];
-    console.log(this.selectedFile);
+  // onFileSelected(event) {
+  //   this.selectedFile = event.files[0];
+  //   console.log(this.selectedFile);
 
-    this.onUpload(
-      this.selectedFile,
-      this.userId,
-      this.selectedActivity.activityId
-    );
-  }
-  onUpload(file: File, userId, activityId) {
-    this.isUploading = true;
+  //   this.onUpload(
+  //     this.selectedFile,
+  //     this.userId,
+  //     this.selectedActivity.activityId
+  //   );
+  // }
+  // onUpload(file: File, userId, activityId) {
+  //   this.isUploading = true;
 
-    setTimeout(() => {
-      this.uploadService
-        .uploadResearchEvidence(file, userId, activityId)
-        .pipe(takeUntil(this.unsubscribe))
-        .subscribe((result) => {
-          this.isUploading = false;
-          this.alertService.successToast('Evidence uploaded');
-        });
-    }, 2000);
-  }
+  //   setTimeout(() => {
+  //     this.uploadService
+  //       .uploadResearchEvidence(file, userId, activityId)
+  //       .pipe(takeUntil(this.unsubscribe))
+  //       .subscribe((result) => {
+  //         this.isUploading = false;
+  //         this.alertService.successToast('Evidence uploaded');
+  //       });
+  //   }, 2000);
+  // }
 }

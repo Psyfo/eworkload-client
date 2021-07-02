@@ -1,70 +1,60 @@
-import { AlertService } from './../../../shared/modules/alert/alert.service';
-import { map } from 'rxjs/operators';
-import {
-    AddDisciplineGQL,
-    DeleteDisciplineGQL,
-    DisciplineGQL,
-    DisciplineInput,
-    DisciplinesGQL,
-    EditDisciplineGQL
-} from 'src/app/shared/generated';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { IDiscipline } from './discipline.interface';
+
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class DisciplineService {
-    loading: boolean;
-    errors: any;
-    networkStatus: any;
+  private baseUrl = environment.baseUrl;
 
-    constructor(
-        private alertService: AlertService,
-        private disciplineGql: DisciplineGQL,
-        private disciplinesGql: DisciplinesGQL,
-        private addDisciplineGql: AddDisciplineGQL,
-        private editDisciplineGql: EditDisciplineGQL,
-        private deleteDisciplineGql: DeleteDisciplineGQL
-    ) {}
+  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    disciplines() {
-        return this.disciplinesGql
-            .watch(
-                {},
-                {
-                    pollInterval: 2000
-                }
-            )
-            .valueChanges.pipe(map(result => result, err => err));
-    }
+  constructor(
+    private http: HttpClient
+  ) {}
 
-    discipline(disciplineId: string) {
-        return this.disciplineGql
-            .watch(
-                { disciplineId: disciplineId },
-                {
-                    pollInterval: 2000
-                }
-            )
-            .valueChanges.pipe(map(result => result, err => err));
-    }
+  all(): Observable<IDiscipline[]> {
+    return this.http
+      .get<IDiscipline[]>(`${this.baseUrl}/disciplines`)
+      .pipe(tap((result) => console.log('fetched data')));
+  }
 
-    addDiscipline(discipline: DisciplineInput) {
-        return this.addDisciplineGql
-            .mutate({ discipline: discipline })
-            .pipe(map(result => result, err => err));
-    }
+  byId(_id: string): Observable<IDiscipline> {
+    return this.http
+      .get<IDiscipline>(`${this.baseUrl}/disciplines/${_id}`)
+      .pipe(tap((result) => console.log('fetch request sent')));
+  }
 
-    editDiscipline(discipline: DisciplineInput) {
-        return this.editDisciplineGql
-            .mutate({ discipline: discipline })
-            .pipe(map(result => result, err => err));
-    }
+  byDisciplineId(disciplineId: string): Observable<IDiscipline> {
+    return this.http
+      .get<IDiscipline>(`${this.baseUrl}/disciplines/disciplineId/${disciplineId}`)
+      .pipe(tap((result) => console.log('fetch request sent')));
+  }
 
-    deleteDiscipline(discipline: DisciplineInput) {
-        return this.deleteDisciplineGql
-            .mutate({ discipline: discipline })
-            .pipe(map(result => result, err => err));
-    }
+  create(discipline: IDiscipline): Observable<IDiscipline> {
+    return this.http
+      .post<IDiscipline>(`${this.baseUrl}/disciplines`, discipline, { headers: this.headers })
+      .pipe(tap((result) => console.log('create request sent')));
+  }
+
+  update(discipline: IDiscipline): Observable<IDiscipline> {
+    return this.http
+      .put<IDiscipline>(`${this.baseUrl}/disciplines`, discipline, { headers: this.headers })
+      .pipe(tap((result) => console.log('update request sent')));
+  }
+
+  delete(_id: string): Observable<IDiscipline> {
+    return this.http
+      .delete<IDiscipline>(`${this.baseUrl}/disciplines`, {
+        headers: this.headers,
+        body: { _id: _id }
+      })
+      .pipe(tap((result) => console.log('delete request sent')));
+  }
 }

@@ -1,6 +1,3 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 import { AccordionModule } from 'primeng/accordion';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -13,6 +10,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ChipsModule } from 'primeng/chips';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ContextMenuModule } from 'primeng/contextmenu';
+import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -41,6 +39,10 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 
+import { CommonModule } from '@angular/common';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { SharedPipesModule } from '../pipes/shared-pipes.module';
 import { PageHeaderModule } from './page-header';
 
@@ -59,9 +61,11 @@ import { PageHeaderModule } from './page-header';
     ChipsModule,
     CommonModule,
     ConfirmDialogModule,
+    ConfirmDialogModule,
     ContextMenuModule,
-    DynamicDialogModule,
+    DialogModule,
     DropdownModule,
+    DynamicDialogModule,
     FileUploadModule,
     FormsModule,
     InplaceModule,
@@ -74,8 +78,8 @@ import { PageHeaderModule } from './page-header';
     MultiSelectModule,
     OverlayPanelModule,
     PageHeaderModule,
-    PanelModule,
     PanelMenuModule,
+    PanelModule,
     PasswordModule,
     PickListModule,
     ProgressBarModule,
@@ -105,7 +109,9 @@ import { PageHeaderModule } from './page-header';
     ChipsModule,
     CommonModule,
     ConfirmDialogModule,
+    ConfirmDialogModule,
     ContextMenuModule,
+    DialogModule,
     DropdownModule,
     DynamicDialogModule,
     FileUploadModule,
@@ -120,12 +126,12 @@ import { PageHeaderModule } from './page-header';
     MultiSelectModule,
     OverlayPanelModule,
     PageHeaderModule,
-    PanelModule,
     PanelMenuModule,
+    PanelModule,
+    PasswordModule,
     PickListModule,
     ProgressBarModule,
     ProgressSpinnerModule,
-    PasswordModule,
     ReactiveFormsModule,
     ScrollPanelModule,
     SharedPipesModule,
@@ -137,6 +143,7 @@ import { PageHeaderModule } from './page-header';
     ToastModule,
     ToolbarModule,
     TooltipModule
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PrimeNgModulesModule {}

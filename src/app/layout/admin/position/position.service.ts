@@ -1,68 +1,60 @@
-import { map } from 'rxjs/operators';
-import {
-    AddPositionGQL,
-    DeletePositionGQL,
-    EditPositionGQL,
-    PositionGQL,
-    PositionInput,
-    PositionsGQL
-} from 'src/app/shared/generated';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { IPosition } from './position.interface';
+
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class PositionService {
-    loading: boolean;
-    errors: any;
-    networkStatus: any;
+  private baseUrl = environment.baseUrl;
 
-    constructor(
-        private positionGql: PositionGQL,
-        private positionsGql: PositionsGQL,
-        private editPositionGql: EditPositionGQL,
-        private addPositionGql: AddPositionGQL,
-        private deletePositionGql: DeletePositionGQL
-    ) {}
+  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    position(positionId: string) {
-        return this.positionGql
-            .watch(
-                { positionId: positionId },
-                {
-                    pollInterval: 2000
-                }
-            )
-            .valueChanges.pipe(map(result => result, err => err));
-    }
+  constructor(
+    private http: HttpClient
+  ) {}
 
-    positions() {
-        return this.positionsGql
-            .watch(
-                {},
-                {
-                    pollInterval: 2000
-                }
-            )
-            .valueChanges.pipe(map(result => result, err => err));
-    }
+  all(): Observable<IPosition[]> {
+    return this.http
+      .get<IPosition[]>(`${this.baseUrl}/positions`)
+      .pipe(tap((result) => console.log('fetched data')));
+  }
 
-    addPosition(position: PositionInput) {
-        return this.addPositionGql
-            .mutate({ position: position })
-            .pipe(map(result => result, err => err));
-    }
+  byId(_id: string): Observable<IPosition> {
+    return this.http
+      .get<IPosition>(`${this.baseUrl}/positions/${_id}`)
+      .pipe(tap((result) => console.log('fetch request sent')));
+  }
 
-    editPosition(position: PositionInput) {
-        return this.editPositionGql
-            .mutate({ position: position })
-            .pipe(map(result => result, err => err));
-    }
+  byPositionId(positionId: string): Observable<IPosition> {
+    return this.http
+      .get<IPosition>(`${this.baseUrl}/positions/positionId/${positionId}`)
+      .pipe(tap((result) => console.log('fetch request sent')));
+  }
 
-    deletePosition(position: PositionInput) {
-        return this.deletePositionGql
-            .mutate({ position: position })
-            .pipe(map(result => result, err => err));
-    }
+  create(position: IPosition): Observable<IPosition> {
+    return this.http
+      .post<IPosition>(`${this.baseUrl}/positions`, position, { headers: this.headers })
+      .pipe(tap((result) => console.log('create request sent')));
+  }
+
+  update(position: IPosition): Observable<IPosition> {
+    return this.http
+      .put<IPosition>(`${this.baseUrl}/positions`, position, { headers: this.headers })
+      .pipe(tap((result) => console.log('update request sent')));
+  }
+
+  delete(_id: string): Observable<IPosition> {
+    return this.http
+      .delete<IPosition>(`${this.baseUrl}/positions`, {
+        headers: this.headers,
+        body: { _id: _id }
+      })
+      .pipe(tap((result) => console.log('delete request sent')));
+  }
 }

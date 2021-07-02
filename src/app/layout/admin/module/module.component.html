@@ -1,1 +1,192 @@
-<router-outlet></router-outlet>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+
+<div class="card" [@routerTransition]>
+  <p-toolbar styleClass="p=mb-4">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success p-mr-2"
+        (click)="openNew()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        [label]="Delete"
+        icon="pi pi-trash"
+        class="p-button-danger"
+        (click)="deleteSelectedModules()"
+        [disabled]="!selectedModules || !selectedModules.length"
+      ></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+      <p-fileUpload
+        mode="basic"
+        accept="image/*"
+        [maxFileSize]="1000000"
+        label="Import"
+        chooseLabel="Import"
+        class="p-mr-2 p-d-inline-module"
+      ></p-fileUpload>
+      <button
+        pButton
+        pRipple
+        label="Export"
+        icon="pi pi-upload"
+        class="p-button-help"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table
+    #dt
+    [value]="modules"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['moduleId', 'name', 'qualification.qualificationId']"
+    [(selection)]="selectedModules"
+    [rowHover]="true"
+    dataKey="moduleId"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0">Manage Modules</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Search..."
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="moduleId">
+          Module Code <p-sortIcon field="moduleId"></p-sortIcon>
+        </th>
+        <th pSortableColumn="name">
+          Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="qualificationId">
+          Qualification Code <p-sortIcon field="qualificationId"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-module>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="module"></p-tableCheckbox>
+        </td>
+        <td>{{ module.moduleId }}</td>
+        <td>{{ module.name }}</td>
+        <td>{{ module.qualificationId }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success p-mr-2"
+            (click)="editModule(module)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-warning"
+            (click)="deleteModule(module)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        In total there are {{ modules ? modules.length : 0 }} modules.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [(visible)]="moduleDialog"
+  [style]="{ width: '450px' }"
+  header="Module Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="moduleId">ModuleId</label>
+      <input
+        type="text"
+        pInputText
+        id="moduleId"
+        [(ngModel)]="module.moduleId"
+        required
+        autofocus
+      />
+      <small class="p-error" *ngIf="submitted && !module.moduleId"
+        >Module ID is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="name">name</label>
+      <input
+        type="text"
+        pInputText
+        id="name"
+        [(ngModel)]="module.name"
+        required
+        autofocus
+      />
+      <small class="p-error" *ngIf="submitted && !module.name"
+        >Module ID is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="description">description</label>
+      <textarea
+        id="description"
+        pInputTextarea
+        [(ngModel)]="module.description"
+        required
+        rows="3"
+        cols="20"
+      ></textarea>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="saveModule()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+
+<p-toast></p-toast>

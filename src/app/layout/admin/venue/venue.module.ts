@@ -4,12 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { VenueAddComponent } from './venue-add/venue-add.component';
-import { VenueDeleteComponent } from './venue-delete/venue-delete.component';
-import { VenueEditComponent } from './venue-edit/venue-edit.component';
-import { VenueListComponent } from './venue-list/venue-list.component';
 import { VenueRoutingModule } from './venue-routing.module';
-import { VenueViewComponent } from './venue-view/venue-view.component';
 import { VenueComponent } from './venue.component';
 
 @NgModule({
@@ -20,12 +15,7 @@ import { VenueComponent } from './venue.component';
         PrimeNgModulesModule
     ],
     declarations: [
-        VenueComponent,
-        VenueListComponent,
-        VenueEditComponent,
-        VenueAddComponent,
-        VenueDeleteComponent,
-        VenueViewComponent
+        VenueComponent
     ]
 })
 export class VenueModule {}

@@ -1,41 +1,62 @@
-import { map } from 'rxjs/operators';
-import { WorkFocusesGQL, WorkFocusGQL } from 'src/app/shared/generated';
-import { ErrorService } from 'src/app/shared/services';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { IWorkFocus } from './work-focus.interface';
+
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class WorkFocusService {
-    loading: boolean;
-    errors: any;
+  private baseUrl = environment.baseUrl;
 
-    constructor(
-        private errorService: ErrorService,
-        private workFocusGql: WorkFocusGQL,
-        private workFocusesGql: WorkFocusesGQL
-    ) {}
+  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    workFocuses() {
-        return this.workFocusesGql
-            .watch(
-                {},
-                {
-                    pollInterval: 2000
-                }
-            )
-            .valueChanges.pipe(map(result => result, err => err));
-    }
+  constructor(private http: HttpClient) {}
 
-    workFocus(name: string) {
-        return this.workFocusGql
-            .watch(
-                { name: name },
-                {
-                    pollInterval: 2000
-                }
-            )
-            .valueChanges.pipe(map(result => result, err => err));
-    }
+  all(): Observable<IWorkFocus[]> {
+    return this.http
+      .get<IWorkFocus[]>(`${this.baseUrl}/work-focuses`)
+      .pipe(tap((result) => console.log('fetched data')));
+  }
+
+  byId(_id: string): Observable<IWorkFocus> {
+    return this.http
+      .get<IWorkFocus>(`${this.baseUrl}/work-focuses/${_id}`)
+      .pipe(tap((result) => console.log('fetch request sent')));
+  }
+
+  byBlockId(blockId: string): Observable<IWorkFocus> {
+    return this.http
+      .get<IWorkFocus>(`${this.baseUrl}/work-focuses/blockId/${blockId}`)
+      .pipe(tap((result) => console.log('fetch request sent')));
+  }
+
+  create(workFocus: IWorkFocus): Observable<IWorkFocus> {
+    return this.http
+      .post<IWorkFocus>(`${this.baseUrl}/work-focuses`, workFocus, {
+        headers: this.headers
+      })
+      .pipe(tap((result) => console.log('create request sent')));
+  }
+
+  update(workFocus: IWorkFocus): Observable<IWorkFocus> {
+    return this.http
+      .put<IWorkFocus>(`${this.baseUrl}/work-focuses`, workFocus, {
+        headers: this.headers
+      })
+      .pipe(tap((result) => console.log('update request sent')));
+  }
+
+  delete(_id: string): Observable<IWorkFocus> {
+    return this.http
+      .delete<IWorkFocus>(`${this.baseUrl}/work-focuses`, {
+        headers: this.headers,
+        body: { _id: _id }
+      })
+      .pipe(tap((result) => console.log('delete request sent')));
+  }
 }

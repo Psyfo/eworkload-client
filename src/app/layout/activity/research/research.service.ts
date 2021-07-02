@@ -1,15 +1,7 @@
 import { MenuItem } from 'primeng/api/menuitem';
 import { SelectItem } from 'primeng/api/selectitem';
 import { map } from 'rxjs/operators';
-import {
-  AddResearchActivityGQL,
-  DeleteResearchActivityGQL,
-  EditResearchActivityGQL,
-  ResearchActivitiesByUserGQL,
-  ResearchActivitiesGQL,
-  ResearchActivityGQL,
-  ResearchActivityInput
-} from 'src/app/shared/generated';
+
 
 import { Injectable } from '@angular/core';
 
@@ -17,9 +9,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ResearchService {
-  loading: boolean;
-  errors: any;
-  networkStatus: any;
+ 
 
   public outputTypes: SelectItem[] = [
     { label: 'Conference Proceedings', value: 1 },
@@ -39,81 +29,7 @@ export class ResearchService {
   ];
 
   constructor(
-    private researchActivityGql: ResearchActivityGQL,
-    private researchActivitiesGql: ResearchActivitiesGQL,
-    private researchActivitiesByUserGql: ResearchActivitiesByUserGQL,
-    private addresearchActivityGql: AddResearchActivityGQL,
-    private editresearchActivityGql: EditResearchActivityGQL,
-    private deleteresearchActivityGql: DeleteResearchActivityGQL
   ) {}
 
-  researchActivity(activityId: string) {
-    return this.researchActivityGql
-      .watch(
-        { activityId: activityId },
-        {
-          pollInterval: 2000
-        }
-      )
-      .valueChanges.pipe(
-        map(
-          (result) => result,
-          (err) => err
-        )
-      );
-  }
-  researchActivities() {
-    return this.researchActivitiesGql
-      .watch(
-        {},
-        {
-          pollInterval: 2000
-        }
-      )
-      .valueChanges.pipe(
-        map(
-          (result) => result,
-          (err) => err
-        )
-      );
-  }
-  researchActivitiesByUser(userId: string) {
-    return this.researchActivitiesByUserGql
-      .watch(
-        { userId: userId },
-        {
-          pollInterval: 2000
-        }
-      )
-      .valueChanges.pipe(
-        map(
-          (result) => result,
-          (err) => err
-        )
-      );
-  }
-  addResearchActivity(activity: ResearchActivityInput) {
-    return this.addresearchActivityGql.mutate({ activity: activity }).pipe(
-      map(
-        (result) => result,
-        (err) => err
-      )
-    );
-  }
-  editResearchActivity(activity: ResearchActivityInput) {
-    return this.editresearchActivityGql.mutate({ activity: activity }).pipe(
-      map(
-        (result) => result,
-        (err) => err
-      )
-    );
-  }
-  deleteResearchActivity(activity: ResearchActivityInput) {
-    return this.deleteresearchActivityGql.mutate({ activity: activity }).pipe(
-      map(
-        (result) => result,
-        (err) => err
-      )
-    );
-  }
+ 
 }

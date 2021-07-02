@@ -1,27 +1,25 @@
+import { throwError } from 'rxjs';
 import { AlertService } from 'src/app/shared/modules';
-import { Injectable, ErrorHandler } from '@angular/core';
+
+import { ErrorHandler, Injectable } from '@angular/core';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ErrorService implements ErrorHandler {
-    constructor(private alertService: AlertService) {}
-
-    handleGqlError(err: any) {
-        if (err.graphQLErrors) {
-            err.graphQLErrors.forEach(e => {
-                console.log(e.message);
-                this.alertService.errorToast(e.message);
-            });
-        }
-        if (err.networkError) {
-            console.log(err.message);
-            this.alertService.errorToast(err.message);
-        }
+  constructor(private alertService: AlertService) {}
+  handleError(error: any) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // client-side error
+      errorMessage = `Error: ${error.error.message}`;
+      this.alertService.errorToast(`${error.error.message}`);
+    } else {
+      // server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      this.alertService.errorToast(`${error.status} - ${error.message}`);
     }
-
-    handleError(err: any) {
-        console.log(err);
-        this.alertService.errorToast(err.message);
-    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
+  }
 }

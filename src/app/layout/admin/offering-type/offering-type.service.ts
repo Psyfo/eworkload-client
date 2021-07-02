@@ -1,67 +1,64 @@
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
-import {
-    OfferingTypeGQL,
-    OfferingTypesGQL,
-    AddOfferingTypeGQL,
-    EditOfferingTypeGQL,
-    DeleteOfferingTypeGQL,
-    OfferingTypeInput
-} from 'src/app/shared/generated';
+
+import { IOfferingType } from './offering-type.interface';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class OfferingTypeService {
-    loading: boolean;
-    errors: any;
-    networkStatus: any;
+  private baseUrl = environment.baseUrl;
 
-    constructor(
-        private offeringTypeGql: OfferingTypeGQL,
-        private offeringTypesGql: OfferingTypesGQL,
-        private addOfferingTypeGql: AddOfferingTypeGQL,
-        private editOfferingTypeGql: EditOfferingTypeGQL,
-        private deleteOfferingTypeGql: DeleteOfferingTypeGQL
-    ) {}
+  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    getOfferingType(offeringTypeId: string) {
-        return this.offeringTypeGql
-            .watch(
-                { offeringTypeId: offeringTypeId },
-                {
-                    pollInterval: 2000
-                }
-            )
-            .valueChanges.pipe(map(result => result, err => err));
-    }
+  constructor(private http: HttpClient) {}
 
-    getOfferingTypes() {
-        return this.offeringTypesGql
-            .watch(
-                {},
-                {
-                    pollInterval: 2000
-                }
-            )
-            .valueChanges.pipe(map(result => result, err => err));
-    }
+  all(): Observable<IOfferingType[]> {
+    return this.http
+      .get<IOfferingType[]>(`${this.baseUrl}/offering-types`)
+      .pipe(tap((result) => console.log('fetched data')));
+  }
 
-    addOfferingType(offeringType: OfferingTypeInput) {
-        return this.addOfferingTypeGql
-            .mutate({ offeringType: offeringType })
-            .pipe(map(result => result, err => err));
-    }
+  byId(_id: string): Observable<IOfferingType> {
+    return this.http
+      .get<IOfferingType>(`${this.baseUrl}/offering-types/${_id}`)
+      .pipe(tap((result) => console.log('fetch request sent')));
+  }
 
-    editOfferingType(offeringType: OfferingTypeInput) {
-        return this.editOfferingTypeGql
-            .mutate({ offeringType: offeringType })
-            .pipe(map(result => result, err => err));
-    }
+  byOfferingTypeId(offeringtypeId: string): Observable<IOfferingType> {
+    return this.http
+      .get<IOfferingType>(
+        `${this.baseUrl}/offering-types/offeringtypeId/${offeringtypeId}`
+      )
+      .pipe(tap((result) => console.log('fetch request sent')));
+  }
 
-    deleteOfferingType(offeringType: OfferingTypeInput) {
-        return this.deleteOfferingTypeGql
-            .mutate({ offeringType: offeringType })
-            .pipe(map(result => result, err => err));
-    }
+  create(offeringtype: IOfferingType): Observable<IOfferingType> {
+    return this.http
+      .post<IOfferingType>(`${this.baseUrl}/offering-types`, offeringtype, {
+        headers: this.headers
+      })
+      .pipe(tap((result) => console.log('create request sent')));
+  }
+
+  update(offeringtype: IOfferingType): Observable<IOfferingType> {
+    return this.http
+      .put<IOfferingType>(`${this.baseUrl}/offering-types`, offeringtype, {
+        headers: this.headers
+      })
+      .pipe(tap((result) => console.log('update request sent')));
+  }
+
+  delete(_id: string): Observable<IOfferingType> {
+    return this.http
+      .delete<IOfferingType>(`${this.baseUrl}/offering-types`, {
+        headers: this.headers,
+        body: { _id: _id }
+      })
+      .pipe(tap((result) => console.log('delete request sent')));
+  }
 }

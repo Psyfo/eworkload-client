@@ -1,1 +1,175 @@
-<p>offering-type works!</p>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+
+<div class="card" [@routerTransition]>
+  <p-toolbar styleClass="p=mb-4">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success p-mr-2"
+        (click)="openNew()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        [label]="Delete"
+        icon="pi pi-trash"
+        class="p-button-danger"
+        (click)="deleteSelectedOfferingTypes()"
+        [disabled]="!selectedOfferingTypes || !selectedOfferingTypes.length"
+      ></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+      <p-fileUpload
+        mode="basic"
+        accept="image/*"
+        [maxFileSize]="1000000"
+        label="Import"
+        chooseLabel="Import"
+        class="p-mr-2 p-d-inline-offeringType"
+      ></p-fileUpload>
+      <button
+        pButton
+        pRipple
+        label="Export"
+        icon="pi pi-upload"
+        class="p-button-help"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table
+    #dt
+    [value]="offeringTypes"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['offeringTypeId', 'name', 'description']"
+    [(selection)]="selectedOfferingTypes"
+    [rowHover]="true"
+    dataKey="offeringTypeId"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0">Manage OfferingTypes</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Search..."
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="offeringTypeId">
+          OfferingType ID <p-sortIcon field="offeringTypeId"></p-sortIcon>
+        </th>
+        <th pSortableColumn="description">
+          Description <p-sortIcon field="description"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-offeringType>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="offeringType"></p-tableCheckbox>
+        </td>
+        <td>{{ offeringType.offeringTypeId }}</td>
+        <td>{{ offeringType.description }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success p-mr-2"
+            (click)="editOfferingType(offeringType)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-warning"
+            (click)="deleteOfferingType(offeringType)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        In total there are
+        {{ offeringTypes ? offeringTypes.length : 0 }} offeringTypes.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [(visible)]="offeringTypeDialog"
+  [style]="{ width: '450px' }"
+  header="OfferingType Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="offeringTypeId">OfferingTypeId</label>
+      <input
+        type="text"
+        pInputText
+        id="offeringTypeId"
+        [(ngModel)]="offeringType.offeringTypeId"
+        required
+        autofocus
+      />
+      <small class="p-error" *ngIf="submitted && !offeringType.offeringTypeId"
+        >OfferingType ID is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="description">description</label>
+      <textarea
+        id="description"
+        pInputTextarea
+        [(ngModel)]="offeringType.description"
+        required
+        rows="3"
+        cols="20"
+      ></textarea>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="saveOfferingType()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+
+<p-toast></p-toast>

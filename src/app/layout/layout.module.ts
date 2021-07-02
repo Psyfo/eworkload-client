@@ -18,7 +18,6 @@ import { LayoutComponent } from './layout.component';
         CommonModule,
         FormsModule,
         NgbDropdownModule,
-        PrimeNgModulesModule,
         ReactiveFormsModule,
         TranslateModule,
         LayoutRoutingModule

@@ -1,17 +1,8 @@
-import { map, catchError } from 'rxjs/operators';
 
 import { Injectable } from '@angular/core';
 
 import { SelectItem } from 'primeng/api/selectitem';
-import { ErrorService } from 'src/app/shared/services';
-import {
-  VenueGQL,
-  VenuesGQL,
-  AddVenueGQL,
-  EditVenueGQL,
-  DeleteVenueGQL,
-  VenueInput
-} from 'src/app/shared/generated';
+
 
 @Injectable({
   providedIn: 'root'
@@ -35,66 +26,22 @@ export class VenueService {
   public networkStatus: any;
 
   constructor(
-    private errorService: ErrorService,
-    private venueGql: VenueGQL,
-    private venuesGql: VenuesGQL,
-    private addVenueGql: AddVenueGQL,
-    private editVenueGql: EditVenueGQL,
-    private deleteVenueGql: DeleteVenueGQL
+    
   ) {}
 
   getVenues() {
-    return this.venuesGql
-      .watch(
-        {},
-        {
-          pollInterval: 1000
-        }
-      )
-      .valueChanges.pipe(
-        map(
-          (result) => result,
-          (err) => err
-        )
-      );
+    
   }
-  getVenue(venueId: string) {
-    return this.venueGql
-      .watch(
-        { venueId: venueId },
-        {
-          pollInterval: 1000
-        }
-      )
-      .valueChanges.pipe(
-        map(
-          (result) => result,
-          (err) => err
-        )
-      );
+  getVenue( ) {
+   
   }
-  addVenue(venue: VenueInput) {
-    return this.addVenueGql.mutate({ venue: venue }).pipe(
-      map(
-        (result) => result,
-        (err) => err
-      )
-    );
+  addVenue( ) {
+  
   }
-  editVenue(venue: VenueInput) {
-    return this.editVenueGql.mutate({ venue: venue }).pipe(
-      map(
-        (result) => result,
-        (err) => err
-      )
-    );
+  editVenue() {
+   
   }
-  deleteVenue(venue: VenueInput) {
-    return this.deleteVenueGql.mutate({ venue: venue }).pipe(
-      map(
-        (result) => result,
-        (err) => err
-      )
-    );
+  deleteVenue() {
+   
   }
 }
