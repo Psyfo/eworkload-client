@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -15,14 +15,19 @@ export class QualificationService {
 
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   all(): Observable<IQualification[]> {
     return this.http
       .get<IQualification[]>(`${this.baseUrl}/qualifications`)
-      .pipe(tap((result) => console.log('fetched data')));
+      .pipe(
+        tap((result) => {
+          result.map(
+            (qualification: IQualification) =>
+              (qualification.optionName = `${qualification.name} (${qualification.qualificationId})`)
+          );
+        })
+      );
   }
 
   byId(_id: string): Observable<IQualification> {
@@ -33,19 +38,25 @@ export class QualificationService {
 
   byQualificationId(qualificationId: string): Observable<IQualification> {
     return this.http
-      .get<IQualification>(`${this.baseUrl}/qualifications/qualificationId/${qualificationId}`)
+      .get<IQualification>(
+        `${this.baseUrl}/qualifications/qualificationId/${qualificationId}`
+      )
       .pipe(tap((result) => console.log('fetch request sent')));
   }
 
   create(qualification: IQualification): Observable<IQualification> {
     return this.http
-      .post<IQualification>(`${this.baseUrl}/qualifications`, qualification, { headers: this.headers })
+      .post<IQualification>(`${this.baseUrl}/qualifications`, qualification, {
+        headers: this.headers
+      })
       .pipe(tap((result) => console.log('create request sent')));
   }
 
   update(qualification: IQualification): Observable<IQualification> {
     return this.http
-      .put<IQualification>(`${this.baseUrl}/qualifications`, qualification, { headers: this.headers })
+      .put<IQualification>(`${this.baseUrl}/qualifications`, qualification, {
+        headers: this.headers
+      })
       .pipe(tap((result) => console.log('update request sent')));
   }
 

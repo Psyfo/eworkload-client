@@ -15,14 +15,17 @@ export class ModuleService {
 
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   all(): Observable<IModule[]> {
-    return this.http
-      .get<IModule[]>(`${this.baseUrl}/modules`)
-      .pipe(tap((result) => console.log('fetched data')));
+    return this.http.get<IModule[]>(`${this.baseUrl}/modules`).pipe(
+      tap((result) => {
+        result.map(
+          (module: IModule) =>
+            (module.optionName = `${module.name} (${module.moduleId}) (${module.qualificationId}) (${module.year})`)
+        );
+      })
+    );
   }
 
   byId(_id: string): Observable<IModule> {
@@ -39,13 +42,17 @@ export class ModuleService {
 
   create(module: IModule): Observable<IModule> {
     return this.http
-      .post<IModule>(`${this.baseUrl}/modules`, module, { headers: this.headers })
+      .post<IModule>(`${this.baseUrl}/modules`, module, {
+        headers: this.headers
+      })
       .pipe(tap((result) => console.log('create request sent')));
   }
 
   update(module: IModule): Observable<IModule> {
     return this.http
-      .put<IModule>(`${this.baseUrl}/modules`, module, { headers: this.headers })
+      .put<IModule>(`${this.baseUrl}/modules`, module, {
+        headers: this.headers
+      })
       .pipe(tap((result) => console.log('update request sent')));
   }
 

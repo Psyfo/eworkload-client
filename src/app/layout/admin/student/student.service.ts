@@ -15,14 +15,17 @@ export class StudentService {
 
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   all(): Observable<IStudent[]> {
-    return this.http
-      .get<IStudent[]>(`${this.baseUrl}/students`)
-      .pipe(tap((result) => console.log('fetched data')));
+    return this.http.get<IStudent[]>(`${this.baseUrl}/students`).pipe(
+      tap((result) => {
+        result.map(
+          (student: IStudent) =>
+            (student.optionName = `${student.firstName} ${student.lastName} (${student.studentId})`)
+        );
+      })
+    );
   }
 
   byId(_id: string): Observable<IStudent> {
@@ -39,13 +42,17 @@ export class StudentService {
 
   create(student: IStudent): Observable<IStudent> {
     return this.http
-      .post<IStudent>(`${this.baseUrl}/students`, student, { headers: this.headers })
+      .post<IStudent>(`${this.baseUrl}/students`, student, {
+        headers: this.headers
+      })
       .pipe(tap((result) => console.log('create request sent')));
   }
 
   update(student: IStudent): Observable<IStudent> {
     return this.http
-      .put<IStudent>(`${this.baseUrl}/students`, student, { headers: this.headers })
+      .put<IStudent>(`${this.baseUrl}/students`, student, {
+        headers: this.headers
+      })
       .pipe(tap((result) => console.log('update request sent')));
   }
 

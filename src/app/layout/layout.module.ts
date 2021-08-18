@@ -1,4 +1,4 @@
-import { PrimeNgModulesModule } from 'src/app/shared/modules/prime-ng-modules.module';
+import { PrimeNgModulesModule } from './../shared/modules/prime-ng-modules.module';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -13,15 +13,16 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 
 @NgModule({
-    imports: [
-        AdminModule,
-        CommonModule,
-        FormsModule,
-        NgbDropdownModule,
-        ReactiveFormsModule,
-        TranslateModule,
-        LayoutRoutingModule
-    ],
-    declarations: [LayoutComponent, SidebarComponent, HeaderComponent]
+  imports: [
+    AdminModule,
+    CommonModule,
+    FormsModule,
+    NgbDropdownModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    LayoutRoutingModule,
+    PrimeNgModulesModule
+  ],
+  declarations: [LayoutComponent, SidebarComponent, HeaderComponent]
 })
 export class LayoutModule {}

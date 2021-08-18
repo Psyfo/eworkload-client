@@ -18,9 +18,14 @@ export class WorkFocusService {
   constructor(private http: HttpClient) {}
 
   all(): Observable<IWorkFocus[]> {
-    return this.http
-      .get<IWorkFocus[]>(`${this.baseUrl}/work-focuses`)
-      .pipe(tap((result) => console.log('fetched data')));
+    return this.http.get<IWorkFocus[]>(`${this.baseUrl}/work-focuses`).pipe(
+      tap((result) => {
+        result.map(
+          (workFocus) =>
+            (workFocus.optionName = `${workFocus.name} (${workFocus.teachingRatio}/${workFocus.researchRatio}/${workFocus.serviceRatio})`)
+        );
+      })
+    );
   }
 
   byId(_id: string): Observable<IWorkFocus> {

@@ -38,6 +38,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
+import { MenubarModule } from 'primeng/menubar';
 
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -73,6 +74,7 @@ import { PageHeaderModule } from './page-header';
     InputTextModule,
     KeyFilterModule,
     ListboxModule,
+    MenubarModule,
     MessageModule,
     MessagesModule,
     MultiSelectModule,
@@ -121,6 +123,7 @@ import { PageHeaderModule } from './page-header';
     InputTextModule,
     KeyFilterModule,
     ListboxModule,
+    MenubarModule,
     MessageModule,
     MessagesModule,
     MultiSelectModule,

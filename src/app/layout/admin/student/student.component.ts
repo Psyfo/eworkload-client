@@ -2,10 +2,11 @@ import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { routerTransition } from 'src/app/router.animations';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { IStudent } from './student.interface';
 import { StudentService } from './student.service';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-student',
@@ -14,12 +15,15 @@ import { StudentService } from './student.service';
   animations: [routerTransition()]
 })
 export class StudentComponent implements OnInit {
+  @ViewChild('dt') dt: Table | undefined;
+
   breadcrumbs: MenuItem[];
 
   studentDialog: boolean;
   students: IStudent[];
   student: IStudent;
   selectedStudents: IStudent[];
+  types: string[];
   submitted: boolean;
   statuses: any;
 
@@ -42,6 +46,7 @@ export class StudentComponent implements OnInit {
         url: 'admin/student'
       }
     ];
+    this.types = ['Diploma', 'Bachelor', 'Masters', 'Doctorate'];
     this.getStudents();
     this.timer = setInterval(() => {
       this.getStudents();
@@ -59,7 +64,6 @@ export class StudentComponent implements OnInit {
   getStudents() {
     this.studentService.all().subscribe((data) => {
       this.students = data;
-      console.log(JSON.stringify(this.students));
     });
   }
 
@@ -123,7 +127,7 @@ export class StudentComponent implements OnInit {
   saveStudent() {
     this.submitted = true;
 
-    if (this.student._id.trim()) {
+    if (this.student.studentId) {
       if (this.student._id) {
         this.studentService
           .update(this.student)
@@ -160,5 +164,12 @@ export class StudentComponent implements OnInit {
     }
 
     return index;
+  }
+
+  applyFilterGlobal($event: any, stringVal: any) {
+    this.dt!.filterGlobal(
+      ($event.target as HTMLInputElement).value,
+      'contains'
+    );
   }
 }

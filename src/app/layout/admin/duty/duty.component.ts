@@ -1,8 +1,8 @@
-import { routerTransition } from 'src/app/router.animations';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { Table } from 'primeng/table';
 import { Subject } from 'rxjs';
-
-import { Component, OnInit } from '@angular/core';
+import { routerTransition } from 'src/app/router.animations';
 
 import { IDuty } from './duty.interface';
 import { DutyService } from './duty.service';
@@ -14,6 +14,8 @@ import { DutyService } from './duty.service';
   animations: [routerTransition()]
 })
 export class DutyComponent implements OnInit {
+  @ViewChild('dt') dt: Table | undefined;
+
   breadcrumbs: MenuItem[];
 
   dutyDialog: boolean;
@@ -160,5 +162,12 @@ export class DutyComponent implements OnInit {
     }
 
     return index;
+  }
+
+  applyFilterGlobal($event: any, stringVal: any) {
+    this.dt!.filterGlobal(
+      ($event.target as HTMLInputElement).value,
+      'contains'
+    );
   }
 }

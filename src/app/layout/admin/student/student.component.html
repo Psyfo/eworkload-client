@@ -14,7 +14,7 @@
       <button
         pButton
         pRipple
-        [label]="Delete"
+        label="Delete"
         icon="pi pi-trash"
         class="p-button-danger"
         (click)="deleteSelectedStudents()"
@@ -61,7 +61,7 @@
           <input
             pInputText
             type="text"
-            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            (input)="applyFilterGlobal($event, 'contains')"
             placeholder="Search..."
           />
         </span>
@@ -81,6 +81,9 @@
         <th pSortableColumn="description">
           Last Name <p-sortIcon field="description"></p-sortIcon>
         </th>
+        <th pSortableColumn="type">
+          Type <p-sortIcon field="type"></p-sortIcon>
+        </th>
         <th></th>
       </tr>
     </ng-template>
@@ -92,6 +95,7 @@
         <td>{{ student.studentId }}</td>
         <td>{{ student.firstName }}</td>
         <td>{{ student.lastName }}</td>
+        <td>{{ student.type}}</td>
         <td>
           <button
             pButton
@@ -164,6 +168,24 @@
         required
         autofocus
       />
+      <small class="p-error" *ngIf="submitted && !student.lastName"
+        >Last name is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="type">Type</label>
+      <p-dropdown
+          [options]="types"
+          [(ngModel)]="student.type"
+          optionLabel=""
+          optionValue=""
+          [filter]="true"
+          filterBy="name"
+          [showClear]="true"
+          placeholder="Select a block"
+          appendTo="body"
+        >
+        </p-dropdown>
       <small class="p-error" *ngIf="submitted && !student.lastName"
         >Last name is required.</small
       >

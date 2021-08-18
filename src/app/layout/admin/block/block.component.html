@@ -14,7 +14,7 @@
       <button
         pButton
         pRipple
-        [label]="Delete"
+        label="Delete"
         icon="pi pi-trash"
         class="p-button-danger"
         (click)="deleteSelectedBlocks()"
@@ -61,7 +61,7 @@
           <input
             pInputText
             type="text"
-            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            (input)="applyFilterGlobal($event, 'contains')"
             placeholder="Search..."
           />
         </span>
@@ -78,8 +78,8 @@
         <th pSortableColumn="name">
           Name <p-sortIcon field="name"></p-sortIcon>
         </th>
-        <th pSortableColumn="description">
-          Description <p-sortIcon field="description"></p-sortIcon>
+        <th pSortableColumn="weeks">
+          Weeks <p-sortIcon field="weeks"></p-sortIcon>
         </th>
         <th></th>
       </tr>
@@ -91,7 +91,7 @@
         </td>
         <td>{{ block.blockId }}</td>
         <td>{{ block.name }}</td>
-        <td>{{ block.description }}</td>
+        <td>{{ block.weeks }}</td>
         <td>
           <button
             pButton
@@ -127,7 +127,7 @@
 >
   <ng-template pTemplate="content">
     <div class="p-field">
-      <label for="blockId">BlockId</label>
+      <label for="blockId">Block ID</label>
       <input
         type="text"
         pInputText
@@ -141,29 +141,30 @@
       >
     </div>
     <div class="p-field">
-      <label for="name">name</label>
+      <label for="name">Name</label>
       <input
         type="text"
         pInputText
         id="name"
         [(ngModel)]="block.name"
         required
-        autofocus
       />
       <small class="p-error" *ngIf="submitted && !block.name"
-        >Block ID is required.</small
+        >Block name is required.</small
       >
     </div>
     <div class="p-field">
-      <label for="description">description</label>
-      <textarea
-        id="description"
-        pInputTextarea
-        [(ngModel)]="block.description"
+      <label for="weeks">Weeks</label>
+      <input
+        type="text"
+        id="weeks"
+        pInputText
+        [(ngModel)]="block.weeks"
         required
-        rows="3"
-        cols="20"
-      ></textarea>
+      />
+      <small class="p-error" *ngIf="submitted && !block.weeks"
+        >Number of weeks is required.</small
+      >
     </div>
   </ng-template>
 

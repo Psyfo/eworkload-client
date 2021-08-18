@@ -2,10 +2,11 @@ import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { routerTransition } from 'src/app/router.animations';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { IPosition } from './position.interface';
 import { PositionService } from './position.service';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-position',
@@ -14,6 +15,8 @@ import { PositionService } from './position.service';
   animations: [routerTransition()]
 })
 export class PositionComponent implements OnInit {
+    @ViewChild('dt') dt: Table | undefined;
+
   breadcrumbs: MenuItem[];
 
   positionDialog: boolean;
@@ -160,5 +163,9 @@ export class PositionComponent implements OnInit {
     }
 
     return index;
+  }
+
+  applyFilterGlobal($event, stringVal) {
+    this.dt.filterGlobal(($event.target as HTMLInputElement).value, 'contains');
   }
 }

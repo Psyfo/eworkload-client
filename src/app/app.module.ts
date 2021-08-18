@@ -1,3 +1,4 @@
+import { GroupService } from 'src/app/layout/admin/group/group.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ErrorService } from 'src/app/shared/services';
@@ -76,8 +77,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     AppRoutingModule,
     AlertModule,
     PrimeNgModulesModule,
-    StaffSummaryModule,
-    GroupModule
+    StaffSummaryModule
   ],
   declarations: [AppComponent],
   providers: [
@@ -112,7 +112,8 @@ export const createTranslateLoader = (http: HttpClient) => {
     VenueService,
     WorkFocusService,
     WorkloadService,
-    DialogService
+    DialogService,
+    GroupService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

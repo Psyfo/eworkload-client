@@ -15,14 +15,17 @@ export class PositionService {
 
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   all(): Observable<IPosition[]> {
-    return this.http
-      .get<IPosition[]>(`${this.baseUrl}/positions`)
-      .pipe(tap((result) => console.log('fetched data')));
+    return this.http.get<IPosition[]>(`${this.baseUrl}/positions`).pipe(
+      tap((result) => {
+        result.map(
+          (position: IPosition) =>
+            (position.optionName = `${position.name} (${position.positionId})`)
+        );
+      })
+    );
   }
 
   byId(_id: string): Observable<IPosition> {
@@ -39,13 +42,17 @@ export class PositionService {
 
   create(position: IPosition): Observable<IPosition> {
     return this.http
-      .post<IPosition>(`${this.baseUrl}/positions`, position, { headers: this.headers })
+      .post<IPosition>(`${this.baseUrl}/positions`, position, {
+        headers: this.headers
+      })
       .pipe(tap((result) => console.log('create request sent')));
   }
 
   update(position: IPosition): Observable<IPosition> {
     return this.http
-      .put<IPosition>(`${this.baseUrl}/positions`, position, { headers: this.headers })
+      .put<IPosition>(`${this.baseUrl}/positions`, position, {
+        headers: this.headers
+      })
       .pipe(tap((result) => console.log('update request sent')));
   }
 

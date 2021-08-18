@@ -14,7 +14,7 @@
       <button
         pButton
         pRipple
-        [label]="Delete"
+        label="Delete"
         icon="pi pi-trash"
         class="p-button-danger"
         (click)="deleteSelectedUsers()"
@@ -46,12 +46,13 @@
     [value]="users"
     [rows]="10"
     [paginator]="true"
-    [globalFilterFields]="['userId', 'name', 'description']"
+    [globalFilterFields]="['userId', 'firstName', 'lastName', 'email', 'departmentId']"
     [(selection)]="selectedUsers"
     [rowHover]="true"
     dataKey="userId"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10,25,50]"
   >
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
@@ -61,7 +62,7 @@
           <input
             pInputText
             type="text"
-            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            (input)="applyFilterGlobal($event, 'contains')"
             placeholder="Search..."
           />
         </span>
@@ -75,11 +76,17 @@
         <th pSortableColumn="userId">
           User ID <p-sortIcon field="userId"></p-sortIcon>
         </th>
-        <th pSortableColumn="name">
-          Name <p-sortIcon field="name"></p-sortIcon>
+        <th pSortableColumn="firstName">
+          First Name <p-sortIcon field="firstName"></p-sortIcon>
         </th>
-        <th pSortableColumn="description">
-          Description <p-sortIcon field="description"></p-sortIcon>
+        <th pSortableColumn="lastName">
+          Last Name <p-sortIcon field="lastName"></p-sortIcon>
+        </th>
+        <th pSortableColumn="departmentId">
+          Department Code <p-sortIcon field="departmentId"></p-sortIcon>
+        </th>
+        <th pSortableColumn="workFocusName">
+          Work Focus <p-sortIcon field="workFocusName"></p-sortIcon>
         </th>
         <th></th>
       </tr>
@@ -92,6 +99,11 @@
         <td>{{ user.userId }}</td>
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
+        <td>{{ user.department?.name }} ({{user.departmentId}})</td>
+        <td>
+          {{ user.workFocus?.name }} ({{ user.workFocus?.teachingRatio }}/{{
+          user.workFocus?.researchRatio }}/{{ user.workFocus?.serviceRatio }})
+        </td>
         <td>
           <button
             pButton
@@ -120,10 +132,11 @@
 
 <p-dialog
   [(visible)]="userDialog"
-  [style]="{ width: '450px' }"
+  [style]="{ width: '50vw' }"
   header="User Details"
   [modal]="true"
   styleClass="p-fluid"
+  appendTo="body"
 >
   <ng-template pTemplate="content">
     <div class="p-field">
@@ -140,21 +153,22 @@
         >User ID is required.</small
       >
     </div>
-    <div class="p-field">
-      <label for="firstName">First Name</label>
-      <input
-        type="text"
-        pInputText
-        id="firstName"
-        [(ngModel)]="user.firstName"
-        required
-        autofocus
-      />
-      <small class="p-error" *ngIf="submitted && !user.firstName"
-        >User ID is required.</small
-      >
-    </div>
-    <div class="p-field">
+    <div class="p-fluid p-grid p-formgrid">
+      <div class="p-field p-col">
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          pInputText
+          id="firstName"
+          [(ngModel)]="user.firstName"
+          required
+          autofocus
+        />
+        <small class="p-error" *ngIf="submitted && !user.firstName"
+          >First Name is required.</small
+        >
+      </div>
+      <div class="p-field p-col">
         <label for="lastName">Last Name</label>
         <input
           type="text"
@@ -162,12 +176,91 @@
           id="lastName"
           [(ngModel)]="user.lastName"
           required
-          autofocus
         />
         <small class="p-error" *ngIf="submitted && !user.lastName"
           >Last Name is required.</small
         >
       </div>
+    </div>
+
+    <div class="p-fluid p-grid p-formgrid">
+      <div class="p-field p-col">
+        <label for="lastName">Department</label>
+        <p-dropdown
+          [options]="departments"
+          [(ngModel)]="user.departmentId"
+          optionLabel="optionName"
+          optionValue="departmentId"
+          [filter]="true"
+          filterBy="name"
+          [showClear]="true"
+          placeholder="Select a department"
+          appendTo="body"
+        >
+        </p-dropdown>
+        <small class="p-error" *ngIf="submitted && !user.departmentId"
+          >Department is required.</small
+        >
+      </div>
+      <div class="p-field p-col">
+        <label for="email">Email</label>
+        <input
+          type="text"
+          pInputText
+          id="email"
+          [(ngModel)]="user.email"
+          required
+          autofocus
+        />
+        <!-- <small class="p-error" *ngIf="submitted && !user.email"
+              >First Name is required.</small
+            > -->
+      </div>
+    </div>
+    <div class="p-grid p-fluid p-formgrid">
+      <div class="p-field p-col">
+        <label for="disciplineId">Discipline</label>
+        <p-multiSelect
+          [options]="disicplines"
+          [(ngModel)]="user.disciplineIds"
+          dataKey="disciplineId"
+          defaultLabel="Select a Discipline"
+          optionLabel="optionName"
+          selectedItemsLabel="{0} items selected"
+          appendTo="body"
+        ></p-multiSelect>
+      </div>
+      <div class="p-field p-col">
+        <label for="lastName">Position</label>
+        <p-dropdown
+          [options]="positions"
+          [(ngModel)]="user.positionId"
+          optionLabel="optionName"
+          optionValue="positionId"
+          [filter]="true"
+          filterBy="name"
+          [showClear]="true"
+          placeholder="Select a position"
+          appendTo="body"
+        >
+        </p-dropdown>
+      </div>
+      <div class="p-field p-col">
+        <label for="lastName">Work Focus (T/R/S)</label>
+        <p-dropdown
+          [options]="workFocuses"
+          [(ngModel)]="user.workFocusName"
+          optionLabel="optionName"
+          optionValue="name"
+          [filter]="true"
+          filterBy="optionName"
+          [showClear]="true"
+          placeholder="Select a work focus"
+          appendTo="body"
+        >
+        </p-dropdown>
+      </div>
+    </div>
   </ng-template>
 
   <ng-template pTemplate="footer">

@@ -33,9 +33,14 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   all(): Observable<IUser[]> {
-    return this.http
-      .get<IUser[]>(`${this.baseUrl}/users`)
-      .pipe(tap((result) => console.log('fetched data')));
+    return this.http.get<IUser[]>(`${this.baseUrl}/users`).pipe(
+      tap((result) => {
+        result.map(
+          (user: IUser) =>
+            (user.optionName = `${user.firstName} ${user.lastName} (${user.userId})`)
+        );
+      })
+    );
   }
 
   byId(_id: string): Observable<IUser> {

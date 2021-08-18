@@ -1,9 +1,8 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 
 import { IBlock } from './block.interface';
 
@@ -15,14 +14,17 @@ export class BlockService {
 
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   all(): Observable<IBlock[]> {
-    return this.http
-      .get<IBlock[]>(`${this.baseUrl}/blocks`)
-      .pipe(tap((result) => console.log('fetched data')));
+    return this.http.get<IBlock[]>(`${this.baseUrl}/blocks`).pipe(
+      tap((result) => {
+        result.map(
+          (block: IBlock) =>
+            (block.optionName = `${block.name} (${block.blockId})`)
+        );
+      })
+    );
   }
 
   byId(_id: string): Observable<IBlock> {

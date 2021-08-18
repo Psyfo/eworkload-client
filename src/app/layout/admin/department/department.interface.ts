@@ -9,4 +9,5 @@ export interface IDepartment {
     hodId?: string;
     createdAt?: Date;
     updatedAt?: Date;
+    optionName?: string;
 }

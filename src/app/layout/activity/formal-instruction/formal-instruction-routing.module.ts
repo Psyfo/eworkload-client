@@ -4,16 +4,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormalInstructionComponent } from './formal-instruction.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: FormalInstructionComponent,
-        children: [
-        ]
-    }
+  {
+    path: '',
+    component: FormalInstructionComponent,
+    children: []
+  }
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class FormalInstructionRoutingModule {}

@@ -1,11 +1,20 @@
+import { QualificationService } from './../qualification/qualification.service';
+import { DisciplineService } from './../discipline/discipline.service';
+import { IDiscipline } from './../discipline/discipline.interface';
+import { IQualification } from './../qualification/qualification.interface';
+import { IOfferingType } from './../offering-type/offering-type.interface';
+import { OfferingTypeService } from './../offering-type/offering-type.service';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { routerTransition } from 'src/app/router.animations';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { IModule } from './module.interface';
 import { ModuleService } from './module.service';
+import { Table } from 'primeng/table';
+import { BlockService } from '../block/block.service';
+import { IBlock } from '../block/block.interface';
 
 @Component({
   selector: 'app-module',
@@ -14,12 +23,22 @@ import { ModuleService } from './module.service';
   animations: [routerTransition()]
 })
 export class ModuleComponent implements OnInit {
+  @ViewChild('dt') dt: Table | undefined;
+
   breadcrumbs: MenuItem[];
 
   moduleDialog: boolean;
   modules: IModule[];
   module: IModule;
   selectedModules: IModule[];
+  blocks: IBlock[];
+  selectedBlock: IBlock;
+  offeringTypes: IOfferingType[];
+  selectedOfferingType: IOfferingType;
+  qualifications: IQualification[];
+  selectedQualification: IQualification;
+  disciplines: IDiscipline[];
+  selectedDiscipline: IDiscipline;
   submitted: boolean;
   statuses: any;
 
@@ -28,6 +47,10 @@ export class ModuleComponent implements OnInit {
 
   constructor(
     private moduleService: ModuleService,
+    private blockService: BlockService,
+    private offeringTypeService: OfferingTypeService,
+    private disciplineService: DisciplineService,
+    private qualificationService: QualificationService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
   ) {}
@@ -43,6 +66,10 @@ export class ModuleComponent implements OnInit {
       }
     ];
     this.getModules();
+    this.getBlocks();
+    this.getOfferingTypes();
+    this.getQualifications();
+    this.getDisciplines();
     this.timer = setInterval(() => {
       this.getModules();
     }, 2000);
@@ -59,8 +86,27 @@ export class ModuleComponent implements OnInit {
   getModules() {
     this.moduleService.all().subscribe((data) => {
       this.modules = data;
-      console.log(JSON.stringify(this.modules));
     });
+  }
+
+  getBlocks() {
+    this.blockService.all().subscribe((data) => (this.blocks = data));
+  }
+
+  getOfferingTypes() {
+    this.offeringTypeService
+      .all()
+      .subscribe((data) => (this.offeringTypes = data));
+  }
+
+  getQualifications() {
+    this.qualificationService
+      .all()
+      .subscribe((data) => (this.qualifications = data));
+  }
+
+  getDisciplines() {
+    this.disciplineService.all().subscribe((data) => (this.disciplines = data));
   }
 
   openNew() {
@@ -160,5 +206,9 @@ export class ModuleComponent implements OnInit {
     }
 
     return index;
+  }
+
+  applyFilterGlobal($event, stringVal) {
+    this.dt.filterGlobal(($event.target as HTMLInputElement).value, 'contains');
   }
 }

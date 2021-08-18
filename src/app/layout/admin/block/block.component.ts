@@ -2,10 +2,11 @@ import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { routerTransition } from 'src/app/router.animations';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { IBlock } from './block.interface';
 import { BlockService } from './block.service';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-block',
@@ -14,6 +15,8 @@ import { BlockService } from './block.service';
   animations: [routerTransition()]
 })
 export class BlockComponent implements OnInit {
+  @ViewChild('dt') dt: Table | undefined;
+
   breadcrumbs: MenuItem[];
 
   blockDialog: boolean;
@@ -59,7 +62,6 @@ export class BlockComponent implements OnInit {
   getBlocks() {
     this.blockService.all().subscribe((data) => {
       this.blocks = data;
-      console.log(JSON.stringify(this.blocks));
     });
   }
 
@@ -160,5 +162,12 @@ export class BlockComponent implements OnInit {
     }
 
     return index;
+  }
+
+  applyFilterGlobal($event: any, stringVal: any) {
+    this.dt!.filterGlobal(
+      ($event.target as HTMLInputElement).value,
+      'contains'
+    );
   }
 }

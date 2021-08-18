@@ -4,4 +4,5 @@ export interface IOfferingType {
   description?: string;
   createdAt?: Date;
   updatedAt?: Date;
+  optionName?: string;
 }

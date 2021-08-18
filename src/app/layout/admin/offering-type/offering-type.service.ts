@@ -1,9 +1,8 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 
 import { IOfferingType } from './offering-type.interface';
 
@@ -20,7 +19,14 @@ export class OfferingTypeService {
   all(): Observable<IOfferingType[]> {
     return this.http
       .get<IOfferingType[]>(`${this.baseUrl}/offering-types`)
-      .pipe(tap((result) => console.log('fetched data')));
+      .pipe(
+        tap((result) => {
+          result.map(
+            (offeringType: IOfferingType) =>
+              (offeringType.optionName = `${offeringType.description} (${offeringType.offeringTypeId})`)
+          );
+        })
+      );
   }
 
   byId(_id: string): Observable<IOfferingType> {

@@ -15,14 +15,17 @@ export class FacultyService {
 
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   all(): Observable<IFaculty[]> {
-    return this.http
-      .get<IFaculty[]>(`${this.baseUrl}/faculties`)
-      .pipe(tap((result) => console.log('fetched data')));
+    return this.http.get<IFaculty[]>(`${this.baseUrl}/faculties`).pipe(
+      tap((result) => {
+        result.map(
+          (faculty: IFaculty) =>
+            (faculty.optionName = `${faculty.name} (${faculty.facultyId})`)
+        );
+      })
+    );
   }
 
   byId(_id: string): Observable<IFaculty> {
@@ -39,13 +42,17 @@ export class FacultyService {
 
   create(faculty: IFaculty): Observable<IFaculty> {
     return this.http
-      .post<IFaculty>(`${this.baseUrl}/faculties`, faculty, { headers: this.headers })
+      .post<IFaculty>(`${this.baseUrl}/faculties`, faculty, {
+        headers: this.headers
+      })
       .pipe(tap((result) => console.log('create request sent')));
   }
 
   update(faculty: IFaculty): Observable<IFaculty> {
     return this.http
-      .put<IFaculty>(`${this.baseUrl}/faculties`, faculty, { headers: this.headers })
+      .put<IFaculty>(`${this.baseUrl}/faculties`, faculty, {
+        headers: this.headers
+      })
       .pipe(tap((result) => console.log('update request sent')));
   }
 

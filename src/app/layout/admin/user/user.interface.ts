@@ -23,4 +23,5 @@ export interface IUser {
     workFocus?: IWorkFocus;
     createdAt?: Date;
     updatedAt?: Date;
+    optionName?: string;
 }

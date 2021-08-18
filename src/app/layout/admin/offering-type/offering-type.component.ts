@@ -1,11 +1,11 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { Table } from 'primeng/table';
 import { Subject } from 'rxjs';
-
-import { Component, OnInit } from '@angular/core';
+import { routerTransition } from 'src/app/router.animations';
 
 import { IOfferingType } from './offering-type.interface';
 import { OfferingTypeService } from './offering-type.service';
-import { routerTransition } from 'src/app/router.animations';
 
 @Component({
   selector: 'app-offering-type',
@@ -14,6 +14,8 @@ import { routerTransition } from 'src/app/router.animations';
   animations: [routerTransition()]
 })
 export class OfferingTypeComponent implements OnInit {
+  @ViewChild('dt') dt: Table | undefined;
+
   breadcrumbs: MenuItem[];
 
   offeringTypeDialog: boolean;
@@ -161,5 +163,12 @@ export class OfferingTypeComponent implements OnInit {
     }
 
     return index;
+  }
+
+  applyFilterGlobal($event: any, stringVal: any) {
+    this.dt!.filterGlobal(
+      ($event.target as HTMLInputElement).value,
+      'contains'
+    );
   }
 }

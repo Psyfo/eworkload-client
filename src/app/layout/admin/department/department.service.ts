@@ -15,14 +15,17 @@ export class DepartmentService {
 
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   all(): Observable<IDepartment[]> {
-    return this.http
-      .get<IDepartment[]>(`${this.baseUrl}/departments`)
-      .pipe(tap((result) => console.log('fetched data')));
+    return this.http.get<IDepartment[]>(`${this.baseUrl}/departments`).pipe(
+      tap((result) => {
+        result.map(
+          (department: IDepartment) =>
+            (department.optionName = `${department.name} (${department.departmentId})`)
+        );
+      })
+    );
   }
 
   byId(_id: string): Observable<IDepartment> {
@@ -33,19 +36,25 @@ export class DepartmentService {
 
   byDepartmentId(departmentId: string): Observable<IDepartment> {
     return this.http
-      .get<IDepartment>(`${this.baseUrl}/departments/departmentId/${departmentId}`)
+      .get<IDepartment>(
+        `${this.baseUrl}/departments/departmentId/${departmentId}`
+      )
       .pipe(tap((result) => console.log('fetch request sent')));
   }
 
   create(department: IDepartment): Observable<IDepartment> {
     return this.http
-      .post<IDepartment>(`${this.baseUrl}/departments`, department, { headers: this.headers })
+      .post<IDepartment>(`${this.baseUrl}/departments`, department, {
+        headers: this.headers
+      })
       .pipe(tap((result) => console.log('create request sent')));
   }
 
   update(department: IDepartment): Observable<IDepartment> {
     return this.http
-      .put<IDepartment>(`${this.baseUrl}/departments`, department, { headers: this.headers })
+      .put<IDepartment>(`${this.baseUrl}/departments`, department, {
+        headers: this.headers
+      })
       .pipe(tap((result) => console.log('update request sent')));
   }
 

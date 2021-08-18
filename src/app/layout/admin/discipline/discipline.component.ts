@@ -1,11 +1,12 @@
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { IDiscipline } from './discipline.interface';
 import { DisciplineService } from './discipline.service';
 import { routerTransition } from 'src/app/router.animations';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-discipline',
@@ -14,6 +15,8 @@ import { routerTransition } from 'src/app/router.animations';
   animations: [routerTransition()]
 })
 export class DisciplineComponent implements OnInit {
+  @ViewChild('dt') dt: Table | undefined;
+
   breadcrumbs: MenuItem[];
 
   disciplineDialog: boolean;
@@ -160,5 +163,12 @@ export class DisciplineComponent implements OnInit {
     }
 
     return index;
+  }
+
+  applyFilterGlobal($event: any, stringVal: any) {
+    this.dt!.filterGlobal(
+      ($event.target as HTMLInputElement).value,
+      'contains'
+    );
   }
 }

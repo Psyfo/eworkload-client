@@ -1,11 +1,11 @@
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { MenuItem } from 'primeng/api';
+import { Subject } from 'rxjs';
+import { UserService } from 'src/app/layout/admin/user/user.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
-import { UserService } from '../../admin/user/user.service';
 import { IUser } from '../../admin/user/user.interface';
 
 @Component({
@@ -14,54 +14,25 @@ import { IUser } from '../../admin/user/user.interface';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  pushRightClass: string = 'push-right';
+  items: MenuItem[];
   userId: string;
   user: IUser;
-  loading: boolean;
-  errors: any;
 
   private unsubscribe = new Subject();
 
   constructor(
-    private translate: TranslateService,
     public router: Router,
-    private userService: UserService
-  ) {
-    this.translate.addLangs([
-      'en',
-      'fr',
-      'ur',
-      'es',
-      'it',
-      'fa',
-      'de',
-      'zh-CHS'
-    ]);
-    this.translate.setDefaultLang('en');
-    const browserLang = this.translate.getBrowserLang();
-    this.translate.use(
-      browserLang.match(/en|fr|ur|es|it|fa|de|zh-CHS/) ? browserLang : 'en'
-    );
-
-    this.router.events.subscribe((val) => {
-      if (
-        val instanceof NavigationEnd &&
-        window.innerWidth <= 992 &&
-        this.isToggled()
-      ) {
-        this.toggleSidebar();
-      }
-    });
-  }
+    private userService: UserService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
+    this.items = [];
+
     // Get current user ID
     const authData = JSON.parse(localStorage.getItem('authData'));
-    console.log(authData.userId);
-
     this.userService.byUserId(authData.userId).subscribe((data) => {
       this.user = data;
-      JSON.stringify(data);
     });
   }
 
@@ -70,27 +41,7 @@ export class HeaderComponent implements OnInit {
     this.unsubscribe.complete();
   }
 
-  isToggled(): boolean {
-    const dom: Element = document.querySelector('body');
-    return dom.classList.contains(this.pushRightClass);
-  }
-
-  toggleSidebar() {
-    const dom: any = document.querySelector('body');
-    dom.classList.toggle(this.pushRightClass);
-  }
-
-  rltAndLtr() {
-    const dom: any = document.querySelector('body');
-    dom.classList.toggle('rtl');
-  }
-
-  onLoggedout() {
-    localStorage.removeItem('authData');
-    this.router.navigate(['/login']);
-  }
-
-  changeLang(language: string) {
-    this.translate.use(language);
+  logout() {
+    this.authService.logout();
   }
 }

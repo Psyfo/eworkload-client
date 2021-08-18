@@ -6,4 +6,5 @@ export interface IVenue {
     type?: string;
     createdAt?: Date;
     updatedAt?: Date;
+    optionName?: string;
 }

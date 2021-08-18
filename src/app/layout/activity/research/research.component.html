@@ -1,1 +1,188 @@
-<router-outlet></router-outlet>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+
+<div class="card" [@routerTransition]>
+  <p-toolbar styleClass="p=mb-4">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success p-mr-2"
+        (click)="openNew()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        label="Delete"
+        icon="pi pi-trash"
+        class="p-button-danger"
+        (click)="deleteSelectedResearchs()"
+        [disabled]="!selectedResearchActivities || !selectedResearchActivities.length"
+      ></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+      <p-fileUpload
+        mode="basic"
+        accept="image/*"
+        [maxFileSize]="1000000"
+        label="Import"
+        chooseLabel="Import"
+        class="p-mr-2 p-d-inline-researchActivity"
+      ></p-fileUpload>
+      <button
+        pButton
+        pRipple
+        label="Export"
+        icon="pi pi-upload"
+        class="p-button-help"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table
+    #dt
+    [value]="researchActivities"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['userId', 'groupId']"
+    [(selection)]="researchActivity"
+    [rowHover]="true"
+    dataKey="researchId"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0">Manage Research Activities</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="applyFilterGlobal($event, 'contains')"
+            placeholder="Search..."
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="userId" colspan="2">
+          User ID
+          <p-sortIcon field="userId"></p-sortIcon>
+        </th>
+        <th pSortableColumn="groupId">
+          Research Output <p-sortIcon field="groupId"></p-sortIcon>
+        </th>
+        <th>Total</th>
+        <th>% of Annual</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-researchActivity>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="researchActivity"></p-tableCheckbox>
+        </td>
+        <td colspan="2">
+          {{ researchActivity.user?.lastName }},
+          {{researchActivity.user?.firstName}} ({{researchActivity.userId}})
+        </td>
+        <td colspan="2">{{ researchActivity.output }}</td>
+        <td>{{researchActivity.workload?.total | number : '1.0-2'}}</td>
+        <td>
+          {{researchActivity.workload?.percentageOfAnnual | number : '1.0-2'}}%
+        </td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success p-mr-2"
+            (click)="editResearch(researchActivity)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-warning"
+            (click)="deleteResearch(researchActivity)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        In total there are {{ researchActivities ? researchActivities.length : 0
+        }} formal instruction activities.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [(visible)]="researchDialog"
+  [style]="{ width: '50vw' }"
+  header="Research Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="user">Select Staff Member</label>
+      <p-dropdown
+        [options]="users"
+        [(ngModel)]="researchActivity.userId"
+        optionLabel="optionName"
+        optionValue="userId"
+        [filter]="true"
+        filterBy="optionName"
+        [showClear]="true"
+        placeholder="Select a user"
+        appendTo="body"
+      >
+      </p-dropdown>
+      <small class="p-error" *ngIf="submitted && !researchActivity.userId"
+        >User is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="description">Research Output</label>
+      <textarea
+        id="output"
+        pInputTextarea
+        [(ngModel)]="researchActivity.output"
+        rows="3"
+        cols="20"
+      ></textarea>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="saveResearch()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+
+<p-toast></p-toast>

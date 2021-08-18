@@ -1,8 +1,5 @@
-import { Subject } from 'rxjs';
-
 import { Component, OnInit } from '@angular/core';
-
-import { AlertService } from './shared/modules';
+import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 
 @Component({
@@ -14,7 +11,7 @@ export class AppComponent implements OnInit {
   // Properties
   private unsubscribe = new Subject();
 
-  constructor(private alertService: AlertService) {}
+  constructor() {}
 
   ngOnInit() {
     if (environment.production) {

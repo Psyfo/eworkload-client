@@ -14,7 +14,7 @@
       <button
         pButton
         pRipple
-        [label]="Delete"
+        label="Delete"
         icon="pi pi-trash"
         class="p-button-danger"
         (click)="deleteSelectedDisciplines()"
@@ -61,7 +61,7 @@
           <input
             pInputText
             type="text"
-            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            (input)="applyFilterGlobal($event, 'contains')"
             placeholder="Search..."
           />
         </span>
@@ -109,7 +109,8 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are {{ disciplines ? disciplines.length : 0 }} disciplines.
+        In total there are {{ disciplines ? disciplines.length : 0 }}
+        disciplines.
       </div>
     </ng-template>
   </p-table>
@@ -124,7 +125,7 @@
 >
   <ng-template pTemplate="content">
     <div class="p-field">
-      <label for="disciplineId">DisciplineId</label>
+      <label for="disciplineId">Discipline ID</label>
       <input
         type="text"
         pInputText
@@ -138,7 +139,7 @@
       >
     </div>
     <div class="p-field">
-      <label for="name">name</label>
+      <label for="name">Name</label>
       <input
         type="text"
         pInputText
@@ -151,7 +152,6 @@
         >Discipline ID is required.</small
       >
     </div>
- 
   </ng-template>
 
   <ng-template pTemplate="footer">
@@ -177,4 +177,3 @@
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 
 <p-toast></p-toast>
-

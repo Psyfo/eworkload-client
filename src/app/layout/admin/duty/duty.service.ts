@@ -15,14 +15,16 @@ export class DutyService {
 
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   all(): Observable<IDuty[]> {
-    return this.http
-      .get<IDuty[]>(`${this.baseUrl}/duties`)
-      .pipe(tap((result) => console.log('fetched data')));
+    return this.http.get<IDuty[]>(`${this.baseUrl}/duties`).pipe(
+      tap((result) => {
+        result.map(
+          (duty: IDuty) => (duty.optionName = `${duty.name} (${duty.dutyId})`)
+        );
+      })
+    );
   }
 
   byId(_id: string): Observable<IDuty> {

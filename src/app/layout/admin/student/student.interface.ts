@@ -9,4 +9,5 @@ export interface IStudent {
   graduationDate?: string;
   createdAt?: Date;
   updatedAt?: Date;
+  optionName?: string;
 }

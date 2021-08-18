@@ -2,10 +2,11 @@ import { routerTransition } from 'src/app/router.animations';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { IFaculty } from './faculty.interface';
 import { FacultyService } from './faculty.service';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-faculty',
@@ -14,6 +15,8 @@ import { FacultyService } from './faculty.service';
   animations: [routerTransition()]
 })
 export class FacultyComponent implements OnInit {
+    @ViewChild('dt') dt: Table | undefined;
+
   breadcrumbs: MenuItem[];
 
   facultyDialog: boolean;
@@ -161,4 +164,9 @@ export class FacultyComponent implements OnInit {
 
     return index;
   }
+
+  applyFilterGlobal($event: any, stringVal: any) {
+    this.dt!.filterGlobal(($event.target as HTMLInputElement).value, 'contains');
+  }
+
 }

@@ -18,36 +18,36 @@ const routes: Routes = [
       {
         path: 'profile',
         loadChildren: () =>
-          import('./profile/profile.module').then(m => m.ProfileModule)
+          import('./profile/profile.module').then((m) => m.ProfileModule)
       },
       {
         path: 'evidence',
         loadChildren: () =>
-          import('./evidence/evidence.module').then(m => m.EvidenceModule)
+          import('./evidence/evidence.module').then((m) => m.EvidenceModule)
       },
       {
         path: 'dashboard',
         loadChildren: () =>
-          import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+          import('./dashboard/dashboard.module').then((m) => m.DashboardModule)
       },
       {
         path: 'activity',
         loadChildren: () =>
-          import('./activity/activity.module').then(m => m.ActivityModule)
+          import('./activity/activity.module').then((m) => m.ActivityModule)
       },
       {
         path: 'admin',
         loadChildren: () =>
-          import('./admin/admin.module').then(m => m.AdminModule)
+          import('./admin/admin.module').then((m) => m.AdminModule)
       },
       {
         path: 'hod',
-        loadChildren: () => import('./hod/hod.module').then(m => m.HodModule)
+        loadChildren: () => import('./hod/hod.module').then((m) => m.HodModule)
       },
       {
         path: 'report',
         loadChildren: () =>
-          import('./report/report.module').then(m => m.ReportModule)
+          import('./report/report.module').then((m) => m.ReportModule)
       }
     ]
   }

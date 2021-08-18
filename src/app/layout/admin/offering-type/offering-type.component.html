@@ -14,7 +14,7 @@
       <button
         pButton
         pRipple
-        [label]="Delete"
+        label="Delete"
         icon="pi pi-trash"
         class="p-button-danger"
         (click)="deleteSelectedOfferingTypes()"
@@ -46,7 +46,7 @@
     [value]="offeringTypes"
     [rows]="10"
     [paginator]="true"
-    [globalFilterFields]="['offeringTypeId', 'name', 'description']"
+    [globalFilterFields]="['offeringTypeId', 'description']"
     [(selection)]="selectedOfferingTypes"
     [rowHover]="true"
     dataKey="offeringTypeId"
@@ -55,13 +55,13 @@
   >
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
-        <h5 class="p-m-0">Manage OfferingTypes</h5>
+        <h5 class="p-m-0">Manage Offering Types</h5>
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
           <input
             pInputText
             type="text"
-            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            (input)="applyFilterGlobal($event, 'contains')"
             placeholder="Search..."
           />
         </span>
@@ -73,7 +73,7 @@
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
         <th pSortableColumn="offeringTypeId">
-          OfferingType ID <p-sortIcon field="offeringTypeId"></p-sortIcon>
+          Offering Type ID <p-sortIcon field="offeringTypeId"></p-sortIcon>
         </th>
         <th pSortableColumn="description">
           Description <p-sortIcon field="description"></p-sortIcon>
@@ -108,8 +108,8 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are
-        {{ offeringTypes ? offeringTypes.length : 0 }} offeringTypes.
+        In total there are {{ offeringTypes ? offeringTypes.length : 0 }}
+        offering types.
       </div>
     </ng-template>
   </p-table>
@@ -124,7 +124,7 @@
 >
   <ng-template pTemplate="content">
     <div class="p-field">
-      <label for="offeringTypeId">OfferingTypeId</label>
+      <label for="offeringTypeId">Offering Type ID</label>
       <input
         type="text"
         pInputText
@@ -134,20 +134,21 @@
         autofocus
       />
       <small class="p-error" *ngIf="submitted && !offeringType.offeringTypeId"
-        >OfferingType ID is required.</small
+        >Offering Type ID is required.</small
       >
     </div>
     <div class="p-field">
-      <label for="description">description</label>
-      <textarea
+      <label for="description">Description</label>
+      <input
         id="description"
-        pInputTextarea
+        pInputText
         [(ngModel)]="offeringType.description"
         required
-        rows="3"
-        cols="20"
-      ></textarea>
+      />
     </div>
+    <small class="p-error" *ngIf="submitted && !offeringType.description"
+      >Description is required.</small
+    >
   </ng-template>
 
   <ng-template pTemplate="footer">

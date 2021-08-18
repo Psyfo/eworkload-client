@@ -14,7 +14,7 @@
       <button
         pButton
         pRipple
-        [label]="Delete"
+        label="Delete"
         icon="pi pi-trash"
         class="p-button-danger"
         (click)="deleteSelectedDepartments()"
@@ -61,7 +61,7 @@
           <input
             pInputText
             type="text"
-            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            (input)="applyFilterGlobal($event, 'contains')"
             placeholder="Search..."
           />
         </span>
@@ -112,8 +112,8 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are
-        {{ departments ? departments.length : 0 }} departments.
+        In total there are {{ departments ? departments.length : 0 }}
+        departments.
       </div>
     </ng-template>
   </p-table>
@@ -157,15 +157,22 @@
     </div>
     <div class="p-field">
       <label for="facultyId">Faculty ID</label>
-      <textarea
-        id="facultyId"
-        pInputTextarea
+      <p-dropdown
+        [options]="faculties"
         [(ngModel)]="department.facultyId"
-        required
-        rows="3"
-        cols="20"
-      ></textarea>
+        optionLabel="optionName"
+        optionValue="facultyId"
+        [filter]="true"
+        filterBy="optionName"
+        [showClear]="true"
+        placeholder="Select a faculty"
+        appendTo="body"
+      >
+      </p-dropdown>
     </div>
+    <small class="p-error" *ngIf="submitted && !department.facultyId"
+      >Faculty is required.</small
+    >
   </ng-template>
 
   <ng-template pTemplate="footer">

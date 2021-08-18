@@ -17,25 +17,27 @@ import { StudentModule } from './student/student.module';
 import { UserModule } from './user/user.module';
 import { VenueModule } from './venue/venue.module';
 import { WorkFocusModule } from './work-focus/work-focus.module';
+import { GroupModule } from './group/group.module';
 
 @NgModule({
-    imports: [
-        AdminRoutingModule,
-        BlockModule,
-        CommonModule,
-        DepartmentModule,
-        DisciplineModule,
-        DutyModule,
-        EnrollmentModule,
-        FacultyModule,
-        ModuleModule,
-        OfferingTypeModule,
-        PageHeaderModule,
-        StudentModule,
-        UserModule,
-        VenueModule,
-        WorkFocusModule
-    ],
-    declarations: [AdminComponent]
+  imports: [
+    AdminRoutingModule,
+    BlockModule,
+    CommonModule,
+    DepartmentModule,
+    DisciplineModule,
+    DutyModule,
+    EnrollmentModule,
+    FacultyModule,
+    GroupModule,
+    ModuleModule,
+    OfferingTypeModule,
+    PageHeaderModule,
+    StudentModule,
+    UserModule,
+    VenueModule,
+    WorkFocusModule
+  ],
+  declarations: [AdminComponent]
 })
 export class AdminModule {}

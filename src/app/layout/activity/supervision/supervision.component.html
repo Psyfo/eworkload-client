@@ -1,1 +1,202 @@
-<router-outlet></router-outlet>
+<app-page-header [breadcrumbs]="breadcrumbs"></app-page-header>
+
+<div class="card" [@routerTransition]>
+  <p-toolbar styleClass="p=mb-4">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success p-mr-2"
+        (click)="openNew()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        label="Delete"
+        icon="pi pi-trash"
+        class="p-button-danger"
+        (click)="deleteSelectedSupervisions()"
+        [disabled]="!selectedSupervisionActivities || !selectedSupervisionActivities.length"
+      ></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+      <p-fileUpload
+        mode="basic"
+        accept="image/*"
+        [maxFileSize]="1000000"
+        label="Import"
+        chooseLabel="Import"
+        class="p-mr-2 p-d-inline-supervisionActivity"
+      ></p-fileUpload>
+      <button
+        pButton
+        pRipple
+        label="Export"
+        icon="pi pi-upload"
+        class="p-button-help"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table
+    #dt
+    [value]="supervisionActivities"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['userId', 'groupId']"
+    [(selection)]="supervisionActivity"
+    [rowHover]="true"
+    dataKey="supervisionId"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0">Manage Supervision Activities</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="applyFilterGlobal($event, 'contains')"
+            placeholder="Search..."
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="userId" colspan="2">
+          Supervisor
+          <p-sortIcon field="userId"></p-sortIcon>
+        </th>
+        <th pSortableColumn="groupId">
+          Student <p-sortIcon field="groupId"></p-sortIcon>
+        </th>
+        <th pSortableColumn="moduleId">
+          Split <p-sortIcon field="moduleId"></p-sortIcon>
+        </th>
+        <th>Total</th>
+        <th>% of Annual</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-supervisionActivity>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="supervisionActivity"></p-tableCheckbox>
+        </td>
+        <td colspan="2">
+          {{ supervisionActivity.user?.lastName }},
+          {{supervisionActivity.user?.firstName}}
+          ({{supervisionActivity.userId}})
+        </td>
+        <td colspan="2">
+          {{ supervisionActivity.student?.lastName }},
+          {{supervisionActivity.student?.firstName}}
+          ({{supervisionActivity.student.studentId}})
+        </td>
+        <td>{{supervisionActivity.workload?.total | number : '1.0-2'}}</td>
+        <td>{{supervisionActivity.workload?.percentageOfAnnual | number : '1.0-2'}}%</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success p-mr-2"
+            (click)="editSupervision(supervisionActivity)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-warning"
+            (click)="deleteSupervision(supervisionActivity)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        In total there are {{ supervisionActivities ?
+        supervisionActivities.length : 0 }} formal instruction activities.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [(visible)]="supervisionDialog"
+  [style]="{ width: '50vw' }"
+  header="Supervision Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="user">Select Staff Member</label>
+      <p-dropdown
+        [options]="users"
+        [(ngModel)]="supervisionActivity.userId"
+        optionLabel="optionName"
+        optionValue="userId"
+        [filter]="true"
+        filterBy="optionName"
+        [showClear]="true"
+        placeholder="Select a user"
+        appendTo="body"
+      >
+      </p-dropdown>
+      <small class="p-error" *ngIf="submitted && !supervisionActivity.userId"
+        >User is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="type">Select Student</label>
+      <p-dropdown
+        [options]="students"
+        [(ngModel)]="supervisionActivity.studentId"
+        optionLabel="optionName"
+        optionValue="_id"
+        [filter]="true"
+        filterBy="optionName"
+        [showClear]="true"
+        placeholder="Select a student"
+        appendTo="body"
+      >
+      </p-dropdown>
+      <small class="p-error" *ngIf="submitted && !supervisionActivity.studentId"
+        >Group is required</small
+      >
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="saveSupervision()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+
+<p-toast></p-toast>

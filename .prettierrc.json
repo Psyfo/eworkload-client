@@ -4,5 +4,21 @@
   "bracketSpacing": true,
   "singleQuote": true,
   "semi": true,
-  "printWidth": 80
+  "printWidth": 80,
+  "arrowParens": "always",
+  "quoteProps": "as-needed",
+  "overrides": [
+    {
+      "files": "*.component.html",
+      "options": {
+        "parser": "angular"
+      }
+    },
+    {
+      "files": "*.html",
+      "options": {
+        "parser": "html"
+      }
+    }
+  ]
 }

@@ -1,8 +1,10 @@
+import { FacultyService } from './../faculty/faculty.service';
+import { IFaculty } from './../faculty/faculty.interface';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { Table } from 'primeng/table';
 import { Subject } from 'rxjs';
 import { routerTransition } from 'src/app/router.animations';
-
-import { Component, OnInit } from '@angular/core';
 
 import { IDepartment } from './department.interface';
 import { DepartmentService } from './department.service';
@@ -14,12 +16,16 @@ import { DepartmentService } from './department.service';
   animations: [routerTransition()]
 })
 export class DepartmentComponent implements OnInit {
+  @ViewChild('dt') dt: Table | undefined;
+
   breadcrumbs: MenuItem[];
 
   departmentDialog: boolean;
   departments: IDepartment[];
   department: IDepartment;
   selectedDepartments: IDepartment[];
+  faculties: IFaculty[];
+  faculty: IFaculty;
   submitted: boolean;
   statuses: any;
 
@@ -28,6 +34,7 @@ export class DepartmentComponent implements OnInit {
 
   constructor(
     private departmentService: DepartmentService,
+    private facultyService: FacultyService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
   ) {}
@@ -43,6 +50,7 @@ export class DepartmentComponent implements OnInit {
       }
     ];
     this.getDepartments();
+    this.getFaculties();
     this.timer = setInterval(() => {
       this.getDepartments();
     }, 2000);
@@ -57,10 +65,11 @@ export class DepartmentComponent implements OnInit {
   }
 
   getDepartments() {
-    this.departmentService.all().subscribe((data) => {
-      this.departments = data;
-      console.log(JSON.stringify(this.departments));
-    });
+    this.departmentService.all().subscribe((data) => (this.departments = data));
+  }
+
+  getFaculties() {
+    this.facultyService.all().subscribe((data) => (this.faculties = data));
   }
 
   openNew() {
@@ -160,5 +169,12 @@ export class DepartmentComponent implements OnInit {
     }
 
     return index;
+  }
+
+  applyFilterGlobal($event: any, stringVal: any) {
+    this.dt!.filterGlobal(
+      ($event.target as HTMLInputElement).value,
+      'contains'
+    );
   }
 }

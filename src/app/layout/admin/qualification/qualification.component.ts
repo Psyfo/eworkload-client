@@ -1,11 +1,14 @@
+import { IDepartment } from './../department/department.interface';
+import { DepartmentService } from './../department/department.service';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { routerTransition } from 'src/app/router.animations';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { IQualification } from './qualification.interface';
 import { QualificationService } from './qualification.service';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-qualification',
@@ -14,20 +17,26 @@ import { QualificationService } from './qualification.service';
   animations: [routerTransition()]
 })
 export class QualificationComponent implements OnInit {
+  @ViewChild('dt') dt: Table | undefined;
+
   breadcrumbs: MenuItem[];
 
   qualificationDialog: boolean;
   qualifications: IQualification[];
   qualification: IQualification;
   selectedQualifications: IQualification[];
+  departments: IDepartment[];
+  department: IDepartment;
   submitted: boolean;
   statuses: any;
+  types: string[];
 
   unsubscribe = new Subject();
   timer;
 
   constructor(
     private qualificationService: QualificationService,
+    private departmentService: DepartmentService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
   ) {}
@@ -42,7 +51,17 @@ export class QualificationComponent implements OnInit {
         url: 'admin/qualification'
       }
     ];
+    this.types = [
+      'Higher Certificate',
+      'Diploma',
+      'Advanced Diploma',
+      'Bachelor',
+      'Honors',
+      'Masters',
+      'Doctorate'
+    ];
     this.getQualifications();
+    this.getDepartments();
     this.timer = setInterval(() => {
       this.getQualifications();
     }, 2000);
@@ -61,6 +80,10 @@ export class QualificationComponent implements OnInit {
       this.qualifications = data;
       console.log(JSON.stringify(this.qualifications));
     });
+  }
+
+  getDepartments() {
+    this.departmentService.all().subscribe((data) => (this.departments = data));
   }
 
   openNew() {
@@ -100,9 +123,11 @@ export class QualificationComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.qualificationService.delete(qualification._id).subscribe((data) => {
-          this.qualifications = [...this.qualifications];
-        });
+        this.qualificationService
+          .delete(qualification._id)
+          .subscribe((data) => {
+            this.qualifications = [...this.qualifications];
+          });
 
         this.qualification = {};
         this.messageService.add({
@@ -160,5 +185,12 @@ export class QualificationComponent implements OnInit {
     }
 
     return index;
+  }
+
+  applyFilterGlobal($event: any, stringVal: any) {
+    this.dt!.filterGlobal(
+      ($event.target as HTMLInputElement).value,
+      'contains'
+    );
   }
 }

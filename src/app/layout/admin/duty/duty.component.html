@@ -14,7 +14,7 @@
       <button
         pButton
         pRipple
-        [label]="Delete"
+        label="Delete"
         icon="pi pi-trash"
         class="p-button-danger"
         (click)="deleteSelectedDuties()"
@@ -61,7 +61,7 @@
           <input
             pInputText
             type="text"
-            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            (input)="applyFilterGlobal($event, 'contains')"
             placeholder="Search..."
           />
         </span>
@@ -127,7 +127,7 @@
 >
   <ng-template pTemplate="content">
     <div class="p-field">
-      <label for="dutyId">DutyId</label>
+      <label for="dutyId">Duty ID</label>
       <input
         type="text"
         pInputText
@@ -141,7 +141,7 @@
       >
     </div>
     <div class="p-field">
-      <label for="name">name</label>
+      <label for="name">Name</label>
       <input
         type="text"
         pInputText
@@ -155,12 +155,11 @@
       >
     </div>
     <div class="p-field">
-      <label for="description">description</label>
+      <label for="description">Description</label>
       <textarea
         id="description"
         pInputTextarea
         [(ngModel)]="duty.description"
-        required
         rows="3"
         cols="20"
       ></textarea>
@@ -190,4 +189,3 @@
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 
 <p-toast></p-toast>
-

@@ -4,4 +4,5 @@ export interface IDiscipline {
     name?: string;
     createdAt?: Date;
     updatedAt?: Date;
+    optionName?: string;
 }

@@ -14,7 +14,7 @@
       <button
         pButton
         pRipple
-        [label]="Delete"
+        label="Delete"
         icon="pi pi-trash"
         class="p-button-danger"
         (click)="deleteSelectedModules()"
@@ -46,7 +46,7 @@
     [value]="modules"
     [rows]="10"
     [paginator]="true"
-    [globalFilterFields]="['moduleId', 'name', 'qualification.qualificationId']"
+    [globalFilterFields]="['year', 'qualification.departmentId','qualification.department.name','qualificationId','qualification.name', 'moduleId', 'name', 'blockId', 'studentsEnrolled']"
     [(selection)]="selectedModules"
     [rowHover]="true"
     dataKey="moduleId"
@@ -61,7 +61,7 @@
           <input
             pInputText
             type="text"
-            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            (input)="applyFilterGlobal($event, 'contains')"
             placeholder="Search..."
           />
         </span>
@@ -72,14 +72,27 @@
         <th style="width: 3rem">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th pSortableColumn="moduleId">
-          Module Code <p-sortIcon field="moduleId"></p-sortIcon>
+        <th pSortableColumn="qualification.departmentId">Year</th>
+        <th pSortableColumn="moduleId" colspan="2">
+          Module <p-sortIcon field="moduleId"></p-sortIcon>
         </th>
-        <th pSortableColumn="name">
-          Name <p-sortIcon field="name"></p-sortIcon>
+        <th pSortableColumn="qualificationId" colspan="2">
+          Qualification<p-sortIcon field="qualificationId"></p-sortIcon>
         </th>
-        <th pSortableColumn="qualificationId">
-          Qualification Code <p-sortIcon field="qualificationId"></p-sortIcon>
+        <th pSortableColumn="qualification.department.name" colspan="2">
+          Department Code
+        </th>
+        <th pSortableColumn="blockId">
+          Block <p-sortIcon field="blockId"></p-sortIcon>
+        </th>
+        <th pSortableColumn="offeringType">
+          Offering Type <p-sortIcon field="offeringTypeId"></p-sortIcon>
+        </th>
+        <th pSortableColumn="credits">
+          Credits <p-sortIcon field="credits"></p-sortIcon>
+        </th>
+        <th pSortableColumn="studentsEnrolled">
+          Students Enrolled <p-sortIcon field="studentsEnrolled"></p-sortIcon>
         </th>
         <th></th>
       </tr>
@@ -89,9 +102,32 @@
         <td>
           <p-tableCheckbox [value]="module"></p-tableCheckbox>
         </td>
-        <td>{{ module.moduleId }}</td>
-        <td>{{ module.name }}</td>
-        <td>{{ module.qualificationId }}</td>
+        <td>{{ module.year }}</td>
+        <td colspan="2">
+          <div>
+            <div>{{ module.moduleId }}</div>
+            <div>{{ module.name }}</div>
+          </div>
+        </td>
+        <td colspan="2">
+          <div>
+            <div>{{ module.qualification?.qualificationId }}</div>
+            <div>{{ module.qualification?.name }}</div>
+          </div>
+        </td>
+        <td colspan="2">
+          <div>
+            <div>{{ module.qualification?.departmentId }}</div>
+            <div>{{ module.qualification?.department?.name }}</div>
+          </div>
+        </td>
+        <td>{{ module.blockId }} ({{module.block?.name }})</td>
+        <td>
+          {{ module.offeringType?.description }}
+          ({{module.offeringType?.offeringTypeId}})
+        </td>
+        <td>{{ module.credits }}</td>
+        <td>{{ module.studentsEnrolled }}</td>
         <td>
           <button
             pButton
@@ -120,50 +156,171 @@
 
 <p-dialog
   [(visible)]="moduleDialog"
-  [style]="{ width: '450px' }"
+  [style]="{ width: '50vw' }"
   header="Module Details"
   [modal]="true"
   styleClass="p-fluid"
 >
   <ng-template pTemplate="content">
-    <div class="p-field">
-      <label for="moduleId">ModuleId</label>
-      <input
-        type="text"
-        pInputText
-        id="moduleId"
-        [(ngModel)]="module.moduleId"
-        required
-        autofocus
-      />
-      <small class="p-error" *ngIf="submitted && !module.moduleId"
-        >Module ID is required.</small
-      >
+    <div class="p-fluid p-formgrid p-grid">
+      <!-- Module ID -->
+      <div class="p-field p-col">
+        <label for="moduleId">Module Code</label>
+        <input
+          type="text"
+          pInputText
+          id="moduleId"
+          [(ngModel)]="module.moduleId"
+          required
+          autofocus
+        />
+        <small class="p-error" *ngIf="submitted && !module.moduleId"
+          >Module Code is required.</small
+        >
+      </div>
+      <!-- Module Name -->
+      <div class="p-field p-col">
+        <label for="name">Module Name</label>
+        <input
+          type="text"
+          pInputText
+          id="name"
+          [(ngModel)]="module.name"
+          required
+        />
+        <small class="p-error" *ngIf="submitted && !module.name"
+          >Module name is required.</small
+        >
+      </div>
     </div>
-    <div class="p-field">
-      <label for="name">name</label>
-      <input
-        type="text"
-        pInputText
-        id="name"
-        [(ngModel)]="module.name"
-        required
-        autofocus
-      />
-      <small class="p-error" *ngIf="submitted && !module.name"
-        >Module ID is required.</small
-      >
+    <div class="p-fluid p-formgrid p-grid">
+      <!-- Year -->
+      <div class="p-field p-col">
+        <label for="description">Year</label>
+        <input
+          id="year"
+          pInputText
+          [(ngModel)]="module.year"
+          required
+          default="2021"
+        />
+        <small class="p-error" *ngIf="submitted && !module.year"
+          >Year is required.</small
+        >
+      </div>
+      <div class="p-field p-col">
+        <label for="block">Block</label>
+        <p-dropdown
+          [options]="blocks"
+          [(ngModel)]="module.blockId"
+          optionLabel="optionName"
+          optionValue="blockId"
+          [filter]="true"
+          filterBy="optionName"
+          [showClear]="true"
+          placeholder="Select a block"
+          appendTo="body"
+        >
+        </p-dropdown>
+        <small class="p-error" *ngIf="submitted && !module.blockId"
+          >Block is required.</small
+        >
+      </div>
+      <div class="p-field p-col">
+        <label for="offeringType">Offering Type</label>
+        <p-dropdown
+          [options]="offeringTypes"
+          [(ngModel)]="module.offeringTypeId"
+          optionLabel="optionName"
+          optionValue="offeringTypeId"
+          [filter]="true"
+          filterBy="optionName"
+          [showClear]="true"
+          placeholder="Select an offering type"
+          appendTo="body"
+          default="Full-Time"
+        >
+        </p-dropdown>
+      </div>
     </div>
-    <div class="p-field">
-      <label for="description">description</label>
-      <textarea
-        id="description"
-        pInputTextarea
-        [(ngModel)]="module.description"
-        required
-        rows="3"
-        cols="20"
-      ></textarea>
+    <div class="p-fluid p-formgrid p-grid">
+      <!-- Qualification -->
+      <div class="p-field p-col">
+        <label for="qualification">Qualification</label>
+        <p-dropdown
+          [options]="qualifications"
+          [(ngModel)]="module.qualificationId"
+          optionLabel="optionName"
+          optionValue="qualificationId"
+          [filter]="true"
+          filterBy="optionName"
+          [showClear]="true"
+          placeholder="Select a qualification"
+          appendTo="body"
+        >
+        </p-dropdown>
+      </div>
+      <!-- Discipline -->
+
+      <div class="p-field p-col">
+        <label for="discipline">Discipline</label>
+        <p-dropdown
+          [options]="disciplines"
+          [(ngModel)]="module.disciplineId"
+          optionLabel="optionName"
+          optionValue="disciplineId"
+          [filter]="true"
+          filterBy="optionName"
+          [showClear]="true"
+          placeholder="Select a discipline"
+          appendTo="body"
+        >
+        </p-dropdown>
+      </div>
+    </div>
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col">
+        <!-- NQF Level -->
+        <label for="nqfLevel">NQF Level</label>
+        <input
+          type="text"
+          pInputText
+          id="nqfLevel"
+          [(ngModel)]="module.nqfLevel"
+          required
+        />
+        <small class="p-error" *ngIf="submitted && !module.nqfLevel"
+          >NQF Level is required.</small
+        >
+      </div>
+      <div class="p-field p-col">
+        <!-- Credits -->
+        <label for="credits">Credits</label>
+        <input
+          type="text"
+          pInputText
+          id="credits"
+          [(ngModel)]="module.credits"
+          required
+        />
+        <small class="p-error" *ngIf="submitted && !module.credits"
+          >Credits is required.</small
+        >
+      </div>
+      <div class="p-field p-col">
+        <!-- Students Enrolled -->
+        <label for="studentsEnrolled">Students Enrolled</label>
+        <input
+          type="text"
+          pInputText
+          id="studentsEnrolled"
+          [(ngModel)]="module.studentsEnrolled"
+          required
+        />
+        <small class="p-error" *ngIf="submitted && !module.credits"
+          >Number of students is required.</small
+        >
+      </div>
     </div>
   </ng-template>
 

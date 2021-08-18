@@ -14,7 +14,7 @@
       <button
         pButton
         pRipple
-        [label]="Delete"
+        label="Delete"
         icon="pi pi-trash"
         class="p-button-danger"
         (click)="deleteSelectedPositions()"
@@ -61,7 +61,7 @@
           <input
             pInputText
             type="text"
-            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            (input)="applyFilterGlobal($event, 'contains')"
             placeholder="Search..."
           />
         </span>
@@ -127,7 +127,7 @@
 >
   <ng-template pTemplate="content">
     <div class="p-field">
-      <label for="positionId">PositionId</label>
+      <label for="positionId">Position ID</label>
       <input
         type="text"
         pInputText
@@ -141,26 +141,24 @@
       >
     </div>
     <div class="p-field">
-      <label for="name">name</label>
+      <label for="name">Name</label>
       <input
         type="text"
         pInputText
         id="name"
         [(ngModel)]="position.name"
         required
-        autofocus
       />
       <small class="p-error" *ngIf="submitted && !position.name"
-        >Position ID is required.</small
+        >Name is required.</small
       >
     </div>
     <div class="p-field">
-      <label for="description">description</label>
+      <label for="description">Description</label>
       <textarea
         id="description"
         pInputTextarea
         [(ngModel)]="position.description"
-        required
         rows="3"
         cols="20"
       ></textarea>

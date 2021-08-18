@@ -1,7 +1,7 @@
 import { MenuItem } from 'primeng/api/menuitem';
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { PrimeIcons } from 'primeng/api';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,209 +9,168 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
-  isActive: boolean = false;
-  collapsed: boolean = false;
-  showAdminMenu: string = '';
-  showHodMenu: string = '';
-  showEvidenceMenu: string = '';
-  showTeachingMenu: string = '';
-  showResearchMenu: string = '';
-  showServiceMenu: string = '';
-  showReportMenu: string = '';
-  pushRightClass: string = 'push-right';
-
-  isVisible: boolean = true;
-  baseZIndex = 9000;
   items: MenuItem[];
+  displaySidebar: boolean = true;
 
-  @Output() collapsedEvent = new EventEmitter<boolean>();
-
-  constructor(private translate: TranslateService, public router: Router) {
-    this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de']);
-    this.translate.setDefaultLang('en');
-    const browserLang = this.translate.getBrowserLang();
-    this.translate.use(
-      browserLang.match(/en|fr|ur|es|it|fa|de/) ? browserLang : 'en'
-    );
-
-    this.router.events.subscribe((val) => {
-      if (
-        val instanceof NavigationEnd &&
-        window.innerWidth <= 992 &&
-        this.isToggled()
-      ) {
-        this.toggleSidebar();
-      }
-    });
-  }
+  constructor(public router: Router) {}
 
   ngOnInit(): void {
+    this.displaySidebar = true;
     this.items = [
       {
-        label: 'Profile',
-        icon: 'pi pi-fw pi-user',
-        url: 'profile'
-      },
-      {
-        label: 'File',
-        icon: 'pi pi-pw pi-file',
+        label: 'Dashboard',
         items: [
           {
-            label: 'New',
-            icon: 'pi pi-fw pi-plus',
-            items: [
-              { label: 'User', icon: 'pi pi-fw pi-user-plus' },
-              { label: 'Filter', icon: 'pi pi-fw pi-filter' }
-            ]
-          },
-          { label: 'Open', icon: 'pi pi-fw pi-external-link' },
-          { separator: true },
-          { label: 'Quit', icon: 'pi pi-fw pi-times' }
-        ]
-      },
-      {
-        label: 'Edit',
-        icon: 'pi pi-fw pi-pencil',
-        items: [
-          { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-          { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
-        ]
-      },
-      {
-        label: 'Help',
-        icon: 'pi pi-fw pi-question',
-        items: [
-          {
-            label: 'Contents',
-            icon: 'pi pi-pi pi-bars'
+            label: 'Profile',
+            icon: PrimeIcons.USER,
+            routerLink: '/profile'
           },
           {
-            label: 'Search',
-            icon: 'pi pi-pi pi-search',
-            items: [
-              {
-                label: 'Text',
-                items: [
-                  {
-                    label: 'Workspace'
-                  }
-                ]
-              },
-              {
-                label: 'User',
-                icon: 'pi pi-fw pi-file'
-              }
-            ]
+            label: 'Evidence',
+            icon: PrimeIcons.QUESTION,
+            routerLink: '/evidence'
           }
         ]
       },
       {
-        label: 'Actions',
-        icon: 'pi pi-fw pi-cog',
+        label: 'Teaching Activities',
         items: [
           {
-            label: 'Edit',
-            icon: 'pi pi-fw pi-pencil',
-            items: [
-              { label: 'Save', icon: 'pi pi-fw pi-save' },
-              { label: 'Update', icon: 'pi pi-fw pi-save' }
-            ]
+            label: 'Formal Instruction',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/activity/formal-instruction'
           },
           {
-            label: 'Other',
-            icon: 'pi pi-fw pi-tags',
-            items: [{ label: 'Delete', icon: 'pi pi-fw pi-minus' }]
+            label: 'Supervision',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/activity/supervision'
+          }
+        ]
+      },
+      {
+        label: 'Research Activities',
+        items: [
+          {
+            label: 'Research',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/activity/research'
+          }
+        ]
+      },
+      {
+        label: 'Service Activities',
+        items: [
+          {
+            label: 'Academic Administration',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/activity/academic-administration'
+          },
+          {
+            label: 'Community Instruction',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/activity/community-instruction'
+          },
+          {
+            label: 'Executive Management',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/activity/executive-management'
+          },
+          {
+            label: 'Personnel Development',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/activity/personnel-development'
+          },
+          {
+            label: 'Public Service',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/activity/public-service'
+          }
+        ]
+      },
+      {
+        label: 'Reports',
+        items: [
+          //   {
+          //     label: 'HEMIS',
+          //     icon: PrimeIcons.FILE,
+          //     routerLink: '/report/hemis-historical'
+          //   },
+          {
+            label: 'HOD SUMMARY',
+            icon: PrimeIcons.FILE,
+            routerLink: '/report'
+          }
+        ]
+      },
+      {
+        label: 'Admin',
+        items: [
+          {
+            label: 'Blocks',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/admin/block'
+          },
+          {
+            label: 'Departments',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/admin/department'
+          },
+          {
+            label: 'Disciplines',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/admin/discipline'
+          },
+          {
+            label: 'Duties',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/admin/duty'
+          },
+          {
+            label: 'Faculties',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/admin/faculty'
+          },
+          {
+            label: 'Groups',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/admin/group'
+          },
+          {
+            label: 'Module',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/admin/module'
+          },
+          {
+            label: 'Offering Types',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/admin/offering-type'
+          },
+          {
+            label: 'Positions',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/admin/position'
+          },
+          {
+            label: 'Qualification',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/admin/qualification'
+          },
+          {
+            label: 'Students',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/admin/student'
+          },
+          {
+            label: 'Users',
+            icon: PrimeIcons.PLUS,
+            routerLink: '/admin/user'
           }
         ]
       }
     ];
   }
 
-  eventCalled() {
-    this.isActive = !this.isActive;
-  }
-
-  addExpandAdmin(element: any) {
-    if (element === this.showAdminMenu) {
-      this.showAdminMenu = '0';
-    } else {
-      this.showAdminMenu = element;
-    }
-  }
-
-  addExpandHoD(element: any) {
-    if (element === this.showHodMenu) {
-      this.showHodMenu = '0';
-    } else {
-      this.showHodMenu = element;
-    }
-  }
-
-  addExpandEvidence(element: any) {
-    if (element === this.showEvidenceMenu) {
-      this.showEvidenceMenu = '0';
-    } else {
-      this.showEvidenceMenu = element;
-    }
-  }
-
-  addExpandTeaching(element: any) {
-    if (element === this.showTeachingMenu) {
-      this.showTeachingMenu = '0';
-    } else {
-      this.showTeachingMenu = element;
-    }
-  }
-
-  addExpandResearch(element: any) {
-    if (element === this.showResearchMenu) {
-      this.showResearchMenu = '0';
-    } else {
-      this.showResearchMenu = element;
-    }
-  }
-
-  addExpandService(element: any) {
-    if (element === this.showServiceMenu) {
-      this.showServiceMenu = '0';
-    } else {
-      this.showServiceMenu = element;
-    }
-  }
-
-  addExpandReport(element: any) {
-    if (element === this.showReportMenu) {
-      this.showReportMenu = '0';
-    } else {
-      this.showReportMenu = element;
-    }
-  }
-
-  toggleCollapsed() {
-    this.collapsed = !this.collapsed;
-    this.collapsedEvent.emit(this.collapsed);
-  }
-
-  isToggled(): boolean {
-    const dom: Element = document.querySelector('body');
-    return dom.classList.contains(this.pushRightClass);
-  }
-
-  toggleSidebar() {
-    const dom: any = document.querySelector('body');
-    dom.classList.toggle(this.pushRightClass);
-  }
-
-  rltAndLtr() {
-    const dom: any = document.querySelector('body');
-    dom.classList.toggle('rtl');
-  }
-
-  changeLang(language: string) {
-    this.translate.use(language);
-  }
-
-  onLoggedout() {
-    // localStorage.removeItem('isLoggedin');
+  toProfile() {
+    this.router.navigate['profile'];
   }
 }

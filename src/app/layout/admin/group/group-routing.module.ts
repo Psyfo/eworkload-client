@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { GroupingComponent } from '../../hod/manage-modules/grouping/grouping.component';
+import { RouterModule, Routes } from '@angular/router';
+
+import { GroupComponent } from './group.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: GroupingComponent,
+    component: GroupComponent,
     children: []
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: []
 })
 export class GroupRoutingModule {}
